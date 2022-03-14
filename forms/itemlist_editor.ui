@@ -1,0 +1,136 @@
+<ui version="4.0" >
+ <comment>
+***********************************************************************
+*
+* Copyright (c) 2021-2022 Barbara Geller
+* Copyright (c) 2021-2022 Ansel Sermersheim
+*
+* Copyright (c) 2015 The Qt Company Ltd.
+*
+* Designer is free software. You can redistribute it and/or
+* modify it under the terms of the GNU Lesser General Public License
+* version 2.1 as published by the Free Software Foundation.
+*
+* Designer is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*
+* https://www.gnu.org/licenses/
+*
+***********************************************************************
+ </comment>
+ <class>qdesigner_internal::ItemListEditor</class>
+ <widget class="QWidget" name="qdesigner_internal::ItemListEditor" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>550</width>
+    <height>360</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2" >
+   <item>
+    <widget class="QWidget" native="1" name="widget" >
+     <layout class="QVBoxLayout" name="verticalLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QListWidget" name="listWidget" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="toolTip" >
+         <string>Items List</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="buttonsLayout" >
+        <item>
+         <widget class="QToolButton" name="newListItemButton" >
+          <property name="toolTip" >
+           <string>New Item</string>
+          </property>
+          <property name="text" >
+           <string>&amp;New</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="deleteListItemButton" >
+          <property name="toolTip" >
+           <string>Delete Item</string>
+          </property>
+          <property name="text" >
+           <string>&amp;Delete</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0" >
+           <size>
+            <width>16</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QToolButton" name="moveListItemUpButton" >
+          <property name="toolTip" >
+           <string>Move Item Up</string>
+          </property>
+          <property name="text" >
+           <string>U</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="moveListItemDownButton" >
+          <property name="toolTip" >
+           <string>Move Item Down</string>
+          </property>
+          <property name="text" >
+           <string>D</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer" >
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0" >
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="showPropertiesButton" >
+          <property name="text" >
+           <string>Properties &amp;>></string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

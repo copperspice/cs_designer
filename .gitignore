@@ -1,0 +1,7 @@
+designer*.tar.bz2
+designer*.zip
+
+/do-*
+/build/
+/error*
+/deploy/
