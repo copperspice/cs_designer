@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StyleSheetEditor</class>
+ <widget class="QDialog" name="StyleSheetEditor">
+  <property name="windowTitle" stdset="0">
+   <string>Edit Style Sheet</string>
+  </property>
+  <property name="windowFilePath" stdset="0">
+   <string/>
+  </property>
+  <property name="geometry" stdset="0">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>682</width>
+    <height>274</height>
+   </rect>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="topMargin">
+    <number>14</number>
+   </property>
+   <item row="1" column="5">
+    <widget class="QToolButton" name="gradient_tb">
+     <property name="text" stdset="0">
+      <string>▼</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="4">
+    <widget class="QPushButton" name="color_pb">
+     <property name="text" stdset="0">
+      <string>Add Color</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <spacer name="horizontalSpacer">
+     <property name="sizeType" stdset="0">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>3</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="orientation" stdset="0">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="5">
+    <widget class="QToolButton" name="resource_tb">
+     <property name="text" stdset="0">
+      <string>▼</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="4">
+    <widget class="QPushButton" name="gradient_pb">
+     <property name="text" stdset="0">
+      <string>Add Gradient</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="4">
+    <widget class="QPushButton" name="font_pb">
+     <property name="text" stdset="0">
+      <string>Add Font</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="4">
+    <spacer name="verticalSpacer">
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="orientation" stdset="0">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </spacer>
+   </item>
+   <item row="5" column="2">
+    <widget class="QPushButton" name="apply_pb">
+     <property name="text" stdset="0">
+      <string>Apply</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3">
+    <widget class="QPushButton" name="cancel_pb">
+     <property name="text" stdset="0">
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QPushButton" name="ok_pb">
+     <property name="text" stdset="0">
+      <string>Ok</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="4">
+    <widget class="QPushButton" name="resource_pb">
+     <property name="text" stdset="0">
+      <string>Add Resource</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="5">
+    <widget class="QToolButton" name="color_tb">
+     <property name="text" stdset="0">
+      <string>▼</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <spacer name="horizontalSpacer_2">
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="orientation" stdset="0">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="0" rowspan="5" colspan="4">
+    <widget class="StyleSheet_Widget" name="editor"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>StyleSheet_Widget</class>
+   <extends>QTextEdit</extends>
+   <header>stylesheet_widget.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>editor</tabstop>
+  <tabstop>resource_pb</tabstop>
+  <tabstop>resource_tb</tabstop>
+  <tabstop>gradient_pb</tabstop>
+  <tabstop>gradient_tb</tabstop>
+  <tabstop>color_pb</tabstop>
+  <tabstop>color_tb</tabstop>
+  <tabstop>font_pb</tabstop>
+  <tabstop>ok_pb</tabstop>
+  <tabstop>apply_pb</tabstop>
+  <tabstop>cancel_pb</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

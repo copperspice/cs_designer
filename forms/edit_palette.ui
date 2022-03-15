@@ -203,7 +203,7 @@
   <customwidget>
    <class>qdesigner_internal::PreviewFrame</class>
    <extends>QWidget</extends>
-   <header>previewframe.h</header>
+   <header>preview_frame.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
