@@ -1,34 +1,35 @@
 list(APPEND DESIGNER_SOURCES
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/addlink_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/connect_dialog.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/action_editor_new.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_deviceprofile.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_form_settings.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_gridpanel.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_options.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/deviceprofile_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/form_layout_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/form_window_settings.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_preferences.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_toolbar.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_dynamicproperty.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_itemlist.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_pageorder.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_palette.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_stylesheet.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_stringlist.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_tablewidget.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_treewidget.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/gradient_dialog.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/gradient_editor.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/gradient_select.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/gradient_view.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/gridpanel_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/itemlist_editor.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/new_action_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/new_dynamicproperty_dialog.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/formlayout_addrow.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/new_form_widget.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/order_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/palette_editor.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/plugin_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/preferences_dialog.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/preview_configuration.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/preview_widget.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/resource_editor.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/richtext_addlink.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/signal_connect_dialog.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/signal_select_dialog.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/signal_slot_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/stringlist_editor.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/tablewidget_editor.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/template_options.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/template_saveform_as.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/toolbar_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/treewidget_editor.ui
 
    ${CMAKE_CURRENT_SOURCE_DIR}/../resources/designer_en.ts
    ${CMAKE_CURRENT_SOURCE_DIR}/../resources/designer_de.ts
@@ -70,36 +71,37 @@ COPPERSPICE_RESOURCES(
 
 # run uic to generate source
 COPPERSPICE_RESOURCES(
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/addlink_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/connect_dialog.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/action_editor_new.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_deviceprofile.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_form_settings.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_gridpanel.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_options.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/deviceprofile_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/form_layout_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/form_window_settings.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_preferences.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/designer_toolbar.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_dynamicproperty.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_itemlist.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_pageorder.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_palette.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_stylesheet.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_stringlist.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_tablewidget.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/edit_treewidget.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/gradient_dialog.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/gradient_editor.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/gradient_select.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/gradient_view.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/gridpanel_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/itemlist_editor.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/new_action_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/new_dynamicproperty_dialog.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/formlayout_addrow.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/new_form_widget.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/order_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/palette_editor.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/plugin_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/preferences_dialog.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/preview_configuration.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/preview_widget.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/resource_editor.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/richtext_addlink.ui
+   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/signal_connect_dialog.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/signal_select_dialog.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/signal_slot_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/stringlist_editor.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/tablewidget_editor.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/template_options.ui
    ${CMAKE_CURRENT_SOURCE_DIR}/../forms/template_saveform_as.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/toolbar_dialog.ui
-   ${CMAKE_CURRENT_SOURCE_DIR}/../forms/treewidget_editor.ui
 )
 
 add_executable(Designer  ${DESIGNER_SOURCES})
