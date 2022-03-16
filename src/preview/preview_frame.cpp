@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <previewframe.h>
-#include <previewwidget.h>
+#include <preview_frame.h>
+#include <preview_widget.h>
 
 #include <QCoreApplication>
 #include <QDebug>

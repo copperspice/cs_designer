@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef PREVIEWMANAGER_H
-#define PREVIEWMANAGER_H
+#ifndef PREVIEW_MANAGER_H
+#define PREVIEW_MANAGER_H
 
 #include <abstract_settings.h>
 #include <abstract_formwindow.h>
@@ -35,8 +35,6 @@ class QMenu;
 class QWidget;
 
 namespace qdesigner_internal {
-
-// ----------- PreviewConfiguration
 
 class PreviewConfigurationData;
 

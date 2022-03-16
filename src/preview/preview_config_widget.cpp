@@ -18,13 +18,13 @@
 ***********************************************************************/
 
 #include <qdesigner_settings.h>
+#include <stylesheet_editor.h>
+#include <preview_config_widget.h>
+#include <preview_manager.h>
 #include <ui_preview_configuration.h>
 
-#include <previewconfigurationwidget_p.h>
-#include <previewmanager_p.h>
-#include <shared_settings_p.h>
 #include <iconloader_p.h>
-#include <stylesheeteditor_p.h>
+#include <shared_settings_p.h>
 
 #include <QFileDialog>
 #include <QStyleFactory>
@@ -206,8 +206,9 @@ void PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::setPreviewCo
 
 void  PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::slotEditAppStyleSheet()
 {
-   StyleSheetEditorDialog dlg(m_core, m_parent, StyleSheetEditorDialog::ModeGlobal);
+   StyleSheetEditorDialog dlg(m_core, m_parent, nullptr, StyleSheetEditorDialog::ModeGlobal);
    dlg.setText(m_ui.m_appStyleSheetLineEdit->text());
+
    if (dlg.exec() == QDialog::Accepted) {
       m_ui.m_appStyleSheetLineEdit->setText(dlg.text());
    }
@@ -217,6 +218,7 @@ void  PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::slotEditApp
 void  PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::slotDeleteSkinEntry()
 {
     const int index = m_ui.m_skinCombo->currentIndex();
+
     if (canRemoveSkin(index)) {
         m_ui.m_skinCombo->setCurrentIndex(SkinComboNoneIndex);
         m_ui.m_skinCombo->removeItem(index);
@@ -242,6 +244,7 @@ void PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::retrieveSett
    QDesignerSharedSettings settings(m_core);
    m_parent->setChecked(settings.isCustomPreviewConfigurationEnabled());
    setPreviewConfiguration(settings.customPreviewConfiguration());
+
    //    addUserSkins(settings.userDeviceSkins());
 }
 
@@ -250,23 +253,27 @@ void PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::storeSetting
    QDesignerSharedSettings settings(m_core);
    settings.setCustomPreviewConfigurationEnabled(m_parent->isChecked());
    settings.setCustomPreviewConfiguration(previewConfiguration());
+
    //    settings.setUserDeviceSkins(userSkins());
 }
 
 /*
 
-int  PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::browseSkin()
+int PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::browseSkin()
 {
     QFileDialog dlg(m_parent);
     dlg.setFileMode(QFileDialog::DirectoryOnly);
+
     const QString title = tr("Load Custom Device Skin");
     dlg.setWindowTitle(title);
     dlg.setNameFilter(tr("All QVFB Skins (*.%1)").formatArg(QLatin1String(skinExtensionC)));
 
     int rc = m_lastSkinIndex;
+
     do {
-        if (!dlg.exec())
+        if (! dlg.exec()) {
             break;
+        }
 
         const QStringList directories =  dlg.selectedFiles();
         if (directories.size() != 1)
@@ -276,27 +283,33 @@ int  PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::browseSkin()
         const QString directory = directories.front();
         const QString name = QFileInfo(directory).baseName();
         const int existingIndex = m_ui.m_skinCombo->findText(name);
+
         if (existingIndex != -1 && existingIndex != SkinComboNoneIndex &&  existingIndex != m_browseSkinIndex) {
             const QString msgTitle = tr("%1 - Duplicate Skin").formatArg(title);
             const QString msg = tr("The skin '%1' already exists.").formatArg(name);
             QMessageBox::information(m_parent, msgTitle, msg);
             break;
         }
+
         // check: 2) can read
         DeviceSkinParameters parameters;
         QString readError;
+
         if (parameters.read(directory, DeviceSkinParameters::ReadSizeOnly, &readError)) {
             const QString name = QFileInfo(directory).baseName();
             m_ui.m_skinCombo->insertItem(m_browseSkinIndex, name, QVariant(directory));
             rc = m_browseSkinIndex++;
 
             break;
+
         } else {
             const QString msgTitle = tr("%1 - Error").formatArg(title);
             const QString msg = tr("%1 is not a valid skin directory:\n%2").formatArg(directory).formatArg(readError);
             QMessageBox::warning (m_parent, msgTitle, msg);
         }
+
     } while (true);
+
     return rc;
 }
 

@@ -17,7 +17,12 @@
 *
 ***********************************************************************/
 
-#include <previewmanager_p.h>
+#include <abstract_formwindow.h>
+#include <abstract_formeditor.h>
+#include <qdesigner_settings.h>
+#include <preview_manager.h>
+
+#include <formwindowbase_p.h>
 #include <qdesigner_formbuilder_p.h>
 #include <shared_settings_p.h>
 #include <shared_settings_p.h>
@@ -26,11 +31,6 @@
 #include <widgetfactory_p.h>
 
 //  #include <deviceskin.h>
-
-#include <abstract_formwindow.h>
-#include <abstract_formeditor.h>
-#include <formwindowbase_p.h>
-#include <qdesigner_settings.h>
 
 #include <QWidget>
 #include <qevent.h>

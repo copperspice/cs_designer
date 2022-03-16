@@ -17,16 +17,25 @@
 *
 ***********************************************************************/
 
-#include <previewwidget.h>
+#ifndef PREVIEW_WIDGET_H
+#define PREVIEW_WIDGET_H
 
-using namespace qdesigner_internal;
+#include <ui_preview_widget.h>
 
-PreviewWidget::PreviewWidget(QWidget *parent)
-   : QWidget(parent)
+namespace qdesigner_internal {
+
+class PreviewWidget: public QWidget
 {
-   ui.setupUi(this);
-}
+   CS_OBJECT(PreviewWidget)
 
-PreviewWidget::~PreviewWidget()
-{
-}
+ public:
+   explicit PreviewWidget(QWidget *parent);
+   virtual ~PreviewWidget();
+
+ private:
+   Ui::PreviewWidget ui;
+};
+
+}   // end namespace qdesigner_internal
+
+#endif

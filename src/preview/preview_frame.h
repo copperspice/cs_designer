@@ -17,23 +17,33 @@
 *
 ***********************************************************************/
 
-#ifndef PREVIEWWIDGET_H
-#define PREVIEWWIDGET_H
+#ifndef PREVIEW_FRAME_H
+#define PREVIEW_FRAME_H
 
-#include <ui_preview_widget.h>
+#include <QFrame>
+#include <QPointer>
+
+class QMdiArea;
+class QMdiSubWindow;
 
 namespace qdesigner_internal {
 
-class PreviewWidget: public QWidget
+class PreviewFrame: public QFrame
 {
-   CS_OBJECT(PreviewWidget)
+   CS_OBJECT(PreviewFrame)
 
  public:
-   explicit PreviewWidget(QWidget *parent);
-   virtual ~PreviewWidget();
+   explicit PreviewFrame(QWidget *parent);
+
+   void setPreviewPalette(const QPalette &palette);
+   void setSubWindowActive(bool active);
 
  private:
-   Ui::PreviewWidget ui;
+   // The user can on some platforms close the mdi child by invoking the system menu.
+   // Ensure a child is present.
+   QMdiSubWindow *ensureMdiSubWindow();
+   QMdiArea *m_mdiArea;
+   QPointer<QMdiSubWindow> m_mdiSubWindow;
 };
 
 }   // end namespace qdesigner_internal

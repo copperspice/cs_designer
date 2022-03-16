@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef PREVIEWCONFIGURATIONWIDGET_H
-#define PREVIEWCONFIGURATIONWIDGET_H
+#ifndef PREVIEW_CONFIG_WIDGET_H
+#define PREVIEW_CONFIG_WIDGET_H
 
 #include <abstract_settings.h>
 #include <abstract_formeditor.h>
