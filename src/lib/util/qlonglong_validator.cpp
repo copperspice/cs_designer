@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qlonglongvalidator.h>
+#include <qlonglong_validator.h>
 
 using namespace qdesigner_internal;
 

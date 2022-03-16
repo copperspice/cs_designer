@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef QLONGLONGVALIDATOR_H
-#define QLONGLONGVALIDATOR_H
+#ifndef QLONGLONG_VALIDATOR_H
+#define QLONGLONG_VALIDATOR_H
 
 #include <QValidator>
 
@@ -59,7 +59,6 @@ class QLongLongValidator : public QValidator
    qint64 t;
 };
 
-// ----------------------------------------------------------------------------
 class QULongLongValidator : public QValidator
 {
    CS_OBJECT(QULongLongValidator)
