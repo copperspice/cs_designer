@@ -86,10 +86,10 @@ class ActionGroupDelegate: public QItemDelegate
       QItemDelegate::paint(painter, option, index);
    }
 
-   virtual void drawFocus(QPainter * /*painter*/, const QStyleOptionViewItem &/*option*/, const QRect &/*rect*/) const {}
+   virtual void drawFocus(QPainter *, const QStyleOptionViewItem &, const QRect &) const
+   { }
 };
 
-//--------  ActionEditor
 ActionEditor::ActionEditor(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
    : QDesignerActionEditorInterface(parent, flags), m_core(core), m_actionGroups(0),
      m_actionView(new ActionView),
@@ -116,6 +116,7 @@ ActionEditor::ActionEditor(QDesignerFormEditorInterface *core, QWidget *parent, 
    toolbar->setIconSize(QSize(22, 22));
    toolbar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
    l->addWidget(toolbar);
+
    // edit actions
    QIcon documentNewIcon = QIcon::fromTheme(QString("document-new"), createIconSet(QString("filenew.png")));
    m_actionNew->setIcon(documentNewIcon);
@@ -152,8 +153,8 @@ ActionEditor::ActionEditor(QDesignerFormEditorInterface *core, QWidget *parent, 
    connect(m_actionDelete, &QAction::triggered, this, &ActionEditor::slotDelete);
    toolbar->addAction(m_actionDelete);
 
-   // Toolbutton with menu containing action group for detailed/icon view. Steal the icons from the file dialog.
-   //
+   // Toolbutton with menu containing action group for detailed/icon view, uses the icons from the file dialog
+
    QMenu *configureMenu;
    toolbar->addWidget(createConfigureMenuButton(tr("Configure Action Editor"), &configureMenu));
 
