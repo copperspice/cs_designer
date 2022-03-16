@@ -21,7 +21,7 @@
 #define ITEMLISTEDITOR_H
 
 #include <abstract_formwindow.h>
-#include <ui_itemlist_editor.h>
+#include <ui_edit_itemlist.h>
 
 class QtProperty;
 class QtVariantProperty;
@@ -150,32 +150,23 @@ class ItemListEditor: public AbstractItemEditor
    QVariant getItemData(int role) const override;
 
  private:
-   CS_SLOT_1(Private, void on_newListItemButton_clicked())
-   CS_SLOT_2(on_newListItemButton_clicked)
+   // slots
+   void newListItemButton();
+   void deleteListItemButton();
+   void moveListItemUpButton();
+   void moveListItemDownButton();
 
-   CS_SLOT_1(Private, void on_deleteListItemButton_clicked())
-   CS_SLOT_2(on_deleteListItemButton_clicked)
-
-   CS_SLOT_1(Private, void on_moveListItemUpButton_clicked())
-   CS_SLOT_2(on_moveListItemUpButton_clicked)
-
-   CS_SLOT_1(Private, void on_moveListItemDownButton_clicked())
-   CS_SLOT_2(on_moveListItemDownButton_clicked)
-
-   CS_SLOT_1(Private, void on_listWidget_currentRowChanged(int))
+   CS_SLOT_1(Private, void on_listWidget_currentRowChanged(int))   // broom - keep as slot macro for now
    CS_SLOT_2(on_listWidget_currentRowChanged)
 
-   CS_SLOT_1(Private, void listWidget_itemChanged(QListWidgetItem *item))
-   CS_SLOT_2(listWidget_itemChanged)
-
-   CS_SLOT_1(Private, void togglePropertyBrowser())
-   CS_SLOT_2(togglePropertyBrowser)
-
-   CS_SLOT_1(Private, void cacheReloaded())
-   CS_SLOT_2(cacheReloaded)
+   // slots
+   void listWidget_itemChanged(QListWidgetItem *item);
+   void togglePropertyBrowser();
+   void cacheReloaded();
 
    void setPropertyBrowserVisible(bool v);
    void updateEditor();
+
    Ui::ItemListEditor ui;
    bool m_updating;
    QString m_newItemText;

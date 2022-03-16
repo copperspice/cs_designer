@@ -40,14 +40,14 @@ class ListWidgetEditor: public QDialog
  public:
    ListWidgetEditor(QDesignerFormWindowInterface *form, QWidget *parent);
 
-   ListContents fillContentsFromListWidget(QListWidget *listWidget);
-   ListContents fillContentsFromComboBox(QComboBox *comboBox);
-   ListContents contents() const;
+   ListData fillContentsFromListWidget(QListWidget *listWidget);
+   ListData fillContentsFromComboBox(QComboBox *comboBox);
+   ListData contents() const;
 
  private:
    ItemListEditor *m_itemsEditor;
 };
 
-}  // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
 #endif

@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <designerpropertymanager.h>
+#include <designer_property.h>
 #include <abstract_formwindow.h>
 #include <tree_propertybrowser.h>
 #include <itemlist_editor.h>
@@ -313,15 +313,27 @@ ItemListEditor::ItemListEditor(QDesignerFormWindowInterface *form, QWidget *pare
    injectPropertyBrowser(this, ui.widget);
    setPropertyBrowserVisible(false);
 
+   QIcon plusIcon  = createIconSet(QString::fromUtf8("plus.png"));
+   QIcon minusIcon = createIconSet(QString::fromUtf8("minus.png"));
    QIcon upIcon    = createIconSet(QString::fromUtf8("up.png"));
    QIcon downIcon  = createIconSet(QString::fromUtf8("down.png"));
-   QIcon minusIcon = createIconSet(QString::fromUtf8("minus.png"));
-   QIcon plusIcon  = createIconSet(QString::fromUtf8("plus.png"));
 
-   ui.moveListItemUpButton->setIcon(upIcon);
-   ui.moveListItemDownButton->setIcon(downIcon);
    ui.newListItemButton->setIcon(plusIcon);
    ui.deleteListItemButton->setIcon(minusIcon);
+   ui.moveListItemUpButton->setIcon(upIcon);
+   ui.moveListItemDownButton->setIcon(downIcon);
+
+   connect(ui.newListItemButton, &QPushButton::clicked,
+         this, &ItemListEditor::newListItemButton);
+
+   connect(ui.deleteListItemButton, &QPushButton::clicked,
+         this, &ItemListEditor::deleteListItemButton);
+
+   connect(ui.moveListItemUpButton, &QPushButton::clicked,
+         this, &ItemListEditor::moveListItemUpButton);
+
+   connect(ui.moveListItemDownButton, &QPushButton::clicked,
+         this, &ItemListEditor::moveListItemDownButton);
 
    connect(iconCache(), &DesignerIconCache::reloaded,
          this, &AbstractItemEditor::cacheReloaded);
@@ -351,7 +363,7 @@ void ItemListEditor::setCurrentIndex(int idx)
    m_updating = false;
 }
 
-void ItemListEditor::on_newListItemButton_clicked()
+void ItemListEditor::newListItemButton()
 {
    int row = ui.listWidget->currentRow() + 1;
 
@@ -371,7 +383,7 @@ void ItemListEditor::on_newListItemButton_clicked()
    ui.listWidget->editItem(item);
 }
 
-void ItemListEditor::on_deleteListItemButton_clicked()
+void ItemListEditor::deleteListItemButton()
 {
    int row = ui.listWidget->currentRow();
 
@@ -391,7 +403,7 @@ void ItemListEditor::on_deleteListItemButton_clicked()
    }
 }
 
-void ItemListEditor::on_moveListItemUpButton_clicked()
+void ItemListEditor::moveListItemUpButton()
 {
    int row = ui.listWidget->currentRow();
    if (row <= 0) {
@@ -403,7 +415,7 @@ void ItemListEditor::on_moveListItemUpButton_clicked()
    emit itemMovedUp(row);
 }
 
-void ItemListEditor::on_moveListItemDownButton_clicked()
+void ItemListEditor::moveListItemDownButton()
 {
    int row = ui.listWidget->currentRow();
    if (row == -1 || row == ui.listWidget->count() - 1) {

@@ -21,7 +21,7 @@
 #define TREEWIDGET_EDITOR_H
 
 #include <listwidget_editor.h>
-#include <ui_treewidget_editor.h>
+#include <ui_edit_treewidget.h>
 
 class QDesignerFormWindowInterface;
 
@@ -37,57 +37,69 @@ class PropertySheetIconValue;
 class TreeWidgetEditor: public AbstractItemEditor
 {
    CS_OBJECT(TreeWidgetEditor)
+
  public:
    explicit TreeWidgetEditor(QDesignerFormWindowInterface *form, QDialog *dialog);
 
-   TreeWidgetContents fillContentsFromTreeWidget(QTreeWidget *treeWidget);
-   TreeWidgetContents contents() const;
-
- private:
-   CS_SLOT_1(Private, void on_newItemButton_clicked())
-   CS_SLOT_2(on_newItemButton_clicked)
-   CS_SLOT_1(Private, void on_newSubItemButton_clicked())
-   CS_SLOT_2(on_newSubItemButton_clicked)
-   CS_SLOT_1(Private, void on_deleteItemButton_clicked())
-   CS_SLOT_2(on_deleteItemButton_clicked)
-   CS_SLOT_1(Private, void on_moveItemUpButton_clicked())
-   CS_SLOT_2(on_moveItemUpButton_clicked)
-   CS_SLOT_1(Private, void on_moveItemDownButton_clicked())
-   CS_SLOT_2(on_moveItemDownButton_clicked)
-   CS_SLOT_1(Private, void on_moveItemRightButton_clicked())
-   CS_SLOT_2(on_moveItemRightButton_clicked)
-   CS_SLOT_1(Private, void on_moveItemLeftButton_clicked())
-   CS_SLOT_2(on_moveItemLeftButton_clicked)
-
-   CS_SLOT_1(Private, void on_treeWidget_currentItemChanged())
-   CS_SLOT_2(on_treeWidget_currentItemChanged)
-   CS_SLOT_1(Private, void on_treeWidget_itemChanged(QTreeWidgetItem *item, int column))
-   CS_SLOT_2(on_treeWidget_itemChanged)
-
-   CS_SLOT_1(Private, void on_columnEditor_indexChanged(int idx))
-   CS_SLOT_2(on_columnEditor_indexChanged)
-   CS_SLOT_1(Private, void on_columnEditor_itemChanged(int idx, int role, const QVariant &v))
-   CS_SLOT_2(on_columnEditor_itemChanged)
-
-   CS_SLOT_1(Private, void on_columnEditor_itemInserted(int idx))
-   CS_SLOT_2(on_columnEditor_itemInserted)
-   CS_SLOT_1(Private, void on_columnEditor_itemDeleted(int idx))
-   CS_SLOT_2(on_columnEditor_itemDeleted)
-   CS_SLOT_1(Private, void on_columnEditor_itemMovedUp(int idx))
-   CS_SLOT_2(on_columnEditor_itemMovedUp)
-   CS_SLOT_1(Private, void on_columnEditor_itemMovedDown(int idx))
-   CS_SLOT_2(on_columnEditor_itemMovedDown)
-
-   CS_SLOT_1(Private, void togglePropertyBrowser())
-   CS_SLOT_2(togglePropertyBrowser)
-   CS_SLOT_1(Private, void cacheReloaded())
-   CS_SLOT_2(cacheReloaded)
+   TreeWidgetData fillContentsFromTreeWidget(QTreeWidget *treeWidget);
+   TreeWidgetData contents() const;
 
  protected:
    void setItemData(int role, const QVariant &v) override;
    QVariant getItemData(int role) const override;
 
  private:
+   CS_SLOT_1(Private, void on_newItemButton_clicked())
+   CS_SLOT_2(on_newItemButton_clicked)
+
+   CS_SLOT_1(Private, void on_newSubItemButton_clicked())
+   CS_SLOT_2(on_newSubItemButton_clicked)
+
+   CS_SLOT_1(Private, void on_deleteItemButton_clicked())
+   CS_SLOT_2(on_deleteItemButton_clicked)
+
+   CS_SLOT_1(Private, void on_moveItemUpButton_clicked())
+   CS_SLOT_2(on_moveItemUpButton_clicked)
+
+   CS_SLOT_1(Private, void on_moveItemDownButton_clicked())
+   CS_SLOT_2(on_moveItemDownButton_clicked)
+
+   CS_SLOT_1(Private, void on_moveItemRightButton_clicked())
+   CS_SLOT_2(on_moveItemRightButton_clicked)
+
+   CS_SLOT_1(Private, void on_moveItemLeftButton_clicked())
+   CS_SLOT_2(on_moveItemLeftButton_clicked)
+
+   CS_SLOT_1(Private, void on_treeWidget_currentItemChanged())
+   CS_SLOT_2(on_treeWidget_currentItemChanged)
+
+   CS_SLOT_1(Private, void on_treeWidget_itemChanged(QTreeWidgetItem *item, int column))
+   CS_SLOT_2(on_treeWidget_itemChanged)
+
+   CS_SLOT_1(Private, void on_columnEditor_indexChanged(int idx))
+   CS_SLOT_2(on_columnEditor_indexChanged)
+
+   CS_SLOT_1(Private, void on_columnEditor_itemChanged(int idx, int role, const QVariant &v))
+   CS_SLOT_2(on_columnEditor_itemChanged)
+
+   CS_SLOT_1(Private, void on_columnEditor_itemInserted(int idx))
+   CS_SLOT_2(on_columnEditor_itemInserted)
+
+   CS_SLOT_1(Private, void on_columnEditor_itemDeleted(int idx))
+   CS_SLOT_2(on_columnEditor_itemDeleted)
+
+   CS_SLOT_1(Private, void on_columnEditor_itemMovedUp(int idx))
+   CS_SLOT_2(on_columnEditor_itemMovedUp)
+
+   CS_SLOT_1(Private, void on_columnEditor_itemMovedDown(int idx))
+   CS_SLOT_2(on_columnEditor_itemMovedDown)
+
+   CS_SLOT_1(Private, void togglePropertyBrowser())
+   CS_SLOT_2(togglePropertyBrowser)
+
+   CS_SLOT_1(Private, void cacheReloaded())
+   CS_SLOT_2(cacheReloaded)
+
    void setPropertyBrowserVisible(bool v);
    QtVariantProperty *setupPropertyGroup(const QString &title, PropertyDefinition *propDefs);
    void updateEditor();
@@ -105,18 +117,17 @@ class TreeWidgetEditor: public AbstractItemEditor
 class TreeWidgetEditorDialog : public QDialog
 {
    CS_OBJECT(TreeWidgetEditorDialog)
+
  public:
    explicit TreeWidgetEditorDialog(QDesignerFormWindowInterface *form, QWidget *parent);
 
-   TreeWidgetContents fillContentsFromTreeWidget(QTreeWidget *treeWidget);
-   TreeWidgetContents contents() const;
+   TreeWidgetData fillContentsFromTreeWidget(QTreeWidget *treeWidget);
+   TreeWidgetData contents() const;
 
  private:
    TreeWidgetEditor m_editor;
 };
 
-}  // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
-
-
-#endif // TREEWIDGETEDITOR_H
+#endif

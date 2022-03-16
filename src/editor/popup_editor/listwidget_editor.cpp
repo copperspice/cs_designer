@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 #include <listwidget_editor.h>
-#include <designerpropertymanager.h>
+#include <designer_property.h>
 #include <abstract_formbuilder.h>
 
 #include <qdesigner_settings.h>
@@ -71,11 +71,11 @@ static AbstractItemEditor::PropertyDefinition listBoxPropList[] = {
    { 0, 0, 0, "" }
 };
 
-ListContents ListWidgetEditor::fillContentsFromListWidget(QListWidget *listWidget)
+ListData ListWidgetEditor::fillContentsFromListWidget(QListWidget *listWidget)
 {
    setWindowTitle(tr("Edit List Widget"));
 
-   ListContents retVal;
+   ListData retVal;
    retVal.createFromListWidget(listWidget, false);
    retVal.applyToListWidget(m_itemsEditor->listWidget(), m_itemsEditor->iconCache(), true);
 
@@ -90,11 +90,11 @@ static AbstractItemEditor::PropertyDefinition comboBoxPropList[] = {
    { 0, 0, 0, "" }
 };
 
-ListContents ListWidgetEditor::fillContentsFromComboBox(QComboBox *comboBox)
+ListData ListWidgetEditor::fillContentsFromComboBox(QComboBox *comboBox)
 {
    setWindowTitle(tr("Edit Combobox"));
 
-   ListContents retVal;
+   ListData retVal;
    retVal.createFromComboBox(comboBox);
    retVal.applyToListWidget(m_itemsEditor->listWidget(), m_itemsEditor->iconCache(), true);
 
@@ -103,9 +103,9 @@ ListContents ListWidgetEditor::fillContentsFromComboBox(QComboBox *comboBox)
    return retVal;
 }
 
-ListContents ListWidgetEditor::contents() const
+ListData ListWidgetEditor::contents() const
 {
-   ListContents retVal;
+   ListData retVal;
    retVal.createFromListWidget(m_itemsEditor->listWidget(), true);
    return retVal;
 }

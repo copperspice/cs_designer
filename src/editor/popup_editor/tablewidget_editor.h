@@ -21,7 +21,7 @@
 #define TABLEWIDGET_EDITOR_H
 
 #include <listwidget_editor.h>
-#include <ui_tablewidget_editor.h>
+#include <ui_edit_tablewidget.h>
 
 class QDesignerFormWindowInterface;
 
@@ -41,8 +41,8 @@ class TableWidgetEditor: public AbstractItemEditor
  public:
    explicit TableWidgetEditor(QDesignerFormWindowInterface *form, QDialog *dialog);
 
-   TableWidgetContents fillContentsFromTableWidget(QTableWidget *tableWidget);
-   TableWidgetContents contents() const;
+   TableWidgetData fillContentsFromTableWidget(QTableWidget *tableWidget);
+   TableWidgetData contents() const;
 
  protected:
    void setItemData(int role, const QVariant &v) override;
@@ -111,18 +111,17 @@ class TableWidgetEditor: public AbstractItemEditor
 class TableWidgetEditorDialog : public QDialog
 {
    CS_OBJECT(TableWidgetEditorDialog)
+
  public:
    explicit TableWidgetEditorDialog(QDesignerFormWindowInterface *form, QWidget *parent);
 
-   TableWidgetContents fillContentsFromTableWidget(QTableWidget *tableWidget);
-   TableWidgetContents contents() const;
+   TableWidgetData fillContentsFromTableWidget(QTableWidget *tableWidget);
+   TableWidgetData contents() const;
 
  private:
    TableWidgetEditor m_editor;
 };
 
-}  // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
-
-
-#endif // TABLEWIDGETEDITOR_H
+#endif

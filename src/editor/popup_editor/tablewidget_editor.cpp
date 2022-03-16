@@ -20,7 +20,7 @@
 #include <abstract_formbuilder.h>
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
-#include <designerpropertymanager.h>
+#include <designer_property.h>
 #include <tree_propertybrowser.h>
 #include <tablewidget_editor.h>
 
@@ -134,9 +134,9 @@ static AbstractItemEditor::PropertyDefinition tableItemPropList[] = {
    { 0, 0, 0, "" }
 };
 
-TableWidgetContents TableWidgetEditor::fillContentsFromTableWidget(QTableWidget *tableWidget)
+TableWidgetData TableWidgetEditor::fillContentsFromTableWidget(QTableWidget *tableWidget)
 {
-   TableWidgetContents tblCont;
+   TableWidgetData tblCont;
    tblCont.fromTableWidget(tableWidget, false);
    tblCont.applyToTableWidget(ui.tableWidget, iconCache(), true);
 
@@ -156,10 +156,11 @@ TableWidgetContents TableWidgetEditor::fillContentsFromTableWidget(QTableWidget 
    return tblCont;
 }
 
-TableWidgetContents TableWidgetEditor::contents() const
+TableWidgetData TableWidgetEditor::contents() const
 {
-   TableWidgetContents retVal;
+   TableWidgetData retVal;
    retVal.fromTableWidget(ui.tableWidget, true);
+
    return retVal;
 }
 
@@ -452,16 +453,16 @@ TableWidgetEditorDialog::TableWidgetEditorDialog(QDesignerFormWindowInterface *f
    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 }
 
-TableWidgetContents TableWidgetEditorDialog::fillContentsFromTableWidget(QTableWidget *tableWidget)
+TableWidgetData TableWidgetEditorDialog::fillContentsFromTableWidget(QTableWidget *tableWidget)
 {
    return m_editor.fillContentsFromTableWidget(tableWidget);
 }
 
-TableWidgetContents TableWidgetEditorDialog::contents() const
+TableWidgetData TableWidgetEditorDialog::contents() const
 {
    return m_editor.contents();
 }
 
-} // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
 

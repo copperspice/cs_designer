@@ -19,7 +19,7 @@
 
 #include <treewidget_editor.h>
 #include <abstract_formbuilder.h>
-#include <designerpropertymanager.h>
+#include <designer_property.h>
 #include <tree_propertybrowser.h>
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
@@ -63,32 +63,40 @@ TreeWidgetEditor::TreeWidgetEditor(QDesignerFormWindowInterface *form, QDialog *
 
    ui.treeWidget->header()->setSectionsMovable(false);
 
-   connect(ui.newItemButton, &QAbstractButton::clicked, this, &TreeWidgetEditor::on_newItemButton_clicked);
-   connect(ui.newSubItemButton, &QAbstractButton::clicked, this, &TreeWidgetEditor::on_newSubItemButton_clicked);
-   connect(ui.moveItemUpButton, &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemUpButton_clicked);
-   connect(ui.moveItemDownButton, &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemDownButton_clicked);
+   connect(ui.newItemButton,       &QAbstractButton::clicked, this, &TreeWidgetEditor::on_newItemButton_clicked);
+   connect(ui.newSubItemButton,    &QAbstractButton::clicked, this, &TreeWidgetEditor::on_newSubItemButton_clicked);
+   connect(ui.moveItemUpButton,    &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemUpButton_clicked);
+   connect(ui.moveItemDownButton,  &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemDownButton_clicked);
    connect(ui.moveItemRightButton, &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemRightButton_clicked);
-   connect(ui.moveItemLeftButton, &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemLeftButton_clicked);
-   connect(ui.deleteItemButton, &QAbstractButton::clicked, this, &TreeWidgetEditor::on_deleteItemButton_clicked);
+   connect(ui.moveItemLeftButton,  &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemLeftButton_clicked);
+   connect(ui.deleteItemButton,    &QAbstractButton::clicked, this, &TreeWidgetEditor::on_deleteItemButton_clicked);
+
    connect(ui.treeWidget, &QTreeWidget::currentItemChanged,
-      this, &TreeWidgetEditor::on_treeWidget_currentItemChanged);
+         this, &TreeWidgetEditor::on_treeWidget_currentItemChanged);
+
    connect(ui.treeWidget, &QTreeWidget::itemChanged,
-      this, &TreeWidgetEditor::on_treeWidget_itemChanged);
+         this, &TreeWidgetEditor::on_treeWidget_itemChanged);
 
    connect(m_columnEditor, &ItemListEditor::indexChanged,
-      this, &TreeWidgetEditor::on_columnEditor_indexChanged);
-   connect(m_columnEditor, &ItemListEditor::itemChanged,
-      this, &TreeWidgetEditor::on_columnEditor_itemChanged);
-   connect(m_columnEditor, &ItemListEditor::itemInserted,
-      this, &TreeWidgetEditor::on_columnEditor_itemInserted);
-   connect(m_columnEditor, &ItemListEditor::itemDeleted,
-      this, &TreeWidgetEditor::on_columnEditor_itemDeleted);
-   connect(m_columnEditor, &ItemListEditor::itemMovedUp,
-      this, &TreeWidgetEditor::on_columnEditor_itemMovedUp);
-   connect(m_columnEditor, &ItemListEditor::itemMovedDown,
-      this, &TreeWidgetEditor::on_columnEditor_itemMovedDown);
+         this, &TreeWidgetEditor::on_columnEditor_indexChanged);
 
-   connect(iconCache(), &DesignerIconCache::reloaded, this, &TreeWidgetEditor::cacheReloaded);
+   connect(m_columnEditor, &ItemListEditor::itemChanged,
+         this, &TreeWidgetEditor::on_columnEditor_itemChanged);
+
+   connect(m_columnEditor, &ItemListEditor::itemInserted,
+         this, &TreeWidgetEditor::on_columnEditor_itemInserted);
+
+   connect(m_columnEditor, &ItemListEditor::itemDeleted,
+         this, &TreeWidgetEditor::on_columnEditor_itemDeleted);
+
+   connect(m_columnEditor, &ItemListEditor::itemMovedUp,
+         this, &TreeWidgetEditor::on_columnEditor_itemMovedUp);
+
+   connect(m_columnEditor, &ItemListEditor::itemMovedDown,
+         this, &TreeWidgetEditor::on_columnEditor_itemMovedDown);
+
+   connect(iconCache(), &DesignerIconCache::reloaded,
+         this, &TreeWidgetEditor::cacheReloaded);
 }
 
 static AbstractItemEditor::PropertyDefinition treeHeaderPropList[] = {
@@ -137,13 +145,13 @@ QtVariantProperty *TreeWidgetEditor::setupPropertyGroup(const QString &title, Pr
    return groupProp;
 }
 
-TreeWidgetContents TreeWidgetEditor::fillContentsFromTreeWidget(QTreeWidget *treeWidget)
+TreeWidgetData TreeWidgetEditor::fillContentsFromTreeWidget(QTreeWidget *treeWidget)
 {
-   TreeWidgetContents treeCont;
-   treeCont.fromTreeWidget(treeWidget, false);
-   treeCont.applyToTreeWidget(ui.treeWidget, iconCache(), true);
+   TreeWidgetData retval;
+   retval.fromTreeWidget(treeWidget, false);
+   retval.applyToTreeWidget(ui.treeWidget, iconCache(), true);
 
-   treeCont.m_headerItem.applyToListWidget(m_columnEditor->listWidget(), iconCache(), true);
+   retval.m_headerItem.applyToListWidget(m_columnEditor->listWidget(), iconCache(), true);
    m_columnEditor->setupEditor(treeWidget, treeHeaderPropList);
 
    QList<QtVariantProperty *> rootProperties;
@@ -160,14 +168,15 @@ TreeWidgetContents TreeWidgetEditor::fillContentsFromTreeWidget(QTreeWidget *tre
 
    updateEditor();
 
-   return treeCont;
+   return retval;
 }
 
-TreeWidgetContents TreeWidgetEditor::contents() const
+TreeWidgetData TreeWidgetEditor::contents() const
 {
-   TreeWidgetContents retVal;
-   retVal.fromTreeWidget(ui.treeWidget, true);
-   return retVal;
+   TreeWidgetData retval;
+   retval.fromTreeWidget(ui.treeWidget, true);
+
+   return retval;
 }
 
 void TreeWidgetEditor::setItemData(int role, const QVariant &v)
@@ -200,15 +209,18 @@ void TreeWidgetEditor::on_newItemButton_clicked()
    QTreeWidgetItem *curItem = ui.treeWidget->currentItem();
    QTreeWidgetItem *newItem = 0;
    ui.treeWidget->blockSignals(true);
+
    if (curItem) {
       if (curItem->parent()) {
          newItem = new QTreeWidgetItem(curItem->parent(), curItem);
       } else {
          newItem = new QTreeWidgetItem(ui.treeWidget, curItem);
       }
+
    } else {
       newItem = new QTreeWidgetItem(ui.treeWidget);
    }
+
    const QString newItemText = tr("New Item");
    newItem->setText(0, newItemText);
    newItem->setData(0, Qt::DisplayPropertyRole, QVariant::fromValue(PropertySheetStringValue(newItemText)));
@@ -661,15 +673,15 @@ TreeWidgetEditorDialog::TreeWidgetEditorDialog(QDesignerFormWindowInterface *for
    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 }
 
-TreeWidgetContents TreeWidgetEditorDialog::fillContentsFromTreeWidget(QTreeWidget *treeWidget)
+TreeWidgetData TreeWidgetEditorDialog::fillContentsFromTreeWidget(QTreeWidget *treeWidget)
 {
    return m_editor.fillContentsFromTreeWidget(treeWidget);
 }
 
-TreeWidgetContents TreeWidgetEditorDialog::contents() const
+TreeWidgetData TreeWidgetEditorDialog::contents() const
 {
    return m_editor.contents();
 }
 
-} // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
