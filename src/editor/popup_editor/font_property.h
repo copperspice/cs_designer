@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef FONTPROPERTYMANAGER_H
-#define FONTPROPERTYMANAGER_H
+#ifndef FONT_PROPERTY_H
+#define FONT_PROPERTY_H
 
 class QtProperty;
 class QtVariantPropertyManager;

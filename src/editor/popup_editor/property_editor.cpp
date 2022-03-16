@@ -19,16 +19,16 @@
 
 #include <abstract_settings.h>
 #include <abstract_formeditor.h>
-#include <extension.h>
-#include <propertyeditor.h>
-#include <tree_propertybrowser.h>
-#include <button_propertybrowser.h>
-#include <variantproperty.h>
-#include <designerpropertymanager.h>
-#include <newdynamicpropertydialog.h>
-#include <dynamicpropertysheet.h>
 #include <abstract_widgetdatabase.h>
+#include <button_propertybrowser.h>
+#include <designer_property.h>
+#include <dynamicpropertysheet.h>
+#include <extension.h>
+#include <newdynamic_property.h>
+#include <property_editor.h>
 #include <qdesigner_settings.h>
+#include <tree_propertybrowser.h>
+#include <variantproperty.h>
 
 #include <qdesigner_propertysheet_p.h>
 #include <formwindowbase_p.h>

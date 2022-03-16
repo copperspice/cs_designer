@@ -17,9 +17,9 @@
 *
 ***********************************************************************/
 
-#include <fontpropertymanager.h>
+#include <font_property.h>
+#include <designer_property.h>
 #include <propertymanager.h>
-#include <designerpropertymanager.h>
 #include <propertybrowser_utils.h>
 
 #include <qdesigner_utils_p.h>

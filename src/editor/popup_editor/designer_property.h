@@ -17,12 +17,12 @@
 *
 ***********************************************************************/
 
-#ifndef DESIGNERPROPERTYMANAGER_H
-#define DESIGNERPROPERTYMANAGER_H
+#ifndef DESIGNER_PROPERTY_H
+#define DESIGNER_PROPERTY_H
 
+#include <brush_property.h>
+#include <font_property.h>
 #include <variantproperty.h>
-#include <brushpropertymanager.h>
-#include <fontpropertymanager.h>
 
 #include <qdesigner_utils_p.h>
 #include <shared_enums_p.h>

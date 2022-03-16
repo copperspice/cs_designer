@@ -18,22 +18,22 @@
 ***********************************************************************/
 
 #include <abstract_dialoggui.h>
-#include <designerpropertymanager.h>
+#include <designer_property.h>
 #include <formwindow.h>
-#include <propertysheet.h>
 #include <extension_manager.h>
 #include <formwindowcursor.h>
+#include <palette_editor_toolbutton.h>
+#include <propertysheet.h>
 #include <propertymanager.h>
-#include <paletteeditorbutton.h>
-#include <qlonglongvalidator.h>
-#include <stringlisteditorbutton.h>
 #include <propertybrowser_utils.h>
+#include <qlonglong_validator.h>
+#include <stringlist_editor_toolbutton.h>
+#include <stylesheet_editor.h>
 
 #include <qtresourceview_p.h>
 #include <formwindowbase_p.h>
 #include <formwindowmanager.h>
 #include <textpropertyeditor_p.h>
-#include <stylesheeteditor_p.h>
 #include <richtexteditor_p.h>
 #include <plaintexteditor_p.h>
 #include <iconloader_p.h>
@@ -62,7 +62,7 @@ static const QString validationModesAttributeC = "validationMode";
 static const QString superPaletteAttributeC    = "superPalette";
 static const QString defaultResourceAttributeC = "defaultResource";
 static const QString fontAttributeC            = "font";
-static const QString themeAttributeC          = "theme";
+static const QString themeAttributeC           = "theme";
 
 class DesignerFlagPropertyType
 {
@@ -79,8 +79,7 @@ namespace qdesigner_internal {
 
 template <class PropertySheetValue>
 void TranslatablePropertyManager<PropertySheetValue>::initialize(QtVariantPropertyManager *m,
-   QtProperty *property,
-   const PropertySheetValue &value)
+   QtProperty *property, const PropertySheetValue &value)
 {
    m_values.insert(property, value);
 
@@ -126,6 +125,7 @@ bool TranslatablePropertyManager<PropertySheetValue>::uninitialize(QtProperty *p
    m_valueToComment.remove(property);
    m_valueToTranslatable.remove(property);
    m_valueToDisambiguation.remove(property);
+
    return true;
 }
 
@@ -270,18 +270,19 @@ class TextEditor : public QWidget
    CS_SLOT_1(Public, void setText(const QString &text))
    CS_SLOT_2(setText)
 
- public:
    CS_SIGNAL_1(Public, void textChanged(const QString &text))
    CS_SIGNAL_2(textChanged, text)
 
  private:
    CS_SLOT_1(Private, void buttonClicked())
    CS_SLOT_2(buttonClicked)
+
    CS_SLOT_1(Private, void resourceActionActivated())
    CS_SLOT_2(resourceActionActivated)
+
    CS_SLOT_1(Private, void fileActionActivated())
    CS_SLOT_2(fileActionActivated)
- private:
+
    TextPropertyEditor *m_editor;
    IconThemeEditor *m_themeEditor;
    bool m_iconThemeModeEnabled;
@@ -362,6 +363,7 @@ TextPropertyValidationMode TextEditor::textPropertyValidationMode() const
 void TextEditor::setTextPropertyValidationMode(TextPropertyValidationMode vm)
 {
    m_editor->setTextPropertyValidationMode(vm);
+
    if (vm == ValidationURL) {
       m_button->setMenu(m_menu);
       m_button->setFixedWidth(30);
@@ -371,6 +373,7 @@ void TextEditor::setTextPropertyValidationMode(TextPropertyValidationMode vm)
       m_button->setFixedWidth(20);
       m_button->setPopupMode(QToolButton::DelayedPopup);
    }
+
    m_button->setVisible(vm == ValidationStyleSheet || vm == ValidationRichText || vm == ValidationMultiLine || vm == ValidationURL);
 }
 
@@ -388,13 +391,17 @@ void TextEditor::buttonClicked()
    const QString oldText = m_editor->text();
    QString newText;
 
+   // broom, first case should have the 3rd parm set to the applyWidget control
+
    switch (textPropertyValidationMode()) {
       case ValidationStyleSheet: {
-         StyleSheetEditorDialog dlg(m_core, this);
+         StyleSheetEditorDialog dlg(m_core, this, nullptr);
          dlg.setText(oldText);
+
          if (dlg.exec() != QDialog::Accepted) {
             return;
          }
+
          newText = dlg.text();
       }
       break;
@@ -403,6 +410,7 @@ void TextEditor::buttonClicked()
          RichTextEditorDialog dlg(m_core, this);
          dlg.setDefaultFont(m_richTextDefaultFont);
          dlg.setText(oldText);
+
          if (dlg.showDialog() != QDialog::Accepted) {
             return;
          }
@@ -414,6 +422,7 @@ void TextEditor::buttonClicked()
          PlainTextEditorDialog dlg(m_core, this);
          dlg.setDefaultFont(m_richTextDefaultFont);
          dlg.setText(oldText);
+
          if (dlg.showDialog() != QDialog::Accepted) {
             return;
          }
@@ -423,7 +432,8 @@ void TextEditor::buttonClicked()
 
       case ValidationURL: {
          QString oldPath = oldText;
-         if (oldPath.isEmpty() || oldPath.startsWith(QString("qrc:"))) {
+
+         if (oldPath.isEmpty() || oldPath.startsWith("qrc:")) {
             resourceActionActivated();
          } else {
             fileActionActivated();
@@ -444,7 +454,7 @@ void TextEditor::buttonClicked()
 void TextEditor::resourceActionActivated()
 {
    QString oldPath = m_editor->text();
-   if (oldPath.startsWith(QString("qrc:"))) {
+   if (oldPath.startsWith("qrc:")) {
       oldPath.remove(0, 4);
    }
 
@@ -458,7 +468,7 @@ void TextEditor::resourceActionActivated()
       return;
    }
 
-   const QString newText = QString("qrc:") + newPath;
+   const QString newText = "qrc:" + newPath;
    m_editor->setText(newText);
 
    emit textChanged(newText);
@@ -467,13 +477,15 @@ void TextEditor::resourceActionActivated()
 void TextEditor::fileActionActivated()
 {
    QString oldPath = m_editor->text();
-   if (oldPath.startsWith(QString("file:"))) {
+   if (oldPath.startsWith("file:")) {
       oldPath = oldPath.mid(5);
    }
+
    const QString newPath = m_core->dialogGui()->getOpenFileName(this, tr("Choose a File"), oldPath);
    if (newPath.isEmpty() || newPath == oldPath) {
       return;
    }
+
    const QString newText = QUrl::fromLocalFile(newPath).toString();
    m_editor->setText(newText);
    emit textChanged(newText);
@@ -514,11 +526,14 @@ QString IconThemeDialog::getTheme(QWidget *parent, const QString &theme, bool *o
 {
    IconThemeDialog dlg(parent);
    dlg.m_editor->setTheme(theme);
+
    if (dlg.exec() == QDialog::Accepted) {
       *ok = true;
       return dlg.m_editor->theme();
    }
+
    *ok = false;
+
    return QString();
 }
 
@@ -2685,8 +2700,10 @@ QWidget *DesignerEditorFactory::createEditor(QtVariantPropertyManager *manager,
 
          m_uintPropertyToEditors[property].append(ed);
          m_editorToUintProperty[ed] = property;
-         connect(ed, &QObject::destroyed, this, &DesignerEditorFactory::slotEditorDestroyed);
+
+         connect(ed, &QObject::destroyed,     this, &DesignerEditorFactory::slotEditorDestroyed);
          connect(ed, &QLineEdit::textChanged, this, &DesignerEditorFactory::slotUintChanged);
+
          editor = ed;
       }
       break;
@@ -2698,8 +2715,10 @@ QWidget *DesignerEditorFactory::createEditor(QtVariantPropertyManager *manager,
          m_longLongPropertyToEditors[property].append(ed);
 
          m_editorToLongLongProperty[ed] = property;
-         connect(ed, &QObject::destroyed, this, &DesignerEditorFactory::slotEditorDestroyed);
+
+         connect(ed, &QObject::destroyed,     this, &DesignerEditorFactory::slotEditorDestroyed);
          connect(ed, &QLineEdit::textChanged, this, &DesignerEditorFactory::slotLongLongChanged);
+
          editor = ed;
       }
       break;
@@ -2714,6 +2733,7 @@ QWidget *DesignerEditorFactory::createEditor(QtVariantPropertyManager *manager,
 
          connect(ed, &QObject::destroyed, this, &DesignerEditorFactory::slotEditorDestroyed);
          connect(ed, &QLineEdit::textChanged, this, &DesignerEditorFactory::slotULongLongChanged);
+
          editor = ed;
       }
       break;
@@ -2724,7 +2744,7 @@ QWidget *DesignerEditorFactory::createEditor(QtVariantPropertyManager *manager,
          m_urlPropertyToEditors[property].append(ed);
          m_editorToUrlProperty[ed] = property;
 
-         connect(ed, &QObject::destroyed, this, &DesignerEditorFactory::slotEditorDestroyed);
+         connect(ed, &QObject::destroyed,      this, &DesignerEditorFactory::slotEditorDestroyed);
          connect(ed, &TextEditor::textChanged, this, &DesignerEditorFactory::slotUrlChanged);
 
          editor = ed;
@@ -2736,7 +2756,7 @@ QWidget *DesignerEditorFactory::createEditor(QtVariantPropertyManager *manager,
          m_byteArrayPropertyToEditors[property].append(ed);
          m_editorToByteArrayProperty[ed] = property;
 
-         connect(ed, &QObject::destroyed, this, &DesignerEditorFactory::slotEditorDestroyed);
+         connect(ed, &QObject::destroyed,      this, &DesignerEditorFactory::slotEditorDestroyed);
          connect(ed, &TextEditor::textChanged, this, &DesignerEditorFactory::slotByteArrayChanged);
 
          editor = ed;
@@ -2976,10 +2996,11 @@ QtProperty *findPropertyForEditor(const QMap<Editor *, QtProperty *> &editorMap,
 {
    auto cend = editorMap.constEnd();
 
-   for (auto it = editorMap.constBegin(); it != cend; ++it)
+   for (auto it = editorMap.constBegin(); it != cend; ++it) {
       if (it.key() == sender) {
          return it.value();
       }
+   }
 
    return nullptr;
 }
@@ -2999,10 +3020,13 @@ void DesignerEditorFactory::slotStringTextChanged(const QString &value)
          if (varProp->subProperties().empty()) {
             strVal.setTranslatable(false);
          }
+
          val = QVariant::fromValue(strVal);
+
       } else {
          val = QVariant(value);
       }
+
       m_changingPropertyValue = true;
       manager->variantProperty(prop)->setValue(val);
       m_changingPropertyValue = false;
@@ -3015,6 +3039,7 @@ void DesignerEditorFactory::slotKeySequenceChanged(const QKeySequence &value)
       QtVariantPropertyManager *manager = propertyManager(prop);
       QtVariantProperty *varProp = manager->variantProperty(prop);
       QVariant val = varProp->value();
+
       if (val.userType() == DesignerPropertyManager::designerKeySequenceTypeId()) {
          PropertySheetKeySequenceValue keyVal = val.value<PropertySheetKeySequenceValue>();
          keyVal.setValue(value);
@@ -3022,6 +3047,7 @@ void DesignerEditorFactory::slotKeySequenceChanged(const QKeySequence &value)
       } else {
          val = QVariant::fromValue(value);
       }
+
       m_changingPropertyValue = true;
       manager->variantProperty(prop)->setValue(val);
       m_changingPropertyValue = false;

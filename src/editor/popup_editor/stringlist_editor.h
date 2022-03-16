@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#ifndef STRINGLISTEDITOR_H
-#define STRINGLISTEDITOR_H
+#ifndef STRINGLIST_EDITOR_H
+#define STRINGLIST_EDITOR_H
 
-#include <ui_stringlist_editor.h>
+#include <ui_edit_stringlist.h>
 
 #include <QStringList>
 
@@ -34,6 +34,7 @@ class StringListEditor : public QDialog, private Ui::Dialog
 
  public:
    ~StringListEditor();
+
    void setStringList(const QStringList &stringList);
    QStringList stringList() const;
 
@@ -41,20 +42,14 @@ class StringListEditor : public QDialog, private Ui::Dialog
       QWidget *parent, const QStringList &init = QStringList(), int *result = nullptr);
 
  private:
-   CS_SLOT_1(Private, void on_upButton_clicked())
-   CS_SLOT_2(on_upButton_clicked)
-   CS_SLOT_1(Private, void on_downButton_clicked())
-   CS_SLOT_2(on_downButton_clicked)
-   CS_SLOT_1(Private, void on_newButton_clicked())
-   CS_SLOT_2(on_newButton_clicked)
-   CS_SLOT_1(Private, void on_deleteButton_clicked())
-   CS_SLOT_2(on_deleteButton_clicked)
-   CS_SLOT_1(Private, void on_valueEdit_textEdited(const QString &text))
-   CS_SLOT_2(on_valueEdit_textEdited)
-   CS_SLOT_1(Private, void currentIndexChanged(const QModelIndex &current, const QModelIndex &previous))
-   CS_SLOT_2(currentIndexChanged)
-   CS_SLOT_1(Private, void currentValueChanged())
-   CS_SLOT_2(currentValueChanged)
+   // slots
+   void newItemButton();
+   void deleteItemButton();
+   void upItemButton();
+   void downItemButton();
+   void valueChanged(const QString &text);
+   void currentIndexChanged(const QModelIndex &current, const QModelIndex &previous);
+   void currentValueChanged();
 
    StringListEditor(QWidget *parent = nullptr);
    void updateUi();

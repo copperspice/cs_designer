@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <stringlisteditorbutton.h>
-#include <stringlisteditor.h>
+#include <stringlist_editor.h>
+#include <stringlist_editor_toolbutton.h>
 
 #include <QDebug>
 
@@ -46,9 +46,10 @@ void StringListEditorButton::setStringList(const QStringList &stringList)
 void StringListEditorButton::showStringListEditor()
 {
    int result;
-   QStringList lst = StringListEditor::getStringList(0, m_stringList, &result);
+   QStringList list = StringListEditor::getStringList(0, m_stringList, &result);
+
    if (result == QDialog::Accepted) {
-      m_stringList = lst;
+      m_stringList = list;
       emit stringListChanged(m_stringList);
    }
 }

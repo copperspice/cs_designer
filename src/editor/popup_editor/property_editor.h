@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef PROPERTYEDITOR_H
-#define PROPERTYEDITOR_H
+#ifndef PROPERTY_EDITOR_H
+#define PROPERTY_EDITOR_H
 
 #include <qdesigner_propertyeditor_p.h>
 

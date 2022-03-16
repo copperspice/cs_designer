@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef BRUSHPROPERTYMANAGER_H
-#define BRUSHPROPERTYMANAGER_H
+#ifndef BRUSH_PROPERTY_H
+#define BRUSH_PROPERTY_H
 
 class QtProperty;
 class QtVariantPropertyManager;
@@ -73,6 +73,6 @@ class BrushPropertyManager
    PropertyBrushMap m_brushValues;
 };
 
-}
+}   // end namespace
 
-#endif // BRUSHPROPERTYMANAGER_H
+#endif

@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef NEWDYNAMICPROPERTYDIALOG_P_H
-#define NEWDYNAMICPROPERTYDIALOG_P_H
+#ifndef NEWDYNAMIC_PROPERTY_H
+#define NEWDYNAMIC_PROPERTY_H
 
 #include <QDialog>
 #include <QVariant>

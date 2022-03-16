@@ -17,10 +17,12 @@
 *
 ***********************************************************************/
 
-#include <stringlisteditor.h>
+#include <stringlist_editor.h>
+
 #include <iconloader_p.h>
 
 #include <QStringListModel>
+#include <QPushButton>
 
 using namespace qdesigner_internal;
 
@@ -28,24 +30,40 @@ StringListEditor::StringListEditor(QWidget *parent)
    : QDialog(parent), m_model(new QStringListModel(this))
 {
    setupUi(this);
+
    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
    listView->setModel(m_model);
 
-   connect(listView->selectionModel(),
-      &QItemSelectionModel::currentChanged,
-      this, &StringListEditor::currentIndexChanged);
-   connect(listView->itemDelegate(),
-      &QAbstractItemDelegate::closeEditor,
-      this, &StringListEditor::currentValueChanged);
-
-   QIcon upIcon = createIconSet(QString::fromUtf8("up.png"));
-   QIcon downIcon = createIconSet(QString::fromUtf8("down.png"));
+   QIcon plusIcon  = createIconSet(QString::fromUtf8("plus.png"));
    QIcon minusIcon = createIconSet(QString::fromUtf8("minus.png"));
-   QIcon plusIcon = createIconSet(QString::fromUtf8("plus.png"));
-   upButton->setIcon(upIcon);
-   downButton->setIcon(downIcon);
+   QIcon upIcon    = createIconSet(QString::fromUtf8("up.png"));
+   QIcon downIcon  = createIconSet(QString::fromUtf8("down.png"));
+
    newButton->setIcon(plusIcon);
    deleteButton->setIcon(minusIcon);
+   upButton->setIcon(upIcon);
+   downButton->setIcon(downIcon);
+
+   connect(newButton, &QPushButton::clicked,
+         this, &StringListEditor::newItemButton);
+
+   connect(deleteButton, &QPushButton::clicked,
+         this, &StringListEditor::deleteItemButton);
+
+   connect(upButton, &QPushButton::clicked,
+         this, &StringListEditor::upItemButton);
+
+   connect(downButton, &QPushButton::clicked,
+         this, &StringListEditor::downItemButton);
+
+   connect(valueEdit, &QLineEdit::textEdited,
+         this, &StringListEditor::valueChanged);
+
+   connect(listView->selectionModel(), &QItemSelectionModel::currentChanged,
+         this, &StringListEditor::currentIndexChanged);
+
+   connect(listView->itemDelegate(), &QAbstractItemDelegate::closeEditor,
+         this, &StringListEditor::currentValueChanged);
 
    updateUi();
 }
@@ -58,7 +76,9 @@ QStringList StringListEditor::getStringList(QWidget *parent, const QStringList &
 {
    StringListEditor dlg(parent);
    dlg.setStringList(init);
+
    int res = dlg.exec();
+
    if (result) {
       *result = res;
    }
@@ -89,34 +109,13 @@ void StringListEditor::currentValueChanged()
    updateUi();
 }
 
-void StringListEditor::on_upButton_clicked()
-{
-   int from = currentIndex();
-   int to = currentIndex() - 1;
-   QString value = stringAt(from);
-   removeString(from);
-   insertString(to, value);
-   setCurrentIndex(to);
-   updateUi();
-}
-
-void StringListEditor::on_downButton_clicked()
-{
-   int from = currentIndex();
-   int to = currentIndex() + 1;
-   QString value = stringAt(from);
-   removeString(from);
-   insertString(to, value);
-   setCurrentIndex(to);
-   updateUi();
-}
-
-void StringListEditor::on_newButton_clicked()
+void StringListEditor::newItemButton()
 {
    int to = currentIndex();
    if (to == -1) {
       to = count() - 1;
    }
+
    ++to;
    insertString(to, QString());
    setCurrentIndex(to);
@@ -124,23 +123,51 @@ void StringListEditor::on_newButton_clicked()
    editString(to);
 }
 
-void StringListEditor::on_deleteButton_clicked()
+void StringListEditor::deleteItemButton()
 {
    removeString(currentIndex());
    setCurrentIndex(currentIndex());
    updateUi();
 }
 
-void StringListEditor::on_valueEdit_textEdited(const QString &text)
+void StringListEditor::upItemButton()
+{
+   int from = currentIndex();
+   int to   = currentIndex() - 1;
+
+   QString value = stringAt(from);
+
+   removeString(from);
+   insertString(to, value);
+   setCurrentIndex(to);
+   updateUi();
+}
+
+void StringListEditor::downItemButton()
+{
+   int from = currentIndex();
+   int to = currentIndex() + 1;
+
+   QString value = stringAt(from);
+
+   removeString(from);
+   insertString(to, value);
+   setCurrentIndex(to);
+   updateUi();
+}
+
+void StringListEditor::valueChanged(const QString &text)
 {
    setStringAt(currentIndex(), text);
 }
 
 void StringListEditor::updateUi()
 {
+   deleteButton->setEnabled(currentIndex() != -1);
+
    upButton->setEnabled((count() > 1) && (currentIndex() > 0));
    downButton->setEnabled((count() > 1) && (currentIndex() >= 0) && (currentIndex() < (count() - 1)));
-   deleteButton->setEnabled(currentIndex() != -1);
+
    valueEdit->setEnabled(currentIndex() != -1);
 }
 
@@ -189,5 +216,4 @@ void StringListEditor::editString(int index)
 {
    listView->edit(m_model->index(index, 0));
 }
-
 

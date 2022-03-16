@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <paletteeditor.h>
+#include <palette_editor.h>
 #include <qtcolorbutton.h>
 #include <abstract_formeditor.h>
 

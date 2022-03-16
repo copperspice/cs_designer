@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef PALETTEEDITORBUTTON_H
-#define PALETTEEDITORBUTTON_H
+#ifndef PALETTE_EDITOR_TOOLBUTTON_H
+#define PALETTE_EDITOR_TOOLBUTTON_H
 
 #include <abstract_formeditor.h>
 

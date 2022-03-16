@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef PALETTEEDITOR_H
-#define PALETTEEDITOR_H
+#ifndef PALETTE_EDITOR_H
+#define PALETTE_EDITOR_H
 
 #include <ui_palette_editor.h>
 

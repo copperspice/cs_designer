@@ -17,16 +17,15 @@
 *
 ***********************************************************************/
 
-#include <paletteeditorbutton.h>
-#include <paletteeditor.h>
+#include <palette_editor_toolbutton.h>
+#include <palette_editor.h>
 
 #include <QDebug>
 
 using namespace qdesigner_internal;
 
 PaletteEditorButton::PaletteEditorButton(QDesignerFormEditorInterface *core, const QPalette &palette, QWidget *parent)
-   : QToolButton(parent),
-     m_palette(palette)
+   : QToolButton(parent), m_palette(palette)
 {
    m_core = core;
    setFocusPolicy(Qt::NoFocus);

@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef STRINGLISTEDITORBUTTON_H
-#define STRINGLISTEDITORBUTTON_H
+#ifndef STRINGLIST_TOOLBUTTON_H
+#define STRINGLIST_TOOLBUTTON_H
 
 #include <QStringList>
 #include <QToolButton>
@@ -33,15 +33,13 @@ class StringListEditorButton: public QToolButton
    explicit StringListEditorButton(const QStringList &stringList, QWidget *parent = nullptr);
    virtual ~StringListEditorButton();
 
-   inline QStringList stringList() const {
+   QStringList stringList() const {
       return m_stringList;
    }
 
- public:
    CS_SIGNAL_1(Public, void stringListChanged(const QStringList &stringList))
    CS_SIGNAL_2(stringListChanged, stringList)
 
- public :
    CS_SLOT_1(Public, void setStringList(const QStringList &stringList))
    CS_SLOT_2(setStringList)
 
@@ -49,12 +47,9 @@ class StringListEditorButton: public QToolButton
    CS_SLOT_1(Private, void showStringListEditor())
    CS_SLOT_2(showStringListEditor)
 
- private:
    QStringList m_stringList;
 };
 
-}  // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
-
-
-#endif // STRINGLISTEDITORBUTTON_H
+#endif

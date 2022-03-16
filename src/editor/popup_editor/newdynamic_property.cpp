@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#include <newdynamicpropertydialog.h>
-#include <ui_new_dynamicproperty_dialog.h>
-
 #include <abstract_dialoggui.h>
+#include <newdynamic_property.h>
+#include <ui_edit_dynamicproperty.h>
+
 #include <qdesigner_propertysheet_p.h>
 
 #include <QDateTime>

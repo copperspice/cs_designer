@@ -17,9 +17,9 @@
 *
 ***********************************************************************/
 
-#include <brushpropertymanager.h>
+#include <brush_property.h>
+#include <designer_property.h>
 #include <propertymanager.h>
-#include <designerpropertymanager.h>
 #include <propertybrowser_utils.h>
 
 #include <QCoreApplication>
