@@ -17,14 +17,13 @@
 *
 ***********************************************************************/
 
-#include <tablewidget_taskmenu.h>
-#include <tablewidget_editor.h>
+#include <treewidget_taskmenu.h>
+#include <treewidget_editor.h>
 #include <abstract_formwindow.h>
 
-#include <QTableWidget>
 #include <QAction>
-#include <QLineEdit>
 #include <QStyle>
+#include <QLineEdit>
 #include <QStyleOption>
 #include <QEvent>
 #include <QVariant>
@@ -32,12 +31,11 @@
 
 using namespace qdesigner_internal;
 
-TableWidgetTaskMenu::TableWidgetTaskMenu(QTableWidget *button, QObject *parent)
-   : QDesignerTaskMenu(button, parent),
-     m_tableWidget(button),
+TreeWidgetTaskMenu::TreeWidgetTaskMenu(QTreeWidget *button, QObject *parent)
+   : QDesignerTaskMenu(button, parent), m_treeWidget(button),
      m_editItemsAction(new QAction(tr("Edit Items..."), this))
 {
-   connect(m_editItemsAction, &QAction::triggered, this, &TableWidgetTaskMenu::editItems);
+   connect(m_editItemsAction, &QAction::triggered, this, &TreeWidgetTaskMenu::editItems);
    m_taskActions.append(m_editItemsAction);
 
    QAction *sep = new QAction(this);
@@ -45,45 +43,47 @@ TableWidgetTaskMenu::TableWidgetTaskMenu(QTableWidget *button, QObject *parent)
    m_taskActions.append(sep);
 }
 
-
-TableWidgetTaskMenu::~TableWidgetTaskMenu()
+TreeWidgetTaskMenu::~TreeWidgetTaskMenu()
 {
 }
 
-QAction *TableWidgetTaskMenu::preferredEditAction() const
+QAction *TreeWidgetTaskMenu::preferredEditAction() const
 {
    return m_editItemsAction;
 }
 
-QList<QAction *> TableWidgetTaskMenu::taskActions() const
+QList<QAction *> TreeWidgetTaskMenu::taskActions() const
 {
    return m_taskActions + QDesignerTaskMenu::taskActions();
 }
 
-void TableWidgetTaskMenu::editItems()
+void TreeWidgetTaskMenu::editItems()
 {
-   m_formWindow = QDesignerFormWindowInterface::findFormWindow(m_tableWidget);
+   m_formWindow = QDesignerFormWindowInterface::findFormWindow(m_treeWidget);
    if (m_formWindow.isNull()) {
       return;
    }
 
-   Q_ASSERT(m_tableWidget != 0);
+   Q_ASSERT(m_treeWidget != 0);
 
-   TableWidgetEditorDialog dlg(m_formWindow, m_tableWidget->window());
-   TableWidgetContents oldCont = dlg.fillContentsFromTableWidget(m_tableWidget);
+   TreeWidgetEditorDialog dlg(m_formWindow, m_treeWidget->window());
+   TreeWidgetData oldCont = dlg.fillContentsFromTreeWidget(m_treeWidget);
+
    if (dlg.exec() == QDialog::Accepted) {
-      TableWidgetContents newCont = dlg.contents();
+      TreeWidgetData newCont = dlg.contents();
+
       if (newCont != oldCont) {
-         ChangeTableContentsCommand *cmd = new ChangeTableContentsCommand(m_formWindow);
-         cmd->init(m_tableWidget, oldCont, newCont);
+         ChangeTreeDataCommand *cmd = new ChangeTreeDataCommand(m_formWindow);
+         cmd->init(m_treeWidget, oldCont, newCont);
          m_formWindow->commandHistory()->push(cmd);
       }
    }
 }
 
-void TableWidgetTaskMenu::updateSelection()
+void TreeWidgetTaskMenu::updateSelection()
 {
    if (m_editor) {
       m_editor->deleteLater();
    }
 }
+

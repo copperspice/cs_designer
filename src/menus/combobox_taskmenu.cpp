@@ -74,13 +74,13 @@ void ComboBoxTaskMenu::editItems()
    Q_ASSERT(m_comboBox != 0);
 
    ListWidgetEditor dlg(m_formWindow, m_comboBox->window());
-   ListContents oldItems = dlg.fillContentsFromComboBox(m_comboBox);
+   ListData oldItems = dlg.fillContentsFromComboBox(m_comboBox);
 
    if (dlg.exec() == QDialog::Accepted) {
-      ListContents items = dlg.contents();
+      ListData items = dlg.contents();
 
       if (items != oldItems) {
-         ChangeListContentsCommand *cmd = new ChangeListContentsCommand(m_formWindow);
+         ChangeListDataCommand *cmd = new ChangeListDataCommand(m_formWindow);
          cmd->init(m_comboBox, oldItems, items);
          cmd->setText(tr("Change Combobox Contents"));
          m_formWindow->commandHistory()->push(cmd);

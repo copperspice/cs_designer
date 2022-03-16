@@ -17,16 +17,14 @@
 *
 ***********************************************************************/
 
-#include <listwidget_taskmenu.h>
-#include <listwidget_editor.h>
+#include <tablewidget_taskmenu.h>
+#include <tablewidget_editor.h>
 #include <abstract_formwindow.h>
 
-#include <qdesigner_utils_p.h>
-#include <qdesigner_command_p.h>
-
+#include <QTableWidget>
 #include <QAction>
-#include <QStyle>
 #include <QLineEdit>
+#include <QStyle>
 #include <QStyleOption>
 #include <QEvent>
 #include <QVariant>
@@ -34,12 +32,11 @@
 
 using namespace qdesigner_internal;
 
-ListWidgetTaskMenu::ListWidgetTaskMenu(QListWidget *button, QObject *parent)
-   : QDesignerTaskMenu(button, parent), m_listWidget(button)
+TableWidgetTaskMenu::TableWidgetTaskMenu(QTableWidget *button, QObject *parent)
+   : QDesignerTaskMenu(button, parent), m_tableWidget(button),
+     m_editItemsAction(new QAction(tr("Edit Items..."), this))
 {
-   m_editItemsAction = new QAction(this);
-   m_editItemsAction->setText(tr("Edit Items..."));
-   connect(m_editItemsAction, &QAction::triggered, this, &ListWidgetTaskMenu::editItems);
+   connect(m_editItemsAction, &QAction::triggered, this, &TableWidgetTaskMenu::editItems);
    m_taskActions.append(m_editItemsAction);
 
    QAction *sep = new QAction(this);
@@ -47,46 +44,46 @@ ListWidgetTaskMenu::ListWidgetTaskMenu(QListWidget *button, QObject *parent)
    m_taskActions.append(sep);
 }
 
-ListWidgetTaskMenu::~ListWidgetTaskMenu()
+TableWidgetTaskMenu::~TableWidgetTaskMenu()
 {
 }
 
-QAction *ListWidgetTaskMenu::preferredEditAction() const
+QAction *TableWidgetTaskMenu::preferredEditAction() const
 {
    return m_editItemsAction;
 }
 
-QList<QAction *> ListWidgetTaskMenu::taskActions() const
+QList<QAction *> TableWidgetTaskMenu::taskActions() const
 {
    return m_taskActions + QDesignerTaskMenu::taskActions();
 }
 
-void ListWidgetTaskMenu::editItems()
+void TableWidgetTaskMenu::editItems()
 {
-   m_formWindow = QDesignerFormWindowInterface::findFormWindow(m_listWidget);
+   m_formWindow = QDesignerFormWindowInterface::findFormWindow(m_tableWidget);
    if (m_formWindow.isNull()) {
       return;
    }
 
-   Q_ASSERT(m_listWidget != 0);
+   Q_ASSERT(m_tableWidget != 0);
 
-   ListWidgetEditor dlg(m_formWindow, m_listWidget->window());
-   ListContents oldItems = dlg.fillContentsFromListWidget(m_listWidget);
+   TableWidgetEditorDialog dlg(m_formWindow, m_tableWidget->window());
+   TableWidgetData oldCont = dlg.fillContentsFromTableWidget(m_tableWidget);
+
    if (dlg.exec() == QDialog::Accepted) {
-      ListContents items = dlg.contents();
-      if (items != oldItems) {
-         ChangeListContentsCommand *cmd = new ChangeListContentsCommand(m_formWindow);
-         cmd->init(m_listWidget, oldItems, items);
-         cmd->setText(tr("Change List Contents"));
+      TableWidgetData newCont = dlg.contents();
+
+      if (newCont != oldCont) {
+         ChangeTableDataCommand *cmd = new ChangeTableDataCommand(m_formWindow);
+         cmd->init(m_tableWidget, oldCont, newCont);
          m_formWindow->commandHistory()->push(cmd);
       }
    }
 }
 
-void ListWidgetTaskMenu::updateSelection()
+void TableWidgetTaskMenu::updateSelection()
 {
    if (m_editor) {
       m_editor->deleteLater();
    }
 }
-

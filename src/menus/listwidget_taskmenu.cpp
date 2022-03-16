@@ -17,9 +17,12 @@
 *
 ***********************************************************************/
 
-#include <treewidget_taskmenu.h>
-#include <treewidget_editor.h>
+#include <listwidget_taskmenu.h>
+#include <listwidget_editor.h>
 #include <abstract_formwindow.h>
+
+#include <qdesigner_utils_p.h>
+#include <qdesigner_command_p.h>
 
 #include <QAction>
 #include <QStyle>
@@ -31,11 +34,12 @@
 
 using namespace qdesigner_internal;
 
-TreeWidgetTaskMenu::TreeWidgetTaskMenu(QTreeWidget *button, QObject *parent)
-   : QDesignerTaskMenu(button, parent), m_treeWidget(button),
-     m_editItemsAction(new QAction(tr("Edit Items..."), this))
+ListWidgetTaskMenu::ListWidgetTaskMenu(QListWidget *button, QObject *parent)
+   : QDesignerTaskMenu(button, parent), m_listWidget(button)
 {
-   connect(m_editItemsAction, &QAction::triggered, this, &TreeWidgetTaskMenu::editItems);
+   m_editItemsAction = new QAction(this);
+   m_editItemsAction->setText(tr("Edit Items..."));
+   connect(m_editItemsAction, &QAction::triggered, this, &ListWidgetTaskMenu::editItems);
    m_taskActions.append(m_editItemsAction);
 
    QAction *sep = new QAction(this);
@@ -43,43 +47,45 @@ TreeWidgetTaskMenu::TreeWidgetTaskMenu(QTreeWidget *button, QObject *parent)
    m_taskActions.append(sep);
 }
 
-
-TreeWidgetTaskMenu::~TreeWidgetTaskMenu()
+ListWidgetTaskMenu::~ListWidgetTaskMenu()
 {
 }
 
-QAction *TreeWidgetTaskMenu::preferredEditAction() const
+QAction *ListWidgetTaskMenu::preferredEditAction() const
 {
    return m_editItemsAction;
 }
 
-QList<QAction *> TreeWidgetTaskMenu::taskActions() const
+QList<QAction *> ListWidgetTaskMenu::taskActions() const
 {
    return m_taskActions + QDesignerTaskMenu::taskActions();
 }
 
-void TreeWidgetTaskMenu::editItems()
+void ListWidgetTaskMenu::editItems()
 {
-   m_formWindow = QDesignerFormWindowInterface::findFormWindow(m_treeWidget);
+   m_formWindow = QDesignerFormWindowInterface::findFormWindow(m_listWidget);
    if (m_formWindow.isNull()) {
       return;
    }
 
-   Q_ASSERT(m_treeWidget != 0);
+   Q_ASSERT(m_listWidget != 0);
 
-   TreeWidgetEditorDialog dlg(m_formWindow, m_treeWidget->window());
-   TreeWidgetContents oldCont = dlg.fillContentsFromTreeWidget(m_treeWidget);
+   ListWidgetEditor dlg(m_formWindow, m_listWidget->window());
+   ListData oldItems = dlg.fillContentsFromListWidget(m_listWidget);
+
    if (dlg.exec() == QDialog::Accepted) {
-      TreeWidgetContents newCont = dlg.contents();
-      if (newCont != oldCont) {
-         ChangeTreeContentsCommand *cmd = new ChangeTreeContentsCommand(m_formWindow);
-         cmd->init(m_treeWidget, oldCont, newCont);
+      ListData items = dlg.contents();
+
+      if (items != oldItems) {
+         ChangeListDataCommand *cmd = new ChangeListDataCommand(m_formWindow);
+         cmd->init(m_listWidget, oldItems, items);
+         cmd->setText(tr("Change List Contents"));
          m_formWindow->commandHistory()->push(cmd);
       }
    }
 }
 
-void TreeWidgetTaskMenu::updateSelection()
+void ListWidgetTaskMenu::updateSelection()
 {
    if (m_editor) {
       m_editor->deleteLater();
