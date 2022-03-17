@@ -47,8 +47,8 @@ include(editor/editor.cmake)
 include(formbuilder/formbuilder.cmake)
 include(lib/lib.cmake)
 include(main/main.cmake)
-include(property_browser/property_browser.cmake)
-include(taskmenu/taskmenu.cmake)
+include(menus/menus.cmake)
+include(preview/preview.cmake)
 
 # location for *.qm file, overrides build folder
 set(TS_OUTPUT_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/../resources)
@@ -111,17 +111,20 @@ target_include_directories(Designer
    ${CMAKE_CURRENT_SOURCE_DIR}/abstract
    ${CMAKE_CURRENT_SOURCE_DIR}/designer
    ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
+   ${CMAKE_CURRENT_SOURCE_DIR}/formbuilder
+   ${CMAKE_CURRENT_SOURCE_DIR}/main
+   ${CMAKE_CURRENT_SOURCE_DIR}/menus
+   ${CMAKE_CURRENT_SOURCE_DIR}/preview
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/action_editor
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/taborder_editor
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor
-   ${CMAKE_CURRENT_SOURCE_DIR}/formbuilder
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/actions
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget
@@ -129,12 +132,8 @@ target_include_directories(Designer
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_plugin
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/util
-
-   ${CMAKE_CURRENT_SOURCE_DIR}/main
-   ${CMAKE_CURRENT_SOURCE_DIR}/property_browser
-   ${CMAKE_CURRENT_SOURCE_DIR}/taskmenu
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box
 )
 
 target_link_libraries(Designer

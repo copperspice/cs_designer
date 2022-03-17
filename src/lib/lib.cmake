@@ -1,9 +1,5 @@
 list(APPEND DESIGNER_INCLUDES
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/actions/action_editor.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/actions/action_repository.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/actions/action_provider.h
-
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/container.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/default_extensionfactory.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/extension.h
@@ -55,7 +51,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_toolbar_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_menubar_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_menu_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/stylesheeteditor_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/csshighlighter_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/shared_enums_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/textpropertyeditor_p.h
@@ -70,8 +65,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/dialoggui.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/deviceprofile_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/zoomwidget_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/previewmanager_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/previewconfigurationwidget_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourceeditordialog_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourcemodel_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourceview_p.h
@@ -96,19 +89,17 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/quiloader.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/quiloader_p.h
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/qlonglong_validator.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/table_classes.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/utils.h
+
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox_categorylistview.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox_treewidget.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox_dnditem.h
-
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/table_classes.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/utils.h
 )
 
 list(APPEND DESIGNER_SOURCES
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/actions/action_editor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/actions/action_repository.cpp
-
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/default_extensionfactory.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/extension.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/extrainfo.cpp
@@ -154,7 +145,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_toolbar.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_menubar.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_menu.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/stylesheeteditor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/csshighlighter.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/textpropertyeditor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/propertylineedit.cpp
@@ -168,8 +158,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/dialoggui.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/deviceprofile.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/zoomwidget.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/previewmanager.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/previewconfigurationwidget.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourceeditordialog.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourcemodel.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourceview.cpp
@@ -193,10 +181,11 @@ list(APPEND DESIGNER_SOURCES
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/quiloader.cpp
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/qlonglong_validator.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/utils.cpp
+
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox_categorylistview.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox_treewidget.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox_dnditem.cpp
-
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/utils.cpp
 )

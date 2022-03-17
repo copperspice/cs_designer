@@ -1,4 +1,8 @@
 list(APPEND DESIGNER_INCLUDES
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/action_editor/action_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/action_editor/action_repository.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/action_editor/action_provider.h
+
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_plugin.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_tool.h
@@ -28,9 +32,9 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindowsettings.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/deviceprofiledialog.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/dpi_chooser.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/previewactiongroup.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/itemview_propertysheet.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/templateoptionspage.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/previewactiongroup.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtcolorbutton.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientstopsmodel.h
@@ -46,18 +50,14 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientmanager.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientutils.h
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertyeditor.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/designerpropertymanager.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/paletteeditor.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/paletteeditorbutton.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/stringlisteditor.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/stringlisteditorbutton.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/previewwidget.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/previewframe.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/newdynamicpropertydialog.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/brushpropertymanager.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/fontpropertymanager.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/qlonglongvalidator.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/editorfactory.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/variantproperty.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/tree_propertybrowser.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/button_propertybrowser.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/groupbox_propertybrowser.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertybrowser.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertymanager.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_browser_utils.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalslot_utils_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/connectdialog_p.h
@@ -71,15 +71,29 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/taborder_editor/tabordereditor_plugin.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/taborder_editor/tabordereditor_tool.h
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/inplace_editor.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/itemlist_editor.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/listwidget_editor.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/treewidget_editor.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/tablewidget_editor.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/inplace_widget_helper.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/brush_property.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/designer_property.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/font_property.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/inplace_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/inplace_widget_helper.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/itemlist_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/listwidget_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/newdynamic_property.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/palette_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/palette_editor_toolbutton.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/property_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/stringlist_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/stringlist_editor_toolbutton.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/stylesheet_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/stylesheet_widget.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/tablewidget_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/treewidget_editor.h
 )
 
 list(APPEND DESIGNER_SOURCES
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/action_editor/action_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/action_editor/action_repository.cpp
+
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_tool.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_plugin.cpp
@@ -127,18 +141,14 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientmanager.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientutils.cpp
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertyeditor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/designerpropertymanager.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/paletteeditor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/paletteeditorbutton.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/stringlisteditor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/stringlisteditorbutton.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/previewwidget.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/previewframe.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/newdynamicpropertydialog.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/brushpropertymanager.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/fontpropertymanager.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/qlonglongvalidator.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/editorfactory.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/variantproperty.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/tree_propertybrowser.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/button_propertybrowser.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/groupbox_propertybrowser.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertybrowser.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertymanager.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertybrowser_utils.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalslot_utils.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/connectdialog.cpp
@@ -151,11 +161,20 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/taborder_editor/tabordereditor_tool.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/taborder_editor/tabordereditor_plugin.cpp
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/itemlist_editor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/listwidget_editor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/treewidget_editor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/tablewidget_editor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/inplace_editor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/taskmenu_editor/inplace_widget_helper.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/brush_property.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/designer_property.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/font_property.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/inplace_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/inplace_widget_helper.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/itemlist_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/listwidget_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/newdynamic_property.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/palette_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/palette_editor_toolbutton.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/property_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/stringlist_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/stringlist_editor_toolbutton.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/stylesheet_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/tablewidget_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/treewidget_editor.cpp
 )
-
