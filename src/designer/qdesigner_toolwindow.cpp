@@ -273,8 +273,6 @@ QRect ObjectInspectorToolWindow::geometryHint() const
    return rc;
 }
 
-//  ---------------------- ResourceEditorToolWindow
-
 class ResourceEditorToolWindow: public QDesignerToolWindow
 {
  public:
@@ -285,9 +283,8 @@ class ResourceEditorToolWindow: public QDesignerToolWindow
 
 ResourceEditorToolWindow::ResourceEditorToolWindow(QDesignerWorkbench *workbench)
    : QDesignerToolWindow(workbench,
-      QDesignerComponents::createResourceEditor(workbench->core(), 0), "qt_designer_resourceeditor",
-      QDesignerToolWindow::tr("Resource Browser"), "__qt_resource_editor_tool_action",
-      Qt::RightDockWidgetArea)
+     QDesignerComponents::createResourceEditor(workbench->core(), 0), "qt_designer_resourceeditor",
+     QDesignerToolWindow::tr("Resource Editor"), "__qt_resource_editor_tool_action", Qt::RightDockWidgetArea)
 {
 }
 
