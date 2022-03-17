@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 #include <toolbar_dialog.h>
-#include <ui_toolbar_dialog.h>
+#include <ui_designer_toolbar.h>
 
 #include <QSet>
 #include <QEvent>

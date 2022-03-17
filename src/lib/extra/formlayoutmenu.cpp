@@ -23,7 +23,7 @@
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
 #include <abstract_widgetfactory.h>
-#include <ui_form_layout_dialog.h>
+#include <ui_formlayout_addrow.h>
 
 #include <formlayoutmenu_p.h>
 #include <layoutinfo_p.h>

@@ -19,11 +19,11 @@
 
 #include <abstract_formeditor.h>
 #include <formeditor_optionspage.h>
+#include <preview_config_widget.h>
 
 #include <formwindowbase_p.h>
 #include <gridpanel_p.h>
 #include <grid_p.h>
-#include <previewconfigurationwidget_p.h>
 #include <shared_settings_p.h>
 #include <zoomwidget_p.h>
 #include <abstract_formwindowmanager.h>

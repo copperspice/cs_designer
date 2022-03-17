@@ -20,16 +20,12 @@
 #ifndef GRADIENTMANAGER_H
 #define GRADIENTMANAGER_H
 
-#include <QObject>
-#include <QMap>
-#include <QSize>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QGradient>
-
-class QGradient;
-class QPixmap;
-class QColor;
+#include <QMap>
+#include <QObject>
+#include <QSize>
 
 class QtGradientManager : public QObject
 {

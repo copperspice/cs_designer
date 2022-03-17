@@ -17,13 +17,13 @@
 *
 ***********************************************************************/
 
-#include <ui_new_form_widget.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
-#include <extension.h>
 #include <abstract_language.h>
 #include <abstract_widgetdatabase.h>
+#include <extension.h>
 #include <newform_widget.h>
+#include <ui_new_form_widget.h>
 
 #include <qdesigner_formbuilder_p.h>
 #include <sheet_delegate_p.h>

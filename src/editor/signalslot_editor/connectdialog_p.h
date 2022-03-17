@@ -20,7 +20,7 @@
 #ifndef CONNECTDIALOG_H
 #define CONNECTDIALOG_H
 
-#include <ui_connect_dialog.h>
+#include <ui_signal_connect_dialog.h>
 
 class QDesignerFormWindowInterface;
 

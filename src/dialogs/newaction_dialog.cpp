@@ -21,7 +21,7 @@
 #include <abstract_formeditor.h>
 #include <action_editor.h>
 #include <newaction_dialog.h>
-#include <ui_new_action_dialog.h>
+#include <ui_action_editor_new.h>
 
 #include <richtexteditor_p.h>
 #include <formwindowbase_p.h>

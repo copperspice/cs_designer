@@ -19,7 +19,7 @@
 
 #include <abstract_formeditor.h>
 #include <qdesigner_settings.h>
-#include <ui_addlink_dialog.h>
+#include <ui_richtext_addlink.h>
 
 #include <richtexteditor_p.h>
 #include <htmlhighlighter_p.h>

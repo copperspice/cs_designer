@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <ui_gridpanel_dialog.h>
+#include <ui_designer_gridpanel.h>
 
 #include <gridpanel_p.h>
 #include <grid_p.h>

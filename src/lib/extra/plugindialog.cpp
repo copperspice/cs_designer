@@ -17,14 +17,14 @@
 *
 ***********************************************************************/
 
-#include <plugindialog_p.h>
-#include <pluginmanager_p.h>
-#include <iconloader_p.h>
-
 #include <abstract_formeditor.h>
 #include <abstract_integration.h>
 #include <abstract_widgetdatabase.h>
 #include <customwidget.h>
+
+#include <plugindialog_p.h>
+#include <pluginmanager_p.h>
+#include <iconloader_p.h>
 
 #include <QStyle>
 #include <QHeaderView>

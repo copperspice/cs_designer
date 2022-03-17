@@ -40,12 +40,12 @@
 #include <buddyeditor_plugin.h>
 #include <tabordereditor_plugin.h>
 #include <code_dialog.h>
+#include <preview_manager.h>
 
 #include <pluginmanager_p.h>
 #include <qdesigner_formbuilder_p.h>
 #include <qdesigner_utils_p.h>
 #include <iconloader_p.h>
-#include <previewmanager_p.h>
 #include <qdesigner_formwindowmanager_p.h>
 #include <metadatabase_p.h>
 #include <formwindowbase_p.h>

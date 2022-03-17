@@ -25,16 +25,15 @@
 #include <abstract_integration.h>
 #include <extension.h>
 #include <signalslot_dialog.h>
-#include <widgetdatabase_p.h>
+#include <stylesheet_editor.h>
 #include <ui_signal_select_dialog.h>
 
-
+#include <widgetdatabase_p.h>
 #include <qdesigner_taskmenu_p.h>
 #include <qdesigner_command_p.h>
 #include <qdesigner_command2_p.h>
 #include <richtexteditor_p.h>
 #include <plaintexteditor_p.h>
-#include <stylesheeteditor_p.h>
 #include <qlayout_widget_p.h>
 #include <layout_p.h>
 #include <spacer_widget_p.h>
@@ -53,6 +52,9 @@
 
 #include <QAction>
 #include <QActionGroup>
+#include <QCoreApplication>
+#include <QDebug>
+#include <QLabel>
 #include <QWidget>
 #include <QMenuBar>
 #include <QMainWindow>
@@ -61,9 +63,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QUndoStack>
-#include <QDebug>
 #include <QSignalMapper>
-#include <QCoreApplication>
 
 static QMenuBar *findMenuBar(const QWidget *widget)
 {

@@ -21,7 +21,7 @@
 #include <abstract_formeditor.h>
 #include <preferences_dialog.h>
 #include <qdesigner_appearanceoptions.h>
-#include <ui_preferences_dialog.h>
+#include <ui_designer_preferences.h>
 
 #include <QFileDialog>
 #include <QPushButton>

@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 #include <formwindowsettings.h>
-#include <ui_form_window_settings.h>
+#include <ui_designer_form_settings.h>
 
 #include <formwindowbase_p.h>
 #include <grid_p.h>

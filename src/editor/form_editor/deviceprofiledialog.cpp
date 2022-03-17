@@ -19,7 +19,7 @@
 
 #include <abstract_dialoggui.h>
 #include <deviceprofiledialog.h>
-#include <ui_deviceprofile_dialog.h>
+#include <ui_designer_deviceprofile.h>
 
 #include <deviceprofile_p.h>
 

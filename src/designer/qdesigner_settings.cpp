@@ -17,15 +17,15 @@
 *
 ***********************************************************************/
 
+#include <abstract_formeditor.h>
 #include <qdesigner.h>
 #include <qdesigner_settings.h>
 #include <qdesigner_toolwindow.h>
 #include <qdesigner_workbench.h>
 #include <qdesigner_settings.h>
-#include <abstract_formeditor.h>
+#include <preview_manager.h>
 
 #include <qdesigner_utils_p.h>
-#include <previewmanager_p.h>
 
 #include <QVariant>
 #include <QDir>

@@ -22,9 +22,10 @@
 #include <qtgradientdialog.h>
 #include <qtgradientutils.h>
 
-#include <QPainter>
-#include <QMessageBox>
+#include <QColor>
 #include <QClipboard>
+#include <QMessageBox>
+#include <QPainter>
 
 void QtGradientView::slotGradientAdded(const QString &id, const QGradient &gradient)
 {

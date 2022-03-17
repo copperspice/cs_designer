@@ -17,9 +17,10 @@
 *
 ***********************************************************************/
 
+#include <stylesheet_editor.h>
+
 #include <textpropertyeditor_p.h>
 #include <propertylineedit_p.h>
-#include <stylesheeteditor_p.h>
 
 #include <QLineEdit>
 #include <QValidator>

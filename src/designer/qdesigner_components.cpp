@@ -26,7 +26,7 @@
 #include <abstract_language.h>
 #include <extension.h>
 #include <formeditor.h>
-#include <propertyeditor.h>
+#include <property_editor.h>
 #include <objectinspector.h>
 #include <taskmenu_component.h>
 #include <widgetbox.h>

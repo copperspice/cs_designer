@@ -22,7 +22,7 @@
 #include <abstract_formeditor.h>
 #include <container.h>
 #include <order_dialog.h>
-#include <ui_order_dialog.h>
+#include <ui_edit_pageorder.h>
 
 #include <iconloader_p.h>
 
