@@ -2398,14 +2398,14 @@ void ItemData::fillTreeItemColumn(QTreeWidgetItem *item, int column, DesignerIco
    }
 }
 
-ListContents::ListContents(const QTreeWidgetItem *item)
+ListData::ListData(const QTreeWidgetItem *item)
 {
    for (int i = 0; i < item->columnCount(); i++) {
       m_items.append(ItemData(item, i));
    }
 }
 
-QTreeWidgetItem *ListContents::createTreeItem(DesignerIconCache *iconCache) const
+QTreeWidgetItem *ListData::createTreeItem(DesignerIconCache *iconCache) const
 {
    QTreeWidgetItem *item = new QTreeWidgetItem;
    int i = 0;
@@ -2417,7 +2417,7 @@ QTreeWidgetItem *ListContents::createTreeItem(DesignerIconCache *iconCache) cons
    return item;
 }
 
-void ListContents::createFromListWidget(const QListWidget *listWidget, bool editor)
+void ListData::createFromListWidget(const QListWidget *listWidget, bool editor)
 {
    m_items.clear();
 
@@ -2426,7 +2426,7 @@ void ListContents::createFromListWidget(const QListWidget *listWidget, bool edit
    }
 }
 
-void ListContents::applyToListWidget(QListWidget *listWidget, DesignerIconCache *iconCache, bool editor) const
+void ListData::applyToListWidget(QListWidget *listWidget, DesignerIconCache *iconCache, bool editor) const
 {
    listWidget->clear();
 
@@ -2434,7 +2434,7 @@ void ListContents::applyToListWidget(QListWidget *listWidget, DesignerIconCache 
 
    for (const ItemData &entry : m_items) {
       if (! entry.isValid()) {
-         new QListWidgetItem(TableWidgetContents::defaultHeaderText(i), listWidget);
+         new QListWidgetItem(TableWidgetData::defaultHeaderText(i), listWidget);
       } else {
          listWidget->addItem(entry.createListItem(iconCache, editor));
       }
@@ -2443,7 +2443,7 @@ void ListContents::applyToListWidget(QListWidget *listWidget, DesignerIconCache 
    }
 }
 
-void ListContents::createFromComboBox(const QComboBox *comboBox)
+void ListData::createFromComboBox(const QComboBox *comboBox)
 {
    m_items.clear();
 
@@ -2466,7 +2466,7 @@ void ListContents::createFromComboBox(const QComboBox *comboBox)
    }
 }
 
-void ListContents::applyToComboBox(QComboBox *comboBox, DesignerIconCache *iconCache) const
+void ListData::applyToComboBox(QComboBox *comboBox, DesignerIconCache *iconCache) const
 {
    comboBox->clear();
 
@@ -2488,12 +2488,12 @@ void ListContents::applyToComboBox(QComboBox *comboBox, DesignerIconCache *iconC
    }
 }
 
-TableWidgetContents::TableWidgetContents()
+TableWidgetData::TableWidgetData()
    : m_columnCount(0), m_rowCount(0)
 {
 }
 
-void TableWidgetContents::clear()
+void TableWidgetData::clear()
 {
    m_horizontalHeader.m_items.clear();
    m_verticalHeader.m_items.clear();
@@ -2502,12 +2502,12 @@ void TableWidgetContents::clear()
    m_rowCount = 0;
 }
 
-QString TableWidgetContents::defaultHeaderText(int i)
+QString TableWidgetData::defaultHeaderText(int i)
 {
    return QString::number(i + 1);
 }
 
-bool TableWidgetContents::nonEmpty(const QTableWidgetItem *item, int headerColumn)
+bool TableWidgetData::nonEmpty(const QTableWidgetItem *item, int headerColumn)
 {
    static int defaultFlags = QTableWidgetItem().flags();
 
@@ -2537,7 +2537,7 @@ bool TableWidgetContents::nonEmpty(const QTableWidgetItem *item, int headerColum
    return false;
 }
 
-void TableWidgetContents::insertHeaderItem(const QTableWidgetItem *item, int i, ListContents *header, bool editor)
+void TableWidgetData::insertHeaderItem(const QTableWidgetItem *item, int i, ListData *header, bool editor)
 {
    if (nonEmpty(item, i)) {
       header->m_items.append(ItemData(item, editor));
@@ -2546,11 +2546,11 @@ void TableWidgetContents::insertHeaderItem(const QTableWidgetItem *item, int i, 
    }
 }
 
-void TableWidgetContents::fromTableWidget(const QTableWidget *tableWidget, bool editor)
+void TableWidgetData::fromTableWidget(const QTableWidget *tableWidget, bool editor)
 {
    clear();
    m_columnCount = tableWidget->columnCount();
-   m_rowCount = tableWidget->rowCount();
+   m_rowCount    = tableWidget->rowCount();
 
    // horiz header: Legacy behaviour: auto-generate number for empty items
    for (int col = 0; col <  m_columnCount; ++col) {
@@ -2568,17 +2568,18 @@ void TableWidgetContents::fromTableWidget(const QTableWidget *tableWidget, bool 
 
    // cell data
    for (int col = 0; col < m_columnCount; ++col) {
+
       for (int row = 0; row < m_rowCount; ++row) {
          if (const QTableWidgetItem *item = tableWidget->item(row, col)) {
             if (nonEmpty(item, -1)) {
-               m_items.insert(CellRowColumnAddress(row, col), ItemData(item, editor));
+               m_items.insert( {row, col}, ItemData(item, editor) );
             }
          }
       }
    }
 }
 
-void TableWidgetContents::applyToTableWidget(QTableWidget *tableWidget, DesignerIconCache *iconCache, bool editor) const
+void TableWidgetData::applyToTableWidget(QTableWidget *tableWidget, DesignerIconCache *iconCache, bool editor) const
 {
    tableWidget->clear();
 
@@ -2606,13 +2607,14 @@ void TableWidgetContents::applyToTableWidget(QTableWidget *tableWidget, Designer
    }
 
    // items
-   const TableItemMap::const_iterator icend = m_items.constEnd();
-   for (TableItemMap::const_iterator it = m_items.constBegin(); it !=  icend; ++ it) {
-      tableWidget->setItem(it.key().first, it.key().second, it.value().createTableItem(iconCache, editor));
+   auto iter_end = m_items.constEnd();
+
+   for (auto iter = m_items.constBegin(); iter !=  iter_end; ++iter) {
+      tableWidget->setItem(iter.key().first, iter.key().second, iter.value().createTableItem(iconCache, editor));
    }
 }
 
-bool TableWidgetContents::operator==(const TableWidgetContents &rhs) const
+bool TableWidgetData::operator==(const TableWidgetData &rhs) const
 {
    if (m_columnCount != rhs.m_columnCount || m_rowCount !=  rhs.m_rowCount) {
       return false;
@@ -2623,10 +2625,9 @@ bool TableWidgetContents::operator==(const TableWidgetContents &rhs) const
       m_items == rhs.m_items;
 }
 
-// ---- ChangeTableContentsCommand ----
-ChangeTableContentsCommand::ChangeTableContentsCommand(QDesignerFormWindowInterface *formWindow)  :
-   QDesignerFormWindowCommand(QApplication::translate("Command", "Change Table Contents"),
-      formWindow), m_iconCache(0)
+ChangeTableDataCommand::ChangeTableDataCommand(QDesignerFormWindowInterface *formWindow)
+   : QDesignerFormWindowCommand(QApplication::translate("Command", "Change Table Contents"),
+     formWindow), m_iconCache(0)
 {
    FormWindowBase *fwb = dynamic_cast<FormWindowBase *>(formWindow);
    if (fwb) {
@@ -2634,47 +2635,47 @@ ChangeTableContentsCommand::ChangeTableContentsCommand(QDesignerFormWindowInterf
    }
 }
 
-void ChangeTableContentsCommand::init(QTableWidget *tableWidget,
-   const TableWidgetContents &oldCont, const TableWidgetContents &newCont)
+void ChangeTableDataCommand::init(QTableWidget *tableWidget,
+   const TableWidgetData &oldCont, const TableWidgetData &newCont)
 {
    m_tableWidget = tableWidget;
    m_oldContents = oldCont;
    m_newContents = newCont;
 }
 
-void ChangeTableContentsCommand::redo()
+void ChangeTableDataCommand::redo()
 {
    m_newContents.applyToTableWidget(m_tableWidget, m_iconCache, false);
    QMetaObject::invokeMethod(m_tableWidget, "updateGeometries");
 }
 
-void ChangeTableContentsCommand::undo()
+void ChangeTableDataCommand::undo()
 {
    m_oldContents.applyToTableWidget(m_tableWidget, m_iconCache, false);
    QMetaObject::invokeMethod(m_tableWidget, "updateGeometries");
 }
 
-// --------- TreeWidgetContents
-TreeWidgetContents::ItemContents::ItemContents(const QTreeWidgetItem *item, bool editor) :
-   ListContents(item)
+TreeWidgetData::TreeNode::TreeNode(const QTreeWidgetItem *item, bool editor)
+   : ListData(item)
 {
    static const int defaultFlags = QTreeWidgetItem().flags();
 
    if (editor) {
       QVariant v = item->data(0, ItemFlagsShadowRole);
       m_itemFlags = v.isValid() ? v.toInt() : -1;
+
    } else  {
       m_itemFlags = (item->flags() != defaultFlags) ? (int)item->flags() : -1;
    }
 
-   for (int i = 0; i < item->childCount(); i++) {
-      m_children.append(ItemContents(item->child(i), editor));
+   for (int i = 0; i < item->childCount(); ++i) {
+      m_childNodes.append(TreeNode(item->child(i), editor));
    }
 }
 
-QTreeWidgetItem *TreeWidgetContents::ItemContents::createTreeItem(DesignerIconCache *iconCache, bool editor) const
+QTreeWidgetItem *TreeWidgetData::TreeNode::createTreeItem(DesignerIconCache *iconCache, bool editor) const
 {
-   QTreeWidgetItem *item = ListContents::createTreeItem(iconCache);
+   QTreeWidgetItem *item = ListData::createTreeItem(iconCache);
 
    if (editor) {
       item->setFlags(item->flags() | Qt::ItemIsEditable);
@@ -2688,58 +2689,54 @@ QTreeWidgetItem *TreeWidgetContents::ItemContents::createTreeItem(DesignerIconCa
       }
    }
 
-   for (const ItemContents &ic : m_children) {
+   for (const TreeNode &ic : m_childNodes) {
       item->addChild(ic.createTreeItem(iconCache, editor));
    }
 
    return item;
 }
 
-bool TreeWidgetContents::ItemContents::operator==(const TreeWidgetContents::ItemContents &rhs) const
+bool TreeWidgetData::TreeNode::operator==(const TreeWidgetData::TreeNode &rhs) const
 {
-   return
-      m_itemFlags == rhs.m_itemFlags &&
-      m_items == rhs.m_items &&
-      m_children == rhs.m_children;
+   return m_itemFlags == rhs.m_itemFlags && m_items == rhs.m_items && m_childNodes == rhs.m_childNodes;
 }
 
-void TreeWidgetContents::clear()
+void TreeWidgetData::clear()
 {
    m_headerItem.m_items.clear();
    m_rootItems.clear();
 }
 
-void TreeWidgetContents::fromTreeWidget(const QTreeWidget *treeWidget, bool editor)
+void TreeWidgetData::fromTreeWidget(const QTreeWidget *treeWidget, bool editor)
 {
    clear();
-   m_headerItem = ListContents(treeWidget->headerItem());
+   m_headerItem = ListData(treeWidget->headerItem());
+
    for (int col = 0; col < treeWidget->topLevelItemCount(); col++) {
-      m_rootItems.append(ItemContents(treeWidget->topLevelItem(col), editor));
+      m_rootItems.append(TreeNode(treeWidget->topLevelItem(col), editor));
    }
 }
 
-void TreeWidgetContents::applyToTreeWidget(QTreeWidget *treeWidget, DesignerIconCache *iconCache, bool editor) const
+void TreeWidgetData::applyToTreeWidget(QTreeWidget *treeWidget, DesignerIconCache *iconCache, bool editor) const
 {
    treeWidget->clear();
 
    treeWidget->setColumnCount(m_headerItem.m_items.count());
    treeWidget->setHeaderItem(m_headerItem.createTreeItem(iconCache));
 
-   for (const ItemContents &ic : m_rootItems) {
+   for (const TreeNode &ic : m_rootItems) {
       treeWidget->addTopLevelItem(ic.createTreeItem(iconCache, editor));
    }
    treeWidget->expandAll();
 }
 
-bool TreeWidgetContents::operator==(const TreeWidgetContents &rhs) const
+bool TreeWidgetData::operator==(const TreeWidgetData &rhs) const
 {
    return
-      m_headerItem == rhs.m_headerItem &&
-      m_rootItems == rhs.m_rootItems;
+      m_headerItem == rhs.m_headerItem && m_rootItems == rhs.m_rootItems;
 }
 
-// ---- ChangeTreeContentsCommand ----
-ChangeTreeContentsCommand::ChangeTreeContentsCommand(QDesignerFormWindowInterface *formWindow)
+ChangeTreeDataCommand::ChangeTreeDataCommand(QDesignerFormWindowInterface *formWindow)
    : QDesignerFormWindowCommand(QApplication::translate("Command", "Change Tree Contents"), formWindow),
      m_iconCache(0)
 {
@@ -2749,26 +2746,25 @@ ChangeTreeContentsCommand::ChangeTreeContentsCommand(QDesignerFormWindowInterfac
    }
 }
 
-void ChangeTreeContentsCommand::init(QTreeWidget *treeWidget,
-   const TreeWidgetContents &oldState, const TreeWidgetContents &newState)
+void ChangeTreeDataCommand::init(QTreeWidget *treeWidget,
+      const TreeWidgetData &oldState, const TreeWidgetData &newState)
 {
    m_treeWidget = treeWidget;
    m_oldState = oldState;
    m_newState = newState;
 }
 
-void ChangeTreeContentsCommand::redo()
+void ChangeTreeDataCommand::redo()
 {
    m_newState.applyToTreeWidget(m_treeWidget, m_iconCache, false);
 }
 
-void ChangeTreeContentsCommand::undo()
+void ChangeTreeDataCommand::undo()
 {
    m_oldState.applyToTreeWidget(m_treeWidget, m_iconCache, false);
 }
 
-// ---- ChangeListContentsCommand ----
-ChangeListContentsCommand::ChangeListContentsCommand(QDesignerFormWindowInterface *formWindow)
+ChangeListDataCommand::ChangeListDataCommand(QDesignerFormWindowInterface *formWindow)
    : QDesignerFormWindowCommand(QString(), formWindow), m_iconCache(0)
 {
    FormWindowBase *fwb = dynamic_cast<FormWindowBase *>(formWindow);
@@ -2777,8 +2773,7 @@ ChangeListContentsCommand::ChangeListContentsCommand(QDesignerFormWindowInterfac
    }
 }
 
-void ChangeListContentsCommand::init(QListWidget *listWidget,
-   const ListContents &oldItems, const ListContents &items)
+void ChangeListDataCommand::init(QListWidget *listWidget, const ListData &oldItems, const ListData &items)
 {
    m_listWidget = listWidget;
    m_comboBox = 0;
@@ -2787,8 +2782,7 @@ void ChangeListContentsCommand::init(QListWidget *listWidget,
    m_oldItemsState = oldItems;
 }
 
-void ChangeListContentsCommand::init(QComboBox *comboBox,
-   const ListContents &oldItems, const ListContents &items)
+void ChangeListDataCommand::init(QComboBox *comboBox, const ListData &oldItems, const ListData &items)
 {
    m_listWidget = 0;
    m_comboBox = comboBox;
@@ -2797,7 +2791,7 @@ void ChangeListContentsCommand::init(QComboBox *comboBox,
    m_oldItemsState = oldItems;
 }
 
-void ChangeListContentsCommand::redo()
+void ChangeListDataCommand::redo()
 {
    if (m_listWidget) {
       m_newItemsState.applyToListWidget(m_listWidget, m_iconCache, false);
@@ -2806,7 +2800,7 @@ void ChangeListContentsCommand::redo()
    }
 }
 
-void ChangeListContentsCommand::undo()
+void ChangeListDataCommand::undo()
 {
    if (m_listWidget) {
       m_oldItemsState.applyToListWidget(m_listWidget, m_iconCache, false);
@@ -2814,8 +2808,6 @@ void ChangeListContentsCommand::undo()
       m_oldItemsState.applyToComboBox(m_comboBox, m_iconCache);
    }
 }
-
-// ---- AddActionCommand ----
 
 AddActionCommand::AddActionCommand(QDesignerFormWindowInterface *formWindow) :
    QDesignerFormWindowCommand(QApplication::translate("Command", "Add action"), formWindow)

@@ -97,6 +97,7 @@ class ChangeZOrderCommand: public QDesignerFormWindowCommand
 
    virtual void redo();
    virtual void undo();
+
  protected:
    virtual QWidgetList reorderWidget(const QWidgetList &list, QWidget *widget) const = 0;
    virtual void reorder(QWidget *widget) const = 0;
@@ -828,11 +829,14 @@ class ChangeCurrentPageCommand: public QDesignerFormWindowCommand
 };
 
 struct ItemData {
-   ItemData() {}
+   ItemData()
+   {
+   }
 
    ItemData(const QListWidgetItem *item, bool editor);
    ItemData(const QTableWidgetItem *item, bool editor);
    ItemData(const QTreeWidgetItem *item, int column);
+
    QListWidgetItem *createListItem(DesignerIconCache *iconCache, bool editor) const;
    QTableWidgetItem *createTableItem(DesignerIconCache *iconCache, bool editor) const;
    void fillTreeItemColumn(QTreeWidgetItem *item, int column, DesignerIconCache *iconCache) const;
@@ -840,9 +844,11 @@ struct ItemData {
    bool isValid() const {
       return !m_properties.isEmpty();
    }
+
    bool operator==(const ItemData &rhs) const {
       return m_properties == rhs.m_properties;
    }
+
    bool operator!=(const ItemData &rhs) const {
       return m_properties != rhs.m_properties;
    }
@@ -850,10 +856,13 @@ struct ItemData {
    QHash<int, QVariant> m_properties;
 };
 
-struct ListContents {
-   ListContents() {}
+struct ListData {
+   ListData()
+   {
+   }
 
-   ListContents(const QTreeWidgetItem *item);
+   ListData(const QTreeWidgetItem *item);
+
    QTreeWidgetItem *createTreeItem(DesignerIconCache *iconCache) const;
 
    void createFromListWidget(const QListWidget *listWidget, bool editor);
@@ -861,80 +870,78 @@ struct ListContents {
    void createFromComboBox(const QComboBox *listWidget);
    void applyToComboBox(QComboBox *listWidget, DesignerIconCache *iconCache) const;
 
-   bool operator==(const ListContents &rhs) const {
+   bool operator==(const ListData &rhs) const {
       return m_items == rhs.m_items;
    }
-   bool operator!=(const ListContents &rhs) const {
+
+   bool operator!=(const ListData &rhs) const {
       return m_items != rhs.m_items;
    }
 
    QList<ItemData> m_items;
 };
 
-// Data structure representing the contents of a QTableWidget with
-// methods to retrieve and apply for ChangeTableContentsCommand
-struct TableWidgetContents {
-
-   typedef QPair<int, int> CellRowColumnAddress;
-   typedef QMap<CellRowColumnAddress, ItemData> TableItemMap;
-
-   TableWidgetContents();
+struct TableWidgetData {
+   TableWidgetData();
    void clear();
 
    void fromTableWidget(const QTableWidget *tableWidget, bool editor);
    void applyToTableWidget(QTableWidget *tableWidget, DesignerIconCache *iconCache, bool editor) const;
 
-   bool operator==(const TableWidgetContents &rhs) const;
-   bool operator!=(const TableWidgetContents &rhs) const {
+   bool operator==(const TableWidgetData &rhs) const;
+   bool operator!=(const TableWidgetData &rhs) const {
       return !(*this == rhs);
    }
 
    static bool nonEmpty(const QTableWidgetItem *item, int headerColumn);
    static QString defaultHeaderText(int i);
-   static void insertHeaderItem(const QTableWidgetItem *item, int i, ListContents *header, bool editor);
+   static void insertHeaderItem(const QTableWidgetItem *item, int i, ListData *header, bool editor);
 
    int m_columnCount;
    int m_rowCount;
-   ListContents m_horizontalHeader;
-   ListContents m_verticalHeader;
-   TableItemMap m_items;
+
+   ListData m_horizontalHeader;
+   ListData m_verticalHeader;
+
+   QMap<QPair<int, int>, ItemData> m_items;
 };
 
-class ChangeTableContentsCommand: public QDesignerFormWindowCommand
+class ChangeTableDataCommand : public QDesignerFormWindowCommand
 {
  public:
-   explicit ChangeTableContentsCommand(QDesignerFormWindowInterface *formWindow);
+   explicit ChangeTableDataCommand(QDesignerFormWindowInterface *formWindow);
 
-   void init(QTableWidget *tableWidget, const TableWidgetContents &oldCont, const TableWidgetContents &newCont);
+   void init(QTableWidget *tableWidget, const TableWidgetData &oldCont, const TableWidgetData &newCont);
    virtual void redo();
    virtual void undo();
 
  private:
    QPointer<QTableWidget> m_tableWidget;
-   TableWidgetContents m_oldContents;
-   TableWidgetContents m_newContents;
+   TableWidgetData m_oldContents;
+   TableWidgetData m_newContents;
    DesignerIconCache *m_iconCache;
 };
 
-// Data structure representing the contents of a QTreeWidget with
-// methods to retrieve and apply for ChangeTreeContentsCommand
-struct TreeWidgetContents {
+struct TreeWidgetData {
 
-   struct ItemContents : public ListContents {
-      ItemContents() : m_itemFlags(-1) {}
-      ItemContents(const QTreeWidgetItem *item, bool editor);
+   struct TreeNode : public ListData {
+      TreeNode()
+         : m_itemFlags(-1)
+      {
+      }
+
+      TreeNode(const QTreeWidgetItem *item, bool editor);
       QTreeWidgetItem *createTreeItem(DesignerIconCache *iconCache, bool editor) const;
 
-      bool operator==(const ItemContents &rhs) const;
-      bool operator!=(const ItemContents &rhs) const {
+      bool operator==(const TreeNode &rhs) const;
+
+      bool operator!=(const TreeNode &rhs) const {
          return !(*this == rhs);
       }
 
       int m_itemFlags;
-      //bool m_firstColumnSpanned:1;
-      //bool m_hidden:1;
-      //bool m_expanded:1;
-      QList<ItemContents> m_children;
+
+      QList<TreeNode> m_childNodes;
    };
 
    void clear();
@@ -942,61 +949,62 @@ struct TreeWidgetContents {
    void fromTreeWidget(const QTreeWidget *treeWidget, bool editor);
    void applyToTreeWidget(QTreeWidget *treeWidget, DesignerIconCache *iconCache, bool editor) const;
 
-   bool operator==(const TreeWidgetContents &rhs) const;
-   bool operator!=(const TreeWidgetContents &rhs) const {
+   bool operator==(const TreeWidgetData &rhs) const;
+   bool operator!=(const TreeWidgetData &rhs) const {
       return !(*this == rhs);
    }
 
-   ListContents m_headerItem;
-   QList<ItemContents> m_rootItems;
+   ListData m_headerItem;
+   QList<TreeNode> m_rootItems;
 };
 
-class ChangeTreeContentsCommand: public QDesignerFormWindowCommand
+class ChangeTreeDataCommand: public QDesignerFormWindowCommand
 {
-
  public:
-   explicit ChangeTreeContentsCommand(QDesignerFormWindowInterface *formWindow);
+   explicit ChangeTreeDataCommand(QDesignerFormWindowInterface *formWindow);
 
-   void init(QTreeWidget *treeWidget, const TreeWidgetContents &oldState, const TreeWidgetContents &newState);
+   void init(QTreeWidget *treeWidget, const TreeWidgetData &oldState, const TreeWidgetData &newState);
    virtual void redo();
    virtual void undo();
+
    enum ApplyIconStrategy {
       SetIconStrategy,
       ResetIconStrategy
    };
+
  private:
    QPointer<QTreeWidget> m_treeWidget;
-   TreeWidgetContents m_oldState;
-   TreeWidgetContents m_newState;
+   TreeWidgetData m_oldState;
+   TreeWidgetData m_newState;
    DesignerIconCache *m_iconCache;
 };
 
-class ChangeListContentsCommand: public QDesignerFormWindowCommand
+class ChangeListDataCommand : public QDesignerFormWindowCommand
 {
-
  public:
-   explicit ChangeListContentsCommand(QDesignerFormWindowInterface *formWindow);
+   explicit ChangeListDataCommand(QDesignerFormWindowInterface *formWindow);
 
-   void init(QListWidget *listWidget, const ListContents &oldItems, const ListContents &items);
-   void init(QComboBox *comboBox, const ListContents &oldItems, const ListContents &items);
+   void init(QListWidget *listWidget, const ListData &oldItems, const ListData &items);
+   void init(QComboBox *comboBox, const ListData &oldItems, const ListData &items);
    virtual void redo();
    virtual void undo();
+
  private:
    QPointer<QListWidget> m_listWidget;
    QPointer<QComboBox> m_comboBox;
-   ListContents m_oldItemsState;
-   ListContents m_newItemsState;
+   ListData m_oldItemsState;
+   ListData m_newItemsState;
    DesignerIconCache *m_iconCache;
 };
 
 class AddActionCommand : public QDesignerFormWindowCommand
 {
-
  public:
    explicit AddActionCommand(QDesignerFormWindowInterface *formWindow);
    void init(QAction *action);
    virtual void redo();
    virtual void undo();
+
  private:
    QAction *m_action;
 };
@@ -1006,7 +1014,6 @@ class AddActionCommand : public QDesignerFormWindowCommand
 // to add commands (for example, removal of signals and slots
 class RemoveActionCommand : public QDesignerFormWindowCommand
 {
-
  public:
    explicit RemoveActionCommand(QDesignerFormWindowInterface *formWindow);
    void init(QAction *action);
@@ -1019,6 +1026,7 @@ class RemoveActionCommand : public QDesignerFormWindowCommand
       QAction *before;
       QWidget *widget;
    };
+
    typedef QList<ActionDataItem> ActionData;
 
  private:
@@ -1029,7 +1037,6 @@ class RemoveActionCommand : public QDesignerFormWindowCommand
 
 class ActionInsertionCommand : public QDesignerFormWindowCommand
 {
-
  protected:
    ActionInsertionCommand(const QString &text, QDesignerFormWindowInterface *formWindow);
 
@@ -1049,7 +1056,6 @@ class ActionInsertionCommand : public QDesignerFormWindowCommand
 
 class InsertActionIntoCommand : public ActionInsertionCommand
 {
-
  public:
    explicit InsertActionIntoCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -1063,7 +1069,6 @@ class InsertActionIntoCommand : public ActionInsertionCommand
 
 class RemoveActionFromCommand : public ActionInsertionCommand
 {
-
  public:
    explicit RemoveActionFromCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -1095,7 +1100,6 @@ class MenuActionCommand : public QDesignerFormWindowCommand
 
 class AddMenuActionCommand : public MenuActionCommand
 {
-
  public:
    explicit AddMenuActionCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -1109,7 +1113,6 @@ class AddMenuActionCommand : public MenuActionCommand
 
 class RemoveMenuActionCommand : public MenuActionCommand
 {
-
  public:
    explicit RemoveMenuActionCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -1123,20 +1126,19 @@ class RemoveMenuActionCommand : public MenuActionCommand
 
 class CreateSubmenuCommand : public QDesignerFormWindowCommand
 {
-
  public:
    explicit CreateSubmenuCommand(QDesignerFormWindowInterface *formWindow);
    void init(QDesignerMenu *menu, QAction *action, QObject *m_objectToSelect = 0);
    virtual void redo();
    virtual void undo();
+
  private:
    QAction *m_action;
    QDesignerMenu *m_menu;
    QObject *m_objectToSelect;
 };
 
-} // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
 
-
-#endif // QDESIGNER_COMMAND_H
+#endif
