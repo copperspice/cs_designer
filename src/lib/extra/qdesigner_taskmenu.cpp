@@ -646,7 +646,7 @@ void QDesignerTaskMenu::changeWhatsThis()
 void QDesignerTaskMenu::changeStyleSheet()
 {
    if (QDesignerFormWindowInterface *fw = formWindow()) {
-      StyleSheetPropertyEditorDialog dlg(fw, fw, d->m_widget);
+      StyleSheetEditorDialog dlg(fw->core(), fw, d->m_widget);
       dlg.exec();
    }
 }
