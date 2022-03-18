@@ -20,7 +20,7 @@
 #ifndef PALETTE_EDITOR_H
 #define PALETTE_EDITOR_H
 
-#include <ui_palette_editor.h>
+#include <ui_edit_palette.h>
 
 class QtColorButton;
 class QDesignerFormEditorInterface;
