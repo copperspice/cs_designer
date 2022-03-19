@@ -132,28 +132,38 @@ class ObjectNameDialog : public QDialog
 };
 
 ObjectNameDialog::ObjectNameDialog(QWidget *parent, const QString &oldName)
-   : QDialog(parent),
-     m_editor( new qdesigner_internal::TextPropertyEditor(this,
-        qdesigner_internal::TextPropertyEditor::EmbeddingNone,
-        qdesigner_internal::ValidationObjectName))
+   : QDialog(parent)
 {
    setWindowTitle(QCoreApplication::translate("ObjectNameDialog", "Change Object Name"));
    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-   QVBoxLayout *vboxLayout = new QVBoxLayout(this);
-   vboxLayout->addWidget(new QLabel(QCoreApplication::translate("ObjectNameDialog", "Object Name")));
+   QLabel *label = new QLabel(QCoreApplication::translate("ObjectNameDialog", "Object Name:"));
+
+   m_editor = new qdesigner_internal::TextPropertyEditor(this,
+         qdesigner_internal::TextPropertyEditor::EmbeddingNone, qdesigner_internal::ValidationObjectName);
 
    m_editor->setText(oldName);
    m_editor->selectAll();
    m_editor->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
-   vboxLayout->addWidget(m_editor);
 
    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
       Qt::Horizontal, this);
 
    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
    okButton->setDefault(true);
-   vboxLayout->addWidget(buttonBox);
+
+   QGridLayout *layout = new QGridLayout(this);
+   layout->addWidget(label,     0, 0);
+   layout->addWidget(m_editor,  0, 1);
+   layout->addItem(new QSpacerItem(0, 5), 1, 0, 1, 2);
+   layout->addWidget(buttonBox, 2, 0, 1, 2);
+
+   // stretch the editor as the screen width changes
+   layout->setColumnStretch(1, 1);
+
+   // adjust the window width ( for the window title )
+   QSize size = QSize(300, this->height());
+   resize(size);
 
    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);

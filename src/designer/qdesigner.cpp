@@ -73,8 +73,6 @@ QDesigner::QDesigner(int &argc, char **argv)
    setOrganizationName("CopperSpice");
    setApplicationName("CS Designer");
 
-   QGuiApplication::setApplicationDisplayName("CS Designer");
-
 #ifndef Q_OS_DARWIN
    setWindowIcon(QIcon(":/resources/designer.png"));
 #endif
