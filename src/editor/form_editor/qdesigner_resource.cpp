@@ -455,12 +455,11 @@ DomProperty *QDesignerTextBuilder::saveText(const QVariant &value) const
    return 0;
 }
 
-QDesignerResource::QDesignerResource(FormWindow *formWindow)  :
-   QEditorFormBuilder(formWindow->core()),
-   m_formWindow(formWindow),
-   m_copyWidget(false),
-   m_selected(0),
-   m_resourceBuilder(new QDesignerResourceBuilder(m_formWindow->core(), m_formWindow->pixmapCache(), m_formWindow->iconCache()))
+QDesignerResource::QDesignerResource(FormWindow *formWindow)
+   : QEditorFormBuilder(formWindow->core()), m_formWindow(formWindow), m_isMainWidget(false),
+     m_copyWidget(false), m_selected(nullptr),
+     m_resourceBuilder(new QDesignerResourceBuilder(m_formWindow->core(), m_formWindow->pixmapCache(),
+     m_formWindow->iconCache()))
 {
    // Check language unless extension present (Jambi)
    QDesignerFormEditorInterface *core = m_formWindow->core();
@@ -1918,8 +1917,8 @@ DomUI *QDesignerResource::copy(const FormBuilderClipboard &selection)
 FormBuilderClipboard QDesignerResource::paste(DomUI *ui, QWidget *widgetParent, QObject *actionParent)
 {
    QDesignerWidgetItemInstaller wii; // Make sure we use QDesignerWidgetItem.
-   const int saved = m_isMainWidget;
-   m_isMainWidget = false;
+   const bool old_isMainWidget = m_isMainWidget;
+   m_isMainWidget  = false;
 
    FormBuilderClipboard rc;
 
@@ -1945,7 +1944,8 @@ FormBuilderClipboard QDesignerResource::paste(DomUI *ui, QWidget *widgetParent, 
             rc.m_actions .append(a);
          }
 
-   m_isMainWidget = saved;
+   // restore value
+   m_isMainWidget = old_isMainWidget;
 
    if (QDesignerExtraInfoExtension *extra = qt_extension<QDesignerExtraInfoExtension *>(core()->extensionManager(), core())) {
       extra->loadUiExtraInfo(ui);
