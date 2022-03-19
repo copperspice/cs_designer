@@ -489,7 +489,7 @@ QActionGroup *QDesignerActions::createHelpActions()
    connect(aboutDesignerAction, &QAction::triggered, this, &QDesignerActions::aboutDesigner);
    helpActions->addAction(aboutDesignerAction);
 
-   QAction *aboutCsAction = new QAction(tr("About CS"), this);
+   QAction *aboutCsAction = new QAction(tr("About CopperSpice"), this);
    aboutCsAction->setMenuRole(QAction::AboutCsRole);
    aboutCsAction->setObjectName("__about_cs_action");
    connect(aboutCsAction, &QAction::triggered, qApp, &QApplication::aboutCs);
