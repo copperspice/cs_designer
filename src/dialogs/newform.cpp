@@ -19,10 +19,10 @@
 
 #include <abstract_formeditor.h>
 #include <newform.h>
-#include <qdesigner_workbench.h>
-#include <qdesigner_actions.h>
-#include <qdesigner_formwindow.h>
-#include <qdesigner_settings.h>
+#include <designer_workbench.h>
+#include <designer_actions.h>
+#include <designer_formwindow.h>
+#include <designer_settings.h>
 #include <newform_widget.h>
 
 #include <QDir>

@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qdesigner.h>
+#include <designer.h>
 
 #include <QLabel>
 

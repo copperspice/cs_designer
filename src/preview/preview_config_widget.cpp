@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 #include <stylesheet_editor.h>
 #include <preview_config_widget.h>
 #include <preview_manager.h>

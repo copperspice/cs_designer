@@ -21,7 +21,7 @@
 #define NEWFORMWIDGET_H
 
 #include <abstract_newformwidget.h>
-#include <qdesigner_workbench.h>
+#include <designer_workbench.h>
 
 #include <deviceprofile_p.h>
 

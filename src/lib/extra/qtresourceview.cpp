@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 #include <abstract_formeditor.h>
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 
 #include <qtresourceview_p.h>
 #include <qtresourcemodel_p.h>

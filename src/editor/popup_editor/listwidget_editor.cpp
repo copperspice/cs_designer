@@ -17,12 +17,11 @@
 *
 ***********************************************************************/
 
-#include <listwidget_editor.h>
-#include <designer_property.h>
-#include <abstract_formbuilder.h>
-
-#include <qdesigner_settings.h>
 #include <abstract_formeditor.h>
+#include <abstract_formbuilder.h>
+#include <designer_property.h>
+#include <designer_settings.h>
+#include <listwidget_editor.h>
 
 #include <QComboBox>
 #include <QGroupBox>

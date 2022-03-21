@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 #include <saveform_as_template.h>
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 
 #include <QFile>
 #include <QFileDialog>

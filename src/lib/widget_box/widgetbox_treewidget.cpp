@@ -20,7 +20,7 @@
 #include <abstract_formeditor.h>
 #include <abstract_settings.h>
 #include <customwidget.h>
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 #include <widgetbox_treewidget.h>
 #include <widgetbox_categorylistview.h>
 

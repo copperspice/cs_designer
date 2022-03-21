@@ -21,7 +21,7 @@
 #include <action_repository.h>
 #include <abstract_formeditor.h>
 #include <abstract_propertyeditor.h>
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 #include <extension.h>
 #include <newaction_dialog.h>
 

@@ -25,7 +25,7 @@
 #include <gradient_select.h>
 #include <qtgradientmanager.h>
 #include <qtgradientutils.h>
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 #include <stylesheet_editor.h>
 
 #include <csshighlighter_p.h>

@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 #include <appfont_dialog.h>
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 #include <utils.h>
 
 #include <iconloader_p.h>

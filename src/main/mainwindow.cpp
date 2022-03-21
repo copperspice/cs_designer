@@ -19,12 +19,12 @@
 
 #include <abstract_formwindow.h>
 #include <mainwindow.h>
-#include <qdesigner.h>
-#include <qdesigner_actions.h>
-#include <qdesigner_workbench.h>
-#include <qdesigner_formwindow.h>
-#include <qdesigner_toolwindow.h>
-#include <qdesigner_settings.h>
+#include <designer.h>
+#include <designer_actions.h>
+#include <designer_workbench.h>
+#include <designer_formwindow.h>
+#include <designer_toolwindow.h>
+#include <designer_settings.h>
 #include <toolbar_dialog.h>
 
 #include <QAction>

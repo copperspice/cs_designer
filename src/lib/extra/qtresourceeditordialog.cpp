@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 #include <abstract_formeditor.h>
 #include <ui_resource_editor.h>
 

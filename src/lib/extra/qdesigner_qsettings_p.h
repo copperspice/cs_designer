@@ -21,7 +21,7 @@
 #define QDESIGNER_QSETTINGS_H
 
 #include <abstract_settings.h>
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 
 #include <QSettings>
 

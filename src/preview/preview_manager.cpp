@@ -19,7 +19,7 @@
 
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 #include <preview_manager.h>
 
 #include <formwindowbase_p.h>

@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 #include <abstract_formeditor.h>
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 #include <ui_richtext_addlink.h>
 
 #include <richtexteditor_p.h>

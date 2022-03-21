@@ -26,7 +26,7 @@
 #include <extension.h>
 #include <newdynamic_property.h>
 #include <property_editor.h>
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 #include <tree_propertybrowser.h>
 #include <variantproperty.h>
 
