@@ -781,6 +781,8 @@ bool runUIC(const QString &fileName, QByteArray &ba, QString &errorMessage)
    // const QString binary = QLibraryInfo::location(QLibraryInfo::BinariesPath) + "/uic";
 
    const QString binary;
+   errorMessage = "Processing UIC files have been turned off temporarily";
+
    return false;
 
 
