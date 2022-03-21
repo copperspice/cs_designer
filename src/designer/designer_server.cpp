@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <qdesigner.h>
-#include <qdesigner_server.h>
+#include <designer.h>
+#include <designer_server.h>
 
 #include <QFileInfo>
 #include <QStringList>

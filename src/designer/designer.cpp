@@ -17,12 +17,12 @@
 *
 ***********************************************************************/
 
-#include <qdesigner.h>
-#include <qdesigner_components.h>
-#include <qdesigner_actions.h>
-#include <qdesigner_server.h>
-#include <qdesigner_settings.h>
-#include <qdesigner_workbench.h>
+#include <designer.h>
+#include <designer_components.h>
+#include <designer_actions.h>
+#include <designer_server.h>
+#include <designer_settings.h>
+#include <designer_workbench.h>
 #include <mainwindow.h>
 
 #include <qdesigner_propertysheet_p.h>

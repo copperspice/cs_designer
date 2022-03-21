@@ -20,16 +20,17 @@
 #ifndef QDESIGNER_H
 #define QDESIGNER_H
 
-#include <QApplication>
-#include <QPointer>
-
 class QDesignerWorkbench;
 class QDesignerToolWindow;
 class MainWindowBase;
 class QDesignerServer;
 class QDesignerClient;
-class QErrorMessage;
+
+#include <QApplication>
+#include <QPointer>
+
 class QCommandLineParser;
+class QErrorMessage;
 
 #define qDesignerApp  (static_cast<QDesigner*>(QCoreApplication::instance()))
 

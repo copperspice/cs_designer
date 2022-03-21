@@ -21,7 +21,7 @@
 #define QDESIGNER_APPEARANCEOPTIONS_H
 
 #include <designer_enums.h>
-#include <qdesigner_toolwindow.h>
+#include <designer_toolwindow.h>
 #include <abstract_optionspage.h>
 
 #include <QObject>

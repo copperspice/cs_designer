@@ -17,30 +17,30 @@
 *
 ***********************************************************************/
 
-#include <qdesigner_actions.h>
-#include <designer_enums.h>
-#include <qdesigner.h>
-#include <qdesigner_workbench.h>
-#include <qdesigner_formwindow.h>
-#include <newform.h>
-#include <saveform_as_template.h>
-#include <qdesigner_toolwindow.h>
-#include <preferences_dialog.h>
-#include <appfont_dialog.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
 #include <abstract_integration.h>
 #include <abstract_language.h>
 #include <abstract_formwindowcursor.h>
 #include <abstract_formeditorplugin.h>
-#include <extension.h>
-#include <utils.h>
+#include <appfont_dialog.h>
+#include <designer.h>
+#include <designer_actions.h>
+#include <designer_enums.h>
+#include <designer_formwindow.h>
+#include <designer_toolwindow.h>
+#include <designer_workbench.h>
 #include <designer_build_info.h>
+#include <extension.h>
+#include <newform.h>
+#include <saveform_as_template.h>
+#include <preferences_dialog.h>
 #include <signalsloteditor_plugin.h>
 #include <buddyeditor_plugin.h>
 #include <tabordereditor_plugin.h>
 #include <code_dialog.h>
 #include <preview_manager.h>
+#include <utils.h>
 
 #include <pluginmanager_p.h>
 #include <qdesigner_formbuilder_p.h>
@@ -507,11 +507,10 @@ QString QDesignerActions::uiExtension() const
 {
    QDesignerLanguageExtension *lang = qt_extension<QDesignerLanguageExtension *>(m_core->extensionManager(), m_core);
 
-   if (lang)
-
-   {
+   if (lang) {
       return lang->uiExtension();
    }
+
    return QString("ui");
 }
 
@@ -528,16 +527,21 @@ QAction *QDesignerActions::createRecentFilesMenu()
       m_recentFilesActions->addAction(act);
       menu->addAction(act);
    }
+
    updateRecentFileActions();
    menu->addSeparator();
+
    act = new QAction(QIcon::fromTheme("edit-clear"), tr("Clear &Menu"), this);
    act->setObjectName("__qt_action_clear_menu_");
+
    connect(act, &QAction::triggered, this, &QDesignerActions::clearRecentFiles);
+
    m_recentFilesActions->addAction(act);
    menu->addAction(act);
 
    act = new QAction(QIcon::fromTheme("document-open-recent"), tr("&Recent Forms"), this);
    act->setMenu(menu);
+
    return act;
 }
 
@@ -660,6 +664,7 @@ bool QDesignerActions::saveFormAs(QDesignerFormWindowInterface *fw)
    const QString extension = uiExtension();
 
    QString dir = fw->fileName();
+
    if (dir.isEmpty()) {
       do {
          // Build untitled name
@@ -667,12 +672,16 @@ bool QDesignerActions::saveFormAs(QDesignerFormWindowInterface *fw)
             dir = m_saveDirectory;
             break;
          }
+
          if (!m_openDirectory.isEmpty()) {
             dir = m_openDirectory;
             break;
          }
+
          dir = QDir::current().absolutePath();
+
       } while (false);
+
       dir += QDir::separator();
       dir += QString("untitled.");
       dir += extension;
@@ -701,8 +710,10 @@ void QDesignerActions::saveAllForms()
 {
    QString fileNames;
    QDesignerFormWindowManagerInterface *formWindowManager = core()->formWindowManager();
+
    if (const int totalWindows = formWindowManager->formWindowCount()) {
       const QString separator = QString(", ");
+
       for (int i = 0; i < totalWindows; ++i) {
          QDesignerFormWindowInterface *fw = formWindowManager->formWindow(i);
          if (fw && fw->isDirty()) {
@@ -782,12 +793,15 @@ void QDesignerActions::closePreview()
 void  QDesignerActions::viewCode()
 {
    QDesignerFormWindowInterface *fw = core()->formWindowManager()->activeFormWindow();
-   if (!fw) {
+
+   if (fw == nullptr) {
       return;
    }
+
    QString errorMessage;
-   if (!qdesigner_internal::CodeDialog::showCodeDialog(fw, fw, &errorMessage)) {
-      QMessageBox::warning(fw, tr("Code generation failed"), errorMessage);
+
+   if (! qdesigner_internal::CodeDialog::showCodeDialog(fw, fw, &errorMessage)) {
+      csError(tr("Code generation failed"), errorMessage);
    }
 }
 

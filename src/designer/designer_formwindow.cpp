@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <qdesigner_formwindow.h>
-#include <qdesigner_workbench.h>
+#include <designer_formwindow.h>
+#include <designer_workbench.h>
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
 #include <extension.h>

@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 #include <abstract_integration.h>
-#include <qdesigner_components.h>
+#include <designer_components.h>
 #include <signalsloteditorwindow.h>
 #include <buddyeditor_plugin.h>
 #include <signalsloteditor_plugin.h>

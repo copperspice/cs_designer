@@ -20,7 +20,7 @@
 #ifndef QDESIGNER_ACTIONS_H
 #define QDESIGNER_ACTIONS_H
 
-#include <qdesigner_settings.h>
+#include <designer_settings.h>
 
 class AppFontDialog;
 class QDesignerFormEditorInterface;

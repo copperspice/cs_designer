@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#include <qdesigner_appearanceoptions.h>
-#include <qdesigner_settings.h>
-#include <qdesigner_toolwindow.h>
 #include <abstract_formeditor.h>
+#include <designer_appearanceoptions.h>
+#include <designer_settings.h>
+#include <designer_toolwindow.h>
 #include <ui_designer_options.h>
 
 #include <QTimer>

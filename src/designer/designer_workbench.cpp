@@ -17,20 +17,20 @@
 *
 ***********************************************************************/
 
-#include <qdesigner_workbench.h>
-#include <qdesigner.h>
-#include <qdesigner_actions.h>
-#include <qdesigner_appearanceoptions.h>
-#include <qdesigner_settings.h>
-#include <qdesigner_toolwindow.h>
-#include <qdesigner_formwindow.h>
+#include <designer_workbench.h>
+#include <designer.h>
+#include <designer_actions.h>
+#include <designer_appearanceoptions.h>
+#include <designer_components.h>
+#include <designer_settings.h>
+#include <designer_toolwindow.h>
+#include <designer_formwindow.h>
 #include <appfont_dialog.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
 #include <abstract_formwindowmanager.h>
 #include <abstract_formeditorplugin.h>
 #include <abstract_metadatabase.h>
-#include <qdesigner_components.h>
 #include <abstract_integration.h>
 #include <action_editor.h>
 
