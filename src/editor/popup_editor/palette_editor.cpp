@@ -48,6 +48,24 @@ PaletteEditor::PaletteEditor(QDesignerFormEditorInterface *core, QWidget *parent
    ui.paletteView->setItemDelegate(delegate);
    ui.paletteView->setEditTriggers(QAbstractItemView::AllEditTriggers);
 
+   connect(ui.activeRadio,  &QRadioButton::clicked,
+         this, &PaletteEditor::activeRadio);
+
+   connect(ui.inactiveRadio,  &QRadioButton::clicked,
+         this, &PaletteEditor::inactiveRadio);
+
+   connect(ui.disabledRadio,  &QRadioButton::clicked,
+         this, &PaletteEditor::disabledRadio);
+
+   connect(ui.computeRadio,  &QRadioButton::clicked,
+         this, &PaletteEditor::computeRadio);
+
+   connect(ui.detailsRadio,  &QRadioButton::clicked,
+         this, &PaletteEditor::detailsRadio);
+
+   connect(ui.buildButton,  &QtColorButton::colorChanged,
+         this, &PaletteEditor::buildButton_colorChanged);
+
    connect(m_paletteModel, &PaletteModel::paletteChanged,
          this, &PaletteEditor::paletteChanged);
 
@@ -106,30 +124,30 @@ void PaletteEditor::setPalette(const QPalette &palette, const QPalette &parentPa
    setPalette(palette);
 }
 
-void PaletteEditor::on_buildButton_colorChanged(const QColor &)
+void PaletteEditor::buildButton_colorChanged(const QColor &)
 {
    buildPalette();
 }
 
-void PaletteEditor::on_activeRadio_clicked()
+void PaletteEditor::activeRadio()
 {
    m_currentColorGroup = QPalette::Active;
    updatePreviewPalette();
 }
 
-void PaletteEditor::on_inactiveRadio_clicked()
+void PaletteEditor::inactiveRadio()
 {
    m_currentColorGroup = QPalette::Inactive;
    updatePreviewPalette();
 }
 
-void PaletteEditor::on_disabledRadio_clicked()
+void PaletteEditor::disabledRadio()
 {
    m_currentColorGroup = QPalette::Disabled;
    updatePreviewPalette();
 }
 
-void PaletteEditor::on_computeRadio_clicked()
+void PaletteEditor::computeRadio()
 {
    if (m_compute) {
       return;
@@ -142,7 +160,7 @@ void PaletteEditor::on_computeRadio_clicked()
    m_paletteModel->setCompute(true);
 }
 
-void PaletteEditor::on_detailsRadio_clicked()
+void PaletteEditor::detailsRadio()
 {
    if (! m_compute) {
       return;

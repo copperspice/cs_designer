@@ -49,26 +49,14 @@ class PaletteEditor: public QDialog
    void setPalette(const QPalette &palette, const QPalette &parentPalette);
 
  private:
-   CS_SLOT_1(Private, void on_buildButton_colorChanged(const QColor &un_named_arg1))
-   CS_SLOT_2(on_buildButton_colorChanged)
-
-   CS_SLOT_1(Private, void on_activeRadio_clicked())
-   CS_SLOT_2(on_activeRadio_clicked)
-
-   CS_SLOT_1(Private, void on_inactiveRadio_clicked())
-   CS_SLOT_2(on_inactiveRadio_clicked)
-
-   CS_SLOT_1(Private, void on_disabledRadio_clicked())
-   CS_SLOT_2(on_disabledRadio_clicked)
-
-   CS_SLOT_1(Private, void on_computeRadio_clicked())
-   CS_SLOT_2(on_computeRadio_clicked)
-
-   CS_SLOT_1(Private, void on_detailsRadio_clicked())
-   CS_SLOT_2(on_detailsRadio_clicked)
-
-   CS_SLOT_1(Private, void paletteChanged(const QPalette &palette))
-   CS_SLOT_2(paletteChanged)
+   // slots
+   void activeRadio();
+   void inactiveRadio();
+   void disabledRadio();
+   void computeRadio();
+   void detailsRadio();
+   void buildButton_colorChanged(const QColor &color);
+   void paletteChanged(const QPalette &palette);
 
    PaletteEditor(QDesignerFormEditorInterface *core, QWidget *parent);
    void buildPalette();

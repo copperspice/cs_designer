@@ -49,56 +49,25 @@ class TreeWidgetEditor: public AbstractItemEditor
    QVariant getItemData(int role) const override;
 
  private:
-   CS_SLOT_1(Private, void on_newItemButton_clicked())
-   CS_SLOT_2(on_newItemButton_clicked)
+   // slots
+   void newItemButton();
+   void newSubItemButton();
+   void deleteItemButton();
+   void moveItemUpButton();
+   void moveItemDownButton();
+   void moveItemRightButton();
+   void moveItemLeftButton();
+   void treeWidget_currentItemChanged();
+   void treeWidget_itemChanged(QTreeWidgetItem *item, int column);
+   void columnEditor_indexChanged(int idx);
+   void columnEditor_itemChanged(int idx, int role, const QVariant &v);
+   void columnEditor_itemInserted(int idx);
+   void columnEditor_itemDeleted(int idx);
+   void columnEditor_itemMovedUp(int idx);
+   void columnEditor_itemMovedDown(int idx);
+   void togglePropertyBrowser();
+   void cacheReloaded();
 
-   CS_SLOT_1(Private, void on_newSubItemButton_clicked())
-   CS_SLOT_2(on_newSubItemButton_clicked)
-
-   CS_SLOT_1(Private, void on_deleteItemButton_clicked())
-   CS_SLOT_2(on_deleteItemButton_clicked)
-
-   CS_SLOT_1(Private, void on_moveItemUpButton_clicked())
-   CS_SLOT_2(on_moveItemUpButton_clicked)
-
-   CS_SLOT_1(Private, void on_moveItemDownButton_clicked())
-   CS_SLOT_2(on_moveItemDownButton_clicked)
-
-   CS_SLOT_1(Private, void on_moveItemRightButton_clicked())
-   CS_SLOT_2(on_moveItemRightButton_clicked)
-
-   CS_SLOT_1(Private, void on_moveItemLeftButton_clicked())
-   CS_SLOT_2(on_moveItemLeftButton_clicked)
-
-   CS_SLOT_1(Private, void on_treeWidget_currentItemChanged())
-   CS_SLOT_2(on_treeWidget_currentItemChanged)
-
-   CS_SLOT_1(Private, void on_treeWidget_itemChanged(QTreeWidgetItem *item, int column))
-   CS_SLOT_2(on_treeWidget_itemChanged)
-
-   CS_SLOT_1(Private, void on_columnEditor_indexChanged(int idx))
-   CS_SLOT_2(on_columnEditor_indexChanged)
-
-   CS_SLOT_1(Private, void on_columnEditor_itemChanged(int idx, int role, const QVariant &v))
-   CS_SLOT_2(on_columnEditor_itemChanged)
-
-   CS_SLOT_1(Private, void on_columnEditor_itemInserted(int idx))
-   CS_SLOT_2(on_columnEditor_itemInserted)
-
-   CS_SLOT_1(Private, void on_columnEditor_itemDeleted(int idx))
-   CS_SLOT_2(on_columnEditor_itemDeleted)
-
-   CS_SLOT_1(Private, void on_columnEditor_itemMovedUp(int idx))
-   CS_SLOT_2(on_columnEditor_itemMovedUp)
-
-   CS_SLOT_1(Private, void on_columnEditor_itemMovedDown(int idx))
-   CS_SLOT_2(on_columnEditor_itemMovedDown)
-
-   CS_SLOT_1(Private, void togglePropertyBrowser())
-   CS_SLOT_2(togglePropertyBrowser)
-
-   CS_SLOT_1(Private, void cacheReloaded())
-   CS_SLOT_2(cacheReloaded)
 
    void setPropertyBrowserVisible(bool v);
    QtVariantProperty *setupPropertyGroup(const QString &title, PropertyDefinition *propDefs);

@@ -45,8 +45,6 @@ TreeWidgetEditor::TreeWidgetEditor(QDesignerFormWindowInterface *form, QDialog *
    ui.setupUi(dialog);
 
    injectPropertyBrowser(ui.itemsTab, ui.widget);
-   connect(ui.showPropertiesButton, &QAbstractButton::clicked,
-      this, &TreeWidgetEditor::togglePropertyBrowser);
    setPropertyBrowserVisible(false);
 
    ui.tabWidget->insertTab(0, m_columnEditor, tr("&Columns"));
@@ -63,37 +61,40 @@ TreeWidgetEditor::TreeWidgetEditor(QDesignerFormWindowInterface *form, QDialog *
 
    ui.treeWidget->header()->setSectionsMovable(false);
 
-   connect(ui.newItemButton,       &QAbstractButton::clicked, this, &TreeWidgetEditor::on_newItemButton_clicked);
-   connect(ui.newSubItemButton,    &QAbstractButton::clicked, this, &TreeWidgetEditor::on_newSubItemButton_clicked);
-   connect(ui.moveItemUpButton,    &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemUpButton_clicked);
-   connect(ui.moveItemDownButton,  &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemDownButton_clicked);
-   connect(ui.moveItemRightButton, &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemRightButton_clicked);
-   connect(ui.moveItemLeftButton,  &QAbstractButton::clicked, this, &TreeWidgetEditor::on_moveItemLeftButton_clicked);
-   connect(ui.deleteItemButton,    &QAbstractButton::clicked, this, &TreeWidgetEditor::on_deleteItemButton_clicked);
+   connect(ui.showPropertiesButton, &QAbstractButton::clicked,
+         this, &TreeWidgetEditor::togglePropertyBrowser);
+
+   connect(ui.newItemButton,       &QAbstractButton::clicked, this, &TreeWidgetEditor::newItemButton);
+   connect(ui.newSubItemButton,    &QAbstractButton::clicked, this, &TreeWidgetEditor::newSubItemButton);
+   connect(ui.deleteItemButton,    &QAbstractButton::clicked, this, &TreeWidgetEditor::deleteItemButton);
+   connect(ui.moveItemUpButton,    &QAbstractButton::clicked, this, &TreeWidgetEditor::moveItemUpButton);
+   connect(ui.moveItemDownButton,  &QAbstractButton::clicked, this, &TreeWidgetEditor::moveItemDownButton);
+   connect(ui.moveItemRightButton, &QAbstractButton::clicked, this, &TreeWidgetEditor::moveItemRightButton);
+   connect(ui.moveItemLeftButton,  &QAbstractButton::clicked, this, &TreeWidgetEditor::moveItemLeftButton);
 
    connect(ui.treeWidget, &QTreeWidget::currentItemChanged,
-         this, &TreeWidgetEditor::on_treeWidget_currentItemChanged);
+         this, &TreeWidgetEditor::treeWidget_currentItemChanged);
 
    connect(ui.treeWidget, &QTreeWidget::itemChanged,
-         this, &TreeWidgetEditor::on_treeWidget_itemChanged);
+         this, &TreeWidgetEditor::treeWidget_itemChanged);
 
    connect(m_columnEditor, &ItemListEditor::indexChanged,
-         this, &TreeWidgetEditor::on_columnEditor_indexChanged);
+         this, &TreeWidgetEditor::columnEditor_indexChanged);
 
    connect(m_columnEditor, &ItemListEditor::itemChanged,
-         this, &TreeWidgetEditor::on_columnEditor_itemChanged);
+         this, &TreeWidgetEditor::columnEditor_itemChanged);
 
    connect(m_columnEditor, &ItemListEditor::itemInserted,
-         this, &TreeWidgetEditor::on_columnEditor_itemInserted);
+         this, &TreeWidgetEditor::columnEditor_itemInserted);
 
    connect(m_columnEditor, &ItemListEditor::itemDeleted,
-         this, &TreeWidgetEditor::on_columnEditor_itemDeleted);
+         this, &TreeWidgetEditor::columnEditor_itemDeleted);
 
    connect(m_columnEditor, &ItemListEditor::itemMovedUp,
-         this, &TreeWidgetEditor::on_columnEditor_itemMovedUp);
+         this, &TreeWidgetEditor::columnEditor_itemMovedUp);
 
    connect(m_columnEditor, &ItemListEditor::itemMovedDown,
-         this, &TreeWidgetEditor::on_columnEditor_itemMovedDown);
+         this, &TreeWidgetEditor::columnEditor_itemMovedDown);
 
    connect(iconCache(), &DesignerIconCache::reloaded,
          this, &TreeWidgetEditor::cacheReloaded);
@@ -204,7 +205,7 @@ QVariant TreeWidgetEditor::getItemData(int role) const
    return ui.treeWidget->currentItem()->data(col, role);
 }
 
-void TreeWidgetEditor::on_newItemButton_clicked()
+void TreeWidgetEditor::newItemButton()
 {
    QTreeWidgetItem *curItem = ui.treeWidget->currentItem();
    QTreeWidgetItem *newItem = 0;
@@ -232,7 +233,7 @@ void TreeWidgetEditor::on_newItemButton_clicked()
    ui.treeWidget->editItem(newItem, ui.treeWidget->currentColumn());
 }
 
-void TreeWidgetEditor::on_newSubItemButton_clicked()
+void TreeWidgetEditor::newSubItemButton()
 {
    QTreeWidgetItem *curItem = ui.treeWidget->currentItem();
    if (!curItem) {
@@ -252,7 +253,7 @@ void TreeWidgetEditor::on_newSubItemButton_clicked()
    ui.treeWidget->editItem(newItem, ui.treeWidget->currentColumn());
 }
 
-void TreeWidgetEditor::on_deleteItemButton_clicked()
+void TreeWidgetEditor::deleteItemButton()
 {
    QTreeWidgetItem *curItem = ui.treeWidget->currentItem();
    if (!curItem) {
@@ -283,6 +284,7 @@ void TreeWidgetEditor::on_deleteItemButton_clicked()
          nextCurrent = ui.treeWidget->topLevelItem(idx);
       }
    }
+
    closeEditors();
    ui.treeWidget->blockSignals(true);
    delete curItem;
@@ -294,7 +296,7 @@ void TreeWidgetEditor::on_deleteItemButton_clicked()
    updateEditor();
 }
 
-void TreeWidgetEditor::on_moveItemUpButton_clicked()
+void TreeWidgetEditor::moveItemUpButton()
 {
    QTreeWidgetItem *curItem = ui.treeWidget->currentItem();
    if (!curItem) {
@@ -307,12 +309,14 @@ void TreeWidgetEditor::on_moveItemUpButton_clicked()
    } else {
       idx = ui.treeWidget->indexOfTopLevelItem(curItem);
    }
+
    if (idx == 0) {
       return;
    }
 
    QTreeWidgetItem *takenItem;
    ui.treeWidget->blockSignals(true);
+
    if (curItem->parent()) {
       QTreeWidgetItem *parentItem = curItem->parent();
       takenItem = parentItem->takeChild(idx);
@@ -327,7 +331,7 @@ void TreeWidgetEditor::on_moveItemUpButton_clicked()
    updateEditor();
 }
 
-void TreeWidgetEditor::on_moveItemDownButton_clicked()
+void TreeWidgetEditor::moveItemDownButton()
 {
    QTreeWidgetItem *curItem = ui.treeWidget->currentItem();
    if (!curItem) {
@@ -362,7 +366,7 @@ void TreeWidgetEditor::on_moveItemDownButton_clicked()
    updateEditor();
 }
 
-void TreeWidgetEditor::on_moveItemLeftButton_clicked()
+void TreeWidgetEditor::moveItemLeftButton()
 {
    QTreeWidgetItem *curItem = ui.treeWidget->currentItem();
    if (!curItem) {
@@ -376,6 +380,7 @@ void TreeWidgetEditor::on_moveItemLeftButton_clicked()
 
    ui.treeWidget->blockSignals(true);
    QTreeWidgetItem *takenItem = parentItem->takeChild(parentItem->indexOfChild(curItem));
+
    if (parentItem->parent()) {
       int idx = parentItem->parent()->indexOfChild(parentItem);
       parentItem->parent()->insertChild(idx, takenItem);
@@ -389,7 +394,7 @@ void TreeWidgetEditor::on_moveItemLeftButton_clicked()
    updateEditor();
 }
 
-void TreeWidgetEditor::on_moveItemRightButton_clicked()
+void TreeWidgetEditor::moveItemRightButton()
 {
    QTreeWidgetItem *curItem = ui.treeWidget->currentItem();
    if (!curItem) {
@@ -404,12 +409,14 @@ void TreeWidgetEditor::on_moveItemRightButton_clicked()
       idx = ui.treeWidget->indexOfTopLevelItem(curItem);
       idxCount = ui.treeWidget->topLevelItemCount();
    }
+
    if (idx == idxCount - 1) {
       return;
    }
 
    QTreeWidgetItem *takenItem;
    ui.treeWidget->blockSignals(true);
+
    if (curItem->parent()) {
       QTreeWidgetItem *parentItem = curItem->parent()->child(idx + 1);
       takenItem = curItem->parent()->takeChild(idx);
@@ -436,13 +443,13 @@ void TreeWidgetEditor::setPropertyBrowserVisible(bool v)
    m_propertyBrowser->setVisible(v);
 }
 
-void TreeWidgetEditor::on_treeWidget_currentItemChanged()
+void TreeWidgetEditor::treeWidget_currentItemChanged()
 {
    m_columnEditor->setCurrentIndex(ui.treeWidget->currentColumn());
    updateEditor();
 }
 
-void TreeWidgetEditor::on_treeWidget_itemChanged(QTreeWidgetItem *item, int column)
+void TreeWidgetEditor::treeWidget_itemChanged(QTreeWidgetItem *item, int column)
 {
    if (m_updatingBrowser) {
       return;
@@ -458,14 +465,14 @@ void TreeWidgetEditor::on_treeWidget_itemChanged(QTreeWidgetItem *item, int colu
    updateBrowser();
 }
 
-void TreeWidgetEditor::on_columnEditor_indexChanged(int idx)
+void TreeWidgetEditor::columnEditor_indexChanged(int idx)
 {
    if (QTreeWidgetItem *item = ui.treeWidget->currentItem()) {
       ui.treeWidget->setCurrentItem(item, idx);
    }
 }
 
-void TreeWidgetEditor::on_columnEditor_itemChanged(int idx, int role, const QVariant &v)
+void TreeWidgetEditor::columnEditor_itemChanged(int idx, int role, const QVariant &v)
 {
    if (role == Qt::DisplayPropertyRole) {
       ui.treeWidget->headerItem()->setData(idx, Qt::EditRole, v.value<PropertySheetStringValue>().value());
@@ -611,7 +618,7 @@ void TreeWidgetEditor::moveColumnsRight(int fromColumn, int toColumn)
    moveColumns(toColumn, fromColumn, 1);
 }
 
-void TreeWidgetEditor::on_columnEditor_itemInserted(int idx)
+void TreeWidgetEditor::columnEditor_itemInserted(int idx)
 {
    int columnCount = ui.treeWidget->columnCount();
    ui.treeWidget->setColumnCount(columnCount + 1);
@@ -621,7 +628,7 @@ void TreeWidgetEditor::on_columnEditor_itemInserted(int idx)
    updateEditor();
 }
 
-void TreeWidgetEditor::on_columnEditor_itemDeleted(int idx)
+void TreeWidgetEditor::columnEditor_itemDeleted(int idx)
 {
    closeEditors();
 
@@ -636,7 +643,7 @@ void TreeWidgetEditor::on_columnEditor_itemDeleted(int idx)
    updateEditor();
 }
 
-void TreeWidgetEditor::on_columnEditor_itemMovedUp(int idx)
+void TreeWidgetEditor::columnEditor_itemMovedUp(int idx)
 {
    moveColumnsRight(idx - 1, idx);
 
@@ -644,7 +651,7 @@ void TreeWidgetEditor::on_columnEditor_itemMovedUp(int idx)
    updateEditor();
 }
 
-void TreeWidgetEditor::on_columnEditor_itemMovedDown(int idx)
+void TreeWidgetEditor::columnEditor_itemMovedDown(int idx)
 {
    moveColumnsLeft(idx, idx + 1);
 
