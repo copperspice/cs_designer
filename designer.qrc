@@ -2,9 +2,9 @@
 <RCC version="1.0">
    <qresource prefix="/">
         <file>resources/designer.icns</file>
-        <file>resources/Info_mac.plist</file>
         <file>resources/designer.ico</file>
         <file>resources/designer.png</file>
+        <file>resources/Info_mac.plist</file>
         <file>resources/widgetbox.xml</file>
 
         <file>resources/designer_de.qm</file>
@@ -20,28 +20,30 @@
    </qresource>
 
    <qresource prefix="/">
+    <file>resources/form_editor/images/cleartext.png</file>
+    <file>resources/form_editor/images/color.png</file>
+    <file>resources/form_editor/images/configure.png</file>
     <file>resources/form_editor/images/cslogo-32.png</file>
     <file>resources/form_editor/images/cslogo-64.png</file>
-    <file>resources/form_editor/images/submenu.png</file>
+    <file>resources/form_editor/images/downplus.png</file>
+    <file>resources/form_editor/images/dropdownbutton.png</file>
+    <file>resources/form_editor/images/edit.png</file>
+    <file>resources/form_editor/images/editdelete-16.png</file>
     <file>resources/form_editor/images/emptyicon.png</file>
     <file>resources/form_editor/images/filenew-16.png</file>
     <file>resources/form_editor/images/fileopen-16.png</file>
-    <file>resources/form_editor/images/editdelete-16.png</file>
-    <file>resources/form_editor/images/plus-16.png</file>
-    <file>resources/form_editor/images/minus-16.png</file>
-    <file>resources/form_editor/images/prefix-add.png</file>
-    <file>resources/form_editor/images/downplus.png</file>
     <file>resources/form_editor/images/leveldown.png</file>
     <file>resources/form_editor/images/levelup.png</file>
-    <file>resources/form_editor/images/righttoleft.png</file>
-    <file>resources/form_editor/images/resetproperty.png</file>
-    <file>resources/form_editor/images/cleartext.png</file>
-    <file>resources/form_editor/images/sort.png</file>
-    <file>resources/form_editor/images/edit.png</file>
+    <file>resources/form_editor/images/minus-16.png</file>
+    <file>resources/form_editor/images/plus-16.png</file>
+    <file>resources/form_editor/images/prefix-add.png</file>
     <file>resources/form_editor/images/reload.png</file>
-    <file>resources/form_editor/images/configure.png</file>
-    <file>resources/form_editor/images/color.png</file>
-    <file>resources/form_editor/images/dropdownbutton.png</file>
+    <file>resources/form_editor/images/resetproperty.png</file>
+    <file>resources/form_editor/images/righttoleft.png</file>
+    <file>resources/form_editor/images/scratchpad-32.png</file>
+    <file>resources/form_editor/images/scratchpad-64.png</file>
+    <file>resources/form_editor/images/sort.png</file>
+    <file>resources/form_editor/images/submenu.png</file>
 
     <file>resources/form_editor/images/cursors/arrow.png</file>
     <file>resources/form_editor/images/cursors/busy.png</file>
