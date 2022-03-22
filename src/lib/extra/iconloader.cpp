@@ -57,13 +57,15 @@ QIcon emptyIcon()
 static QIcon buildIcon(const QString &prefix, const int *sizes, size_t sizeCount)
 {
    QIcon result;
+
    for (size_t i = 0; i < sizeCount; ++i) {
       const QString size = QString::number(sizes[i]);
-      const QPixmap pixmap(prefix + size + 'x' + size + ".png");
+      const QPixmap pixmap(prefix + size + ".png");
 
-      Q_ASSERT(!pixmap.size().isEmpty());
+      Q_ASSERT(! pixmap.size().isEmpty());
       result.addPixmap(pixmap);
    }
+
    return result;
 }
 
