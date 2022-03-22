@@ -156,7 +156,13 @@ void PluginDialog::setItem(QTreeWidgetItem *pluginItem, const QString &name,
    item->setText(0, name);
    item->setToolTip(0, toolTip);
    item->setWhatsThis(0, whatsThis);
-   item->setIcon(0, icon.isNull() ? csLogoIcon() : icon);
+
+   if (icon.isNull()) {
+      QIcon iconImage = QIcon(":/resources/form_editor/images/scratchpad-32.png");
+      item->setIcon(0, iconImage);
+   } else {
+      item->setIcon(0, icon);
+   }
 }
 
 /* emerald - temporary hold

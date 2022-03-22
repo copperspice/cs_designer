@@ -99,7 +99,8 @@ WidgetBoxTreeWidget::WidgetBoxTreeWidget(QDesignerFormEditorInterface *core, QWi
 QIcon WidgetBoxTreeWidget::iconForWidget(QString iconName) const
 {
    if (iconName.isEmpty()) {
-      return qdesigner_internal::csLogoIcon();
+      QIcon iconImage = QIcon(":/resources/form_editor/images/scratchpad-32.png");
+      return iconImage;
    }
 
    if (iconName.startsWith(iconPrefixC)) {
@@ -1008,8 +1009,10 @@ void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface *> &
       dom_ui->takeElementWidget();
       dom_ui->setElementWidget(fakeTopLevel);
 
-      const Widget wgt = Widget(w->objectName(), xml);
-      categoryView->addWidget(wgt, iconForWidget(wgt.iconName()), true);
+      const Widget scratchWidget = Widget(w->objectName(), xml);
+      QIcon iconImage = QIcon(":/resources/form_editor/images/scratchpad-32.png");
+      categoryView->addWidget(scratchWidget, iconImage, true);
+
       setItemExpanded(scratch_item, true);
       added = true;
    }
