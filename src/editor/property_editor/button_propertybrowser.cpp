@@ -312,7 +312,9 @@ void QtButtonPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, QtBr
    newItem->widget = createEditor(index->property(), parentWidget);
 
    if (newItem->widget) {
-      QObject::connect(newItem->widget, SIGNAL(destroyed()), q_ptr, SLOT(slotEditorDestroyed()));
+      QObject::connect(newItem->widget, &QWidget::destroyed,
+            q_ptr, &QtButtonPropertyBrowser::slotEditorDestroyed);
+
       m_widgetToItem[newItem->widget] = newItem;
 
    } else if (index->property()->hasValue()) {

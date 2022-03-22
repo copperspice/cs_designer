@@ -58,8 +58,9 @@ QtGradientDialog::QtGradientDialog(QWidget *parent)
    if (button) {
       button->setAutoDefault(false);
    }
-   connect(d_ptr->m_ui.gradientEditor, SIGNAL(aboutToShowDetails(bool, int)),
-      this, SLOT(slotAboutToShowDetails(bool, int)));
+
+   connect(d_ptr->m_ui.gradientEditor, &QtGradientEditor::aboutToShowDetails,
+      this, &QtGradientDialog::slotAboutToShowDetails);
 }
 
 QtGradientDialog::~QtGradientDialog()

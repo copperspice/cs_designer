@@ -236,7 +236,9 @@ void QtGroupBoxPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, Qt
    if (!newItem->widget) {
       newItem->widgetLabel = new QLabel(parentWidget);
    } else {
-      QObject::connect(newItem->widget, SIGNAL(destroyed()), q_ptr, SLOT(slotEditorDestroyed()));
+      QObject::connect(newItem->widget, &QWidget::destroyed,
+            q_ptr, &QtGroupBoxPropertyBrowser::slotEditorDestroyed);
+
       m_widgetToItem[newItem->widget] = newItem;
    }
 
