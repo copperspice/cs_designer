@@ -227,7 +227,7 @@ class QDesignerActions: public QObject
    QAction *m_quitAction;
 
    QAction *m_previewFormAction;
-   QAction *m_viewCodeAction;
+   //   QAction *m_viewCodeAction;
 
    QAction *m_minimizeAction;
    QAction *m_bringAllToFrontSeparator;

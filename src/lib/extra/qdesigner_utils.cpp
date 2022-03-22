@@ -777,25 +777,24 @@ QAction *preferredEditAction(QDesignerFormEditorInterface *core, QWidget *manage
 
 bool runUIC(const QString &fileName, QByteArray &ba, QString &errorMessage)
 {
-   // emerald - temporary hold (uic)
-   // const QString binary = QLibraryInfo::location(QLibraryInfo::BinariesPath) + "/uic";
-
-   const QString binary;
-   errorMessage = "Processing UIC files have been turned off temporarily";
-
+   //
+   errorMessage = "Feature is not used";
    return false;
 
+
+   // uic app should be found in the same place as designer app
+   const QString binary = QApplication::applicationDirPath() + "/uic";
 
    QProcess uic;
    uic.start(binary, QStringList(fileName));
 
    if (! uic.waitForStarted()) {
-      errorMessage = QApplication::translate("Designer", "Unable to start %1.").formatArg(binary);
+      errorMessage = QApplication::translate("Designer", "Unable to start %1, file may be missing.").formatArg(binary);
       return false;
    }
 
    if (! uic.waitForFinished()) {
-      errorMessage = QApplication::translate("Designer", "%1 timed out.").formatArg(binary);
+      errorMessage = QApplication::translate("Designer", "%1 failed to run.").formatArg(binary);
       return false;
    }
 

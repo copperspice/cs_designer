@@ -172,7 +172,7 @@ QDesignerActions::QDesignerActions(QDesignerWorkbench *workbench)
      m_printPreviewAction(new QAction(tr("&Print..."), this)),
      m_quitAction(new QAction(tr("&Quit"), this)),
      m_previewFormAction(0),
-     m_viewCodeAction(new QAction(tr("View &Code..."), this)),
+     //   m_viewCodeAction(new QAction(tr("View &Code..."), this)),
      m_minimizeAction(new QAction(tr("&Minimize"), this)),
      m_bringAllToFrontSeparator(createSeparator(this)),
      m_bringAllToFrontAction(new QAction(tr("Bring All to Front"), this)),
@@ -216,7 +216,7 @@ QDesignerActions::QDesignerActions(QDesignerWorkbench *workbench)
    m_closeFormAction->setObjectName(QString("__qt_close_form_action"));
    m_quitAction->setObjectName(QString("__qt_quit_action"));
    m_previewFormAction->setObjectName(QString("__qt_preview_form_action"));
-   m_viewCodeAction->setObjectName(QString("__qt_preview_code_action"));
+   //   m_viewCodeAction->setObjectName(QString("__qt_preview_code_action"));
    m_minimizeAction->setObjectName(QString("__qt_minimize_action"));
    m_bringAllToFrontAction->setObjectName(QString("__qt_bring_all_to_front_action"));
    m_preferencesAction->setObjectName(QString("__qt_preferences_action"));
@@ -433,12 +433,14 @@ QDesignerActions::QDesignerActions(QDesignerWorkbench *workbench)
    connect(m_previewManager, &qdesigner_internal::PreviewManager::lastPreviewClosed,
       this, &QDesignerActions::updateCloseAction);
 
+/*
    connect(m_viewCodeAction, &QAction::triggered, this, &QDesignerActions::viewCode);
 
-   // Preview code only in Cpp
+   // view code, unused feature
    if (qt_extension<QDesignerLanguageExtension *>(m_core->extensionManager(), m_core) == 0) {
       m_formActions->addAction(m_viewCodeAction);
    }
+*/
 
    m_formActions->addAction(createSeparator(this));
 
@@ -600,11 +602,12 @@ QAction *QDesignerActions::previewFormAction() const
    return m_previewFormAction;
 }
 
+/*
 QAction *QDesignerActions::viewCodeAction() const
 {
    return m_viewCodeAction;
 }
-
+*/
 
 void QDesignerActions::editWidgetsSlot()
 {
@@ -1053,7 +1056,7 @@ void QDesignerActions::activeFormWindowChanged(QDesignerFormWindowInterface *for
    m_editWidgetsAction->setEnabled(enable);
 
    m_previewFormAction->setEnabled(enable);
-   m_viewCodeAction->setEnabled(enable);
+   //   m_viewCodeAction->setEnabled(enable);
    m_styleActions->setEnabled(enable);
 }
 

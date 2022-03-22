@@ -85,6 +85,10 @@ CodeDialog::CodeDialog(QWidget *parent) :
    vBoxLayout->addWidget(toolBar);
 
    // Edit
+   QFont font = m_impl->m_textEdit->font();
+   font.setPointSize(10);
+   m_impl->m_textEdit->setFont(font);
+
    m_impl->m_textEdit->setReadOnly(true);
    m_impl->m_textEdit->setMinimumSize(QSize(
          m_impl->m_findWidget->minimumSize().width(),
