@@ -245,7 +245,7 @@ void TextPropertyEditor::setTextPropertyValidationMode(TextPropertyValidationMod
    switch (m_validationMode) {
       case ValidationStyleSheet:
          m_lineEdit->setValidator(new  StyleSheetValidator(m_lineEdit));
-         m_lineEdit->setCompleter(0);
+         m_lineEdit->setCompleter(nullptr);
          break;
 
       case ValidationMultiLine:
@@ -254,23 +254,23 @@ void TextPropertyEditor::setTextPropertyValidationMode(TextPropertyValidationMod
          // While it is not possible to actually type a newline  characters,
          // it can be pasted into the line edit.
          m_lineEdit->setValidator(new ReplacementValidator(m_lineEdit, NewLineChar, EscapedNewLine));
-         m_lineEdit->setCompleter(0);
+         m_lineEdit->setCompleter(nullptr);
          break;
 
       case ValidationSingleLine:
          // Set a  validator that replaces newline characters by a blank.
          m_lineEdit->setValidator(new ReplacementValidator(m_lineEdit, NewLineChar, " "));
-         m_lineEdit->setCompleter(0);
+         m_lineEdit->setCompleter(nullptr);
          break;
 
       case ValidationObjectName:
-         setRegExpValidator("[_a-zA-Z][_a-zA-Z0-9]{,1023}");
-         m_lineEdit->setCompleter(0);
+         setRegExpValidator("[_a-zA-Z][_a-zA-Z0-9]{0,1023}");
+         m_lineEdit->setCompleter(nullptr);
          break;
 
       case ValidationObjectNameScope:
-         setRegExpValidator("[_a-zA-Z:][_a-zA-Z0-9:]{,1023}");
-         m_lineEdit->setCompleter(0);
+         setRegExpValidator("[_a-zA-Z:][_a-zA-Z0-9:]{0,1023}");
+         m_lineEdit->setCompleter(nullptr);
          break;
 
       case ValidationURL: {
@@ -278,9 +278,10 @@ void TextPropertyEditor::setTextPropertyValidationMode(TextPropertyValidationMod
 
          if (urlCompletions.empty()) {
             urlCompletions.push_back("about:blank");
+            urlCompletions.push_back("https://");
             urlCompletions.push_back("http://");
             urlCompletions.push_back("http://www.");
-            urlCompletions.push_back("http://qt.io");
+            urlCompletions.push_back("https://www.");
             urlCompletions.push_back("file://");
             urlCompletions.push_back("ftp://");
             urlCompletions.push_back("data:");
