@@ -97,7 +97,7 @@ void QWizardContainer::addWidget(QWidget *widget)
    QWizardPage *page = dynamic_cast<QWizardPage *>(widget);
 
    if (! page) {
-      qWarning("%s", msgWrongType);
+      qWarning("%s", csPrintable(msgWrongType));
       return;
    }
 
@@ -112,8 +112,8 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
    enum { delta = 5 };
 
    QWizardPage *newPage = dynamic_cast<QWizardPage *>(widget);
-   if (!newPage) {
-      qWarning("%s", msgWrongType);
+   if (! newPage) {
+      qWarning("%s", csPrintable(msgWrongType));
       return;
    }
 
