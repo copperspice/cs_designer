@@ -1435,7 +1435,8 @@ void QtVariantPropertyManager::setAttribute(QtProperty *property,
       }
 
       if (attribute == d_ptr->m_enumIconsAttribute) {
-         enumManager->setEnumIcons(internProp, value.value<QtIconMap>());
+//       broom - put back when QVariant operator= resolved
+//       enumManager->setEnumIcons(internProp, value.value<QtIconMap>());
       }
 
       return;
