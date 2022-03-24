@@ -870,12 +870,12 @@ struct ListData {
    void createFromComboBox(const QComboBox *listWidget);
    void applyToComboBox(QComboBox *listWidget, DesignerIconCache *iconCache) const;
 
-   bool operator==(const ListData &rhs) const {
-      return m_items == rhs.m_items;
+   bool operator==(const ListData &other) const {
+      return m_items == other.m_items;
    }
 
-   bool operator!=(const ListData &rhs) const {
-      return m_items != rhs.m_items;
+   bool operator!=(const ListData &other) const {
+      return m_items != other.m_items;
    }
 
    QList<ItemData> m_items;
@@ -926,22 +926,23 @@ struct TreeWidgetData {
 
    struct TreeNode : public ListData {
       TreeNode()
-         : m_itemFlags(-1)
+         : m_owner(nullptr), m_itemFlags(-1)
       {
       }
 
-      TreeNode(const QTreeWidgetItem *item, bool editor);
+      TreeNode(TreeWidgetData *owner, const QTreeWidgetItem *item, bool editor);
+
       QTreeWidgetItem *createTreeItem(DesignerIconCache *iconCache, bool editor) const;
 
-      bool operator==(const TreeNode &rhs) const;
+      bool operator==(const TreeNode &other) const;
 
-      bool operator!=(const TreeNode &rhs) const {
-         return !(*this == rhs);
+      bool operator!=(const TreeNode &other) const {
+         return ! (*this == other);
       }
 
       int m_itemFlags;
-
-      QList<TreeNode> m_childNodes;
+      int m_id;
+      TreeWidgetData *m_owner;
    };
 
    void clear();
@@ -949,13 +950,15 @@ struct TreeWidgetData {
    void fromTreeWidget(const QTreeWidget *treeWidget, bool editor);
    void applyToTreeWidget(QTreeWidget *treeWidget, DesignerIconCache *iconCache, bool editor) const;
 
-   bool operator==(const TreeWidgetData &rhs) const;
-   bool operator!=(const TreeWidgetData &rhs) const {
-      return !(*this == rhs);
+   bool operator==(const TreeWidgetData &other) const;
+   bool operator!=(const TreeWidgetData &other) const {
+      return !(*this == other);
    }
 
    ListData m_headerItem;
    QList<TreeNode> m_rootItems;
+
+   QMultiMap<int, TreeNode> m_childNodes;
 };
 
 class ChangeTreeDataCommand: public QDesignerFormWindowCommand

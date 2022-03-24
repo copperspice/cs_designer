@@ -2627,16 +2627,17 @@ bool TableWidgetData::operator==(const TableWidgetData &rhs) const
 
 ChangeTableDataCommand::ChangeTableDataCommand(QDesignerFormWindowInterface *formWindow)
    : QDesignerFormWindowCommand(QApplication::translate("Command", "Change Table Contents"),
-     formWindow), m_iconCache(0)
+     formWindow), m_iconCache(nullptr)
 {
    FormWindowBase *fwb = dynamic_cast<FormWindowBase *>(formWindow);
+
    if (fwb) {
       m_iconCache = fwb->iconCache();
    }
 }
 
 void ChangeTableDataCommand::init(QTableWidget *tableWidget,
-   const TableWidgetData &oldCont, const TableWidgetData &newCont)
+         const TableWidgetData &oldCont, const TableWidgetData &newCont)
 {
    m_tableWidget = tableWidget;
    m_oldContents = oldCont;
@@ -2655,50 +2656,74 @@ void ChangeTableDataCommand::undo()
    QMetaObject::invokeMethod(m_tableWidget, "updateGeometries");
 }
 
-TreeWidgetData::TreeNode::TreeNode(const QTreeWidgetItem *item, bool editor)
-   : ListData(item)
+TreeWidgetData::TreeNode::TreeNode(TreeWidgetData *owner, const QTreeWidgetItem *treeItem, bool editor)
+   : ListData(treeItem), m_owner(owner)
 {
    static const int defaultFlags = QTreeWidgetItem().flags();
+   static int currentId = 0;
+
+   m_id = currentId;
+   ++currentId;
 
    if (editor) {
-      QVariant v = item->data(0, ItemFlagsShadowRole);
+      QVariant v = treeItem->data(0, ItemFlagsShadowRole);
       m_itemFlags = v.isValid() ? v.toInt() : -1;
 
    } else  {
-      m_itemFlags = (item->flags() != defaultFlags) ? (int)item->flags() : -1;
+      if (treeItem->flags() != defaultFlags) {
+         m_itemFlags = (int)treeItem->flags();
+      } else {
+         m_itemFlags = -1;
+      }
    }
 
-   for (int i = 0; i < item->childCount(); ++i) {
-      m_childNodes.append(TreeNode(item->child(i), editor));
+   // hint ensures the newest item is last for a given m_id
+   auto hint = m_owner->m_childNodes.upperBound(m_id);
+
+   for (int i = 0; i < treeItem->childCount(); ++i) {
+      TreeNode newNode = TreeNode(m_owner, treeItem->child(i), editor);
+      m_owner->m_childNodes.insert(hint, m_id, std::move(newNode));
    }
 }
 
 QTreeWidgetItem *TreeWidgetData::TreeNode::createTreeItem(DesignerIconCache *iconCache, bool editor) const
 {
-   QTreeWidgetItem *item = ListData::createTreeItem(iconCache);
+   QTreeWidgetItem *treeItem = ListData::createTreeItem(iconCache);
 
    if (editor) {
-      item->setFlags(item->flags() | Qt::ItemIsEditable);
+      treeItem->setFlags(treeItem->flags() | Qt::ItemIsEditable);
    }
 
    if (m_itemFlags != -1) {
       if (editor) {
-         item->setData(0, ItemFlagsShadowRole, QVariant::fromValue(m_itemFlags));
+         treeItem->setData(0, ItemFlagsShadowRole, QVariant::fromValue(m_itemFlags));
       } else {
-         item->setFlags((Qt::ItemFlags)m_itemFlags);
+         treeItem->setFlags((Qt::ItemFlags)m_itemFlags);
       }
    }
 
-   for (const TreeNode &ic : m_childNodes) {
-      item->addChild(ic.createTreeItem(iconCache, editor));
+   auto [iter, iter_end] = m_owner->m_childNodes.equal_range(m_id);
+
+   while (iter != iter_end)  {
+      treeItem->addChild(iter->createTreeItem(iconCache, editor));
+      ++iter;
    }
 
-   return item;
+   return treeItem;
 }
 
-bool TreeWidgetData::TreeNode::operator==(const TreeWidgetData::TreeNode &rhs) const
+bool TreeWidgetData::TreeNode::operator==(const TreeWidgetData::TreeNode &other) const
 {
-   return m_itemFlags == rhs.m_itemFlags && m_items == rhs.m_items && m_childNodes == rhs.m_childNodes;
+   if ((m_itemFlags != other.m_itemFlags) || (m_items != other.m_items)) {
+      return false;
+   }
+
+   auto [iter, iter_end]             = m_owner->m_childNodes.equal_range(m_id);
+   auto [other_iter, other_iter_end] = other.m_owner->m_childNodes.equal_range(other.m_id);
+
+   // std::equal will dereference the iterators and compare the values in the map
+
+   return std::equal(iter, iter_end, other_iter, other_iter_end);
 }
 
 void TreeWidgetData::clear()
@@ -2712,8 +2737,8 @@ void TreeWidgetData::fromTreeWidget(const QTreeWidget *treeWidget, bool editor)
    clear();
    m_headerItem = ListData(treeWidget->headerItem());
 
-   for (int col = 0; col < treeWidget->topLevelItemCount(); col++) {
-      m_rootItems.append(TreeNode(treeWidget->topLevelItem(col), editor));
+   for (int col = 0; col < treeWidget->topLevelItemCount(); ++col) {
+      m_rootItems.append(TreeNode(this, treeWidget->topLevelItem(col), editor));
    }
 }
 
@@ -2727,27 +2752,29 @@ void TreeWidgetData::applyToTreeWidget(QTreeWidget *treeWidget, DesignerIconCach
    for (const TreeNode &ic : m_rootItems) {
       treeWidget->addTopLevelItem(ic.createTreeItem(iconCache, editor));
    }
+
    treeWidget->expandAll();
 }
 
-bool TreeWidgetData::operator==(const TreeWidgetData &rhs) const
+
+bool TreeWidgetData::operator==(const TreeWidgetData &other) const
 {
-   return
-      m_headerItem == rhs.m_headerItem && m_rootItems == rhs.m_rootItems;
+   return m_headerItem == other.m_headerItem && (m_rootItems == other.m_rootItems);
 }
 
 ChangeTreeDataCommand::ChangeTreeDataCommand(QDesignerFormWindowInterface *formWindow)
    : QDesignerFormWindowCommand(QApplication::translate("Command", "Change Tree Contents"), formWindow),
-     m_iconCache(0)
+     m_iconCache(nullptr)
 {
    FormWindowBase *fwb = dynamic_cast<FormWindowBase *>(formWindow);
+
    if (fwb) {
       m_iconCache = fwb->iconCache();
    }
 }
 
-void ChangeTreeDataCommand::init(QTreeWidget *treeWidget,
-      const TreeWidgetData &oldState, const TreeWidgetData &newState)
+void ChangeTreeDataCommand::init(QTreeWidget *treeWidget, const TreeWidgetData &oldState,
+         const TreeWidgetData &newState)
 {
    m_treeWidget = treeWidget;
    m_oldState = oldState;
@@ -2765,9 +2792,10 @@ void ChangeTreeDataCommand::undo()
 }
 
 ChangeListDataCommand::ChangeListDataCommand(QDesignerFormWindowInterface *formWindow)
-   : QDesignerFormWindowCommand(QString(), formWindow), m_iconCache(0)
+   : QDesignerFormWindowCommand(QString(), formWindow), m_iconCache(nullptr)
 {
    FormWindowBase *fwb = dynamic_cast<FormWindowBase *>(formWindow);
+
    if (fwb) {
       m_iconCache = fwb->iconCache();
    }
