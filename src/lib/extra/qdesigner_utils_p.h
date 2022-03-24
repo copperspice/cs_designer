@@ -462,8 +462,7 @@ QAction *preferredEditAction(QDesignerFormEditorInterface *core, QWidget *manage
 // Convenience to run UIC
 bool runUIC(const QString &fileName, QByteArray &ba, QString &errorMessage);
 
-// Find a suitable variable name for a class.
-QString qtify(const QString &name);
+QString refactorClassName(const QString &name);
 
 /* UpdateBlocker: Blocks the updates of the widget passed on while in scope.
  * Does nothing if the incoming widget already has updatesEnabled==false

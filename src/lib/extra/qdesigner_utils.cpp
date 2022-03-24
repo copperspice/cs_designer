@@ -807,7 +807,7 @@ bool runUIC(const QString &fileName, QByteArray &ba, QString &errorMessage)
    return true;
 }
 
-QString qtify(const QString &name)
+QString refactorClassName(const QString &name)
 {
    QString retval;
 

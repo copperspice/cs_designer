@@ -428,7 +428,7 @@ static QString suggestLayoutName(const QString &className)
       return QString("gridLayout");
    }
 
-   return qtify(className);
+   return refactorClassName(className);
 }
 
 QLayout *Layout::createLayout(int type)

@@ -1033,10 +1033,12 @@ bool FormWindow::isCentralWidget(QWidget *w) const
 void FormWindow::ensureUniqueObjectName(QObject *object)
 {
    QString name = object->objectName();
+
    if (name.isEmpty()) {
       QDesignerWidgetDataBaseInterface *db = core()->widgetDataBase();
+
       if (QDesignerWidgetDataBaseItemInterface *item = db->item(db->indexOfObject(object))) {
-         name = qdesigner_internal::qtify(item->name());
+         name = qdesigner_internal::refactorClassName(item->name());
       }
    }
 

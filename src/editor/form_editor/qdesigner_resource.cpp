@@ -1149,7 +1149,7 @@ QWidget *QDesignerResource::createWidget(const QString &widgetName, QWidget *par
    if (name.isEmpty()) {
       QDesignerWidgetDataBaseInterface *db = core()->widgetDataBase();
       if (QDesignerWidgetDataBaseItemInterface *item = db->item(db->indexOfObject(w))) {
-         name = qtify(item->name());
+         name = refactorClassName(item->name());
       }
    }
 
