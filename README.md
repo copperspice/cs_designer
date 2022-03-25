@@ -11,8 +11,17 @@ User Interface files. It was developed using the CopperSpice libraries and was w
 To build CS Designer from source a current copy of the CopperSpice libraries, a C++17 compiler, and a C++17 standard
 library are required. Designer uses the following CopperSpice libraries: CsCore, CsGui, CsNetwork, and CsXml.
 
-To run Designer plugins must be copied to the deploy folder. The platform plugin is copied to
-"your_path/designer/platforms" and the printer driver plugin must be copied to "your_path/designer/printerdrivers".
+To run Designer multiple plugins must be copied to the deploy folder. This will occur automatically when the
+project is installed.
+
+
+|Plugin   |Location   |
+|---------|-----------|
+|platform      |"your_path/designer/platforms"     |
+|              |                                   |
+|printer driver|"your_path/designer/printerdrivers"|
+
+
 
 
 ### Documentation
