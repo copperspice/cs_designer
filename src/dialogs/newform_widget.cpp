@@ -59,7 +59,7 @@ enum NewForm_CustomRole {
 static const QString newFormObjectNameC = "Form";
 
 // Create a form name for an arbitrary class
-static QString formName(const QString &className)
+static QString formNameFromClass(const QString &className)
 {
    if (!className.startsWith('Q')) {
       return newFormObjectNameC;
@@ -257,7 +257,7 @@ QPixmap NewFormWidget::formPreviewPixmap(const QTreeWidgetItem *item)
 
          const QString className = classNameV.toString();
 
-         QByteArray data = qdesigner_internal::WidgetDataBase::formTemplate(m_core, className, formName(className)).toUtf8();
+         QByteArray data = qdesigner_internal::WidgetDataBase::formTemplate(m_core, className, formNameFromClass(className)).toUtf8();
 
          QBuffer buffer(&data);
          buffer.open(QIODevice::ReadOnly);
@@ -549,8 +549,9 @@ QString NewFormWidget::itemToTemplate(const QTreeWidgetItem *item, QString *erro
    }
    // Content.
    const QString className = item->data(0, ClassNameRole).toString();
-   QString contents = qdesigner_internal::WidgetDataBase::formTemplate(m_core, className, formName(className));
-   if (!size.isNull()) {
+   QString contents = qdesigner_internal::WidgetDataBase::formTemplate(m_core, className, formNameFromClass(className));
+
+   if (! size.isNull()) {
       contents = qdesigner_internal::WidgetDataBase::scaleFormTemplate(contents, size, false);
    }
    return contents;
