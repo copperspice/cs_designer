@@ -36,7 +36,6 @@
 #include <qdesigner_propertyeditor_p.h>
 #include <qdesigner_objectinspector_p.h>
 #include <widgetdatabase_p.h>
-#include <pluginmanager_p.h>
 #include <widgetfactory_p.h>
 #include <qdesigner_widgetbox_p.h>
 #include <qtresourcemodel_p.h>

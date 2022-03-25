@@ -23,12 +23,12 @@
 #include <abstract_formeditor.h>
 #include <customwidget.h>
 #include <table_classes.h>
+#include <plugin_manager.h>
 
 #include <widgetdatabase_p.h>
 #include <widgetfactory_p.h>
 #include <spacer_widget_p.h>
 #include <abstract_language.h>
-#include <pluginmanager_p.h>
 #include <qdesigner_widgetbox_p.h>
 #include <qdesigner_utils_p.h>
 #include <ui4.h>

@@ -21,10 +21,9 @@
 #include <customwidget.h>
 #include <abstract_formeditor.h>
 #include <extension.h>
-
-#include <pluginmanager_p.h>
-#include <qdesigner_utils_p.h>
-#include <qdesigner_qsettings_p.h>
+#include <plugin_manager.h>
+#include <designer_utils.h>
+#include <designer_qsettings.h>
 
 #include <QDir>
 #include <QFile>
@@ -676,7 +675,7 @@ QStringList QDesignerPluginManager::pluginPaths() const
 QObject *QDesignerPluginManager::instance(const QString &plugin) const
 {
    if (m_d->m_disabledPlugins.contains(plugin)) {
-      return 0;
+      return nullptr;
    }
 
    QPluginLoader loader(plugin);

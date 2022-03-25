@@ -41,8 +41,8 @@
 #include <code_dialog.h>
 #include <preview_manager.h>
 #include <utils.h>
+#include <plugin_manager.h>
 
-#include <pluginmanager_p.h>
 #include <qdesigner_formbuilder_p.h>
 #include <qdesigner_utils_p.h>
 #include <iconloader_p.h>

@@ -23,12 +23,12 @@
 #include <designer_settings.h>
 #include <widgetbox_treewidget.h>
 #include <widgetbox_categorylistview.h>
+#include <plugin_manager.h>
 
 #include <iconloader_p.h>
 #include <sheet_delegate_p.h>
 #include <ui4.h>
 #include <qdesigner_utils_p.h>
-#include <pluginmanager_p.h>
 #include <qdesigner_dnditem_p.h>
 
 #include <QHeaderView>

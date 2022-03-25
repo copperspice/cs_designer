@@ -35,7 +35,7 @@
 #include <action_editor.h>
 
 #include <qdesigner_widgetbox_p.h>
-#include <pluginmanager_p.h>
+#include <plugin_manager.h>
 #include <formwindowbase_p.h>
 
 #include <QDir>

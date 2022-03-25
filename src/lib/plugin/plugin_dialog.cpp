@@ -21,9 +21,9 @@
 #include <abstract_integration.h>
 #include <abstract_widgetdatabase.h>
 #include <customwidget.h>
+#include <plugin_dialog.h>
+#include <plugin_manager.h>
 
-#include <plugindialog_p.h>
-#include <pluginmanager_p.h>
 #include <iconloader_p.h>
 
 #include <QStyle>
@@ -36,9 +36,11 @@ namespace qdesigner_internal {
 
 PluginDialog::PluginDialog(QDesignerFormEditorInterface *core, QWidget *parent)
    : QDialog(parent
+
 #ifdef Q_OS_DARWIN
         , Qt::Tool
 #endif
+
      ), m_core(core)
 {
    ui.setupUi(this);
@@ -52,10 +54,8 @@ PluginDialog::PluginDialog(QDesignerFormEditorInterface *core, QWidget *parent)
    ui.treeWidget->setHeaderLabels(headerLabels);
    ui.treeWidget->header()->hide();
 
-   interfaceIcon.addPixmap(style()->standardPixmap(QStyle::SP_DirOpenIcon),
-      QIcon::Normal, QIcon::On);
-   interfaceIcon.addPixmap(style()->standardPixmap(QStyle::SP_DirClosedIcon),
-      QIcon::Normal, QIcon::Off);
+   interfaceIcon.addPixmap(style()->standardPixmap(QStyle::SP_DirOpenIcon),   QIcon::Normal, QIcon::On);
+   interfaceIcon.addPixmap(style()->standardPixmap(QStyle::SP_DirClosedIcon), QIcon::Normal, QIcon::Off);
    featureIcon.addPixmap(style()->standardPixmap(QStyle::SP_FileIcon));
 
    setWindowTitle(tr("Plugin Information"));
@@ -70,7 +70,6 @@ PluginDialog::PluginDialog(QDesignerFormEditorInterface *core, QWidget *parent)
    // connect(updateButton, &QAbstractButton::clicked, this, &PluginDialog::updateCustomWidgetPlugins);
 
    ui.buttonBox->addButton(updateButton, QDialogButtonBox::ActionRole);
-
 }
 
 void PluginDialog::populateTreeWidget()
@@ -79,7 +78,7 @@ void PluginDialog::populateTreeWidget()
    QDesignerPluginManager *pluginManager = m_core->pluginManager();
    const QStringList fileNames = pluginManager->registeredPlugins();
 
-   if (!fileNames.isEmpty()) {
+   if (! fileNames.isEmpty()) {
       QTreeWidgetItem *topLevelItem = setTopLevelItem(tr("Loaded Plugins"));
       QFont boldFont = topLevelItem->font(0);
 
@@ -94,6 +93,7 @@ void PluginDialog::populateTreeWidget()
                for (const QDesignerCustomWidgetInterface *p : c->customWidgets()) {
                   setItem(pluginItem, p->name(), p->toolTip(), p->whatsThis(), p->icon());
                }
+
             } else {
                if (const QDesignerCustomWidgetInterface *p = dynamic_cast<QDesignerCustomWidgetInterface *>(plugin)) {
                   setItem(pluginItem, p->name(), p->toolTip(), p->whatsThis(), p->icon());
@@ -104,7 +104,8 @@ void PluginDialog::populateTreeWidget()
    }
 
    const QStringList notLoadedPlugins = pluginManager->failedPlugins();
-   if (!notLoadedPlugins.isEmpty()) {
+
+   if (! notLoadedPlugins.isEmpty()) {
       QTreeWidgetItem *topLevelItem = setTopLevelItem(tr("Failed Plugins"));
       const QFont boldFont = topLevelItem->font(0);
 
@@ -118,6 +119,7 @@ void PluginDialog::populateTreeWidget()
    if (ui.treeWidget->topLevelItemCount() == 0) {
       ui.label->setText(tr("CS Designer could not find any plugins"));
       ui.treeWidget->hide();
+
    } else {
       ui.label->setText(tr("CS Designer found the following plugins"));
    }

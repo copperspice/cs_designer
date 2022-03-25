@@ -15,7 +15,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layoutinfo_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/connectionedit_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/pluginmanager_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/metadatabase_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formeditorcommand_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formwindowcommand_p.h
@@ -74,7 +73,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_qsettings_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formwindowmanager_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/shared_settings_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/plugindialog_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/rcc_support.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/abstract_findwidget.h
@@ -83,6 +81,9 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/font_panel/fontpanel.h
 
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/customwidget.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_dialog.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_manager.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspector.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspectormodel_p.h
 
@@ -109,7 +110,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layoutinfo.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/connectionedit.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/pluginmanager.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formwindowcommand.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formeditorcommand.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_command.cpp
@@ -167,7 +167,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_qsettings.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formwindowmanager.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/shared_settings.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/plugindialog.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/rcc_support.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/abstract_findwidget.cpp
@@ -176,6 +175,8 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/font_panel/fontpanel.cpp
 
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_dialog.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_manager.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspector.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspectormodel.cpp

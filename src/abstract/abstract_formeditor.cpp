@@ -30,11 +30,11 @@
 #include <abstract_dialoggui.h>
 #include <abstract_introspection.h>
 #include <extension_manager.h>
+#include <plugin_manager.h>
 
 #include <widgetdatabase_p.h>
 #include <widgetfactory_p.h>
 #include <qdesigner_widgetbox_p.h>
-#include <pluginmanager_p.h>
 #include <qtresourcemodel_p.h>
 #include <qtgradientmanager.h>
 #include <widgetfactory_p.h>
