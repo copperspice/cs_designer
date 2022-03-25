@@ -89,7 +89,6 @@ else()
 endif()
 
 string(TIMESTAMP BUILD_DATE "%m/%d/%Y")
-add_definitions(-DBUILD_DATE="${BUILD_DATE}")
 
 configure_file(
    ${CMAKE_SOURCE_DIR}/src/designer_build_info.h.in
