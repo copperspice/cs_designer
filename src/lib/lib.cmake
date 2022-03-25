@@ -80,8 +80,8 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/abstract_findwidget.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/textedit_findwidget.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/itemview_findwidget.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/font_panel/fontpanel.h
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/fontpanel/fontpanel.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspector.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspectormodel_p.h
@@ -173,8 +173,9 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/abstract_findwidget.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/textedit_findwidget.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/itemview_findwidget.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/font_panel/fontpanel.cpp
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/fontpanel/fontpanel.cpp
+
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspector.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspectormodel.cpp
