@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef TEXTPROPERTYEDITOR_H
-#define TEXTPROPERTYEDITOR_H
+#ifndef TEXTPROPERTY_EDITOR_H
+#define TEXTPROPERTY_EDITOR_H
 
 #include <shared_enums_p.h>
 

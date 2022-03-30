@@ -17,13 +17,13 @@
 *
 ***********************************************************************/
 
-#ifndef PLAINTEXTEDITOR_H
-#define PLAINTEXTEDITOR_H
+#ifndef PLAINTEXT_EDITOR_H
+#define PLAINTEXT_EDITOR_H
+
+class QDesignerFormEditorInterface;
 
 #include <QDialog>
-
-class QPlainTextEdit;
-class QDesignerFormEditorInterface;
+#include <QPlainTextEdit>
 
 namespace qdesigner_internal {
 
@@ -47,8 +47,6 @@ class PlainTextEditorDialog : public QDialog
    QDesignerFormEditorInterface *m_core;
 };
 
-} // namespace qdesigner_internal
-
-
+}   // end namespace qdesigner_internal
 
 #endif // RITCHTEXTEDITOR_H

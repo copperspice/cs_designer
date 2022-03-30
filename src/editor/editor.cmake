@@ -88,6 +88,10 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/stylesheet_widget.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/tablewidget_editor.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/treewidget_editor.h
+
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/text_editor/plaintext_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/text_editor/richtext_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/text_editor/textproperty_editor.h
 )
 
 list(APPEND DESIGNER_SOURCES
@@ -177,4 +181,8 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/stylesheet_editor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/tablewidget_editor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/popup_editor/treewidget_editor.cpp
+
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/text_editor/plaintext_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/text_editor/richtext_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/text_editor/textproperty_editor.cpp
 )

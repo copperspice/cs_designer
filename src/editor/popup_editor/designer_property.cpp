@@ -29,13 +29,13 @@
 #include <qlonglong_validator.h>
 #include <stringlist_editor_toolbutton.h>
 #include <stylesheet_editor.h>
+#include <textproperty_editor.h>
+#include <richtext_editor.h>
+#include <plaintext_editor.h>
 
 #include <qtresourceview_p.h>
 #include <formwindowbase_p.h>
 #include <formwindowmanager.h>
-#include <textpropertyeditor_p.h>
-#include <richtexteditor_p.h>
-#include <plaintexteditor_p.h>
 #include <iconloader_p.h>
 #include <iconselector_p.h>
 

@@ -238,7 +238,7 @@
   <customwidget>
    <class>TextPropertyEditor</class>
    <extends>QWidget</extends>
-   <header>textpropertyeditor_p.h</header>
+   <header>textproperty_editor.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

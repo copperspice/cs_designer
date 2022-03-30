@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef RICHTEXTEDITOR_H
-#define RICHTEXTEDITOR_H
+#ifndef RICHTEXT_EDITOR_H
+#define RICHTEXT_EDITOR_H
 
 #include <QTextEdit>
 #include <QDialog>

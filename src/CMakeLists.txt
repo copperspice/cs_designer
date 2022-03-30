@@ -124,6 +124,7 @@ target_include_directories(Designer
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/taborder_editor
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/text_editor
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra

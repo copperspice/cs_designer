@@ -83,7 +83,7 @@
   <customwidget>
    <class>qdesigner_internal::TextPropertyEditor</class>
    <extends>QLineEdit</extends>
-   <header location="global" >textpropertyeditor_p.h</header>
+   <header location="global" >textproperty_editor.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

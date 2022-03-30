@@ -20,8 +20,8 @@
 #include <abstract_formeditor.h>
 #include <designer_settings.h>
 #include <ui_richtext_addlink.h>
+#include <richtext_editor.h>
 
-#include <richtexteditor_p.h>
 #include <htmlhighlighter_p.h>
 #include <iconselector_p.h>
 #include <iconloader_p.h>
@@ -337,7 +337,6 @@ class ColorAction : public QAction
    }
    void setColor(const QColor &color);
 
- public:
    CS_SIGNAL_1(Public, void colorChanged(const QColor &color))
    CS_SIGNAL_2(colorChanged, color)
 
@@ -345,7 +344,6 @@ class ColorAction : public QAction
    CS_SLOT_1(Private, void chooseColor())
    CS_SLOT_2(chooseColor)
 
- private:
    QColor m_color;
 };
 
@@ -362,6 +360,7 @@ void ColorAction::setColor(const QColor &color)
    if (color == m_color) {
       return;
    }
+
    m_color = color;
    QPixmap pix(24, 24);
    QPainter painter(&pix);
@@ -384,34 +383,40 @@ void ColorAction::chooseColor()
 class RichTextEditorToolBar : public QToolBar
 {
    CS_OBJECT(RichTextEditorToolBar)
+
  public:
    RichTextEditorToolBar(QDesignerFormEditorInterface *core,
       RichTextEditor *editor,
       QWidget *parent = nullptr);
 
- public :
    CS_SLOT_1(Public, void updateActions())
    CS_SLOT_2(updateActions)
 
  private:
    CS_SLOT_1(Private, void alignmentActionTriggered(QAction *action))
    CS_SLOT_2(alignmentActionTriggered)
+
    CS_SLOT_1(Private, void sizeInputActivated(const QString &size))
    CS_SLOT_2(sizeInputActivated)
+
    CS_SLOT_1(Private, void colorChanged(const QColor &color))
    CS_SLOT_2(colorChanged)
+
    CS_SLOT_1(Private, void setVAlignSuper(bool super))
    CS_SLOT_2(setVAlignSuper)
+
    CS_SLOT_1(Private, void setVAlignSub(bool sub))
    CS_SLOT_2(setVAlignSub)
+
    CS_SLOT_1(Private, void insertLink())
    CS_SLOT_2(insertLink)
+
    CS_SLOT_1(Private, void insertImage())
    CS_SLOT_2(insertImage)
+
    CS_SLOT_1(Private, void layoutDirectionChanged())
    CS_SLOT_2(layoutDirectionChanged)
 
- private:
    QAction *m_bold_action;
    QAction *m_italic_action;
    QAction *m_underline_action;
@@ -425,6 +430,7 @@ class RichTextEditorToolBar : public QToolBar
    QAction *m_link_action;
    QAction *m_image_action;
    QAction *m_simplify_richtext_action;
+
    ColorAction *m_color_action;
    QComboBox *m_font_size_input;
 
@@ -449,33 +455,27 @@ static QAction *createCheckableAction(const QIcon &icon, const QString &text, R 
    return result;
 }
 
-RichTextEditorToolBar::RichTextEditorToolBar(QDesignerFormEditorInterface *core,
-   RichTextEditor *editor,
-   QWidget *parent) :
-   QToolBar(parent),
-   m_link_action(new QAction(this)),
-   m_image_action(new QAction(this)),
-   m_color_action(new ColorAction(this)),
-   m_font_size_input(new QComboBox),
-   m_core(core),
-   m_editor(editor)
+RichTextEditorToolBar::RichTextEditorToolBar(QDesignerFormEditorInterface *core, RichTextEditor *editor, QWidget *parent)
+   : QToolBar(parent), m_link_action(new QAction(this)), m_image_action(new QAction(this)),
+     m_color_action(new ColorAction(this)), m_font_size_input(new QComboBox), m_core(core), m_editor(editor)
 {
    typedef void (QComboBox::*QComboStringSignal)(const QString &);
 
    // Font size combo box
    m_font_size_input->setEditable(false);
    const QList<int> font_sizes = QFontDatabase::standardSizes();
+
    for (int font_size : font_sizes) {
       m_font_size_input->addItem(QString::number(font_size));
    }
 
    connect(m_font_size_input, static_cast<QComboStringSignal>(&QComboBox::activated),
       this, &RichTextEditorToolBar::sizeInputActivated);
-   addWidget(m_font_size_input);
 
+   addWidget(m_font_size_input);
    addSeparator();
 
-   // Bold, italic and underline buttons
+   // bold, italic and underline buttons
 
    m_bold_action = createCheckableAction(createIconSet("textbold.png"),
          tr("Bold"), editor, &RichTextEditor::setFontBold, this);
@@ -498,11 +498,13 @@ RichTextEditorToolBar::RichTextEditorToolBar(QDesignerFormEditorInterface *core,
 
    addSeparator();
 
-   // Left, center, right and justified alignment buttons
+   // left, center, right and justified alignment buttons
 
    QActionGroup *alignment_group = new QActionGroup(this);
+
    connect(alignment_group, &QActionGroup::triggered,
-      this, &RichTextEditorToolBar::alignmentActionTriggered);
+         this, &RichTextEditorToolBar::alignmentActionTriggered);
+
    m_align_left_action = createCheckableAction(createIconSet("textleft.png"),
          tr("Left Align"), editor, nullptr, alignment_group);
 
@@ -546,13 +548,15 @@ RichTextEditorToolBar::RichTextEditorToolBar(QDesignerFormEditorInterface *core,
 
    // Insert hyperlink and image buttons
 
-   m_link_action->setIcon(createIconSet(QString("textanchor.png")));
+   m_link_action->setIcon(createIconSet("textanchor.png"));
    m_link_action->setText(tr("Insert &Link"));
+
    connect(m_link_action, &QAction::triggered, this, &RichTextEditorToolBar::insertLink);
    addAction(m_link_action);
 
-   m_image_action->setIcon(createIconSet(QString("insertimage.png")));
+   m_image_action->setIcon(createIconSet("insertimage.png"));
    m_image_action->setText(tr("Insert &Image"));
+
    connect(m_image_action, &QAction::triggered, this, &RichTextEditorToolBar::insertImage);
    addAction(m_image_action);
 
@@ -560,7 +564,8 @@ RichTextEditorToolBar::RichTextEditorToolBar(QDesignerFormEditorInterface *core,
 
    // Text color button
    connect(m_color_action, &ColorAction::colorChanged,
-      this, &RichTextEditorToolBar::colorChanged);
+         this, &RichTextEditorToolBar::colorChanged);
+
    addAction(m_color_action);
 
    addSeparator();
@@ -571,11 +576,13 @@ RichTextEditorToolBar::RichTextEditorToolBar(QDesignerFormEditorInterface *core,
          tr("Simplify Rich Text"), m_editor.data(), &RichTextEditor::setSimplifyRichText);
 
    m_simplify_richtext_action->setChecked(m_editor->simplifyRichText());
+
    connect(m_editor.data(), &RichTextEditor::simplifyRichTextChanged,
-      m_simplify_richtext_action, &QAction::setChecked);
+         m_simplify_richtext_action, &QAction::setChecked);
+
    addAction(m_simplify_richtext_action);
 
-   connect(editor, &QTextEdit::textChanged, this, &RichTextEditorToolBar::updateActions);
+   connect(editor, &QTextEdit::textChanged,       this, &RichTextEditorToolBar::updateActions);
    connect(editor, &RichTextEditor::stateChanged, this, &RichTextEditorToolBar::updateActions);
 
    updateActions();
@@ -587,12 +594,16 @@ void RichTextEditorToolBar::alignmentActionTriggered(QAction *action)
 
    if (action == m_align_left_action) {
       new_alignment = Qt::AlignLeft;
+
    } else if (action == m_align_center_action) {
       new_alignment = Qt::AlignCenter;
+
    } else if (action == m_align_right_action) {
       new_alignment = Qt::AlignRight;
+
    } else {
       new_alignment = Qt::AlignJustify;
+
    }
 
    m_editor->setAlignment(new_alignment);
@@ -608,7 +619,8 @@ void RichTextEditorToolBar::sizeInputActivated(const QString &size)
 {
    bool ok;
    int i = size.toInteger<int>(&ok);
-   if (!ok) {
+
+   if (! ok) {
       return;
    }
 
@@ -650,6 +662,7 @@ void RichTextEditorToolBar::insertLink()
 void RichTextEditorToolBar::insertImage()
 {
    const QString path = IconSelector::choosePixmapResource(m_core, m_core->resourceModel(), QString(), this);
+
    if (!path.isEmpty()) {
       m_editor->insertHtml(QString("<img src=\"") + path + QString("\"/>"));
    }
@@ -820,8 +833,10 @@ RichTextEditorDialog::RichTextEditorDialog(QDesignerFormEditorInterface *core, Q
    new HtmlHighlighter(m_text_edit);
 
    connect(m_editor, &QTextEdit::textChanged, this, &RichTextEditorDialog::richTextChanged);
+
    connect(m_editor, &RichTextEditor::simplifyRichTextChanged,
-      this, &RichTextEditorDialog::richTextChanged);
+         this, &RichTextEditorDialog::richTextChanged);
+
    connect(m_text_edit, &QTextEdit::textChanged, this, &RichTextEditorDialog::sourceChanged);
 
    // The toolbar needs to be created after the RichTextEditor
@@ -840,8 +855,9 @@ RichTextEditorDialog::RichTextEditorDialog(QDesignerFormEditorInterface *core, Q
    m_tab_widget->setTabPosition(QTabWidget::South);
    m_tab_widget->addTab(rich_edit, tr("Rich Text"));
    m_tab_widget->addTab(plain_edit, tr("Source"));
-   connect(m_tab_widget, &QTabWidget::currentChanged,
-      this, &RichTextEditorDialog::tabIndexChanged);
+
+  connect(m_tab_widget, &QTabWidget::currentChanged,
+         this, &RichTextEditorDialog::tabIndexChanged);
 
    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal);
    QPushButton *ok_button = buttonBox->button(QDialogButtonBox::Ok);
@@ -873,11 +889,13 @@ RichTextEditorDialog::~RichTextEditorDialog()
 int RichTextEditorDialog::showDialog()
 {
    m_tab_widget->setCurrentIndex(m_initialTab);
+
    switch (m_initialTab) {
       case RichTextIndex:
          m_editor->selectAll();
          m_editor->setFocus();
          break;
+
       case SourceIndex:
          m_text_edit->selectAll();
          m_text_edit->setFocus();
@@ -908,12 +926,15 @@ QString RichTextEditorDialog::text(Qt::TextFormat format) const
    if (format == Qt::AutoText && (m_state == Clean || m_state == SourceChanged)) {
       return m_text_edit->toPlainText();
    }
+
    // If the plain text HTML editor is selected, first copy its contents over
    // to the rich text editor so that it is converted to Qt-HTML or actual
    // plain text.
+
    if (m_tab_widget->currentIndex() == SourceIndex && m_state == SourceChanged) {
       m_editor->setHtml(m_text_edit->toPlainText());
    }
+
    return m_editor->text(format);
 }
 
@@ -923,9 +944,11 @@ void RichTextEditorDialog::tabIndexChanged(int newIndex)
    if (newIndex == SourceIndex && m_state != RichTextChanged) {
       return;
    }
+
    if (newIndex == RichTextIndex && m_state != SourceChanged) {
       return;
    }
+
    const State oldState = m_state;
    // Remember the cursor position, since it is invalidated by setPlainText
    QTextEdit *new_edit = (newIndex == SourceIndex) ? m_text_edit : m_editor;

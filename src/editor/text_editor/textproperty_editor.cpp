@@ -18,8 +18,8 @@
 ***********************************************************************/
 
 #include <stylesheet_editor.h>
+#include <textproperty_editor.h>
 
-#include <textpropertyeditor_p.h>
 #include <propertylineedit_p.h>
 
 #include <QLineEdit>
@@ -206,10 +206,11 @@ QUrl UrlValidator::guessUrlFromString(const QString &string) const
    // Fall back to QUrl's own tolerant parser.
    return QUrl(string, QUrl::TolerantMode);
 }
+
 }
 
 namespace qdesigner_internal {
-// TextPropertyEditor
+
 TextPropertyEditor::TextPropertyEditor(QWidget *parent, EmbeddingMode embeddingMode, TextPropertyValidationMode validationMode)
    : QWidget(parent), m_validationMode(ValidationSingleLine), m_updateMode(UpdateAsYouType),
      m_lineEdit(new PropertyLineEdit(this)), m_textEdited(false)
@@ -217,12 +218,15 @@ TextPropertyEditor::TextPropertyEditor(QWidget *parent, EmbeddingMode embeddingM
    switch (embeddingMode) {
       case EmbeddingNone:
          break;
+
       case EmbeddingTreeView:
          m_lineEdit->setFrame(false);
          break;
+
       case EmbeddingInPlace:
          m_lineEdit->setFrame(false);
          Q_ASSERT(parent);
+
          m_lineEdit->setBackgroundRole(parent->backgroundRole());
          break;
    }
@@ -230,9 +234,9 @@ TextPropertyEditor::TextPropertyEditor(QWidget *parent, EmbeddingMode embeddingM
    setFocusProxy(m_lineEdit);
 
    connect(m_lineEdit, &QLineEdit::editingFinished, this, &TextPropertyEditor::editingFinished);
-   connect(m_lineEdit, &QLineEdit::returnPressed, this, &TextPropertyEditor::slotEditingFinished);
-   connect(m_lineEdit, &QLineEdit::textChanged, this, &TextPropertyEditor::slotTextChanged);
-   connect(m_lineEdit, &QLineEdit::textEdited, this, &TextPropertyEditor::slotTextEdited);
+   connect(m_lineEdit, &QLineEdit::returnPressed,   this, &TextPropertyEditor::slotEditingFinished);
+   connect(m_lineEdit, &QLineEdit::textChanged,     this, &TextPropertyEditor::slotTextChanged);
+   connect(m_lineEdit, &QLineEdit::textEdited,      this, &TextPropertyEditor::slotTextEdited);
 
    setTextPropertyValidationMode(validationMode);
 }
@@ -250,7 +254,7 @@ void TextPropertyEditor::setTextPropertyValidationMode(TextPropertyValidationMod
 
       case ValidationMultiLine:
       case ValidationRichText:
-         // Set a  validator that replaces newline characters by literal "\\n".
+         // Set a validator which replaces newline characters by literal "\\n".
          // While it is not possible to actually type a newline  characters,
          // it can be pasted into the line edit.
          m_lineEdit->setValidator(new ReplacementValidator(m_lineEdit, NewLineChar, EscapedNewLine));
@@ -258,7 +262,7 @@ void TextPropertyEditor::setTextPropertyValidationMode(TextPropertyValidationMod
          break;
 
       case ValidationSingleLine:
-         // Set a  validator that replaces newline characters by a blank.
+         // Set a validator which replaces newline characters by a blank
          m_lineEdit->setValidator(new ReplacementValidator(m_lineEdit, NewLineChar, " "));
          m_lineEdit->setCompleter(nullptr);
          break;
@@ -293,6 +297,7 @@ void TextPropertyEditor::setTextPropertyValidationMode(TextPropertyValidationMod
          m_lineEdit->setCompleter(completer);
          m_lineEdit->setValidator(new UrlValidator(completer, m_lineEdit));
       }
+
       break;
    }
 
@@ -344,6 +349,7 @@ void  TextPropertyEditor::slotTextChanged(const QString &text)
 {
    m_cachedText = editorStringToString(text, m_validationMode);
    markIntermediateState();
+
    if (m_updateMode == UpdateAsYouType) {
       emit textChanged(m_cachedText);
    }
@@ -445,7 +451,7 @@ QString  TextPropertyEditor::editorStringToString(const QString &s, TextProperty
 
       // Remove escape, go past escaped
       rc.remove(pos, 1);
-      pos++;
+      ++pos;
    }
 
    return rc;

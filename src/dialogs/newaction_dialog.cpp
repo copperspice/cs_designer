@@ -21,9 +21,9 @@
 #include <abstract_formeditor.h>
 #include <action_editor.h>
 #include <newaction_dialog.h>
+#include <richtext_editor.h>
 #include <ui_action_editor_new.h>
 
-#include <richtexteditor_p.h>
 #include <formwindowbase_p.h>
 #include <qdesigner_utils_p.h>
 #include <iconloader_p.h>

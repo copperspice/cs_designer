@@ -22,8 +22,8 @@
 
 #include <inplace_widget_helper.h>
 #include <qdesigner_utils_p.h>
+#include <textproperty_editor.h>
 
-#include <textpropertyeditor_p.h>
 #include <shared_enums_p.h>
 
 #include <QPointer>

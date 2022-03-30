@@ -20,10 +20,8 @@
 #include <designer_settings.h>
 #include <abstract_formeditor.h>
 #include <abstract_settings.h>
+#include <plaintext_editor.h>
 
-#include <plaintexteditor_p.h>
-
-#include <QPlainTextEdit>
 #include <QDialogButtonBox>
 #include <QVBoxLayout>
 #include <QPushButton>

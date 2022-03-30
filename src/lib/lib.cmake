@@ -44,14 +44,11 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotionmodel_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_promotiondialog_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/iconloader_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/richtexteditor_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/plaintexteditor_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_toolbar_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_menubar_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_menu_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/csshighlighter_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/shared_enums_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/textpropertyeditor_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/propertylineedit_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotiontaskmenu_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/gridpanel_p.h
@@ -140,13 +137,10 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_introspection.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotionmodel.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_promotiondialog.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/richtexteditor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/plaintexteditor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_toolbar.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_menubar.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_menu.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/csshighlighter.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/textpropertyeditor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/propertylineedit.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotiontaskmenu.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/gridpanel.cpp
