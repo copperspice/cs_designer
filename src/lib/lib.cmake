@@ -37,7 +37,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_dockwidget_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_toolbox_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_dnditem_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qsimpleresource_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/widgetfactory_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/widgetdatabase_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_promotion_p.h
@@ -64,9 +63,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/dialoggui.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/deviceprofile_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/zoomwidget_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourceeditordialog_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourcemodel_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourceview_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/iconselector_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/htmlhighlighter_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_widgetitem_p.h
@@ -84,8 +80,13 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/customwidget.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_dialog.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_manager.h
+
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspector.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspectormodel_p.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_model.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_view.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/simple_resource.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/ui_loader.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/ui_loader_p.h
@@ -126,7 +127,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_propertyeditor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_objectinspector.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_dnditem.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qsimpleresource.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/invisible_widget.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qlayout_widget.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/sheet_delegate.cpp
@@ -158,9 +158,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/dialoggui.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/deviceprofile.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/zoomwidget.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourceeditordialog.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourcemodel.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qtresourceview.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/iconselector.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/htmlhighlighter.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_widgetitem.cpp
@@ -178,6 +175,10 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_dialog.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_manager.cpp
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_model.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_view.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/simple_resource.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspector.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspectormodel.cpp
 

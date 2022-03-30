@@ -131,6 +131,7 @@ target_include_directories(Designer
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/font_panel
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/util
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box

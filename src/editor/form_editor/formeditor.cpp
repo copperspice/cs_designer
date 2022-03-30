@@ -35,6 +35,7 @@
 #include <itemview_propertysheet.h>
 #include <extension.h>
 #include <abstract_integration.h>
+#include <resource_model.h>
 #include <plugin_manager.h>
 
 #include <qdesigner_introspection_p.h>
@@ -42,7 +43,6 @@
 #include <qdesigner_stackedbox_p.h>
 #include <qdesigner_toolbox_p.h>
 #include <qdesigner_tabwidget_p.h>
-#include <qtresourcemodel_p.h>
 #include <metadatabase_p.h>
 #include <widgetdatabase_p.h>
 #include <widgetfactory_p.h>

@@ -30,15 +30,14 @@
 #include <extension_manager.h>
 #include <qtgradientmanager.h>
 #include <qtgradientutils.h>
+#include <resource_model.h>
 
-#include <qtresourcemodel_p.h>
 #include <qdesigner_propertycommand_p.h>
 #include <qdesigner_propertyeditor_p.h>
 #include <qdesigner_objectinspector_p.h>
 #include <widgetdatabase_p.h>
 #include <widgetfactory_p.h>
 #include <qdesigner_widgetbox_p.h>
-#include <qtresourcemodel_p.h>
 
 #include <QVariant>
 #include <QFile>

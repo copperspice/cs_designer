@@ -19,16 +19,16 @@
 
 #include <widgetbox_dnditem.h>
 #include <abstract_formeditor.h>
+#include <resource_model.h>
+#include <simple_resource.h>
 #include <ui4.h>
 
 #include <widgetfactory_p.h>
 #include <spacer_widget_p.h>
 #include <qdesigner_formbuilder_p.h>
-#include <qtresourcemodel_p.h>
 #include <formwindowbase_p.h>
 #include <qdesigner_utils_p.h>
 #include <qdesigner_dockwidget_p.h>
-#include <qsimpleresource_p.h>
 #include <formwindowbase_p.h>
 
 #include <QStyle>

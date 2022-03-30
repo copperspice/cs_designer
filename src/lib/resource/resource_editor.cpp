@@ -19,10 +19,10 @@
 
 #include <designer_settings.h>
 #include <abstract_formeditor.h>
+#include <resource_model.h>
 #include <ui_resource_editor.h>
+#include <resource_editor.h>
 
-#include <qtresourceeditordialog_p.h>
-#include <qtresourcemodel_p.h>
 #include <iconloader_p.h>
 #include <abstract_dialoggui.h>
 
@@ -330,7 +330,7 @@ class QtQrcManager : public QObject
    QtQrcFile *qrcFileOf(QtResourceFile *resourceFile) const;
    QtResourcePrefix *resourcePrefixOf(QtResourceFile *resourceFile) const;
 
-   QtQrcFile *importQrcFile(const QtQrcFileData &qrcFileData, QtQrcFile *beforeQrcFile = 0);
+   QtQrcFile *importQrcFile(const QtQrcFileData &qrcFileData, QtQrcFile *beforeQrcFile = nullptr);
    void exportQrcFile(QtQrcFile *qrcFile, QtQrcFileData *qrcFileData) const;
 
    QList<QtResourceFile *> resourceFilesOf(const QString &resourceFullPath) const;
@@ -348,65 +348,84 @@ class QtQrcManager : public QObject
    void clear();
 
  public :
-   CS_SLOT_1(Public, QtQrcFile *insertQrcFile(const QString &path, QtQrcFile *beforeQrcFile = 0, bool newFile = false))
+   CS_SLOT_1(Public, QtQrcFile *insertQrcFile(const QString &path, QtQrcFile *beforeQrcFile = nullptr, bool newFile = false))
    CS_SLOT_2(insertQrcFile)
+
    CS_SLOT_1(Public, void moveQrcFile(QtQrcFile *qrcFile, QtQrcFile *beforeQrcFile))
    CS_SLOT_2(moveQrcFile)
+
    CS_SLOT_1(Public, void setInitialState(QtQrcFile *qrcFile, const QtQrcFileData &initialState))
    CS_SLOT_2(setInitialState)
+
    CS_SLOT_1(Public, void removeQrcFile(QtQrcFile *qrcFile))
    CS_SLOT_2(removeQrcFile)
 
    CS_SLOT_1(Public, QtResourcePrefix *insertResourcePrefix(QtQrcFile *qrcFile, const QString &prefix, const QString &language,
-         QtResourcePrefix *beforeResourcePrefix = 0))
+         QtResourcePrefix *beforeResourcePrefix = nullptr))
    CS_SLOT_2(insertResourcePrefix)
+
    CS_SLOT_1(Public, void moveResourcePrefix(QtResourcePrefix *resourcePrefix, QtResourcePrefix *beforeResourcePrefix))
    CS_SLOT_2(moveResourcePrefix)  // the same qrc file???
+
    CS_SLOT_1(Public, void changeResourcePrefix(QtResourcePrefix *resourcePrefix, const QString &newPrefix))
    CS_SLOT_2(changeResourcePrefix)
+
    CS_SLOT_1(Public, void changeResourceLanguage(QtResourcePrefix *resourcePrefix, const QString &newLanguage))
    CS_SLOT_2(changeResourceLanguage)
+
    CS_SLOT_1(Public, void removeResourcePrefix(QtResourcePrefix *resourcePrefix))
    CS_SLOT_2(removeResourcePrefix)
 
    CS_SLOT_1(Public, QtResourceFile *insertResourceFile(QtResourcePrefix *resourcePrefix, const QString &path, const QString &alias,
-         QtResourceFile *beforeResourceFile = 0))
+         QtResourceFile *beforeResourceFile = nullptr))
    CS_SLOT_2(insertResourceFile)
+
    CS_SLOT_1(Public, void moveResourceFile(QtResourceFile *resourceFile, QtResourceFile *beforeResourceFile))
    CS_SLOT_2(moveResourceFile)  // the same prefix???
+
    CS_SLOT_1(Public, void changeResourceAlias(QtResourceFile *resourceFile, const QString &newAlias))
    CS_SLOT_2(changeResourceAlias)
+
    CS_SLOT_1(Public, void removeResourceFile(QtResourceFile *resourceFile))
    CS_SLOT_2(removeResourceFile)
 
    CS_SIGNAL_1(Public, void qrcFileInserted(QtQrcFile *qrcFile))
    CS_SIGNAL_2(qrcFileInserted, qrcFile)
+
    CS_SIGNAL_1(Public, void qrcFileMoved(QtQrcFile *qrcFile, QtQrcFile *oldBeforeQrcFile))
    CS_SIGNAL_2(qrcFileMoved, qrcFile, oldBeforeQrcFile)
+
    CS_SIGNAL_1(Public, void qrcFileRemoved(QtQrcFile *qrcFile))
    CS_SIGNAL_2(qrcFileRemoved, qrcFile)
 
    CS_SIGNAL_1(Public, void resourcePrefixInserted(QtResourcePrefix *resourcePrefix))
    CS_SIGNAL_2(resourcePrefixInserted, resourcePrefix)
+
    CS_SIGNAL_1(Public, void resourcePrefixMoved(QtResourcePrefix *resourcePrefix, QtResourcePrefix *oldBeforeResourcePrefix))
    CS_SIGNAL_2(resourcePrefixMoved, resourcePrefix, oldBeforeResourcePrefix)
+
    CS_SIGNAL_1(Public, void resourcePrefixChanged(QtResourcePrefix *resourcePrefix, const QString &oldPrefix))
    CS_SIGNAL_2(resourcePrefixChanged, resourcePrefix, oldPrefix)
+
    CS_SIGNAL_1(Public, void resourceLanguageChanged(QtResourcePrefix *resourcePrefix, const QString &oldLanguage))
    CS_SIGNAL_2(resourceLanguageChanged, resourcePrefix, oldLanguage)
+
    CS_SIGNAL_1(Public, void resourcePrefixRemoved(QtResourcePrefix *resourcePrefix))
    CS_SIGNAL_2(resourcePrefixRemoved, resourcePrefix)
 
    CS_SIGNAL_1(Public, void resourceFileInserted(QtResourceFile *resourceFile))
    CS_SIGNAL_2(resourceFileInserted, resourceFile)
+
    CS_SIGNAL_1(Public, void resourceFileMoved(QtResourceFile *resourceFile, QtResourceFile *oldBeforeResourceFile))
    CS_SIGNAL_2(resourceFileMoved, resourceFile, oldBeforeResourceFile)
+
    CS_SIGNAL_1(Public, void resourceAliasChanged(QtResourceFile *resourceFile, const QString &oldAlias))
    CS_SIGNAL_2(resourceAliasChanged, resourceFile, oldAlias)
+
    CS_SIGNAL_1(Public, void resourceFileRemoved(QtResourceFile *resourceFile))
    CS_SIGNAL_2(resourceFileRemoved, resourceFile)
- private:
 
+ private:
    QList<QtQrcFile *> m_qrcFiles;
    QMap<QString, QtQrcFile *> m_pathToQrc;
    QMap<QtQrcFile *, bool> m_qrcFileToExists;
@@ -544,11 +563,13 @@ bool QtQrcManager::exists(QtQrcFile *qrcFile) const
 QtQrcFile *QtQrcManager::prevQrcFile(QtQrcFile *qrcFile) const
 {
    if (!qrcFile) {
-      return 0;
+      return nullptr;
    }
+
    const int idx = m_qrcFiles.indexOf(qrcFile);
+
    if (idx <= 0) {
-      return 0;
+      return nullptr;
    }
    return m_qrcFiles.at(idx - 1);
 }
@@ -556,11 +577,11 @@ QtQrcFile *QtQrcManager::prevQrcFile(QtQrcFile *qrcFile) const
 QtQrcFile *QtQrcManager::nextQrcFile(QtQrcFile *qrcFile) const
 {
    if (!qrcFile) {
-      return 0;
+      return nullptr;
    }
    const int idx = m_qrcFiles.indexOf(qrcFile);
    if (idx < 0 || idx == m_qrcFiles.size() - 1) {
-      return 0;
+      return nullptr;
    }
    return m_qrcFiles.at(idx + 1);
 }
@@ -568,12 +589,14 @@ QtQrcFile *QtQrcManager::nextQrcFile(QtQrcFile *qrcFile) const
 QtResourcePrefix *QtQrcManager::prevResourcePrefix(QtResourcePrefix *resourcePrefix) const
 {
    if (!resourcePrefix) {
-      return 0;
+      return nullptr;
    }
+
    QList<QtResourcePrefix *> prefixes = qrcFileOf(resourcePrefix)->resourcePrefixList();
    const int idx = prefixes.indexOf(resourcePrefix);
+
    if (idx <= 0) {
-      return 0;
+      return nullptr;
    }
    return prefixes.at(idx - 1);
 }
@@ -581,12 +604,12 @@ QtResourcePrefix *QtQrcManager::prevResourcePrefix(QtResourcePrefix *resourcePre
 QtResourcePrefix *QtQrcManager::nextResourcePrefix(QtResourcePrefix *resourcePrefix) const
 {
    if (!resourcePrefix) {
-      return 0;
+      return nullptr;
    }
    QList<QtResourcePrefix *> prefixes = qrcFileOf(resourcePrefix)->resourcePrefixList();
    const int idx = prefixes.indexOf(resourcePrefix);
    if (idx < 0 || idx == prefixes.size() - 1) {
-      return 0;
+      return nullptr;
    }
    return prefixes.at(idx + 1);
 }
@@ -594,12 +617,12 @@ QtResourcePrefix *QtQrcManager::nextResourcePrefix(QtResourcePrefix *resourcePre
 QtResourceFile *QtQrcManager::prevResourceFile(QtResourceFile *resourceFile) const
 {
    if (!resourceFile) {
-      return 0;
+      return nullptr;
    }
    QList<QtResourceFile *> files = resourcePrefixOf(resourceFile)->resourceFiles();
    const int idx = files.indexOf(resourceFile);
    if (idx <= 0) {
-      return 0;
+      return nullptr;
    }
    return files.at(idx - 1);
 }
@@ -607,12 +630,12 @@ QtResourceFile *QtQrcManager::prevResourceFile(QtResourceFile *resourceFile) con
 QtResourceFile *QtQrcManager::nextResourceFile(QtResourceFile *resourceFile) const
 {
    if (!resourceFile) {
-      return 0;
+      return nullptr;
    }
    QList<QtResourceFile *> files = resourcePrefixOf(resourceFile)->resourceFiles();
    const int idx = files.indexOf(resourceFile);
    if (idx < 0 || idx == files.size() - 1) {
-      return 0;
+      return nullptr;
    }
    return files.at(idx + 1);
 }
@@ -629,7 +652,7 @@ void QtQrcManager::clear()
 QtQrcFile *QtQrcManager::insertQrcFile(const QString &path, QtQrcFile *beforeQrcFile, bool newFile)
 {
    if (m_pathToQrc.contains(path)) {
-      return 0;
+      return nullptr;
    }
 
    int idx = m_qrcFiles.indexOf(beforeQrcFile);
@@ -670,7 +693,7 @@ void QtQrcManager::moveQrcFile(QtQrcFile *qrcFile, QtQrcFile *beforeQrcFile)
       return;
    }
 
-   QtQrcFile *oldBefore = 0;
+   QtQrcFile *oldBefore = nullptr;
    if (idx < m_qrcFiles.size() - 1) {
       oldBefore = m_qrcFiles.at(idx + 1);
    }
@@ -715,7 +738,7 @@ QtResourcePrefix *QtQrcManager::insertResourcePrefix(QtQrcFile *qrcFile, const Q
    const QString &language, QtResourcePrefix *beforeResourcePrefix)
 {
    if (!qrcFile) {
-      return 0;
+      return nullptr;
    }
 
    int idx = qrcFile->m_resourcePrefixes.indexOf(beforeResourcePrefix);
@@ -760,7 +783,7 @@ void QtQrcManager::moveResourcePrefix(QtResourcePrefix *resourcePrefix, QtResour
       return;
    }
 
-   QtResourcePrefix *oldBefore = 0;
+   QtResourcePrefix *oldBefore = nullptr;
    if (idx < qrcFile->m_resourcePrefixes.size() - 1) {
       oldBefore = qrcFile->m_resourcePrefixes.at(idx + 1);
    }
@@ -895,7 +918,7 @@ void QtQrcManager::moveResourceFile(QtResourceFile *resourceFile, QtResourceFile
       return;
    }
 
-   QtResourceFile *oldBefore = 0;
+   QtResourceFile *oldBefore = nullptr;
    if (idx < resourcePrefix->m_resourceFiles.size() - 1) {
       oldBefore = resourcePrefix->m_resourceFiles.at(idx + 1);
    }
@@ -1168,7 +1191,7 @@ void QtResourceEditorDialogPrivate::slotQrcFileRemoved(QtQrcFile *qrcFile)
 QStandardItem *QtResourceEditorDialogPrivate::insertResourcePrefix(QtResourcePrefix *resourcePrefix)
 {
    if (m_qrcManager->qrcFileOf(resourcePrefix) != m_currentQrcFile) {
-      return 0;
+      return nullptr;
    }
 
    QtResourcePrefix *prevResourcePrefix = m_qrcManager->prevResourcePrefix(resourcePrefix);
@@ -1422,7 +1445,7 @@ void QtResourceEditorDialogPrivate::slotCurrentQrcFileChanged(QListWidgetItem *i
 
    m_currentQrcFile = newCurrentQrcFile;
    slotCurrentTreeViewItemChanged(QModelIndex());
-   QStandardItem *firstPrefix = 0; // select first prefix
+   QStandardItem *firstPrefix = nullptr; // select first prefix
 
    if (m_currentQrcFile) {
       QList<QtResourcePrefix *> newPrefixList = m_currentQrcFile->resourcePrefixList();
@@ -1987,7 +2010,7 @@ void QtResourceEditorDialogPrivate::slotRemove()
       resourcePrefix = m_languageItemToResourcePrefix.value(item);
    }
 
-   QStandardItem *newCurrentItem = 0;
+   QStandardItem *newCurrentItem = nullptr;
 
    if (resourceFile) {
       QtResourceFile *nextFile = m_qrcManager->nextResourceFile(resourceFile);

@@ -42,10 +42,13 @@ class QtResourceSet // one instance per one form
    // resource set) it is automatically unloaded. The removed file can also be
    // marked as modified (later when another resource set which contains
    // removed path is activated will be reloaded)
-   void activateResourceFilePaths(const QStringList &paths, int *errorCount = 0, QString *errorMessages = 0);
+   void activateResourceFilePaths(const QStringList &paths, int *errorCount = nullptr, QString *errorMessages = nullptr);
 
-   bool isModified(const QString &path) const; // for all paths in resource model (redundant here, maybe it should be removed from here)
-   void setModified(const QString &path);       // for all paths in resource model (redundant here, maybe it should be removed from here)
+   // for all paths in resource model (redundant here, maybe it should be removed from here)
+   bool isModified(const QString &path) const;
+
+   // for all paths in resource model (redundant here, maybe it should be removed from here)
+   void setModified(const QString &path);
 
  private:
    QtResourceSet();
@@ -74,13 +77,13 @@ class QtResourceModel : public QObject // one instance per whole designer
    QList<QtResourceSet *> resourceSets() const;
 
    QtResourceSet *currentResourceSet() const;
-   void setCurrentResourceSet(QtResourceSet *resourceSet, int *errorCount = 0, QString *errorMessages = 0);
+   void setCurrentResourceSet(QtResourceSet *resourceSet, int *errorCount = nullptr, QString *errorMessages = nullptr);
 
    QtResourceSet *addResourceSet(const QStringList &paths);
    void removeResourceSet(QtResourceSet *resourceSet);
 
-   void reload(const QString &path, int *errorCount = 0, QString *errorMessages = 0);
-   void reload(int *errorCount = 0, QString *errorMessages = 0);
+   void reload(const QString &path, int *errorCount = nullptr, QString *errorMessages = nullptr);
+   void reload(int *errorCount = nullptr, QString *errorMessages = nullptr);
 
    // Contents of the current resource set (content file to qrc path)
    QMap<QString, QString> contents() const;

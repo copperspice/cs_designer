@@ -58,10 +58,9 @@ class QtResourceView : public QWidget
    enum ResourceType { ResourceImage, ResourceStyleSheet, ResourceOther };
    static QString encodeMimeData(ResourceType resourceType, const QString &path);
 
-   static bool decodeMimeData(const QMimeData *md, ResourceType *t = 0, QString *file = 0);
-   static bool decodeMimeData(const QString &text, ResourceType *t = 0, QString *file = 0);
+   static bool decodeMimeData(const QMimeData *md, ResourceType *t = nullptr, QString *file = nullptr);
+   static bool decodeMimeData(const QString &text, ResourceType *t = nullptr, QString *file = nullptr);
 
- public:
    CS_SIGNAL_1(Public, void resourceSelected(const QString &resource))
    CS_SIGNAL_2(resourceSelected, resource)
 

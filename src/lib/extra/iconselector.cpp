@@ -22,12 +22,12 @@
 #include <abstract_language.h>
 #include <abstract_integration.h>
 #include <extension.h>
-
+#include <resource_model.h>
 #include <abstract_dialoggui.h>
+#include <resource_view.h>
+
 #include <iconselector_p.h>
 #include <qdesigner_utils_p.h>
-#include <qtresourcemodel_p.h>
-#include <qtresourceview_p.h>
 #include <iconloader_p.h>
 #include <formwindowbase_p.h>
 

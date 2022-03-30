@@ -43,7 +43,7 @@ class QSimpleResource : public QAbstractFormBuilder
    QBrush setupBrush(DomBrush *brush);
    DomBrush *saveBrush(const QBrush &brush);
 
-   inline QDesignerFormEditorInterface *core() const {
+   QDesignerFormEditorInterface *core() const {
       return m_core;
    }
 
@@ -51,9 +51,11 @@ class QSimpleResource : public QAbstractFormBuilder
    static void addExtensionDataToDOM(QAbstractFormBuilder *afb,
       QDesignerFormEditorInterface *core,
       DomWidget *ui_widget, QWidget *widget);
+
    static void applyExtensionDataFromDOM(QAbstractFormBuilder *afb,
       QDesignerFormEditorInterface *core,
       DomWidget *ui_widget, QWidget *widget);
+
    // Return the script returned by the CustomWidget codeTemplate API
    static QString customWidgetScript(QDesignerFormEditorInterface *core, QObject *object);
    static QString customWidgetScript(QDesignerFormEditorInterface *core, const QString &className);
@@ -107,12 +109,11 @@ class QEditorFormBuilder : public QSimpleResource
 
    // A widget parent needs to be specified, otherwise, the widget factory cannot locate the form window via parent
    // and thus is not able to construct special widgets (QLayoutWidget).
-   virtual FormBuilderClipboard paste(DomUI *ui, QWidget *widgetParent, QObject *actionParent = 0) = 0;
-   virtual FormBuilderClipboard paste(QIODevice *dev, QWidget *widgetParent, QObject *actionParent = 0) = 0;
+   virtual FormBuilderClipboard paste(DomUI *ui, QWidget *widgetParent, QObject *actionParent = nullptr) = 0;
+   virtual FormBuilderClipboard paste(QIODevice *dev, QWidget *widgetParent, QObject *actionParent = nullptr) = 0;
 };
 
-} // namespace qdesigner_internal
-
+}   // end namespace qdesigner_internal
 
 
 #endif

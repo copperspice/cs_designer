@@ -19,12 +19,11 @@
 
 #include <formwindow_dnditem.h>
 #include <formwindow.h>
+#include <resource_model.h>
 #include <ui4.h>
 #include <qdesigner_resource.h>
 #include <abstract_formeditor.h>
 #include <ui4.h>
-
-#include <qtresourcemodel_p.h>
 
 #include <QLabel>
 #include <QPixmap>

@@ -31,11 +31,11 @@
 #include <abstract_widgetbox.h>
 #include <abstract_integration.h>
 #include <preview_manager.h>
+#include <resource_model.h>
 
 #include <widgetdatabase_p.h>
 #include <iconloader_p.h>
 #include <connectionedit_p.h>
-#include <qtresourcemodel_p.h>
 #include <qdesigner_dnditem_p.h>
 #include <qdesigner_command_p.h>
 #include <qdesigner_command2_p.h>

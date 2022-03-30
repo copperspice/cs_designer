@@ -26,8 +26,8 @@
 #include <properties.h>
 #include <ui4.h>
 
-#include <qsimpleresource_p.h>
-#include <widgetfactory_p.h>
+#include <simple_resource.h>
+#include <widgetfactory.h>
 #include <widgetdatabase_p.h>
 
 #include <QIcon>
@@ -37,28 +37,28 @@
 #include <QCoreApplication>
 
 namespace {
+
 typedef QList<DomWidgetData *> DomWidgetDataList;
-typedef QList<DomProperty *> DomPropertyList;
 typedef QList<QDesignerCustomWidgetInterface *> CustomWidgetInterfaces;
+
 }
 
 namespace qdesigner_internal {
 
 bool QSimpleResource::m_warningsEnabled = true;
 
-QSimpleResource::QSimpleResource(QDesignerFormEditorInterface *core) :
-   QAbstractFormBuilder(),
-   m_core(core)
+QSimpleResource::QSimpleResource(QDesignerFormEditorInterface *core)
+   : QAbstractFormBuilder(), m_core(core)
 {
    QString workingDirectory = QDir::homePath();
    workingDirectory +=  QDir::separator();
-   workingDirectory +=  QString(".designer");
+   workingDirectory +=  ".designer";
+
    setWorkingDirectory(QDir(workingDirectory));
 }
 
 QSimpleResource::~QSimpleResource()
 {
-
 }
 
 QBrush QSimpleResource::setupBrush(DomBrush *brush)
@@ -74,7 +74,7 @@ DomBrush *QSimpleResource::saveBrush(const QBrush &brush)
 DomScript *QSimpleResource::createScript(const QString &script, ScriptSource source)
 {
    if (script.isEmpty()) {
-      return 0;
+      return nullptr;
    }
    DomScript *domScript = new DomScript();
    switch (source) {
@@ -88,8 +88,10 @@ DomScript *QSimpleResource::createScript(const QString &script, ScriptSource sou
          domScript->setAttributeSource(QString("customwidgetplugin"));
          break;
    }
-   domScript->setAttributeLanguage(QString("Qt Script"));
+
+   domScript->setAttributeLanguage(QString("Qt Script"));       // BROOM check
    domScript->setText(script);
+
    return domScript;
 }
 

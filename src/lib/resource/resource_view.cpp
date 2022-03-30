@@ -19,10 +19,10 @@
 
 #include <abstract_formeditor.h>
 #include <designer_settings.h>
+#include <resource_model.h>
+#include <resource_view.h>
+#include <resource_editor.h>
 
-#include <qtresourceview_p.h>
-#include <qtresourcemodel_p.h>
-#include <qtresourceeditordialog_p.h>
 #include <iconloader_p.h>
 
 #include <QToolBar>

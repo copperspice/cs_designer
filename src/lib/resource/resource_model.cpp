@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qtresourcemodel_p.h>
+#include <resource_model.h>
 #include <rcc_support.h>
 
 #include <QStringList>
@@ -44,7 +44,7 @@ class QtResourceSetPrivate
 };
 
 QtResourceSetPrivate::QtResourceSetPrivate(QtResourceModel *model)
-   : q_ptr(0), m_resourceModel(model)
+   : q_ptr(nullptr), m_resourceModel(model)
 {
 }
 
@@ -56,7 +56,10 @@ class QtResourceModelPrivate
 
  public:
    QtResourceModelPrivate();
-   void activate(QtResourceSet *resourceSet, const QStringList &newPaths, int *errorCount = 0, QString *errorMessages = 0);
+
+   void activate(QtResourceSet *resourceSet, const QStringList &newPaths,
+         int *errorCount = nullptr, QString *errorMessages = nullptr);
+
    void removeOldPaths(QtResourceSet *resourceSet, const QStringList &newPaths);
 
    QMap<QString, bool> m_pathToModified;
@@ -97,7 +100,7 @@ class QtResourceModelPrivate
 };
 
 QtResourceModelPrivate::QtResourceModelPrivate()
-   : q_ptr(0), m_currentResourceSet(0), m_fileWatcher(0), m_fileWatcherEnabled(true)
+   : q_ptr(nullptr), m_currentResourceSet(nullptr), m_fileWatcher(nullptr), m_fileWatcherEnabled(true)
 {
 }
 
@@ -215,12 +218,16 @@ void QtResourceModelPrivate::registerResourceSet(QtResourceSet *resourceSet)
          if (data) {
             if (!QResource::registerResource(reinterpret_cast<const uchar *>(data->constData()))) {
                qWarning() << "** WARNING: Failed to register " << path << " (QResource failure).";
+
             } else {
                QStringList contents = m_pathToContents.value(path);
                QStringListIterator itContents(contents);
+
                while (itContents.hasNext()) {
                   const QString filePath = itContents.next();
-                  if (!m_fileToQrc.contains(filePath)) { // the first loaded resource has higher priority in qt resource system
+
+                  if (! m_fileToQrc.contains(filePath)) {
+                     // the first loaded resource has higher priority in the resource system
                      m_fileToQrc.insert(filePath, path);
                   }
                }
@@ -241,10 +248,13 @@ void QtResourceModelPrivate::unregisterResourceSet(QtResourceSet *resourceSet)
    QStringListIterator itUnregister(toUnregister);
    while (itUnregister.hasNext()) {
       const QString path = itUnregister.next();
+
       if (debugResourceModel) {
          qDebug() << "unregisterResourceSet " << path;
       }
+
       const PathDataMap::const_iterator itRcc = m_pathToData.constFind(path);
+
       if (itRcc != m_pathToData.constEnd()) { // otherwise data was not created yet
          const QByteArray *data = itRcc.value();
          if (data) {
@@ -257,15 +267,17 @@ void QtResourceModelPrivate::unregisterResourceSet(QtResourceSet *resourceSet)
    m_fileToQrc.clear();
 }
 
-void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringList &newPaths, int *errorCountPtr,
-   QString *errorMessages)
+void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringList &newPaths,
+      int *errorCountPtr, QString *errorMessages)
 {
    if (debugResourceModel) {
       qDebug() << "activate " << resourceSet;
    }
+
    if (errorCountPtr) {
       *errorCountPtr = 0;
    }
+
    if (errorMessages) {
       errorMessages->clear();
    }
@@ -273,7 +285,7 @@ void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringL
    QBuffer errorStream;
    errorStream.open(QIODevice::WriteOnly);
 
-   int errorCount = 0;
+   int errorCount     = 0;
    int generatedCount = 0;
    bool newResourceSetChanged = false;
 
@@ -284,12 +296,16 @@ void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringL
    PathDataMap newPathToData = m_pathToData;
 
    QStringListIterator itPath(newPaths);
+
    while (itPath.hasNext()) {
       const QString path = itPath.next();
+
       if (resourceSet && !m_pathToResourceSet[path].contains(resourceSet)) {
          m_pathToResourceSet[path].append(resourceSet);
       }
+
       const QMap<QString, bool>::iterator itMod = m_pathToModified.find(path);
+
       if (itMod == m_pathToModified.end() || itMod.value()) { // new path or path is already created, but needs to be recreated
          QStringList contents;
          int qrcErrorCount;
@@ -413,15 +429,20 @@ void QtResourceModelPrivate::removeOldPaths(QtResourceSet *resourceSet, const QS
    if (oldPaths != newPaths) {
       // remove old
       QStringListIterator itOldPaths(oldPaths);
+
       while (itOldPaths.hasNext()) {
          QString oldPath = itOldPaths.next();
+
          if (!newPaths.contains(oldPath)) {
             const QMap<QString, QList<QtResourceSet *>>::iterator itRemove = m_pathToResourceSet.find(oldPath);
+
             if (itRemove != m_pathToResourceSet.end()) {
                const int idx = itRemove.value().indexOf(resourceSet);
+
                if (idx >= 0) {
                   itRemove.value().removeAt(idx);
                }
+
                if (itRemove.value().count() == 0) {
                   PathDataMap::iterator it = m_pathToData.find(oldPath);
                   if (it != m_pathToData.end()) {

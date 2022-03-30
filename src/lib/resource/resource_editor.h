@@ -21,9 +21,8 @@
 #define QTRESOURCEEDITOR_H
 
 #include <abstract_formeditor.h>
-
-#include <qtresourcemodel_p.h>
 #include <abstract_dialoggui.h>
+#include <resource_model.h>
 
 class QtQrcFile;
 class QtResourcePrefix;

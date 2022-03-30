@@ -24,8 +24,7 @@
 #include <abstract_formwindowmanager.h>
 #include <extension_manager.h>
 #include <qtgradientmanager.h>
-
-#include <qtresourcemodel_p.h>
+#include <resource_model.h>
 
 class QDesignerWidgetBoxInterface;
 class QDesignerPropertyEditorInterface;
@@ -40,7 +39,6 @@ class QDesignerPluginManager;
 class QDesignerIntrospectionInterface;
 class QDesignerDialogGuiInterface;
 class QDesignerOptionsPageInterface;
-
 class QDesignerFormEditorInterfacePrivate;
 
 #include <QObject>

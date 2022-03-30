@@ -33,8 +33,8 @@
 #include <propertysheet.h>
 #include <taskmenu.h>
 #include <widgetselection.h>
+#include <resource_model.h>
 
-#include <qtresourcemodel_p.h>
 #include <widgetfactory_p.h>
 #include <metadatabase_p.h>
 #include <qdesigner_tabwidget_p.h>
