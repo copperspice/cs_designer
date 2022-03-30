@@ -17,8 +17,9 @@
 *
 ***********************************************************************/
 
-#include <quiloader.h>
-#include <quiloader_p.h>
+#include <ui_loader.h>
+#include <ui_loader_p.h>
+
 #include <customwidget.h>
 #include <formbuilder.h>
 #include <table_classes.h>
@@ -60,7 +61,9 @@ class TranslatingTextBuilder : public QTextBuilder
 {
  public:
    TranslatingTextBuilder(bool trEnabled, const QString &className)
-      : m_trEnabled(trEnabled), m_className(className) {}
+      : m_trEnabled(trEnabled), m_className(className)
+   {
+   }
 
    QVariant loadText(const DomProperty *icon) const override;
 
@@ -74,20 +77,25 @@ class TranslatingTextBuilder : public QTextBuilder
 QVariant TranslatingTextBuilder::loadText(const DomProperty *text) const
 {
    const DomString *str = text->elementString();
-   if (!str) {
+
+   if (! str) {
       return QVariant();
    }
+
    if (str->hasAttributeNotr()) {
       const QString notr = str->attributeNotr();
-      if (notr == QString("true") || notr == QString("yes")) {
+      if (notr == "true" || notr == "yes") {
          return QVariant::fromValue(str->text());
       }
    }
+
    QUiTranslatableStringValue strVal;
+
    strVal.setValue(str->text().toUtf8());
    if (str->hasAttributeComment()) {
       strVal.setComment(str->attributeComment().toUtf8());
    }
+
    return QVariant::fromValue(strVal);
 }
 
@@ -167,17 +175,6 @@ static void reTranslateTableItem(QTableWidgetItem *item, const QString &class_na
    }
 }
 
-#define RETRANSLATE_SUBWIDGET_PROP(mainWidget, setter, propName) \
-    do { \
-        QVariant v = mainWidget->widget(i)->property(propName); \
-        if (v.isValid()) { \
-            QUiTranslatableStringValue tsv = v.value<QUiTranslatableStringValue>(); \
-            const QString text = QCoreApplication::translate(m_className, \
-                      tsv.value(), tsv.comment()); \
-            mainWidget->setter(i, text); \
-        } \
-    } while (0)
-
 class TranslationWatcher: public QObject
 {
    CS_OBJECT(TranslationWatcher)
@@ -204,14 +201,33 @@ class TranslationWatcher: public QObject
 
          if (QTabWidget *tabw = dynamic_cast<QTabWidget *>(o)) {
             const int cnt = tabw->count();
+
             for (int i = 0; i < cnt; ++i) {
-               RETRANSLATE_SUBWIDGET_PROP(tabw, setTabText, PROP_TABPAGETEXT);
+               QVariant v = tabw->widget(i)->property(PROP_TABPAGETEXT);
 
-               RETRANSLATE_SUBWIDGET_PROP(tabw, setTabToolTip, PROP_TABPAGETOOLTIP);
+               if (v.isValid()) {
+                  QUiTranslatableStringValue tsv = v.value<QUiTranslatableStringValue>();
+                  const QString text = QCoreApplication::translate(m_className, tsv.value(), tsv.comment());
+                  tabw->setTabText(i, text);
+               }
 
+               //
+               v = tabw->widget(i)->property(PROP_TABPAGETOOLTIP);
 
-               RETRANSLATE_SUBWIDGET_PROP(tabw, setTabWhatsThis, PROP_TABPAGEWHATSTHIS);
+               if (v.isValid()) {
+                  QUiTranslatableStringValue tsv = v.value<QUiTranslatableStringValue>();
+                  const QString text = QCoreApplication::translate(m_className, tsv.value(), tsv.comment());
+                  tabw->setTabToolTip(i, text);
+               }
 
+               //
+               v = tabw->widget(i)->property(PROP_TABPAGEWHATSTHIS);
+
+               if (v.isValid()) {
+                  QUiTranslatableStringValue tsv = v.value<QUiTranslatableStringValue>();
+                  const QString text = QCoreApplication::translate(m_className, tsv.value(), tsv.comment());
+                  tabw->setTabWhatsThis(i, text);
+               }
             }
 
          } else if (QListWidget *listw = dynamic_cast<QListWidget *>(o)) {
@@ -225,6 +241,7 @@ class TranslationWatcher: public QObject
             if (QTreeWidgetItem *item = treew->headerItem()) {
                recursiveReTranslate(item, m_className);
             }
+
             const int cnt = treew->topLevelItemCount();
             for (int i = 0; i < cnt; ++i) {
                QTreeWidgetItem *item = treew->topLevelItem(i);
@@ -235,9 +252,11 @@ class TranslationWatcher: public QObject
          } else if (QTableWidget *tablew = dynamic_cast<QTableWidget *>(o)) {
             const int row_cnt = tablew->rowCount();
             const int col_cnt = tablew->columnCount();
+
             for (int j = 0; j < col_cnt; ++j) {
                reTranslateTableItem(tablew->horizontalHeaderItem(j), m_className);
             }
+
             for (int i = 0; i < row_cnt; ++i) {
                reTranslateTableItem(tablew->verticalHeaderItem(i), m_className);
                for (int j = 0; j < col_cnt; ++j) {
@@ -246,10 +265,12 @@ class TranslationWatcher: public QObject
             }
 
          } else if (QComboBox *combow = dynamic_cast<QComboBox *>(o)) {
-            if (!dynamic_cast<QFontComboBox *>(o)) {
+            if (! dynamic_cast<QFontComboBox *>(o)) {
                const int cnt = combow->count();
+
                for (int i = 0; i < cnt; ++i) {
                   const QVariant v = combow->itemData(i, Qt::DisplayPropertyRole);
+
                   if (v.isValid()) {
                      QUiTranslatableStringValue tsv = v.value<QUiTranslatableStringValue>();
                      const QString text = QCoreApplication::translate(m_className, tsv.value(), tsv.comment());
@@ -262,10 +283,24 @@ class TranslationWatcher: public QObject
             const int cnt = toolw->count();
 
             for (int i = 0; i < cnt; ++i) {
-               RETRANSLATE_SUBWIDGET_PROP(toolw, setItemText, PROP_TOOLITEMTEXT);
-               RETRANSLATE_SUBWIDGET_PROP(toolw, setItemToolTip, PROP_TOOLITEMTOOLTIP);
-            }
+               //
+               QVariant v = toolw->widget(i)->property(PROP_TOOLITEMTEXT);
 
+               if (v.isValid()) {
+                  QUiTranslatableStringValue tsv = v.value<QUiTranslatableStringValue>();
+                  const QString text = QCoreApplication::translate(m_className, tsv.value(), tsv.comment());
+                  toolw->setItemText(i, text);
+               }
+
+               //
+               v = toolw->widget(i)->property(PROP_TOOLITEMTOOLTIP);
+
+               if (v.isValid()) {
+                  QUiTranslatableStringValue tsv = v.value<QUiTranslatableStringValue>();
+                  const QString text = QCoreApplication::translate(m_className, tsv.value(), tsv.comment());
+                  toolw->setItemToolTip(i, text);
+               }
+            }
          }
       }
 
@@ -312,7 +347,7 @@ class FormBuilderPrivate: public QFormBuilder
          return widget;
       }
 
-      return 0;
+      return nullptr;
    }
 
    QLayout *createLayout(const QString &className, QObject *parent, const QString &name) override {
@@ -321,7 +356,7 @@ class FormBuilderPrivate: public QFormBuilder
          return layout;
       }
 
-      return 0;
+      return nullptr;
    }
 
    QActionGroup *createActionGroup(QObject *parent, const QString &name) override {
@@ -330,7 +365,7 @@ class FormBuilderPrivate: public QFormBuilder
          return actionGroup;
       }
 
-      return 0;
+      return nullptr;
    }
 
    QAction *createAction(QObject *parent, const QString &name)  override {
@@ -339,7 +374,7 @@ class FormBuilderPrivate: public QFormBuilder
          return action;
       }
 
-      return 0;
+      return nullptr;
    }
 
    void applyProperties(QObject *o, const QList<DomProperty *> &properties) override;
@@ -358,21 +393,27 @@ static QString convertTranslatable(const DomProperty *p, const QString &classNam
    if (p->kind() != DomProperty::String) {
       return QString();
    }
+
    const DomString *dom_str = p->elementString();
+
    if (!dom_str) {
       return QString();
    }
+
    if (dom_str->hasAttributeNotr()) {
       const QString notr = dom_str->attributeNotr();
       if (notr == QString("yes") || notr == QString("true")) {
          return QString();
       }
    }
+
    strVal->setValue(dom_str->text().toUtf8());
    strVal->setComment(dom_str->attributeComment().toUtf8());
+
    if (strVal->value().isEmpty() && strVal->comment().isEmpty()) {
       return QString();
    }
+
    return QCoreApplication::translate(className, strVal->value(), strVal->comment());
 }
 
@@ -380,7 +421,7 @@ void FormBuilderPrivate::applyProperties(QObject *o, const QList<DomProperty *> 
 {
    QFormBuilder::applyProperties(o, properties);
 
-   if (!m_trwatch) {
+   if (! m_trwatch) {
       m_trwatch = new TranslationWatcher(o, m_class);
    }
 
@@ -410,6 +451,7 @@ void FormBuilderPrivate::applyProperties(QObject *o, const QList<DomProperty *> 
       }
       o->setProperty(name, text);
    }
+
    if (anyTrs) {
       o->installEventFilter(m_trwatch);
    }
@@ -428,17 +470,21 @@ QWidget *FormBuilderPrivate::create(DomWidget *ui_widget, QWidget *parentWidget)
 {
    QWidget *w = QFormBuilder::create(ui_widget, parentWidget);
 
-   if (w == 0) {
-      return 0;
+   if (w == nullptr) {
+      return nullptr;
    }
 
    if (dynamic_cast<QTabWidget *>(w)) {
+      // do nothing
 
    } else if (dynamic_cast<QListWidget *>(w)) {
+      // do nothing
 
    } else if (dynamic_cast<QTreeWidget *>(w)) {
+      // do nothing
 
    } else if (dynamic_cast<QTableWidget *>(w)) {
+      // do nothing
 
    } else if (dynamic_cast<QComboBox *>(w)) {
       if (dynamic_cast<QFontComboBox *>(w)) {
@@ -477,13 +523,13 @@ bool FormBuilderPrivate::addItem(DomWidget *ui_widget, QWidget *widget, QWidget 
       return true;
    }
 
-   if (!ParentClass::addItem(ui_widget, widget, parentWidget)) {
+   if (! ParentClass::addItem(ui_widget, widget, parentWidget)) {
       return false;
    }
 
    // Check special cases. First: Custom container
    const QString className = parentWidget->metaObject()->className();
-   if (!d->customWidgetAddPageMethod(className).isEmpty()) {
+   if (! d->customWidgetAddPageMethod(className).isEmpty()) {
       return true;
    }
 
@@ -517,7 +563,7 @@ class QUiLoaderPrivate
 
 void QUiLoaderPrivate::setupWidgetMap() const
 {
-   if (!g_widgets()->isEmpty()) {
+   if (! g_widgets()->isEmpty()) {
       return;
    }
 

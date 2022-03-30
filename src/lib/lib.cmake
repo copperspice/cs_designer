@@ -87,8 +87,8 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspector.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspectormodel_p.h
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/quiloader.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/quiloader_p.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/ui_loader.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/ui_loader_p.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/qlonglong_validator.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/table_classes.h
@@ -181,7 +181,7 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspector.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspectormodel.cpp
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/quiloader.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/ui_loader.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/qlonglong_validator.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/utils.cpp
