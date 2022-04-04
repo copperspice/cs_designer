@@ -29,6 +29,7 @@
 #include <designer_settings.h>
 #include <tree_propertybrowser.h>
 #include <variantproperty.h>
+#include <widgetfactory.h>
 
 #include <qdesigner_propertysheet_p.h>
 #include <formwindowbase_p.h>
@@ -39,7 +40,6 @@
 #include <qdesigner_propertycommand_p.h>
 #include <metadatabase_p.h>
 #include <iconloader_p.h>
-#include <widgetfactory_p.h>
 
 #include <QAction>
 #include <QLineEdit>

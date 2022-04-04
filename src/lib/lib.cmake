@@ -37,8 +37,8 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_dockwidget_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_toolbox_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_dnditem_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/widgetfactory_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/widgetdatabase_p.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/widgetfactory.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_promotion_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_introspection_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotionmodel_p.h
@@ -159,6 +159,7 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formwindowmanager.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/shared_settings.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/rcc_support.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/widgetfactory.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/abstract_findwidget.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/textedit_findwidget.cpp

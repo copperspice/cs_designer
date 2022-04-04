@@ -27,7 +27,7 @@
 
 #include <morphmenu_p.h>
 #include <formwindowbase_p.h>
-#include <widgetfactory_p.h>
+#include <widgetfactory.h>
 #include <qdesigner_formwindowcommand_p.h>
 #include <qlayout_widget_p.h>
 #include <layoutinfo_p.h>

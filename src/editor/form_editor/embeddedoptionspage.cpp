@@ -22,7 +22,7 @@
 #include <formwindowmanager.h>
 #include <abstract_formeditor.h>
 
-#include <widgetfactory_p.h>
+#include <widgetfactory.h>
 #include <deviceprofile_p.h>
 #include <iconloader_p.h>
 #include <shared_settings_p.h>

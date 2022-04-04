@@ -35,7 +35,7 @@
 #include <qplugin.h>
 
 #include <widgetdatabase_p.h>
-#include <widgetfactory_p.h>
+#include <widgetfactory.h>
 #include <qtresourceview_p.h>
 
 #include <QDir>

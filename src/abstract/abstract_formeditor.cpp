@@ -32,12 +32,11 @@
 #include <extension_manager.h>
 #include <resource_model.h>
 #include <plugin_manager.h>
+#include <widgetfactory.h>
 
 #include <widgetdatabase_p.h>
-#include <widgetfactory_p.h>
 #include <qdesigner_widgetbox_p.h>
 #include <qtgradientmanager.h>
-#include <widgetfactory_p.h>
 #include <shared_settings_p.h>
 #include <formwindowbase_p.h>
 #include <grid_p.h>

@@ -26,7 +26,7 @@
 #include <customwidget.h>
 #include <table_classes.h>
 
-#include <widgetfactory_p.h>
+#include <widgetfactory.h>
 #include <widgetdatabase_p.h>
 #include <metadatabase_p.h>
 #include <qlayout_widget_p.h>

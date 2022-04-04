@@ -23,7 +23,7 @@
 #include <simple_resource.h>
 #include <ui4.h>
 
-#include <widgetfactory_p.h>
+#include <widgetfactory.h>
 #include <spacer_widget_p.h>
 #include <qdesigner_formbuilder_p.h>
 #include <formwindowbase_p.h>

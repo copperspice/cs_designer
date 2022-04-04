@@ -20,7 +20,7 @@
 #include <abstract_formeditor.h>
 
 #include <deviceprofile_p.h>
-#include <widgetfactory_p.h>
+#include <widgetfactory.h>
 #include <qdesigner_utils_p.h>
 
 #include <QApplication>

@@ -21,8 +21,7 @@
 #define WIDGETFACTORY_H
 
 #include <abstract_widgetfactory.h>
-
-#include <pluginmanager_p.h>
+#include <plugin_manager.h>
 
 class QDesignerFormEditorInterface;
 class QDesignerCustomWidgetInterface;

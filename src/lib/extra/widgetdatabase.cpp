@@ -26,7 +26,7 @@
 #include <plugin_manager.h>
 
 #include <widgetdatabase_p.h>
-#include <widgetfactory_p.h>
+#include <widgetfactory.h>
 #include <spacer_widget_p.h>
 #include <abstract_language.h>
 #include <qdesigner_widgetbox_p.h>

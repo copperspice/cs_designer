@@ -33,9 +33,9 @@
 #include <propertysheet.h>
 #include <taskmenu.h>
 #include <widgetselection.h>
+#include <widgetfactory.h>
 #include <resource_model.h>
 
-#include <widgetfactory_p.h>
 #include <metadatabase_p.h>
 #include <qdesigner_tabwidget_p.h>
 #include <qdesigner_toolbox_p.h>
@@ -57,7 +57,6 @@
 #include <shared_settings_p.h>
 #include <grid_p.h>
 #include <widgetdatabase_p.h>
-#include <widgetfactory_p.h>
 #include <qdesigner_widgetbox_p.h>
 #include <ui4.h>
 

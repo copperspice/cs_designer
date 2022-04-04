@@ -32,6 +32,7 @@
 #include <abstract_integration.h>
 #include <preview_manager.h>
 #include <resource_model.h>
+#include <widgetfactory.h>
 
 #include <widgetdatabase_p.h>
 #include <iconloader_p.h>
@@ -44,7 +45,6 @@
 #include <qdesigner_objectinspector_p.h>
 #include <shared_settings_p.h>
 #include <abstract_dialoggui.h>
-#include <widgetfactory_p.h>
 #include <spacer_widget_p.h>
 
 #include <QUndoGroup>

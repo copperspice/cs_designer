@@ -28,7 +28,7 @@
 #include <qdesigner_utils_p.h>
 #include <qlayout_widget_p.h>
 #include <spacer_widget_p.h>
-#include <widgetfactory_p.h>
+#include <widgetfactory.h>
 #include <qdesigner_widgetitem_p.h>
 #include <qdesigner_propertysheet_p.h>
 #include <metadatabase_p.h>

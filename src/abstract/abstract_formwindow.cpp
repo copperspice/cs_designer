@@ -18,8 +18,8 @@
 ***********************************************************************/
 
 #include <abstract_formwindow.h>
-#include <widgetfactory_p.h>
 #include <resource_model.h>
+#include <widgetfactory.h>
 
 #include <QTabBar>
 #include <QSizeGrip>
