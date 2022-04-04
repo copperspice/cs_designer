@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#ifndef OBJECTINSPECTOR_H
-#define OBJECTINSPECTOR_H
+#ifndef OBJECT_INSPECTOR_H
+#define OBJECT_INSPECTOR_H
 
-#include <qdesigner_objectinspector_p.h>
+#include <designer_object_inspector.h>
 
 class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;

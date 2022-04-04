@@ -73,13 +73,13 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/itemview_findwidget.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/font_panel/fontpanel.h
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/object_inspector.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/object_inspector_model.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/customwidget.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_dialog.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_manager.h
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspector.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspectormodel_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_editor.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_model.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_view.h
@@ -165,6 +165,8 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/find_widget/itemview_findwidget.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/font_panel/fontpanel.cpp
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/object_inspector.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/object_inspector_model.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_dialog.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/plugin/plugin_manager.cpp
@@ -173,8 +175,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_model.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/resource_view.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/resource/simple_resource.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspector.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/object_inspector/objectinspectormodel.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/ui_loader.cpp
 

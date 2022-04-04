@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#ifndef OBJECTINSPECTORMODEL_H
-#define OBJECTINSPECTORMODEL_H
+#ifndef OBJECT_INSPECTOR_MODEL_H
+#define OBJECT_INSPECTOR_MODEL_H
 
-#include <layoutinfo_p.h>
+#include <layout_info.h>
 
 #include <QStandardItemModel>
 #include <QIcon>

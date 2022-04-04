@@ -17,9 +17,8 @@
 *
 ***********************************************************************/
 
-#include <objectinspector.h>
-#include <objectinspectormodel_p.h>
-
+#include <object_inspector.h>
+#include <object_inspector_model.h>
 #include <formwindow.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindowcursor.h>
@@ -30,13 +29,13 @@
 #include <itemview_findwidget.h>
 #include <taskmenu.h>
 #include <extension_manager.h>
+#include <textproperty_editor.h>
+#include <designer_utils.h>
+#include <designer_dnditem.h>
+#include <designer_command.h>
 
-#include <qdesigner_utils_p.h>
-#include <formwindowbase_p.h>
-#include <qdesigner_dnditem_p.h>
-#include <textpropertyeditor_p.h>
-#include <qdesigner_command_p.h>
 #include <grid_p.h>
+#include <formwindowbase_p.h>
 
 #include <QApplication>
 #include <QHeaderView>
@@ -269,19 +268,19 @@ void ObjectInspector::ObjectInspectorPrivate::clearSelection()
 QWidget *ObjectInspector::ObjectInspectorPrivate::managedWidgetAt(const QPoint &global_mouse_pos)
 {
    if (!m_formWindow) {
-      return 0;
+      return nullptr;
    }
 
    const  QPoint pos = m_treeView->viewport()->mapFromGlobal(global_mouse_pos);
    QObject *o = m_model->objectAt(m_treeView->indexAt(pos));
 
    if (!o || !o->isWidgetType()) {
-      return 0;
+      return nullptr;
    }
 
    QWidget *rc = dynamic_cast<QWidget *>(o);
    if (!m_formWindow->isManaged(rc)) {
-      return 0;
+      return nullptr;
    }
    return rc;
 }
@@ -742,7 +741,7 @@ static inline QMenu *createTaskMenu(QObject *object, QDesignerFormWindowInterfac
    if (qdesigner_internal::FormWindowBase *fwb = dynamic_cast<qdesigner_internal::FormWindowBase *>(fw)) {
       return fwb->initializePopupMenu(w);
    }
-   return 0;
+   return nullptr;
 }
 
 void ObjectInspector::ObjectInspectorPrivate::slotPopupContextMenu(QWidget * /*parent*/, const QPoint &pos)
@@ -865,6 +864,6 @@ void  ObjectInspector::dropEvent (QDropEvent *event)
 {
    m_impl->dropEvent(event);
 
-   
+
 }
 }
