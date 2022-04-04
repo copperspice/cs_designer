@@ -20,7 +20,7 @@
 #ifndef FORMWINDOW_H
 #define FORMWINDOW_H
 
-#include <qdesignerundostack.h>
+#include <undostack.h>
 
 #include <formwindowbase_p.h>
 

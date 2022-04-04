@@ -8,7 +8,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_tool.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qdesigner_resource.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qdesignerundostack.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_widgetstack.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_dnditem.h
@@ -35,6 +34,7 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/itemview_propertysheet.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/templateoptionspage.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/previewactiongroup.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/undostack.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtcolorbutton.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientstopsmodel.h
@@ -103,7 +103,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_plugin.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qdesigner_resource.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qdesignerundostack.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_widgetstack.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_dnditem.cpp
@@ -130,6 +129,7 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/previewactiongroup.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/itemview_propertysheet.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/templateoptionspage.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/undostack.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtcolorbutton.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientstopsmodel.cpp

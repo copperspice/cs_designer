@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qdesignerundostack.h>
+#include <undostack.h>
 
 #include <QUndoStack>
 #include <QUndoCommand>
