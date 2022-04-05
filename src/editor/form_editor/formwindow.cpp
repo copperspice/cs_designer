@@ -20,6 +20,7 @@
 #include <abstract_dialoggui.h>
 #include <action_provider.h>
 #include <action_editor.h>
+#include <connection_edit.h>
 #include <container.h>
 #include <extension.h>
 #include <formwindow.h>
@@ -51,7 +52,6 @@
 #include <spacer_widget_p.h>
 #include <invisible_widget_p.h>
 #include <qdesigner_objectinspector_p.h>
-#include <connectionedit_p.h>
 #include <ui4.h>
 #include <deviceprofile_p.h>
 #include <shared_settings_p.h>

@@ -21,9 +21,9 @@
 #include <container.h>
 #include <extension.h>
 #include <abstract_integration.h>
+#include <connection_edit.h>
 
 #include <formwindowbase_p.h>
-#include <connectionedit_p.h>
 #include <qdesigner_command_p.h>
 #include <qdesigner_propertysheet_p.h>
 #include <qdesigner_propertyeditor_p.h>

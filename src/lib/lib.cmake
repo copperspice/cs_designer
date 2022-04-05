@@ -11,8 +11,8 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/extrainfo.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/layoutdecoration.h
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/connection_edit.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/spacer_widget_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/connectionedit_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/metadatabase_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formeditorcommand_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formwindowcommand_p.h
@@ -104,8 +104,8 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/extrainfo.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/extension_manager.cpp
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/connection_edit.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/spacer_widget.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/connectionedit.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formwindowcommand.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formeditorcommand.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_command.cpp

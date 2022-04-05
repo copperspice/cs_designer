@@ -20,7 +20,7 @@
 #ifndef SIGNALSLOTEDITOR_H
 #define SIGNALSLOTEDITOR_H
 
-#include <connectionedit_p.h>
+#include <connection_edit.h>
 
 class DomConnections;
 

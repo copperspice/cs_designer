@@ -20,7 +20,7 @@
 #ifndef BUDDYEDITOR_H
 #define BUDDYEDITOR_H
 
-#include <connectionedit_p.h>
+#include <connection_edit.h>
 
 class QDesignerFormWindowInterface;
 

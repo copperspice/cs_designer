@@ -18,8 +18,7 @@
 ***********************************************************************/
 
 #include <abstract_formwindow.h>
-
-#include <connectionedit_p.h>
+#include <connection_edit.h>
 
 #include <QPainter>
 #include <QPaintEvent>
@@ -1029,7 +1028,7 @@ void ConnectionEdit::updateBackground()
 QWidget *ConnectionEdit::widgetAt(const QPoint &pos) const
 {
    if (m_bg_widget == 0) {
-      return 0;
+      return nullptr;
    }
    QWidget *widget = m_bg_widget->childAt(pos);
    if (widget == 0) {
@@ -1369,7 +1368,7 @@ void ConnectionEdit::keyPressEvent(QKeyEvent *e)
 
 void ConnectionEdit::startConnection(QWidget *source, const QPoint &pos)
 {
-   Q_ASSERT(m_tmp_con == 0);
+   Q_ASSERT(m_tmp_con == nullptr);
 
    m_tmp_con = new Connection(this);
    m_tmp_con->setEndPoint(EndPoint::Source, source, pos);
@@ -1377,17 +1376,19 @@ void ConnectionEdit::startConnection(QWidget *source, const QPoint &pos)
 
 void ConnectionEdit::endConnection(QWidget *target, const QPoint &pos)
 {
-   Q_ASSERT(m_tmp_con != 0);
+   Q_ASSERT(m_tmp_con != nullptr);
 
    m_tmp_con->setEndPoint(EndPoint::Target, target, pos);
 
    QWidget *source = m_tmp_con->widget(EndPoint::Source);
-   Q_ASSERT(source != 0);
-   Q_ASSERT(target != 0);
+   Q_ASSERT(source != nullptr);
+   Q_ASSERT(target != nullptr);
+
    setEnabled(false);
    Connection *new_con = createConnection(source, target);
    setEnabled(true);
-   if (new_con != 0) {
+
+   if (new_con != nullptr) {
       new_con->setEndPoint(EndPoint::Source, source, m_tmp_con->endPointPos(EndPoint::Source));
       new_con->setEndPoint(EndPoint::Target, target, m_tmp_con->endPointPos(EndPoint::Target));
       m_undo_stack->push(new AddConnectionCommand(this, new_con));
@@ -1395,7 +1396,7 @@ void ConnectionEdit::endConnection(QWidget *target, const QPoint &pos)
    }
 
    delete m_tmp_con;
-   m_tmp_con = 0;
+   m_tmp_con = nullptr;
 
    findObjectsUnderMouse(mapFromGlobal(QCursor::pos()));
 }
@@ -1519,7 +1520,7 @@ Connection *ConnectionEdit::connectionAt(const QPoint &pos) const
          return con;
       }
    }
-   return 0;
+   return nullptr;
 }
 
 CETypes::EndPoint ConnectionEdit::endPointAt(const QPoint &pos) const
@@ -1640,7 +1641,7 @@ void ConnectionEdit::setTarget(Connection *con, const QString &obj_name)
 Connection *ConnectionEdit::takeConnection(Connection *con)
 {
    if (!m_con_list.contains(con)) {
-      return 0;
+      return nullptr;
    }
 
    m_con_list.removeAll(con);

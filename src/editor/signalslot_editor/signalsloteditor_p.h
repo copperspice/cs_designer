@@ -20,13 +20,12 @@
 #ifndef SIGNALSLOTEDITOR_P_H
 #define SIGNALSLOTEDITOR_P_H
 
+#include <connection_edit.h>
 #include <QString>
 #include <QStringList>
 #include <QList>
 #include <QPointer>
 #include <QAbstractItemModel>
-
-#include <connectionedit_p.h>
 
 class QDesignerFormWindowInterface;
 class QDesignerFormEditorInterface;

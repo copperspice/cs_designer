@@ -27,7 +27,6 @@
 #include <qdesigner_command_p.h>
 #include <qdesigner_propertycommand_p.h>
 #include <qdesigner_utils_p.h>
-#include <connectionedit_p.h>
 #include <metadatabase_p.h>
 
 #include <QDebug>

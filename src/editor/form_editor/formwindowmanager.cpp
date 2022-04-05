@@ -34,11 +34,11 @@
 #include <layout_info.h>
 #include <resource_model.h>
 #include <layout_widget.h>
+#include <connection_edit.h>
 #include <widgetfactory.h>
 
 #include <widgetdatabase_p.h>
 #include <iconloader_p.h>
-#include <connectionedit_p.h>
 #include <qdesigner_dnditem_p.h>
 #include <qdesigner_command_p.h>
 #include <qdesigner_command2_p.h>

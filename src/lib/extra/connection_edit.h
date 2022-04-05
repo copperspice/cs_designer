@@ -49,9 +49,14 @@ class CETypes
    {
     public:
       enum Type { Source, Target };
-      explicit EndPoint(Connection *_con = 0, Type _type = Source) : con(_con), type(_type) {}
+
+      explicit EndPoint(Connection *_con = nullptr, Type _type = Source)
+         : con(_con), type(_type)
+      {
+      }
+
       bool isNull() const {
-         return con == 0;
+         return con == nullptr;
       }
       bool operator == (const EndPoint &other) const {
          return con == other.con && type == other.type;
