@@ -24,15 +24,15 @@
 #include <extension.h>
 #include <extension_manager.h>
 #include <signalslot_dialog.h>
+#include <designer_promotion_dialog.h>
+#include <widgetfactory.h>
+#include <designer_object_inspector.h>
+#include <abstract_introspection.h>
+#include <designer_command.h>
 
-#include <promotiontaskmenu_p.h>
-#include <qdesigner_promotiondialog_p.h>
-#include <widgetfactory_p.h>
+#include <promotion_taskmenu_p.h>
 #include <metadatabase_p.h>
 #include <widgetdatabase_p.h>
-#include <qdesigner_command_p.h>
-#include <qdesigner_objectinspector_p.h>
-#include <abstract_introspection.h>
 
 #include <QAction>
 #include <QWidget>

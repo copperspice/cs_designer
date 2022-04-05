@@ -18,8 +18,7 @@
 ***********************************************************************/
 
 #include <menu_taskmenu.h>
-
-#include <promotiontaskmenu_p.h>
+#include <promotion_taskmenu.h>
 
 #include <QAction>
 #include <QDebug>

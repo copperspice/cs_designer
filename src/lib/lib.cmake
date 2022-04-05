@@ -31,6 +31,8 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout_info.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout_widget.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotion_model.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotion_taskmenu.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/sheet_delegate_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_stackedbox_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_tabwidget_p.h
@@ -41,7 +43,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/widgetfactory.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_promotion_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_introspection_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotionmodel_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_promotiondialog_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/iconloader_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_toolbar_p.h
@@ -50,7 +51,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/csshighlighter_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/shared_enums_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/propertylineedit_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotiontaskmenu_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/gridpanel_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/grid_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/formwindowbase_p.h
@@ -132,14 +132,12 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/widgetdatabase.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_promotion.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_introspection.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotionmodel.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_promotiondialog.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_toolbar.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_menubar.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_menu.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/csshighlighter.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/propertylineedit.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotiontaskmenu.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/gridpanel.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/grid.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/formwindowbase.cpp
@@ -158,6 +156,8 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout_info.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout_widget.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotion_model.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/promotion_taskmenu.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/rcc_support.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/widgetfactory.cpp
 

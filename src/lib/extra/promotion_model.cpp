@@ -21,7 +21,7 @@
 #include <abstract_promotioninterface.h>
 #include <abstract_formeditor.h>
 
-#include <promotionmodel_p.h>
+#include <promotion_model_p.h>
 #include <widgetdatabase_p.h>
 
 #include <QStandardItem>
@@ -191,7 +191,7 @@ QDesignerWidgetDataBaseItemInterface *PromotionModel::databaseItem(const QStanda
 
    if (data.type() != QVariant::List) {
       *referenced = false;
-      return 0;
+      return nullptr;
    }
 
    const QVariantList dataList = data.toList();
