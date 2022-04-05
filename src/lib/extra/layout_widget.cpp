@@ -21,14 +21,14 @@
 #include <extension.h>
 #include <abstract_formeditor.h>
 #include <abstract_widgetfactory.h>
+#include <layout.h>
+#include <layout_info.h>
+#include <designer_propertysheet.h>
+#include <layout_widget.h>
+#include <designer_utils.h>
 
-#include <qdesigner_propertysheet_p.h>
-#include <qlayout_widget_p.h>
-#include <qdesigner_utils_p.h>
-#include <layout_p.h>
-#include <layoutinfo_p.h>
 #include <invisible_widget_p.h>
-#include <qdesigner_widgetitem_p.h>
+#include <designer_widgetitem.h>
 
 #include <QPainter>
 #include <QHBoxLayout>
@@ -550,15 +550,18 @@ void BoxLayoutHelper::replaceWidget(QLayout *lt, QWidget *before, QWidget *after
 {
    bool ok = false;
    QDesignerWidgetItemInstaller wii; // Make sure we use QDesignerWidgetItem.
+
    if (QBoxLayout *boxLayout = dynamic_cast<QBoxLayout *>(lt)) {
       const int index = boxLayout->indexOf(before);
       if (index != -1) {
          const bool visible = before->isVisible();
          delete boxLayout->takeAt(index);
+
          if (visible) {
             before->hide();
          }
-         before->setParent(0);
+
+         before->setParent(nullptr);
          boxLayout->insertWidget(index, after);
          ok = true;
       }
@@ -596,7 +599,7 @@ QLayoutItem *BoxLayoutHelper::findItemOfWidget(const LayoutItemVector &lv, QWidg
          return *it;
       }
 
-   return 0;
+   return nullptr;
 }
 
 BoxLayoutHelper::LayoutItemVector BoxLayoutHelper::disassembleLayout(QLayout *lt)
@@ -1053,19 +1056,24 @@ void GridLayoutHelper::replaceWidget(QLayout *lt, QWidget *before, QWidget *afte
    QDesignerWidgetItemInstaller wii; // Make sure we use QDesignerWidgetItem.
    if (QGridLayout *gridLayout = dynamic_cast<QGridLayout *>(lt)) {
       const int index = gridLayout->indexOf(before);
+
       if (index != -1) {
          int row, column, rowSpan, columnSpan;
          gridLayout->getItemPosition (index,  &row, &column, &rowSpan, &columnSpan);
+
          const bool visible = before->isVisible();
          delete gridLayout->takeAt(index);
+
          if (visible) {
             before->hide();
          }
-         before->setParent(0);
+
+         before->setParent(nullptr);
          gridLayout->addWidget(after, row, column, rowSpan, columnSpan);
          ok = true;
       }
    }
+
    if (!ok) {
       qWarning() << "GridLayoutHelper::replaceWidget : Unable to replace " << before << " by " << after << " in " << lt;
    }
@@ -1193,18 +1201,23 @@ void FormLayoutHelper::replaceWidget(QLayout *lt, QWidget *before, QWidget *afte
 {
    bool ok = false;
    QDesignerWidgetItemInstaller wii; // Make sure we use QDesignerWidgetItem.
+
    if (QFormLayout *formLayout = dynamic_cast<QFormLayout *>(lt)) {
       const int index = formLayout->indexOf(before);
+
       if (index != -1) {
          int row;
          QFormLayout::ItemRole role;
          formLayout->getItemPosition (index, &row, &role);
+
          const bool visible = before->isVisible();
          delete formLayout->takeAt(index);
+
          if (visible) {
             before->hide();
          }
-         before->setParent(0);
+
+         before->setParent(nullptr);
          formLayout->setWidget(row, role, after);
          ok = true;
       }

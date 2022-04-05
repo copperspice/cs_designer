@@ -28,6 +28,8 @@
 #include <formwindow_widgetstack.h>
 #include <formwindowcursor.h>
 #include <formwindowmanager.h>
+#include <layout_info.h>
+#include <layout_widget.h>
 #include <tool_widgeteditor.h>
 #include <qdesigner_resource.h>
 #include <propertysheet.h>
@@ -46,10 +48,8 @@
 #include <qdesigner_taskmenu_p.h>
 #include <qdesigner_widget_p.h>
 #include <qdesigner_utils_p.h>
-#include <qlayout_widget_p.h>
 #include <spacer_widget_p.h>
 #include <invisible_widget_p.h>
-#include <layoutinfo_p.h>
 #include <qdesigner_objectinspector_p.h>
 #include <connectionedit_p.h>
 #include <ui4.h>

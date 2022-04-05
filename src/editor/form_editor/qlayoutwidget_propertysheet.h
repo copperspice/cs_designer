@@ -22,7 +22,7 @@
 
 #include <qdesigner_propertysheet_p.h>
 #include <extensionfactory_p.h>
-#include <qlayout_widget_p.h>
+#include <layout_widget.h>
 
 namespace qdesigner_internal {
 

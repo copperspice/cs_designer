@@ -22,7 +22,7 @@
 #include <formeditor.h>
 #include <extension.h>
 
-#include <qlayout_widget_p.h>
+#include <layout_widget.h>
 
 #include <QLayout>
 

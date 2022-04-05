@@ -23,11 +23,11 @@
 #include <abstract_formeditor.h>
 #include <extension.h>
 #include <extension_manager.h>
+#include <layout.h>
+#include <layout_info.h>
 
 #include <qdesigner_command_p.h>
 #include <qdesigner_propertycommand_p.h>
-#include <layout_p.h>
-#include <layoutinfo_p.h>
 #include <formwindowbase_p.h>
 #include <grid_p.h>
 

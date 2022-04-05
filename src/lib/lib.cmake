@@ -12,8 +12,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/layoutdecoration.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/spacer_widget_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layoutinfo_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/connectionedit_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/metadatabase_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formeditorcommand_p.h
@@ -30,7 +28,9 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_propertyeditor_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_objectinspector_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/invisible_widget_p.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qlayout_widget_p.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout_info.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout_widget.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/sheet_delegate_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_stackedbox_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_tabwidget_p.h
@@ -105,8 +105,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extension/extension_manager.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/spacer_widget.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layoutinfo.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/connectionedit.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formwindowcommand.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formeditorcommand.cpp
@@ -125,7 +123,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_objectinspector.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_dnditem.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/invisible_widget.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qlayout_widget.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/sheet_delegate.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/metadatabase.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_stackedbox.cpp
@@ -158,6 +155,9 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_qsettings.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/qdesigner_formwindowmanager.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/shared_settings.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout_info.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/layout_widget.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/rcc_support.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/extra/widgetfactory.cpp
 

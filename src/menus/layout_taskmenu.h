@@ -21,8 +21,8 @@
 #define LAYOUTTASKMENU_H
 
 #include <qdesigner_taskmenu_p.h>
+#include <layout_widget.h>
 
-#include <qlayout_widget_p.h>
 #include <spacer_widget_p.h>
 #include <extensionfactory_p.h>
 

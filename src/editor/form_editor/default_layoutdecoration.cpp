@@ -21,9 +21,8 @@
 #include <abstract_metadatabase.h>
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
-
-#include <qlayout_widget_p.h>
-#include <layoutinfo_p.h>
+#include <layout_widget.h>
+#include <layout_info.h>
 
 namespace qdesigner_internal {
 

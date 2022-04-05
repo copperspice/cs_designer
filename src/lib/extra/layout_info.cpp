@@ -17,12 +17,12 @@
 *
 ***********************************************************************/
 
-#include <layoutinfo_p.h>
-
 #include <abstract_formeditor.h>
 #include <container.h>
-#include <metadatabase_p.h>
 #include <extension.h>
+#include <layout_info.h>
+
+#include <metadatabase_p.h>
 
 #include <QHBoxLayout>
 #include <QFormLayout>
@@ -36,6 +36,7 @@ namespace qdesigner_internal {
 LayoutInfo::Type LayoutInfo::layoutType(const QDesignerFormEditorInterface *core, const QLayout *layout)
 {
    Q_UNUSED(core)
+
    if (!layout) {
       return NoLayout;
    } else if (dynamic_cast<const QHBoxLayout *>(layout)) {
@@ -115,7 +116,7 @@ QWidget *LayoutInfo::layoutParent(const QDesignerFormEditorInterface *core, QLay
 
       o = o->parent();
    }
-   return 0;
+   return nullptr;
 }
 
 void LayoutInfo::deleteLayout(const QDesignerFormEditorInterface *core, QWidget *widget)
@@ -283,6 +284,7 @@ static inline QFormLayout::ItemRole formLayoutRole(int column, int colspan)
    if (colspan > 1) {
       return QFormLayout::SpanningRole;
    }
+
    return column == 0 ? QFormLayout::LabelRole : QFormLayout::FieldRole;
 }
 
@@ -294,13 +296,17 @@ void formLayoutAddWidget(QFormLayout *formLayout, QWidget *w, const QRect &r, bo
 
       if (spanning) {
          formLayout->insertRow(r.y(), w);
+
       } else {
-         QWidget *label = 0, *field = 0;
+         QWidget *label = nullptr;
+         QWidget *field = nullptr;
+
          if (r.x() == 0) {
             label = w;
          } else {
             field = w;
          }
+
          formLayout->insertRow(r.y(), label, field);
       }
 
@@ -309,6 +315,6 @@ void formLayoutAddWidget(QFormLayout *formLayout, QWidget *w, const QRect &r, bo
    }
 }
 
-} // end namespace - qdesigner_internal
+}   // end namespace qdesigner_internal
 
 

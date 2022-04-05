@@ -31,7 +31,9 @@
 #include <abstract_widgetbox.h>
 #include <abstract_integration.h>
 #include <preview_manager.h>
+#include <layout_info.h>
 #include <resource_model.h>
+#include <layout_widget.h>
 #include <widgetfactory.h>
 
 #include <widgetdatabase_p.h>
@@ -40,8 +42,6 @@
 #include <qdesigner_dnditem_p.h>
 #include <qdesigner_command_p.h>
 #include <qdesigner_command2_p.h>
-#include <layoutinfo_p.h>
-#include <qlayout_widget_p.h>
 #include <qdesigner_objectinspector_p.h>
 #include <shared_settings_p.h>
 #include <abstract_dialoggui.h>

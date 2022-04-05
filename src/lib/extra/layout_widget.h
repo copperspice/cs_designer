@@ -22,7 +22,7 @@
 
 #include <layoutdecoration.h>
 
-#include <qlayout_widget_p.h>
+#include <layout_widget.h>
 
 #include <QPointer>
 #include <QVariant>
@@ -122,7 +122,8 @@ class LayoutHelper
    virtual QRect itemInfo(QLayout *lt, int index) const = 0;
    virtual void insertWidget(QLayout *lt, const QRect &info, QWidget *w) = 0;
    virtual void removeWidget(QLayout *lt, QWidget *widget) = 0;
-   // Since 4.5: The 'morphing' feature requires an API for replacing widgets on layouts.
+
+   // The 'morphing' feature requires an API for replacing widgets on layouts.
    virtual void replaceWidget(QLayout *lt, QWidget *before, QWidget *after) = 0;
 
    // Simplify a grid, remove empty columns, rows within the rectangle
@@ -131,9 +132,8 @@ class LayoutHelper
       const QRect &restrictionArea) const = 0;
    virtual void simplify(const QDesignerFormEditorInterface *core, QWidget *widgetWithManagedLayout, const QRect &restrictionArea) = 0;
 
-   // Push and pop a state. Can be used for implementing undo for
-   // simplify/row, column insertion commands, provided that
-   // the widgets remain the same.
+   // Push and pop a state. Can be used for implementing undo for simplify/row, column
+   // insertion commands, provided that the widgets remain the same.
    virtual void pushState(const QDesignerFormEditorInterface *core, const QWidget *widgetWithManagedLayout)  = 0;
    virtual void popState(const QDesignerFormEditorInterface *core, QWidget *widgetWithManagedLayout) = 0;
 

@@ -23,10 +23,10 @@
 #include <container.h>
 #include <extension.h>
 #include <abstract_widgetdatabase.h>
+#include <layout.h>
 
-#include <layout_p.h>
 #include <qdesigner_utils_p.h>
-#include <qlayout_widget_p.h>
+#include <layout_widget.h>
 #include <spacer_widget_p.h>
 #include <widgetfactory.h>
 #include <qdesigner_widgetitem_p.h>

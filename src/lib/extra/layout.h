@@ -20,7 +20,7 @@
 #ifndef LAYOUT_H
 #define LAYOUT_H
 
-#include <layoutinfo_p.h>
+#include <layout_info.h>
 
 #include <QPointer>
 #include <QObject>
@@ -33,6 +33,7 @@
 class QDesignerFormWindowInterface;
 
 namespace qdesigner_internal {
+
 class Layout : public QObject
 {
    CS_OBJECT(Layout)
@@ -76,7 +77,7 @@ class Layout : public QObject
    }
 
  protected:
-   virtual void finishLayout(bool needMove, QLayout *layout = 0);
+   virtual void finishLayout(bool needMove, QLayout *layout = nullptr);
    virtual bool prepareLayout(bool &needMove, bool &needReparent);
 
    void setWidgets(const  QWidgetList &widgets) {

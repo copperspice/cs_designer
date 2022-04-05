@@ -31,7 +31,7 @@
 #include <signalslot_utils_p.h>
 #include <iconloader_p.h>
 #include <spacer_widget_p.h>
-#include <qlayout_widget_p.h>
+#include <layout_widget.h>
 #include <signalsloteditor_p.h>
 #include <formwindowbase_p.h>
 #include <metadatabase_p.h>

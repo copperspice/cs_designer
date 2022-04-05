@@ -22,8 +22,7 @@
 #include <abstract_formeditor.h>
 #include <ui4.h>
 #include <formbuilderextra.h>
-
-#include <qlayout_widget_p.h>
+#include <layout_widget.h>
 
 #include <QFormLayout>
 #include <QHash>

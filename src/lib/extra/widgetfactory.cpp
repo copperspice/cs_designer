@@ -23,13 +23,15 @@
 #include <extension.h>
 #include <abstract_language.h>
 #include <abstract_formwindowcursor.h>
+#include <layout.h>
+#include <layout_info.h>
 #include <customwidget.h>
 #include <table_classes.h>
+#include <layout_widget.h>
 
 #include <widgetfactory.h>
 #include <widgetdatabase_p.h>
 #include <metadatabase_p.h>
-#include <qlayout_widget_p.h>
 #include <qdesigner_widget_p.h>
 #include <qdesigner_tabwidget_p.h>
 #include <qdesigner_toolbox_p.h>
@@ -40,9 +42,7 @@
 #include <qdesigner_dockwidget_p.h>
 #include <qdesigner_utils_p.h>
 #include <formwindowbase_p.h>
-#include <layoutinfo_p.h>
 #include <spacer_widget_p.h>
-#include <layout_p.h>
 #include <qdesigner_propertysheet_p.h>
 #include <formwindowbase_p.h>
 
