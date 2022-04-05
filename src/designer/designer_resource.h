@@ -20,7 +20,7 @@
 #ifndef QDESIGNER_RESOURCE_H
 #define QDESIGNER_RESOURCE_H
 
-#include <qsimpleresource_p.h>
+#include <simple_resource.h>
 
 #include <QHash>
 #include <QStack>
@@ -58,8 +58,8 @@ class QDesignerResource : public QEditorFormBuilder
    bool copy(QIODevice *dev, const FormBuilderClipboard &selection) override;
    DomUI *copy(const FormBuilderClipboard &selection) override;
 
-   FormBuilderClipboard paste(DomUI *ui, QWidget *widgetParent, QObject *actionParent = 0) override;
-   FormBuilderClipboard paste(QIODevice *dev,  QWidget *widgetParent, QObject *actionParent = 0) override;
+   FormBuilderClipboard paste(DomUI *ui, QWidget *widgetParent, QObject *actionParent = nullptr) override;
+   FormBuilderClipboard paste(QIODevice *dev,  QWidget *widgetParent, QObject *actionParent = nullptr) override;
 
    bool saveRelative() const;
    void setSaveRelative(bool relative);
@@ -134,12 +134,15 @@ class QDesignerResource : public QEditorFormBuilder
    void addCustomWidgetsToWidgetDatabase(DomCustomWidgetList &list);
    FormWindow *m_formWindow;
    bool m_isMainWidget;
+
    QHash<QString, QString> m_internal_to_qt;
    QHash<QString, QString> m_qt_to_internal;
    QStack<QLayout *> m_chain;
    QHash<QDesignerWidgetDataBaseItemInterface *, bool> m_usedCustomWidgets;
+
    bool m_copyWidget;
    QWidget *m_selected;
+
    class QDesignerResourceBuilder *m_resourceBuilder;
 };
 

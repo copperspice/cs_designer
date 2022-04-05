@@ -22,10 +22,9 @@
 #include <abstract_formeditor.h>
 #include <abstract_widgetfactory.h>
 #include <abstract_widgetbox.h>
-#include <qdesigner_resource.h>
-
 #include <layoutinfo_p.h>
 #include <qdesigner_dnditem_p.h>
+#include <designer_resource.h>
 
 #include <qevent.h>
 #include <QAction>

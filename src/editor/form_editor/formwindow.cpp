@@ -22,6 +22,7 @@
 #include <action_editor.h>
 #include <connection_edit.h>
 #include <container.h>
+#include <designer_resource.h>
 #include <extension.h>
 #include <formwindow.h>
 #include <formeditor.h>
@@ -32,7 +33,6 @@
 #include <layout_info.h>
 #include <layout_widget.h>
 #include <tool_widgeteditor.h>
-#include <qdesigner_resource.h>
 #include <propertysheet.h>
 #include <taskmenu.h>
 #include <widgetselection.h>

@@ -7,7 +7,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_plugin.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_tool.h
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qdesigner_resource.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_widgetstack.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_dnditem.h
@@ -102,7 +101,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_tool.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_plugin.cpp
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qdesigner_resource.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_widgetstack.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_dnditem.cpp

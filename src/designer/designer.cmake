@@ -8,6 +8,8 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_server.h
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_appearanceoptions.h
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_components.h
+
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_resource.h
 )
 
 list(APPEND DESIGNER_SOURCES
@@ -20,4 +22,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_actions.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_appearanceoptions.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_components.cpp
+
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_resource.cpp
 )
