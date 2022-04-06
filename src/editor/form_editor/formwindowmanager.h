@@ -57,7 +57,7 @@ class FormWindowManager : public QDesignerFormWindowManager
    int formWindowCount() const override;
    QDesignerFormWindowInterface *formWindow(int index) const override;
 
-   QDesignerFormWindowInterface *createFormWindow(QWidget *parentWidget = 0, Qt::WindowFlags flags = 0) override;
+   QDesignerFormWindowInterface *createFormWindow(QWidget *parentWidget = nullptr, Qt::WindowFlags flags = Qt::EmptyFlag) override;
 
    QPixmap createPreviewPixmap() const override;
 

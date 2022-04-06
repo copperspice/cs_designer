@@ -52,7 +52,7 @@ class PropertyEditor: public QDesignerPropertyEditor
    CS_OBJECT(PropertyEditor)
 
  public:
-   explicit PropertyEditor(QDesignerFormEditorInterface *core, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
+   explicit PropertyEditor(QDesignerFormEditorInterface *core, QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::EmptyFlag);
    virtual ~PropertyEditor();
 
    QDesignerFormEditorInterface *core() const override;

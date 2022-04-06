@@ -33,7 +33,7 @@ class WidgetBox : public QDesignerWidgetBox
 {
    CS_OBJECT(WidgetBox)
  public:
-   explicit WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
+   explicit WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::EmptyFlag);
    virtual ~WidgetBox();
 
    QDesignerFormEditorInterface *core() const;

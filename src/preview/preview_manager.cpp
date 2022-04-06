@@ -99,7 +99,7 @@ class DesignerZoomProxyWidget : public ZoomProxyWidget
    Q_DISABLE_COPY(DesignerZoomProxyWidget)
 
  public:
-   DesignerZoomProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = 0);
+   DesignerZoomProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = Qt::EmptyFlag);
 
  protected:
    QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint = QSizeF() ) const override;
@@ -127,7 +127,7 @@ class DesignerZoomWidget : public ZoomWidget
    DesignerZoomWidget(QWidget *parent = nullptr);
 
  private:
-   QGraphicsProxyWidget *createProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = 0) const override;
+   QGraphicsProxyWidget *createProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = Qt::EmptyFlag) const override;
 };
 
 DesignerZoomWidget::DesignerZoomWidget(QWidget *parent) :

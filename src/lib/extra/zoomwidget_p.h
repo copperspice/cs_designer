@@ -134,7 +134,7 @@ class  ZoomProxyWidget : public QGraphicsProxyWidget
 {
    Q_DISABLE_COPY(ZoomProxyWidget)
  public:
-   explicit ZoomProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = 0);
+   explicit ZoomProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = Qt::EmptyFlag);
 
  protected:
    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
@@ -167,7 +167,7 @@ class ZoomWidget : public ZoomView
 
  public:
    ZoomWidget(QWidget *parent = nullptr);
-   void setWidget(QWidget *w, Qt::WindowFlags wFlags = 0);
+   void setWidget(QWidget *w, Qt::WindowFlags wFlags = Qt::EmptyFlag);
 
    const QGraphicsProxyWidget *proxy() const {
       return m_proxy;
@@ -203,7 +203,7 @@ class ZoomWidget : public ZoomView
 
  private:
    // Factory function for QGraphicsProxyWidgets which can be overwritten. Default creates a ZoomProxyWidget
-   virtual QGraphicsProxyWidget *createProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = 0) const;
+   virtual QGraphicsProxyWidget *createProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = Qt::EmptyFlag) const;
    QSize widgetSizeToViewSize(const QSize &s, bool *ptrToValid = 0) const;
 
    void resizeToWidgetSize();

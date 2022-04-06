@@ -47,7 +47,9 @@ class FormWindowBase: public QDesignerFormWindowInterface
  public:
    enum HighlightMode  { Restore, Highlight };
 
-   explicit FormWindowBase(QDesignerFormEditorInterface *core, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
+   explicit FormWindowBase(QDesignerFormEditorInterface *core, QWidget *parent = nullptr,
+         Qt::WindowFlags flags = Qt::EmptyFlag);
+
    virtual ~FormWindowBase();
 
    QVariantMap formData();

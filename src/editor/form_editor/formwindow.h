@@ -60,7 +60,7 @@ class FormWindow: public FormWindowBase
    CS_OBJECT(FormWindow)
 
  public:
-   explicit FormWindow(FormEditor *core, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
+   explicit FormWindow(FormEditor *core, QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::EmptyFlag);
    virtual ~FormWindow();
 
    QDesignerFormEditorInterface *core() const override;

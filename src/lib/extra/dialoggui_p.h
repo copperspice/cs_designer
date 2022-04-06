@@ -50,24 +50,24 @@ class DialogGui : public QDesignerDialogGuiInterface
       const QString &dir = QString(), QFileDialog::FileDialogOptions options = QFileDialog::ShowDirsOnly) override;
 
    QString getOpenFileName(QWidget *parent = nullptr, const QString &caption = QString(),
-      const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = 0,
-      QFileDialog::FileDialogOptions options = 0) override;
+      const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr,
+      QFileDialog::FileDialogOptions options = Qt::EmptyFlag) override;
 
    QStringList getOpenFileNames(QWidget *parent = nullptr, const QString &caption = QString(),
-      const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = 0,
-      QFileDialog::FileDialogOptions options = 0) override;
+      const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr,
+      QFileDialog::FileDialogOptions options = Qt::EmptyFlag) override;
 
    QString getSaveFileName(QWidget *parent = nullptr, const QString &caption = QString(),
-      const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = 0,
-      QFileDialog::FileDialogOptions options = 0) override;
+      const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr,
+      QFileDialog::FileDialogOptions options = Qt::EmptyFlag) override;
 
    QString getOpenImageFileName(QWidget *parent = nullptr, const QString &caption = QString(),
-      const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = 0,
-      QFileDialog::FileDialogOptions options = 0) override;
+      const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr,
+      QFileDialog::FileDialogOptions options = Qt::EmptyFlag) override;
 
    QStringList getOpenImageFileNames(QWidget *parent = nullptr, const QString &caption = QString(),
-      const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = 0,
-      QFileDialog::FileDialogOptions options = 0) override;
+      const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr,
+      QFileDialog::FileDialogOptions options = Qt::EmptyFlag) override;
 
  private:
    QFileIconProvider *ensureIconProvider();
@@ -76,6 +76,6 @@ class DialogGui : public QDesignerDialogGuiInterface
    QFileIconProvider *m_iconProvider;
 };
 
-}  // namespace qdesigner_internal
+}  // end namespace qdesigner_internal
 
 #endif

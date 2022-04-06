@@ -45,7 +45,7 @@ class ActionEditor: public QDesignerActionEditorInterface
    CS_OBJECT(ActionEditor)
 
  public:
-   explicit ActionEditor(QDesignerFormEditorInterface *core, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
+   explicit ActionEditor(QDesignerFormEditorInterface *core, QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::EmptyFlag);
    virtual ~ActionEditor();
 
    QDesignerFormWindowInterface *formWindow() const;
