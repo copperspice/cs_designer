@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#ifndef EDITORFACTORY_H
-#define EDITORFACTORY_H
+#ifndef EDIT_PROPERTY_H
+#define EDIT_PROPERTY_H
 
-#include <propertymanager.h>
+#include <edit_property_manager.h>
 
 class QtSpinBoxFactoryPrivate;
 class QtScrollBarFactoryPrivate;

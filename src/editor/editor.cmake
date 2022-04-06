@@ -49,17 +49,17 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientmanager.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientutils.h
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/editorfactory.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/variantproperty.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/tree_propertybrowser.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/button_propertybrowser.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/groupbox_propertybrowser.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertybrowser.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertymanager.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_browser_utils.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/edit_property.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/edit_property_manager.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/edit_variant_property.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_view_button.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_view_tree.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_view_groupbox.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_view.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_view_utils.h
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalslot_utils_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/connectdialog_p.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalslot_utils_p.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalsloteditor.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalsloteditor_tool.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalsloteditor_plugin.h
@@ -143,17 +143,17 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientmanager.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientutils.cpp
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/editorfactory.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/variantproperty.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/tree_propertybrowser.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/button_propertybrowser.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/groupbox_propertybrowser.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertybrowser.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertymanager.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/propertybrowser_utils.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/edit_property.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/edit_property_manager.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/edit_variant_property.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_view_button.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_view_tree.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_view_groupbox.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_view.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/property_view_utils.cpp
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalslot_utils.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/connectdialog.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalslot_utils.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalsloteditor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalsloteditor_tool.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/signalslot_editor/signalsloteditor_plugin.cpp

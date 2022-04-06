@@ -85,7 +85,6 @@ class QtBoolEdit : public QWidget
 
    bool blockCheckBoxSignals(bool block);
 
- public:
    CS_SIGNAL_1(Public, void toggled(bool un_named_arg1))
    CS_SIGNAL_2(toggled, un_named_arg1)
 
@@ -96,7 +95,5 @@ class QtBoolEdit : public QWidget
    QCheckBox *m_checkBox;
    bool m_textVisible;
 };
-
-
 
 #endif

@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <propertymanager.h>
-#include <propertybrowser_utils.h>
+#include <edit_property_manager.h>
+#include <property_view_utils.h>
 
 #include <QDateTime>
 #include <QLocale>
@@ -3962,9 +3962,8 @@ void QtSizePolicyPropertyManager::uninitializeProperty(QtProperty *property)
    d_ptr->m_values.remove(property);
 }
 
-// QtFontPropertyManager:
 // QtFontPropertyManagerPrivate has a mechanism for reacting
-// to QApplication::fontDatabaseChanged() [4.5], which is emitted
+// to QApplication::fontDatabaseChanged() which is emitted
 // when someone loads an application font. The signals are compressed
 // using a timer with interval 0, which then causes the family
 // enumeration manager to re-set its strings and index values

@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#ifndef TREE_PROPERTYBROWSER_H
-#define TREE_PROPERTYBROWSER_H
+#ifndef PROPERTY_VIEW_TREE_H
+#define PROPERTY_VIEW_TREE_H
 
-#include <propertybrowser.h>
+#include <property_view.h>
 
 class QTreeWidgetItem;
 class QtTreePropertyBrowserPrivate;
@@ -33,16 +33,22 @@ class QtTreePropertyBrowser : public QtAbstractPropertyBrowser
 
    CS_PROPERTY_READ(indentation, indentation)
    CS_PROPERTY_WRITE(indentation, setIndentation)
+
    CS_PROPERTY_READ(rootIsDecorated, rootIsDecorated)
    CS_PROPERTY_WRITE(rootIsDecorated, setRootIsDecorated)
+
    CS_PROPERTY_READ(alternatingRowColors, alternatingRowColors)
    CS_PROPERTY_WRITE(alternatingRowColors, setAlternatingRowColors)
+
    CS_PROPERTY_READ(headerVisible, isHeaderVisible)
    CS_PROPERTY_WRITE(headerVisible, setHeaderVisible)
+
    CS_PROPERTY_READ(resizeMode, resizeMode)
    CS_PROPERTY_WRITE(resizeMode, setResizeMode)
+
    CS_PROPERTY_READ(splitterPosition, splitterPosition)
    CS_PROPERTY_WRITE(splitterPosition, setSplitterPosition)
+
    CS_PROPERTY_READ(propertiesWithoutValueMarked, propertiesWithoutValueMarked)
    CS_PROPERTY_WRITE(propertiesWithoutValueMarked, setPropertiesWithoutValueMarked)
 

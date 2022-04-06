@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <button_propertybrowser.h>
+#include <property_view_button.h>
 
 #include <QSet>
 #include <QGridLayout>
@@ -38,6 +38,7 @@ class QtButtonPropertyBrowserPrivate
    void propertyInserted(QtBrowserItem *index, QtBrowserItem *afterIndex);
    void propertyRemoved(QtBrowserItem *index);
    void propertyChanged(QtBrowserItem *index);
+
    QWidget *createEditor(QtProperty *property, QWidget *parent) const {
       return q_ptr->createEditor(property, parent);
    }
@@ -47,18 +48,23 @@ class QtButtonPropertyBrowserPrivate
    void slotToggled(bool checked);
 
    struct WidgetItem {
-      WidgetItem() : widget(0), label(0), widgetLabel(0),
-         button(0), container(0), layout(0), /*line(0), */parent(0), expanded(false) { }
-      QWidget *widget; // can be null
-      QLabel *label; // main label with property name
-      QLabel *widgetLabel; // label substitute showing the current value if there is no widget
-      QToolButton *button; // expandable button for items with children
-      QWidget *container; // container which is expanded when the button is clicked
-      QGridLayout *layout; // layout in container
+      WidgetItem()
+         : widget(0), label(0), widgetLabel(0), button(0), container(0), layout(0),
+           parent(0), expanded(false)
+      {
+      }
+
+      QWidget *widget;        // can be null
+      QLabel *label;          // main label with property name
+      QLabel *widgetLabel;    // label substitute showing the current value if there is no widget
+      QToolButton *button;    // expandable button for items with children
+      QWidget *container;     // container which is expanded when the button is clicked
+      QGridLayout *layout;    // layout in container
       WidgetItem *parent;
       QList<WidgetItem *> children;
       bool expanded;
    };
+
  private:
    void updateLater();
    void updateItem(WidgetItem *item);
@@ -86,12 +92,14 @@ QToolButton *QtButtonPropertyBrowserPrivate::createButton(QWidget *parent) const
    button->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
    button->setArrowType(Qt::DownArrow);
    button->setIconSize(QSize(3, 16));
+
    /*
    QIcon icon;
    icon.addPixmap(q_ptr->style()->standardPixmap(QStyle::SP_ArrowDown), QIcon::Normal, QIcon::Off);
    icon.addPixmap(q_ptr->style()->standardPixmap(QStyle::SP_ArrowUp), QIcon::Normal, QIcon::On);
    button->setIcon(icon);
    */
+
    return button;
 }
 
@@ -240,9 +248,10 @@ void QtButtonPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, QtBr
    WidgetItem *newItem = new WidgetItem();
    newItem->parent = parentItem;
 
-   QGridLayout *layout = 0;
-   QWidget *parentWidget = 0;
+   QGridLayout *layout   = nullptr;
+   QWidget *parentWidget = nullptr;
    int row = -1;
+
    if (!afterItem) {
       row = 0;
       if (parentItem) {
@@ -511,56 +520,6 @@ void QtButtonPropertyBrowserPrivate::updateItem(WidgetItem *item)
    }
 }
 
-
-
-/*!
-    \class QtButtonPropertyBrowser
-    \internal
-    \inmodule QtDesigner
-    \since 4.4
-
-    \brief The QtButtonPropertyBrowser class provides a drop down QToolButton
-    based property browser.
-
-    A property browser is a widget that enables the user to edit a
-    given set of properties. Each property is represented by a label
-    specifying the property's name, and an editing widget (e.g. a line
-    edit or a combobox) holding its value. A property can have zero or
-    more subproperties.
-
-    QtButtonPropertyBrowser provides drop down button for all nested
-    properties, i.e. subproperties are enclosed by a container associated with
-    the drop down button. The parent property's name is displayed as button text. For example:
-
-    \image qtbuttonpropertybrowser.png
-
-    Use the QtAbstractPropertyBrowser API to add, insert and remove
-    properties from an instance of the QtButtonPropertyBrowser
-    class. The properties themselves are created and managed by
-    implementations of the QtAbstractPropertyManager class.
-
-    \sa QtTreePropertyBrowser, QtAbstractPropertyBrowser
-*/
-
-/*!
-    \fn void QtButtonPropertyBrowser::collapsed(QtBrowserItem *item)
-
-    This signal is emitted when the \a item is collapsed.
-
-    \sa expanded(), setExpanded()
-*/
-
-/*!
-    \fn void QtButtonPropertyBrowser::expanded(QtBrowserItem *item)
-
-    This signal is emitted when the \a item is expanded.
-
-    \sa collapsed(), setExpanded()
-*/
-
-/*!
-    Creates a property browser with the given \a parent.
-*/
 QtButtonPropertyBrowser::QtButtonPropertyBrowser(QWidget *parent)
    : QtAbstractPropertyBrowser(parent), d_ptr(new QtButtonPropertyBrowserPrivate)
 {
@@ -569,16 +528,6 @@ QtButtonPropertyBrowser::QtButtonPropertyBrowser(QWidget *parent)
    d_ptr->init(this);
 }
 
-/*!
-    Destroys this property browser.
-
-    Note that the properties that were inserted into this browser are
-    \e not destroyed since they may still be used in other
-    browsers. The properties are owned by the manager that created
-    them.
-
-    \sa QtProperty, QtAbstractPropertyManager
-*/
 QtButtonPropertyBrowser::~QtButtonPropertyBrowser()
 {
    auto icend = d_ptr->m_itemToIndex.constEnd();
@@ -587,35 +536,20 @@ QtButtonPropertyBrowser::~QtButtonPropertyBrowser()
    }
 }
 
-/*!
-    \reimp
-*/
 void QtButtonPropertyBrowser::itemInserted(QtBrowserItem *item, QtBrowserItem *afterItem)
 {
    d_ptr->propertyInserted(item, afterItem);
 }
 
-/*!
-    \reimp
-*/
 void QtButtonPropertyBrowser::itemRemoved(QtBrowserItem *item)
 {
    d_ptr->propertyRemoved(item);
 }
 
-/*!
-    \reimp
-*/
 void QtButtonPropertyBrowser::itemChanged(QtBrowserItem *item)
 {
    d_ptr->propertyChanged(item);
 }
-
-/*!
-    Sets the \a item to either collapse or expanded, depending on the value of \a expanded.
-
-    \sa isExpanded(), expanded(), collapsed()
-*/
 
 void QtButtonPropertyBrowser::setExpanded(QtBrowserItem *item, bool expanded)
 {
@@ -625,18 +559,13 @@ void QtButtonPropertyBrowser::setExpanded(QtBrowserItem *item, bool expanded)
    }
 }
 
-/*!
-    Returns true if the \a item is expanded; otherwise returns false.
-
-    \sa setExpanded()
-*/
-
 bool QtButtonPropertyBrowser::isExpanded(QtBrowserItem *item) const
 {
    QtButtonPropertyBrowserPrivate::WidgetItem *itm = d_ptr->m_indexToItem.value(item);
    if (itm) {
       return itm->expanded;
    }
+
    return false;
 }
 

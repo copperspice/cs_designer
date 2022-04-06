@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#ifndef PROPERTYMANAGER_H
-#define PROPERTYMANAGER_H
+#ifndef EDIT_PROPERTY_MANAGER_H
+#define EDIT_PROPERTY_MANAGER_H
 
-#include <propertybrowser.h>
+#include <property_view.h>
 
 #include <QDateTime>
 #include <QLocale>
@@ -79,19 +79,25 @@ class QtIntPropertyManager : public QtAbstractPropertyManager
 
    CS_SLOT_1(Public, void setValue(QtProperty *property, int val))
    CS_SLOT_2(setValue)
+
    CS_SLOT_1(Public, void setMinimum(QtProperty *property, int minVal))
    CS_SLOT_2(setMinimum)
+
    CS_SLOT_1(Public, void setMaximum(QtProperty *property, int maxVal))
    CS_SLOT_2(setMaximum)
+
    CS_SLOT_1(Public, void setRange(QtProperty *property, int minVal, int maxVal))
    CS_SLOT_2(setRange)
+
    CS_SLOT_1(Public, void setSingleStep(QtProperty *property, int step))
    CS_SLOT_2(setSingleStep)
 
    CS_SIGNAL_1(Public, void valueChanged(QtProperty *property, int val))
    CS_SIGNAL_2(valueChanged, property, val)
+
    CS_SIGNAL_1(Public, void rangeChanged(QtProperty *property, int minVal, int maxVal))
    CS_SIGNAL_2(rangeChanged, property, minVal, maxVal)
+
    CS_SIGNAL_1(Public, void singleStepChanged(QtProperty *property, int step))
    CS_SIGNAL_2(singleStepChanged, property, step)
 

@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#ifndef VARIANTPROPERTY_H
-#define VARIANTPROPERTY_H
+#ifndef EDIT_VARIANT_PROPERTY_H
+#define EDIT_VARIANT_PROPERTY_H
 
-#include <propertybrowser.h>
+#include <property_view.h>
 
 class QtVariantPropertyManager;
 

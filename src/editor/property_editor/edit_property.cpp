@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <editorfactory.h>
-#include <propertybrowser_utils.h>
+#include <edit_property.h>
+#include <property_view_utils.h>
 
 #include <QSpinBox>
 #include <QScrollBar>
@@ -555,21 +555,6 @@ void QtCheckBoxFactoryPrivate::slotSetValue(bool value)
       }
 }
 
-/*!
-    \class QtCheckBoxFactory
-    \internal
-    \inmodule QtDesigner
-    \since 4.4
-
-    \brief The QtCheckBoxFactory class provides QCheckBox widgets for
-    properties created by QtBoolPropertyManager objects.
-
-    \sa QtAbstractEditorFactory, QtBoolPropertyManager
-*/
-
-/*!
-    Creates a factory with the given \a parent.
-*/
 QtCheckBoxFactory::QtCheckBoxFactory(QObject *parent)
    : QtAbstractEditorFactory<QtBoolPropertyManager>(parent), d_ptr(new QtCheckBoxFactoryPrivate())
 {

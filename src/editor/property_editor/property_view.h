@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef PROPERTYBROWSER_H
-#define PROPERTYBROWSER_H
+#ifndef PROPERTY_VIEW_H
+#define PROPERTY_VIEW_H
 
 class QtAbstractPropertyBrowserPrivate;
 class QtAbstractPropertyManager;
@@ -95,10 +95,13 @@ class QtAbstractPropertyManager : public QObject
 
    CS_SIGNAL_1(Public, void propertyInserted(QtProperty *property, QtProperty *parent, QtProperty *after))
    CS_SIGNAL_2(propertyInserted, property, parent, after)
+
    CS_SIGNAL_1(Public, void propertyChanged(QtProperty *property))
    CS_SIGNAL_2(propertyChanged, property)
+
    CS_SIGNAL_1(Public, void propertyRemoved(QtProperty *property, QtProperty *parent))
    CS_SIGNAL_2(propertyRemoved, property, parent)
+
    CS_SIGNAL_1(Public, void propertyDestroyed(QtProperty *property))
    CS_SIGNAL_2(propertyDestroyed, property)
 
@@ -149,8 +152,9 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
             return createEditor(manager, property, parent);
          }
       }
-      return 0;
+      return nullptr;
    }
+
    void addPropertyManager(PropertyManager *manager) {
       if (m_managers.contains(manager)) {
          return;
@@ -160,6 +164,7 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
       connect(manager, SIGNAL(destroyed(QObject *)),
          this, SLOT(managerDestroyed(QObject *)));
    }
+
    void removePropertyManager(PropertyManager *manager) {
       if (!m_managers.contains(manager)) {
          return;
@@ -169,9 +174,11 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
       disconnectPropertyManager(manager);
       m_managers.remove(manager);
    }
+
    QSet<PropertyManager *> propertyManagers() const {
       return m_managers;
    }
+
    PropertyManager *propertyManager(QtProperty *property) const {
       QtAbstractPropertyManager *manager = property->propertyManager();
       QSetIterator<PropertyManager *> itManager(m_managers);
@@ -181,12 +188,14 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
             return m;
          }
       }
-      return 0;
+      return nullptr;
    }
+
  protected:
    virtual void connectPropertyManager(PropertyManager *manager) = 0;
    virtual QWidget *createEditor(PropertyManager *manager, QtProperty *property,
       QWidget *parent) = 0;
+
    virtual void disconnectPropertyManager(PropertyManager *manager) = 0;
    void managerDestroyed(QObject *manager) {
       QSetIterator<PropertyManager *> it(m_managers);
@@ -198,6 +207,7 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
          }
       }
    }
+
  private:
    void breakConnection(QtAbstractPropertyManager *manager) {
       QSetIterator<PropertyManager *> it(m_managers);

@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <propertybrowser_utils.h>
+#include <property_view_utils.h>
 
 #include <QApplication>
 #include <QPainter>

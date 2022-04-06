@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#ifndef BUTTON_PROPERTYBROWSER_H
-#define BUTTON_PROPERTYBROWSER_H
+#ifndef PROPERTY_VIEW_BUTTON_H
+#define PROPERTY_VIEW_BUTTON_H
 
-#include <propertybrowser.h>
+#include <property_view.h>
 
 class QtButtonPropertyBrowserPrivate;
 
@@ -37,6 +37,7 @@ class QtButtonPropertyBrowser : public QtAbstractPropertyBrowser
 
    CS_SIGNAL_1(Public, void collapsed(QtBrowserItem *item))
    CS_SIGNAL_2(collapsed, item)
+
    CS_SIGNAL_1(Public, void expanded(QtBrowserItem *item))
    CS_SIGNAL_2(expanded, item)
 

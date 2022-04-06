@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#ifndef GROUPBOX_PROPERTYBROWSER_H
-#define GROUPBOX_PROPERTYBROWSER_H
+#ifndef PROPERTY_VIEW_GROUPBOX_H
+#define PROPERTY_VIEW_GROUPBOX_H
 
-#include <propertybrowser.h>
+#include <property_view.h>
 
 class QtGroupBoxPropertyBrowserPrivate;
 

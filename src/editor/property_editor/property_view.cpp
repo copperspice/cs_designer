@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <propertybrowser.h>
+#include <property_view.h>
 
 #include <QSet>
 #include <QMap>
@@ -1027,7 +1027,7 @@ QWidget *QtAbstractPropertyBrowser::createEditor(QtProperty *property,
    }
 
    if (!factory) {
-      return 0;
+      return nullptr;
    }
    QWidget *w = factory->createEditor(property, parent);
 
