@@ -20,14 +20,14 @@
 #include <treewidget_editor.h>
 #include <abstract_formbuilder.h>
 #include <designer_property.h>
-#include <tree_propertybrowser.h>
+#include <property_view_tree.h>
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
 
 #include <formwindowbase_p.h>
 #include <iconloader_p.h>
-#include <qdesigner_command_p.h>
-#include <qdesigner_utils_p.h>
+#include <designer_command.h>
+#include <designer_utils.h>
 
 #include <QDir>
 #include <QQueue>

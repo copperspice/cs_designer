@@ -23,6 +23,9 @@
 #include <abstract_formeditor.h>
 #include <abstract_language.h>
 #include <abstract_widgetdatabase.h>
+#include <designer_propertysheet.h>
+#include <designer_property_command.h>
+#include <designer_formwindow_command.h>
 #include <layout_info.h>
 #include <layout_widget.h>
 #include <utils.h>
@@ -30,10 +33,7 @@
 #include <morphmenu_p.h>
 #include <formwindowbase_p.h>
 #include <widgetfactory.h>
-#include <qdesigner_formwindowcommand_p.h>
-#include <qdesigner_propertycommand_p.h>
 #include <metadatabase_p.h>
-#include <qdesigner_propertysheet_p.h>
 
 #include <QWidget>
 #include <QAction>

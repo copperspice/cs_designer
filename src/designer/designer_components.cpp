@@ -18,31 +18,31 @@
 ***********************************************************************/
 
 #include <abstract_integration.h>
-#include <designer_components.h>
-#include <signalsloteditorwindow.h>
-#include <buddyeditor_plugin.h>
-#include <signalsloteditor_plugin.h>
-#include <tabordereditor_plugin.h>
 #include <abstract_language.h>
+#include <abstract_resourcebrowser.h>
+#include <action_editor.h>
+#include <buddyeditor_plugin.h>
+#include <designer_components.h>
 #include <extension.h>
 #include <formeditor.h>
-#include <property_editor.h>
 #include <object_inspector.h>
+#include <property_editor.h>
+#include <qplugin.h>
+#include <resource_view.h>
+#include <signalsloteditor_plugin.h>
+#include <signalsloteditorwindow.h>
+#include <tabordereditor_plugin.h>
 #include <taskmenu_component.h>
 #include <widgetbox.h>
-#include <action_editor.h>
-#include <abstract_resourcebrowser.h>
-#include <qplugin.h>
+#include <widgetfactory.h>
 
 #include <widgetdatabase_p.h>
-#include <widgetfactory.h>
-#include <qtresourceview_p.h>
 
-#include <QDir>
-#include <QTextStream>
 #include <QDebug>
+#include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QTextStream>
 
 /* emerald - unused, plugins
 

@@ -17,15 +17,15 @@
 *
 ***********************************************************************/
 
-#include <containerwidget_taskmenu.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
-#include <extension.h>
 #include <container.h>
+#include <containerwidget_taskmenu.h>
+#include <designer_command.h>
+#include <designer_dockwidget.h>
+#include <extension.h>
 #include <promotion_taskmenu.h>
 
-#include <qdesigner_command_p.h>
-#include <qdesigner_dockwidget_p.h>
 #include <widgetdatabase_p.h>
 
 #include <QAction>

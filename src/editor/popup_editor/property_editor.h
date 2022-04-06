@@ -20,7 +20,7 @@
 #ifndef PROPERTY_EDITOR_H
 #define PROPERTY_EDITOR_H
 
-#include <qdesigner_propertyeditor_p.h>
+#include <designer_property_editor.h>
 
 class DomProperty;
 class QDesignerMetaDataBaseItemInterface;

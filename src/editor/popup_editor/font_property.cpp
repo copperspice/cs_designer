@@ -19,10 +19,9 @@
 
 #include <font_property.h>
 #include <designer_property.h>
-#include <propertymanager.h>
-#include <propertybrowser_utils.h>
-
-#include <qdesigner_utils_p.h>
+#include <edit_property_manager.h>
+#include <property_view_utils.h>
+#include <designer_utils.h>
 
 #include <QCoreApplication>
 #include <QVariant>

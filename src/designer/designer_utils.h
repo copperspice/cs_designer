@@ -23,12 +23,12 @@
 #include <abstract_formwindow.h>
 #include <utils.h>
 
-#include <QVariant>
-#include <QSharedDataPointer>
-#include <QMap>
-#include <QMainWindow>
 #include <QIcon>
+#include <QMainWindow>
+#include <QMap>
 #include <QPixmap>
+#include <QSharedDataPointer>
+#include <QVariant>
 
 class QDebug;
 

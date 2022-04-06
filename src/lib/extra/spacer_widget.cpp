@@ -21,14 +21,14 @@
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
 #include <extension.h>
+#include <layout_info.h>
+#include <designer_propertysheet.h>
 
 #include <spacer_widget_p.h>
-#include <layoutinfo_p.h>
-#include <qdesigner_propertysheet_p.h>
 
 #include <QLayout>
 #include <QPainter>
-#include <qevent.h>
+#include <QEvent>
 #include <QDebug>
 
 // The Spacer widget is Designer representation of  QLayoutItem.

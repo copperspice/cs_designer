@@ -25,7 +25,7 @@
 #include <inplace_editor.h>
 #include <extension.h>
 
-#include <qdesigner_propertysheet_p.h>
+#include <designer_propertysheet.h>
 
 #include <QVariant>
 

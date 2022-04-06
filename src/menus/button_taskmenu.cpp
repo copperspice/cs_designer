@@ -22,12 +22,12 @@
 #include <abstract_formwindow.h>
 #include <abstract_formwindowcursor.h>
 #include <abstract_formeditor.h>
+#include <designer_formwindow_command.h>
+#include <designer_object_inspector.h>
+#include <abstract_propertyeditor.h>
 
-#include <qdesigner_formwindowcommand_p.h>
 #include <formwindowbase_p.h>
 #include <metadatabase_p.h>
-#include <qdesigner_objectinspector_p.h>
-#include <abstract_propertyeditor.h>
 
 #include <QAction>
 #include <QActionGroup>

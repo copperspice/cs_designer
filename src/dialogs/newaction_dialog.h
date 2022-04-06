@@ -20,7 +20,7 @@
 #ifndef NEWACTIONDIALOG_P_H
 #define NEWACTIONDIALOG_P_H
 
-#include <qdesigner_utils_p.h>
+#include <designer_utils.h>
 
 #include <QDialog>
 #include <QKeySequence>

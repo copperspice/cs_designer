@@ -23,7 +23,7 @@
 #include <preview_manager.h>
 
 #include <formwindowbase_p.h>
-#include <qdesigner_formbuilder_p.h>
+#include <designer_formbuilder.h>
 #include <shared_settings_p.h>
 #include <shared_settings_p.h>
 #include <zoomwidget_p.h>

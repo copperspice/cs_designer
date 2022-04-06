@@ -17,41 +17,41 @@
 *
 ***********************************************************************/
 
+#include <abstract_dialoggui.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
 #include <abstract_widgetfactory.h>
-#include <customwidget.h>
 #include <container.h>
-#include <propertysheet.h>
-#include <extension.h>
-#include <dynamicpropertysheet.h>
-#include <ui4.h>
-#include <formbuilderextra.h>
-#include <abstract_dialoggui.h>
-#include <resource_model.h>
-#include <designer_introspection.h>
+#include <customwidget.h>
 #include <designer_formbuilder.h>
-#include <simple_resource.h>
+#include <designer_introspection.h>
 #include <designer_propertysheet.h>
 #include <designer_utils.h>
-
+#include <dynamicpropertysheet.h>
+#include <extension.h>
+#include <formbuilderextra.h>
+#include <propertysheet.h>
+#include <resource_model.h>
+#include <simple_resource.h>
+#include <ui4.h>
 #include <widgetfactory.h>
+
 #include <formwindowbase_p.h>
 
-#include <QWidget>
-#include <QMenu>
-#include <QToolBar>
-#include <QMenuBar>
-#include <QMainWindow>
-#include <QStyleFactory>
-#include <QStyle>
-#include <QApplication>
 #include <QAbstractScrollArea>
+#include <QApplication>
+#include <QBuffer>
+#include <QCoreApplication>
+#include <QDebug>
+#include <QMainWindow>
+#include <QMenu>
+#include <QMenuBar>
 #include <QMessageBox>
 #include <QPixmap>
-#include <QBuffer>
-#include <QDebug>
-#include <QCoreApplication>
+#include <QStyle>
+#include <QStyleFactory>
+#include <QToolBar>
+#include <QWidget>
 
 namespace qdesigner_internal {
 

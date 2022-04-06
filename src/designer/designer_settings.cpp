@@ -20,19 +20,19 @@
 #include <abstract_formeditor.h>
 #include <designer.h>
 #include <designer_settings.h>
+#include <designer_settings.h>
 #include <designer_toolwindow.h>
 #include <designer_workbench.h>
-#include <designer_settings.h>
 #include <preview_manager.h>
 
-#include <qdesigner_utils_p.h>
+#include <designer_utils.h>
 
-#include <QVariant>
-#include <QDir>
-#include <QDesktopWidget>
-#include <QStyle>
-#include <QListView>
 #include <QDebug>
+#include <QDesktopWidget>
+#include <QDir>
+#include <QListView>
+#include <QStyle>
+#include <QVariant>
 
 constexpr const int debugSettings = 0;
 

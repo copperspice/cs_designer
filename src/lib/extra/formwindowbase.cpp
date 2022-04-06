@@ -22,19 +22,19 @@
 #include <extension.h>
 #include <abstract_integration.h>
 #include <connection_edit.h>
+#include <designer_command.h>
+#include <designer_propertysheet.h>
+#include <designer_property_editor.h>
+#include <designer_menu.h>
+#include <designer_menubar.h>
+#include <designer_utils.h>
+#include <designer_taskmenu.h>
 
 #include <formwindowbase_p.h>
-#include <qdesigner_command_p.h>
-#include <qdesigner_propertysheet_p.h>
-#include <qdesigner_propertyeditor_p.h>
-#include <qdesigner_menu_p.h>
-#include <qdesigner_menubar_p.h>
 #include <shared_settings_p.h>
 #include <grid_p.h>
 #include <deviceprofile_p.h>
-#include <qdesigner_utils_p.h>
 #include <spacer_widget_p.h>
-#include <qdesigner_taskmenu_p.h>
 
 #include <QDebug>
 #include <QList>

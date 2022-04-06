@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 #include <qmainwindow_container.h>
-#include <qdesigner_toolbar_p.h>
+#include <designer_toolbar.h>
 #include <formwindow.h>
 
 #include <QDebug>

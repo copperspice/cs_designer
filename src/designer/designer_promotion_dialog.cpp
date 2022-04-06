@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <abstract_integration.h>
 #include <abstract_dialoggui.h>
+#include <abstract_integration.h>
 #include <designer_promotion_dialog.h>
 #include <promotion_model.h>
 #include <signalslot_dialog.h>
@@ -26,23 +26,23 @@
 #include <iconloader_p.h>
 #include <widgetdatabase_p.h>
 
-#include <QTimer>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QFormLayout>
-#include <QDialogButtonBox>
-#include <QTreeView>
-#include <QHeaderView>
-#include <QPushButton>
-#include <QItemSelectionModel>
-#include <QComboBox>
-#include <QLineEdit>
-#include <QCheckBox>
-#include <QValidator>
-#include <QLabel>
-#include <QSpacerItem>
-#include <QMenu>
 #include <QAction>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QItemSelectionModel>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMenu>
+#include <QPushButton>
+#include <QSpacerItem>
+#include <QTimer>
+#include <QTreeView>
+#include <QVBoxLayout>
+#include <QValidator>
 
 namespace qdesigner_internal {
 

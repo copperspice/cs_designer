@@ -24,18 +24,18 @@
 #include <formwindowcursor.h>
 #include <palette_editor_toolbutton.h>
 #include <propertysheet.h>
-#include <propertymanager.h>
-#include <propertybrowser_utils.h>
+#include <edit_property_manager.h>
+#include <property_view_utils.h>
 #include <qlonglong_validator.h>
+#include <resource_view.h>
 #include <stringlist_editor_toolbutton.h>
 #include <stylesheet_editor.h>
+#include <formwindowmanager.h>
 #include <textproperty_editor.h>
 #include <richtext_editor.h>
 #include <plaintext_editor.h>
 
-#include <qtresourceview_p.h>
 #include <formwindowbase_p.h>
-#include <formwindowmanager.h>
 #include <iconloader_p.h>
 #include <iconselector_p.h>
 

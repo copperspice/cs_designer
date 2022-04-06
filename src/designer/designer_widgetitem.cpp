@@ -17,23 +17,23 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
-#include <extension.h>
 #include <abstract_formeditor.h>
-#include <container.h>
+#include <abstract_formwindow.h>
 #include <abstract_widgetdatabase.h>
+#include <container.h>
 #include <designer_widget.h>
 #include <designer_widgetitem.h>
+#include <extension.h>
 #include <widgetfactory.h>
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QFormLayout>
 #include <QApplication>
-#include <QTextStream>
 #include <QDebug>
+#include <QFormLayout>
+#include <QGridLayout>
+#include <QHBoxLayout>
 #include <QLayout>
+#include <QTextStream>
+#include <QVBoxLayout>
 
 constexpr const int DebugWidgetItem = 0;
 constexpr const int MinimumLength   = 10;

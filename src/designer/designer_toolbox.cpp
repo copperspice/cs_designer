@@ -18,21 +18,21 @@
 ***********************************************************************/
 
 #include <abstract_formwindow.h>
-#include <designer_toolbox.h>
 #include <designer_command.h>
+#include <designer_toolbox.h>
 #include <order_dialog.h>
 #include <promotion_taskmenu.h>
 
 #include <formwindowbase_p.h>
 
-#include <QEvent>
 #include <QAction>
-#include <QToolBox>
-#include <QMenu>
-#include <QLayout>
 #include <QApplication>
 #include <QContextMenuEvent>
+#include <QEvent>
 #include <QHash>
+#include <QLayout>
+#include <QMenu>
+#include <QToolBox>
 
 QToolBoxHelper::QToolBoxHelper(QToolBox *toolbox)
    : QObject(toolbox), m_toolbox(toolbox),

@@ -17,6 +17,7 @@
 *
 ***********************************************************************/
 
+#include <abstract_dialoggui.h>
 #include <action_editor.h>
 #include <formwindowmanager.h>
 #include <formwindow_dnditem.h>
@@ -33,18 +34,16 @@
 #include <preview_manager.h>
 #include <layout_info.h>
 #include <resource_model.h>
+#include <designer_dnditem.h>
+#include <designer_command.h>
 #include <layout_widget.h>
+#include <designer_object_inspector.h>
 #include <connection_edit.h>
 #include <widgetfactory.h>
 
 #include <widgetdatabase_p.h>
 #include <iconloader_p.h>
-#include <qdesigner_dnditem_p.h>
-#include <qdesigner_command_p.h>
-#include <qdesigner_command2_p.h>
-#include <qdesigner_objectinspector_p.h>
 #include <shared_settings_p.h>
-#include <abstract_dialoggui.h>
 #include <spacer_widget_p.h>
 
 #include <QUndoGroup>

@@ -20,8 +20,9 @@
 #ifndef QDESIGNER_FORMWINDOMANAGER_H
 #define QDESIGNER_FORMWINDOMANAGER_H
 
-#include <formwindowbase_p.h>
 #include <abstract_formwindowmanager.h>
+
+#include <formwindowbase_p.h>
 
 namespace qdesigner_internal {
 

@@ -20,8 +20,9 @@
 #ifndef QDESIGNER_MEMBERSHEET_H
 #define QDESIGNER_MEMBERSHEET_H
 
-#include <membersheet.h>
 #include <default_extensionfactory.h>
+#include <membersheet.h>
+
 #include <QStringList>
 
 class QDesignerMemberSheetPrivate;

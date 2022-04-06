@@ -20,7 +20,7 @@
 #ifndef ICONSELECTOR_H
 #define ICONSELECTOR_H
 
-#include <qdesigner_utils_p.h>
+#include <designer_utils.h>
 
 class QtResourceModel;
 class QDesignerFormEditorInterface;

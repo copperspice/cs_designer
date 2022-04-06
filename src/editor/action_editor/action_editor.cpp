@@ -26,15 +26,15 @@
 #include <newaction_dialog.h>
 
 #include <iconloader_p.h>
-#include <qdesigner_menu_p.h>
-#include <qdesigner_command_p.h>
-#include <qdesigner_propertycommand_p.h>
-#include <qdesigner_objectinspector_p.h>
-#include <qdesigner_utils_p.h>
-#include <qsimpleresource_p.h>
+#include <designer_menu.h>
+#include <designer_command.h>
+#include <designer_property_command.h>
+#include <designer_object_inspector.h>
+#include <designer_utils.h>
+#include <simple_resource.h>
 #include <formwindowbase_p.h>
-#include <qdesigner_taskmenu_p.h>
-#include <qdesigner_propertysheet_p.h>
+#include <designer_taskmenu.h>
+#include <designer_propertysheet.h>
 #include <metadatabase_p.h>
 
 #include <QMenu>

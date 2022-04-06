@@ -20,9 +20,9 @@
 #ifndef QDESIGNER_APPEARANCEOPTIONS_H
 #define QDESIGNER_APPEARANCEOPTIONS_H
 
+#include <abstract_optionspage.h>
 #include <designer_enums.h>
 #include <designer_toolwindow.h>
-#include <abstract_optionspage.h>
 
 #include <QObject>
 #include <QPointer>

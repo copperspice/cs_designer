@@ -22,9 +22,9 @@
 
 #include <brush_property.h>
 #include <font_property.h>
-#include <variantproperty.h>
+#include <edit_variant_property.h>
 
-#include <qdesigner_utils_p.h>
+#include <designer_utils.h>
 #include <shared_enums_p.h>
 
 #include <QUrl>

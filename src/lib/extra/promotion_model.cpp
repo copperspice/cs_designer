@@ -20,8 +20,8 @@
 #include <abstract_widgetdatabase.h>
 #include <abstract_promotioninterface.h>
 #include <abstract_formeditor.h>
+#include <promotion_model.h>
 
-#include <promotion_model_p.h>
 #include <widgetdatabase_p.h>
 
 #include <QStandardItem>

@@ -25,7 +25,7 @@
 #include <connectdialog_p.h>
 #include <signalslot_utils_p.h>
 #include <metadatabase_p.h>
-#include <qdesigner_formwindowcommand_p.h>
+#include <designer_formwindow_command.h>
 #include <metadatabase_p.h>
 #include <ui4.h>
 

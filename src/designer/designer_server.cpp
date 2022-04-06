@@ -21,8 +21,8 @@
 #include <designer_server.h>
 
 #include <QFileInfo>
-#include <QStringList>
 #include <QHostAddress>
+#include <QStringList>
 #include <QTcpServer>
 #include <QTcpSocket>
 

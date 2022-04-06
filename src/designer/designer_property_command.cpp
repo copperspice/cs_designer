@@ -18,33 +18,33 @@
 ***********************************************************************/
 
 #include <abstract_formeditor.h>
-#include <abstract_integration.h>
 #include <abstract_formwindow.h>
 #include <abstract_formwindowcursor.h>
-#include <dynamicpropertysheet.h>
-#include <abstract_propertyeditor.h>
 #include <abstract_integration.h>
+#include <abstract_integration.h>
+#include <abstract_propertyeditor.h>
 #include <abstract_widgetdatabase.h>
-#include <extension.h>
-
+#include <designer_object_inspector.h>
 #include <designer_property_command.h>
+#include <designer_property_editor.h>
+#include <designer_propertysheet.h>
+#include <designer_propertysheet.h>
 #include <designer_utils.h>
 #include <dynamicpropertysheet.h>
-#include <designer_property_editor.h>
-#include <spacer_widget_p.h>
-#include <designer_propertysheet.h>
-#include <designer_propertysheet.h>
-#include <designer_object_inspector.h>
+#include <dynamicpropertysheet.h>
+#include <extension.h>
 
+#include <spacer_widget_p.h>
+
+#include <QAction>
+#include <QApplication>
+#include <QDebug>
+#include <QDialog>
+#include <QLayout>
+#include <QPushButton>
 #include <QSize>
 #include <QTextStream>
 #include <QWidget>
-#include <QApplication>
-#include <QAction>
-#include <QDialog>
-#include <QPushButton>
-#include <QLayout>
-#include <QDebug>
 
 namespace  {
 enum { debugPropertyCommands = 0 };

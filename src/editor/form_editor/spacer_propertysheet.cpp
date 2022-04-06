@@ -20,8 +20,8 @@
 #include <formwindow.h>
 #include <spacer_propertysheet.h>
 #include <extension.h>
+#include <designer_widget.h>
 
-#include <qdesigner_widget_p.h>
 #include <spacer_widget_p.h>
 
 #include <QLayout>

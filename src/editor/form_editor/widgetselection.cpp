@@ -25,9 +25,9 @@
 #include <extension_manager.h>
 #include <layout.h>
 #include <layout_info.h>
+#include <designer_command.h>
+#include <designer_property_command.h>
 
-#include <qdesigner_command_p.h>
-#include <qdesigner_propertycommand_p.h>
 #include <formwindowbase_p.h>
 #include <grid_p.h>
 

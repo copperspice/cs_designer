@@ -34,11 +34,11 @@ class QDesignerFormWindowInterface;
 class QDesignerFormWindowManagerInterface;
 class QDesignerIntegration;
 
-#include <QObject>
 #include <QHash>
-#include <QSet>
 #include <QList>
+#include <QObject>
 #include <QRect>
+#include <QSet>
 
 class QAction;
 class QActionGroup;

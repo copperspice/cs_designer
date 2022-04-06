@@ -20,21 +20,21 @@
 #ifndef PROMOTIONEDITORDIALOG_H
 #define PROMOTIONEDITORDIALOG_H
 
-#include <abstract_widgetdatabase.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
 #include <abstract_promotioninterface.h>
+#include <abstract_widgetdatabase.h>
 
 #include <QDialog>
 #include <QGroupBox>
 #include <QItemSelection>
 
-class QTreeView;
-class QPushButton;
-class QDialogButtonBox;
-class QComboBox;
-class QLineEdit;
 class QCheckBox;
+class QComboBox;
+class QDialogButtonBox;
+class QLineEdit;
+class QPushButton;
+class QTreeView;
 
 namespace qdesigner_internal {
 struct PromotionParameters {

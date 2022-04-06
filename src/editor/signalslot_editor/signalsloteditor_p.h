@@ -21,15 +21,16 @@
 #define SIGNALSLOTEDITOR_P_H
 
 #include <connection_edit.h>
+
+class QDesignerFormWindowInterface;
+class QDesignerFormEditorInterface;
+class DomConnection;
+
 #include <QString>
 #include <QStringList>
 #include <QList>
 #include <QPointer>
 #include <QAbstractItemModel>
-
-class QDesignerFormWindowInterface;
-class QDesignerFormEditorInterface;
-class DomConnection;
 
 namespace qdesigner_internal {
 

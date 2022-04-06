@@ -24,7 +24,7 @@
 #include <formwindowbase_p.h>
 
 #include <iconloader_p.h>
-#include <qdesigner_utils_p.h>
+#include <designer_utils.h>
 
 #include <QDropEvent>
 #include <QVBoxLayout>

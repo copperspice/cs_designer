@@ -20,7 +20,7 @@
 #ifndef COMBOBOX_TASKMENU_H
 #define COMBOBOX_TASKMENU_H
 
-#include <qdesigner_taskmenu_p.h>
+#include <designer_taskmenu.h>
 #include <extensionfactory_p.h>
 
 class QDesignerFormWindowInterface;

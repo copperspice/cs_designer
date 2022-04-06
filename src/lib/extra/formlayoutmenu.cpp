@@ -23,14 +23,14 @@
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
 #include <abstract_widgetfactory.h>
+#include <layout_info.h>
 #include <ui_formlayout_addrow.h>
 
 #include <formlayoutmenu_p.h>
-#include <layoutinfo_p.h>
-#include <qdesigner_command_p.h>
-#include <qdesigner_utils_p.h>
-#include <qdesigner_propertycommand_p.h>
-#include <qdesigner_propertysheet_p.h>
+#include <designer_command.h>
+#include <designer_utils.h>
+#include <designer_property_command.h>
+#include <designer_propertysheet.h>
 
 #include <QAction>
 #include <QWidget>

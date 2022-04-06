@@ -20,14 +20,13 @@
 #ifndef QDESIGNER_MENUBAR_H
 #define QDESIGNER_MENUBAR_H
 
-#include <QAction>
-#include <QMenuBar>
-
-#include <QPointer>
-#include <QMimeData>
-
 class QDesignerFormWindowInterface;
 class QDesignerActionProviderExtension;
+
+#include <QAction>
+#include <QMenuBar>
+#include <QMimeData>
+#include <QPointer>
 
 class QLineEdit;
 class QMimeData;

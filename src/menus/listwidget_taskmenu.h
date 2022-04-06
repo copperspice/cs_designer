@@ -20,14 +20,15 @@
 #ifndef LISTWIDGET_TASKMENU_H
 #define LISTWIDGET_TASKMENU_H
 
+#include <designer_taskmenu.h>
+#include <extensionfactory_p.h>
+
+class QDesignerFormWindowInterface;
+
 #include <QListWidget>
 #include <QPointer>
 
-#include <qdesigner_taskmenu_p.h>
-#include <extensionfactory_p.h>
-
 class QLineEdit;
-class QDesignerFormWindowInterface;
 
 namespace qdesigner_internal {
 

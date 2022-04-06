@@ -21,7 +21,7 @@
 #include <newdynamic_property.h>
 #include <ui_edit_dynamicproperty.h>
 
-#include <qdesigner_propertysheet_p.h>
+#include <designer_propertysheet.h>
 
 #include <QDateTime>
 #include <QPushButton>

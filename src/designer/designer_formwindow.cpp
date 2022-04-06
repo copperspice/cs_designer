@@ -17,27 +17,26 @@
 *
 ***********************************************************************/
 
-#include <designer_formwindow.h>
-#include <designer_workbench.h>
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
+#include <abstract_propertyeditor.h>
+#include <designer_formwindow.h>
+#include <designer_propertysheet.h>
+#include <designer_taskmenu.h>
+#include <designer_workbench.h>
 #include <extension.h>
 
 #include <formwindowbase_p.h>
-#include <qdesigner_propertysheet_p.h>
-#include <abstract_propertyeditor.h>
-#include <formwindowbase_p.h>
-#include <qdesigner_taskmenu_p.h>
 
-#include <QEvent>
-#include <QFile>
 #include <QAction>
 #include <QCloseEvent>
+#include <QEvent>
+#include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPushButton>
-#include <QVBoxLayout>
 #include <QUndoCommand>
+#include <QVBoxLayout>
 #include <QWindowStateChangeEvent>
 
 QDesignerFormWindow::QDesignerFormWindow(QDesignerFormWindowInterface *editor, QDesignerWorkbench *workbench,

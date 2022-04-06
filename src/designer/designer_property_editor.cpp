@@ -18,16 +18,16 @@
 ***********************************************************************/
 
 #include <abstract_formeditor.h>
+#include <designer_property_editor.h>
+#include <designer_propertysheet.h>
 #include <dynamicpropertysheet.h>
 #include <extension.h>
-#include <designer_property_editor.h>
 #include <plugin_manager.h>
-#include <designer_propertysheet.h>
 #include <widgetfactory.h>
 
+#include <QAbstractButton>
 #include <QAction>
 #include <QLineEdit>
-#include <QAbstractButton>
 
 namespace qdesigner_internal {
 

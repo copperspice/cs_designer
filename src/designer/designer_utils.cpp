@@ -17,31 +17,31 @@
 *
 ***********************************************************************/
 
+#include <abstract_formbuilder.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
-#include <abstract_resourcebrowser.h>
 #include <abstract_language.h>
-#include <extension.h>
-
+#include <abstract_resourcebrowser.h>
+#include <designer_property_command.h>
 #include <designer_taskmenu.h>
 #include <designer_utils.h>
-#include <designer_property_command.h>
-#include <abstract_formbuilder.h>
+#include <extension.h>
+
 #include <formwindowbase_p.h>
 
-#include <QDir>
-#include <QProcess>
-#include <QLibraryInfo>
+#include <QApplication>
+#include <QComboBox>
 #include <QDebug>
+#include <QDir>
+#include <QIcon>
+#include <QLibraryInfo>
+#include <QListWidget>
+#include <QPixmap>
+#include <QProcess>
 #include <QQueue>
 #include <QSharedData>
-#include <QApplication>
-#include <QIcon>
-#include <QPixmap>
-#include <QListWidget>
-#include <QTreeWidget>
 #include <QTableWidget>
-#include <QComboBox>
+#include <QTreeWidget>
 
 namespace qdesigner_internal {
 

@@ -19,8 +19,8 @@
 
 #include <designer_introspection.h>
 
-#include <QMetaObject>
 #include <QMetaEnum>
+#include <QMetaObject>
 #include <QStringList>
 #include <QVector>
 

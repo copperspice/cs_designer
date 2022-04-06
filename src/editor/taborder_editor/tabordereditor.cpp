@@ -26,10 +26,10 @@
 #include <order_dialog.h>
 
 #include <metadatabase_p.h>
-#include <qdesigner_command_p.h>
-#include <qdesigner_utils_p.h>
-#include <qdesigner_propertysheet_p.h>
+#include <designer_command.h>
+#include <designer_utils.h>
 #include <layout_widget.h>
+#include <designer_propertysheet.h>
 
 #include <QPainter>
 #include <QMouseEvent>

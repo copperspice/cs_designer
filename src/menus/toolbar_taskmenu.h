@@ -20,8 +20,7 @@
 #ifndef TOOLBAR_TASKMENU_H
 #define TOOLBAR_TASKMENU_H
 
-#include <qdesigner_taskmenu_p.h>
-
+#include <designer_taskmenu.h>
 #include <extensionfactory_p.h>
 
 #include <QToolBar>

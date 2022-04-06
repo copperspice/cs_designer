@@ -22,7 +22,7 @@
 #include <propertysheet.h>
 #include <extension.h>
 
-#include <qdesigner_propertycommand_p.h>
+#include <designer_property_command.h>
 
 #include <QDebug>
 

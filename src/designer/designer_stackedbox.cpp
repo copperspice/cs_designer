@@ -18,19 +18,19 @@
 ***********************************************************************/
 
 #include <abstract_formwindow.h>
-#include <designer_stackedbox.h>
 #include <designer_command.h>
 #include <designer_property_command.h>
+#include <designer_stackedbox.h>
 #include <order_dialog.h>
 #include <promotion_taskmenu.h>
 #include <widgetfactory.h>
 
-#include <QToolButton>
 #include <QAction>
-#include <qevent.h>
+#include <QDebug>
 #include <QMenu>
 #include <QStackedWidget>
-#include <QDebug>
+#include <QToolButton>
+#include <qevent.h>
 
 static QToolButton *createToolButton(QWidget *parent, Qt::ArrowType at, const QString &name)
 {

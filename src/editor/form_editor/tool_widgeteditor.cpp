@@ -17,20 +17,20 @@
 *
 ***********************************************************************/
 
-#include <tool_widgeteditor.h>
-#include <formwindow.h>
 #include <abstract_formeditor.h>
 #include <abstract_widgetfactory.h>
 #include <abstract_widgetbox.h>
-#include <layoutinfo_p.h>
-#include <qdesigner_dnditem_p.h>
+#include <designer_dnditem.h>
 #include <designer_resource.h>
+#include <formwindow.h>
+#include <layout_info.h>
+#include <tool_widgeteditor.h>
 
-#include <qevent.h>
 #include <QAction>
-#include <QMainWindow>
+#include <QEvent>
 #include <QCursor>
 #include <QDebug>
+#include <QMainWindow>
 
 using namespace qdesigner_internal;
 

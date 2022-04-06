@@ -18,23 +18,23 @@
 ***********************************************************************/
 
 #include <abstract_formwindow.h>
-#include <designer_tabwidget.h>
 #include <designer_command.h>
 #include <designer_property_command.h>
+#include <designer_tabwidget.h>
 #include <promotion_taskmenu.h>
 
 #include <formwindowbase_p.h>
 
-#include <QApplication>
-#include <QTabBar>
 #include <QAction>
-#include <QMouseEvent>
-#include <QDrag>
-#include <QMenu>
-#include <QLabel>
-#include <QTabWidget>
-#include <QMimeData>
+#include <QApplication>
 #include <QDebug>
+#include <QDrag>
+#include <QLabel>
+#include <QMenu>
+#include <QMimeData>
+#include <QMouseEvent>
+#include <QTabBar>
+#include <QTabWidget>
 
 namespace qdesigner_internal {
 

@@ -28,7 +28,7 @@
 
 #include <metadatabase_p.h>
 #include <widgetdatabase_p.h>
-#include <qdesigner_formwindowcommand_p.h>
+#include <designer_formwindow_command.h>
 #include <iconloader_p.h>
 
 #include <QStandardItemModel>

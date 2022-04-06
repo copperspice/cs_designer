@@ -38,18 +38,18 @@
 #include <resource_model.h>
 #include <widgetfactory.h>
 #include <plugin_manager.h>
+#include <designer_taskmenu.h>
+#include <designer_membersheet.h>
+#include <designer_promotion.h>
+#include <designer_qsettings.h>
+#include <designer_introspection.h>
+#include <designer_stackedbox.h>
+#include <designer_toolbox.h>
+#include <designer_tabwidget.h>
 
-#include <qdesigner_introspection_p.h>
 #include <dialoggui_p.h>
-#include <qdesigner_stackedbox_p.h>
-#include <qdesigner_toolbox_p.h>
-#include <qdesigner_tabwidget_p.h>
 #include <metadatabase_p.h>
 #include <widgetdatabase_p.h>
-#include <qdesigner_taskmenu_p.h>
-#include <qdesigner_membersheet_p.h>
-#include <qdesigner_promotion_p.h>
-#include <qdesigner_qsettings_p.h>
 
 namespace qdesigner_internal {
 

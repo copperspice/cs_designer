@@ -20,7 +20,7 @@
 #ifndef MORPH_COMMAND_H
 #define MORPH_COMMAND_H
 
-#include <qdesigner_formwindowcommand_p.h>
+#include <designer_formwindow_command.h>
 
 class QAction;
 class QSignalMapper;

@@ -20,15 +20,15 @@
 #ifndef QDESIGNER_PROPERTYSHEET_H
 #define QDESIGNER_PROPERTYSHEET_H
 
-#include <dynamicpropertysheet.h>
-#include <propertysheet.h>
 #include <default_extensionfactory.h>
+#include <dynamicpropertysheet.h>
 #include <extension.h>
 #include <extension_manager.h>
+#include <propertysheet.h>
 
-#include <QVariant>
 #include <QPair>
 #include <QPointer>
+#include <QVariant>
 
 class QLayout;
 class QDesignerFormEditorInterface;

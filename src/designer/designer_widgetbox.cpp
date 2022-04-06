@@ -17,14 +17,14 @@
 *
 ***********************************************************************/
 
-#include <designer_widgetbox.h>
 #include <designer_utils.h>
+#include <designer_widgetbox.h>
 #include <ui4.h>
 
-#include <QRegularExpression>
 #include <QDebug>
-#include <QXmlStreamReader>
+#include <QRegularExpression>
 #include <QSharedData>
+#include <QXmlStreamReader>
 
 class QDesignerWidgetBoxWidgetData : public QSharedData
 {

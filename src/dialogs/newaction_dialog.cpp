@@ -20,12 +20,12 @@
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
 #include <action_editor.h>
+#include <designer_utils.h>
 #include <newaction_dialog.h>
 #include <richtext_editor.h>
 #include <ui_action_editor_new.h>
 
 #include <formwindowbase_p.h>
-#include <qdesigner_utils_p.h>
 #include <iconloader_p.h>
 
 #include <QPushButton>

@@ -17,32 +17,32 @@
 *
 ***********************************************************************/
 
-#include <action_repository.h>
-#include <action_provider.h>
-#include <action_editor.h>
 #include <abstract_formeditor.h>
 #include <abstract_widgetfactory.h>
+#include <action_editor.h>
+#include <action_provider.h>
+#include <action_repository.h>
+#include <designer_command.h>
 #include <designer_menu.h>
 #include <designer_menubar.h>
-#include <designer_property_command.h>
-#include <designer_utils.h>
 #include <designer_object_inspector.h>
-#include <designer_command.h>
-#include <extension.h>
+#include <designer_property_command.h>
 #include <designer_toolbar.h>
+#include <designer_utils.h>
+#include <extension.h>
 
 #include <metadatabase_p.h>
 
-#include <QTimer>
-#include <QDebug>
 #include <QAction>
 #include <QApplication>
+#include <QDebug>
+#include <QDrag>
 #include <QLineEdit>
 #include <QPainter>
-#include <QDrag>
 #include <QRubberBand>
-#include <QToolTip>
+#include <QTimer>
 #include <QToolBar>
+#include <QToolTip>
 #include <qevent.h>
 
 CS_DECLARE_METATYPE(QAction *)

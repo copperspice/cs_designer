@@ -20,7 +20,7 @@
 #include <textedit_findwidget.h>
 #include <code_dialog.h>
 
-#include <qdesigner_utils_p.h>
+#include <designer_utils.h>
 #include <iconloader_p.h>
 
 #include <QAction>
@@ -35,11 +35,9 @@
 #include <QTextEdit>
 #include <QToolBar>
 #include <QVBoxLayout>
-
 #include <QDebug>
 #include <QDir>
 #include <QTemporaryFile>
-
 
 namespace qdesigner_internal {
 

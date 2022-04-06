@@ -22,7 +22,7 @@
 
 #include <container.h>
 
-#include <qdesigner_propertysheet_p.h>
+#include <designer_propertysheet.h>
 #include <extensionfactory_p.h>
 
 #include <QMdiArea>

@@ -30,8 +30,8 @@
 
 #include <csshighlighter_p.h>
 #include <iconselector_p.h>
-#include <qdesigner_utils_p.h>
-#include <qdesigner_propertysheet_p.h>
+#include <designer_utils.h>
+#include <designer_propertysheet.h>
 
 #include <QSignalMapper>
 #include <QAction>

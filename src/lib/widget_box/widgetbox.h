@@ -20,7 +20,7 @@
 #ifndef WIDGETBOX_H
 #define WIDGETBOX_H
 
-#include <qdesigner_widgetbox_p.h>
+#include <designer_widgetbox.h>
 
 class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;

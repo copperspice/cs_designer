@@ -17,19 +17,19 @@
 *
 ***********************************************************************/
 
+#include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
 #include <abstract_formwindowcursor.h>
-#include <abstract_formeditor.h>
-#include <abstract_language.h>
-#include <abstract_introspection.h>
 #include <abstract_integration.h>
-#include <designer_taskmenu.h>
+#include <abstract_introspection.h>
+#include <abstract_language.h>
 #include <designer_command.h>
-#include <designer_propertysheet.h>
 #include <designer_membersheet.h>
-#include <designer_property_command.h>
-#include <designer_utils.h>
 #include <designer_object_inspector.h>
+#include <designer_property_command.h>
+#include <designer_propertysheet.h>
+#include <designer_taskmenu.h>
+#include <designer_utils.h>
 #include <extension.h>
 #include <layout.h>
 #include <plaintext_editor.h>
@@ -41,27 +41,27 @@
 #include <ui_signal_select_dialog.h>
 #include <widgetfactory.h>
 
-#include <widgetdatabase_p.h>
-#include <spacer_widget_p.h>
+#include <formlayoutmenu_p.h>
 #include <metadatabase_p.h>
 #include <morphmenu_p.h>
-#include <formlayoutmenu_p.h>
 #include <shared_enums_p.h>
+#include <spacer_widget_p.h>
+#include <widgetdatabase_p.h>
 
 #include <QAction>
 #include <QActionGroup>
 #include <QCoreApplication>
 #include <QDebug>
-#include <QLabel>
-#include <QWidget>
-#include <QMenuBar>
-#include <QMainWindow>
-#include <QStatusBar>
 #include <QDialogButtonBox>
-#include <QVBoxLayout>
+#include <QLabel>
+#include <QMainWindow>
+#include <QMenuBar>
 #include <QPushButton>
-#include <QUndoStack>
 #include <QSignalMapper>
+#include <QStatusBar>
+#include <QUndoStack>
+#include <QVBoxLayout>
+#include <QWidget>
 
 static QMenuBar *findMenuBar(const QWidget *widget)
 {

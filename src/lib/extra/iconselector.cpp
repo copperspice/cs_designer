@@ -24,10 +24,10 @@
 #include <extension.h>
 #include <resource_model.h>
 #include <abstract_dialoggui.h>
+#include <designer_utils.h>
 #include <resource_view.h>
 
 #include <iconselector_p.h>
-#include <qdesigner_utils_p.h>
 #include <iconloader_p.h>
 #include <formwindowbase_p.h>
 

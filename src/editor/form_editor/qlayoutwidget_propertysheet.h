@@ -20,7 +20,7 @@
 #ifndef QLAYOUTWIDGET_PROPERTYSHEET_H
 #define QLAYOUTWIDGET_PROPERTYSHEET_H
 
-#include <qdesigner_propertysheet_p.h>
+#include <designer_propertysheet.h>
 #include <extensionfactory_p.h>
 #include <layout_widget.h>
 

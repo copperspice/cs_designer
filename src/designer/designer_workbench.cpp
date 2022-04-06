@@ -17,45 +17,45 @@
 *
 ***********************************************************************/
 
-#include <designer_workbench.h>
+#include <abstract_formeditor.h>
+#include <abstract_formeditorplugin.h>
+#include <abstract_formwindow.h>
+#include <abstract_formwindowmanager.h>
+#include <abstract_integration.h>
+#include <abstract_metadatabase.h>
+#include <action_editor.h>
+#include <appfont_dialog.h>
 #include <designer.h>
 #include <designer_actions.h>
 #include <designer_appearanceoptions.h>
 #include <designer_components.h>
+#include <designer_formwindow.h>
 #include <designer_settings.h>
 #include <designer_toolwindow.h>
-#include <designer_formwindow.h>
-#include <appfont_dialog.h>
-#include <abstract_formeditor.h>
-#include <abstract_formwindow.h>
-#include <abstract_formwindowmanager.h>
-#include <abstract_formeditorplugin.h>
-#include <abstract_metadatabase.h>
-#include <abstract_integration.h>
-#include <action_editor.h>
-
-#include <qdesigner_widgetbox_p.h>
+#include <designer_widgetbox.h>
+#include <designer_workbench.h>
 #include <plugin_manager.h>
+
 #include <formwindowbase_p.h>
 
-#include <QDir>
-#include <QFile>
-#include <QUrl>
-#include <QTimer>
-#include <QPluginLoader>
 #include <QActionGroup>
 #include <QCloseEvent>
+#include <QDebug>
 #include <QDesktopWidget>
+#include <QDir>
 #include <QDockWidget>
+#include <QFile>
+#include <QLayout>
+#include <QMdiArea>
+#include <QMdiSubWindow>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QPluginLoader>
 #include <QPushButton>
+#include <QTimer>
 #include <QToolBar>
-#include <QMdiArea>
-#include <QMdiSubWindow>
-#include <QLayout>
-#include <QDebug>
+#include <QUrl>
 
 #include <qalgorithms.h>
 

@@ -20,7 +20,8 @@
 #ifndef CONTAINERWIDGER_TASKMENU_H
 #define CONTAINERWIDGER_TASKMENU_H
 
-#include <qdesigner_taskmenu_p.h>
+#include <designer_taskmenu.h>
+
 #include <shared_enums_p.h>
 #include <extensionfactory_p.h>
 

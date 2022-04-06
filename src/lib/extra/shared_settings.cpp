@@ -23,7 +23,7 @@
 
 #include <grid_p.h>
 #include <shared_settings_p.h>
-#include <qdesigner_utils_p.h>
+#include <designer_utils.h>
 
 #include <QStringList>
 #include <QDir>

@@ -22,9 +22,9 @@
 
 #include <taskmenu.h>
 
-#include <qdesigner_taskmenu_p.h>
-#include <qdesigner_menu_p.h>
-#include <qdesigner_menubar_p.h>
+#include <designer_taskmenu.h>
+#include <designer_menu.h>
+#include <designer_menubar.h>
 #include <extensionfactory_p.h>
 
 class QDesignerFormWindowInterface;

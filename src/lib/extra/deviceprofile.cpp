@@ -21,7 +21,7 @@
 
 #include <deviceprofile_p.h>
 #include <widgetfactory.h>
-#include <qdesigner_utils_p.h>
+#include <designer_utils.h>
 
 #include <QApplication>
 #include <QFont>

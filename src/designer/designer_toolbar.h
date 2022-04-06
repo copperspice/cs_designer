@@ -21,10 +21,9 @@
 #define QDESIGNER_TOOLBAR_H
 
 #include <QAction>
-#include <QToolButton>
-
 #include <QList>
 #include <QPoint>
+#include <QToolButton>
 
 class QDesignerFormWindowInterface;
 class QToolBar;

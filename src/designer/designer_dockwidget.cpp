@@ -17,17 +17,17 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
+#include <abstract_formwindowcursor.h>
 #include <container.h>
+#include <designer_dockwidget.h>
 #include <extension.h>
 #include <extension_manager.h>
-#include <abstract_formwindowcursor.h>
-#include <designer_dockwidget.h>
 #include <layout_info.h>
 
-#include <QMainWindow>
 #include <QLayout>
+#include <QMainWindow>
 
 QDesignerDockWidget::QDesignerDockWidget(QWidget *parent)
    : QDockWidget(parent)

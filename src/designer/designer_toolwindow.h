@@ -22,9 +22,9 @@
 
 #include <mainwindow.h>
 
-#include <QPointer>
 #include <QFontDatabase>
 #include <QMainWindow>
+#include <QPointer>
 
 struct ToolWindowFontSettings {
    ToolWindowFontSettings();

@@ -17,12 +17,11 @@
 *
 ***********************************************************************/
 
+#include <abstract_formeditor.h>
 #include <formwindow_dnditem.h>
 #include <formwindow.h>
 #include <designer_resource.h>
 #include <resource_model.h>
-#include <ui4.h>
-#include <abstract_formeditor.h>
 #include <ui4.h>
 
 #include <QLabel>

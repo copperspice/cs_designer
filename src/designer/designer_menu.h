@@ -20,20 +20,20 @@
 #ifndef QDESIGNER_MENU_H
 #define QDESIGNER_MENU_H
 
-#include <QAction>
-#include <QMenu>
-#include <QPixmap>
-#include <QHash>
-
-class QTimer;
-class QLineEdit;
-
-class QDesignerFormWindowInterface;
 class QDesignerActionProviderExtension;
+class QDesignerFormWindowInterface;
 class QDesignerMenu;
 class QDesignerMenuBar;
-class QPainter;
+
+#include <QAction>
+#include <QHash>
+#include <QMenu>
+#include <QPixmap>
+
+class QLineEdit;
 class QMimeData;
+class QPainter;
+class QTimer;
 
 namespace qdesigner_internal {
 class CreateSubmenuCommand;

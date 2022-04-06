@@ -20,7 +20,7 @@
 #ifndef BUTTON_TASKMENU_H
 #define BUTTON_TASKMENU_H
 
-#include <qdesigner_taskmenu_p.h>
+#include <designer_taskmenu.h>
 #include <extensionfactory_p.h>
 
 class QDesignerFormWindowCursorInterface;

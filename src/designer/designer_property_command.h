@@ -22,10 +22,10 @@
 
 #include <designer_formwindow_command.h>
 
-#include <QVariant>
 #include <QList>
 #include <QPair>
 #include <QSharedPointer>
+#include <QVariant>
 
 class QDesignerFormWindowInterface;
 class QDesignerPropertySheetExtension;

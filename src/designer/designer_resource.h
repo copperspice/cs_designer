@@ -23,8 +23,8 @@
 #include <simple_resource.h>
 
 #include <QHash>
-#include <QStack>
 #include <QList>
+#include <QStack>
 
 class DomCustomWidget;
 class DomCustomWidgets;

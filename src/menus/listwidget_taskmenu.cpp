@@ -20,9 +20,8 @@
 #include <listwidget_taskmenu.h>
 #include <listwidget_editor.h>
 #include <abstract_formwindow.h>
-
-#include <qdesigner_utils_p.h>
-#include <qdesigner_command_p.h>
+#include <designer_utils.h>
+#include <designer_command.h>
 
 #include <QAction>
 #include <QStyle>

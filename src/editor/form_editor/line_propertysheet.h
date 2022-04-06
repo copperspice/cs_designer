@@ -20,8 +20,9 @@
 #ifndef LINE_PROPERTYSHEET_H
 #define LINE_PROPERTYSHEET_H
 
-#include <qdesigner_propertysheet_p.h>
-#include <qdesigner_widget_p.h>
+#include <designer_propertysheet.h>
+#include <designer_widget.h>
+
 #include <extensionfactory_p.h>
 
 namespace qdesigner_internal {

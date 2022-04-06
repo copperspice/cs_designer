@@ -18,19 +18,18 @@
 ***********************************************************************/
 
 #include <designer.h>
-#include <designer_components.h>
 #include <designer_actions.h>
+#include <designer_components.h>
+#include <designer_propertysheet.h>
 #include <designer_server.h>
 #include <designer_settings.h>
 #include <designer_workbench.h>
 #include <mainwindow.h>
 
-#include <qdesigner_propertysheet_p.h>
-
-#include <QDebug>
 #include <QCloseEvent>
-#include <QCommandLineParser>
 #include <QCommandLineOption>
+#include <QCommandLineParser>
+#include <QDebug>
 #include <QErrorMessage>
 #include <QFile>
 #include <QFileInfo>

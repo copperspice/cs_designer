@@ -20,7 +20,7 @@
 #ifndef WIDGETBOX_DNDITEM_H
 #define WIDGETBOX_DNDITEM_H
 
-#include <qdesigner_dnditem_p.h>
+#include <designer_dnditem.h>
 
 class QDesignerFormEditorInterface;
 class DomUI;

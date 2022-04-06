@@ -29,18 +29,18 @@
 #include <abstract_actioneditor.h>
 #include <abstract_dialoggui.h>
 #include <abstract_introspection.h>
+#include <designer_widgetbox.h>
 #include <extension_manager.h>
-#include <resource_model.h>
 #include <plugin_manager.h>
+#include <qtgradientmanager.h>
+#include <resource_model.h>
 #include <widgetfactory.h>
 
-#include <widgetdatabase_p.h>
-#include <qdesigner_widgetbox_p.h>
-#include <qtgradientmanager.h>
-#include <shared_settings_p.h>
 #include <formwindowbase_p.h>
 #include <grid_p.h>
 #include <iconloader_p.h>
+#include <shared_settings_p.h>
+#include <widgetdatabase_p.h>
 
 #include <QIcon>
 

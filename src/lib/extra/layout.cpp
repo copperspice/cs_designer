@@ -25,12 +25,12 @@
 #include <abstract_widgetdatabase.h>
 #include <layout.h>
 
-#include <qdesigner_utils_p.h>
+#include <designer_utils.h>
 #include <layout_widget.h>
 #include <spacer_widget_p.h>
 #include <widgetfactory.h>
-#include <qdesigner_widgetitem_p.h>
-#include <qdesigner_propertysheet_p.h>
+#include <designer_widgetitem.h>
+#include <designer_propertysheet.h>
 #include <metadatabase_p.h>
 
 #include <QDebug>

@@ -21,22 +21,22 @@
 #define QDESIGNER_COMMAND_H
 
 #include <container.h>
-#include <layoutdecoration.h>
-#include <designer_formwindow_command.h>
 #include <designer_formeditor_command.h>
+#include <designer_formwindow_command.h>
 #include <designer_utils.h>
 #include <layout_info.h>
+#include <layoutdecoration.h>
 
 #include <shared_enums_p.h>
 
 class QDesignerMetaDataBaseItemInterface;
 class QDesignerMenu;
 
+#include <QHash>
 #include <QIcon>
+#include <QMap>
 #include <QObject>
 #include <QPair>
-#include <QMap>
-#include <QHash>
 #include <QPoint>
 #include <QRect>
 #include <QWidget>

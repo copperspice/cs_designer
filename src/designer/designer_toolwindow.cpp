@@ -17,22 +17,21 @@
 *
 ***********************************************************************/
 
+#include <abstract_actioneditor.h>
+#include <abstract_formeditor.h>
+#include <abstract_propertyeditor.h>
+#include <abstract_widgetbox.h>
 #include <designer.h>
 #include <designer_components.h>
-#include <designer_toolwindow.h>
+#include <designer_object_inspector.h>
 #include <designer_settings.h>
+#include <designer_toolwindow.h>
 #include <designer_workbench.h>
-#include <abstract_propertyeditor.h>
-#include <abstract_formeditor.h>
-#include <abstract_actioneditor.h>
-#include <abstract_widgetbox.h>
 
-#include <qdesigner_objectinspector_p.h>
-
-#include <QEvent>
-#include <QDebug>
 #include <QAction>
 #include <QCloseEvent>
+#include <QDebug>
+#include <QEvent>
 
 constexpr const int debugToolWindow = 0;
 

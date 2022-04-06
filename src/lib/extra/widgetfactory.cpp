@@ -28,22 +28,22 @@
 #include <customwidget.h>
 #include <table_classes.h>
 #include <layout_widget.h>
+#include <designer_widget.h>
+#include <designer_tabwidget.h>
+#include <designer_toolbox.h>
+#include <designer_stackedbox.h>
+#include <designer_toolbar.h>
+#include <designer_menubar.h>
+#include <designer_menu.h>
+#include <designer_dockwidget.h>
+#include <designer_propertysheet.h>
+#include <designer_utils.h>
 
 #include <widgetfactory.h>
 #include <widgetdatabase_p.h>
 #include <metadatabase_p.h>
-#include <qdesigner_widget_p.h>
-#include <qdesigner_tabwidget_p.h>
-#include <qdesigner_toolbox_p.h>
-#include <qdesigner_stackedbox_p.h>
-#include <qdesigner_toolbar_p.h>
-#include <qdesigner_menubar_p.h>
-#include <qdesigner_menu_p.h>
-#include <qdesigner_dockwidget_p.h>
-#include <qdesigner_utils_p.h>
 #include <formwindowbase_p.h>
 #include <spacer_widget_p.h>
-#include <qdesigner_propertysheet_p.h>
 #include <formwindowbase_p.h>
 
 #include <QApplication>

@@ -20,26 +20,25 @@
 #include <abstract_settings.h>
 #include <abstract_formeditor.h>
 #include <abstract_widgetdatabase.h>
-#include <button_propertybrowser.h>
+#include <designer_propertysheet.h>
 #include <designer_property.h>
+#include <designer_settings.h>
+#include <designer_propertysheet.h>
+#include <designer_utils.h>
+#include <designer_property_command.h>
 #include <dynamicpropertysheet.h>
+#include <edit_variant_property.h>
 #include <extension.h>
 #include <newdynamic_property.h>
 #include <property_editor.h>
-#include <designer_settings.h>
-#include <tree_propertybrowser.h>
-#include <variantproperty.h>
+#include <property_view_button.h>
+#include <property_view_tree.h>
 #include <widgetfactory.h>
 
-#include <qdesigner_propertysheet_p.h>
 #include <formwindowbase_p.h>
-#include <shared_enums_p.h>
-#include <formwindowbase_p.h>
-#include <qdesigner_propertysheet_p.h>
-#include <qdesigner_utils_p.h>
-#include <qdesigner_propertycommand_p.h>
-#include <metadatabase_p.h>
 #include <iconloader_p.h>
+#include <metadatabase_p.h>
+#include <shared_enums_p.h>
 
 #include <QAction>
 #include <QLineEdit>

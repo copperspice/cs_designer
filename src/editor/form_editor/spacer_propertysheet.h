@@ -20,7 +20,7 @@
 #ifndef SPACER_PROPERTYSHEET_H
 #define SPACER_PROPERTYSHEET_H
 
-#include <qdesigner_propertysheet_p.h>
+#include <designer_propertysheet.h>
 #include <extensionfactory_p.h>
 #include <spacer_widget_p.h>
 

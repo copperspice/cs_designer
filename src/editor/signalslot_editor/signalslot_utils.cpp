@@ -25,7 +25,7 @@
 #include <extension_manager.h>
 
 #include <signalslot_utils_p.h>
-#include <qdesigner_membersheet_p.h>
+#include <designer_membersheet.h>
 #include <widgetdatabase_p.h>
 #include <metadatabase_p.h>
 

@@ -25,7 +25,7 @@
 #include <newform_widget.h>
 #include <ui_new_form_widget.h>
 
-#include <qdesigner_formbuilder_p.h>
+#include <designer_formbuilder.h>
 #include <sheet_delegate_p.h>
 #include <widgetdatabase_p.h>
 #include <shared_settings_p.h>

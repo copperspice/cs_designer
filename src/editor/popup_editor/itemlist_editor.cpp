@@ -19,7 +19,7 @@
 
 #include <designer_property.h>
 #include <abstract_formwindow.h>
-#include <tree_propertybrowser.h>
+#include <property_view_tree.h>
 #include <itemlist_editor.h>
 #include <abstract_formbuilder.h>
 

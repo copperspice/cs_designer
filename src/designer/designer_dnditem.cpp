@@ -17,21 +17,21 @@
 *
 ***********************************************************************/
 
-#include <ui4.h>
 #include <designer_dnditem.h>
+#include <ui4.h>
 
 #include <formwindowbase_p.h>
 
-#include <QPainter>
 #include <QBitmap>
-#include <QPixmap>
+#include <QCursor>
+#include <QDrag>
+#include <QDropEvent>
 #include <QImage>
 #include <QLabel>
-#include <QDrag>
-#include <QCursor>
-#include <QDropEvent>
-#include <QRgb>
 #include <QMultiMap>
+#include <QPainter>
+#include <QPixmap>
+#include <QRgb>
 
 namespace qdesigner_internal {
 

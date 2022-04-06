@@ -21,16 +21,16 @@
 #include <abstract_formwindow.h>
 #include <abstract_widgetbox.h>
 #include <abstract_widgetdatabase.h>
-#include <designer_promotion.h>
 #include <designer_object_inspector.h>
+#include <designer_promotion.h>
 
-#include <widgetdatabase_p.h>
-#include <metadatabase_p.h>
 #include <formwindowbase_p.h>
+#include <metadatabase_p.h>
+#include <widgetdatabase_p.h>
 
-#include <QMap>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QMap>
 
 namespace {
 // Return a set of on-promotable classes

@@ -17,15 +17,15 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
 #include <abstract_widgetfactory.h>
 #include <action_editor.h>
-#include <action_repository.h>
 #include <action_provider.h>
-#include <designer_menubar.h>
-#include <designer_menu.h>
+#include <action_repository.h>
 #include <designer_command.h>
+#include <designer_menu.h>
+#include <designer_menubar.h>
 #include <designer_object_inspector.h>
 #include <designer_property_command.h>
 #include <designer_utils.h>
@@ -33,11 +33,11 @@
 #include <extension_manager.h>
 #include <promotion_taskmenu.h>
 
-#include <QDebug>
-#include <QMimeData>
 #include <QApplication>
+#include <QDebug>
 #include <QDrag>
 #include <QLineEdit>
+#include <QMimeData>
 #include <QPainter>
 #include <qevent.h>
 

@@ -23,10 +23,10 @@
 #include <formwindowbase_p.h>
 #include <grid_p.h>
 
+#include <QEvent>
 #include <QPainter>
 #include <QStyle>
 #include <QStyleOption>
-#include <qevent.h>
 
 /* QDesignerDialog / QDesignerWidget are used to paint a grid on QDialog and QWidget main containers
  * and container extension pages.

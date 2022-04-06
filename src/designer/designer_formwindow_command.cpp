@@ -17,22 +17,22 @@
 *
 ***********************************************************************/
 
-#include <abstract_propertyeditor.h>
-#include <extension.h>
+#include <abstract_actioneditor.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
-#include <layout.h>
-
+#include <abstract_propertyeditor.h>
 #include <designer_formwindow_command.h>
 #include <designer_object_inspector.h>
 #include <designer_object_inspector.h>
-#include <abstract_actioneditor.h>
-#include <metadatabase_p.h>
 #include <designer_propertysheet.h>
+#include <extension.h>
+#include <layout.h>
 
+#include <metadatabase_p.h>
+
+#include <QLabel>
 #include <QVariant>
 #include <QWidget>
-#include <QLabel>
 
 namespace qdesigner_internal {
 

@@ -22,7 +22,7 @@
 
 #include <itemlist_editor.h>
 
-#include <qdesigner_command_p.h>
+#include <designer_command.h>
 
 class QDesignerFormWindowInterface;
 

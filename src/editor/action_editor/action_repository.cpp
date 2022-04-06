@@ -19,12 +19,12 @@
 
 #include <abstract_formeditor.h>
 #include <action_repository.h>
+#include <designer_utils.h>
+#include <designer_propertysheet.h>
 #include <extension.h>
+#include <resource_view.h>
 
-#include <qtresourceview_p.h>
 #include <iconloader_p.h>
-#include <qdesigner_utils_p.h>
-#include <qdesigner_propertysheet_p.h>
 
 #include <QDrag>
 #include <QContextMenuEvent>

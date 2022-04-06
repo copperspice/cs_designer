@@ -17,12 +17,11 @@
 *
 ***********************************************************************/
 
-#include <toolbar_taskmenu.h>
 #include <abstract_formwindow.h>
-
-#include <qdesigner_toolbar_p.h>
-#include <qdesigner_command_p.h>
+#include <designer_command.h>
+#include <designer_toolbar.h>
 #include <promotion_taskmenu.h>
+#include <toolbar_taskmenu.h>
 
 #include <QAction>
 #include <QUndoStack>

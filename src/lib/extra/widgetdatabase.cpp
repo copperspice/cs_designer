@@ -23,15 +23,15 @@
 #include <abstract_formeditor.h>
 #include <customwidget.h>
 #include <table_classes.h>
+#include <abstract_language.h>
 #include <plugin_manager.h>
+#include <designer_widgetbox.h>
+#include <designer_utils.h>
+#include <ui4.h>
 
 #include <widgetdatabase_p.h>
 #include <widgetfactory.h>
 #include <spacer_widget_p.h>
-#include <abstract_language.h>
-#include <qdesigner_widgetbox_p.h>
-#include <qdesigner_utils_p.h>
-#include <ui4.h>
 
 #include <QXmlStreamWriter>
 #include <QScopedPointer>

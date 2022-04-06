@@ -20,7 +20,7 @@
 #ifndef FORMWINDOWMANAGER_H
 #define FORMWINDOWMANAGER_H
 
-#include <qdesigner_formwindowmanager_p.h>
+#include <designer_formwindow_manager.h>
 
 #include <QObject>
 #include <QList>

@@ -21,7 +21,7 @@
 #define INPLACE_EDITOR_H
 
 #include <inplace_widget_helper.h>
-#include <qdesigner_utils_p.h>
+#include <designer_utils.h>
 #include <textproperty_editor.h>
 
 #include <shared_enums_p.h>

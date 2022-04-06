@@ -23,8 +23,8 @@
 #include <designer_toolwindow.h>
 #include <ui_designer_options.h>
 
-#include <QTimer>
 #include <QDebug>
+#include <QTimer>
 
 AppearanceOptions::AppearanceOptions()
    : uiMode(DockedMode)

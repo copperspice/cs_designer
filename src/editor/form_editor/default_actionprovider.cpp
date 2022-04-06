@@ -20,7 +20,7 @@
 #include <default_actionprovider.h>
 
 #include <invisible_widget_p.h>
-#include <qdesigner_toolbar_p.h>
+#include <designer_toolbar.h>
 
 #include <QAction>
 #include <QApplication>

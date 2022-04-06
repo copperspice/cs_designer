@@ -19,11 +19,11 @@
 
 #include <designer_qsettings.h>
 
-#include <QSettings>
 #include <QCoreApplication>
-#include <QTextStream>
-#include <QString>
 #include <QDebug>
+#include <QSettings>
+#include <QString>
+#include <QTextStream>
 
 QDesignerQSettings::QDesignerQSettings() :
    m_settings(qApp->organizationName(), settingsApplicationName())

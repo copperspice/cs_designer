@@ -20,7 +20,7 @@
 #ifndef ITEMVIEW_PROPERTYSHEET_H
 #define ITEMVIEW_PROPERTYSHEET_H
 
-#include <qdesigner_propertysheet_p.h>
+#include <designer_propertysheet.h>
 #include <extensionfactory_p.h>
 
 #include <QTreeView>

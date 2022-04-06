@@ -44,22 +44,22 @@
 #include <QApplication>
 #include <QComboBox>
 #include <QDebug>
+#include <QDockWidget>
 #include <QFormLayout>
 #include <QLayout>
-#include <QTextStream>
-#include <QQueue>
+#include <QListWidget>
+#include <QMainWindow>
 #include <QMenuBar>
-#include <QStatusBar>
-#include <QToolBar>
-#include <QToolBox>
+#include <QQueue>
+#include <QSplitter>
 #include <QStackedWidget>
+#include <QStatusBar>
 #include <QTabWidget>
 #include <QTableWidget>
+#include <QTextStream>
+#include <QToolBar>
+#include <QToolBox>
 #include <QTreeWidget>
-#include <QListWidget>
-#include <QSplitter>
-#include <QDockWidget>
-#include <QMainWindow>
 #include <QWizardPage>
 
 CS_DECLARE_METATYPE(QWidgetList)

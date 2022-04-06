@@ -20,13 +20,13 @@
 #include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
 #include <buddyeditor.h>
+#include <designer_command.h>
+#include <designer_property_command.h>
+#include <designer_utils.h>
 #include <extension_manager.h>
-#include <propertysheet.h>
 #include <layout_widget.h>
+#include <propertysheet.h>
 
-#include <qdesigner_command_p.h>
-#include <qdesigner_propertycommand_p.h>
-#include <qdesigner_utils_p.h>
 #include <metadatabase_p.h>
 
 #include <QDebug>

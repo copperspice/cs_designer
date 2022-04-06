@@ -17,29 +17,29 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
-#include <formbuilderextra.h>
-#include <layout_info.h>
+#include <abstract_formwindow.h>
+#include <designer_introspection.h>
 #include <designer_propertysheet.h>
 #include <designer_utils.h>
+#include <formbuilderextra.h>
+#include <layout_info.h>
 #include <layout_widget.h>
-#include <designer_introspection.h>
 
 #include <formwindowbase_p.h>
 #include <widgetdatabase_p.h>
 
-#include <QDebug>
-#include <QLayout>
-#include <QDockWidget>
-#include <QDialog>
-#include <QLabel>
-#include <QGroupBox>
-#include <QStyle>
 #include <QApplication>
-#include <QToolBar>
+#include <QDebug>
+#include <QDialog>
+#include <QDockWidget>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLayout>
 #include <QMainWindow>
 #include <QMenuBar>
+#include <QStyle>
+#include <QToolBar>
 
 #define USE_LAYOUT_SIZE_CONSTRAINT
 
