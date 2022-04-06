@@ -9,7 +9,33 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_appearanceoptions.h
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_components.h
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_command.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_dnditem.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_dockwidget.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_formbuilder.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_formeditor_command.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_formwindow_command.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_formwindow_manager.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_introspection.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_membersheet.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_menu.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_menubar.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_object_inspector.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_promotion.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_promotion_dialog.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_property_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_propertysheet.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_qsettings.h
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_resource.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_stackedbox.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_tabwidget.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_taskmenu.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_toolbar.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_toolbox.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_utils.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_widget.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_widgetbox.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_widgetitem.h
 )
 
 list(APPEND DESIGNER_SOURCES
@@ -23,5 +49,32 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_appearanceoptions.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_components.cpp
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_command.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_dnditem.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_dockwidget.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_formbuilder.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_formeditor_command.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_formwindow_command.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_formwindow_manager.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_introspection.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_membersheet.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_menu.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_menubar.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_object_inspector.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_promotion.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_promotion_dialog.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_property_command.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_property_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_propertysheet.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_qsettings.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_resource.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_stackedbox.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_tabwidget.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_taskmenu.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_toolbar.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_toolbox.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_utils.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_widget.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_widgetbox.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/designer/designer_widgetitem.cpp
 )
