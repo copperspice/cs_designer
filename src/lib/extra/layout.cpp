@@ -415,7 +415,6 @@ void Layout::breakLayout()
 
 static QString suggestLayoutName(const QString &className)
 {
-   // Legacy
    if (className == "QHBoxLayout") {
       return QString("horizontalLayout");
    }

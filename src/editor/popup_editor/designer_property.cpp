@@ -942,9 +942,11 @@ DesignerPropertyManager::~DesignerPropertyManager()
 int DesignerPropertyManager::bitCount(int mask) const
 {
    int count = 0;
+
    for (; mask; count++) {
       mask &= mask - 1;   // clear the least significant bit set
    }
+
    return count;
 }
 
@@ -953,12 +955,15 @@ int DesignerPropertyManager::alignToIndexH(uint align) const
    if (align & Qt::AlignLeft) {
       return 0;
    }
+
    if (align & Qt::AlignHCenter) {
       return 1;
    }
+
    if (align & Qt::AlignRight) {
       return 2;
    }
+
    if (align & Qt::AlignJustify) {
       return 3;
    }
@@ -970,12 +975,15 @@ int DesignerPropertyManager::alignToIndexV(uint align) const
    if (align & Qt::AlignTop) {
       return 0;
    }
+
    if (align & Qt::AlignVCenter) {
       return 1;
    }
+
    if (align & Qt::AlignBottom) {
       return 2;
    }
+
    return 1;
 }
 
@@ -1268,15 +1276,19 @@ int DesignerPropertyManager::attributeType(int propertyType, const QString &attr
    if (propertyType == designerFlagTypeId() && attribute == flagsAttributeC) {
       return designerFlagListTypeId();
    }
+
    if (propertyType == designerPixmapTypeId() && attribute == defaultResourceAttributeC) {
       return QVariant::Pixmap;
    }
+
    if (propertyType == designerIconTypeId() && attribute == defaultResourceAttributeC) {
       return QVariant::Icon;
    }
+
    if (attribute == resettableAttributeC) {
       return QVariant::Bool;
    }
+
    if (propertyType == designerStringTypeId() || propertyType == QVariant::String) {
       if (attribute == validationModesAttributeC) {
          return QVariant::Int;
@@ -1288,6 +1300,7 @@ int DesignerPropertyManager::attributeType(int propertyType, const QString &attr
          return QVariant::Bool;
       }
    }
+
    if (propertyType == QVariant::Palette && attribute == superPaletteAttributeC) {
       return QVariant::Palette;
    }

@@ -648,7 +648,7 @@ QString WidgetDataBase::formTemplate(const QDesignerFormEditorInterface *core, c
       return widgetBoxXml;
    }
 
-   // 2) If that fails, only custom main windows, custom dialogs and unsupported Qt Widgets should
+   // 2) If that fails, only custom main windows, custom dialogs and unsupported Widgets should
    //    be left over. Generate something that is similar to the default templates. Find a similar class.
    const QDesignerWidgetDataBaseInterface *wdb = core->widgetDataBase();
 

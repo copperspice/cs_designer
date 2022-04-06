@@ -44,6 +44,7 @@ class LineEditTaskMenu: public QDesignerTaskMenu
 };
 
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QLineEdit, LineEditTaskMenu> LineEditTaskMenuFactory;
+
 }   // end namespace qdesigner_internal
 
 #endif

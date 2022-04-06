@@ -59,6 +59,7 @@ class TextEditTaskMenu: public QDesignerTaskMenu
 
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QTextEdit, TextEditTaskMenu> TextEditTaskMenuFactory;
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QPlainTextEdit, TextEditTaskMenu> PlainTextEditTaskMenuFactory;
-}  // namespace qdesigner_internal
+
+}   // end namespace qdesigner_internal
 
 #endif

@@ -55,4 +55,4 @@ class PreferencesDialog: public QDialog
    QList<QDesignerOptionsPageInterface *> m_optionsPages;
 };
 
-#endif // PREFERENCESDIALOG_H
+#endif

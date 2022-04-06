@@ -189,6 +189,6 @@ class ColorDelegate : public QItemDelegate
    QDesignerFormEditorInterface *m_core;
 };
 
-}  // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
 #endif

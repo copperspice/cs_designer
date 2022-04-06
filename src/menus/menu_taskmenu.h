@@ -79,6 +79,6 @@ class MenuBarTaskMenu : public QObject, public QDesignerTaskMenuExtension
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QDesignerMenu, MenuTaskMenu> MenuTaskMenuFactory;
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QDesignerMenuBar, MenuBarTaskMenu> MenuBarTaskMenuFactory;
 
-}  // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
 #endif

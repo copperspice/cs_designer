@@ -41,4 +41,4 @@ inline QAction *QDesignerTaskMenuExtension::preferredEditAction() const
    return nullptr;
 }
 
-#endif // TASKMENU_H
+#endif

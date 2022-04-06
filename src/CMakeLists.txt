@@ -156,7 +156,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
    target_link_libraries(Designer
       netapi32
       mpr
-#broom    -mwindows
+      -mwindows
    )
 
 endif()

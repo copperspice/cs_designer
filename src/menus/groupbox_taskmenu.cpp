@@ -27,7 +27,6 @@
 
 namespace qdesigner_internal {
 
-// -------- GroupBoxTaskMenuInlineEditor
 class GroupBoxTaskMenuInlineEditor : public  TaskMenuInlineEditor
 {
  public:

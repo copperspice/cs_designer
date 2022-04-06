@@ -26,7 +26,6 @@ class QTextEdit;
 
 namespace qdesigner_internal {
 
-/* HTML syntax highlighter based on Qt Quarterly example */
 class HtmlHighlighter : public QSyntaxHighlighter
 {
    CS_OBJECT(HtmlHighlighter)

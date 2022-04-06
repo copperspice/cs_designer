@@ -438,12 +438,14 @@ bool QDesignerMenu::handleMouseMoveEvent(QWidget *, QMouseEvent *event)
       if (QMenuBar *mb = dynamic_cast<QMenuBar *>(QApplication::widgetAt(event->globalPos()))) {
          const QPoint pt = mb->mapFromGlobal(event->globalPos());
          QAction *action = mb->actionAt(pt);
+
          if (action && action->menu() == findRootMenu()) {
             // propagate the mouse press event (but don't close the popup)
             sendMouseEventTo(mb, pt, event);
             return true;
          }
-         // hide the popup Qt will replay the event
+
+         // hide the popup and replay the event
          slotDeactivateNow();
       }
       return true;

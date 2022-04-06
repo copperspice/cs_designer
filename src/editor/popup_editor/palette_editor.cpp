@@ -583,6 +583,7 @@ void RoleEditor::setEdited(bool on)
    if (on == true) {
       font.setBold(on);
    }
+
    m_label->setFont(font);
    m_edited = on;
 }

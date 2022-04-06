@@ -239,5 +239,5 @@ void CodeDialog::copyAll()
    QApplication::clipboard()->setText(code());
 }
 
-} // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 

@@ -46,6 +46,7 @@ class TreeWidgetTaskMenu: public QDesignerTaskMenu
  private:
    CS_SLOT_1(Private, void editItems())
    CS_SLOT_2(editItems)
+
    CS_SLOT_1(Private, void updateSelection())
    CS_SLOT_2(updateSelection)
 
@@ -57,6 +58,7 @@ class TreeWidgetTaskMenu: public QDesignerTaskMenu
 };
 
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QTreeWidget, TreeWidgetTaskMenu> TreeWidgetTaskMenuFactory;
-}  // namespace qdesigner_internal
+
+}   // end namespace qdesigner_internal
 
 #endif

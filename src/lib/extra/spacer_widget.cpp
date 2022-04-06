@@ -38,6 +38,7 @@
 // to avoid being shrunk to an invisible state when the sizeHint is reset to 0,0
 // and enables sizeHandle-resizing. In a layout, however, this m_SizeOffset
 // should not be applied for  pixel-exact design.
+
 Spacer::Spacer(QWidget *parent) :
    QWidget(parent),
    m_SizeOffset(3, 3), // A small offset to ensure the spacer is still visible when reset to size 0,0

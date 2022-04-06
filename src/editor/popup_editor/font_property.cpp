@@ -192,13 +192,17 @@ int FontPropertyManager::antialiasingToIndex(QFont::StyleStrategy antialias)
    switch (antialias) {
       case QFont::PreferDefault:
          return 0;
+
       case QFont::NoAntialias:
          return 1;
+
       case QFont::PreferAntialias:
          return 2;
+
       default:
          break;
    }
+
    return 0;
 }
 
@@ -235,6 +239,7 @@ unsigned FontPropertyManager::fontFlag(int idx)
       case 7:
          return QFont::StyleStrategyResolved;
    }
+
    return 0;
 }
 

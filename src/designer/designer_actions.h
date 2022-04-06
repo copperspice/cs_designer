@@ -243,4 +243,4 @@ class QDesignerActions: public QObject
    qdesigner_internal::PreviewManager *m_previewManager;
 };
 
-#endif // QDESIGNER_ACTIONS_H
+#endif

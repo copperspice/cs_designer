@@ -200,7 +200,7 @@ DomUI *QDesignerWidgetBox::xmlToUi(const QString &name, const QString &xml, bool
          }
 
          if (name.compare("widget", Qt::CaseInsensitive) == 0) {
-            // 4.3 legacy, wrap into DomUI                            //   broom check
+            // 4.3 legacy, wrap into DomUI
             ui = new DomUI;
             DomWidget *widget = new DomWidget;
             widget->read(reader);
@@ -219,6 +219,7 @@ DomUI *QDesignerWidgetBox::xmlToUi(const QString &name, const QString &xml, bool
 
    if (reader.hasError()) {
       delete ui;
+
       *errorMessage = tr("A parse error occurred at line %1, column %2 of the XML code "
             "specified for the widget %3: %4\n%5")
             .formatArg(reader.lineNumber()).formatArg(reader.columnNumber()).formatArg(name)

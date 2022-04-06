@@ -42,8 +42,6 @@ class TaskMenuComponent: public QObject
    QDesignerFormEditorInterface *m_core;
 };
 
-}  // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
-
-
-#endif // TASKMENU_COMPONENT_H
+#endif

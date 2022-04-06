@@ -45,6 +45,7 @@ class TableWidgetTaskMenu: public QDesignerTaskMenu
  private:
    CS_SLOT_1(Private, void editItems())
    CS_SLOT_2(editItems)
+
    CS_SLOT_1(Private, void updateSelection())
    CS_SLOT_2(updateSelection)
 
@@ -58,6 +59,5 @@ class TableWidgetTaskMenu: public QDesignerTaskMenu
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QTableWidget, TableWidgetTaskMenu> TableWidgetTaskMenuFactory;
 
 }   // end namespace qdesigner_internal
-
 
 #endif

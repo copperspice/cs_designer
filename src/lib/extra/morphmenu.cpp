@@ -74,7 +74,7 @@ static const QString zOrderPropertyC      = "_q_zOrder";
  * - Page-based containers into page-based containers or simple containers if
  *   they have just one page
  * [Page based containers meaning here having a container extension]
- * Morphing types are restricted to the basic Qt types. Morphing custom
+ * Morphing types are restricted to the basic cs types. Morphing custom
  * widgets is considered risky since they might have unmanaged layouts
  * or the like.
  *
@@ -95,8 +95,7 @@ static const QString zOrderPropertyC      = "_q_zOrder";
  *   number of pages.
  * - Transferring the child widgets over to the new childContainers.
  *   In the case of a managed layout on a childContainer, this is simply
- *   set on the target childContainer, which is a new Qt 4.5
- *   functionality.
+ *   set on the target childContainer
  * - Replace the widget itself in the parent layout
  */
 
@@ -148,7 +147,7 @@ static MorphCategory category(const QWidget *w)
 }
 
 /* Return the similar classes of a category. This is currently restricted
- * to the known Qt classes with no precautions to parse the Widget Database
+ * to the known CS classes with no precautions to parse the Widget Database
  * (which is too risky, custom classes might have container extensions
  * or non-managed layouts, etc.). */
 
@@ -287,6 +286,7 @@ static void replaceWidgetListDynamicProperty(QWidget *parentWidget, QWidget *old
 class MorphWidgetCommand : public QDesignerFormWindowCommand
 {
    Q_DISABLE_COPY(MorphWidgetCommand)
+
  public:
 
    explicit MorphWidgetCommand(QDesignerFormWindowInterface *formWindow);
@@ -455,7 +455,6 @@ void MorphWidgetCommand::morph(QWidget *before, QWidget *after)
       QWidget *afterChildContainer = afterChildContainers.at(i);
 
       if (QLayout *childLayout = beforeChildContainer->layout()) {
-         // Laid-out: Move the layout (since 4.5)
          afterChildContainer->setLayout(childLayout);
 
       } else {
@@ -481,11 +480,13 @@ void MorphWidgetCommand::morph(QWidget *before, QWidget *after)
 
    // 2) Replace the actual widget in the parent layout
    after->setGeometry(oldGeom);
+
    if (QLayout *containingLayout = LayoutInfo::managedLayout(fw->core(), parent)) {
       LayoutHelper *lh = LayoutHelper::createLayoutHelper(LayoutInfo::layoutType(fw->core(), containingLayout));
       Q_ASSERT(lh);
       lh->replaceWidget(containingLayout, before, after);
       delete lh;
+
    } else if (QSplitter *splitter = dynamic_cast<QSplitter *>(parent)) {
       const int index = splitter->indexOf(before);
       before->hide();

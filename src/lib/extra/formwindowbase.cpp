@@ -171,7 +171,7 @@ void FormWindowBase::reloadProperties()
          if (dynamic_cast<QLabel *>(sheet->object()) && sheet->propertyName(index) == QString("text")) {
             const PropertySheetStringValue newString = newValue.value<PropertySheetStringValue>();
 
-            // optimize a bit, reset only if the text value might contain a reference to qt resources
+            // optimize a bit, reset only if the text value might contain a reference to a resource
             // (however reloading of icons other than taken from resources might not work here)
             if (newString.value().contains(QString(":/"))) {
                const QVariant resetValue = QVariant::fromValue(PropertySheetStringValue());

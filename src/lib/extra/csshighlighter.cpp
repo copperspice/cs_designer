@@ -45,15 +45,18 @@ void CssHighlighter::highlightBlock(const QString &text)
    int lastIndex = 0;
    bool lastWasSlash = false;
    int state = previousBlockState(), save_state;
+
    if (state == -1) {
       // As long as the text is empty, leave the state undetermined
       if (text.isEmpty()) {
          setCurrentBlockState(-1);
          return;
       }
+
       // The initial state is based on the precense of a : and the absense of a {.
-      // This is because Qt style sheets support both a full stylesheet as well as
+      // This is because style sheets support both a full stylesheet as well as
       // an inline form with just properties.
+
       state = save_state = (text.indexOf(QLatin1Char(':')) > -1 &&
                text.indexOf(QLatin1Char('{')) == -1) ? Property : Selector;
    } else {

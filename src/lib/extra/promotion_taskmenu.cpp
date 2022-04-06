@@ -353,8 +353,10 @@ void PromotionTaskMenu::slotEditSignalsSlots()
    if (!fw) {
       return;
    }
+
    SignalSlotDialog::editPromotedClass(fw->core(), m_widget, fw);
 }
-} // namespace qdesigner_internal
+
+}   // end namespace qdesigner_internal
 
 

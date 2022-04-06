@@ -67,4 +67,4 @@ class SpacerTaskMenu : public QObject, public QDesignerTaskMenuExtension
 using LayoutWidgetTaskMenuFactory = qdesigner_internal::ExtensionFactory<QDesignerTaskMenuExtension, QLayoutWidget, LayoutWidgetTaskMenu>;
 using SpacerTaskMenuFactory       = qdesigner_internal::ExtensionFactory<QDesignerTaskMenuExtension, Spacer, SpacerTaskMenu>;
 
-#endif // LAYOUTTASKMENU_H
+#endif

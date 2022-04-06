@@ -169,17 +169,17 @@ QUrl UrlValidator::guessUrlFromString(const QString &string) const
       }
    }
 
-   // Might be a Qt resource
+   // Might be a resource
    if (string.startsWith(":/")) {
       return QUrl("qrc" + string);
    }
 
-   // Might be a file.
+   // Might be a file
    if (QFile::exists(urlStr)) {
       return QUrl::fromLocalFile(urlStr);
    }
 
-   // Might be a short url - try to detect the schema.
+   // Might be a short url, try to detect the schema
    if (! hasSchema) {
       const int dotIndex = urlStr.indexOf('.');
 

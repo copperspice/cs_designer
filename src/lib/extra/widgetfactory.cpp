@@ -276,10 +276,11 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
          knownCustomClasses.insert(className);
       }
    }
-   // Since a language plugin may lie about its names, like Qt Jambi
-   // does, return immediately here...
    QDesignerLanguageExtension *lang =
       qt_extension<QDesignerLanguageExtension *>(m_core->extensionManager(), m_core);
+   // Since a language plugin may not accurately give its names like Jambi does,
+   // return immediately here
+
    if (lang) {
       return rc;
    }

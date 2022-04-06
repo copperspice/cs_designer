@@ -37,11 +37,6 @@ class QMenu;
 class QByteArray;
 class QMimeData;
 
-/* A main window that has a configureable policy on handling close events. If
- * enabled, it can forward the close event to external handlers.
- * Base class for windows that can switch roles between tool windows
- * and main windows. */
-
 class MainWindowBase : public QMainWindow
 {
    CS_OBJECT(MainWindowBase)
@@ -81,8 +76,7 @@ class MainWindowBase : public QMainWindow
    CloseEventPolicy m_policy;
 };
 
-/* An MdiArea that listens for desktop file manager file drop events and emits
- * a signal to open a dropped file. */
+
 class DockedMdiArea : public QMdiArea
 {
    CS_OBJECT(DockedMdiArea)

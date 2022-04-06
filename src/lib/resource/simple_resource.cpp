@@ -76,20 +76,24 @@ DomScript *QSimpleResource::createScript(const QString &script, ScriptSource sou
    if (script.isEmpty()) {
       return nullptr;
    }
+
    DomScript *domScript = new DomScript();
+
    switch (source) {
       case ScriptExtension:
-         domScript->setAttributeSource(QString("extension"));
+         domScript->setAttributeSource("extension");
          break;
+
       case ScriptDesigner:
-         domScript->setAttributeSource(QString("designer"));
+         domScript->setAttributeSource("designer");
          break;
+
       case ScriptCustomWidgetPlugin:
-         domScript->setAttributeSource(QString("customwidgetplugin"));
+         domScript->setAttributeSource("customwidgetplugin");
          break;
    }
 
-   domScript->setAttributeLanguage(QString("Qt Script"));       // BROOM check
+   domScript->setAttributeLanguage("Qt Script");
    domScript->setText(script);
 
    return domScript;
@@ -172,6 +176,7 @@ void QSimpleResource::addFakeMethodsToWidgetDataBase(const DomCustomWidget *domC
    // Merge in new slots, signals
    QStringList fakeSlots = item->fakeSlots();
    QStringList fakeSignals = item->fakeSignals();
+
    if (addFakeMethods(domSlots, fakeSlots, fakeSignals)) {
       item->setFakeSlots(fakeSlots);
       item->setFakeSignals(fakeSignals);
@@ -190,13 +195,16 @@ void QSimpleResource::addCustomWidgetsToWidgetDatabase(const QDesignerFormEditor
    for (int i = 0; i < custom_widget_list.size(); ) {
       bool classInserted = false;
       DomCustomWidget *custom_widget = custom_widget_list[i];
+
       const QString customClassName = custom_widget->elementClass();
       const QString base_class = custom_widget->elementExtends();
+
       QString includeFile;
+
       IncludeType includeType = IncludeLocal;
       if (const DomHeader *header = custom_widget->elementHeader()) {
          includeFile = header->text();
-         if (header->hasAttributeLocation() && header->attributeLocation() == QString("global")) {
+         if (header->hasAttributeLocation() && header->attributeLocation() == "global") {
             includeType = IncludeGlobal;
          }
       }
@@ -262,15 +270,20 @@ void QSimpleResource::handleDomCustomWidgets(const QDesignerFormEditorInterface 
    }
    // Oops, there are classes left whose base class could not be found.
    // Default them to QWidget with warnings.
-   const QString fallBackBaseClass = QString("QWidget");
+   const QString fallBackBaseClass = "QWidget";
+
    for (int i = 0; i < custom_widget_list.size(); i++ ) {
       DomCustomWidget *custom_widget = custom_widget_list[i];
+
       const QString customClassName = custom_widget->elementClass();
       const QString base_class = custom_widget->elementExtends();
+
       qDebug() << "** WARNING The base class " << base_class << " of the custom widget class " << customClassName
          << " could not be found. Defaulting to " << fallBackBaseClass << '.';
+
       custom_widget->setElementExtends(fallBackBaseClass);
    }
+
    // One more pass.
    addCustomWidgetsToWidgetDatabase(core, custom_widget_list);
 }

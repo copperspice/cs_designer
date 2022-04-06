@@ -58,6 +58,7 @@ class ListWidgetTaskMenu: public QDesignerTaskMenu
 };
 
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QListWidget, ListWidgetTaskMenu> ListWidgetTaskMenuFactory;
-}  // namespace qdesigner_internal
+
+}   // end namespace qdesigner_internal
 
 #endif

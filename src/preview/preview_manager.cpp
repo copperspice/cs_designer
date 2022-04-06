@@ -69,10 +69,11 @@ static inline int compare(const qdesigner_internal::PreviewConfiguration &pc1, c
 }
 
 namespace {
-// PreviewData (data associated with a preview window)
+
 struct PreviewData {
    PreviewData(const QPointer<QWidget> &widget, const  QDesignerFormWindowInterface *formWindow,
       const qdesigner_internal::PreviewConfiguration &pc);
+
    QPointer<QWidget> m_widget;
    const QDesignerFormWindowInterface *m_formWindow;
    qdesigner_internal::PreviewConfiguration m_configuration;

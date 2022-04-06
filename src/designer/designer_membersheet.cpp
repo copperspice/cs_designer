@@ -19,7 +19,6 @@
 
 #include <abstract_formeditor.h>
 #include <abstract_introspection.h>
-
 #include <designer_membersheet.h>
 
 #include <QWidget>
@@ -29,11 +28,14 @@ static QList<QByteArray> stringListToByteArray(const QStringList &l)
    if (l.empty()) {
       return QList<QByteArray>();
    }
+
    QList<QByteArray> rc;
    const QStringList::const_iterator cend = l.constEnd();
+
    for (QStringList::const_iterator it = l.constBegin(); it != cend; ++it) {
       rc += it->toUtf8();
    }
+
    return rc;
 }
 

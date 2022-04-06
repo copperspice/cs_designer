@@ -91,11 +91,13 @@ void MainWindowBase::closeEvent(QCloseEvent *e)
 
 QList<QToolBar *>  MainWindowBase::createToolBars(const QDesignerActions *actions, bool singleToolBar)
 {
-   // Note that whenever you want to add a new tool bar here, you also have to update the default
+   // whenever you want to add a new tool bar here, you also have to update the default
    // action groups added to the toolbar manager in the mainwindow constructor
+
    QList<QToolBar *> rc;
+
    if (singleToolBar) {
-      //: Not currently used (main tool bar)
+      // Not currently used (main tool bar)
       QToolBar *main = createToolBar(tr("Main"), QString("mainToolBar"), actions->fileActions()->actions());
       addActionsToToolBar(actions->editActions()->actions(), main);
       addActionsToToolBar(actions->toolActions()->actions(), main);
@@ -155,8 +157,8 @@ QStringList DockedMdiArea::uiFiles(const QMimeData *d) const
 
 bool DockedMdiArea::event(QEvent *event)
 {
-   // Listen for desktop file manager drop and emit a signal once a file is
-   // dropped.
+   // Listen for desktop file manager drop and emit a signal once a file is dropped
+
    switch (event->type()) {
       case QEvent::DragEnter: {
          QDragEnterEvent *e = static_cast<QDragEnterEvent *>(event);
@@ -264,8 +266,6 @@ ToolBarManager::ToolBarManager(QMainWindow *configureableMainWindow,
    updateToolBarMenu();
 }
 
-// sort function for sorting tool bars alphabetically by title [non-static since called from template]
-
 bool toolBarTitleLessThan(const QToolBar *t1, const QToolBar *t2)
 {
    return t1->windowTitle() < t2->windowTitle();
@@ -273,7 +273,7 @@ bool toolBarTitleLessThan(const QToolBar *t1, const QToolBar *t2)
 
 void ToolBarManager::updateToolBarMenu()
 {
-   // Sort tool bars alphabetically by title
+   // sort tool bars alphabetically by title
    std::stable_sort(m_toolbars.begin(), m_toolbars.end(), toolBarTitleLessThan);
 
    // add to menu
