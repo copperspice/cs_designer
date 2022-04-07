@@ -27,7 +27,9 @@ class QAction;
 class QDesignerTaskMenuExtension
 {
  public:
-   virtual ~QDesignerTaskMenuExtension() {}
+   virtual ~QDesignerTaskMenuExtension()
+   {
+   }
 
    virtual QAction *preferredEditAction() const;
 

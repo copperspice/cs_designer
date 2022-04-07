@@ -47,12 +47,9 @@ typedef QList<QAction *> ActionList;
 
 static void addActionsToToolBar(const ActionList &actions, QToolBar *t)
 {
-   const ActionList::const_iterator cend = actions.constEnd();
-
-   for (ActionList::const_iterator it = actions.constBegin(); it != cend; ++it) {
-      QAction *action = *it;
-      if (action->property(QDesignerActions::defaultToolbarPropertyName).toBool()) {
-         t->addAction(action);
+   for (auto item : actions) {
+      if (item->property(QDesignerActions::defaultToolbarPropertyName).toBool()) {
+         t->addAction(item);
       }
    }
 }
@@ -103,15 +100,16 @@ QList<QToolBar *>  MainWindowBase::createToolBars(const QDesignerActions *action
       addActionsToToolBar(actions->toolActions()->actions(), main);
       addActionsToToolBar(actions->formActions()->actions(), main);
       rc.push_back(main);
+
    } else {
-      rc.push_back(createToolBar(tr("File"), QString("fileToolBar"), actions->fileActions()->actions()));
-      rc.push_back(createToolBar(tr("Edit"), QString("editToolBar"),  actions->editActions()->actions()));
+      rc.push_back(createToolBar(tr("File"),  QString("fileToolBar"),  actions->fileActions()->actions()));
+      rc.push_back(createToolBar(tr("Edit"),  QString("editToolBar"),  actions->editActions()->actions()));
       rc.push_back(createToolBar(tr("Tools"), QString("toolsToolBar"), actions->toolActions()->actions()));
-      rc.push_back(createToolBar(tr("Form"), QString("formToolBar"), actions->formActions()->actions()));
+      rc.push_back(createToolBar(tr("Form"),  QString("formToolBar"),  actions->formActions()->actions()));
    }
+
    return rc;
 }
-
 
 QString MainWindowBase::mainWindowTitle()
 {
@@ -124,8 +122,8 @@ int MainWindowBase::settingsVersion()
    return (version & 0x00FF00) >> 8;
 }
 
-DockedMdiArea::DockedMdiArea(const QString &extension, QWidget *parent) :
-   QMdiArea(parent), m_extension(extension)
+DockedMdiArea::DockedMdiArea(const QString &extension, QWidget *parent)
+   : QMdiArea(parent), m_extension(extension)
 {
    setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
    setLineWidth(1);
@@ -136,23 +134,27 @@ DockedMdiArea::DockedMdiArea(const QString &extension, QWidget *parent) :
 
 QStringList DockedMdiArea::uiFiles(const QMimeData *d) const
 {
-   // Extract dropped UI files from Mime data.
-   QStringList rc;
-   if (!d->hasFormat(QLatin1String(uriListMimeFormatC))) {
-      return rc;
+   // extract dropped UI files from Mime data
+   QStringList retval;
+
+   if (! d->hasFormat(uriListMimeFormatC)) {
+      return retval;
    }
+
    const QList<QUrl> urls = d->urls();
    if (urls.empty()) {
-      return rc;
+      return retval;
    }
-   const QList<QUrl>::const_iterator cend = urls.constEnd();
-   for (QList<QUrl>::const_iterator it = urls.constBegin(); it != cend; ++it) {
-      const QString fileName = it->toLocalFile();
-      if (!fileName.isEmpty() && fileName.endsWith(m_extension)) {
-         rc.push_back(fileName);
+
+   for (auto item : urls) {
+      const QString fileName = item.toLocalFile();
+
+      if (! fileName.isEmpty() && fileName.endsWith(m_extension)) {
+         retval.push_back(fileName);
       }
    }
-   return rc;
+
+   return retval;
 }
 
 bool DockedMdiArea::event(QEvent *event)
@@ -162,52 +164,48 @@ bool DockedMdiArea::event(QEvent *event)
    switch (event->type()) {
       case QEvent::DragEnter: {
          QDragEnterEvent *e = static_cast<QDragEnterEvent *>(event);
-         if (!uiFiles(e->mimeData()).empty()) {
+
+         if (! uiFiles(e->mimeData()).empty()) {
             e->acceptProposedAction();
             return true;
          }
       }
       break;
+
       case QEvent::Drop: {
          QDropEvent *e = static_cast<QDropEvent *>(event);
+
          const QStringList files = uiFiles(e->mimeData());
-         const QStringList::const_iterator cend = files.constEnd();
-         for (QStringList::const_iterator it = files.constBegin(); it != cend; ++it) {
-            emit fileDropped(*it);
+
+         for (auto item : files) {
+            emit fileDropped(item);
          }
+
          e->acceptProposedAction();
          return true;
       }
       break;
+
       default:
          break;
    }
+
    return QMdiArea::event(event);
 }
 
-// ------------- ToolBarManager:
-
 static void addActionsToToolBarManager(const ActionList &al, const QString &title, QtToolBarManager *tbm)
 {
-   const ActionList::const_iterator cend = al.constEnd();
-   for (ActionList::const_iterator it = al.constBegin(); it != cend; ++it) {
-      tbm->addAction(*it, title);
+   for (auto item : al) {
+      tbm->addAction(item, title);
    }
 }
 
-ToolBarManager::ToolBarManager(QMainWindow *configureableMainWindow,
-   QWidget *parent,
-   QMenu *toolBarMenu,
-   const QDesignerActions *actions,
-   const QList<QToolBar *> &toolbars,
-   const QList<QDesignerToolWindow *> &toolWindows) :
-   QObject(parent),
-   m_configureableMainWindow(configureableMainWindow),
-   m_parent(parent),
-   m_toolBarMenu(toolBarMenu),
-   m_manager(new QtToolBarManager(this)),
-   m_configureAction(new QAction(tr("Configure Toolbars..."), this)),
-   m_toolbars(toolbars)
+ToolBarManager::ToolBarManager(QMainWindow *configureableMainWindow, QWidget *parent,
+         QMenu *toolBarMenu, const QDesignerActions *actions, const QList<QToolBar *> &toolbars,
+         const QList<QDesignerToolWindow *> &toolWindows)
+   : QObject(parent), m_configureableMainWindow(configureableMainWindow),
+     m_parent(parent), m_toolBarMenu(toolBarMenu), m_manager(new QtToolBarManager(this)),
+     m_configureAction(new QAction(tr("Configure Toolbars..."), this)), m_toolbars(toolbars)
 {
    m_configureAction->setMenuRole(QAction::NoRole);
    m_configureAction->setObjectName(QString("__qt_configure_tool_bars_action"));
@@ -222,16 +220,21 @@ ToolBarManager::ToolBarManager(QMainWindow *configureableMainWindow,
    }
 
    addActionsToToolBarManager(actions->windowActions()->actions(), tr("Window"), m_manager);
-   addActionsToToolBarManager(actions->helpActions()->actions(), tr("Help"), m_manager);
+   addActionsToToolBarManager(actions->helpActions()->actions(),   tr("Help"),   m_manager);
 
    // Filter out the device profile preview actions which have int data().
    ActionList previewActions = actions->styleActions()->actions();
-   ActionList::iterator it = previewActions.begin();
-   for ( ; (*it)->isSeparator() || (*it)->data().type() == QVariant::Int; ++it) ;
-   previewActions.erase(previewActions.begin(), it);
+   ActionList::iterator iter = previewActions.begin();
+
+   while ( (*iter)->isSeparator() || (*iter)->data().type() == QVariant::Int)  {
+      ++iter;
+   }
+
+   previewActions.erase(previewActions.begin(), iter);
    addActionsToToolBarManager(previewActions, tr("Style"), m_manager);
 
    const QString dockTitle = tr("Dock views");
+
    for (QDesignerToolWindow *tw : toolWindows) {
       if (QAction *action = tw->action()) {
          m_manager->addAction(action, dockTitle);
@@ -282,6 +285,7 @@ void ToolBarManager::updateToolBarMenu()
    for (QToolBar *tb :  m_toolbars) {
       m_toolBarMenu->addAction(tb->toggleViewAction());
    }
+
    m_toolBarMenu->addAction(m_configureAction);
 }
 
@@ -291,6 +295,7 @@ void ToolBarManager::configureToolBars()
    dlg.setWindowFlags(dlg.windowFlags() & ~Qt::WindowContextHelpButtonHint);
    dlg.setToolBarManager(m_manager);
    dlg.exec();
+
    updateToolBarMenu();
 }
 
@@ -304,27 +309,27 @@ bool ToolBarManager::restoreState(const QByteArray &state, int version)
    return m_manager->restoreState(state, version);
 }
 
-DockedMainWindow::DockedMainWindow(QDesignerWorkbench *wb,
-   QMenu *toolBarMenu,
-   const QList<QDesignerToolWindow *> &toolWindows) :
-   m_toolBarManager(0)
+DockedMainWindow::DockedMainWindow(QDesignerWorkbench *wb, QMenu *toolBarMenu,
+      const QList<QDesignerToolWindow *> &toolWindows)
+   : m_toolBarManager(nullptr)
 {
-   setObjectName(QString("MDIWindow"));
+   setObjectName("MDIWindow");
    setWindowTitle(mainWindowTitle());
 
    const QList<QToolBar *> toolbars = createToolBars(wb->actionManager(), false);
    for (QToolBar *tb : toolbars) {
       addToolBar(tb);
    }
+
    DockedMdiArea *dma = new DockedMdiArea(wb->actionManager()->uiExtension());
-   connect(dma, &DockedMdiArea::fileDropped,
-      this, &DockedMainWindow::fileDropped);
-   connect(dma, &QMdiArea::subWindowActivated,
-      this, &DockedMainWindow::slotSubWindowActivated);
+
+   connect(dma, &DockedMdiArea::fileDropped,   this, &DockedMainWindow::fileDropped);
+   connect(dma, &QMdiArea::subWindowActivated, this, &DockedMainWindow::slotSubWindowActivated);
+
    setCentralWidget(dma);
 
-   QStatusBar *sb = statusBar();
-   Q_UNUSED(sb)
+   QStatusBar *tmp = statusBar();
+   (void) tmp;
 
    m_toolBarManager = new ToolBarManager(this, this, toolBarMenu, wb->actionManager(), toolbars, toolWindows);
 }
@@ -336,8 +341,9 @@ QMdiArea *DockedMainWindow::mdiArea() const
 
 void DockedMainWindow::slotSubWindowActivated(QMdiSubWindow *subWindow)
 {
-   if (subWindow) {
+   if (subWindow != nullptr) {
       QWidget *widget = subWindow->widget();
+
       if (QDesignerFormWindow *fw = dynamic_cast<QDesignerFormWindow *>(widget)) {
          emit formWindowActivated(fw);
          mdiArea()->setActiveSubWindow(subWindow);
@@ -345,25 +351,27 @@ void DockedMainWindow::slotSubWindowActivated(QMdiSubWindow *subWindow)
    }
 }
 
-// Create a MDI subwindow for the form.
 QMdiSubWindow *DockedMainWindow::createMdiSubWindow(QWidget *fw, Qt::WindowFlags f, const QKeySequence &designerCloseActionShortCut)
 {
-   QMdiSubWindow *rc = mdiArea()->addSubWindow(fw, f);
+   QMdiSubWindow *retval = mdiArea()->addSubWindow(fw, f);
+
    // Make action shortcuts respond only if focused to avoid conflicts with
    // designer menu actions
+
    if (designerCloseActionShortCut == QKeySequence(QKeySequence::Close)) {
-      const ActionList systemMenuActions = rc->systemMenu()->actions();
-      if (!systemMenuActions.empty()) {
-         const ActionList::const_iterator cend = systemMenuActions.constEnd();
-         for (ActionList::const_iterator it = systemMenuActions.constBegin(); it != cend; ++it) {
-            if ( (*it)->shortcut() == designerCloseActionShortCut) {
-               (*it)->setShortcutContext(Qt::WidgetShortcut);
+      const ActionList systemMenuActions = retval->systemMenu()->actions();
+
+      if (! systemMenuActions.empty()) {
+         for (auto item : systemMenuActions) {
+            if (item->shortcut() == designerCloseActionShortCut) {
+               item->setShortcutContext(Qt::WidgetShortcut);
                break;
             }
          }
       }
    }
-   return rc;
+
+   return retval;
 }
 
 DockedMainWindow::DockWidgetList DockedMainWindow::addToolWindows(const DesignerToolWindowList &tls)
@@ -372,8 +380,9 @@ DockedMainWindow::DockWidgetList DockedMainWindow::addToolWindows(const Designer
 
    for (QDesignerToolWindow *tw : tls) {
       QDockWidget *dockWidget = new QDockWidget;
-      dockWidget->setObjectName(tw->objectName() + QString("_dock"));
+      dockWidget->setObjectName(tw->objectName() + "_dock");
       dockWidget->setWindowTitle(tw->windowTitle());
+
       addDockWidget(tw->dockWidgetAreaHint(), dockWidget);
       dockWidget->setWidget(tw);
       rc.push_back(dockWidget);

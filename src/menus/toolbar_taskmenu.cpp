@@ -29,15 +29,14 @@
 
 namespace qdesigner_internal {
 
-ToolBarTaskMenu::ToolBarTaskMenu(QToolBar *tb, QObject *parent) :
-   QObject(parent),
-   m_toolBar(tb)
+ToolBarTaskMenu::ToolBarTaskMenu(QToolBar *tb, QObject *parent)
+   : QObject(parent), m_toolBar(tb)
 {
 }
 
 QAction *ToolBarTaskMenu::preferredEditAction() const
 {
-   return 0;
+   return nullptr;
 }
 
 QList<QAction *> ToolBarTaskMenu::taskActions() const
@@ -48,18 +47,17 @@ QList<QAction *> ToolBarTaskMenu::taskActions() const
    return QList<QAction *>();
 }
 
-StatusBarTaskMenu::StatusBarTaskMenu(QStatusBar *sb, QObject *parent) :
-   QObject(parent),
-   m_statusBar(sb),
-   m_removeAction(new QAction(tr("Remove"), this)),
-   m_promotionTaskMenu(new PromotionTaskMenu(sb, PromotionTaskMenu::ModeSingleWidget, this))
+StatusBarTaskMenu::StatusBarTaskMenu(QStatusBar *sb, QObject *parent)
+   : QObject(parent), m_statusBar(sb),
+     m_removeAction(new QAction(tr("Remove"), this)),
+     m_promotionTaskMenu(new PromotionTaskMenu(sb, PromotionTaskMenu::ModeSingleWidget, this))
 {
    connect(m_removeAction, &QAction::triggered, this, &StatusBarTaskMenu::removeStatusBar);
 }
 
 QAction *StatusBarTaskMenu::preferredEditAction() const
 {
-   return 0;
+   return nullptr;
 }
 
 QList<QAction *> StatusBarTaskMenu::taskActions() const
@@ -67,6 +65,7 @@ QList<QAction *> StatusBarTaskMenu::taskActions() const
    QList<QAction *> rc;
    rc.push_back(m_removeAction);
    m_promotionTaskMenu->addActions(PromotionTaskMenu::LeadingSeparator, rc);
+
    return rc;
 }
 
@@ -80,4 +79,3 @@ void StatusBarTaskMenu::removeStatusBar()
 }
 
 }   // end namespace
-

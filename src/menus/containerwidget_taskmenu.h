@@ -128,7 +128,7 @@ class ContainerWidgetTaskMenuFactory: public QExtensionFactory
    CS_OBJECT(ContainerWidgetTaskMenuFactory)
 
  public:
-   explicit ContainerWidgetTaskMenuFactory(QDesignerFormEditorInterface *core, QExtensionManager *extensionManager = 0);
+   explicit ContainerWidgetTaskMenuFactory(QDesignerFormEditorInterface *core, QExtensionManager *extensionManager = nullptr);
 
  protected:
    QObject *createExtension(QObject *object, const QString &iid, QObject *parent) const override;

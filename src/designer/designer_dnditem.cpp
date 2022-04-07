@@ -108,16 +108,20 @@ void QDesignerDnDItem::setDomUi(DomUI *dom_ui)
 QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag) :
    m_items(items)
 {
-   enum { Alpha = 200 };
    QPoint decorationTopLeft;
+
    switch (m_items.size()) {
       case 0:
          break;
+
       case 1: {
          QWidget *deco = m_items.first()->decoration();
          decorationTopLeft = deco->pos();
          const QPixmap widgetPixmap = deco->grab(QRect(0, 0, -1, -1));
+
 #ifdef TRANSPARENT_DRAG_PIXMAP
+         constexpr const int Alpha = 200;
+
          QImage image(widgetPixmap.size(), QImage::Format_ARGB32);
          image.setDevicePixelRatio(widgetPixmap.devicePixelRatio());
          image.fill(QColor(Qt::transparent).rgba());
@@ -131,6 +135,7 @@ QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag
 #endif
       }
       break;
+
       default: {
          // determine size of drag decoration by uniting all geometries
          const QDesignerDnDItems::const_iterator cend = m_items.constEnd();

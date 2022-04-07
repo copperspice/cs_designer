@@ -39,13 +39,14 @@ using namespace qdesigner_internal;
 TaskMenuComponent::TaskMenuComponent(QDesignerFormEditorInterface *core, QObject *parent)
    : QObject(parent), m_core(core)
 {
-   Q_ASSERT(m_core != 0);
+   Q_ASSERT(m_core != nullptr);
 
    QExtensionManager *mgr = core->extensionManager();
-   const QString taskMenuId =  QString("QDesignerInternalTaskMenuExtension");
+   const QString taskMenuId = "QDesignerInternalTaskMenuExtension";
 
    ButtonTaskMenuFactory::registerExtension(mgr, taskMenuId);
-   CommandLinkButtonTaskMenuFactory::registerExtension(mgr, taskMenuId); // Order!
+   CommandLinkButtonTaskMenuFactory::registerExtension(mgr, taskMenuId);
+
    ButtonGroupTaskMenuFactory::registerExtension(mgr, taskMenuId);
 
    GroupBoxTaskMenuFactory::registerExtension(mgr, taskMenuId);

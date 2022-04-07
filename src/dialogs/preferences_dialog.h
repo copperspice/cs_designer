@@ -34,16 +34,19 @@ class PreferencesDialog: public QDialog
 {
    CS_OBJECT(PreferencesDialog) public:
 
-   explicit PreferencesDialog(QDesignerFormEditorInterface *core, QWidget *parentWidget = 0);
+   explicit PreferencesDialog(QDesignerFormEditorInterface *core, QWidget *parentWidget = nullptr);
    ~PreferencesDialog();
 
  private:
    CS_SLOT_1(Private, void slotAccepted())
    CS_SLOT_2(slotAccepted)
+
    CS_SLOT_1(Private, void slotRejected())
    CS_SLOT_2(slotRejected)
+
    CS_SLOT_1(Private, void slotApply())
    CS_SLOT_2(slotApply)
+
    CS_SLOT_1(Private, void slotUiModeChanged(bool modified))
    CS_SLOT_2(slotUiModeChanged)
 

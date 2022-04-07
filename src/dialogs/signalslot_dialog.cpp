@@ -167,7 +167,7 @@ void SignatureDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 class FakeMethodMetaDBCommand : public qdesigner_internal::QDesignerFormWindowCommand
 {
 
- public:
+public:
    explicit FakeMethodMetaDBCommand(QDesignerFormWindowInterface *formWindow);
 
    void init(QObject *o,
@@ -177,6 +177,7 @@ class FakeMethodMetaDBCommand : public qdesigner_internal::QDesignerFormWindowCo
    virtual void undo() {
       fakeMethodsToMetaDataBase(core(), m_object, m_oldFakeSlots, m_oldFakeSignals);
    }
+
    virtual void redo() {
       fakeMethodsToMetaDataBase(core(), m_object, m_newFakeSlots, m_newFakeSignals);
    }
@@ -189,9 +190,9 @@ class FakeMethodMetaDBCommand : public qdesigner_internal::QDesignerFormWindowCo
    QStringList m_newFakeSignals;
 };
 
-FakeMethodMetaDBCommand::FakeMethodMetaDBCommand(QDesignerFormWindowInterface *formWindow) :
-   qdesigner_internal::QDesignerFormWindowCommand(QApplication::translate("Command", "Change signals/slots"), formWindow),
-   m_object(0)
+FakeMethodMetaDBCommand::FakeMethodMetaDBCommand(QDesignerFormWindowInterface *formWindow)
+   : qdesigner_internal::QDesignerFormWindowCommand(QApplication::translate("Command", "Change signals/slots"),
+     formWindow), m_object(nullptr)
 {
 }
 
@@ -209,16 +210,14 @@ void FakeMethodMetaDBCommand::init(QObject *o,
 
 namespace qdesigner_internal {
 
-//  ------ SignalSlotDialogData
 void SignalSlotDialogData::clear()
 {
    m_existingMethods.clear();
    m_fakeMethods.clear();
 }
 
-// ------ SignatureModel
-SignatureModel::SignatureModel(QObject *parent) :
-   QStandardItemModel(parent)
+SignatureModel::SignatureModel(QObject *parent)
+   : QStandardItemModel(parent)
 {
 }
 
@@ -230,6 +229,7 @@ bool SignatureModel::setData(const QModelIndex &index, const QVariant &value, in
    // check via signal (unless it is the same), in which case we can't be bothered.
    const QStandardItem *item = itemFromIndex(index);
    Q_ASSERT(item);
+
    const QString signature = value.toString();
    if (item->text() == signature) {
       return true;
@@ -320,14 +320,17 @@ void SignaturePanel::setData(const SignalSlotDialogData &d)
 {
    m_model->clear();
 
-   QStandardItem *lastExisting = 0;
+   QStandardItem *lastExisting = nullptr;
+
    for (const QString &s : d.m_existingMethods) {
       lastExisting = createDisabledItem(s);
       m_model->appendRow(lastExisting);
    }
+
    for (const QString &s : d.m_fakeMethods) {
       m_model->appendRow(createEditableItem(s));
    }
+
    if (lastExisting) {
       m_listView->scrollTo(m_model->indexFromItem(lastExisting));
    }
@@ -336,13 +339,17 @@ void SignaturePanel::setData(const SignalSlotDialogData &d)
 QStringList SignaturePanel::fakeMethods() const
 {
    QStringList rc;
-   if (const int rowCount = m_model->rowCount())
-      for (int  i = 0; i < rowCount; i++) {
+
+   if (const int rowCount = m_model->rowCount()) {
+       for (int  i = 0; i < rowCount; i++) {
          const QStandardItem *item =  m_model->item(i);
+
          if (item->flags() & Qt::ItemIsEditable) {
             rc += item->text();
          }
       }
+   }
+
    return rc;
 }
 
@@ -356,28 +363,28 @@ void SignaturePanel::closeEditor()
 
 // ------ SignalSlotDialog
 
-SignalSlotDialog::SignalSlotDialog(QDesignerDialogGuiInterface *dialogGui, QWidget *parent, FocusMode mode) :
-   QDialog(parent),
-   m_focusMode(mode),
-   m_ui(new Ui::SignalSlotDialogClass),
-   m_dialogGui(dialogGui)
+SignalSlotDialog::SignalSlotDialog(QDesignerDialogGuiInterface *dialogGui, QWidget *parent, FocusMode mode)
+   : QDialog(parent), m_focusMode(mode), m_ui(new Ui::SignalSlotDialogClass), m_dialogGui(dialogGui)
 {
    setModal(true);
    m_ui->setupUi(this);
 
-   const QIcon plusIcon = qdesigner_internal::createIconSet(QString::fromUtf8("plus.png"));
-   const QIcon minusIcon = qdesigner_internal::createIconSet(QString::fromUtf8("minus.png"));
+   const QIcon plusIcon  = qdesigner_internal::createIconSet("plus.png");
+   const QIcon minusIcon = qdesigner_internal::createIconSet("minus.png");
+
    m_ui->addSlotButton->setIcon(plusIcon);
    m_ui->removeSlotButton->setIcon(minusIcon);
    m_ui->addSignalButton->setIcon(plusIcon);
    m_ui->removeSignalButton->setIcon(minusIcon);
 
-   m_slotPanel = new SignaturePanel(this, m_ui->slotListView, m_ui->addSlotButton, m_ui->removeSlotButton, QString("slot"));
+   m_slotPanel   = new SignaturePanel(this, m_ui->slotListView, m_ui->addSlotButton, m_ui->removeSlotButton, QString("slot"));
    m_signalPanel = new SignaturePanel(this, m_ui->signalListView, m_ui->addSignalButton, m_ui->removeSignalButton, QString("signal"));
+
    connect(m_slotPanel, &SignaturePanel::checkSignature,
-      this, &SignalSlotDialog::slotCheckSignature);
+         this, &SignalSlotDialog::slotCheckSignature);
+
    connect(m_signalPanel, &SignaturePanel::checkSignature,
-      this, &SignalSlotDialog::slotCheckSignature);
+         this, &SignalSlotDialog::slotCheckSignature);
 
    connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
    connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
@@ -386,6 +393,7 @@ SignalSlotDialog::SignalSlotDialog(QDesignerDialogGuiInterface *dialogGui, QWidg
       case FocusSlots:
          m_ui->slotListView->setFocus(Qt::OtherFocusReason);
          break;
+
       case  FocusSignals:
          m_ui->signalListView->setFocus(Qt::OtherFocusReason);
          break;
@@ -474,7 +482,7 @@ bool SignalSlotDialog::editPromotedClass(QDesignerFormEditorInterface *core, con
       return false;
    }
 
-   QWidget *widget = core->widgetFactory()->createWidget(baseClassName, 0);
+   QWidget *widget = core->widgetFactory()->createWidget(baseClassName, nullptr);
    if (!widget) {
       return false;
    }

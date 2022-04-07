@@ -49,7 +49,6 @@ class ComboBoxTaskMenu: public QDesignerTaskMenu
    CS_SLOT_1(Private, void updateSelection())
    CS_SLOT_2(updateSelection)
 
- private:
    QComboBox *m_comboBox;
    QPointer<QDesignerFormWindowInterface> m_formWindow;
    QPointer<QLineEdit> m_editor;

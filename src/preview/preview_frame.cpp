@@ -75,7 +75,7 @@ void PreviewFrame::setPreviewPalette(const QPalette &pal)
 
 void PreviewFrame::setSubWindowActive(bool active)
 {
-   m_mdiArea->setActiveSubWindow (active ? ensureMdiSubWindow() : static_cast<QMdiSubWindow *>(0));
+   m_mdiArea->setActiveSubWindow (active ? ensureMdiSubWindow() : nullptr);
 }
 
 QMdiSubWindow *PreviewFrame::ensureMdiSubWindow()

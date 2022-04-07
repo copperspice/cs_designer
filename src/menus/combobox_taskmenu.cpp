@@ -35,12 +35,13 @@
 using namespace qdesigner_internal;
 
 ComboBoxTaskMenu::ComboBoxTaskMenu(QComboBox *button, QObject *parent)
-   : QDesignerTaskMenu(button, parent),
-     m_comboBox(button)
+   : QDesignerTaskMenu(button, parent), m_comboBox(button)
 {
    m_editItemsAction = new QAction(this);
    m_editItemsAction->setText(tr("Edit Items..."));
+
    connect(m_editItemsAction, &QAction::triggered, this, &ComboBoxTaskMenu::editItems);
+
    m_taskActions.append(m_editItemsAction);
 
    QAction *sep = new QAction(this);
@@ -70,7 +71,7 @@ void ComboBoxTaskMenu::editItems()
       return;
    }
 
-   Q_ASSERT(m_comboBox != 0);
+   Q_ASSERT(m_comboBox != nullptr);
 
    ListWidgetEditor dlg(m_formWindow, m_comboBox->window());
    ListData oldItems = dlg.fillContentsFromComboBox(m_comboBox);
@@ -95,12 +96,14 @@ ComboBoxTaskMenuFactory::ComboBoxTaskMenuFactory(const QString &iid, QExtensionM
 QComboBox *ComboBoxTaskMenuFactory::checkObject(QObject *qObject) const
 {
    QComboBox *combo = dynamic_cast<QComboBox *>(qObject);
-   if (!combo) {
-      return 0;
+   if (! combo) {
+      return nullptr;
    }
+
    if (dynamic_cast<QFontComboBox *>(combo)) {
-      return 0;
+      return nullptr;
    }
+
    return combo;
 }
 

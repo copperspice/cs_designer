@@ -41,9 +41,7 @@ class QDesignerLanguageExtension
    virtual QDialog *createPromotionDialog(QDesignerFormEditorInterface *formEditor, QWidget *parentWidget = nullptr) = 0;
 
    virtual QDialog *createPromotionDialog(QDesignerFormEditorInterface *formEditor,
-      const QString &promotableWidgetClassName,
-      QString *promoteToClassName,
-      QWidget *parentWidget = nullptr) = 0;
+      const QString &promotableWidgetClassName, QString *promoteToClassName, QWidget *parentWidget = nullptr) = 0;
 
    virtual bool isLanguageResource(const QString &path) const = 0;
 

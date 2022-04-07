@@ -47,7 +47,7 @@
 #include <QWidget>
 
 namespace  {
-enum { debugPropertyCommands = 0 };
+constexpr const int debugPropertyCommands = 0;
 
 // Debug resolve mask of font
 QString fontMask(unsigned m)

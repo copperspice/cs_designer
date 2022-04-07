@@ -102,8 +102,8 @@ class QDesignerFormEditorInterfacePrivate
 };
 
 QDesignerFormEditorInterfacePrivate::QDesignerFormEditorInterfacePrivate()
-   : m_settingsManager(0), m_pluginManager(0), m_promotion(0),
-     m_introspection(0), m_dialogGui(0), m_resourceModel(0), m_gradientManager(0)
+   : m_settingsManager(nullptr), m_pluginManager(nullptr), m_promotion(nullptr),
+     m_introspection(nullptr), m_dialogGui(nullptr), m_resourceModel(nullptr), m_gradientManager(nullptr)
 {
 }
 

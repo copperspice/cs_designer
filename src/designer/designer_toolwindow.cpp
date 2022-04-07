@@ -282,7 +282,7 @@ class ResourceEditorToolWindow: public QDesignerToolWindow
 
 ResourceEditorToolWindow::ResourceEditorToolWindow(QDesignerWorkbench *workbench)
    : QDesignerToolWindow(workbench,
-     QDesignerComponents::createResourceEditor(workbench->core(), 0), "qt_designer_resourceeditor",
+     QDesignerComponents::createResourceEditor(workbench->core(), nullptr), "qt_designer_resourceeditor",
      QDesignerToolWindow::tr("Resource Editor"), "__qt_resource_editor_tool_action", Qt::RightDockWidgetArea)
 {
 }
@@ -315,13 +315,11 @@ class SignalSlotEditorToolWindow: public QDesignerToolWindow
    QRect geometryHint() const override;
 };
 
-SignalSlotEditorToolWindow::SignalSlotEditorToolWindow(QDesignerWorkbench *workbench) :
-   QDesignerToolWindow(workbench,
-      QDesignerComponents::createSignalSlotEditor(workbench->core(), 0),
-      QString("qt_designer_signalsloteditor"),
-      QDesignerToolWindow::tr("Signal/Slot Editor"),
-      QString("__qt_signal_slot_editor_tool_action"),
-      Qt::RightDockWidgetArea)
+SignalSlotEditorToolWindow::SignalSlotEditorToolWindow(QDesignerWorkbench *workbench)
+   : QDesignerToolWindow(workbench, QDesignerComponents::createSignalSlotEditor(workbench->core(), nullptr),
+        QString("qt_designer_signalsloteditor"), QDesignerToolWindow::tr("Signal/Slot Editor"),
+        QString("__qt_signal_slot_editor_tool_action"),
+     Qt::RightDockWidgetArea)
 {
 }
 
@@ -400,7 +398,7 @@ QDesignerToolWindow *QDesignerToolWindow::createStandardToolWindow(StandardToolW
       default:
          break;
    }
-   return 0;
+   return nullptr;
 }
 
 

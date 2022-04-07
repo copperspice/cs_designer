@@ -37,10 +37,8 @@
 namespace qdesigner_internal {
 
 QDesignerFormWindowCommand::QDesignerFormWindowCommand(const QString &description,
-   QDesignerFormWindowInterface *formWindow,
-   QUndoCommand *parent)
-   : QUndoCommand(description, parent),
-     m_formWindow(formWindow)
+      QDesignerFormWindowInterface *formWindow, QUndoCommand *parent)
+   : QUndoCommand(description, parent), m_formWindow(formWindow)
 {
 }
 

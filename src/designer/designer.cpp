@@ -67,7 +67,7 @@ struct Options {
 };
 
 QDesigner::QDesigner(int &argc, char **argv)
-   : QApplication(argc, argv), m_server(0), m_client(0), m_workbench(0), m_suppressNewFormShow(false)
+   : QApplication(argc, argv), m_server(nullptr), m_client(nullptr), m_workbench(nullptr), m_suppressNewFormShow(false)
 {
    setOrganizationName("CopperSpice");
    setApplicationName("CS Designer");

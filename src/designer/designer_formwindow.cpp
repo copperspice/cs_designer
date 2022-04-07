@@ -145,11 +145,12 @@ void QDesignerFormWindow::firstShow()
 int QDesignerFormWindow::getNumberOfUntitledWindows() const
 {
    const int totalWindows = m_workbench->formWindowCount();
-   if (!totalWindows) {
+   if (! totalWindows) {
       return 0;
    }
 
    int maxUntitled = 0;
+
    // Find the number of untitled windows excluding ourselves.
    // Do not fall for 'untitled.ui', match with modified place holder.
    // This will cause some problems with i18n, but for now I need the string to be "static"
@@ -193,12 +194,15 @@ void QDesignerFormWindow::updateWindowTitle(const QString &fileName)
    }
 
    QString fileNameTitle;
+
    if (fileName.isEmpty()) {
-      fileNameTitle = QString("untitled");
+      fileNameTitle = "untitled";
+
       if (const int maxUntitled = getNumberOfUntitledWindows()) {
-         fileNameTitle += QLatin1Char(' ');
+         fileNameTitle += QChar(' ');
          fileNameTitle += QString::number(maxUntitled + 1);
       }
+
    } else {
       fileNameTitle = QFileInfo(fileName).fileName();
    }
@@ -223,9 +227,11 @@ void QDesignerFormWindow::closeEvent(QCloseEvent *ev)
 {
    if (m_editor->isDirty()) {
       raise();
+
       QMessageBox box(QMessageBox::Information, tr("Save Form?"),
          tr("Do you want to save the changes to this document before closing?"),
          QMessageBox::Discard | QMessageBox::Cancel | QMessageBox::Save, m_editor);
+
       box.setInformativeText(tr("If you don't save, your changes will be lost."));
       box.setWindowModality(Qt::WindowModal);
       static_cast<QPushButton *>(box.button(QMessageBox::Save))->setDefault(true);
@@ -275,7 +281,8 @@ void QDesignerFormWindow::slotGeometryChanged()
    // so, do not do it for the main container only
    const QDesignerFormEditorInterface *core = m_editor->core();
    QObject *object = core->propertyEditor()->object();
-   if (object == 0 || !object->isWidgetType()) {
+
+   if (object == nullptr || !object->isWidgetType()) {
       return;
    }
    static const QString geometryProperty = QString("geometry");

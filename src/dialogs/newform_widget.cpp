@@ -45,8 +45,8 @@
 #include <QPainter>
 #include <QPushButton>
 
-enum { profileComboIndexOffset = 1 };
-enum { debugNewFormWidget = 0 };
+constexpr const int profileComboIndexOffset = 1;
+constexpr const int debugNewFormWidget = 0;
 
 enum NewForm_CustomRole {
    // File name (templates from resources, paths)
@@ -61,13 +61,14 @@ static const QString newFormObjectNameC = "Form";
 // Create a form name for an arbitrary class
 static QString formNameFromClass(const QString &className)
 {
-   if (!className.startsWith('Q')) {
+   if (! className.startsWith('Q')) {
       return newFormObjectNameC;
    }
 
    QString rc = className;
 
    rc.remove(0, 1);
+
    return rc;
 }
 
@@ -89,10 +90,9 @@ static const struct TemplateSize templateSizes[] = {
 
 NewFormWidget::NewFormWidget(QDesignerFormEditorInterface *core, QWidget *parentWidget)
    : QDesignerNewFormWidgetInterface(parentWidget), m_core(core),
-     m_ui(new Ui::NewFormWidget), m_currentItem(0), m_acceptedItem(0)
+     m_ui(new Ui::NewFormWidget), m_currentItem(nullptr), m_acceptedItem(nullptr)
 {
-   typedef void (QComboBox::*QComboIntSignal)(int);
-   typedef QList<qdesigner_internal::DeviceProfile> DeviceProfileList;
+   using DeviceProfileList = QList<qdesigner_internal::DeviceProfile>;
 
    m_ui->setupUi(this);
    m_ui->treeWidget->setItemDelegate(new qdesigner_internal::SheetDelegate(m_ui->treeWidget, this));
@@ -137,7 +137,7 @@ NewFormWidget::NewFormWidget(QDesignerFormEditorInterface *core, QWidget *parent
    connect(m_ui->treeWidget, &QTreeWidget::itemPressed,        this, &NewFormWidget::slot_treeWidget_itemPressed);
 
    // no selection set, default to first item
-   if (selectedItem == 0 && m_ui->treeWidget->topLevelItemCount() != 0) {
+   if (selectedItem == nullptr && m_ui->treeWidget->topLevelItemCount() != 0) {
       QTreeWidgetItem *firstTopLevel = m_ui->treeWidget->topLevelItem(0);
 
       if (firstTopLevel->childCount() > 0) {
@@ -448,7 +448,8 @@ void NewFormWidget::loadFrom(const QString &path, bool resourceFile, const QStri
 
       QTreeWidgetItem *item = new QTreeWidgetItem(root);
       const QString text = it->baseName().replace(underscore, blank);
-      if (selectedItemFound == 0 && text == selectedItem) {
+
+      if (selectedItemFound == nullptr && text == selectedItem) {
          selectedItemFound = item;
       }
       item->setText(0, text);
@@ -475,7 +476,7 @@ void NewFormWidget::loadFrom(const QString &title, const QStringList &nameList,
       QTreeWidgetItem *item = new QTreeWidgetItem(root);
       item->setText(0, text);
 
-      if (selectedItemFound == 0 && text == selectedItem) {
+      if (selectedItemFound == nullptr && text == selectedItem) {
          selectedItemFound = item;
       }
       item->setData(0, ClassNameRole, *it);
@@ -525,35 +526,41 @@ QString NewFormWidget::itemToTemplate(const QTreeWidgetItem *item, QString *erro
 
    if (templateFileName.type() == QVariant::String) {
       const QString fileName = templateFileName.toString();
+
       // No fixed size: just open.
       if (size.isNull()) {
          return readAll(fileName, errorMessage);
       }
+
       // try to find a file matching the size, like "../640x480/xx.ui"
       const QFileInfo fiBase(fileName);
       QString sizeFileName;
 
       QTextStream(&sizeFileName) << fiBase.path() << QDir::separator()
-         << size.width() << 'x' << size.height() << QDir::separator()
-         << fiBase.fileName();
+          << size.width() << 'x' << size.height() << QDir::separator()
+          << fiBase.fileName();
 
       if (QFileInfo(sizeFileName).isFile()) {
          return readAll(sizeFileName, errorMessage);
       }
+
       // Nothing found, scale via DOM/temporary file
       QString contents = readAll(fileName, errorMessage);
       if (!contents.isEmpty()) {
          contents = qdesigner_internal::WidgetDataBase::scaleFormTemplate(contents, size, false);
       }
+
       return contents;
    }
-   // Content.
+
+   // Content
    const QString className = item->data(0, ClassNameRole).toString();
    QString contents = qdesigner_internal::WidgetDataBase::formTemplate(m_core, className, formNameFromClass(className));
 
    if (! size.isNull()) {
       contents = qdesigner_internal::WidgetDataBase::scaleFormTemplate(contents, size, false);
    }
+
    return contents;
 }
 
@@ -581,12 +588,12 @@ qdesigner_internal::DeviceProfile NewFormWidget::currentDeviceProfile() const
 
 bool NewFormWidget::hasCurrentTemplate() const
 {
-   return m_currentItem != 0;
+   return m_currentItem != nullptr;
 }
 
 QString NewFormWidget::currentTemplateI(QString *ptrToErrorMessage)
 {
-   if (m_currentItem == 0) {
+   if (m_currentItem == nullptr) {
       *ptrToErrorMessage = tr("Internal error: No template selected.");
       return QString();
    }

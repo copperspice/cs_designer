@@ -41,9 +41,6 @@ class MainWindowBase : public QMainWindow
 {
    CS_OBJECT(MainWindowBase)
 
- protected:
-   explicit MainWindowBase(QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::Window);
-
  public:
    enum CloseEventPolicy {
       AcceptCloseEvents,         //  Always accept close events
@@ -63,12 +60,12 @@ class MainWindowBase : public QMainWindow
    // Use the minor version as settings versions to avoid conflicts
    static int settingsVersion();
 
-
- public:
    CS_SIGNAL_1(Public, void closeEventReceived(QCloseEvent *e))
    CS_SIGNAL_2(closeEventReceived, e)
 
  protected:
+   explicit MainWindowBase(QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::Window);
+
    void closeEvent(QCloseEvent *e) override;
 
  private:
@@ -103,12 +100,9 @@ class ToolBarManager : public QObject
    CS_OBJECT(ToolBarManager)
 
  public:
-   explicit ToolBarManager(QMainWindow *configureableMainWindow,
-      QWidget *parent,
-      QMenu *toolBarMenu,
-      const QDesignerActions *actions,
-      const QList<QToolBar *> &toolbars,
-      const QList<QDesignerToolWindow *> &toolWindows);
+   explicit ToolBarManager(QMainWindow *configureableMainWindow, QWidget *parent,
+      QMenu *toolBarMenu, const QDesignerActions *actions,
+      const QList<QToolBar *> &toolbars, const QList<QDesignerToolWindow *> &toolWindows);
 
    QByteArray saveState(int version = 0) const;
    bool restoreState(const QByteArray &state, int version = 0);
@@ -151,7 +145,6 @@ class DockedMainWindow : public MainWindowBase
    void restoreSettings(const QDesignerSettings &s, const DockWidgetList &dws, const QRect &desktopArea);
    void saveSettings(QDesignerSettings &) const;
 
- public:
    CS_SIGNAL_1(Public, void fileDropped(const QString &un_named_arg1))
    CS_SIGNAL_2(fileDropped, un_named_arg1)
    CS_SIGNAL_1(Public, void formWindowActivated(QDesignerFormWindow *un_named_arg1))

@@ -73,7 +73,7 @@ class QDesignerMetaPropertyInterface
 
    virtual Kind kind() const = 0;
    virtual AccessFlags accessFlags() const = 0;
-   virtual Attributes attributes(const QObject *object = 0) const = 0;
+   virtual Attributes attributes(const QObject *object = nullptr) const = 0;
 
    virtual QVariant::Type type() const = 0;
    virtual QString name() const = 0;

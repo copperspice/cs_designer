@@ -223,13 +223,17 @@ QMenu *QToolBoxHelper::addContextMenuActions(QMenu *popup) const
             pageMenu);
       }
    }
+
    QMenu *insertPageMenu = popup->addMenu(tr("Insert Page"));
    insertPageMenu->addAction(m_actionInsertPageAfter);
    insertPageMenu->addAction(m_actionInsertPage);
+
    if (count > 1) {
       popup->addAction(m_actionChangePageOrder);
    }
+
    popup->addSeparator();
+
    return pageMenu;
 }
 
@@ -241,11 +245,10 @@ static const QString currentItemIconKey    = "currentItemIcon";
 static const QString currentItemToolTipKey = "currentItemToolTip";
 static const QString tabSpacingKey         = "tabSpacing";
 
-enum { tabSpacingDefault = -1 };
+constexpr const int tabSpacingDefault = -1;
 
-QToolBoxWidgetPropertySheet::QToolBoxWidgetPropertySheet(QToolBox *object, QObject *parent) :
-   QDesignerPropertySheet(object, parent),
-   m_toolBox(object)
+QToolBoxWidgetPropertySheet::QToolBoxWidgetPropertySheet(QToolBox *object, QObject *parent)
+   : QDesignerPropertySheet(object, parent), m_toolBox(object)
 {
    createFakeProperty(currentItemTextKey, QVariant::fromValue(qdesigner_internal::PropertySheetStringValue()));
    createFakeProperty(currentItemNameKey, QString());

@@ -43,8 +43,10 @@
 
 #include <algorithm>
 
-enum {FileNameRole = Qt::UserRole + 1, IdRole =  Qt::UserRole + 2 };
-enum { debugAppFontWidget = 0 };
+constexpr const int FileNameRole = Qt::UserRole + 1;
+constexpr const int IdRole       = Qt::UserRole + 2;
+
+constexpr const int debugAppFontWidget = 0;
 
 static const char fontFileKeyC[] = "fontFiles";
 

@@ -65,7 +65,7 @@ void TableWidgetTaskMenu::editItems()
       return;
    }
 
-   Q_ASSERT(m_tableWidget != 0);
+   Q_ASSERT(m_tableWidget != nullptr);
 
    TableWidgetEditorDialog dlg(m_formWindow, m_tableWidget->window());
    TableWidgetData oldCont = dlg.fillContentsFromTableWidget(m_tableWidget);

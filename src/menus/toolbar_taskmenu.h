@@ -21,6 +21,7 @@
 #define TOOLBAR_TASKMENU_H
 
 #include <designer_taskmenu.h>
+
 #include <extensionfactory_p.h>
 
 #include <QToolBar>
@@ -61,8 +62,7 @@ class StatusBarTaskMenu : public QObject, public QDesignerTaskMenuExtension
    CS_SLOT_1(Private, void removeStatusBar())
    CS_SLOT_2(removeStatusBar)
 
- private:
-   QStatusBar  *m_statusBar;
+   QStatusBar *m_statusBar;
    QAction *m_removeAction;
    PromotionTaskMenu *m_promotionTaskMenu;
 };
@@ -70,8 +70,6 @@ class StatusBarTaskMenu : public QObject, public QDesignerTaskMenuExtension
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QToolBar, ToolBarTaskMenu> ToolBarTaskMenuFactory;
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QStatusBar, StatusBarTaskMenu> StatusBarTaskMenuFactory;
 
-}  // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
-
-
-#endif // TOOLBAR_TASKMENU_H
+#endif

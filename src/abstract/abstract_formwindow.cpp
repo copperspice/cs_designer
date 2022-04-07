@@ -40,10 +40,9 @@ QDesignerFormWindowInterface::~QDesignerFormWindowInterface()
 {
 }
 
-
 QDesignerFormEditorInterface *QDesignerFormWindowInterface::core() const
 {
-   return 0;
+   return nullptr;
 }
 
 static inline bool stopFindAtTopLevel(const QObject *w, bool stopAtMenu)
@@ -67,7 +66,7 @@ static inline bool stopFindAtTopLevel(const QObject *w, bool stopAtMenu)
 
 QDesignerFormWindowInterface *QDesignerFormWindowInterface::findFormWindow(QWidget *w)
 {
-   while (w != 0) {
+   while (w != nullptr) {
       if (QDesignerFormWindowInterface *fw = dynamic_cast<QDesignerFormWindowInterface *>(w)) {
          return fw;
       } else {
@@ -79,14 +78,15 @@ QDesignerFormWindowInterface *QDesignerFormWindowInterface::findFormWindow(QWidg
       w = w->parentWidget();
    }
 
-   return 0;
+   return nullptr;
 }
 
 QDesignerFormWindowInterface *QDesignerFormWindowInterface::findFormWindow(QObject *object)
 {
-   while (object != 0) {
+   while (object != nullptr) {
       if (QDesignerFormWindowInterface *fw = dynamic_cast<QDesignerFormWindowInterface *>(object)) {
          return fw;
+
       } else {
          QWidget *w = dynamic_cast<QWidget *>(object);
          // QDesignerMenu is a window, so stopFindAtTopLevel(w) returns 0.
@@ -102,7 +102,7 @@ QDesignerFormWindowInterface *QDesignerFormWindowInterface::findFormWindow(QObje
       object = object->parent();
    }
 
-   return 0;
+   return nullptr;
 }
 
 QStringList QDesignerFormWindowInterface::activeResourceFilePaths() const

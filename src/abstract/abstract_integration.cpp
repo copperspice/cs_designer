@@ -137,7 +137,7 @@ QDesignerIntegrationPrivate::QDesignerIntegrationPrivate(QDesignerIntegration *q
    : q(qq), headerSuffix(QString(".h")), headerLowercase(true),
      m_features(QDesignerIntegrationInterface::DefaultFeature),
      m_resourceFileWatcherBehaviour(QDesignerIntegrationInterface::PromptToReloadResourceFile),
-     m_gradientManager(0)
+     m_gradientManager(nullptr)
 {
 }
 
@@ -297,7 +297,7 @@ void QDesignerIntegrationPrivate::updateSelection()
 {
    QDesignerFormEditorInterface *core       = q->core();
    QDesignerFormWindowInterface *formWindow = core->formWindowManager()->activeFormWindow();
-   QWidget *selection = 0;
+   QWidget *selection = nullptr;
 
    if (formWindow) {
       selection = formWindow->cursor()->current();
@@ -357,14 +357,17 @@ void QDesignerIntegrationPrivate::getSelection(Selection &s)
       }
 
       QObject *object = core->propertyEditor()->object();
+
       if (object->isWidgetType()) {
          QWidget *widget = static_cast<QWidget *>(object);
          QDesignerFormWindowCursorInterface *cursor = formWindow->cursor();
+
          if (cursor->isWidgetSelected(widget)) {
             s.managed.push_back(widget);
          } else {
             s.unmanaged.push_back(widget);
          }
+
       } else {
          s.objects.push_back(object);
       }
@@ -376,7 +379,8 @@ QObject *QDesignerIntegrationPrivate::propertyEditorObject()
    if (QDesignerPropertyEditorInterface *propertyEditor = q->core()->propertyEditor()) {
       return propertyEditor->object();
    }
-   return 0;
+
+   return nullptr;
 }
 
 /* emerald - temporary hold, plugins
@@ -598,7 +602,7 @@ void QDesignerIntegration::updateCustomWidgetPlugins()
 
 QDesignerResourceBrowserInterface *QDesignerIntegration::createResourceBrowser(QWidget *)
 {
-   return 0;
+   return nullptr;
 }
 
 QString QDesignerIntegration::contextHelpId() const

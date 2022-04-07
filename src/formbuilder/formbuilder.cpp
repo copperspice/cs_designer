@@ -69,24 +69,24 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
       qWarning() << QCoreApplication::translate("QFormBuilder",
             "An empty class name was passed on to %1 (object name: '%2').").formatArgs(QString::fromUtf8(Q_FUNC_INFO), name);
 
-      return 0;
+      return nullptr;
    }
 
    QWidget *w = nullptr;
 
    if (dynamic_cast<QTabWidget *>(parentWidget)) {
-      parentWidget = 0;
+      parentWidget = nullptr;
    }
 
    if (dynamic_cast<QStackedWidget *>(parentWidget)) {
-      parentWidget = 0;
+      parentWidget = nullptr;
    }
 
    if (dynamic_cast<QToolBox *>(parentWidget)) {
-      parentWidget = 0;
+      parentWidget = nullptr;
    }
 
-   // ### special-casing for Line (QFrame) -- fix for 4.2
+   // ### special-casing for Line (QFrame), fix for 4.2
    do {
       if (widgetName == QFormBuilderStrings::instance().lineClass) {
          w = new QFrame(parentWidget);
@@ -100,8 +100,8 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
 
 #define DECLARE_LAYOUT(L, C)
 #define DECLARE_COMPAT_WIDGET(W, C)
-#define DECLARE_WIDGET(W, C)   else if (widgetName == #W) { Q_ASSERT(w == 0); w = new W(parentWidget); }
-#define DECLARE_WIDGET_1(W, C) else if (widgetName == #W) { Q_ASSERT(w == 0); w = new W(nullptr, parentWidget); }
+#define DECLARE_WIDGET(W, C)   else if (widgetName == #W) { Q_ASSERT(w == nullptr); w = new W(parentWidget); }
+#define DECLARE_WIDGET_1(W, C) else if (widgetName == #W) { Q_ASSERT(w == nullptr); w = new W(nullptr, parentWidget); }
 
 #include "widgets.table"
 
@@ -117,12 +117,12 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
       // try with a registered custom widget
       QDesignerCustomWidgetInterface *factory = d->m_customWidgets.value(widgetName);
 
-      if (factory != 0) {
+      if (factory != nullptr) {
          w = factory->createWidget(parentWidget);
       }
    } while (false);
 
-   if (w == 0) {
+   if (w == nullptr) {
       // Attempt to instantiate base class of promoted/custom widgets
       const QString baseClassName = d->customWidgetBaseClass(widgetName);
 
@@ -134,10 +134,12 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
       }
    }
 
-   if (w == 0) { // nothing to do
+   if (w == nullptr) {
+      // nothing to do
       qWarning() << QCoreApplication::translate("QFormBuilder",
             "QFormBuilder was unable to create a widget of the class '%1'.").formatArg(widgetName);
-      return 0;
+
+      return nullptr;
    }
 
    w->setObjectName(name);
@@ -149,12 +151,9 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
    return w;
 }
 
-/*!
-    \internal
-*/
 QLayout *QFormBuilder::createLayout(const QString &layoutName, QObject *parent, const QString &name)
 {
-   QLayout *l = 0;
+   QLayout *l = nullptr;
 
    QWidget *parentWidget = dynamic_cast<QWidget *>(parent);
    QLayout *parentLayout = dynamic_cast<QLayout *>(parent);
@@ -166,7 +165,7 @@ QLayout *QFormBuilder::createLayout(const QString &layoutName, QObject *parent, 
 
 #define DECLARE_LAYOUT(L, C) \
     if (layoutName == #L) { \
-        Q_ASSERT(l == 0); \
+        Q_ASSERT(l == nullptr); \
         l = parentLayout \
             ? new L() \
             : new L(parentWidget); \
@@ -200,6 +199,7 @@ bool QFormBuilder::addItem(DomWidget *ui_widget, QWidget *widget, QWidget *paren
 QWidget *QFormBuilder::widgetByName(QWidget *topLevel, const QString &name)
 {
    Q_ASSERT(topLevel);
+
    if (topLevel->objectName() == name) {
       return topLevel;
    }
@@ -210,6 +210,7 @@ QWidget *QFormBuilder::widgetByName(QWidget *topLevel, const QString &name)
 static QObject *objectByName(QWidget *topLevel, const QString &name)
 {
    Q_ASSERT(topLevel);
+
    if (topLevel->objectName() == name) {
       return topLevel;
    }
@@ -375,8 +376,6 @@ QList<QDesignerCustomWidgetInterface *> QFormBuilder::customWidgets() const
 
 void QFormBuilder::applyProperties(QObject *o, const QList<DomProperty *> &properties)
 {
-   typedef QList<DomProperty *> DomPropertyList;
-
    if (properties.empty()) {
       return;
    }

@@ -41,6 +41,8 @@
 
 namespace qdesigner_internal {
 
+// feature currently unused
+
 struct CodeDialog::CodeDialogPrivate {
    CodeDialogPrivate();
 
@@ -50,15 +52,12 @@ struct CodeDialog::CodeDialogPrivate {
 };
 
 CodeDialog::CodeDialogPrivate::CodeDialogPrivate()
-   : m_textEdit(new QTextEdit)
-   , m_findWidget(new TextEditFindWidget)
+   : m_textEdit(new QTextEdit), m_findWidget(new TextEditFindWidget)
 {
 }
 
-// ----------------- CodeDialog
-CodeDialog::CodeDialog(QWidget *parent) :
-   QDialog(parent),
-   m_impl(new CodeDialogPrivate)
+CodeDialog::CodeDialog(QWidget *parent)
+   : QDialog(parent), m_impl(new CodeDialogPrivate)
 {
    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
    QVBoxLayout *vBoxLayout = new QVBoxLayout;
@@ -66,18 +65,17 @@ CodeDialog::CodeDialog(QWidget *parent) :
    // Edit tool bar
    QToolBar *toolBar = new QToolBar;
 
-   const QIcon saveIcon = createIconSet(QString("filesave.png"));
+   const QIcon saveIcon = createIconSet("filesave.png");
    QAction *saveAction = toolBar->addAction(saveIcon, tr("Save..."));
    connect(saveAction, &QAction::triggered, this, &CodeDialog::slotSaveAs);
 
-   const QIcon copyIcon = createIconSet(QString("editcopy.png"));
+   const QIcon copyIcon = createIconSet("editcopy.png");
    QAction *copyAction = toolBar->addAction(copyIcon, tr("Copy All"));
    connect(copyAction, &QAction::triggered, this, &CodeDialog::copyAll);
 
-   QAction *findAction = toolBar->addAction(
-         TextEditFindWidget::findIconSet(),
-         tr("&Find in Text..."),
-         m_impl->m_findWidget, &AbstractFindWidget::activate);
+   QAction *findAction = toolBar->addAction(TextEditFindWidget::findIconSet(),
+         tr("&Find in Text..."), m_impl->m_findWidget, &AbstractFindWidget::activate);
+
    findAction->setShortcut(QKeySequence::Find);
 
    vBoxLayout->addWidget(toolBar);
@@ -88,9 +86,7 @@ CodeDialog::CodeDialog(QWidget *parent) :
    m_impl->m_textEdit->setFont(font);
 
    m_impl->m_textEdit->setReadOnly(true);
-   m_impl->m_textEdit->setMinimumSize(QSize(
-         m_impl->m_findWidget->minimumSize().width(),
-         500));
+   m_impl->m_textEdit->setMinimumSize(QSize(m_impl->m_findWidget->minimumSize().width(), 500));
    vBoxLayout->addWidget(m_impl->m_textEdit);
 
    // Find
@@ -134,9 +130,7 @@ QString CodeDialog::formFileName() const
    return m_impl->m_formFileName;
 }
 
-bool CodeDialog::generateCode(const QDesignerFormWindowInterface *fw,
-   QString *code,
-   QString *errorMessage)
+bool CodeDialog::generateCode(const QDesignerFormWindowInterface *fw, QString *code, QString *errorMessage)
 {
    // Generate temporary file name similar to form file name
    // (for header guards)
@@ -144,34 +138,43 @@ bool CodeDialog::generateCode(const QDesignerFormWindowInterface *fw,
    if (!tempPattern.endsWith(QDir::separator())) { // platform-dependant
       tempPattern += QDir::separator();
    }
+
    const QString fileName = fw->fileName();
    if (fileName.isEmpty()) {
       tempPattern += QString("designer");
    } else {
       tempPattern += QFileInfo(fileName).baseName();
    }
+
    tempPattern += QString("XXXXXX.ui");
+
    // Write to temp file
    QTemporaryFile tempFormFile(tempPattern);
 
    tempFormFile.setAutoRemove(true);
    if (!tempFormFile.open()) {
-      *errorMessage = tr("A temporary form file could not be created in %1.").formatArg(QDir::tempPath());
+      *errorMessage = tr("Temporary form file could not be created in %1.").formatArg(QDir::tempPath());
       return false;
    }
+
    const QString tempFormFileName = tempFormFile.fileName();
    tempFormFile.write(fw->contents().toUtf8());
+
    if (!tempFormFile.flush())  {
-      *errorMessage = tr("The temporary form file %1 could not be written.").formatArg(tempFormFileName);
+      *errorMessage = tr("Temporary form file %1 could not be written.").formatArg(tempFormFileName);
       return false;
    }
+
    tempFormFile.close();
+
    // Run uic
    QByteArray rc;
-   if (!runUIC(tempFormFileName, rc, *errorMessage)) {
+   if (! runUIC(tempFormFileName, rc, *errorMessage)) {
       return false;
    }
+
    *code = QString::fromUtf8(rc);
+
    return true;
 }
 
@@ -206,22 +209,25 @@ void CodeDialog::slotSaveAs()
       filter += '.';
       filter += headerSuffix;
    }
+
    // file dialog
    while (true) {
       const QString fileName =
          QFileDialog::getSaveFileName (this, tr("Save Code"), filter, tr("Header Files (*.%1)").formatArg(headerSuffix));
+
       if (fileName.isEmpty()) {
          break;
       }
 
       QFile file(fileName);
       if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-         warning(tr("The file %1 could not be opened: %2").formatArg(fileName).formatArg(file.errorString()));
+         warning(tr("File %1 could not be opened: %2").formatArg(fileName).formatArg(file.errorString()));
          continue;
       }
+
       file.write(code().toUtf8());
       if (!file.flush()) {
-         warning(tr("The file %1 could not be written: %2").formatArg(fileName).formatArg(file.errorString()));
+         warning(tr("File %1 could not be written: %2").formatArg(fileName).formatArg(file.errorString()));
          continue;
       }
       file.close();
@@ -231,7 +237,7 @@ void CodeDialog::slotSaveAs()
 
 void CodeDialog::warning(const QString &msg)
 {
-   QMessageBox::warning(this, tr("%1 - Error").formatArg(windowTitle()), msg, QMessageBox::Close);
+   QMessageBox::warning(this, tr("Error: %1").formatArg(windowTitle()), msg, QMessageBox::Close);
 }
 
 void CodeDialog::copyAll()

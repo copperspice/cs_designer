@@ -79,12 +79,9 @@ struct PreviewData {
    qdesigner_internal::PreviewConfiguration m_configuration;
 };
 
-PreviewData::PreviewData(const QPointer<QWidget> &widget,
-   const QDesignerFormWindowInterface *formWindow,
-   const qdesigner_internal::PreviewConfiguration &pc) :
-   m_widget(widget),
-   m_formWindow(formWindow),
-   m_configuration(pc)
+PreviewData::PreviewData(const QPointer<QWidget> &widget, const QDesignerFormWindowInterface *formWindow,
+      const qdesigner_internal::PreviewConfiguration &pc)
+   : m_widget(widget), m_formWindow(formWindow), m_configuration(pc)
 {
 }
 }
@@ -116,6 +113,7 @@ QSizeF DesignerZoomProxyWidget::sizeHint(Qt::SizeHint which, const QSizeF &const
    if (const QWidget *w = widget()) {
       return QSizeF(w->size());
    }
+
    return ZoomProxyWidget::sizeHint(which, constraint);
 }
 
@@ -588,18 +586,15 @@ class PreviewManagerPrivate
    bool m_updateBlocked;
 };
 
-PreviewManagerPrivate::PreviewManagerPrivate(PreviewManager::PreviewMode mode) :
-   m_mode(mode),
-   m_core(0),
-   m_updateBlocked(false)
+PreviewManagerPrivate::PreviewManagerPrivate(PreviewManager::PreviewMode mode)
+   : m_mode(mode), m_core(nullptr), m_updateBlocked(false)
 {
 }
 
 // ------------- PreviewManager
 
-PreviewManager::PreviewManager(PreviewMode mode, QObject *parent) :
-   QObject(parent),
-   d(new PreviewManagerPrivate(mode))
+PreviewManager::PreviewManager(PreviewMode mode, QObject *parent)
+   : QObject(parent), d(new PreviewManagerPrivate(mode))
 {
 }
 
@@ -701,7 +696,7 @@ QWidget *PreviewManager::createPreview(const QDesignerFormWindowInterface *fw,
    // Create
    QWidget *formWidget = QDesignerFormBuilder::createPreview(fw, pc.style(), pc.applicationStyleSheet(), deviceProfile, errorMessage);
    if (!formWidget) {
-      return 0;
+      return nullptr;
    }
 
    const QString title = tr("%1 - [Preview]").formatArg(formWidget->windowTitle());
@@ -742,7 +737,7 @@ QWidget *PreviewManager::createPreview(const QDesignerFormWindowInterface *fw,
            DeviceSkinParameters parameters;
            if (!parameters.read(deviceSkin, DeviceSkinParameters::ReadAll, errorMessage)) {
                formWidget->deleteLater();
-               return 0;
+               return nullptr;
              }
            it = d->m_deviceSkinConfigCache.insert(deviceSkin, parameters);
        }
@@ -793,7 +788,7 @@ QWidget *PreviewManager::showPreview(const QDesignerFormWindowInterface *fw,
 
    QWidget *widget = createPreview(fw, pc, deviceProfileIndex, errorMessage, initialZoom);
    if (!widget) {
-      return 0;
+      return nullptr;
    }
    // Install filter for Escape key
    widget->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -848,7 +843,7 @@ QWidget *PreviewManager::raise(const QDesignerFormWindowInterface *fw, const Pre
 {
    typedef PreviewManagerPrivate::PreviewDataList PreviewDataList;
    if (d->m_previews.empty()) {
-      return 0;
+      return nullptr;
    }
 
    // find matching window
@@ -861,23 +856,28 @@ QWidget *PreviewManager::raise(const QDesignerFormWindowInterface *fw, const Pre
          return w;
       }
    }
-   return 0;
+   return nullptr;
 }
 
 void PreviewManager::closeAllPreviews()
 {
    typedef PreviewManagerPrivate::PreviewDataList PreviewDataList;
-   if (!d->m_previews.empty()) {
+
+   if (! d->m_previews.empty()) {
       d->m_updateBlocked = true;
-      d->m_activePreview = 0;
+      d->m_activePreview = nullptr;
+
       const PreviewDataList::iterator cend =  d->m_previews.end();
+
       for (PreviewDataList::iterator it = d->m_previews.begin(); it !=  cend ; ++it) {
          if (it->m_widget) {
             it->m_widget->close();
          }
       }
+
       d->m_previews.clear();
       d->m_updateBlocked = false;
+
       emit lastPreviewClosed();
    }
 }
@@ -888,15 +888,18 @@ void PreviewManager::updatePreviewClosed(QWidget *w)
    if (d->m_updateBlocked) {
       return;
    }
-   // Purge out all 0 or widgets to be deleted
+
+   // Purge out all nullptrs or widgets to be deleted
    for (PreviewDataList::iterator it = d->m_previews.begin(); it != d->m_previews.end() ; ) {
-      QWidget *iw = it->m_widget; // Might be 0 when catching QEvent::Destroyed
-      if (iw == 0 || iw == w) {
+      QWidget *iw = it->m_widget;
+
+      if (iw == nullptr || iw == w) {
          it = d->m_previews.erase(it);
       } else {
          ++it;
       }
    }
+
    if (d->m_previews.empty()) {
       emit lastPreviewClosed();
    }
@@ -904,12 +907,13 @@ void PreviewManager::updatePreviewClosed(QWidget *w)
 
 bool PreviewManager::eventFilter(QObject *watched, QEvent *event)
 {
-   // Courtesy of designer
    do {
-      if (!watched->isWidgetType()) {
+      if (! watched->isWidgetType()) {
          break;
       }
+
       QWidget *previewWindow = dynamic_cast<QWidget *>(watched);
+
       if (!previewWindow || !previewWindow->isWindow()) {
          break;
       }
@@ -919,6 +923,7 @@ bool PreviewManager::eventFilter(QObject *watched, QEvent *event)
          case QEvent::ShortcutOverride:        {
             const  QKeyEvent *keyEvent = static_cast<const QKeyEvent *>(event);
             const int key = keyEvent->key();
+
             if ((key == Qt::Key_Escape
 #ifdef Q_OS_DARWIN
                   || (keyEvent->modifiers() == Qt::ControlModifier && key == Qt::Key_Period)
@@ -929,12 +934,15 @@ bool PreviewManager::eventFilter(QObject *watched, QEvent *event)
             }
          }
          break;
+
          case QEvent::WindowActivate:
             d->m_activePreview = previewWindow;
             break;
+
          case  QEvent::Destroy: // We don't get QEvent::Close if someone accepts a QDialog.
             updatePreviewClosed(previewWindow);
             break;
+
          case  QEvent::Close:
             updatePreviewClosed(previewWindow);
             previewWindow->removeEventFilter (this);
@@ -943,6 +951,7 @@ bool PreviewManager::eventFilter(QObject *watched, QEvent *event)
             break;
       }
    } while (false);
+
    return QObject::eventFilter(watched, event);
 }
 

@@ -31,9 +31,10 @@
 QDesignerServer::QDesignerServer(QObject *parent)
    : QObject(parent)
 {
-   m_socket = 0;
+   m_socket = nullptr;
    m_server = new QTcpServer(this);
    m_server->listen(QHostAddress::LocalHost, 0);
+
    if (m_server->isListening()) {
       connect(m_server, &QTcpServer::newConnection,
          this, &QDesignerServer::handleNewConnection);
@@ -80,30 +81,27 @@ void QDesignerServer::readFromClient()
 
 void QDesignerServer::socketClosed()
 {
-   m_socket = 0;
+   m_socket = nullptr;
 }
 
 void QDesignerServer::handleNewConnection()
 {
    // no need for more than one connection
-   if (m_socket == 0) {
+   if (m_socket == nullptr) {
       m_socket = m_server->nextPendingConnection();
-      connect(m_socket, &QTcpSocket::readyRead,
-         this, &QDesignerServer::readFromClient);
-      connect(m_socket, &QTcpSocket::disconnected,
-         this, &QDesignerServer::socketClosed);
+
+      connect(m_socket, &QTcpSocket::readyRead,    this, &QDesignerServer::readFromClient);
+      connect(m_socket, &QTcpSocket::disconnected, this, &QDesignerServer::socketClosed);
    }
 }
-
 
 QDesignerClient::QDesignerClient(quint16 port, QObject *parent)
    : QObject(parent)
 {
    m_socket = new QTcpSocket(this);
    m_socket->connectToHost(QHostAddress::LocalHost, port);
-   connect(m_socket, &QTcpSocket::readyRead,
-      this, &QDesignerClient::readFromSocket);
 
+   connect(m_socket, &QTcpSocket::readyRead, this, &QDesignerClient::readFromSocket);
 }
 
 QDesignerClient::~QDesignerClient()
@@ -116,6 +114,7 @@ void QDesignerClient::readFromSocket()
 {
    while (m_socket->canReadLine()) {
       QString file = QString::fromUtf8(m_socket->readLine());
+
       if (! file.isEmpty()) {
          file.remove('\n');
          file.remove('\r');

@@ -67,7 +67,7 @@ void ListWidgetTaskMenu::editItems()
       return;
    }
 
-   Q_ASSERT(m_listWidget != 0);
+   Q_ASSERT(m_listWidget != nullptr);
 
    ListWidgetEditor dlg(m_formWindow, m_listWidget->window());
    ListData oldItems = dlg.fillContentsFromListWidget(m_listWidget);

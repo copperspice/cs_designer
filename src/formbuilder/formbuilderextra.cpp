@@ -47,8 +47,8 @@ QFormBuilderExtra::CustomWidgetData::CustomWidgetData(const DomCustomWidget *dcw
 }
 
 QFormBuilderExtra::QFormBuilderExtra()
-   : m_defaultMargin(INT_MIN), m_defaultSpacing(INT_MIN), m_language(QString("c++")),
-     m_layoutWidget(false), m_resourceBuilder(0), m_textBuilder(0)
+   : m_defaultMargin(INT_MIN), m_defaultSpacing(INT_MIN), m_language("c++"),
+     m_layoutWidget(false), m_resourceBuilder(nullptr), m_textBuilder(nullptr)
 {
 }
 
@@ -61,7 +61,7 @@ QFormBuilderExtra::~QFormBuilderExtra()
 void QFormBuilderExtra::clear()
 {
    m_buddies.clear();
-   m_parentWidget = 0;
+   m_parentWidget = nullptr;
    m_parentWidgetIsSet = false;
    m_customWidgetDataHash.clear();
    m_buttonGroups.clear();
@@ -96,13 +96,13 @@ void QFormBuilderExtra::applyInternalProperties() const
 bool QFormBuilderExtra::applyBuddy(const QString &buddyName, BuddyMode applyMode, QLabel *label)
 {
    if (buddyName.isEmpty()) {
-      label->setBuddy(0);
+      label->setBuddy(nullptr);
       return false;
    }
 
    const QWidgetList widgets = label->topLevelWidget()->findChildren<QWidget *>(buddyName);
    if (widgets.empty()) {
-      label->setBuddy(0);
+      label->setBuddy(nullptr);
       return false;
    }
 
@@ -114,7 +114,7 @@ bool QFormBuilderExtra::applyBuddy(const QString &buddyName, BuddyMode applyMode
       }
    }
 
-   label->setBuddy(0);
+   label->setBuddy(nullptr);
    return false;
 }
 
@@ -203,7 +203,7 @@ void QFormBuilderExtra::clearResourceBuilder()
 {
    if (m_resourceBuilder) {
       delete m_resourceBuilder;
-      m_resourceBuilder = 0;
+      m_resourceBuilder = nullptr;
    }
 }
 
@@ -213,7 +213,7 @@ void QFormBuilderExtra::setTextBuilder(QTextBuilder *builder)
       return;
    }
 
-  clearTextBuilder();
+   clearTextBuilder();
    m_textBuilder = builder;
 }
 
@@ -226,7 +226,7 @@ void QFormBuilderExtra::clearTextBuilder()
 {
    if (m_textBuilder) {
       delete m_textBuilder;
-      m_textBuilder = 0;
+      m_textBuilder = nullptr;
    }
 }
 
@@ -239,7 +239,7 @@ void QFormBuilderExtra::registerButtonGroups(const DomButtonGroups *domGroups)
 
    for (auto it = domGroupList.constBegin(); it != cend; ++it) {
       DomButtonGroup *domGroup = *it;
-      m_buttonGroups.insert(domGroup->attributeName(), ButtonGroupEntry(domGroup, 0));
+      m_buttonGroups.insert(domGroup->attributeName(), ButtonGroupEntry(domGroup, nullptr));
    }
 }
 

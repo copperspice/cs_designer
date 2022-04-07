@@ -44,9 +44,9 @@ namespace qdesigner_internal {
 ContainerWidgetTaskMenu::ContainerWidgetTaskMenu(QWidget *widget, ContainerType type, QObject *parent)
    : QDesignerTaskMenu(widget, parent), m_type(type), m_containerWidget(widget),
      m_core(formWindow()->core()),
-     m_pagePromotionTaskMenu(new PromotionTaskMenu(0, PromotionTaskMenu::ModeSingleWidget, this)),
+     m_pagePromotionTaskMenu(new PromotionTaskMenu(nullptr, PromotionTaskMenu::ModeSingleWidget, this)),
      m_pageMenuAction(new QAction(this)), m_pageMenu(new QMenu),
-     m_actionInsertPageAfter(new QAction(this)), m_actionInsertPage(0),
+     m_actionInsertPageAfter(new QAction(this)), m_actionInsertPage(nullptr),
      m_actionDeletePage(new QAction(tr("Delete"), this))
 {
    Q_ASSERT(m_core);
@@ -55,28 +55,35 @@ ContainerWidgetTaskMenu::ContainerWidgetTaskMenu(QWidget *widget, ContainerType 
    connect(m_actionDeletePage, &QAction::triggered, this, &ContainerWidgetTaskMenu::removeCurrentPage);
 
    connect(m_actionInsertPageAfter, &QAction::triggered, this, &ContainerWidgetTaskMenu::addPageAfter);
+
    // Empty Per-Page submenu, deletion and promotion. Updated on demand due to promotion state
    switch (m_type) {
       case WizardContainer:
       case PageContainer:
          m_taskActions.append(createSeparator()); // for the browse actions
          break;
+
       case MdiContainer:
          break;
    }
+
    // submenu
    m_pageMenuAction->setMenu(m_pageMenu);
    m_taskActions.append(m_pageMenuAction);
+
    // Insertion
    switch (m_type) {
       case WizardContainer:
-      case PageContainer: { // Before and after in a submenu
+      case PageContainer: {
+         // Before and after in a submenu
          QAction *insertMenuAction = new QAction(tr("Insert"), this);
          QMenu *insertMenu = new QMenu;
+
          // before
          m_actionInsertPage = new QAction(tr("Insert Page Before Current Page"), this);
          connect(m_actionInsertPage, &QAction::triggered, this, &ContainerWidgetTaskMenu::addPage);
          insertMenu->addAction(m_actionInsertPage);
+
          // after
          m_actionInsertPageAfter->setText(tr("Insert Page After Current Page"));
          insertMenu->addAction(m_actionInsertPageAfter);
@@ -85,6 +92,7 @@ ContainerWidgetTaskMenu::ContainerWidgetTaskMenu(QWidget *widget, ContainerType 
          m_taskActions.append(insertMenuAction);
       }
       break;
+
       case MdiContainer: // No concept of order
          m_actionInsertPageAfter->setText(tr("Add Subwindow"));
          m_taskActions.append(m_actionInsertPageAfter);
@@ -98,7 +106,7 @@ ContainerWidgetTaskMenu::~ContainerWidgetTaskMenu()
 
 QAction *ContainerWidgetTaskMenu::preferredEditAction() const
 {
-   return 0;
+   return nullptr;
 }
 
 bool ContainerWidgetTaskMenu::canDeletePage() const
@@ -106,11 +114,14 @@ bool ContainerWidgetTaskMenu::canDeletePage() const
    switch (pageCount()) {
       case 0:
          return false;
+
       case 1:
          return m_type != PageContainer; // Do not delete last page of page-type container
+
       default:
          break;
    }
+
    return true;
 }
 
@@ -119,6 +130,7 @@ int ContainerWidgetTaskMenu::pageCount() const
    if (const QDesignerContainerExtension *ce = containerExtension()) {
       return ce->count();
    }
+
    return 0;
 }
 
@@ -127,9 +139,11 @@ QString ContainerWidgetTaskMenu::pageMenuText(ContainerType ct, int index, int c
    if (ct == MdiContainer) {
       return tr("Subwindow");   // No concept of order, same text everywhere
    }
+
    if (index < 0) {
       return tr("Page");
    }
+
    return tr("Page %1 of %2").formatArg(index + 1).formatArg(count);
 }
 
@@ -140,16 +154,20 @@ QList<QAction *> ContainerWidgetTaskMenu::taskActions() const
 
    QList<QAction *> actions = QDesignerTaskMenu::taskActions();
    actions += m_taskActions;
+
    // Update the page submenu, deletion and promotion. Updated on demand due to promotion state.
    m_pageMenu->clear();
+
    const bool canAddWidget = ce->canAddWidget();
    if (m_actionInsertPage) {
       m_actionInsertPage->setEnabled(canAddWidget);
    }
+
    m_actionInsertPageAfter->setEnabled(canAddWidget);
    m_pageMenu->addAction(m_actionDeletePage);
    m_actionDeletePage->setEnabled(index >= 0 && ce->canRemove(index) && canDeletePage());
    m_pageMenuAction->setText(pageMenuText(m_type, index, ce->count()));
+
    if (index != -1) { // Has a page
       m_pageMenuAction->setEnabled(true);
       m_pagePromotionTaskMenu->setWidget(ce->widget(index));
@@ -206,14 +224,14 @@ void ContainerWidgetTaskMenu::addPageAfter()
    }
 }
 
-// -------------- WizardContainerWidgetTaskMenu
-WizardContainerWidgetTaskMenu::WizardContainerWidgetTaskMenu(QWizard *w, QObject *parent) :
-   ContainerWidgetTaskMenu(w, WizardContainer, parent),
-   m_nextAction(new QAction(tr("Next"), this)),
-   m_previousAction(new QAction(tr("Back"), this))
+WizardContainerWidgetTaskMenu::WizardContainerWidgetTaskMenu(QWizard *w, QObject *parent)
+   : ContainerWidgetTaskMenu(w, WizardContainer, parent),
+     m_nextAction(new QAction(tr("Next"), this)),
+     m_previousAction(new QAction(tr("Back"), this))
 {
-   connect(m_nextAction, &QAction::triggered, w, &QWizard::next);
+   connect(m_nextAction,     &QAction::triggered, w, &QWizard::next);
    connect(m_previousAction, &QAction::triggered, w, &QWizard::back);
+
    QList<QAction *> &l = containerActions();
    l.push_front(createSeparator());
    l.push_front(m_nextAction);
@@ -231,10 +249,9 @@ QList<QAction *> WizardContainerWidgetTaskMenu::taskActions() const
    return ContainerWidgetTaskMenu::taskActions();
 }
 
-// -------------- MdiContainerWidgetTaskMenu
 
-MdiContainerWidgetTaskMenu::MdiContainerWidgetTaskMenu(QMdiArea *m, QObject *parent) :
-   ContainerWidgetTaskMenu(m, MdiContainer, parent)
+MdiContainerWidgetTaskMenu::MdiContainerWidgetTaskMenu(QMdiArea *m, QObject *parent)
+   : ContainerWidgetTaskMenu(m, MdiContainer, parent)
 {
    initializeActions();
    connect(m_nextAction, &QAction::triggered, m, &QMdiArea::activateNextSubWindow);
@@ -271,48 +288,48 @@ QList<QAction *> MdiContainerWidgetTaskMenu::taskActions() const
    return rc;
 }
 
-// --------------  ContainerWidgetTaskMenuFactory
-
 ContainerWidgetTaskMenuFactory::ContainerWidgetTaskMenuFactory(QDesignerFormEditorInterface *core,
-   QExtensionManager *extensionManager) :
-   QExtensionFactory(extensionManager),
-   m_core(core)
+      QExtensionManager *extensionManager)
+   :  QExtensionFactory(extensionManager), m_core(core)
 {
 }
 
 QObject *ContainerWidgetTaskMenuFactory::createExtension(QObject *object, const QString &iid, QObject *parent) const
 {
-   if (iid != QString("QDesignerInternalTaskMenuExtension") || !object->isWidgetType()) {
-      return 0;
+   if (iid != "QDesignerInternalTaskMenuExtension" || ! object->isWidgetType()) {
+      return nullptr;
    }
 
    QWidget *widget = dynamic_cast<QWidget *>(object);
 
-   if (dynamic_cast<QStackedWidget *>(widget)
-      || dynamic_cast<QToolBox *>(widget)
-      || dynamic_cast<QTabWidget *>(widget)
-      || dynamic_cast<QMainWindow *>(widget)) {
+   if (dynamic_cast<QStackedWidget *>(widget) || dynamic_cast<QToolBox *>(widget)
+      || dynamic_cast<QTabWidget *>(widget)   || dynamic_cast<QMainWindow *>(widget)) {
+
       // Are we using Designer's own container extensions and task menus or did
       // someone provide an extra one with an addpage method, for example for a QScrollArea?
+
       if (const WidgetDataBase *wb = dynamic_cast<const WidgetDataBase *>(m_core->widgetDataBase())) {
          const int idx = wb->indexOfObject(widget);
          const WidgetDataBaseItem *item = static_cast<const WidgetDataBaseItem *>(wb->item(idx));
+
          if (item->addPageMethod().isEmpty()) {
-            return 0;
+            return nullptr;
          }
       }
    }
 
-   if (qt_extension<QDesignerContainerExtension *>(extensionManager(), object) == 0) {
-      return 0;
+   if (qt_extension<QDesignerContainerExtension *>(extensionManager(), object) == nullptr) {
+      return nullptr;
    }
 
    if (QMdiArea *ma = dynamic_cast<QMdiArea *>(widget)) {
       return new MdiContainerWidgetTaskMenu(ma, parent);
    }
+
    if (QWizard *wz = dynamic_cast<QWizard *>(widget)) {
       return new WizardContainerWidgetTaskMenu(wz, parent);
    }
+
    return new ContainerWidgetTaskMenu(widget, PageContainer, parent);
 }
 

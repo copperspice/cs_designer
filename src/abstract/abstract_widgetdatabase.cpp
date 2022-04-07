@@ -23,7 +23,7 @@
 #include <qalgorithms.h>
 
 namespace {
-enum { debugWidgetDataBase =  0 };
+constexpr const int debugWidgetDataBase =  0;
 }
 
 QDesignerWidgetDataBaseInterface::QDesignerWidgetDataBaseInterface(QObject *parent)
@@ -43,7 +43,7 @@ int QDesignerWidgetDataBaseInterface::count() const
 
 QDesignerWidgetDataBaseItemInterface *QDesignerWidgetDataBaseInterface::item(int index) const
 {
-   return index != -1 ? m_items.at(index) : 0;
+   return index != -1 ? m_items.at(index) : nullptr;
 }
 
 int QDesignerWidgetDataBaseInterface::indexOf(QDesignerWidgetDataBaseItemInterface *item) const
@@ -70,12 +70,13 @@ void QDesignerWidgetDataBaseInterface::append(QDesignerWidgetDataBaseItemInterfa
 
 QDesignerFormEditorInterface *QDesignerWidgetDataBaseInterface::core() const
 {
-   return 0;
+   return nullptr;
 }
 
 int QDesignerWidgetDataBaseInterface::indexOfClassName(const QString &name, bool) const
 {
    const int itemCount = count();
+
    for (int i = 0; i < itemCount; ++i) {
       const QDesignerWidgetDataBaseItemInterface *entry = item(i);
       if (entry->name() == name) {

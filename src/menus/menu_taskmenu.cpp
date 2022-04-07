@@ -25,18 +25,17 @@
 
 namespace qdesigner_internal {
 
-MenuTaskMenu::MenuTaskMenu(QDesignerMenu *menu, QObject *parent) :
-   QObject(parent),
-   m_menu(menu),
-   m_removeAction(new QAction(tr("Remove"), this)),
-   m_promotionTaskMenu(new PromotionTaskMenu(menu, PromotionTaskMenu::ModeSingleWidget, this))
+MenuTaskMenu::MenuTaskMenu(QDesignerMenu *menu, QObject *parent)
+   : QObject(parent), m_menu(menu),
+     m_removeAction(new QAction(tr("Remove"), this)),
+     m_promotionTaskMenu(new PromotionTaskMenu(menu, PromotionTaskMenu::ModeSingleWidget, this))
 {
    connect(m_removeAction, &QAction::triggered, this, &MenuTaskMenu::removeMenu);
 }
 
 QAction *MenuTaskMenu::preferredEditAction() const
 {
-   return 0;
+   return nullptr;
 }
 
 QList<QAction *> MenuTaskMenu::taskActions() const
@@ -70,7 +69,7 @@ MenuBarTaskMenu::MenuBarTaskMenu(QDesignerMenuBar *bar, QObject *parent)
 
 QAction *MenuBarTaskMenu::preferredEditAction() const
 {
-   return 0;
+   return nullptr;
 }
 
 QList<QAction *> MenuBarTaskMenu::taskActions() const

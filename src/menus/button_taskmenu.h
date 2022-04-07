@@ -39,18 +39,17 @@ namespace qdesigner_internal {
 class ButtonGroupMenu : public QObject
 {
    CS_OBJECT(ButtonGroupMenu)
-   Q_DISABLE_COPY(ButtonGroupMenu)
+
  public:
    ButtonGroupMenu(QObject *parent = nullptr);
 
    void initialize(QDesignerFormWindowInterface *formWindow,
-      QButtonGroup *buttonGroup = 0,
-      /* Current button for selection in ButtonMode */
-      QAbstractButton *currentButton = 0);
+      QButtonGroup *buttonGroup = nullptr, QAbstractButton *currentButton = nullptr);
 
    QAction *selectGroupAction() const {
       return m_selectGroupAction;
    }
+
    QAction *breakGroupAction() const  {
       return m_breakGroupAction;
    }
@@ -58,10 +57,12 @@ class ButtonGroupMenu : public QObject
  private:
    CS_SLOT_1(Private, void selectGroup())
    CS_SLOT_2(selectGroup)
+
    CS_SLOT_1(Private, void breakGroup())
    CS_SLOT_2(breakGroup)
 
- private:
+   Q_DISABLE_COPY(ButtonGroupMenu)
+
    QAction *m_selectGroupAction;
    QAction *m_breakGroupAction;
 
@@ -74,7 +75,7 @@ class ButtonGroupMenu : public QObject
 class ButtonGroupTaskMenu : public QObject, public QDesignerTaskMenuExtension
 {
    CS_OBJECT(ButtonGroupTaskMenu)
-   Q_DISABLE_COPY(ButtonGroupTaskMenu)
+
    CS_INTERFACES(QDesignerTaskMenuExtension)
 
  public:
@@ -84,6 +85,8 @@ class ButtonGroupTaskMenu : public QObject, public QDesignerTaskMenuExtension
    QList<QAction *> taskActions() const override;
 
  private:
+   Q_DISABLE_COPY(ButtonGroupTaskMenu)
+
    QButtonGroup *m_buttonGroup;
    QList<QAction *> m_taskActions;
    mutable ButtonGroupMenu m_menu;
@@ -93,7 +96,7 @@ class ButtonGroupTaskMenu : public QObject, public QDesignerTaskMenuExtension
 class ButtonTaskMenu: public QDesignerTaskMenu
 {
    CS_OBJECT(ButtonTaskMenu)
-   Q_DISABLE_COPY(ButtonTaskMenu)
+
  public:
    explicit ButtonTaskMenu(QAbstractButton *button, QObject *parent = nullptr);
    virtual ~ButtonTaskMenu();
@@ -109,19 +112,22 @@ class ButtonTaskMenu: public QDesignerTaskMenu
  private:
    CS_SLOT_1(Private, void createGroup())
    CS_SLOT_2(createGroup)
+
    CS_SLOT_1(Private, void addToGroup(QAction *a))
    CS_SLOT_2(addToGroup)
+
    CS_SLOT_1(Private, void removeFromGroup())
    CS_SLOT_2(removeFromGroup)
 
- private:
+   Q_DISABLE_COPY(ButtonTaskMenu)
+
    enum SelectionType {
       OtherSelection,
       UngroupedButtonSelection,
       GroupedButtonSelection
    };
 
-   SelectionType selectionType(const QDesignerFormWindowCursorInterface *cursor, QButtonGroup **ptrToGroup = 0) const;
+   SelectionType selectionType(const QDesignerFormWindowCursorInterface *cursor, QButtonGroup **ptrToGroup = nullptr) const;
    bool refreshAssignMenu(const QDesignerFormWindowInterface *fw, int buttonCount, SelectionType st, QButtonGroup *currentGroup);
    QMenu *createGroupSelectionMenu(const QDesignerFormWindowInterface *fw);
 
@@ -152,6 +158,5 @@ typedef ExtensionFactory<QDesignerTaskMenuExtension, QCommandLinkButton, Command
 typedef ExtensionFactory<QDesignerTaskMenuExtension, QAbstractButton, ButtonTaskMenu>  ButtonTaskMenuFactory;
 
 }   // end namespace qdesigner_internal
-
 
 #endif

@@ -64,7 +64,7 @@ void TreeWidgetTaskMenu::editItems()
       return;
    }
 
-   Q_ASSERT(m_treeWidget != 0);
+   Q_ASSERT(m_treeWidget != nullptr);
 
    TreeWidgetEditorDialog dlg(m_formWindow, m_treeWidget->window());
    TreeWidgetData oldCont = dlg.fillContentsFromTreeWidget(m_treeWidget);

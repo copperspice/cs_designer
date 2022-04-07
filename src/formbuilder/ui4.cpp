@@ -38,52 +38,52 @@ void DomUI::clear(bool clear_all)
 
    if (clear_all) {
       m_text.clear();
-      m_has_attr_version = false;
-      m_has_attr_language = false;
+      m_has_attr_version     = false;
+      m_has_attr_language    = false;
       m_has_attr_displayname = false;
-      m_has_attr_stdsetdef = false;
-      m_attr_stdsetdef = 0;
-      m_has_attr_stdSetDef = false;
-      m_attr_stdSetDef = 0;
+      m_has_attr_stdsetdef   = false;
+      m_attr_stdsetdef       = 0;
+      m_has_attr_stdSetDef   = false;
+      m_attr_stdSetDef       = 0;
    }
 
-   m_children = 0;
-   m_widget = 0;
-   m_layoutDefault = 0;
-   m_layoutFunction = 0;
-   m_customWidgets = 0;
-   m_tabStops = 0;
-   m_images = 0;
-   m_includes = 0;
-   m_resources = 0;
-   m_connections = 0;
-   m_designerdata = 0;
-   m_slots = 0;
-   m_buttonGroups = 0;
+   m_children       = 0;
+   m_widget         = nullptr;
+   m_layoutDefault  = nullptr;
+   m_layoutFunction = nullptr;
+   m_customWidgets  = nullptr;
+   m_tabStops       = nullptr;
+   m_images         = nullptr;
+   m_includes       = nullptr;
+   m_resources      = nullptr;
+   m_connections    = nullptr;
+   m_designerdata   = nullptr;
+   m_slots          = nullptr;
+   m_buttonGroups   = nullptr;
 }
 
 DomUI::DomUI()
 {
-   m_children = 0;
-   m_has_attr_version = false;
-   m_has_attr_language = false;
+   m_children             = 0;
+   m_has_attr_version     = false;
+   m_has_attr_language    = false;
    m_has_attr_displayname = false;
-   m_has_attr_stdsetdef = false;
-   m_attr_stdsetdef = 0;
-   m_has_attr_stdSetDef = false;
-   m_attr_stdSetDef = 0;
-   m_widget = 0;
-   m_layoutDefault = 0;
-   m_layoutFunction = 0;
-   m_customWidgets = 0;
-   m_tabStops = 0;
-   m_images = 0;
-   m_includes = 0;
-   m_resources = 0;
-   m_connections = 0;
-   m_designerdata = 0;
-   m_slots = 0;
-   m_buttonGroups = 0;
+   m_has_attr_stdsetdef   = false;
+   m_attr_stdsetdef       = 0;
+   m_has_attr_stdSetDef   = false;
+   m_attr_stdSetDef       = 0;
+   m_widget               = nullptr;
+   m_layoutDefault        = nullptr;
+   m_layoutFunction       = nullptr;
+   m_customWidgets        = nullptr;
+   m_tabStops             = nullptr;
+   m_images               = nullptr;
+   m_includes             = nullptr;
+   m_resources            = nullptr;
+   m_connections          = nullptr;
+   m_designerdata         = nullptr;
+   m_slots                = nullptr;
+   m_buttonGroups         = nullptr;
 }
 
 DomUI::~DomUI()
@@ -106,26 +106,32 @@ void DomUI::read(QXmlStreamReader &reader)
 {
    for (const QXmlStreamAttribute &attribute : reader.attributes()) {
       QStringView name = attribute.name();
+
       if (name == "version") {
          setAttributeVersion(attribute.value().toString());
          continue;
       }
+
       if (name == "language") {
          setAttributeLanguage(attribute.value().toString());
          continue;
       }
+
       if (name == "displayname") {
          setAttributeDisplayname(attribute.value().toString());
          continue;
       }
+
       if (name == "stdsetdef") {
          setAttributeStdsetdef(attribute.value().toInteger<int>());
          continue;
       }
+
       if (name == "stdSetDef") {
          setAttributeStdSetDef(attribute.value().toInteger<int>());
          continue;
       }
+
       reader.raiseError("Unexpected attribute " + name);
    }
 
@@ -138,46 +144,55 @@ void DomUI::read(QXmlStreamReader &reader)
                setElementAuthor(reader.readElementText());
                continue;
             }
+
             if (tag == "comment") {
                setElementComment(reader.readElementText());
                continue;
             }
-            if (tag == QLatin1String("exportmacro")) {
+
+            if (tag == "exportmacro") {
                setElementExportMacro(reader.readElementText());
                continue;
             }
+
             if (tag == QLatin1String("class")) {
                setElementClass(reader.readElementText());
                continue;
             }
+
             if (tag == QLatin1String("widget")) {
                DomWidget *v = new DomWidget();
                v->read(reader);
                setElementWidget(v);
                continue;
             }
+
             if (tag == QLatin1String("layoutdefault")) {
                DomLayoutDefault *v = new DomLayoutDefault();
                v->read(reader);
                setElementLayoutDefault(v);
                continue;
             }
+
             if (tag == QLatin1String("layoutfunction")) {
                DomLayoutFunction *v = new DomLayoutFunction();
                v->read(reader);
                setElementLayoutFunction(v);
                continue;
             }
+
             if (tag == QLatin1String("pixmapfunction")) {
                setElementPixmapFunction(reader.readElementText());
                continue;
             }
+
             if (tag == QLatin1String("customwidgets")) {
                DomCustomWidgets *v = new DomCustomWidgets();
                v->read(reader);
                setElementCustomWidgets(v);
                continue;
             }
+
             if (tag == QLatin1String("tabstops")) {
                DomTabStops *v = new DomTabStops();
                v->read(reader);
@@ -190,36 +205,42 @@ void DomUI::read(QXmlStreamReader &reader)
                setElementImages(v);
                continue;
             }
+
             if (tag == QLatin1String("includes")) {
                DomIncludes *v = new DomIncludes();
                v->read(reader);
                setElementIncludes(v);
                continue;
             }
+
             if (tag == QLatin1String("resources")) {
                DomResources *v = new DomResources();
                v->read(reader);
                setElementResources(v);
                continue;
             }
+
             if (tag == QLatin1String("connections")) {
                DomConnections *v = new DomConnections();
                v->read(reader);
                setElementConnections(v);
                continue;
             }
+
             if (tag == QLatin1String("designerdata")) {
                DomDesignerData *v = new DomDesignerData();
                v->read(reader);
                setElementDesignerdata(v);
                continue;
             }
+
             if (tag == QLatin1String("slots")) {
                DomSlots *v = new DomSlots();
                v->read(reader);
                setElementSlots(v);
                continue;
             }
+
             if (tag == QLatin1String("buttongroups")) {
                DomButtonGroups *v = new DomButtonGroups();
                v->read(reader);
@@ -229,15 +250,18 @@ void DomUI::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -369,7 +393,7 @@ void DomUI::setElementClass(const QString &a)
 DomWidget *DomUI::takeElementWidget()
 {
    DomWidget *a = m_widget;
-   m_widget = 0;
+   m_widget = nullptr;
    m_children ^= Widget;
    return a;
 }
@@ -384,7 +408,7 @@ void DomUI::setElementWidget(DomWidget *a)
 DomLayoutDefault *DomUI::takeElementLayoutDefault()
 {
    DomLayoutDefault *a = m_layoutDefault;
-   m_layoutDefault = 0;
+   m_layoutDefault = nullptr;
    m_children ^= LayoutDefault;
    return a;
 }
@@ -399,7 +423,7 @@ void DomUI::setElementLayoutDefault(DomLayoutDefault *a)
 DomLayoutFunction *DomUI::takeElementLayoutFunction()
 {
    DomLayoutFunction *a = m_layoutFunction;
-   m_layoutFunction = 0;
+   m_layoutFunction = nullptr;
    m_children ^= LayoutFunction;
    return a;
 }
@@ -420,7 +444,7 @@ void DomUI::setElementPixmapFunction(const QString &a)
 DomCustomWidgets *DomUI::takeElementCustomWidgets()
 {
    DomCustomWidgets *a = m_customWidgets;
-   m_customWidgets = 0;
+   m_customWidgets = nullptr;
    m_children ^= CustomWidgets;
    return a;
 }
@@ -435,7 +459,7 @@ void DomUI::setElementCustomWidgets(DomCustomWidgets *a)
 DomTabStops *DomUI::takeElementTabStops()
 {
    DomTabStops *a = m_tabStops;
-   m_tabStops = 0;
+   m_tabStops = nullptr;
    m_children ^= TabStops;
    return a;
 }
@@ -450,7 +474,7 @@ void DomUI::setElementTabStops(DomTabStops *a)
 DomImages *DomUI::takeElementImages()
 {
    DomImages *a = m_images;
-   m_images = 0;
+   m_images = nullptr;
    m_children ^= Images;
    return a;
 }
@@ -465,7 +489,7 @@ void DomUI::setElementImages(DomImages *a)
 DomIncludes *DomUI::takeElementIncludes()
 {
    DomIncludes *a = m_includes;
-   m_includes = 0;
+   m_includes = nullptr;
    m_children ^= Includes;
    return a;
 }
@@ -480,7 +504,7 @@ void DomUI::setElementIncludes(DomIncludes *a)
 DomResources *DomUI::takeElementResources()
 {
    DomResources *a = m_resources;
-   m_resources = 0;
+   m_resources = nullptr;
    m_children ^= Resources;
    return a;
 }
@@ -495,7 +519,7 @@ void DomUI::setElementResources(DomResources *a)
 DomConnections *DomUI::takeElementConnections()
 {
    DomConnections *a = m_connections;
-   m_connections = 0;
+   m_connections = nullptr;
    m_children ^= Connections;
    return a;
 }
@@ -510,7 +534,7 @@ void DomUI::setElementConnections(DomConnections *a)
 DomDesignerData *DomUI::takeElementDesignerdata()
 {
    DomDesignerData *a = m_designerdata;
-   m_designerdata = 0;
+   m_designerdata = nullptr;
    m_children ^= Designerdata;
    return a;
 }
@@ -525,8 +549,9 @@ void DomUI::setElementDesignerdata(DomDesignerData *a)
 DomSlots *DomUI::takeElementSlots()
 {
    DomSlots *a = m_slots;
-   m_slots = 0;
+   m_slots = nullptr;
    m_children ^= Slots;
+
    return a;
 }
 
@@ -540,7 +565,7 @@ void DomUI::setElementSlots(DomSlots *a)
 DomButtonGroups *DomUI::takeElementButtonGroups()
 {
    DomButtonGroups *a = m_buttonGroups;
-   m_buttonGroups = 0;
+   m_buttonGroups = nullptr;
    m_children ^= ButtonGroups;
    return a;
 }
@@ -575,21 +600,21 @@ void DomUI::clearElementClass()
 void DomUI::clearElementWidget()
 {
    delete m_widget;
-   m_widget = 0;
+   m_widget = nullptr;
    m_children &= ~Widget;
 }
 
 void DomUI::clearElementLayoutDefault()
 {
    delete m_layoutDefault;
-   m_layoutDefault = 0;
+   m_layoutDefault = nullptr;
    m_children &= ~LayoutDefault;
 }
 
 void DomUI::clearElementLayoutFunction()
 {
    delete m_layoutFunction;
-   m_layoutFunction = 0;
+   m_layoutFunction = nullptr;
    m_children &= ~LayoutFunction;
 }
 
@@ -601,63 +626,64 @@ void DomUI::clearElementPixmapFunction()
 void DomUI::clearElementCustomWidgets()
 {
    delete m_customWidgets;
-   m_customWidgets = 0;
+   m_customWidgets = nullptr;
    m_children &= ~CustomWidgets;
 }
 
 void DomUI::clearElementTabStops()
 {
    delete m_tabStops;
-   m_tabStops = 0;
+   m_tabStops = nullptr;
    m_children &= ~TabStops;
 }
 
 void DomUI::clearElementImages()
 {
    delete m_images;
-   m_images = 0;
+   m_images = nullptr;
    m_children &= ~Images;
 }
 
 void DomUI::clearElementIncludes()
 {
    delete m_includes;
-   m_includes = 0;
+   m_includes = nullptr;
    m_children &= ~Includes;
 }
 
 void DomUI::clearElementResources()
 {
    delete m_resources;
-   m_resources = 0;
+   m_resources = nullptr;
    m_children &= ~Resources;
 }
 
 void DomUI::clearElementConnections()
 {
    delete m_connections;
-   m_connections = 0;
+   m_connections = nullptr;
    m_children &= ~Connections;
 }
 
 void DomUI::clearElementDesignerdata()
 {
    delete m_designerdata;
-   m_designerdata = 0;
+   m_designerdata = nullptr;
    m_children &= ~Designerdata;
 }
 
 void DomUI::clearElementSlots()
 {
    delete m_slots;
-   m_slots = 0;
+   m_slots = nullptr;
+
    m_children &= ~Slots;
 }
 
 void DomUI::clearElementButtonGroups()
 {
    delete m_buttonGroups;
-   m_buttonGroups = 0;
+   m_buttonGroups = nullptr;
    m_children &= ~ButtonGroups;
 }
 
@@ -700,15 +726,18 @@ void DomIncludes::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -781,15 +810,18 @@ void DomInclude::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -863,15 +895,18 @@ void DomResources::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
-         case QXmlStreamReader::EndElement :
+
+         case QXmlStreamReader::EndElement:
             finished = true;
             break;
-         case QXmlStreamReader::Characters :
+
+         case QXmlStreamReader::Characters:
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -904,7 +939,6 @@ void DomResources::setElementInclude(const QList<DomResource *> &a)
 
 void DomResource::clear(bool clear_all)
 {
-
    if (clear_all) {
       m_text.clear();
       m_has_attr_location = false;
@@ -936,20 +970,23 @@ void DomResource::read(QXmlStreamReader &reader)
 
    for (bool finished = false; !finished && !reader.hasError();) {
       switch (reader.readNext()) {
-         case QXmlStreamReader::StartElement : {
+         case QXmlStreamReader::StartElement: {
             const QString tag = reader.name().toString().toLower();
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
-         case QXmlStreamReader::EndElement :
+
+         case QXmlStreamReader::EndElement:
             finished = true;
             break;
-         case QXmlStreamReader::Characters :
+
+         case QXmlStreamReader::Characters:
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -974,10 +1011,13 @@ void DomActionGroup::clear(bool clear_all)
 {
    qDeleteAll(m_action);
    m_action.clear();
+
    qDeleteAll(m_actionGroup);
    m_actionGroup.clear();
+
    qDeleteAll(m_property);
    m_property.clear();
+
    qDeleteAll(m_attribute);
    m_attribute.clear();
 
@@ -999,10 +1039,13 @@ DomActionGroup::~DomActionGroup()
 {
    qDeleteAll(m_action);
    m_action.clear();
+
    qDeleteAll(m_actionGroup);
    m_actionGroup.clear();
+
    qDeleteAll(m_property);
    m_property.clear();
+
    qDeleteAll(m_attribute);
    m_attribute.clear();
 }
@@ -1011,10 +1054,12 @@ void DomActionGroup::read(QXmlStreamReader &reader)
 {
    for (const QXmlStreamAttribute &attribute : reader.attributes()) {
       QStringView name = attribute.name();
+
       if (name == "name") {
          setAttributeName(attribute.value().toString());
          continue;
       }
+
       reader.raiseError("Unexpected attribute " + name);
    }
 
@@ -1029,18 +1074,21 @@ void DomActionGroup::read(QXmlStreamReader &reader)
                m_action.append(v);
                continue;
             }
+
             if (tag == QLatin1String("actiongroup")) {
                DomActionGroup *v = new DomActionGroup();
                v->read(reader);
                m_actionGroup.append(v);
                continue;
             }
+
             if (tag == QLatin1String("property")) {
                DomProperty *v = new DomProperty();
                v->read(reader);
                m_property.append(v);
                continue;
             }
+
             if (tag == QLatin1String("attribute")) {
                DomProperty *v = new DomProperty();
                v->read(reader);
@@ -1050,15 +1098,18 @@ void DomActionGroup::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -1076,19 +1127,23 @@ void DomActionGroup::write(QXmlStreamWriter &writer, const QString &tagName) con
       DomAction *v = m_action[i];
       v->write(writer, QString("action"));
    }
+
    for (int i = 0; i < m_actionGroup.size(); ++i) {
       DomActionGroup *v = m_actionGroup[i];
       v->write(writer, QString("actiongroup"));
    }
+
    for (int i = 0; i < m_property.size(); ++i) {
       DomProperty *v = m_property[i];
       v->write(writer, QString("property"));
    }
+
    for (int i = 0; i < m_attribute.size(); ++i) {
       DomProperty *v = m_attribute[i];
       v->write(writer, QString("attribute"));
    }
-   if (!m_text.isEmpty()) {
+
+ if (!m_text.isEmpty()) {
       writer.writeCharacters(m_text);
    }
 
@@ -1123,6 +1178,7 @@ void DomAction::clear(bool clear_all)
 {
    qDeleteAll(m_property);
    m_property.clear();
+
    qDeleteAll(m_attribute);
    m_attribute.clear();
 
@@ -1154,6 +1210,7 @@ void DomAction::read(QXmlStreamReader &reader)
 {
    for (const QXmlStreamAttribute &attribute : reader.attributes()) {
       QStringView name = attribute.name();
+
       if (name == QLatin1String("name")) {
          setAttributeName(attribute.value().toString());
          continue;
@@ -1169,12 +1226,14 @@ void DomAction::read(QXmlStreamReader &reader)
       switch (reader.readNext()) {
          case QXmlStreamReader::StartElement : {
             const QString tag = reader.name().toString().toLower();
+
             if (tag == QLatin1String("property")) {
                DomProperty *v = new DomProperty();
                v->read(reader);
                m_property.append(v);
                continue;
             }
+
             if (tag == QLatin1String("attribute")) {
                DomProperty *v = new DomProperty();
                v->read(reader);
@@ -1184,15 +1243,18 @@ void DomAction::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -1262,10 +1324,12 @@ void DomActionRef::read(QXmlStreamReader &reader)
 {
    for (const QXmlStreamAttribute &attribute : reader.attributes()) {
       QStringView name = attribute.name();
+
       if (name == QLatin1String("name")) {
          setAttributeName(attribute.value().toString());
          continue;
       }
+
       reader.raiseError(QLatin1String("Unexpected attribute ") + name);
    }
 
@@ -1276,15 +1340,18 @@ void DomActionRef::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -1364,15 +1431,18 @@ void DomButtonGroup::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -1390,10 +1460,12 @@ void DomButtonGroup::write(QXmlStreamWriter &writer, const QString &tagName) con
       DomProperty *v = m_property[i];
       v->write(writer, QString("property"));
    }
+
    for (int i = 0; i < m_attribute.size(); ++i) {
       DomProperty *v = m_attribute[i];
       v->write(writer, QString("attribute"));
    }
+
    if (!m_text.isEmpty()) {
       writer.writeCharacters(m_text);
    }
@@ -1452,15 +1524,18 @@ void DomButtonGroups::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -1526,15 +1601,18 @@ void DomImages::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -1571,14 +1649,14 @@ void DomImage::clear(bool clear_all)
    }
 
    m_children = 0;
-   m_data = 0;
+   m_data = nullptr;
 }
 
 DomImage::DomImage()
 {
    m_children = 0;
    m_has_attr_name = false;
-   m_data = 0;
+   m_data = nullptr;
 }
 
 DomImage::~DomImage()
@@ -1610,15 +1688,18 @@ void DomImage::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -1646,7 +1727,7 @@ void DomImage::write(QXmlStreamWriter &writer, const QString &tagName) const
 DomImageData *DomImage::takeElementData()
 {
    DomImageData *a = m_data;
-   m_data = 0;
+   m_data = nullptr;
    m_children ^= Data;
    return a;
 }
@@ -1661,7 +1742,7 @@ void DomImage::setElementData(DomImageData *a)
 void DomImage::clearElementData()
 {
    delete m_data;
-   m_data = 0;
+   m_data = nullptr;
    m_children &= ~Data;
 }
 
@@ -1699,6 +1780,7 @@ void DomImageData::read(QXmlStreamReader &reader)
          setAttributeFormat(attribute.value().toString());
          continue;
       }
+
       if (name == QLatin1String("length")) {
          setAttributeLength(attribute.value().toInteger<int>());
          continue;
@@ -1713,15 +1795,18 @@ void DomImageData::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -1785,15 +1870,18 @@ void DomCustomWidgets::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -1868,7 +1956,7 @@ void DomHeader::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -1903,28 +1991,28 @@ void DomCustomWidget::clear(bool clear_all)
       m_text.clear();
    }
 
-   m_children = 0;
-   m_header = 0;
-   m_sizeHint = 0;
-   m_container = 0;
-   m_sizePolicy = 0;
-   m_script = 0;
-   m_properties = 0;
-   m_slots = 0;
-   m_propertyspecifications = 0;
+   m_children   = 0;
+   m_header     = nullptr;
+   m_sizeHint   = nullptr;
+   m_container  = 0;
+   m_sizePolicy = nullptr;
+   m_script     = nullptr;
+   m_properties = nullptr;
+   m_slots      = nullptr;
+   m_propertyspecifications = nullptr;
 }
 
 DomCustomWidget::DomCustomWidget()
 {
-   m_children = 0;
-   m_header = 0;
-   m_sizeHint = 0;
-   m_container = 0;
-   m_sizePolicy = 0;
-   m_script = 0;
-   m_properties = 0;
-   m_slots = 0;
-   m_propertyspecifications = 0;
+   m_children   = 0;
+   m_header     = nullptr;
+   m_sizeHint   = nullptr;
+   m_container  = 0;
+   m_sizePolicy = nullptr;
+   m_script     = nullptr;
+   m_properties = nullptr;
+   m_slots      = nullptr;
+   m_propertyspecifications = nullptr;
 }
 
 DomCustomWidget::~DomCustomWidget()
@@ -1973,38 +2061,45 @@ void DomCustomWidget::read(QXmlStreamReader &reader)
                setElementAddPageMethod(reader.readElementText());
                continue;
             }
+
             if (tag == QLatin1String("container")) {
                setElementContainer(reader.readElementText().toInteger<int>());
                continue;
             }
+
             if (tag == QLatin1String("sizepolicy")) {
                DomSizePolicyData *v = new DomSizePolicyData();
                v->read(reader);
                setElementSizePolicy(v);
                continue;
             }
+
             if (tag == QLatin1String("pixmap")) {
                setElementPixmap(reader.readElementText());
                continue;
             }
+
             if (tag == QLatin1String("script")) {
                DomScript *v = new DomScript();
                v->read(reader);
                setElementScript(v);
                continue;
             }
+
             if (tag == QLatin1String("properties")) {
                DomProperties *v = new DomProperties();
                v->read(reader);
                setElementProperties(v);
                continue;
             }
+
             if (tag == QLatin1String("slots")) {
                DomSlots *v = new DomSlots();
                v->read(reader);
                setElementSlots(v);
                continue;
             }
+
             if (tag == QLatin1String("propertyspecifications")) {
                DomPropertySpecifications *v = new DomPropertySpecifications();
                v->read(reader);
@@ -2014,15 +2109,18 @@ void DomCustomWidget::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -2102,7 +2200,7 @@ void DomCustomWidget::setElementExtends(const QString &a)
 DomHeader *DomCustomWidget::takeElementHeader()
 {
    DomHeader *a = m_header;
-   m_header = 0;
+   m_header = nullptr;
    m_children ^= Header;
    return a;
 }
@@ -2117,7 +2215,7 @@ void DomCustomWidget::setElementHeader(DomHeader *a)
 DomSize *DomCustomWidget::takeElementSizeHint()
 {
    DomSize *a = m_sizeHint;
-   m_sizeHint = 0;
+   m_sizeHint = nullptr;
    m_children ^= SizeHint;
    return a;
 }
@@ -2144,7 +2242,7 @@ void DomCustomWidget::setElementContainer(int a)
 DomSizePolicyData *DomCustomWidget::takeElementSizePolicy()
 {
    DomSizePolicyData *a = m_sizePolicy;
-   m_sizePolicy = 0;
+   m_sizePolicy = nullptr;
    m_children ^= SizePolicy;
    return a;
 }
@@ -2165,7 +2263,7 @@ void DomCustomWidget::setElementPixmap(const QString &a)
 DomScript *DomCustomWidget::takeElementScript()
 {
    DomScript *a = m_script;
-   m_script = 0;
+   m_script = nullptr;
    m_children ^= Script;
    return a;
 }
@@ -2180,7 +2278,7 @@ void DomCustomWidget::setElementScript(DomScript *a)
 DomProperties *DomCustomWidget::takeElementProperties()
 {
    DomProperties *a = m_properties;
-   m_properties = 0;
+   m_properties = nullptr;
    m_children ^= Properties;
    return a;
 }
@@ -2195,7 +2293,7 @@ void DomCustomWidget::setElementProperties(DomProperties *a)
 DomSlots *DomCustomWidget::takeElementSlots()
 {
    DomSlots *a = m_slots;
-   m_slots = 0;
+   m_slots = nullptr;
    m_children ^= Slots;
    return a;
 }
@@ -2210,7 +2308,7 @@ void DomCustomWidget::setElementSlots(DomSlots *a)
 DomPropertySpecifications *DomCustomWidget::takeElementPropertyspecifications()
 {
    DomPropertySpecifications *a = m_propertyspecifications;
-   m_propertyspecifications = 0;
+   m_propertyspecifications = nullptr;
    m_children ^= Propertyspecifications;
    return a;
 }
@@ -2235,14 +2333,14 @@ void DomCustomWidget::clearElementExtends()
 void DomCustomWidget::clearElementHeader()
 {
    delete m_header;
-   m_header = 0;
+   m_header = nullptr;
    m_children &= ~Header;
 }
 
 void DomCustomWidget::clearElementSizeHint()
 {
    delete m_sizeHint;
-   m_sizeHint = 0;
+   m_sizeHint = nullptr;
    m_children &= ~SizeHint;
 }
 
@@ -2259,7 +2357,7 @@ void DomCustomWidget::clearElementContainer()
 void DomCustomWidget::clearElementSizePolicy()
 {
    delete m_sizePolicy;
-   m_sizePolicy = 0;
+   m_sizePolicy = nullptr;
    m_children &= ~SizePolicy;
 }
 
@@ -2271,28 +2369,28 @@ void DomCustomWidget::clearElementPixmap()
 void DomCustomWidget::clearElementScript()
 {
    delete m_script;
-   m_script = 0;
+   m_script = nullptr;
    m_children &= ~Script;
 }
 
 void DomCustomWidget::clearElementProperties()
 {
    delete m_properties;
-   m_properties = 0;
+   m_properties = nullptr;
    m_children &= ~Properties;
 }
 
 void DomCustomWidget::clearElementSlots()
 {
    delete m_slots;
-   m_slots = 0;
+   m_slots = nullptr;
    m_children &= ~Slots;
 }
 
 void DomCustomWidget::clearElementPropertyspecifications()
 {
    delete m_propertyspecifications;
-   m_propertyspecifications = 0;
+   m_propertyspecifications = nullptr;
    m_children &= ~Propertyspecifications;
 }
 
@@ -2343,7 +2441,7 @@ void DomProperties::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -2417,7 +2515,7 @@ void DomPropertyData::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -2487,7 +2585,7 @@ void DomSizePolicyData::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -2591,7 +2689,7 @@ void DomLayoutDefault::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -2669,7 +2767,7 @@ void DomLayoutFunction::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -2737,7 +2835,7 @@ void DomTabStops::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -2877,7 +2975,7 @@ void DomLayout::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -2973,9 +3071,9 @@ void DomLayoutItem::clear(bool clear_all)
 
    m_kind = Unknown;
 
-   m_widget = 0;
-   m_layout = 0;
-   m_spacer = 0;
+   m_widget = nullptr;
+   m_layout = nullptr;
+   m_spacer = nullptr;
 }
 
 DomLayoutItem::DomLayoutItem()
@@ -2991,9 +3089,9 @@ DomLayoutItem::DomLayoutItem()
    m_has_attr_colSpan = false;
    m_attr_colSpan = 0;
    m_has_attr_alignment = false;
-   m_widget = 0;
-   m_layout = 0;
-   m_spacer = 0;
+   m_widget = nullptr;
+   m_layout = nullptr;
+   m_spacer = nullptr;
 }
 
 DomLayoutItem::~DomLayoutItem()
@@ -3063,7 +3161,7 @@ void DomLayoutItem::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -3096,29 +3194,33 @@ void DomLayoutItem::write(QXmlStreamWriter &writer, const QString &tagName) cons
    switch (kind()) {
       case Widget: {
          DomWidget *v = elementWidget();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("widget"));
          }
          break;
       }
+
       case Layout: {
          DomLayout *v = elementLayout();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("layout"));
          }
          break;
       }
+
       case Spacer: {
          DomSpacer *v = elementSpacer();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("spacer"));
          }
          break;
       }
+
       default:
          break;
    }
-   if (!m_text.isEmpty()) {
+
+   if (! m_text.isEmpty()) {
       writer.writeCharacters(m_text);
    }
 
@@ -3128,7 +3230,7 @@ void DomLayoutItem::write(QXmlStreamWriter &writer, const QString &tagName) cons
 DomWidget *DomLayoutItem::takeElementWidget()
 {
    DomWidget *a = m_widget;
-   m_widget = 0;
+   m_widget = nullptr;
    return a;
 }
 
@@ -3142,7 +3244,7 @@ void DomLayoutItem::setElementWidget(DomWidget *a)
 DomLayout *DomLayoutItem::takeElementLayout()
 {
    DomLayout *a = m_layout;
-   m_layout = 0;
+   m_layout = nullptr;
    return a;
 }
 
@@ -3156,7 +3258,7 @@ void DomLayoutItem::setElementLayout(DomLayout *a)
 DomSpacer *DomLayoutItem::takeElementSpacer()
 {
    DomSpacer *a = m_spacer;
-   m_spacer = 0;
+   m_spacer = nullptr;
    return a;
 }
 
@@ -3214,7 +3316,7 @@ void DomRow::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -3288,7 +3390,7 @@ void DomColumn::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -3392,7 +3494,7 @@ void DomItem::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -3630,7 +3732,7 @@ void DomWidget::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -3857,7 +3959,7 @@ void DomSpacer::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -3955,7 +4057,7 @@ void DomColor::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -4032,7 +4134,7 @@ void DomGradientStop::clear(bool clear_all)
    }
 
    m_children = 0;
-   m_color = 0;
+   m_color    = nullptr;
 }
 
 DomGradientStop::DomGradientStop()
@@ -4040,7 +4142,7 @@ DomGradientStop::DomGradientStop()
    m_children = 0;
    m_has_attr_position = false;
    m_attr_position = 0.0;
-   m_color = 0;
+   m_color = nullptr;
 }
 
 DomGradientStop::~DomGradientStop()
@@ -4085,7 +4187,7 @@ void DomGradientStop::read(QXmlStreamReader &reader)
             }
             break;
 
-         default :
+         default:
             break;
       }
    }
@@ -4113,7 +4215,7 @@ void DomGradientStop::write(QXmlStreamWriter &writer, const QString &tagName) co
 DomColor *DomGradientStop::takeElementColor()
 {
    DomColor *a = m_color;
-   m_color = 0;
+   m_color = nullptr;
    m_children ^= Color;
    return a;
 }
@@ -4128,7 +4230,7 @@ void DomGradientStop::setElementColor(DomColor *a)
 void DomGradientStop::clearElementColor()
 {
    delete m_color;
-   m_color = 0;
+   m_color = nullptr;
    m_children &= ~Color;
 }
 
@@ -4281,7 +4383,7 @@ void DomGradient::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -4373,9 +4475,9 @@ void DomBrush::clear(bool clear_all)
 
    m_kind = Unknown;
 
-   m_color = 0;
-   m_texture = 0;
-   m_gradient = 0;
+   m_color    = nullptr;
+   m_texture  = nullptr;
+   m_gradient = nullptr;
 }
 
 DomBrush::DomBrush()
@@ -4383,9 +4485,9 @@ DomBrush::DomBrush()
    m_kind = Unknown;
 
    m_has_attr_brushStyle = false;
-   m_color = 0;
-   m_texture = 0;
-   m_gradient = 0;
+   m_color    = nullptr;
+   m_texture  = nullptr;
+   m_gradient = nullptr;
 }
 
 DomBrush::~DomBrush()
@@ -4439,7 +4541,7 @@ void DomBrush::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -4456,28 +4558,32 @@ void DomBrush::write(QXmlStreamWriter &writer, const QString &tagName) const
    switch (kind()) {
       case Color: {
          DomColor *v = elementColor();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("color"));
          }
          break;
       }
+
       case Texture: {
          DomProperty *v = elementTexture();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("texture"));
          }
          break;
       }
+
       case Gradient: {
          DomGradient *v = elementGradient();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("gradient"));
          }
          break;
       }
+
       default:
          break;
    }
+
    if (!m_text.isEmpty()) {
       writer.writeCharacters(m_text);
    }
@@ -4488,7 +4594,7 @@ void DomBrush::write(QXmlStreamWriter &writer, const QString &tagName) const
 DomColor *DomBrush::takeElementColor()
 {
    DomColor *a = m_color;
-   m_color = 0;
+   m_color = nullptr;
    return a;
 }
 
@@ -4502,7 +4608,7 @@ void DomBrush::setElementColor(DomColor *a)
 DomProperty *DomBrush::takeElementTexture()
 {
    DomProperty *a = m_texture;
-   m_texture = 0;
+   m_texture = nullptr;
    return a;
 }
 
@@ -4516,7 +4622,7 @@ void DomBrush::setElementTexture(DomProperty *a)
 DomGradient *DomBrush::takeElementGradient()
 {
    DomGradient *a = m_gradient;
-   m_gradient = 0;
+   m_gradient = nullptr;
    return a;
 }
 
@@ -4537,14 +4643,14 @@ void DomColorRole::clear(bool clear_all)
    }
 
    m_children = 0;
-   m_brush = 0;
+   m_brush = nullptr;
 }
 
 DomColorRole::DomColorRole()
 {
    m_children = 0;
    m_has_attr_role = false;
-   m_brush = 0;
+   m_brush = nullptr;
 }
 
 DomColorRole::~DomColorRole()
@@ -4584,7 +4690,7 @@ void DomColorRole::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -4612,7 +4718,7 @@ void DomColorRole::write(QXmlStreamWriter &writer, const QString &tagName) const
 DomBrush *DomColorRole::takeElementBrush()
 {
    DomBrush *a = m_brush;
-   m_brush = 0;
+   m_brush = nullptr;
    m_children ^= Brush;
    return a;
 }
@@ -4627,7 +4733,7 @@ void DomColorRole::setElementBrush(DomBrush *a)
 void DomColorRole::clearElementBrush()
 {
    delete m_brush;
-   m_brush = 0;
+   m_brush = nullptr;
    m_children &= ~Brush;
 }
 
@@ -4635,6 +4741,7 @@ void DomColorGroup::clear(bool clear_all)
 {
    qDeleteAll(m_colorRole);
    m_colorRole.clear();
+
    qDeleteAll(m_color);
    m_color.clear();
 
@@ -4688,7 +4795,7 @@ void DomColorGroup::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -4736,17 +4843,17 @@ void DomPalette::clear(bool clear_all)
    }
 
    m_children = 0;
-   m_active = 0;
-   m_inactive = 0;
-   m_disabled = 0;
+   m_active   = nullptr;
+   m_inactive = nullptr;
+   m_disabled = nullptr;
 }
 
 DomPalette::DomPalette()
 {
    m_children = 0;
-   m_active = 0;
-   m_inactive = 0;
-   m_disabled = 0;
+   m_active   = nullptr;
+   m_inactive = nullptr;
+   m_disabled = nullptr;
 }
 
 DomPalette::~DomPalette()
@@ -4792,7 +4899,7 @@ void DomPalette::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -4824,7 +4931,7 @@ void DomPalette::write(QXmlStreamWriter &writer, const QString &tagName) const
 DomColorGroup *DomPalette::takeElementActive()
 {
    DomColorGroup *a = m_active;
-   m_active = 0;
+   m_active = nullptr;
    m_children ^= Active;
    return a;
 }
@@ -4839,7 +4946,7 @@ void DomPalette::setElementActive(DomColorGroup *a)
 DomColorGroup *DomPalette::takeElementInactive()
 {
    DomColorGroup *a = m_inactive;
-   m_inactive = 0;
+   m_inactive = nullptr;
    m_children ^= Inactive;
    return a;
 }
@@ -4854,7 +4961,7 @@ void DomPalette::setElementInactive(DomColorGroup *a)
 DomColorGroup *DomPalette::takeElementDisabled()
 {
    DomColorGroup *a = m_disabled;
-   m_disabled = 0;
+   m_disabled = nullptr;
    m_children ^= Disabled;
    return a;
 }
@@ -4869,21 +4976,21 @@ void DomPalette::setElementDisabled(DomColorGroup *a)
 void DomPalette::clearElementActive()
 {
    delete m_active;
-   m_active = 0;
+   m_active = nullptr;
    m_children &= ~Active;
 }
 
 void DomPalette::clearElementInactive()
 {
    delete m_inactive;
-   m_inactive = 0;
+   m_inactive = nullptr;
    m_children &= ~Inactive;
 }
 
 void DomPalette::clearElementDisabled()
 {
    delete m_disabled;
-   m_disabled = 0;
+   m_disabled = nullptr;
    m_children &= ~Disabled;
 }
 
@@ -4980,7 +5087,7 @@ void DomFont::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -5196,7 +5303,7 @@ void DomPoint::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -5304,7 +5411,7 @@ void DomRect::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -5434,7 +5541,7 @@ void DomLocale::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -5538,7 +5645,7 @@ void DomSizePolicy::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -5672,7 +5779,7 @@ void DomSize::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -5774,7 +5881,7 @@ void DomDate::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -5891,7 +5998,7 @@ void DomTime::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -6026,7 +6133,7 @@ void DomDateTime::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -6198,7 +6305,7 @@ void DomStringList::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -6291,7 +6398,7 @@ void DomResourcePixmap::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -6333,31 +6440,32 @@ void DomResourceIcon::clear(bool clear_all)
       m_has_attr_resource = false;
    }
 
-   m_children = 0;
-   m_normalOff = 0;
-   m_normalOn = 0;
-   m_disabledOff = 0;
-   m_disabledOn = 0;
-   m_activeOff = 0;
-   m_activeOn = 0;
-   m_selectedOff = 0;
-   m_selectedOn = 0;
+   m_children    = 0;
+   m_normalOff   = nullptr;
+   m_normalOn    = nullptr;
+   m_disabledOff = nullptr;
+   m_disabledOn  = nullptr;
+   m_activeOff   = nullptr;
+   m_activeOn    = nullptr;
+   m_selectedOff = nullptr;
+   m_selectedOn  = nullptr;
 }
 
 DomResourceIcon::DomResourceIcon()
 {
-   m_children = 0;
-   m_has_attr_theme = false;
+   m_children          = 0;
+   m_has_attr_theme    = false;
    m_has_attr_resource = false;
    m_text.clear();
-   m_normalOff = 0;
-   m_normalOn = 0;
-   m_disabledOff = 0;
-   m_disabledOn = 0;
-   m_activeOff = 0;
-   m_activeOn = 0;
-   m_selectedOff = 0;
-   m_selectedOn = 0;
+
+   m_normalOff   = nullptr;
+   m_normalOn    = nullptr;
+   m_disabledOff = nullptr;
+   m_disabledOn  = nullptr;
+   m_activeOff   = nullptr;
+   m_activeOn    = nullptr;
+   m_selectedOff = nullptr;
+   m_selectedOn  = nullptr;
 }
 
 DomResourceIcon::~DomResourceIcon()
@@ -6381,10 +6489,12 @@ void DomResourceIcon::read(QXmlStreamReader &reader)
          setAttributeTheme(attribute.value().toString());
          continue;
       }
+
       if (name == QLatin1String("resource")) {
          setAttributeResource(attribute.value().toString());
          continue;
       }
+
       reader.raiseError(QLatin1String("Unexpected attribute ") + name);
    }
 
@@ -6398,18 +6508,21 @@ void DomResourceIcon::read(QXmlStreamReader &reader)
                setElementNormalOff(v);
                continue;
             }
+
             if (tag == QLatin1String("normalon")) {
                DomResourcePixmap *v = new DomResourcePixmap();
                v->read(reader);
                setElementNormalOn(v);
                continue;
             }
+
             if (tag == QLatin1String("disabledoff")) {
                DomResourcePixmap *v = new DomResourcePixmap();
                v->read(reader);
                setElementDisabledOff(v);
                continue;
             }
+
             if (tag == QLatin1String("disabledon")) {
                DomResourcePixmap *v = new DomResourcePixmap();
                v->read(reader);
@@ -6422,18 +6535,21 @@ void DomResourceIcon::read(QXmlStreamReader &reader)
                setElementActiveOff(v);
                continue;
             }
+
             if (tag == QLatin1String("activeon")) {
                DomResourcePixmap *v = new DomResourcePixmap();
                v->read(reader);
                setElementActiveOn(v);
                continue;
             }
+
             if (tag == QLatin1String("selectedoff")) {
                DomResourcePixmap *v = new DomResourcePixmap();
                v->read(reader);
                setElementSelectedOff(v);
                continue;
             }
+
             if (tag == QLatin1String("selectedon")) {
                DomResourcePixmap *v = new DomResourcePixmap();
                v->read(reader);
@@ -6443,15 +6559,18 @@ void DomResourceIcon::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -6511,7 +6630,7 @@ void DomResourceIcon::write(QXmlStreamWriter &writer, const QString &tagName) co
 DomResourcePixmap *DomResourceIcon::takeElementNormalOff()
 {
    DomResourcePixmap *a = m_normalOff;
-   m_normalOff = 0;
+   m_normalOff = nullptr;
    m_children ^= NormalOff;
    return a;
 }
@@ -6526,7 +6645,7 @@ void DomResourceIcon::setElementNormalOff(DomResourcePixmap *a)
 DomResourcePixmap *DomResourceIcon::takeElementNormalOn()
 {
    DomResourcePixmap *a = m_normalOn;
-   m_normalOn = 0;
+   m_normalOn = nullptr;
    m_children ^= NormalOn;
    return a;
 }
@@ -6541,7 +6660,7 @@ void DomResourceIcon::setElementNormalOn(DomResourcePixmap *a)
 DomResourcePixmap *DomResourceIcon::takeElementDisabledOff()
 {
    DomResourcePixmap *a = m_disabledOff;
-   m_disabledOff = 0;
+   m_disabledOff = nullptr;
    m_children ^= DisabledOff;
    return a;
 }
@@ -6556,7 +6675,7 @@ void DomResourceIcon::setElementDisabledOff(DomResourcePixmap *a)
 DomResourcePixmap *DomResourceIcon::takeElementDisabledOn()
 {
    DomResourcePixmap *a = m_disabledOn;
-   m_disabledOn = 0;
+   m_disabledOn = nullptr;
    m_children ^= DisabledOn;
    return a;
 }
@@ -6571,7 +6690,7 @@ void DomResourceIcon::setElementDisabledOn(DomResourcePixmap *a)
 DomResourcePixmap *DomResourceIcon::takeElementActiveOff()
 {
    DomResourcePixmap *a = m_activeOff;
-   m_activeOff = 0;
+   m_activeOff = nullptr;
    m_children ^= ActiveOff;
    return a;
 }
@@ -6586,7 +6705,7 @@ void DomResourceIcon::setElementActiveOff(DomResourcePixmap *a)
 DomResourcePixmap *DomResourceIcon::takeElementActiveOn()
 {
    DomResourcePixmap *a = m_activeOn;
-   m_activeOn = 0;
+   m_activeOn = nullptr;
    m_children ^= ActiveOn;
    return a;
 }
@@ -6601,7 +6720,7 @@ void DomResourceIcon::setElementActiveOn(DomResourcePixmap *a)
 DomResourcePixmap *DomResourceIcon::takeElementSelectedOff()
 {
    DomResourcePixmap *a = m_selectedOff;
-   m_selectedOff = 0;
+   m_selectedOff = nullptr;
    m_children ^= SelectedOff;
    return a;
 }
@@ -6616,7 +6735,7 @@ void DomResourceIcon::setElementSelectedOff(DomResourcePixmap *a)
 DomResourcePixmap *DomResourceIcon::takeElementSelectedOn()
 {
    DomResourcePixmap *a = m_selectedOn;
-   m_selectedOn = 0;
+   m_selectedOn = nullptr;
    m_children ^= SelectedOn;
    return a;
 }
@@ -6631,56 +6750,56 @@ void DomResourceIcon::setElementSelectedOn(DomResourcePixmap *a)
 void DomResourceIcon::clearElementNormalOff()
 {
    delete m_normalOff;
-   m_normalOff = 0;
+   m_normalOff = nullptr;
    m_children &= ~NormalOff;
 }
 
 void DomResourceIcon::clearElementNormalOn()
 {
    delete m_normalOn;
-   m_normalOn = 0;
+   m_normalOn = nullptr;
    m_children &= ~NormalOn;
 }
 
 void DomResourceIcon::clearElementDisabledOff()
 {
    delete m_disabledOff;
-   m_disabledOff = 0;
+   m_disabledOff = nullptr;
    m_children &= ~DisabledOff;
 }
 
 void DomResourceIcon::clearElementDisabledOn()
 {
    delete m_disabledOn;
-   m_disabledOn = 0;
+   m_disabledOn = nullptr;
    m_children &= ~DisabledOn;
 }
 
 void DomResourceIcon::clearElementActiveOff()
 {
    delete m_activeOff;
-   m_activeOff = 0;
+   m_activeOff = nullptr;
    m_children &= ~ActiveOff;
 }
 
 void DomResourceIcon::clearElementActiveOn()
 {
    delete m_activeOn;
-   m_activeOn = 0;
+   m_activeOn = nullptr;
    m_children &= ~ActiveOn;
 }
 
 void DomResourceIcon::clearElementSelectedOff()
 {
    delete m_selectedOff;
-   m_selectedOff = 0;
+   m_selectedOff = nullptr;
    m_children &= ~SelectedOff;
 }
 
 void DomResourceIcon::clearElementSelectedOn()
 {
    delete m_selectedOn;
-   m_selectedOn = 0;
+   m_selectedOn = nullptr;
    m_children &= ~SelectedOn;
 }
 
@@ -6744,7 +6863,7 @@ void DomString::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -6813,15 +6932,18 @@ void DomPointF::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -6876,18 +6998,18 @@ void DomRectF::clear(bool clear_all)
    }
 
    m_children = 0;
-   m_x = 0;
-   m_y = 0;
-   m_width = 0;
+   m_x      = 0;
+   m_y      = 0;
+   m_width  = 0;
    m_height = 0;
 }
 
 DomRectF::DomRectF()
 {
    m_children = 0;
-   m_x = 0;
-   m_y = 0;
-   m_width = 0;
+   m_x      = 0;
+   m_y      = 0;
+   m_width  = 0;
    m_height = 0;
 }
 
@@ -6929,7 +7051,7 @@ void DomRectF::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -7014,14 +7136,14 @@ void DomSizeF::clear(bool clear_all)
    }
 
    m_children = 0;
-   m_width = 0;
+   m_width  = 0;
    m_height = 0;
 }
 
 DomSizeF::DomSizeF()
 {
    m_children = 0;
-   m_width = 0;
+   m_width  = 0;
    m_height = 0;
 }
 
@@ -7047,15 +7169,18 @@ void DomSizeF::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -7104,19 +7229,18 @@ void DomSizeF::clearElementHeight()
 
 void DomChar::clear(bool clear_all)
 {
-
    if (clear_all) {
       m_text.clear();
    }
 
    m_children = 0;
-   m_unicode = 0;
+   m_unicode  = 0;
 }
 
 DomChar::DomChar()
 {
    m_children = 0;
-   m_unicode = 0;
+   m_unicode  = 0;
 }
 
 DomChar::~DomChar()
@@ -7125,7 +7249,6 @@ DomChar::~DomChar()
 
 void DomChar::read(QXmlStreamReader &reader)
 {
-
    for (bool finished = false; !finished && !reader.hasError();) {
       switch (reader.readNext()) {
          case QXmlStreamReader::StartElement : {
@@ -7137,15 +7260,18 @@ void DomChar::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -7186,13 +7312,13 @@ void DomUrl::clear(bool clear_all)
    }
 
    m_children = 0;
-   m_string = 0;
+   m_string   = nullptr;
 }
 
 DomUrl::DomUrl()
 {
    m_children = 0;
-   m_string = 0;
+   m_string   = nullptr;
 }
 
 DomUrl::~DomUrl()
@@ -7224,7 +7350,7 @@ void DomUrl::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -7248,7 +7374,7 @@ void DomUrl::write(QXmlStreamWriter &writer, const QString &tagName) const
 DomString *DomUrl::takeElementString()
 {
    DomString *a = m_string;
-   m_string = 0;
+   m_string = nullptr;
    m_children ^= String;
    return a;
 }
@@ -7263,7 +7389,7 @@ void DomUrl::setElementString(DomString *a)
 void DomUrl::clearElementString()
 {
    delete m_string;
-   m_string = 0;
+   m_string = nullptr;
    m_children &= ~String;
 }
 
@@ -7298,73 +7424,73 @@ void DomProperty::clear(bool clear_all)
       m_attr_stdset = 0;
    }
 
-   m_kind = Unknown;
+   m_kind       = Unknown;
 
-   m_color = 0;
-   m_cursor = 0;
-   m_font = 0;
-   m_iconSet = 0;
-   m_pixmap = 0;
-   m_palette = 0;
-   m_point = 0;
-   m_rect = 0;
-   m_locale = 0;
-   m_sizePolicy = 0;
-   m_size = 0;
-   m_string = 0;
-   m_stringList = 0;
-   m_number = 0;
-   m_float = 0.0;
-   m_double = 0;
-   m_date = 0;
-   m_time = 0;
-   m_dateTime = 0;
-   m_pointF = 0;
-   m_rectF = 0;
-   m_sizeF = 0;
-   m_longLong = 0;
-   m_char = 0;
-   m_url = 0;
-   m_UInt = 0;
-   m_uLongLong = 0;
-   m_brush = 0;
+   m_color      = nullptr;
+   m_cursor     = 0;
+   m_font       = nullptr;
+   m_iconSet    = nullptr;
+   m_pixmap     = nullptr;
+   m_palette    = nullptr;
+   m_point      = nullptr;
+   m_rect       = nullptr;
+   m_locale     = nullptr;
+   m_sizePolicy = nullptr;
+   m_size       = nullptr;
+   m_string     = nullptr;
+   m_stringList = nullptr;
+   m_number     = 0;
+   m_float      = 0.0;
+   m_double     = 0;
+   m_date       = nullptr;
+   m_time       = nullptr;
+   m_dateTime   = nullptr;
+   m_pointF     = nullptr;
+   m_rectF      = nullptr;
+   m_sizeF      = nullptr;
+   m_longLong   = 0;
+   m_char       = nullptr;
+   m_url        = nullptr;
+   m_UInt       = 0;
+   m_uLongLong  = 0;
+   m_brush      = nullptr;
 }
 
 DomProperty::DomProperty()
 {
    m_kind = Unknown;
 
-   m_has_attr_name = false;
+   m_has_attr_name   = false;
    m_has_attr_stdset = false;
-   m_attr_stdset = 0;
-   m_color = 0;
-   m_cursor = 0;
-   m_font = 0;
-   m_iconSet = 0;
-   m_pixmap = 0;
-   m_palette = 0;
-   m_point = 0;
-   m_rect = 0;
-   m_locale = 0;
-   m_sizePolicy = 0;
-   m_size = 0;
-   m_string = 0;
-   m_stringList = 0;
-   m_number = 0;
-   m_float = 0.0;
-   m_double = 0;
-   m_date = 0;
-   m_time = 0;
-   m_dateTime = 0;
-   m_pointF = 0;
-   m_rectF = 0;
-   m_sizeF = 0;
-   m_longLong = 0;
-   m_char = 0;
-   m_url = 0;
-   m_UInt = 0;
-   m_uLongLong = 0;
-   m_brush = 0;
+   m_attr_stdset     = 0;
+   m_color           = nullptr;
+   m_cursor          = 0;
+   m_font            = nullptr;
+   m_iconSet         = nullptr;
+   m_pixmap          = nullptr;
+   m_palette         = nullptr;
+   m_point           = nullptr;
+   m_rect            = nullptr;
+   m_locale          = nullptr;
+   m_sizePolicy      = nullptr;
+   m_size            = nullptr;
+   m_string          = nullptr;
+   m_stringList      = nullptr;
+   m_number          = 0;
+   m_float           = 0.0;
+   m_double          = 0;
+   m_date            = nullptr;
+   m_time            = nullptr;
+   m_dateTime        = nullptr;
+   m_pointF          = nullptr;
+   m_rectF           = nullptr;
+   m_sizeF           = nullptr;
+   m_longLong        = 0;
+   m_char            = nullptr;
+   m_url             = nullptr;
+   m_UInt            = 0;
+   m_uLongLong       = 0;
+   m_brush           = nullptr;
 }
 
 DomProperty::~DomProperty()
@@ -7598,7 +7724,7 @@ void DomProperty::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -7621,182 +7747,211 @@ void DomProperty::write(QXmlStreamWriter &writer, const QString &tagName) const
          writer.writeTextElement(QString("bool"), elementBool());
          break;
       }
+
       case Color: {
          DomColor *v = elementColor();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("color"));
          }
          break;
       }
+
       case Cstring: {
          writer.writeTextElement(QString("cstring"), elementCstring());
          break;
       }
+
       case Cursor: {
          writer.writeTextElement(QString("cursor"), QString::number(elementCursor()));
          break;
       }
+
       case CursorShape: {
          writer.writeTextElement(QString("cursorShape"), elementCursorShape());
          break;
       }
+
       case Enum: {
          writer.writeTextElement(QString("enum"), elementEnum());
          break;
       }
+
       case Font: {
          DomFont *v = elementFont();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("font"));
          }
          break;
       }
+
       case IconSet: {
          DomResourceIcon *v = elementIconSet();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("iconset"));
          }
          break;
       }
+
       case Pixmap: {
          DomResourcePixmap *v = elementPixmap();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("pixmap"));
          }
          break;
       }
+
       case Palette: {
          DomPalette *v = elementPalette();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("palette"));
          }
          break;
       }
+
       case Point: {
          DomPoint *v = elementPoint();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("point"));
          }
          break;
       }
+
       case Rect: {
          DomRect *v = elementRect();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("rect"));
          }
          break;
       }
+
       case Set: {
          writer.writeTextElement(QString("set"), elementSet());
          break;
       }
+
       case Locale: {
          DomLocale *v = elementLocale();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("locale"));
          }
          break;
       }
       case SizePolicy: {
          DomSizePolicy *v = elementSizePolicy();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("sizepolicy"));
          }
          break;
       }
+
       case Size: {
          DomSize *v = elementSize();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("size"));
          }
          break;
       }
+
       case String: {
          DomString *v = elementString();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("string"));
          }
          break;
       }
+
       case StringList: {
          DomStringList *v = elementStringList();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("stringlist"));
          }
          break;
       }
+
       case Number: {
          writer.writeTextElement(QString("number"), QString::number(elementNumber()));
          break;
       }
+
       case Float: {
          writer.writeTextElement(QString("float"), QString::number(elementFloat(), 'f', 8));
          break;
       }
+
       case Double: {
          writer.writeTextElement(QString("double"), QString::number(elementDouble(), 'f', 15));
          break;
       }
+
       case Date: {
          DomDate *v = elementDate();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("date"));
          }
          break;
       }
+
       case Time: {
          DomTime *v = elementTime();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("time"));
          }
          break;
       }
+
       case DateTime: {
          DomDateTime *v = elementDateTime();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("datetime"));
          }
          break;
       }
+
       case PointF: {
          DomPointF *v = elementPointF();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("pointf"));
          }
          break;
       }
+
       case RectF: {
          DomRectF *v = elementRectF();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("rectf"));
          }
          break;
       }
+
       case SizeF: {
          DomSizeF *v = elementSizeF();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("sizef"));
          }
          break;
       }
+
       case LongLong: {
          writer.writeTextElement(QString("longLong"), QString::number(elementLongLong()));
          break;
       }
+
       case Char: {
          DomChar *v = elementChar();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("char"));
          }
          break;
       }
+
       case Url: {
          DomUrl *v = elementUrl();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("url"));
          }
          break;
       }
+
       case UInt: {
          writer.writeTextElement(QString("UInt"), QString::number(elementUInt()));
          break;
@@ -7805,16 +7960,19 @@ void DomProperty::write(QXmlStreamWriter &writer, const QString &tagName) const
          writer.writeTextElement(QString("uLongLong"), QString::number(elementULongLong()));
          break;
       }
+
       case Brush: {
          DomBrush *v = elementBrush();
-         if (v != 0) {
+         if (v != nullptr) {
             v->write(writer, QString("brush"));
          }
          break;
       }
+
       default:
          break;
    }
+
    if (!m_text.isEmpty()) {
       writer.writeCharacters(m_text);
    }
@@ -7832,7 +7990,7 @@ void DomProperty::setElementBool(const QString &a)
 DomColor *DomProperty::takeElementColor()
 {
    DomColor *a = m_color;
-   m_color = 0;
+   m_color = nullptr;
    return a;
 }
 
@@ -7874,7 +8032,7 @@ void DomProperty::setElementEnum(const QString &a)
 DomFont *DomProperty::takeElementFont()
 {
    DomFont *a = m_font;
-   m_font = 0;
+   m_font = nullptr;
    return a;
 }
 
@@ -7888,7 +8046,7 @@ void DomProperty::setElementFont(DomFont *a)
 DomResourceIcon *DomProperty::takeElementIconSet()
 {
    DomResourceIcon *a = m_iconSet;
-   m_iconSet = 0;
+   m_iconSet = nullptr;
    return a;
 }
 
@@ -7902,7 +8060,7 @@ void DomProperty::setElementIconSet(DomResourceIcon *a)
 DomResourcePixmap *DomProperty::takeElementPixmap()
 {
    DomResourcePixmap *a = m_pixmap;
-   m_pixmap = 0;
+   m_pixmap = nullptr;
    return a;
 }
 
@@ -7916,7 +8074,7 @@ void DomProperty::setElementPixmap(DomResourcePixmap *a)
 DomPalette *DomProperty::takeElementPalette()
 {
    DomPalette *a = m_palette;
-   m_palette = 0;
+   m_palette = nullptr;
    return a;
 }
 
@@ -7930,7 +8088,7 @@ void DomProperty::setElementPalette(DomPalette *a)
 DomPoint *DomProperty::takeElementPoint()
 {
    DomPoint *a = m_point;
-   m_point = 0;
+   m_point = nullptr;
    return a;
 }
 
@@ -7944,7 +8102,7 @@ void DomProperty::setElementPoint(DomPoint *a)
 DomRect *DomProperty::takeElementRect()
 {
    DomRect *a = m_rect;
-   m_rect = 0;
+   m_rect = nullptr;
    return a;
 }
 
@@ -7965,7 +8123,7 @@ void DomProperty::setElementSet(const QString &a)
 DomLocale *DomProperty::takeElementLocale()
 {
    DomLocale *a = m_locale;
-   m_locale = 0;
+   m_locale = nullptr;
    return a;
 }
 
@@ -7979,7 +8137,7 @@ void DomProperty::setElementLocale(DomLocale *a)
 DomSizePolicy *DomProperty::takeElementSizePolicy()
 {
    DomSizePolicy *a = m_sizePolicy;
-   m_sizePolicy = 0;
+   m_sizePolicy = nullptr;
    return a;
 }
 
@@ -7993,7 +8151,7 @@ void DomProperty::setElementSizePolicy(DomSizePolicy *a)
 DomSize *DomProperty::takeElementSize()
 {
    DomSize *a = m_size;
-   m_size = 0;
+   m_size = nullptr;
    return a;
 }
 
@@ -8007,7 +8165,7 @@ void DomProperty::setElementSize(DomSize *a)
 DomString *DomProperty::takeElementString()
 {
    DomString *a = m_string;
-   m_string = 0;
+   m_string = nullptr;
    return a;
 }
 
@@ -8021,7 +8179,7 @@ void DomProperty::setElementString(DomString *a)
 DomStringList *DomProperty::takeElementStringList()
 {
    DomStringList *a = m_stringList;
-   m_stringList = 0;
+   m_stringList = nullptr;
    return a;
 }
 
@@ -8056,7 +8214,7 @@ void DomProperty::setElementDouble(double a)
 DomDate *DomProperty::takeElementDate()
 {
    DomDate *a = m_date;
-   m_date = 0;
+   m_date = nullptr;
    return a;
 }
 
@@ -8070,7 +8228,7 @@ void DomProperty::setElementDate(DomDate *a)
 DomTime *DomProperty::takeElementTime()
 {
    DomTime *a = m_time;
-   m_time = 0;
+   m_time = nullptr;
    return a;
 }
 
@@ -8084,7 +8242,7 @@ void DomProperty::setElementTime(DomTime *a)
 DomDateTime *DomProperty::takeElementDateTime()
 {
    DomDateTime *a = m_dateTime;
-   m_dateTime = 0;
+   m_dateTime = nullptr;
    return a;
 }
 
@@ -8098,7 +8256,7 @@ void DomProperty::setElementDateTime(DomDateTime *a)
 DomPointF *DomProperty::takeElementPointF()
 {
    DomPointF *a = m_pointF;
-   m_pointF = 0;
+   m_pointF = nullptr;
    return a;
 }
 
@@ -8112,7 +8270,7 @@ void DomProperty::setElementPointF(DomPointF *a)
 DomRectF *DomProperty::takeElementRectF()
 {
    DomRectF *a = m_rectF;
-   m_rectF = 0;
+   m_rectF = nullptr;
    return a;
 }
 
@@ -8126,7 +8284,7 @@ void DomProperty::setElementRectF(DomRectF *a)
 DomSizeF *DomProperty::takeElementSizeF()
 {
    DomSizeF *a = m_sizeF;
-   m_sizeF = 0;
+   m_sizeF = nullptr;
    return a;
 }
 
@@ -8147,7 +8305,7 @@ void DomProperty::setElementLongLong(qint64 a)
 DomChar *DomProperty::takeElementChar()
 {
    DomChar *a = m_char;
-   m_char = 0;
+   m_char = nullptr;
    return a;
 }
 
@@ -8161,7 +8319,7 @@ void DomProperty::setElementChar(DomChar *a)
 DomUrl *DomProperty::takeElementUrl()
 {
    DomUrl *a = m_url;
-   m_url = 0;
+   m_url = nullptr;
    return a;
 }
 
@@ -8189,7 +8347,7 @@ void DomProperty::setElementULongLong(quint64 a)
 DomBrush *DomProperty::takeElementBrush()
 {
    DomBrush *a = m_brush;
-   m_brush = 0;
+   m_brush = nullptr;
    return a;
 }
 
@@ -8239,15 +8397,18 @@ void DomConnections::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -8261,6 +8422,7 @@ void DomConnections::write(QXmlStreamWriter &writer, const QString &tagName) con
       DomConnection *v = m_connection[i];
       v->write(writer, QString("connection"));
    }
+
    if (!m_text.isEmpty()) {
       writer.writeCharacters(m_text);
    }
@@ -8283,13 +8445,13 @@ void DomConnection::clear(bool clear_all)
    }
 
    m_children = 0;
-   m_hints = 0;
+   m_hints    = nullptr;
 }
 
 DomConnection::DomConnection()
 {
    m_children = 0;
-   m_hints = 0;
+   m_hints    = nullptr;
 }
 
 DomConnection::~DomConnection()
@@ -8308,14 +8470,17 @@ void DomConnection::read(QXmlStreamReader &reader)
                setElementSender(reader.readElementText());
                continue;
             }
+
             if (tag == QLatin1String("signal")) {
                setElementSignal(reader.readElementText());
                continue;
             }
+
             if (tag == QLatin1String("receiver")) {
                setElementReceiver(reader.readElementText());
                continue;
             }
+
             if (tag == QLatin1String("slot")) {
                setElementSlot(reader.readElementText());
                continue;
@@ -8329,15 +8494,18 @@ void DomConnection::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -8401,7 +8569,7 @@ void DomConnection::setElementSlot(const QString &a)
 DomConnectionHints *DomConnection::takeElementHints()
 {
    DomConnectionHints *a = m_hints;
-   m_hints = 0;
+   m_hints = nullptr;
    m_children ^= Hints;
    return a;
 }
@@ -8436,7 +8604,7 @@ void DomConnection::clearElementSlot()
 void DomConnection::clearElementHints()
 {
    delete m_hints;
-   m_hints = 0;
+   m_hints     = nullptr;
    m_children &= ~Hints;
 }
 
@@ -8479,15 +8647,18 @@ void DomConnectionHints::read(QXmlStreamReader &reader)
             reader.raiseError(QLatin1String("Unexpected element ") + tag);
          }
          break;
+
          case QXmlStreamReader::EndElement :
             finished = true;
             break;
+
          case QXmlStreamReader::Characters :
             if (!reader.isWhitespace()) {
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+
+         default:
             break;
       }
    }
@@ -8516,7 +8687,6 @@ void DomConnectionHints::setElementHint(const QList<DomConnectionHint *> &a)
 
 void DomConnectionHint::clear(bool clear_all)
 {
-
    if (clear_all) {
       m_text.clear();
       m_has_attr_type = false;
@@ -8573,7 +8743,7 @@ void DomConnectionHint::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -8677,7 +8847,7 @@ void DomScript::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -8749,7 +8919,7 @@ void DomWidgetData::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -8823,7 +8993,7 @@ void DomDesignerData::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -8899,7 +9069,7 @@ void DomSlots::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -8992,7 +9162,7 @@ void DomPropertySpecifications::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
@@ -9079,7 +9249,7 @@ void DomPropertyToolTip::read(QXmlStreamReader &reader)
             }
             break;
 
-         default :
+         default:
             break;
       }
    }
@@ -9163,7 +9333,7 @@ void DomStringPropertySpecification::read(QXmlStreamReader &reader)
                m_text.append(reader.text().toString());
             }
             break;
-         default :
+         default:
             break;
       }
    }
