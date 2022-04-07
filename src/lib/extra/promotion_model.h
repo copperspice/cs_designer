@@ -20,8 +20,8 @@
 #ifndef PROMOTIONMODEL_H
 #define PROMOTIONMODEL_H
 
-#include <QStandardItemModel>
 #include <QSet>
+#include <QStandardItemModel>
 
 class QDesignerFormEditorInterface;
 class QDesignerWidgetDataBaseItemInterface;
@@ -43,7 +43,6 @@ class PromotionModel : public QStandardItemModel
 
    QModelIndex indexOfClass(const QString &className) const;
 
- public:
    CS_SIGNAL_1(Public, void includeFileChanged(QDesignerWidgetDataBaseItemInterface *un_named_arg1, const QString &includeFile))
    CS_SIGNAL_2(includeFileChanged, un_named_arg1, includeFile)
    CS_SIGNAL_1(Public, void classNameChanged(QDesignerWidgetDataBaseItemInterface *un_named_arg1, const QString &newName))
@@ -61,6 +60,5 @@ class PromotionModel : public QStandardItemModel
 };
 
 } // end namespace - qdesigner_internal
-
 
 #endif // PROMOTIONMODEL_H

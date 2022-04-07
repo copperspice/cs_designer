@@ -20,7 +20,6 @@
 #include <rcc_support.h>
 
 #include <qalgorithms.h>
-
 #include <QByteArray>
 #include <QDateTime>
 #include <QDebug>
@@ -28,9 +27,9 @@
 #include <QDirIterator>
 #include <QDomDocument>
 #include <QFile>
+#include <QIODevice>
 #include <QLocale>
 #include <QMultiHash>
-#include <QIODevice>
 #include <QStack>
 
 #include <algorithm>

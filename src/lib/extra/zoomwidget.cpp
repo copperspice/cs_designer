@@ -19,17 +19,17 @@
 
 #include <zoomwidget_p.h>
 
-#include <QGraphicsScene>
-#include <QGraphicsProxyWidget>
-#include <QMenu>
 #include <QAction>
 #include <QActionGroup>
 #include <QContextMenuEvent>
+#include <QDebug>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsScene>
+#include <QList>
+#include <QMenu>
 #include <QScrollBar>
 #include <QTextStream>
 #include <qmath.h>
-#include <QDebug>
-#include <QList>
 
 typedef QList<QAction *> ActionList;
 typedef QList<QGraphicsItem *> GraphicsItemList;
@@ -110,18 +110,15 @@ QList<int> ZoomMenu::zoomValues()
 }
 
 // --------- ZoomView
-ZoomView::ZoomView(QWidget *parent) :
-   QGraphicsView(parent),
-   m_scene(new QGraphicsScene(this)),
-   m_zoom(100),
-   m_zoomFactor(1.0),
-   m_zoomContextMenuEnabled(false),
-   m_zoomMenu(0)
+ZoomView::ZoomView(QWidget *parent)
+   : QGraphicsView(parent), m_scene(new QGraphicsScene(this)), m_zoom(100),
+     m_zoomFactor(1.0), m_zoomContextMenuEnabled(false), m_zoomMenu(nullptr)
 {
    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
    setFrameShape(QFrame::NoFrame);
    setScene(m_scene);
+
    if (debugZoomWidget) {
       qDebug() << "scene" << m_scene->sceneRect();
    }
@@ -280,15 +277,9 @@ bool ZoomedEventFilterRedirector::eventFilter(QObject *watched, QEvent *event)
    return m_zw->zoomedEventFilter(watched, event);
 }
 
-
-// --------- ZoomWidget
-
-ZoomWidget::ZoomWidget(QWidget *parent) :
-   ZoomView(parent),
-   m_proxy(0),
-   m_viewResizeBlocked(false),
-   m_widgetResizeBlocked(false),
-   m_widgetZoomContextMenuEnabled(false)
+ZoomWidget::ZoomWidget(QWidget *parent)
+   : ZoomView(parent), m_proxy(nullptr), m_viewResizeBlocked(false),
+     m_widgetResizeBlocked(false), m_widgetZoomContextMenuEnabled(false)
 {
    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -302,6 +293,7 @@ void ZoomWidget::setWidget(QWidget *w, Qt::WindowFlags wFlags)
 
    if (m_proxy) {
       scene().removeItem(m_proxy);
+
       if (QWidget *w = m_proxy->widget()) {
          // remove the event filter
          if (QObject *evf =  w->findChild<QObject *>(zoomedEventFilterRedirectorNameC)) {
@@ -310,8 +302,9 @@ void ZoomWidget::setWidget(QWidget *w, Qt::WindowFlags wFlags)
       }
       m_proxy->deleteLater();
    }
+
    // Set window flags on the outer proxy for them to take effect
-   m_proxy = createProxyWidget(0, Qt::Window);
+   m_proxy = createProxyWidget(nullptr, Qt::Window);
    m_proxy->setWidget(w);
 
    m_proxy->setWindowFlags(wFlags);

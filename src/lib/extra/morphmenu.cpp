@@ -17,47 +17,47 @@
 *
 ***********************************************************************/
 
-#include <extension.h>
-#include <container.h>
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
 #include <abstract_language.h>
 #include <abstract_widgetdatabase.h>
-#include <designer_propertysheet.h>
-#include <designer_property_command.h>
+#include <container.h>
 #include <designer_formwindow_command.h>
+#include <designer_property_command.h>
+#include <designer_propertysheet.h>
+#include <extension.h>
 #include <layout_info.h>
 #include <layout_widget.h>
 #include <utils.h>
-
-#include <morphmenu_p.h>
-#include <formwindowbase_p.h>
 #include <widgetfactory.h>
-#include <metadatabase_p.h>
 
-#include <QWidget>
+#include <formwindowbase_p.h>
+#include <metadatabase_p.h>
+#include <morphmenu_p.h>
+
+#include <QAbstractButton>
+#include <QAbstractItemView>
+#include <QAbstractSpinBox>
 #include <QAction>
-#include <QMenu>
 #include <QApplication>
-#include <QLayout>
-#include <QUndoStack>
-#include <QSplitter>
+#include <QDebug>
 #include <QFrame>
 #include <QGroupBox>
-#include <QTabWidget>
-#include <QStackedWidget>
-#include <QToolBox>
-#include <QAbstractItemView>
-#include <QAbstractButton>
-#include <QAbstractSpinBox>
-#include <QTextEdit>
-#include <QPlainTextEdit>
 #include <QLabel>
-#include <QStringList>
+#include <QLayout>
 #include <QMap>
-#include <QVariant>
+#include <QMenu>
+#include <QPlainTextEdit>
 #include <QSignalMapper>
-#include <QDebug>
+#include <QSplitter>
+#include <QStackedWidget>
+#include <QStringList>
+#include <QTabWidget>
+#include <QTextEdit>
+#include <QToolBox>
+#include <QUndoStack>
+#include <QVariant>
+#include <QWidget>
 
 CS_DECLARE_METATYPE(QWidgetList)
 
@@ -307,7 +307,7 @@ class MorphWidgetCommand : public QDesignerFormWindowCommand
    static QStringList candidateClasses(QDesignerFormWindowInterface *fw, QWidget *w);
 
  private:
-   static bool canMorph(QDesignerFormWindowInterface *fw, QWidget *w, int *childContainerCount = 0, MorphCategory *cat = 0);
+   static bool canMorph(QDesignerFormWindowInterface *fw, QWidget *w, int *childContainerCount = nullptr, MorphCategory *cat = nullptr);
    void morph(QWidget *before, QWidget *after);
 
    QWidget *m_beforeWidget;
@@ -340,14 +340,13 @@ bool MorphWidgetCommand::addMorphMacro(QDesignerFormWindowInterface *fw, QWidget
       buddyCmd->init(buddyLabel, QString("buddy"), QVariant(newWidgetName.toUtf8()));
       us->push(buddyCmd);
    }
+
    us->endMacro();
    return true;
 }
 
-MorphWidgetCommand::MorphWidgetCommand(QDesignerFormWindowInterface *formWindow)  :
-   QDesignerFormWindowCommand(QString(), formWindow),
-   m_beforeWidget(0),
-   m_afterWidget(0)
+MorphWidgetCommand::MorphWidgetCommand(QDesignerFormWindowInterface *formWindow)
+   : QDesignerFormWindowCommand(QString(), formWindow), m_beforeWidget(nullptr), m_afterWidget(nullptr)
 {
 }
 
@@ -357,10 +356,10 @@ MorphWidgetCommand::~MorphWidgetCommand()
 
 bool MorphWidgetCommand::init(QWidget *widget, const QString &newClassName)
 {
-   QDesignerFormWindowInterface *fw = formWindow();
+   QDesignerFormWindowInterface *fw   = formWindow();
    QDesignerFormEditorInterface *core = fw->core();
 
-   if (!canMorph(fw, widget)) {
+   if (! canMorph(fw, widget)) {
       return false;
    }
 
@@ -490,13 +489,14 @@ void MorphWidgetCommand::morph(QWidget *before, QWidget *after)
    } else if (QSplitter *splitter = dynamic_cast<QSplitter *>(parent)) {
       const int index = splitter->indexOf(before);
       before->hide();
-      before->setParent(0);
+      before->setParent(nullptr);
       splitter->insertWidget(index, after);
       after->setParent(parent);
       after->setGeometry(oldGeom);
+
    } else {
       before->hide();
-      before->setParent(0);
+      before->setParent(nullptr);
       after->setParent(parent);
       after->setGeometry(oldGeom);
    }
@@ -508,6 +508,7 @@ void MorphWidgetCommand::morph(QWidget *before, QWidget *after)
    QDesignerMetaDataBaseItemInterface *formItem = fw->core()->metaDataBase()->item(fw);
    QWidgetList tabOrder = formItem->tabOrder();
    const int tabIndex = tabOrder.indexOf(before);
+
    if (tabIndex != -1) {
       tabOrder.replace(tabIndex, after);
       formItem->setTabOrder(tabOrder);
@@ -528,7 +529,9 @@ bool MorphWidgetCommand::canMorph(QDesignerFormWindowInterface *fw, QWidget *w, 
    if (ptrToChildContainerCount) {
       *ptrToChildContainerCount = 0;
    }
+
    const MorphCategory cat = category(w);
+
    if (ptrToCat) {
       *ptrToCat = cat;
    }
@@ -541,35 +544,43 @@ bool MorphWidgetCommand::canMorph(QDesignerFormWindowInterface *fw, QWidget *w, 
    if (qt_extension<QDesignerLanguageExtension *>(core->extensionManager(), core)) {
       return false;
    }
+
    if (!fw->isManaged(w) || w == fw->mainContainer()) {
       return false;
    }
+
    // Check the parent relationship. We accept only managed parent widgets
    // with a single, managed layout in which widget is a member.
    QWidget *parent = w->parentWidget();
-   if (parent == 0) {
+   if (parent == nullptr) {
       return false;
    }
-   if (QLayout *pl = LayoutInfo::managedLayout(core, parent))
+
+   if (QLayout *pl = LayoutInfo::managedLayout(core, parent)) {
       if (pl->indexOf(w) < 0 || !core->metaDataBase()->item(pl)) {
          return false;
       }
+   }
+
    // Check Widget database
    const QDesignerWidgetDataBaseInterface *wdb = core->widgetDataBase();
    const int wdbindex = wdb->indexOfObject(w);
    if (wdbindex == -1) {
       return false;
    }
+
    const bool isContainer = wdb->item(wdbindex)->isContainer();
    if (!isContainer) {
       return true;
    }
+
    // Check children. All child containers must be non-laid-out or have managed layouts
    const QWidgetList pages = childContainers(core, w);
    const int pageCount = pages.size();
    if (ptrToChildContainerCount) {
       *ptrToChildContainerCount = pageCount;
    }
+
    if (pageCount) {
       for (int i = 0; i < pageCount; i++)
          if (QLayout *cl = pages.at(i)->layout())
@@ -589,32 +600,31 @@ QStringList MorphWidgetCommand::candidateClasses(QDesignerFormWindowInterface *f
    }
 
    QStringList rc = classesOfCategory(cat);
+
    switch (cat) {
       // Frames, etc can always be morphed into one-page page containers
       case MorphSimpleContainer:
          rc += classesOfCategory(MorphPageContainer);
          break;
-      // Multipage-Containers can be morphed into simple containers if they
-      // have 1 page.
+
+      // Multipage-Containers can be morphed into simple containers if they have 1 page.
       case MorphPageContainer:
          if (childContainerCount == 1) {
             rc += classesOfCategory(MorphSimpleContainer);
          }
          break;
+
       default:
          break;
    }
+
    return rc;
 }
 
 // MorphMenu
-MorphMenu::MorphMenu(QObject *parent) :
-   QObject(parent),
-   m_subMenuAction(0),
-   m_menu(0),
-   m_mapper(0),
-   m_widget(0),
-   m_formWindow(0)
+MorphMenu::MorphMenu(QObject *parent)
+   : QObject(parent), m_subMenuAction(nullptr), m_menu(nullptr),    m_mapper(nullptr),
+     m_widget(nullptr), m_formWindow(nullptr)
 {
 }
 
@@ -642,8 +652,8 @@ bool MorphMenu::populateMenu(QWidget *w, QDesignerFormWindowInterface *fw)
    typedef void (QSignalMapper::*MapperVoidSlot)();
    typedef void (QSignalMapper::*MapperStringSignal)(const QString &);
 
-   m_widget = 0;
-   m_formWindow = 0;
+   m_widget     = nullptr;
+   m_formWindow = nullptr;
 
    // Clear menu
    if (m_subMenuAction) {

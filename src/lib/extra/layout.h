@@ -22,12 +22,12 @@
 
 #include <layout_info.h>
 
-#include <QPointer>
-#include <QObject>
-#include <QMap>
+#include <QGridLayout>
 #include <QHash>
 #include <QLayout>
-#include <QGridLayout>
+#include <QMap>
+#include <QObject>
+#include <QPointer>
 #include <QWidget>
 
 class QDesignerFormWindowInterface;

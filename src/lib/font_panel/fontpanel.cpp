@@ -30,7 +30,7 @@
 FontPanel::FontPanel(QWidget *parentWidget)
    : QGroupBox(parentWidget), m_previewLineEdit(new QLineEdit), m_writingSystemComboBox(new QComboBox),
      m_familyComboBox(new QFontComboBox), m_styleComboBox(new QComboBox), m_pointSizeComboBox(new QComboBox),
-     m_previewFontUpdateTimer(0)
+     m_previewFontUpdateTimer(nullptr)
 {
    setTitle(tr("Font"));
 

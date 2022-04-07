@@ -24,7 +24,7 @@
 #include <QTextEdit>
 
 TextEditFindWidget::TextEditFindWidget(FindFlags flags, QWidget *parent)
-   : AbstractFindWidget(flags, parent), m_textEdit(0)
+   : AbstractFindWidget(flags, parent), m_textEdit(nullptr)
 {
 }
 

@@ -18,21 +18,21 @@
 ***********************************************************************/
 
 #include <abstract_formeditor.h>
+#include <designer_utils.h>
+#include <widgetfactory.h>
 
 #include <deviceprofile_p.h>
-#include <widgetfactory.h>
-#include <designer_utils.h>
 
 #include <QApplication>
-#include <QFont>
+#include <QApplication>
 #include <QDesktopWidget>
+#include <QFont>
+#include <QSharedData>
 #include <QStyle>
 #include <QStyleFactory>
-#include <QApplication>
-#include <QSharedData>
 #include <QTextStream>
-#include <QXmlStreamWriter>
 #include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 static const QString dpiXPropertyC = "_q_customDpiX";
 static const QString dpiYPropertyC = "_q_customDpiY";

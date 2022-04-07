@@ -21,10 +21,10 @@
 #include <widgetbox_treewidget.h>
 #include <widgetbox_dnditem.h>
 #include <abstract_formeditor.h>
+#include <designer_utils.h>
 #include <formwindowbase_p.h>
 
 #include <iconloader_p.h>
-#include <designer_utils.h>
 
 #include <QDropEvent>
 #include <QVBoxLayout>
@@ -124,7 +124,7 @@ void WidgetBox::handleMousePress(const QString &name, const QString &xml, const 
 
    DomUI *ui = xmlToUi(name, xml, true);
 
-   if (ui == 0) {
+   if (ui == nullptr) {
       return;
    }
 
@@ -210,14 +210,14 @@ static const QDesignerMimeData *checkDragEvent(QDropEvent *event,
    const QDesignerMimeData *mimeData = dynamic_cast<const QDesignerMimeData *>(event->mimeData());
    if (!mimeData) {
       event->ignore();
-      return 0;
+      return nullptr;
    }
    // If desired, ignore a widget box drag and drop, where widget==0.
    if (!acceptEventsFromWidgetBox) {
       const bool fromWidgetBox = !mimeData->items().first()->widget();
       if (fromWidgetBox) {
          event->ignore();
-         return 0;
+         return nullptr;
       }
    }
 

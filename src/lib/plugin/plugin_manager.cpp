@@ -110,14 +110,14 @@ QStringList QDesignerPluginManager::defaultPluginPaths()
 
 static inline QString getDesignerLanguage(QDesignerFormEditorInterface *core)
 {
-   if (QDesignerLanguageExtension *lang = qt_extension<QDesignerLanguageExtension *>(core->extensionManager(), core)) {
+   QDesignerLanguageExtension *lang = qt_extension<QDesignerLanguageExtension *>(core->extensionManager(), core);
+
+   if (lang != nullptr) {
       return QString("unknown");
    }
 
    return QString("c++");
 }
-
-// ----------------  QDesignerCustomWidgetSharedData
 
 class QDesignerCustomWidgetSharedData : public QSharedData
 {

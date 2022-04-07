@@ -25,9 +25,9 @@
 #include <customwidget.h>
 #include <properties.h>
 #include <ui4.h>
-
 #include <simple_resource.h>
 #include <widgetfactory.h>
+
 #include <widgetdatabase_p.h>
 
 #include <QIcon>
@@ -221,20 +221,21 @@ void QSimpleResource::addCustomWidgetsToWidgetDatabase(const QDesignerFormEditor
          db->append(item);
          custom_widget_list.removeAt(i);
          classInserted = true;
+
       } else {
          // Create a new entry cloned from base class. Note that this will ignore existing
          // classes, eg, plugin custom widgets.
          QDesignerWidgetDataBaseItemInterface *item =
-            appendDerived(db, customClassName, QCoreApplication::translate("Designer", "Promoted Widgets"),
-               base_class,
-               buildIncludeFile(includeFile, includeType),
-               true, true);
-         // Ok, base class found.
+               appendDerived(db, customClassName, QCoreApplication::translate("Designer", "Promoted Widgets"),
+               base_class, buildIncludeFile(includeFile, includeType), true, true);
+
+         // base class found
          if (item) {
-            // Hack to accommodate for old UI-files in which "container" is not set properly:
+            // Done to accommodate for old UI-files in which "container" is not set properly:
             // Apply "container" from DOM only if true (else, eg classes from QFrame might not accept
             // dropping child widgets on them as container=false). This also allows for
             // QWidget-derived stacked pages.
+
             if (domIsContainer) {
                item->setContainer(domIsContainer);
             }
@@ -244,9 +245,10 @@ void QSimpleResource::addCustomWidgetsToWidgetDatabase(const QDesignerFormEditor
             classInserted = true;
          }
       }
+
       // Skip failed item.
       if (!classInserted) {
-         i++;
+         ++i;
       }
    }
 
@@ -255,7 +257,7 @@ void QSimpleResource::addCustomWidgetsToWidgetDatabase(const QDesignerFormEditor
 void QSimpleResource::handleDomCustomWidgets(const QDesignerFormEditorInterface *core,
    const DomCustomWidgets *dom_custom_widgets)
 {
-   if (dom_custom_widgets == 0) {
+   if (dom_custom_widgets == nullptr) {
       return;
    }
    QList<DomCustomWidget *> custom_widget_list = dom_custom_widgets->elementCustomWidget();

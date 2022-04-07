@@ -19,13 +19,13 @@
 
 #include <ui_designer_gridpanel.h>
 
-#include <gridpanel_p.h>
 #include <grid_p.h>
+#include <gridpanel_p.h>
 
 namespace qdesigner_internal {
 
-GridPanel::GridPanel(QWidget *parentWidget) :
-   QWidget(parentWidget)
+GridPanel::GridPanel(QWidget *parentWidget)
+   : QWidget(parentWidget)
 {
    m_ui = new Ui::GridPanel;
    m_ui->setupUi(this);

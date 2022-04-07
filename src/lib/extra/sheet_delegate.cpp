@@ -20,9 +20,9 @@
 #include <sheet_delegate_p.h>
 
 #include <QAbstractItemModel>
-#include <QTreeView>
-#include <QStyle>
 #include <QPainter>
+#include <QStyle>
+#include <QTreeView>
 
 namespace qdesigner_internal {
 

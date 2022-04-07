@@ -23,10 +23,10 @@
 #include <abstract_widgetdatabase.h>
 
 #include <QIcon>
-#include <QString>
-#include <QVariant>
 #include <QPair>
+#include <QString>
 #include <QStringList>
+#include <QVariant>
 
 class QObject;
 class QDesignerCustomWidgetInterface;

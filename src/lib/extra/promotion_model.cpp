@@ -17,15 +17,15 @@
 *
 ***********************************************************************/
 
-#include <abstract_widgetdatabase.h>
-#include <abstract_promotioninterface.h>
 #include <abstract_formeditor.h>
+#include <abstract_promotioninterface.h>
+#include <abstract_widgetdatabase.h>
 #include <promotion_model.h>
 
 #include <widgetdatabase_p.h>
 
-#include <QStandardItem>
 #include <QCoreApplication>
+#include <QStandardItem>
 
 namespace {
 typedef QList<QStandardItem *> StandardItemList;
@@ -131,8 +131,9 @@ void PromotionModel::updateFromWidgetDatabase()
    const QSet<QString> usedPromotedClasses = m_core->promotion()->referencedPromotedClassNames();
 
    QDesignerWidgetDataBaseInterface *widgetDataBase = m_core->widgetDataBase();
-   QDesignerWidgetDataBaseItemInterface *baseClass = 0;
-   QStandardItem *baseItem = 0;
+   QDesignerWidgetDataBaseItemInterface *baseClass  = nullptr;
+
+   QStandardItem *baseItem = nullptr;
 
    const PromotedClasses::const_iterator bcend = promotedClasses.constEnd();
    for (PromotedClasses::const_iterator it = promotedClasses.constBegin(); it !=  bcend; ++it) {
@@ -143,7 +144,9 @@ void PromotionModel::updateFromWidgetDatabase()
          baseItem = baseRow.front();
          appendRow(baseRow);
       }
+
       Q_ASSERT(baseItem);
+
       // Append derived
       baseItem->appendRow(promotedModelRow(widgetDataBase, it->promotedItem, usedPromotedClasses.contains(it->promotedItem->name())));
    }

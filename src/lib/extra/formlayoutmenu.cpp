@@ -17,33 +17,33 @@
 *
 ***********************************************************************/
 
-#include <extension.h>
-#include <abstract_widgetdatabase.h>
-#include <abstract_language.h>
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
+#include <abstract_language.h>
+#include <abstract_widgetdatabase.h>
 #include <abstract_widgetfactory.h>
+#include <designer_command.h>
+#include <designer_property_command.h>
+#include <designer_propertysheet.h>
+#include <designer_utils.h>
+#include <extension.h>
 #include <layout_info.h>
 #include <ui_formlayout_addrow.h>
 
 #include <formlayoutmenu_p.h>
-#include <designer_command.h>
-#include <designer_utils.h>
-#include <designer_property_command.h>
-#include <designer_propertysheet.h>
 
 #include <QAction>
-#include <QWidget>
-#include <QFormLayout>
-#include <QUndoStack>
-#include <QDialog>
-#include <QPushButton>
-#include <QValidator>
-#include <QPair>
 #include <QCoreApplication>
-#include <QRegularExpression>
-#include <QMultiHash>
 #include <QDebug>
+#include <QDialog>
+#include <QFormLayout>
+#include <QMultiHash>
+#include <QPair>
+#include <QPushButton>
+#include <QRegularExpression>
+#include <QUndoStack>
+#include <QValidator>
+#include <QWidget>
 
 static const QString buddyPropertyC = "buddy";
 
@@ -168,6 +168,7 @@ FormLayoutRow FormLayoutRowDialog::formLayoutRow() const
    rc.fieldClassName = fieldClass();
    rc.fieldName = m_ui.fieldNameLineEdit->text();
    rc.buddy = buddy();
+
    return rc;
 }
 
@@ -387,7 +388,7 @@ QStringList FormLayoutRowDialog::fieldWidgetClasses(QDesignerFormEditorInterface
       // extension installed which might do funny things with custom widgets.
       QMultiHash<QString, QString> customClassMap;
 
-      if (qt_extension<QDesignerLanguageExtension *>(core->extensionManager(), core) == 0) {
+      if (qt_extension<QDesignerLanguageExtension *>(core->extensionManager(), core) == nullptr) {
          const QDesignerWidgetDataBaseInterface *wdb = core->widgetDataBase();
          const int wdbCount = wdb->count();
 
@@ -476,20 +477,21 @@ static void addFormLayoutRow(const FormLayoutRow &formLayoutRow, int row, QWidge
    InsertWidgetCommand *controlCmd = new InsertWidgetCommand(formWindow);
    controlCmd->init(widgetPair.second, false, row, 1);
    undoStack->push(controlCmd);
+
    if (formLayoutRow.buddy) {
       SetPropertyCommand *buddyCommand = new SetPropertyCommand(formWindow);
       buddyCommand->init(widgetPair.first, QLatin1String(buddyPropertyC), widgetPair.second->objectName());
       undoStack->push(buddyCommand);
    }
+
    undoStack->endMacro();
 }
 
-// ---------------- FormLayoutMenu
-FormLayoutMenu::FormLayoutMenu(QObject *parent) :
-   QObject(parent),
-   m_separator1(new QAction(this)),
-   m_populateFormAction(new QAction(tr("Add form layout row..."), this)),
-   m_separator2(new QAction(this))
+FormLayoutMenu::FormLayoutMenu(QObject *parent)
+   : QObject(parent),
+     m_separator1(new QAction(this)),
+     m_populateFormAction(new QAction(tr("Add form layout row..."), this)),
+     m_separator2(new QAction(this))
 {
    m_separator1->setSeparator(true);
    connect(m_populateFormAction, &QAction::triggered, this, &FormLayoutMenu::slotAddRow);
@@ -510,7 +512,7 @@ void FormLayoutMenu::populate(QWidget *w, QDesignerFormWindowInterface *fw, Acti
          break;
 
       default:
-         m_widget = 0;
+         m_widget = nullptr;
          break;
    }
 }

@@ -19,17 +19,17 @@
 
 #include <abstract_formeditor.h>
 #include <designer_settings.h>
+#include <designer_utils.h>
+#include <grid_p.h>
 #include <preview_manager.h>
 
-#include <grid_p.h>
 #include <shared_settings_p.h>
-#include <designer_utils.h>
 
-#include <QStringList>
-#include <QDir>
-#include <QVariant>
 #include <QCoreApplication>
+#include <QDir>
 #include <QSize>
+#include <QStringList>
+#include <QVariant>
 
 static const QString designerPath          = "/.designer";
 static const QString defaultGridKey        = "defaultGrid";

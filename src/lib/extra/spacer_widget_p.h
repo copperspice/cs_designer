@@ -20,8 +20,8 @@
 #ifndef SPACER_WIDGET_H
 #define SPACER_WIDGET_H
 
-#include <QWidget>
 #include <QSizePolicy>
+#include <QWidget>
 
 class QDesignerFormWindowInterface;
 

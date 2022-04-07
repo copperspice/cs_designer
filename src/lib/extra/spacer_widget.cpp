@@ -17,19 +17,19 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
+#include <abstract_formwindow.h>
+#include <designer_propertysheet.h>
 #include <extension.h>
 #include <layout_info.h>
-#include <designer_propertysheet.h>
 
 #include <spacer_widget_p.h>
 
+#include <QDebug>
+#include <QEvent>
 #include <QLayout>
 #include <QPainter>
-#include <QEvent>
-#include <QDebug>
 
 // The Spacer widget is Designer representation of  QLayoutItem.
 // It uses QLayoutItem's sizeHint property as QWidget
@@ -39,13 +39,11 @@
 // and enables sizeHandle-resizing. In a layout, however, this m_SizeOffset
 // should not be applied for  pixel-exact design.
 
-Spacer::Spacer(QWidget *parent) :
-   QWidget(parent),
-   m_SizeOffset(3, 3), // A small offset to ensure the spacer is still visible when reset to size 0,0
-   m_orientation(Qt::Vertical),
-   m_interactive(true),
-   m_layoutState(UnknownLayoutState),
-   m_sizeHint(0, 0)
+Spacer::Spacer(QWidget *parent)
+   : QWidget(parent),
+     m_SizeOffset(3, 3), // A small offset to ensure the spacer is still visible when reset to size 0,0
+     m_orientation(Qt::Vertical), m_interactive(true), m_layoutState(UnknownLayoutState),
+     m_sizeHint(0, 0)
 {
    setAttribute(Qt::WA_MouseNoMask);
    m_formWindow = QDesignerFormWindowInterface::findFormWindow(this);
@@ -83,14 +81,16 @@ bool Spacer::isInLayout() const
 void Spacer::paintEvent(QPaintEvent *)
 {
    // Only draw spacers when we're editting widgets
-   if (m_formWindow != 0 && m_formWindow->currentTool() != 0) {
+   if (m_formWindow != nullptr && m_formWindow->currentTool() != 0) {
       return;
    }
 
    QPainter p(this);
    p.setPen(Qt::blue);
+
    const int w = width();
    const int h = height();
+
    if (w * h == 0) {
       return;
    }

@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#include <QTextStream>
-#include <QTextEdit>
-
 #include <htmlhighlighter_p.h>
+
+#include <QTextEdit>
+#include <QTextStream>
 
 namespace qdesigner_internal {
 

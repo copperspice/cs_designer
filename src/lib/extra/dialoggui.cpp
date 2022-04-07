@@ -19,13 +19,13 @@
 
 #include <dialoggui_p.h>
 
+#include <QFile>
 #include <QFileIconProvider>
+#include <QFileInfo>
 #include <QIcon>
 #include <QImage>
 #include <QImageReader>
 #include <QPixmap>
-#include <QFileInfo>
-#include <QFile>
 #include <QSet>
 
 // QFileDialog on X11 does not provide an image preview. Display icons.
@@ -98,18 +98,19 @@ QIcon IconProvider::icon (const QFileInfo &info) const
 {
    // Don't get stuck on large images.
    const qint64 maxSize = 131072;
+
    if (loadCheck(info) && info.size() < maxSize) {
       const QImage image = loadImage(info.absoluteFilePath());
       if (!image.isNull()) {
          return QIcon(QPixmap::fromImage(image, Qt::ThresholdDither | Qt::AutoColor));
       }
    }
+
    return QFileIconProvider::icon(info);
 }
 
-// ---------------- DialogGui
-DialogGui::DialogGui() :
-   m_iconProvider(0)
+DialogGui::DialogGui()
+   : m_iconProvider(nullptr)
 {
 }
 

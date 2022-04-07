@@ -17,37 +17,37 @@
 *
 ***********************************************************************/
 
+#include <abstract_dialoggui.h>
 #include <abstract_formeditor.h>
-#include <abstract_resourcebrowser.h>
-#include <abstract_language.h>
 #include <abstract_integration.h>
+#include <abstract_language.h>
+#include <abstract_resourcebrowser.h>
+#include <designer_utils.h>
 #include <extension.h>
 #include <resource_model.h>
-#include <abstract_dialoggui.h>
-#include <designer_utils.h>
 #include <resource_view.h>
 
-#include <iconselector_p.h>
-#include <iconloader_p.h>
 #include <formwindowbase_p.h>
+#include <iconloader_p.h>
+#include <iconselector_p.h>
 
-#include <QToolButton>
-#include <QSignalMapper>
-#include <QComboBox>
 #include <QAction>
-#include <QDialogButtonBox>
-#include <QPushButton>
-#include <QDialog>
-#include <QMenu>
 #include <QApplication>
-#include <QVBoxLayout>
-#include <QImageReader>
-#include <QDialogButtonBox>
-#include <QVBoxLayout>
-#include <QLineEdit>
-#include <QLabel>
-#include <QValidator>
+#include <QComboBox>
 #include <QDebug>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QDialogButtonBox>
+#include <QImageReader>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMenu>
+#include <QPushButton>
+#include <QSignalMapper>
+#include <QToolButton>
+#include <QVBoxLayout>
+#include <QVBoxLayout>
+#include <QValidator>
 
 namespace qdesigner_internal {
 
@@ -77,7 +77,7 @@ class LanguageResourceDialogPrivate
 };
 
 LanguageResourceDialogPrivate::LanguageResourceDialogPrivate(QDesignerResourceBrowserInterface *rb)
-   : q_ptr(0), m_browser(rb),
+   : q_ptr(nullptr), m_browser(rb),
      m_dialogButtonBox(new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal))
 {
    setOkButtonEnabled(false);
@@ -162,17 +162,19 @@ QString LanguageResourceDialog::currentPath() const
 
 LanguageResourceDialog *LanguageResourceDialog::create(QDesignerFormEditorInterface *core, QWidget *parent)
 {
-   if (QDesignerLanguageExtension *lang = qt_extension<QDesignerLanguageExtension *>(core->extensionManager(), core))
-      if (QDesignerResourceBrowserInterface *rb = lang->createResourceBrowser(0)) {
+   if (QDesignerLanguageExtension *lang = qt_extension<QDesignerLanguageExtension *>(core->extensionManager(), core)) {
+
+      if (QDesignerResourceBrowserInterface *rb = lang->createResourceBrowser(nullptr)) {
          return new LanguageResourceDialog(rb, parent);
       }
-   if (QDesignerResourceBrowserInterface *rb = core->integration()->createResourceBrowser(0)) {
+   }
+
+   if (QDesignerResourceBrowserInterface *rb = core->integration()->createResourceBrowser(nullptr)) {
       return new LanguageResourceDialog(rb, parent);
    }
-   return 0;
-}
 
-// ------------ IconSelectorPrivate
+   return nullptr;
+}
 
 static inline QPixmap emptyPixmap()
 {
@@ -185,6 +187,7 @@ class IconSelectorPrivate
 {
    IconSelector *q_ptr;
    Q_DECLARE_PUBLIC(IconSelector)
+
  public:
    IconSelectorPrivate();
 
@@ -213,17 +216,10 @@ class IconSelectorPrivate
    QDesignerFormEditorInterface *m_core;
 };
 
-IconSelectorPrivate::IconSelectorPrivate() :
-   q_ptr(0),
-   m_emptyIcon(emptyPixmap()),
-   m_stateComboBox(0),
-   m_iconButton(0),
-   m_resetAction(0),
-   m_resetAllAction(0),
-   m_iconCache(0),
-   m_pixmapCache(0),
-   m_resourceModel(0),
-   m_core(0)
+IconSelectorPrivate::IconSelectorPrivate()
+   : q_ptr(nullptr), m_emptyIcon(emptyPixmap()), m_stateComboBox(nullptr), m_iconButton(nullptr),
+     m_resetAction(nullptr), m_resetAllAction(nullptr), m_iconCache(nullptr), m_pixmapCache(nullptr),
+     m_resourceModel(nullptr), m_core(nullptr)
 {
 }
 void IconSelectorPrivate::slotUpdate()
@@ -235,6 +231,7 @@ void IconSelectorPrivate::slotUpdate()
 
    QMap<QPair<QIcon::Mode, QIcon::State>, PropertySheetPixmapValue> paths = m_icon.paths();
    QMapIterator<QPair<QIcon::Mode, QIcon::State>, int> itIndex(m_stateToIndex);
+
    while (itIndex.hasNext()) {
       const QPair<QIcon::Mode, QIcon::State> state = itIndex.next().key();
       const PropertySheetPixmapValue pixmap = paths.value(state);
@@ -569,14 +566,19 @@ void IconSelector::setPixmapCache(DesignerPixmapCache *pixmapCache)
 class BlankSuppressingValidator : public QValidator
 {
  public:
-   explicit BlankSuppressingValidator(QObject *parent = 0) : QValidator(parent) {}
+   explicit BlankSuppressingValidator(QObject *parent = nullptr)
+      : QValidator(parent)
+   {
+   }
 
    virtual State validate(QString &input, int &pos) const {
-      const int blankPos = input.indexOf(QLatin1Char(' '));
+      const int blankPos = input.indexOf(' ');
+
       if (blankPos != -1) {
          pos = blankPos;
          return Invalid;
       }
+
       return Acceptable;
    }
 };
@@ -652,9 +654,11 @@ void IconThemeEditor::updatePreview(const QString &t)
    // Update preview label with icon.
    if (t.isEmpty() || !QIcon::hasThemeIcon(t)) { // Empty
       const QPixmap *currentPixmap = d->m_themeLabel->pixmap();
-      if (currentPixmap == 0 || currentPixmap->cacheKey() != d->m_emptyPixmap.cacheKey()) {
+
+      if (currentPixmap == nullptr || currentPixmap->cacheKey() != d->m_emptyPixmap.cacheKey()) {
          d->m_themeLabel->setPixmap(d->m_emptyPixmap);
       }
+
    } else {
       const QIcon icon = QIcon::fromTheme(t);
       d->m_themeLabel->setPixmap(icon.pixmap(d->m_emptyPixmap.size()));

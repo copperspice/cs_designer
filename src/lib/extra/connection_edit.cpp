@@ -20,17 +20,17 @@
 #include <abstract_formwindow.h>
 #include <connection_edit.h>
 
-#include <QPainter>
-#include <QPaintEvent>
-#include <QFontMetrics>
-#include <QPixmap>
-#include <QMatrix>
+#include <qalgorithms.h>
+#include <QAction>
 #include <QApplication>
 #include <QContextMenuEvent>
+#include <QFontMetrics>
+#include <QMatrix>
 #include <QMenu>
-#include <QAction>
 #include <QMultiMap>
-#include <qalgorithms.h>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QPixmap>
 
 constexpr const int BG_ALPHA =              32;
 constexpr const int LINE_PROXIMITY_RADIUS =  3;
@@ -266,24 +266,15 @@ void SetEndPointCommand::undo()
 ** Connection
 */
 
-Connection::Connection(ConnectionEdit *edit) :
-   m_source_pos(QPoint(-1, -1)),
-   m_target_pos(QPoint(-1, -1)),
-   m_source(0),
-   m_target(0),
-   m_edit(edit),
-   m_visible(true)
+Connection::Connection(ConnectionEdit *edit)
+   : m_source_pos(QPoint(-1, -1)), m_target_pos(QPoint(-1, -1)),
+     m_source(nullptr), m_target(nullptr), m_edit(edit), m_visible(true)
 {
-
 }
 
-Connection::Connection(ConnectionEdit *edit, QObject *source, QObject *target) :
-   m_source_pos(QPoint(-1, -1)),
-   m_target_pos(QPoint(-1, -1)),
-   m_source(source),
-   m_target(target),
-   m_edit(edit),
-   m_visible(true)
+Connection::Connection(ConnectionEdit *edit, QObject *source, QObject *target)
+   : m_source_pos(QPoint(-1, -1)), m_target_pos(QPoint(-1, -1)),
+     m_source(source), m_target(target), m_edit(edit), m_visible(true)
 {
 }
 
@@ -297,7 +288,7 @@ void Connection::updateVisibility()
    QWidget *source = widget(EndPoint::Source);
    QWidget *target = widget(EndPoint::Target);
 
-   if (source == 0 || target == 0) {
+   if (source == nullptr || target == nullptr) {
       setVisible(false);
       return;
    }
@@ -312,11 +303,13 @@ void Connection::updateVisibility()
    }
 
    w = target;
+
    while (w && w->parentWidget()) {
       if (!w->isVisibleTo(w->parentWidget())) {
          setVisible(false);
          return;
       }
+
       w = w->parentWidget();
    }
 
@@ -330,7 +323,7 @@ bool Connection::isVisible() const
 
 bool Connection::ground() const
 {
-   return m_target != 0 && m_target == m_edit->m_bg_widget;
+   return m_target != nullptr && m_target == m_edit->m_bg_widget;
 }
 
 QPoint Connection::endPointPos(EndPoint::Type type) const
@@ -350,12 +343,15 @@ static QPoint lineEntryPos(const QPoint &p1, const QPoint &p2, const QRect &rect
       case CETypes::UpDir:
          result = QPoint(p1.x(), rect.bottom());
          break;
+
       case CETypes::DownDir:
          result = QPoint(p1.x(), rect.top());
          break;
+
       case CETypes::LeftDir:
          result = QPoint(rect.right(), p1.y());
          break;
+
       case CETypes::RightDir:
          result = QPoint(rect.left(), p1.y());
          break;
@@ -374,16 +370,19 @@ static QPolygonF arrowHead(const QPoint &p1, const QPoint &p2)
          result.append(p2 + QPoint(LINE_PROXIMITY_RADIUS, LINE_PROXIMITY_RADIUS * 2 + 1));
          result.append(p2 + QPoint(-LINE_PROXIMITY_RADIUS, LINE_PROXIMITY_RADIUS * 2 + 1));
          break;
+
       case CETypes::DownDir:
          result.append(p2);
          result.append(p2 + QPoint(LINE_PROXIMITY_RADIUS, -LINE_PROXIMITY_RADIUS * 2));
          result.append(p2 + QPoint(-LINE_PROXIMITY_RADIUS, -LINE_PROXIMITY_RADIUS * 2));
          break;
+
       case CETypes::LeftDir:
          result.append(p2 + QPoint(1, 0));
          result.append(p2 + QPoint(2 * LINE_PROXIMITY_RADIUS + 1, -LINE_PROXIMITY_RADIUS));
          result.append(p2 + QPoint(2 * LINE_PROXIMITY_RADIUS + 1, LINE_PROXIMITY_RADIUS));
          break;
+
       case CETypes::RightDir:
          result.append(p2);
          result.append(p2 + QPoint(-2 * LINE_PROXIMITY_RADIUS, -LINE_PROXIMITY_RADIUS));
@@ -425,6 +424,7 @@ static bool pointAboveLine(const QPoint &l1, const QPoint &l2, const QPoint &p)
    if (l1.x() == l2.x()) {
       return p.x() >= l1.x();
    }
+
    return p.y() <= l1.y() + (p.x() - l1.x()) * (l2.y() - l1.y()) / (l2.x() - l1.x());
 }
 
@@ -441,18 +441,22 @@ void Connection::updateKneeList()
    m_knee_list.clear();
    m_arrow_head.clear();
 
-   if (m_source == 0 || s == QPoint(-1, -1) || t == QPoint(-1, -1)) {
+   if (m_source == nullptr || s == QPoint(-1, -1) || t == QPoint(-1, -1)) {
       return;
    }
 
    const QRect r = sr | tr;
 
    m_knee_list.append(s);
-   if (m_target == 0) {
+
+   if (m_target == nullptr) {
       m_knee_list.append(QPoint(t.x(), s.y()));
+
    } else if (m_target == m_edit->m_bg_widget) {
       m_knee_list.append(QPoint(s.x(), t.y()));
+
    } else if (tr.contains(sr) || sr.contains(tr)) {
+
       /*
               +------------------+
               | +----------+     |
@@ -472,19 +476,23 @@ void Connection::updateKneeList()
             m_knee_list.append(QPoint(s.x(), r.top() - LOOP_MARGIN));
             m_knee_list.append(QPoint(t.x(), r.top() - LOOP_MARGIN));
             break;
+
          case DownDir:
             m_knee_list.append(QPoint(s.x(), r.bottom() + LOOP_MARGIN));
             m_knee_list.append(QPoint(t.x(), r.bottom() + LOOP_MARGIN));
             break;
+
          case LeftDir:
             m_knee_list.append(QPoint(r.left() - LOOP_MARGIN, s.y()));
             m_knee_list.append(QPoint(r.left() - LOOP_MARGIN, t.y()));
             break;
+
          case RightDir:
             m_knee_list.append(QPoint(r.right() + LOOP_MARGIN, s.y()));
             m_knee_list.append(QPoint(r.right() + LOOP_MARGIN, t.y()));
             break;
       }
+
    } else {
       if (r.height() < sr.height() + tr.height()) {
          if ((s.y() >= tr.top() && s.y() <= tr.bottom()) || (t.y() >= sr.bottom() || t.y() <= sr.top())) {
@@ -500,6 +508,7 @@ void Connection::updateKneeList()
                             When dragging one end point, move the other end point to the same y position,
                             if that does not cause it to exit it's rectangle.
             */
+
             if (m_edit->state() == ConnectionEdit::Dragging) {
                if (m_edit->m_drag_end_point.type == EndPoint::Source) {
                   const QPoint p(t.x(), s.y());
@@ -507,6 +516,7 @@ void Connection::updateKneeList()
                   if (tr.contains(p)) {
                      t = m_target_pos = p;
                   }
+
                } else {
                   const QPoint p(s.x(), t.y());
                   m_knee_list.append(p);
@@ -514,9 +524,11 @@ void Connection::updateKneeList()
                      s = m_source_pos = p;
                   }
                }
+
             } else {
                m_knee_list.append(QPoint(s.x(), t.y()));
             }
+
          } else {
             /*
                             +--------+
@@ -528,6 +540,7 @@ void Connection::updateKneeList()
             */
             m_knee_list.append(QPoint(t.x(), s.y()));
          }
+
       } else if (r.width() < sr.width() + tr.width()) {
          if ((s.x() >= tr.left() && s.x() <= tr.right()) || t.x() >= sr.right() || t.x() <= sr.left()) {
             /*
@@ -550,6 +563,7 @@ void Connection::updateKneeList()
                   if (tr.contains(p)) {
                      t = m_target_pos = p;
                   }
+
                } else {
                   const QPoint p(t.x(), s.y());
                   m_knee_list.append(p);
@@ -557,9 +571,11 @@ void Connection::updateKneeList()
                      s = m_source_pos = p;
                   }
                }
+
             } else {
                m_knee_list.append(QPoint(t.x(), s.y()));
             }
+
          } else {
             /*
                             +--------+
@@ -574,6 +590,7 @@ void Connection::updateKneeList()
             */
             m_knee_list.append(QPoint(s.x(), t.y()));
          }
+
       } else {
          /*
                      +--------+
@@ -593,18 +610,21 @@ void Connection::updateKneeList()
             } else {
                m_knee_list.append(QPoint(s.x(), t.y()));
             }
+
          } else if (sr.topRight() == r.topRight()) {
             if (pointAboveLine(tr.bottomLeft(), tr.topRight(), t)) {
                m_knee_list.append(QPoint(t.x(), s.y()));
             } else {
                m_knee_list.append(QPoint(s.x(), t.y()));
             }
+
          } else if (sr.bottomRight() == r.bottomRight()) {
             if (pointAboveLine(tr.topLeft(), tr.bottomRight(), t)) {
                m_knee_list.append(QPoint(s.x(), t.y()));
             } else {
                m_knee_list.append(QPoint(t.x(), s.y()));
             }
+
          } else {
             if (pointAboveLine(tr.bottomLeft(), tr.topRight(), t)) {
                m_knee_list.append(QPoint(s.x(), t.y()));
@@ -624,9 +644,11 @@ void Connection::updateKneeList()
 
    const LineDir new_source_label_dir = labelDir(EndPoint::Source);
    const LineDir new_target_label_dir = labelDir(EndPoint::Target);
+
    if (new_source_label_dir != old_source_label_dir) {
       updatePixmap(EndPoint::Source);
    }
+
    if (new_target_label_dir != old_target_label_dir) {
       updatePixmap(EndPoint::Target);
    }
@@ -634,9 +656,10 @@ void Connection::updateKneeList()
 
 void Connection::trimLine()
 {
-   if (m_source == 0 || m_source_pos == QPoint(-1, -1) || m_target_pos == QPoint(-1, -1)) {
+   if (m_source == nullptr || m_source_pos == QPoint(-1, -1) || m_target_pos == QPoint(-1, -1)) {
       return;
    }
+
    int cnt = m_knee_list.size();
    if (cnt < 2) {
       return;
@@ -724,6 +747,7 @@ QRect Connection::groundRect() const
    if (!ground()) {
       return QRect();
    }
+
    if (m_knee_list.isEmpty()) {
       return QRect();
    }
@@ -744,6 +768,7 @@ QRegion Connection::region() const
       QRect r = m_arrow_head.boundingRect().toRect();
       r = expand(r, 1);
       result = result.united(r);
+
    } else if (ground()) {
       result = result.united(groundRect());
    }
@@ -757,11 +782,13 @@ QRegion Connection::region() const
 void Connection::update(bool update_widgets) const
 {
    m_edit->update(region());
+
    if (update_widgets) {
-      if (m_source != 0) {
+      if (m_source != nullptr) {
          m_edit->update(m_source_rect);
       }
-      if (m_target != 0) {
+
+      if (m_target != nullptr) {
          m_edit->update(m_target_rect);
       }
    }
@@ -781,6 +808,7 @@ void Connection::paint(QPainter *p) const
       p->setBrush(p->pen().color());
       p->drawPolygon(m_arrow_head);
       p->restore();
+
    } else if (ground()) {
       paintGround(p, groundRect());
    }
@@ -797,11 +825,13 @@ QRect Connection::endPointRect(EndPoint::Type type) const
       if (m_source_pos != QPoint(-1, -1)) {
          return endPointRectHelper(m_source_pos);
       }
+
    } else {
       if (m_target_pos != QPoint(-1, -1)) {
          return endPointRectHelper(m_target_pos);
       }
    }
+
    return QRect();
 }
 
@@ -813,6 +843,7 @@ CETypes::LineDir Connection::labelDir(EndPoint::Type type) const
    }
 
    LineDir dir;
+
    if (type == EndPoint::Source) {
       dir = classifyLine(m_knee_list.at(0), m_knee_list.at(1));
    } else {
@@ -822,6 +853,7 @@ CETypes::LineDir Connection::labelDir(EndPoint::Type type) const
    if (dir == LeftDir) {
       dir = RightDir;
    }
+
    if (dir == UpDir) {
       dir = DownDir;
    }
@@ -835,6 +867,7 @@ QRect Connection::labelRect(EndPoint::Type type) const
    if (cnt < 2) {
       return QRect();
    }
+
    const QString text = label(type);
    if (text.isEmpty()) {
       return QRect();
@@ -856,12 +889,15 @@ QRect Connection::labelRect(EndPoint::Type type) const
       case UpDir:
          result = QRect(p1 + QPoint(-size.width() / 2, 0), size);
          break;
+
       case DownDir:
          result = QRect(p1 + QPoint(-size.width() / 2, -size.height()), size);
          break;
+
       case LeftDir:
          result = QRect(p1 + QPoint(0, -size.height() / 2), size);
          break;
+
       case RightDir:
          result = QRect(p1 + QPoint(-size.width(), -size.height() / 2), size);
          break;
@@ -920,11 +956,13 @@ void Connection::checkWidgets()
 
    if (QWidget *sourceWidget = dynamic_cast<QWidget *>(m_source)) {
       const QRect r = m_edit->widgetRect(sourceWidget);
+
       if (r != m_source_rect) {
          if (m_source_pos != QPoint(-1, -1) && !r.contains(m_source_pos)) {
             QPoint offset = m_source_pos - m_source_rect.topLeft();
             m_source_pos = pointInsideRect(r, r.topLeft() + offset);
          }
+
          m_edit->update(m_source_rect);
          m_source_rect = r;
          changed = true;
@@ -933,11 +971,13 @@ void Connection::checkWidgets()
 
    if (QWidget *targetWidget = dynamic_cast<QWidget *>(m_target)) {
       const QRect r = m_edit->widgetRect(targetWidget);
+
       if (r != m_target_rect) {
          if (m_target_pos != QPoint(-1, -1) && !r.contains(m_target_pos)) {
             const QPoint offset = m_target_pos - m_target_rect.topLeft();
             m_target_pos = pointInsideRect(r, r.topLeft() + offset);
          }
+
          m_edit->update(m_target_rect);
          m_target_rect = r;
          changed = true;
@@ -951,20 +991,10 @@ void Connection::checkWidgets()
    }
 }
 
-/*******************************************************************************
-** ConnectionEdit
-*/
-
-ConnectionEdit::ConnectionEdit(QWidget *parent, QDesignerFormWindowInterface *form) :
-   QWidget(parent),
-   m_bg_widget(0),
-   m_undo_stack(form->commandHistory()),
-   m_enable_update_background(false),
-   m_tmp_con(0),
-   m_start_connection_on_drag(true),
-   m_widget_under_mouse(0),
-   m_inactive_color(Qt::blue),
-   m_active_color(Qt::red)
+ConnectionEdit::ConnectionEdit(QWidget *parent, QDesignerFormWindowInterface *form)
+   : QWidget(parent), m_bg_widget(nullptr), m_undo_stack(form->commandHistory()),
+     m_enable_update_background(false), m_tmp_con(nullptr), m_start_connection_on_drag(true),
+     m_widget_under_mouse(nullptr), m_inactive_color(Qt::blue), m_active_color(Qt::red)
 {
    setAttribute(Qt::WA_MouseTracking, true);
    setFocusPolicy(Qt::ClickFocus);
@@ -982,9 +1012,10 @@ void ConnectionEdit::clear()
 {
    m_con_list.clear();
    m_sel_con_set.clear();
-   m_bg_widget = 0;
-   m_widget_under_mouse = 0;
-   m_tmp_con = 0;
+
+   m_bg_widget          = nullptr;
+   m_widget_under_mouse = nullptr;
+   m_tmp_con            = nullptr;
 }
 
 void ConnectionEdit::setBackground(QWidget *background)
@@ -1009,7 +1040,7 @@ void ConnectionEdit::enableUpdateBackground(bool enable)
 void ConnectionEdit::updateBackground()
 {
    // Might happen while reloading a form.
-   if (m_bg_widget == 0) {
+   if (m_bg_widget == nullptr) {
       return;
    }
 
@@ -1027,11 +1058,13 @@ void ConnectionEdit::updateBackground()
 
 QWidget *ConnectionEdit::widgetAt(const QPoint &pos) const
 {
-   if (m_bg_widget == 0) {
+   if (m_bg_widget == nullptr) {
       return nullptr;
    }
+
    QWidget *widget = m_bg_widget->childAt(pos);
-   if (widget == 0) {
+
+   if (widget == nullptr) {
       widget = m_bg_widget;
    }
 
@@ -1041,24 +1074,29 @@ QWidget *ConnectionEdit::widgetAt(const QPoint &pos) const
 
 QRect ConnectionEdit::widgetRect(QWidget *w) const
 {
-   if (w == 0) {
+   if (w == nullptr) {
       return QRect();
    }
+
    QRect r = w->geometry();
    QPoint pos = w->mapToGlobal(QPoint(0, 0));
+
    pos = mapFromGlobal(pos);
    r.moveTopLeft(pos);
+
    return r;
 }
 
 ConnectionEdit::State ConnectionEdit::state() const
 {
-   if (m_tmp_con != 0) {
+   if (m_tmp_con != nullptr) {
       return Connecting;
    }
+
    if (!m_drag_end_point.isNull()) {
       return Dragging;
    }
+
    return Editing;
 }
 
@@ -1071,14 +1109,14 @@ void ConnectionEdit::paintLabel(QPainter *p, EndPoint::Type type, Connection *co
    const bool heavy = selected(con) || con == m_tmp_con;
    p->setPen(heavy ? m_active_color : m_inactive_color);
    p->setBrush(Qt::NoBrush);
+
    const QRect r = con->labelRect(type);
    p->drawPixmap(r.topLeft(), con->labelPixmap(type));
    p->drawRect(fixRect(r));
 }
 
 void ConnectionEdit::paintConnection(QPainter *p, Connection *con,
-   WidgetSet *heavy_highlight_set,
-   WidgetSet *light_highlight_set) const
+      WidgetSet *heavy_highlight_set, WidgetSet *light_highlight_set) const
 {
    QWidget *source = con->widget(EndPoint::Source);
    QWidget *target = con->widget(EndPoint::Target);
@@ -1088,11 +1126,11 @@ void ConnectionEdit::paintConnection(QPainter *p, Connection *con,
    p->setPen(heavy ? m_active_color : m_inactive_color);
    con->paint(p);
 
-   if (source != 0 && source != m_bg_widget) {
+   if (source != nullptr && source != m_bg_widget) {
       set->insert(source, source);
    }
 
-   if (target != 0 && target != m_bg_widget) {
+   if (target != nullptr && target != m_bg_widget) {
       set->insert(target, target);
    }
 }
@@ -1112,7 +1150,7 @@ void ConnectionEdit::paintEvent(QPaintEvent *e)
       paintConnection(&p, con, &heavy_highlight_set, &light_highlight_set);
    }
 
-   if (m_tmp_con != 0) {
+   if (m_tmp_con != nullptr) {
       paintConnection(&p, m_tmp_con, &heavy_highlight_set, &light_highlight_set);
    }
 
@@ -1141,6 +1179,7 @@ void ConnectionEdit::paintEvent(QPaintEvent *e)
 
    p.setBrush(palette().color(QPalette::Base));
    p.setPen(palette().color(QPalette::Text));
+
    for (Connection *con : m_con_list) {
       if (!con->isVisible()) {
          continue;
@@ -1154,13 +1193,13 @@ void ConnectionEdit::paintEvent(QPaintEvent *e)
    p.setBrush(m_active_color);
 
    for (Connection *con : m_con_list) {
-      if (!selected(con) || !con->isVisible()) {
+      if (!selected(con) || ! con->isVisible()) {
          continue;
       }
 
       paintEndPoint(&p, con->endPointPos(EndPoint::Source));
 
-      if (con->widget(EndPoint::Target) != 0) {
+      if (con->widget(EndPoint::Target) != nullptr) {
          paintEndPoint(&p, con->endPointPos(EndPoint::Target));
       }
    }
@@ -1171,11 +1210,11 @@ void ConnectionEdit::abortConnection()
    m_tmp_con->update();
    delete m_tmp_con;
 
-   m_tmp_con = 0;
+   m_tmp_con = nullptr;
    setCursor(QCursor());
 
    if (m_widget_under_mouse == m_bg_widget) {
-      m_widget_under_mouse = 0;
+      m_widget_under_mouse = nullptr;
    }
 }
 
@@ -1184,6 +1223,7 @@ void ConnectionEdit::mousePressEvent(QMouseEvent *e)
    // Right click only to cancel
    const Qt::MouseButton button = e->button();
    const State cstate = state();
+
    if (button != Qt::LeftButton && !(button == Qt::RightButton && cstate == Connecting)) {
       QWidget::mousePressEvent(e);
       return;
@@ -1192,36 +1232,42 @@ void ConnectionEdit::mousePressEvent(QMouseEvent *e)
    e->accept();
    // Prefer a non-background widget over the connection,
    // otherwise, widgets covered by the connection labels cannot be accessed
-   Connection *con_under_mouse = 0;
-   if (!m_widget_under_mouse || m_widget_under_mouse == m_bg_widget) {
+   Connection *con_under_mouse = nullptr;
+
+   if (! m_widget_under_mouse || m_widget_under_mouse == m_bg_widget) {
       con_under_mouse = connectionAt(e->pos());
    }
 
    m_start_connection_on_drag = false;
+
    switch (cstate) {
       case Connecting:
          if (button == Qt::RightButton) {
             abortConnection();
          }
          break;
+
       case Dragging:
          break;
+
       case Editing:
          if (!m_end_point_under_mouse.isNull()) {
-            if (!(e->modifiers() & Qt::ShiftModifier)) {
+            if (! (e->modifiers() & Qt::ShiftModifier)) {
                startDrag(m_end_point_under_mouse, e->pos());
             }
-         } else if (con_under_mouse != 0) {
+
+         } else if (con_under_mouse != nullptr) {
             if (!(e->modifiers() & Qt::ShiftModifier)) {
                selectNone();
                setSelected(con_under_mouse, true);
             } else {
                setSelected(con_under_mouse, !selected(con_under_mouse));
             }
+
          } else {
-            if (!(e->modifiers() & Qt::ShiftModifier)) {
+            if (! (e->modifiers() & Qt::ShiftModifier)) {
                selectNone();
-               if (!m_widget_under_mouse.isNull()) {
+               if (! m_widget_under_mouse.isNull()) {
                   m_start_connection_on_drag = true;
                }
             }
@@ -1238,12 +1284,15 @@ void ConnectionEdit::mouseDoubleClickEvent(QMouseEvent *e)
    }
 
    e->accept();
+
    switch (state()) {
       case Connecting:
          abortConnection();
          break;
+
       case Dragging:
          break;
+
       case Editing:
          if (!m_widget_under_mouse.isNull()) {
             emit widgetActivated(m_widget_under_mouse);
@@ -1290,18 +1339,21 @@ void ConnectionEdit::findObjectsUnderMouse(const QPoint &pos)
    Connection *con_under_mouse = connectionAt(pos);
 
    QWidget *w = widgetAt(pos);
+
    // Prefer a non-background widget over the connection,
    // otherwise, widgets covered by the connection labels cannot be accessed
    if (w == m_bg_widget && con_under_mouse) {
-      w = 0;
+      w = nullptr;
+
    } else {
-      con_under_mouse = 0;
+      con_under_mouse = nullptr;
    }
 
    if (w != m_widget_under_mouse) {
       if (!m_widget_under_mouse.isNull()) {
          update(widgetRect(m_widget_under_mouse));
       }
+
       m_widget_under_mouse = w;
       if (!m_widget_under_mouse.isNull()) {
          update(widgetRect(m_widget_under_mouse));
@@ -1403,7 +1455,7 @@ void ConnectionEdit::endConnection(QWidget *target, const QPoint &pos)
 
 void ConnectionEdit::continueConnection(QWidget *target, const QPoint &pos)
 {
-   Q_ASSERT(m_tmp_con != 0);
+   Q_ASSERT(m_tmp_con != nullptr);
 
    m_tmp_con->setEndPoint(EndPoint::Target, target, pos);
 }
@@ -1607,9 +1659,10 @@ void ConnectionEdit::setSource(Connection *con, const QString &obj_name)
 {
    QObject *object = nullptr;
 
-   if (!obj_name.isEmpty()) {
+   if (! obj_name.isEmpty()) {
       object = m_bg_widget->findChild<QObject *>(obj_name);
-      if (object == 0 && m_bg_widget->objectName() == obj_name) {
+
+      if (object == nullptr && m_bg_widget->objectName() == obj_name) {
          object = m_bg_widget;
       }
 
@@ -1625,9 +1678,10 @@ void ConnectionEdit::setTarget(Connection *con, const QString &obj_name)
 {
    QObject *object = nullptr;
 
-   if (!obj_name.isEmpty()) {
+   if (! obj_name.isEmpty()) {
       object = m_bg_widget->findChild<QObject *>(obj_name);
-      if (object == 0 && m_bg_widget->objectName() == obj_name) {
+
+      if (object == nullptr && m_bg_widget->objectName() == obj_name) {
          object = m_bg_widget;
       }
 

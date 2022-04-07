@@ -65,13 +65,13 @@ QObject *ExtensionFactory<ExtensionInterface, Object, Extension>::createExtensio
    QObject *parent) const
 {
    if (iid != m_iid) {
-      return 0;
+      return nullptr;
    }
 
    Object *object = checkObject(qObject);
 
    if (! object) {
-      return 0;
+      return nullptr;
    }
 
    return new Extension(object, parent);

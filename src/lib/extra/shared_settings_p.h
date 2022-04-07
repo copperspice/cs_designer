@@ -20,8 +20,8 @@
 #ifndef SHARED_SETTINGS_H
 #define SHARED_SETTINGS_H
 
-#include <abstract_settings.h>
 #include <abstract_formeditor.h>
+#include <abstract_settings.h>
 
 #include <deviceprofile_p.h>
 

@@ -25,8 +25,8 @@
 #include <resource_model.h>
 #include <simple_resource.h>
 #include <ui4.h>
-
 #include <widgetfactory.h>
+
 #include <spacer_widget_p.h>
 #include <formwindowbase_p.h>
 #include <formwindowbase_p.h>
@@ -105,24 +105,25 @@ void WidgetBoxResource::createCustomWidgets(DomCustomWidgets *dc)
 
 }
 
-/*******************************************************************************
-** WidgetBoxResource
-*/
-
 static QSize geometryProp(const DomWidget *dw)
 {
    const QList<DomProperty *> prop_list = dw->elementProperty();
-   const QString geometry = QString("geometry");
+   const QString geometry = "geometry";
+
    for (DomProperty *prop : prop_list) {
       if (prop->attributeName() !=  geometry) {
          continue;
       }
+
       DomRect *dr = prop->elementRect();
-      if (dr == 0) {
+
+      if (dr == nullptr) {
          continue;
       }
+
       return QSize(dr->elementWidth(), dr->elementHeight());
    }
+
    return QSize();
 }
 
@@ -143,10 +144,13 @@ static QSize domWidgetSize(const DomWidget *dw)
    for (const DomLayout *dl : dw->elementLayout()) {
       for (DomLayoutItem *item : dl->elementItem()) {
          const DomWidget *child = item->elementWidget();
-         if (child == 0) {
+
+         if (child == nullptr) {
             continue;
          }
+
          size = geometryProp(child);
+
          if (size.isValid()) {
             return size;
          }
@@ -159,31 +163,31 @@ static QSize domWidgetSize(const DomWidget *dw)
 static QWidget *decorationFromDomWidget(DomUI *dom_ui, QDesignerFormEditorInterface *core)
 {
    WidgetBoxResource builder(core);
+
    // We have the builder create the articial QWidget fake top level as a tooltip
    // because the size algorithm works better at weird DPI settings
    // if the actual widget is created as a child of a container
 
-   QWidget *fakeTopLevel = builder.createUI(dom_ui, static_cast<QWidget *>(0));
-   fakeTopLevel->setParent(0, Qt::ToolTip); // Container
+   QWidget *fakeTopLevel = builder.createUI(dom_ui, nullptr);
+   fakeTopLevel->setParent(nullptr, Qt::ToolTip); // Container
 
    // Actual widget
    const DomWidget *domW = dom_ui->elementWidget()->elementWidget().front();
    QWidget *w = fakeTopLevel->findChildren<QWidget *>().front();
    Q_ASSERT(w);
 
-   // hack begin;
    // We set _q_dockDrag dynamic property which will be detected in drag enter event of form window.
    // Dock drop is handled in special way (highlight goes to central widget of main window)
+
    if (dynamic_cast<QDesignerDockWidget *>(w)) {
       fakeTopLevel->setProperty("_q_dockDrag", QVariant(true));
    }
 
-   // hack end;
    w->setAutoFillBackground(true); // Different style for embedded
    QSize size = domWidgetSize(domW);
    const QSize minimumSize = w->minimumSizeHint();
 
-   if (!size.isValid()) {
+   if (! size.isValid()) {
       size = w->sizeHint();
    }
 
@@ -212,7 +216,7 @@ WidgetBoxDnDItem::WidgetBoxDnDItem(QDesignerFormEditorInterface *core, DomUI *do
    QWidget *decoration = decorationFromDomWidget(dom_ui, core);
    decoration->move(global_mouse_pos - QPoint(5, 5));
 
-   init(dom_ui, 0, decoration, global_mouse_pos);
+   init(dom_ui, nullptr, decoration, global_mouse_pos);
 }
 
 }   // end namespace

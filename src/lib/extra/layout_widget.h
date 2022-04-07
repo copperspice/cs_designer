@@ -20,14 +20,13 @@
 #ifndef QLAYOUT_WIDGET_H
 #define QLAYOUT_WIDGET_H
 
+#include <layout_widget.h>
 #include <layoutdecoration.h>
 
-#include <layout_widget.h>
-
+#include <QLayout>
 #include <QPointer>
 #include <QVariant>
 #include <QWidget>
-#include <QLayout>
 
 class QDesignerFormWindowInterface;
 class QDesignerFormEditorInterface;

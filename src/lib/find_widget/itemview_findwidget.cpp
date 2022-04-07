@@ -27,7 +27,7 @@
 #include <algorithm>
 
 ItemViewFindWidget::ItemViewFindWidget(FindFlags flags, QWidget *parent)
-   : AbstractFindWidget(flags, parent), m_itemView(0)
+   : AbstractFindWidget(flags, parent), m_itemView(nullptr)
 {
 }
 

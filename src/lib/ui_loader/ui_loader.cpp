@@ -17,15 +17,15 @@
 *
 ***********************************************************************/
 
-#include <ui_loader.h>
-#include <ui_loader_p.h>
-
 #include <customwidget.h>
 #include <formbuilder.h>
 #include <table_classes.h>
 #include <formbuilderextra.h>
 #include <textbuilder.h>
+#include <ui_loader.h>
 #include <ui4.h>
+
+#include <ui_loader_p.h>
 
 #include <QDebug>
 #include <QDataStream>
@@ -323,7 +323,10 @@ class FormBuilderPrivate: public QFormBuilder
    bool dynamicTr;
    bool trEnabled;
 
-   FormBuilderPrivate(): loader(0), dynamicTr(false), trEnabled(true), m_trwatch(0) {}
+   FormBuilderPrivate()
+      : loader(nullptr), dynamicTr(false), trEnabled(true), m_trwatch(nullptr)
+   {
+   }
 
    QWidget *defaultCreateWidget(const QString &className, QWidget *parent, const QString &name) {
       return ParentClass::createWidget(className, parent, name);
@@ -459,8 +462,8 @@ void FormBuilderPrivate::applyProperties(QObject *o, const QList<DomProperty *> 
 
 QWidget *FormBuilderPrivate::create(DomUI *ui, QWidget *parentWidget)
 {
-   m_class = ui->elementClass();
-   m_trwatch = 0;
+   m_class  = ui->elementClass();
+   m_trwatch = nullptr;
 
    setTextBuilder(new TranslatingTextBuilder(trEnabled, m_class));
    return QFormBuilder::create(ui, parentWidget);
@@ -519,7 +522,7 @@ QWidget *FormBuilderPrivate::create(DomWidget *ui_widget, QWidget *parentWidget)
 
 bool FormBuilderPrivate::addItem(DomWidget *ui_widget, QWidget *widget, QWidget *parentWidget)
 {
-   if (parentWidget == 0) {
+   if (parentWidget == nullptr) {
       return true;
    }
 

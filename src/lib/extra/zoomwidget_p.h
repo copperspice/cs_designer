@@ -105,7 +105,6 @@ class ZoomView : public QGraphicsView
    void setScrollPosition(const QPoint &pos);
    void scrollToOrigin();
 
- public :
    CS_SLOT_1(Public, void setZoom(int percent))
    CS_SLOT_2(setZoom)
    CS_SLOT_1(Public, void showContextMenu(const QPoint &globalPos))
@@ -133,6 +132,7 @@ class ZoomView : public QGraphicsView
 class  ZoomProxyWidget : public QGraphicsProxyWidget
 {
    Q_DISABLE_COPY(ZoomProxyWidget)
+
  public:
    explicit ZoomProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = Qt::EmptyFlag);
 
@@ -204,7 +204,7 @@ class ZoomWidget : public ZoomView
  private:
    // Factory function for QGraphicsProxyWidgets which can be overwritten. Default creates a ZoomProxyWidget
    virtual QGraphicsProxyWidget *createProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = Qt::EmptyFlag) const;
-   QSize widgetSizeToViewSize(const QSize &s, bool *ptrToValid = 0) const;
+   QSize widgetSizeToViewSize(const QSize &s, bool *ptrToValid = nullptr) const;
 
    void resizeToWidgetSize();
    QSize viewPortMargin() const;

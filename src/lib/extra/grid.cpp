@@ -19,11 +19,11 @@
 
 #include <grid_p.h>
 
+#include <QEvent>
+#include <QPainter>
 #include <QString>
 #include <QVector>
-#include <QPainter>
 #include <QWidget>
-#include <qevent.h>
 
 static const bool defaultSnap    = true;
 static const bool defaultVisible = true;
@@ -127,6 +127,7 @@ void Grid::paint(QPainter &p, const QWidget *widget, QPaintEvent *e) const
 
       for (int x = xstart; x <= xend; x += m_deltaX) {
          points.reserve((yend - ystart) / m_deltaY + 1);
+
          for (int y = ystart; y <= yend; y += m_deltaY) {
             points.push_back(QPointF(x, y));
          }

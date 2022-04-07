@@ -27,11 +27,11 @@ class QDesignerFormEditorInterface;
 class QDesignerCustomWidgetInterface;
 class QDesignerFormWindowInterface;
 
-#include <QMap>
 #include <QHash>
-#include <QVariant>
-#include <QPointer>
+#include <QMap>
 #include <QObject>
+#include <QPointer>
+#include <QVariant>
 
 class QWidget;
 class QLayout;

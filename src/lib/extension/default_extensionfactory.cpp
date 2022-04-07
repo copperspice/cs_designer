@@ -31,7 +31,7 @@ QExtensionFactory::QExtensionFactory(QExtensionManager *parent)
 QObject *QExtensionFactory::extension(QObject *object, const QString &iid) const
 {
    if (!object) {
-      return 0;
+      return nullptr;
    }
 
    const IdObjectKey key = qMakePair(iid, object);
@@ -50,7 +50,7 @@ QObject *QExtensionFactory::extension(QObject *object, const QString &iid) const
    }
 
    if (it == m_extensions.end()) {
-      return 0;
+      return nullptr;
    }
 
    return it.value();
@@ -77,7 +77,7 @@ QObject *QExtensionFactory::createExtension(QObject *object, const QString &iid,
    Q_UNUSED(iid);
    Q_UNUSED(parent);
 
-   return 0;
+   return nullptr;
 }
 
 QExtensionManager *QExtensionFactory::extensionManager() const

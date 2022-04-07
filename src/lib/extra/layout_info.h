@@ -22,12 +22,12 @@
 
 #include <QString>
 
-class QWidget;
-class QLayout;
-class QLayoutItem;
 class QDesignerFormEditorInterface;
 class QFormLayout;
+class QLayout;
+class QLayoutItem;
 class QRect;
+class QWidget;
 
 namespace qdesigner_internal {
 

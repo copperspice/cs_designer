@@ -585,6 +585,7 @@ QtResourceSet *QtResourceModel::addResourceSet(const QStringList &paths)
    d_ptr->m_resourceSetToReload.insert(newResource, false);
    d_ptr->m_newlyCreated.insert(newResource, true);
    QStringListIterator it(paths);
+
    while (it.hasNext()) {
       const QString path = it.next();
       d_ptr->m_pathToResourceSet[path].append(newResource);
@@ -598,8 +599,9 @@ void QtResourceModel::removeResourceSet(QtResourceSet *resourceSet)
    if (!resourceSet) {
       return;
    }
+
    if (currentResourceSet() == resourceSet) {
-      setCurrentResourceSet(0);
+      setCurrentResourceSet(nullptr);
    }
 
    // remove rcc files for those paths which are not used in any other resource set

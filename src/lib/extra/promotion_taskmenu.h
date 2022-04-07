@@ -20,12 +20,12 @@
 #ifndef PROMOTIONTASKMENU_H
 #define PROMOTIONTASKMENU_H
 
-#include <QObject>
-#include <QPointer>
-#include <QList>
-
 class QDesignerFormWindowInterface;
 class QDesignerFormEditorInterface;
+
+#include <QList>
+#include <QObject>
+#include <QPointer>
 
 class QAction;
 class QMenu;

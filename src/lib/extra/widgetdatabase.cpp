@@ -17,32 +17,32 @@
 *
 ***********************************************************************/
 
-#include <propertysheet.h>
+#include <abstract_formeditor.h>
+#include <abstract_language.h>
+#include <customwidget.h>
+#include <designer_utils.h>
+#include <designer_widgetbox.h>
 #include <extension.h>
 #include <extension_manager.h>
-#include <abstract_formeditor.h>
-#include <customwidget.h>
-#include <table_classes.h>
-#include <abstract_language.h>
 #include <plugin_manager.h>
-#include <designer_widgetbox.h>
-#include <designer_utils.h>
+#include <propertysheet.h>
+#include <table_classes.h>
 #include <ui4.h>
-
-#include <widgetdatabase_p.h>
 #include <widgetfactory.h>
-#include <spacer_widget_p.h>
 
-#include <QXmlStreamWriter>
-#include <QScopedPointer>
+#include <spacer_widget_p.h>
+#include <widgetdatabase_p.h>
+
+#include <QCoreApplication>
 #include <QDebug>
 #include <QMetaProperty>
-#include <QTextStream>
 #include <QRegularExpression>
-#include <QCoreApplication>
+#include <QScopedPointer>
+#include <QTextStream>
+#include <QXmlStreamWriter>
 
 namespace {
-enum { debugWidgetDataBase = 0 };
+constexpr const int debugWidgetDataBase = 0;
 }
 
 namespace qdesigner_internal {
@@ -427,30 +427,38 @@ QList<QVariant> WidgetDataBase::defaultPropertyValues(const QString &name)
    WidgetFactory *factory = dynamic_cast<WidgetFactory *>(m_core->widgetFactory());
    Q_ASSERT(factory);
    // Create non-widgets, widgets in order
-   QObject *object = factory->createObject(name, 0);
-   if (!object) {
-      object = factory->createWidget(name, 0);
+   QObject *object = factory->createObject(name, nullptr);
+
+   if (! object) {
+      object = factory->createWidget(name, nullptr);
    }
+
    if (!object) {
       qDebug() << "** WARNING Factory failed to create " << name;
       return QList<QVariant>();
    }
+
    // Get properties from sheet.
    QList<QVariant> result;
-   if (const QDesignerPropertySheetExtension *sheet = qt_extension<QDesignerPropertySheetExtension *>(m_core->extensionManager(),
-            object)) {
+
+   if (const QDesignerPropertySheetExtension *sheet =
+         qt_extension<QDesignerPropertySheetExtension *>(m_core->extensionManager(), object)) {
       const int propertyCount = sheet->count();
+
       for (int i = 0; i < propertyCount; ++i) {
          result.append(sheet->property(i));
       }
    }
+
    delete object;
+
    return result;
 }
 
 void WidgetDataBase::grabDefaultPropertyValues()
 {
    const int itemCount = count();
+
    for (int i = 0; i < itemCount; ++i) {
       QDesignerWidgetDataBaseItemInterface *dbItem = item(i);
       const QList<QVariant> default_prop_values = defaultPropertyValues(dbItem->name());
@@ -671,25 +679,31 @@ QString WidgetDataBase::scaleFormTemplate(const QString &xml, const QSize &size,
 {
    typedef QList<DomProperty *> PropertyList;
    DomUI *domUI = QDesignerWidgetBox::xmlToUi(QString("Form"), xml, false);
+
    if (!domUI) {
       return QString();
    }
+
    DomWidget *domWidget = domUI->elementWidget();
    if (!domWidget) {
       return QString();
    }
+
    // Properties: Find/Ensure the geometry, minimum and maximum sizes properties
-   const QString geometryPropertyName = QString("geometry");
+   const QString geometryPropertyName    = QString("geometry");
    const QString minimumSizePropertyName = QString("minimumSize");
    const QString maximumSizePropertyName = QString("maximumSize");
-   DomProperty *geomProperty = 0;
-   DomProperty *minimumSizeProperty = 0;
-   DomProperty *maximumSizeProperty = 0;
+
+   DomProperty *geomProperty        = nullptr;
+   DomProperty *minimumSizeProperty = nullptr;
+   DomProperty *maximumSizeProperty = nullptr;
 
    PropertyList properties = domWidget->elementProperty();
    const PropertyList::const_iterator cend = properties.constEnd();
+
    for (PropertyList::const_iterator it = properties.constBegin(); it != cend; ++it) {
       const QString name = (*it)->attributeName();
+
       if (name == geometryPropertyName) {
          geomProperty = *it;
       } else {
@@ -702,12 +716,14 @@ QString WidgetDataBase::scaleFormTemplate(const QString &xml, const QSize &size,
          }
       }
    }
+
    if (!geomProperty) {
       geomProperty = new DomProperty;
       geomProperty->setAttributeName(geometryPropertyName);
       geomProperty->setElementRect(new DomRect);
       properties.push_front(geomProperty);
    }
+
    if (fixed) {
       if (!minimumSizeProperty) {
          minimumSizeProperty = new DomProperty;
@@ -715,6 +731,7 @@ QString WidgetDataBase::scaleFormTemplate(const QString &xml, const QSize &size,
          minimumSizeProperty->setElementSize(new DomSize);
          properties.push_back(minimumSizeProperty);
       }
+
       if (!maximumSizeProperty) {
          maximumSizeProperty = new DomProperty;
          maximumSizeProperty->setAttributeName(maximumSizePropertyName);
@@ -722,6 +739,7 @@ QString WidgetDataBase::scaleFormTemplate(const QString &xml, const QSize &size,
          properties.push_back(maximumSizeProperty);
       }
    }
+
    // Set values of geometry, minimum and maximum sizes properties
    const int width = size.width();
    const int height = size.height();
@@ -785,13 +803,11 @@ QString buildIncludeFile(QString includeFile, IncludeType includeType)
    for custom and promoted widgets.
 
    Depending on whether an entry exists, the existing or a newly created entry is
-   returned. A return value of 0 indicates that the base class could not be found. */
+   returned. A return value of 0 indicates that the base class could not be found.
+*/
 
-QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInterface *db,
-   const QString &className, const QString &group,
-   const QString &baseClassName,
-   const QString &includeFile,
-   bool promoted, bool custom)
+QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInterface *db, const QString &className,
+      const QString &group, const QString &baseClassName, const QString &includeFile, bool promoted, bool custom)
 {
    if (debugWidgetDataBase) {
       qDebug() << "appendDerived " << className << " derived from " << baseClassName;
@@ -806,7 +822,7 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
    }
 
    // Check whether item already exists.
-   QDesignerWidgetDataBaseItemInterface *derivedItem = 0;
+   QDesignerWidgetDataBaseItemInterface *derivedItem = nullptr;
    const int existingIndex = db->indexOfClassName(className);
    if ( existingIndex != -1) {
       derivedItem =  db->item(existingIndex);
@@ -831,18 +847,22 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
             " The widget database is left unchanged.").formatArgs(className, baseClassName, existingBaseClass));
       return derivedItem;
    }
+
    // Create this item, inheriting its base properties
    const int baseIndex = db->indexOfClassName(baseClassName);
    if (baseIndex == -1) {
       if (debugWidgetDataBase) {
          qDebug() << "appendDerived failed due to missing base class";
       }
-      return 0;
+      return nullptr;
    }
+
    const QDesignerWidgetDataBaseItemInterface *baseItem = db->item(baseIndex);
    derivedItem = WidgetDataBaseItem::clone(baseItem);
-   // Sort of hack: If base class is QWidget, we most likely
+
+   // If base class is QWidget, we most likely
    // do not want to inherit the container attribute.
+
    static const QString qWidgetName = QString("QWidget");
    if (baseItem->name() == qWidgetName) {
       derivedItem->setContainer(false);

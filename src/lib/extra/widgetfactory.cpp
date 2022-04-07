@@ -18,43 +18,43 @@
 ***********************************************************************/
 
 #include <abstract_formeditor.h>
-#include <abstract_introspection.h>
-#include <container.h>
-#include <extension.h>
-#include <abstract_language.h>
 #include <abstract_formwindowcursor.h>
+#include <abstract_introspection.h>
+#include <abstract_language.h>
+#include <container.h>
+#include <customwidget.h>
+#include <designer_dockwidget.h>
+#include <designer_menu.h>
+#include <designer_menubar.h>
+#include <designer_propertysheet.h>
+#include <designer_stackedbox.h>
+#include <designer_tabwidget.h>
+#include <designer_toolbar.h>
+#include <designer_toolbox.h>
+#include <designer_utils.h>
+#include <designer_widget.h>
+#include <extension.h>
 #include <layout.h>
 #include <layout_info.h>
-#include <customwidget.h>
-#include <table_classes.h>
 #include <layout_widget.h>
-#include <designer_widget.h>
-#include <designer_tabwidget.h>
-#include <designer_toolbox.h>
-#include <designer_stackedbox.h>
-#include <designer_toolbar.h>
-#include <designer_menubar.h>
-#include <designer_menu.h>
-#include <designer_dockwidget.h>
-#include <designer_propertysheet.h>
-#include <designer_utils.h>
-
+#include <table_classes.h>
 #include <widgetfactory.h>
-#include <widgetdatabase_p.h>
-#include <metadatabase_p.h>
-#include <formwindowbase_p.h>
-#include <spacer_widget_p.h>
-#include <formwindowbase_p.h>
 
-#include <QApplication>
+#include <formwindowbase_p.h>
+#include <formwindowbase_p.h>
+#include <metadatabase_p.h>
+#include <spacer_widget_p.h>
+#include <widgetdatabase_p.h>
+
 #include <QAbstractSpinBox>
+#include <QApplication>
 #include <QButtonGroup>
-#include <QStyle>
-#include <QStyleFactory>
 #include <QDebug>
+#include <QMdiSubWindow>
 #include <QMetaObject>
 #include <QSizeGrip>
-#include <QMdiSubWindow>
+#include <QStyle>
+#include <QStyleFactory>
 
 /* Dynamic boolean property indicating object was created by the factory
  * for the form editor. */
@@ -175,10 +175,8 @@ bool WidgetFactory::m_lastWasAPassiveInteractor = false;
 const QString WidgetFactory::disableStyleCustomPaintingPropertyC = "_q_custom_style_disabled";
 
 WidgetFactory::WidgetFactory(QDesignerFormEditorInterface *core, QObject *parent)
-   : QDesignerWidgetFactoryInterface(parent),
-     m_core(core),
-     m_formWindow(0),
-     m_currentStyle(0)
+   : QDesignerWidgetFactoryInterface(parent), m_core(core),
+     m_formWindow(nullptr), m_currentStyle(nullptr)
 {
 }
 
@@ -210,7 +208,7 @@ QObject *WidgetFactory::createObject(const QString &className, QObject *parent) 
 {
    if (className.isEmpty()) {
       qWarning("** WARNING %s called with an empty class name", Q_FUNC_INFO);
-      return 0;
+      return nullptr;
    }
    if (className == m_strings.m_qAction) {
       return new QAction(parent);
@@ -218,7 +216,7 @@ QObject *WidgetFactory::createObject(const QString &className, QObject *parent) 
    if (className == m_strings.m_qButtonGroup) {
       return new QButtonGroup(parent);
    }
-   return 0;
+   return nullptr;
 }
 
 // Check for mismatched class names in plugins, which is hard to track.
@@ -238,7 +236,7 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
    auto it = m_customFactory.constFind(className);
 
    if (it == m_customFactory.constEnd()) {
-      return 0;
+      return nullptr;
    }
 
    QDesignerCustomWidgetInterface *factory = it.value();
@@ -248,7 +246,7 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
    if (!rc) {
       *creationError = true;
       csWarning(tr("The custom widget factory registered for widgets of class %1 returned 0.").formatArg(className));
-      return 0;
+      return nullptr;
    }
 
    // Figure out the base class unless it is known
@@ -265,7 +263,7 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
             if (mo && mo->className() == className) {
                mo = mo->superClass();
             }
-            while (mo != 0) {
+            while (mo != nullptr) {
                if (core()->widgetDataBase()->indexOfClassName(mo->className()) != -1) {
                   wdb->item(widgetInfoIndex)->setExtends(mo->className());
                   break;
@@ -273,24 +271,27 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
                mo = mo->superClass();
             }
          }
+
          knownCustomClasses.insert(className);
       }
    }
-   QDesignerLanguageExtension *lang =
-      qt_extension<QDesignerLanguageExtension *>(m_core->extensionManager(), m_core);
+
    // Since a language plugin may not accurately give its names like Jambi does,
    // return immediately here
+
+   QDesignerLanguageExtension *lang = qt_extension<QDesignerLanguageExtension *>(m_core->extensionManager(), m_core);
 
    if (lang) {
       return rc;
    }
 
    // Check for mismatched class names which is hard to track.
-   if (!classNameMatches(rc, className)) {
+   if (! classNameMatches(rc, className)) {
       csWarning(tr("A class name mismatch occurred when creating a widget using the custom widget factory "
-            "registered for widgets of class %1, returned a widget of class %2.")
+         "registered for widgets of class %1, returned a widget of class %2.")
          .formatArgs(className, rc->metaObject()->className()));
    }
+
    return rc;
 }
 
@@ -383,8 +384,8 @@ QWidget *WidgetFactory::createWidget(const QString &widgetName, QWidget *parentW
       }
 
 #define DECLARE_LAYOUT(L, C)
-#define DECLARE_WIDGET(W, C)   else if (widgetName == #W) { Q_ASSERT(w == 0); w = new W(parentWidget); }
-#define DECLARE_WIDGET_1(W, C) else if (widgetName == #W) { Q_ASSERT(w == 0); w = new W(nullptr, parentWidget); }
+#define DECLARE_WIDGET(W, C)   else if (widgetName == #W) { Q_ASSERT(w == nullptr); w = new W(parentWidget); }
+#define DECLARE_WIDGET_1(W, C) else if (widgetName == #W) { Q_ASSERT(w == nullptr); w = new W(nullptr, parentWidget); }
 
 #include <widgets.table>
 
@@ -401,13 +402,14 @@ QWidget *WidgetFactory::createWidget(const QString &widgetName, QWidget *parentW
       QDesignerWidgetDataBaseInterface *db = core()->widgetDataBase();
       QDesignerWidgetDataBaseItemInterface *item = db->item(db->indexOfClassName(widgetName));
 
-      if (item == 0) {
+      if (item == nullptr) {
          // Emergency: Create, derived from QWidget
          QString includeFile = widgetName.toLower();
          includeFile += ".h";
 
          item = appendDerived(db, widgetName, tr("%1 Widget").formatArg(widgetName), fallBackBaseClass,
                includeFile, true, true);
+
          Q_ASSERT(item);
       }
 
@@ -421,9 +423,10 @@ QWidget *WidgetFactory::createWidget(const QString &widgetName, QWidget *parentW
          promoteWidget(core(), promotedWidget, widgetName);
          return promotedWidget;  // Do not initialize twice.
       }
+
    } while (false);
 
-   Q_ASSERT(w != 0);
+   Q_ASSERT(w != nullptr);
    if (m_currentStyle) {
       w->setStyle(m_currentStyle);
    }
@@ -444,7 +447,7 @@ QWidget *WidgetFactory::createWidget(const QString &widgetName, QWidget *parentW
 
 QString WidgetFactory::classNameOf(QDesignerFormEditorInterface *c, const QObject *o)
 {
-   if (o == 0) {
+   if (o == nullptr) {
       return QString();
    }
 
@@ -462,6 +465,7 @@ QString WidgetFactory::classNameOf(QDesignerFormEditorInterface *c, const QObjec
    if (!customClassName.isEmpty()) {
       return customClassName;
    }
+
    if (dynamic_cast<const QDesignerMenuBar *>(w)) {
       return QString("QMenuBar");
    }
@@ -490,17 +494,22 @@ QLayout *WidgetFactory::createUnmanagedLayout(QWidget *parentWidget, int type)
    switch (type) {
       case LayoutInfo::HBox:
          return new QHBoxLayout(parentWidget);
+
       case LayoutInfo::VBox:
          return new QVBoxLayout(parentWidget);
+
       case LayoutInfo::Grid:
          return new QGridLayout(parentWidget);
+
       case LayoutInfo::Form:
          return new QFormLayout(parentWidget);
+
       default:
-         Q_ASSERT(0);
+         Q_ASSERT(false);
          break;
    }
-   return 0;
+
+   return nullptr;
 }
 
 QLayout *WidgetFactory::createLayout(QWidget *widget, QLayout *parentLayout, int type) const
@@ -547,9 +556,9 @@ QLayout *WidgetFactory::createLayout(QWidget *widget, QLayout *parentLayout, int
       sheet->setChanged(sheet->indexOf(m_strings.m_objectName), true);
 
       if (widget->inherits("QLayoutWidget")) {
-         sheet->setProperty(sheet->indexOf(m_strings.m_leftMargin), 0);
-         sheet->setProperty(sheet->indexOf(m_strings.m_topMargin), 0);
-         sheet->setProperty(sheet->indexOf(m_strings.m_rightMargin), 0);
+         sheet->setProperty(sheet->indexOf(m_strings.m_leftMargin),   0);
+         sheet->setProperty(sheet->indexOf(m_strings.m_topMargin),    0);
+         sheet->setProperty(sheet->indexOf(m_strings.m_rightMargin),  0);
          sheet->setProperty(sheet->indexOf(m_strings.m_bottomMargin), 0);
       }
 
@@ -559,18 +568,21 @@ QLayout *WidgetFactory::createLayout(QWidget *widget, QLayout *parentLayout, int
       }
    }
 
-   if (metaDataBase->item(widget->layout()) == 0) {
-      Q_ASSERT(layout->parent() == 0);
+   if (metaDataBase->item(widget->layout()) == nullptr) {
+      Q_ASSERT(layout->parent() == nullptr);
+
       QBoxLayout *box = dynamic_cast<QBoxLayout *>(widget->layout());
 
-      if (!box) {
+      if (! box) {
          // supports only unmanaged box layouts
-         const QString msg = tr("Attempt to add a layout to a widget '%1' (%2) which already has an unmanaged layout of type %3.\n"
-               "This indicates an inconsistency in the ui file.")
-            .formatArg(widget->objectName()).formatArg(classNameOf(core(), widget))
-            .formatArg(classNameOf(core(), widget->layout()));
+         const QString msg = tr("Attempt to add a layout to a widget '%1' (%2) which already has an unmanaged "
+               "layout of type %3.\nThis indicates an inconsistency in the ui file.")
+               .formatArg(widget->objectName()).formatArg(classNameOf(core(), widget))
+               .formatArg(classNameOf(core(), widget->layout()));
+
          csWarning(msg);
-         return 0;
+
+         return nullptr;
       }
 
       box->addLayout(layout);
@@ -579,15 +591,6 @@ QLayout *WidgetFactory::createLayout(QWidget *widget, QLayout *parentLayout, int
    return layout;
 }
 
-/*!  Returns the widget into which children should be inserted when \a
-  w is a container known to designer.
-
-  Usually, it is \a w itself, but there are exceptions (for example, a
-  tabwidget is known to designer as a container, but the child
-  widgets should be inserted into the current page of the
-  tabwidget. In this case, the current page of
-  the tabwidget  would be returned.)
- */
 QWidget *WidgetFactory::containerOfWidget(QWidget *w) const
 {
    if (QDesignerContainerExtension *container = qt_extension<QDesignerContainerExtension *>(core()->extensionManager(), w)) {
@@ -597,27 +600,20 @@ QWidget *WidgetFactory::containerOfWidget(QWidget *w) const
    return w;
 }
 
-/*!  Returns the actual designer widget of the container \a w. This is
-  normally \a w itself, but it might be a parent or grand parent of \a w
-  (for example, when working with a tabwidget and \a w is the container which
-  contains and layouts children, but the actual widget known to
-  designer is the tabwidget which is the parent of \a w. In this case,
-  the tabwidget would be returned.)
-*/
-
 QWidget *WidgetFactory::widgetOfContainer(QWidget *w) const
 {
    // ### cleanup
    if (!w) {
-      return 0;
+      return nullptr;
    }
+
    if (w->parentWidget() && w->parentWidget()->parentWidget() &&
       w->parentWidget()->parentWidget()->parentWidget() &&
       dynamic_cast<QToolBox *>(w->parentWidget()->parentWidget()->parentWidget())) {
       return w->parentWidget()->parentWidget()->parentWidget();
    }
 
-   while (w != 0) {
+   while (w != nullptr) {
       if (core()->widgetDataBase()->isContainer(w) ||
          (w && dynamic_cast<QDesignerFormWindowInterface *>(w->parentWidget()))) {
          return w;
@@ -765,7 +761,7 @@ static inline bool isApplicationStyle(const QString &styleName)
 
 void WidgetFactory::setStyleName(const QString &styleName)
 {
-   m_currentStyle = isApplicationStyle(styleName) ? static_cast<QStyle *>(0) : getStyle(styleName);
+   m_currentStyle = isApplicationStyle(styleName) ? nullptr : getStyle(styleName);
 }
 
 QStyle *WidgetFactory::style() const
@@ -785,7 +781,7 @@ QStyle *WidgetFactory::getStyle(const QString &styleName)
       if (!style) {
          const QString msg = tr("Cannot create style '%1'.").formatArg(styleName);
          csWarning(msg);
-         return 0;
+         return nullptr;
       }
       it = m_styleCache.insert(styleName, style);
    }
@@ -860,11 +856,11 @@ bool WidgetFactory::isPassiveInteractor(QWidget *widget)
    static const QString qtPassive            = "__qt__passive_";
    static const QString qtMainWindowSplitter = "qt_qmainwindow_extended_splitter";
 
-   if (m_lastPassiveInteractor != 0 && (QWidget *)(*m_lastPassiveInteractor) == widget) {
+   if (m_lastPassiveInteractor != nullptr && (QWidget *)(*m_lastPassiveInteractor) == widget) {
       return m_lastWasAPassiveInteractor;
    }
 
-   if (QApplication::activePopupWidget() || widget == 0) {
+   if (QApplication::activePopupWidget() || widget == nullptr) {
       // if a popup is open, we have to make sure that this one is closed, else X might do funny things
       return true;
    }
@@ -903,8 +899,10 @@ bool WidgetFactory::isPassiveInteractor(QWidget *widget)
       // A scroll bar is an interactor on a QAbstractScrollArea only.
       if (const QWidget *parent = widget->parentWidget()) {
          const QString objectName = parent->objectName();
+
          static const QString scrollAreaVContainer = QString("qt_scrollarea_vcontainer");
          static const QString scrollAreaHContainer = QString("qt_scrollarea_hcontainer");
+
          if (objectName == scrollAreaVContainer || objectName == scrollAreaHContainer) {
             m_lastWasAPassiveInteractor = true;
             return m_lastWasAPassiveInteractor;

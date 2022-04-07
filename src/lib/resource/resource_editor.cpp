@@ -483,12 +483,12 @@ QtQrcFile *QtQrcManager::importQrcFile(const QtQrcFileData &qrcFileData, QtQrcFi
 
    while (itPrefix.hasNext()) {
       const QtResourcePrefixData &prefixData = itPrefix.next();
-      QtResourcePrefix *resourcePrefix = insertResourcePrefix(qrcFile, prefixData.prefix, prefixData.language, 0);
+      QtResourcePrefix *resourcePrefix = insertResourcePrefix(qrcFile, prefixData.prefix, prefixData.language, nullptr);
       QListIterator<QtResourceFileData> itFile(prefixData.resourceFileList);
 
       while (itFile.hasNext()) {
          const QtResourceFileData &fileData = itFile.next();
-         insertResourceFile(resourcePrefix, fileData.path, fileData.alias, 0);
+         insertResourceFile(resourcePrefix, fileData.path, fileData.alias, nullptr);
       }
    }
 
@@ -1083,12 +1083,14 @@ class QtResourceEditorDialogPrivate
 };
 
 QtResourceEditorDialogPrivate::QtResourceEditorDialogPrivate()
-   : q_ptr(0), m_core(0), m_resourceModel(0), m_dlgGui(0), m_qrcManager(0), m_ignoreCurrentChanged(false),
-     m_firstQrcFileDialog(true), m_currentQrcFile(0), m_newQrcFileAction(0), m_importQrcFileAction(0),
-     m_removeQrcFileAction(0), m_moveUpQrcFileAction(0), m_moveDownQrcFileAction(0),
-     m_newPrefixAction(0), m_addResourceFileAction(0), m_changePrefixAction(0), m_changeLanguageAction(0),
-     m_changeAliasAction(0), m_clonePrefixAction(0), m_moveUpAction(0), m_moveDownAction(0),
-     m_removeAction(0), m_treeModel(0), m_treeSelection(0)
+   : q_ptr(nullptr), m_core(nullptr), m_resourceModel(nullptr), m_dlgGui(nullptr),
+     m_qrcManager(nullptr), m_ignoreCurrentChanged(false),  m_firstQrcFileDialog(true),
+     m_currentQrcFile(nullptr), m_newQrcFileAction(nullptr), m_importQrcFileAction(nullptr),
+     m_removeQrcFileAction(nullptr), m_moveUpQrcFileAction(nullptr), m_moveDownQrcFileAction(nullptr),
+     m_newPrefixAction(nullptr), m_addResourceFileAction(nullptr), m_changePrefixAction(nullptr),
+     m_changeLanguageAction(nullptr), m_changeAliasAction(nullptr), m_clonePrefixAction(nullptr),
+     m_moveUpAction(nullptr), m_moveDownAction(nullptr), m_removeAction(nullptr),
+     m_treeModel(nullptr), m_treeSelection(nullptr)
 {
 }
 
@@ -1096,8 +1098,8 @@ QMessageBox::StandardButton QtResourceEditorDialogPrivate::warning(const QString
    QMessageBox::StandardButtons buttons,
    QMessageBox::StandardButton defaultButton) const
 {
-   return m_dlgGui->message(q_ptr, QDesignerDialogGuiInterface::ResourceEditorMessage, QMessageBox::Warning, title, text, buttons,
-         defaultButton);
+   return m_dlgGui->message(q_ptr, QDesignerDialogGuiInterface::ResourceEditorMessage,
+      QMessageBox::Warning, title, text, buttons, defaultButton);
 }
 
 QString QtResourceEditorDialogPrivate::qrcFileText(QtQrcFile *qrcFile) const
@@ -1177,12 +1179,13 @@ void QtResourceEditorDialogPrivate::slotQrcFileRemoved(QtQrcFile *qrcFile)
    QListWidgetItem *item = m_qrcFileToItem.value(qrcFile);
 
    if (item == m_ui.qrcFileList->currentItem()) {
-      m_ui.qrcFileList->setCurrentItem(0);
+      m_ui.qrcFileList->setCurrentItem(nullptr);
       // this should trigger list view signal currentItemChanged(0), and slot should set m_currentQrcFile to 0
    }
 
    m_ignoreCurrentChanged = true;
    delete item;
+
    m_ignoreCurrentChanged = false;
    m_itemToQrcFile.remove(item);
    m_qrcFileToItem.remove(qrcFile);
@@ -1572,11 +1575,13 @@ void QtResourceEditorDialogPrivate::slotTreeViewItemChanged(QStandardItem *item)
 QString QtResourceEditorDialogPrivate::getSaveFileNameWithExtension(QWidget *parent,
    const QString &title, QString dir, const QString &filter, const QString &extension) const
 {
-   const QChar dot = QLatin1Char('.');
+   const QChar dot = '.';
 
    QString saveFile;
+
    while (true) {
-      saveFile = m_dlgGui->getSaveFileName(parent, title, dir, filter, 0, QFileDialog::DontConfirmOverwrite);
+      saveFile = m_dlgGui->getSaveFileName(parent, title, dir, filter, nullptr, QFileDialog::DontConfirmOverwrite);
+
       if (saveFile.isEmpty()) {
          return saveFile;
       }
@@ -1598,15 +1603,18 @@ QString QtResourceEditorDialogPrivate::getSaveFileNameWithExtension(QWidget *par
 
       dir = saveFile;
    }
+
    return saveFile;
 }
 
 QString QtResourceEditorDialogPrivate::qrcStartDirectory() const
 {
-   if (!m_currentQrcFile) {
+   if (! m_currentQrcFile) {
       return QString();
    }
+
    const QDir dir = QFileInfo(m_currentQrcFile->path()).dir();
+
    return dir.exists() ? dir.absolutePath() : QString();
 }
 
@@ -1615,18 +1623,20 @@ void QtResourceEditorDialogPrivate::slotNewQrcFile()
    const QString qrcPath = getSaveFileNameWithExtension(q_ptr,
          QCoreApplication::translate("QtResourceEditorDialog", "New Resource File"),
          m_firstQrcFileDialog ? qrcStartDirectory() : QString(),
-         QCoreApplication::translate("QtResourceEditorDialog", "Resource files (*.qrc)"),
-         QString("qrc"));
+         QCoreApplication::translate("QtResourceEditorDialog", "Resource files (*.qrc)"), "qrc");
+
    if (qrcPath.isEmpty()) {
       return;
    }
 
    m_firstQrcFileDialog = false;
+
    if (QtQrcFile *sameQrcFile = m_qrcManager->qrcFileOf(qrcPath)) {
       // QMessageBox ???
       QListWidgetItem *item = m_qrcFileToItem.value(sameQrcFile);
       m_ui.qrcFileList->setCurrentItem(item);
       item->setSelected(true);
+
       return;
    }
 

@@ -24,12 +24,12 @@
 
 #include <metadatabase_p.h>
 
-#include <QHBoxLayout>
-#include <QFormLayout>
-#include <QSplitter>
 #include <QDebug>
+#include <QFormLayout>
+#include <QHBoxLayout>
 #include <QHash>
 #include <QRect>
+#include <QSplitter>
 
 namespace qdesigner_internal {
 
@@ -85,19 +85,21 @@ LayoutInfo::Type LayoutInfo::layoutType(const QDesignerFormEditorInterface *core
 }
 
 LayoutInfo::Type LayoutInfo::managedLayoutType(const QDesignerFormEditorInterface *core,
-   const QWidget *w,
-   QLayout **ptrToLayout)
+      const QWidget *w, QLayout **ptrToLayout)
 {
    if (ptrToLayout) {
-      *ptrToLayout = 0;
+      *ptrToLayout = nullptr;
    }
+
    if (const QSplitter *splitter = dynamic_cast<const QSplitter *>(w)) {
       return  splitter->orientation() == Qt::Horizontal ? HSplitter : VSplitter;
    }
+
    QLayout *layout = managedLayout(core, w);
    if (!layout) {
       return NoLayout;
    }
+
    if (ptrToLayout) {
       *ptrToLayout = layout;
    }
@@ -109,6 +111,7 @@ QWidget *LayoutInfo::layoutParent(const QDesignerFormEditorInterface *core, QLay
    Q_UNUSED(core)
 
    QObject *o = layout;
+
    while (o) {
       if (QWidget *widget = dynamic_cast<QWidget *>(o)) {
          return widget;
@@ -116,6 +119,7 @@ QWidget *LayoutInfo::layoutParent(const QDesignerFormEditorInterface *core, QLay
 
       o = o->parent();
    }
+
    return nullptr;
 }
 
@@ -253,7 +257,7 @@ bool LayoutInfo::isEmptyItem(QLayoutItem *item)
       return true;
    }
 
-   return item->spacerItem() != 0;
+   return item->spacerItem() != nullptr;
 }
 
 void getFormLayoutItemPosition(const QFormLayout *formLayout, int index, int *rowPtr, int *columnPtr, int *rowspanPtr, int *colspanPtr)

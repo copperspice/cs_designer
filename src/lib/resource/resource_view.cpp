@@ -158,19 +158,11 @@ class QtResourceViewPrivate
    QString m_filterPattern;
 };
 
-QtResourceViewPrivate::QtResourceViewPrivate(QDesignerFormEditorInterface *core) :
-   q_ptr(0),
-   m_core(core),
-   m_resourceModel(0),
-   m_toolBar(new QToolBar),
-   m_treeWidget(new QTreeWidget),
-   m_listWidget(new ResourceListWidget),
-   m_splitter(0),
-   m_editResourcesAction(0),
-   m_reloadResourcesAction(0),
-   m_copyResourcePathAction(0),
-   m_ignoreGuiSignals(false),
-   m_resourceEditingEnabled(true)
+QtResourceViewPrivate::QtResourceViewPrivate(QDesignerFormEditorInterface *core)
+   : q_ptr(nullptr), m_core(core), m_resourceModel(nullptr), m_toolBar(new QToolBar),
+     m_treeWidget(new QTreeWidget), m_listWidget(new ResourceListWidget), m_splitter(nullptr),
+     m_editResourcesAction(nullptr), m_reloadResourcesAction(nullptr), m_copyResourcePathAction(nullptr),
+     m_ignoreGuiSignals(false), m_resourceEditingEnabled(true)
 {
    m_toolBar->setIconSize(QSize(22, 22));
 }
@@ -389,7 +381,7 @@ void QtResourceViewPrivate::createPaths()
    }
 
    QQueue<QPair<QString, QTreeWidgetItem *>> pathToParentItemQueue;
-   pathToParentItemQueue.enqueue(qMakePair(root, static_cast<QTreeWidgetItem *>(0)));
+   pathToParentItemQueue.enqueue(qMakePair(root, nullptr));
 
    while (! pathToParentItemQueue.isEmpty()) {
       QPair<QString, QTreeWidgetItem *> pathToParentItem = pathToParentItemQueue.dequeue();
@@ -856,12 +848,11 @@ bool QtResourceView::decodeMimeData(const QString &text, ResourceType *t, QStrin
    return true;
 }
 
-// ---------------------------- QtResourceViewDialogPrivate
-
 class QtResourceViewDialogPrivate
 {
    QtResourceViewDialog *q_ptr;
    Q_DECLARE_PUBLIC(QtResourceViewDialog)
+
  public:
    QtResourceViewDialogPrivate(QDesignerFormEditorInterface *core);
 
@@ -877,11 +868,9 @@ class QtResourceViewDialogPrivate
    QDialogButtonBox *m_box;
 };
 
-QtResourceViewDialogPrivate::QtResourceViewDialogPrivate(QDesignerFormEditorInterface *core) :
-   q_ptr(0),
-   m_core(core),
-   m_view(new QtResourceView(core)),
-   m_box(new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal))
+QtResourceViewDialogPrivate::QtResourceViewDialogPrivate(QDesignerFormEditorInterface *core)
+   : q_ptr(nullptr), m_core(core), m_view(new QtResourceView(core)),
+     m_box(new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal))
 {
    m_view->setSettingsKey(ResourceViewDialogC);
 }

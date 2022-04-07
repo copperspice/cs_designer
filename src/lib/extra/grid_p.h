@@ -22,9 +22,9 @@
 
 #include <QVariant>
 
-class QWidget;
 class QPaintEvent;
 class QPainter;
+class QWidget;
 
 namespace qdesigner_internal {
 

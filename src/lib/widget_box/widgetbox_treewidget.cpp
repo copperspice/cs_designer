@@ -79,7 +79,7 @@ static TopLevelRole topLevelRole(const  QTreeWidgetItem *item)
 namespace qdesigner_internal {
 
 WidgetBoxTreeWidget::WidgetBoxTreeWidget(QDesignerFormEditorInterface *core, QWidget *parent)
-   : QTreeWidget(parent), m_core(core), m_iconMode(false), m_scratchPadDeleteTimer(0)
+   : QTreeWidget(parent), m_core(core), m_iconMode(false), m_scratchPadDeleteTimer(nullptr)
 {
    setFocusPolicy(Qt::NoFocus);
    setIndentation(0);
@@ -93,7 +93,7 @@ WidgetBoxTreeWidget::WidgetBoxTreeWidget(QDesignerFormEditorInterface *core, QWi
    setItemDelegate(new SheetDelegate(this, this));
 
    connect(this, &QTreeWidget::itemPressed,
-      this, &WidgetBoxTreeWidget::handleMousePress);
+         this, &WidgetBoxTreeWidget::handleMousePress);
 }
 
 QIcon WidgetBoxTreeWidget::iconForWidget(QString iconName) const
@@ -105,27 +105,34 @@ QIcon WidgetBoxTreeWidget::iconForWidget(QString iconName) const
 
    if (iconName.startsWith(iconPrefixC)) {
       const IconCache::const_iterator it = m_pluginIcons.constFind(iconName);
+
       if (it != m_pluginIcons.constEnd()) {
          return it.value();
       }
    }
+
    return createIconSet(iconName);
 }
 
 WidgetBoxCategoryListView *WidgetBoxTreeWidget::categoryViewAt(int idx) const
 {
-   WidgetBoxCategoryListView *rc = 0;
-   if (QTreeWidgetItem *cat_item = topLevelItem(idx))
+   WidgetBoxCategoryListView *rc = nullptr;
+
+   if (QTreeWidgetItem *cat_item = topLevelItem(idx)) {
       if (QTreeWidgetItem *embedItem = cat_item->child(0)) {
          rc = dynamic_cast<WidgetBoxCategoryListView *>(itemWidget(embedItem, 0));
       }
+   }
+
    Q_ASSERT(rc);
+
    return rc;
 }
 
 void WidgetBoxTreeWidget::saveExpandedState() const
 {
    QStringList closedCategories;
+
    if (const int numCategories = categoryCount()) {
       for (int i = 0; i < numCategories; ++i) {
          const QTreeWidgetItem *cat_item = topLevelItem(i);
@@ -134,6 +141,7 @@ void WidgetBoxTreeWidget::saveExpandedState() const
          }
       }
    }
+
    QDesignerSettingsInterface *settings = m_core->settingsManager();
    settings->beginGroup(widgetBoxSettingsGroupC);
    settings->setValue(widgetBoxExpandedKeyC, closedCategories);
@@ -217,7 +225,7 @@ void WidgetBoxTreeWidget::slotSave()
 
 void WidgetBoxTreeWidget::handleMousePress(QTreeWidgetItem *item)
 {
-   if (item == 0) {
+   if (item == nullptr) {
       return;
    }
 
@@ -225,7 +233,7 @@ void WidgetBoxTreeWidget::handleMousePress(QTreeWidgetItem *item)
       return;
    }
 
-   if (item->parent() == 0) {
+   if (item->parent() == nullptr) {
       setItemExpanded(item, !isItemExpanded(item));
       return;
    }
@@ -690,7 +698,8 @@ WidgetBoxTreeWidget::CategoryList WidgetBoxTreeWidget::loadCustomCategoryList() 
 void WidgetBoxTreeWidget::adjustSubListSize(QTreeWidgetItem *cat_item)
 {
    QTreeWidgetItem *embedItem = cat_item->child(0);
-   if (embedItem == 0) {
+
+   if (embedItem == nullptr) {
       return;
    }
 
@@ -897,10 +906,12 @@ void WidgetBoxTreeWidget::updateViewMode()
    if (const int numTopLevels = topLevelItemCount()) {
       for (int i = numTopLevels - 1; i >= 0; --i) {
          QTreeWidgetItem *topLevel = topLevelItem(i);
-         // Scratch pad stays in list mode.
+
+         // Scratch pad stays in list mode
          const QListView::ViewMode viewMode  = m_iconMode &&
             (topLevelRole(topLevel) != SCRATCHPAD_ITEM) ? QListView::IconMode : QListView::ListMode;
          WidgetBoxCategoryListView *categoryView = categoryViewAt(i);
+
          if (viewMode != categoryView->viewMode()) {
             categoryView->setViewMode(viewMode);
             adjustSubListSize(topLevelItem(i));
@@ -925,9 +936,8 @@ void WidgetBoxTreeWidget::contextMenuEvent(QContextMenuEvent *e)
 {
    QTreeWidgetItem *item = itemAt(e->pos());
 
-   const bool scratchpad_menu = item != 0
-      && item->parent() != 0
-      && topLevelRole(item->parent()) ==  SCRATCHPAD_ITEM;
+   const bool scratchpad_menu = item != nullptr && item->parent() != nullptr
+         && topLevelRole(item->parent()) ==  SCRATCHPAD_ITEM;
 
    QMenu menu;
    menu.addAction(tr("Expand all"), this, &WidgetBoxTreeWidget::expandAll);
@@ -936,11 +946,14 @@ void WidgetBoxTreeWidget::contextMenuEvent(QContextMenuEvent *e)
 
    QAction *listModeAction = menu.addAction(tr("List View"));
    QAction *iconModeAction = menu.addAction(tr("Icon View"));
+
    listModeAction->setCheckable(true);
    iconModeAction->setCheckable(true);
+
    QActionGroup *viewModeGroup = new QActionGroup(&menu);
    viewModeGroup->addAction(listModeAction);
    viewModeGroup->addAction(iconModeAction);
+
    if (m_iconMode) {
       iconModeAction->setChecked(true);
    } else {
@@ -958,24 +971,26 @@ void WidgetBoxTreeWidget::contextMenuEvent(QContextMenuEvent *e)
          menu.addAction(tr("Edit name"), listView, &WidgetBoxCategoryListView::editCurrentItem);
       }
    }
+
    e->accept();
    menu.exec(mapToGlobal(e->pos()));
 }
 
 void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface *> &item_list)
 {
-   QTreeWidgetItem *scratch_item = 0;
-   WidgetBoxCategoryListView *categoryView = 0;
+   QTreeWidgetItem *scratch_item = nullptr;
+   WidgetBoxCategoryListView *categoryView = nullptr;
    bool added = false;
 
    for (QDesignerDnDItemInterface *item : item_list) {
       QWidget *w = item->widget();
-      if (w == 0) {
+
+      if (w == nullptr) {
          continue;
       }
 
       DomUI *dom_ui = item->domUi();
-      if (dom_ui == 0) {
+      if (dom_ui == nullptr) {
          continue;
       }
 
@@ -985,7 +1000,8 @@ void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface *> &
 
       // Temporarily remove the fake toplevel in-between
       DomWidget *fakeTopLevel = dom_ui->takeElementWidget();
-      DomWidget *firstWidget = 0;
+      DomWidget *firstWidget  = nullptr;
+
       if (fakeTopLevel && !fakeTopLevel->elementWidget().isEmpty()) {
          firstWidget = fakeTopLevel->elementWidget().first();
          dom_ui->setElementWidget(firstWidget);
@@ -1007,7 +1023,7 @@ void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface *> &
 
       // Insert fake toplevel again
       dom_ui->takeElementWidget();
-      dom_ui->setElementWidget(fakeTopLevel);
+      dom_ui->setElementWidget(fakeTopLevel );
 
       const Widget scratchWidget = Widget(w->objectName(), xml);
       QIcon iconImage = QIcon(":/resources/form_editor/images/scratchpad-32.png");
@@ -1020,12 +1036,15 @@ void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface *> &
    if (added) {
       save();
       QApplication::setActiveWindow(this);
+
       // Is the new item visible in filtered mode?
       const WidgetBoxCategoryListView::AccessMode am = WidgetBoxCategoryListView::FilteredAccess;
+
       if (const int count = categoryView->count(am)) {
          categoryView->setCurrentItem(am, count - 1);
       }
-      categoryView->adjustSize(); // XXX
+
+      categoryView->adjustSize();
       adjustSubListSize(scratch_item);
    }
 }

@@ -22,9 +22,9 @@
 #include <metadatabase_p.h>
 #include <widgetdatabase_p.h>
 
-#include <QWidget>
 #include <qalgorithms.h>
 #include <QDebug>
+#include <QWidget>
 
 namespace {
 const bool debugMetaDatabase = false;

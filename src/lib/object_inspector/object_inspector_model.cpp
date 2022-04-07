@@ -25,12 +25,12 @@
 #include <extension_manager.h>
 #include <layout.h>
 #include <object_inspector_model.h>
-#include <utils.h>
-
-#include <metadatabase_p.h>
 #include <layout_widget.h>
 #include <designer_property_command.h>
 #include <designer_utils.h>
+#include <utils.h>
+
+#include <metadatabase_p.h>
 #include <iconloader_p.h>
 
 #include <QLayout>
@@ -134,7 +134,7 @@ ModelRecursionContext::ModelRecursionContext(QDesignerFormEditorInterface *c, co
 // object name and icon) are checked and the existing items are updated.
 
 ObjectData::ObjectData()
-   : m_parent(0), m_object(0), m_type(Object), m_managedLayoutType(LayoutInfo::NoLayout)
+   : m_parent(nullptr), m_object(nullptr), m_type(Object), m_managedLayoutType(LayoutInfo::NoLayout)
 {
 }
 
@@ -303,7 +303,7 @@ void createModelRecursion(const QDesignerFormWindowInterface *fwi, QObject *pare
 
       for (int i = 0; i < count; ++i) {
          QObject *page = containerExtension->widget(i);
-         Q_ASSERT(page != 0);
+         Q_ASSERT(page != nullptr);
          createModelRecursion(fwi, object, page, model, ctx);
       }
    }
@@ -399,7 +399,7 @@ ObjectInspectorModel::UpdateResult ObjectInspectorModel::update(QDesignerFormWin
 
    if (! mainContainer) {
       clearItems();
-      m_formWindow = 0;
+      m_formWindow = nullptr;
       return NoForm;
    }
 
@@ -411,7 +411,7 @@ ObjectInspectorModel::UpdateResult ObjectInspectorModel::update(QDesignerFormWin
 
    static const QString separator = QCoreApplication::translate("ObjectInspectorModel", "separator");
    const ModelRecursionContext ctx(fw->core(),  separator);
-   createModelRecursion(fw, 0, mainContainer, newModel, ctx);
+   createModelRecursion(fw, nullptr, mainContainer, newModel, ctx);
 
    if (newModel == m_model) {
       updateItemContents(m_model, newModel);

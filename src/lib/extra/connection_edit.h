@@ -22,13 +22,13 @@
 
 class QDesignerFormWindowInterface;
 
-#include <QMultiMap>
 #include <QList>
-#include <QPointer>
-#include <QWidget>
+#include <QMultiMap>
 #include <QPixmap>
+#include <QPointer>
 #include <QPolygonF>
 #include <QUndoCommand>
+#include <QWidget>
 
 class QUndoStack;
 class QMenu;

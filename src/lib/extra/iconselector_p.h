@@ -82,7 +82,7 @@ class IconSelector : public QWidget
 
    // Check whether a pixmap may be read
    enum CheckMode { CheckFast, CheckFully };
-   static bool checkPixmap(const QString &fileName, CheckMode cm = CheckFully, QString *errorMessage = 0);
+   static bool checkPixmap(const QString &fileName, CheckMode cm = CheckFully, QString *errorMessage = nullptr);
 
    // Choose a pixmap from file
    static QString choosePixmapFile(const QString &directory, QDesignerDialogGuiInterface *dlgGui, QWidget *parent);
