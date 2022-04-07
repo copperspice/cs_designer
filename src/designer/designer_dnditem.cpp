@@ -98,16 +98,13 @@ void QDesignerDnDItem::setDomUi(DomUI *dom_ui)
    m_dom_ui = dom_ui;
 }
 
-// ---------- QDesignerMimeData
-
-// Make pixmap transparent on Windows only. Mac is transparent by default, Unix usually does not work.
+QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag)
+   : m_items(items)
+{
 #ifdef Q_OS_WIN
-#  define TRANSPARENT_DRAG_PIXMAP
+    constexpr const int Alpha = 200;
 #endif
 
-QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag) :
-   m_items(items)
-{
    QPoint decorationTopLeft;
 
    switch (m_items.size()) {
@@ -119,20 +116,24 @@ QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag
          decorationTopLeft = deco->pos();
          const QPixmap widgetPixmap = deco->grab(QRect(0, 0, -1, -1));
 
-#ifdef TRANSPARENT_DRAG_PIXMAP
-         constexpr const int Alpha = 200;
+#ifdef Q_OS_WIN
+         // transparent_drag_pixmap on windows only
+         // Mac is transparent by default and Unix usually does not work
 
          QImage image(widgetPixmap.size(), QImage::Format_ARGB32);
          image.setDevicePixelRatio(widgetPixmap.devicePixelRatio());
          image.fill(QColor(Qt::transparent).rgba());
+
          QPainter painter(&image);
          painter.drawPixmap(QPoint(0, 0), widgetPixmap);
          painter.end();
+
          setImageTransparency(image, Alpha);
          drag->setPixmap(QPixmap::fromImage(image));
 #else
          drag->setPixmap(widgetPixmap);
 #endif
+
       }
       break;
 
@@ -167,15 +168,18 @@ QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag
          }
          painter.end();
          maskPainter.end();
-#ifdef TRANSPARENT_DRAG_PIXMAP
+
+#ifdef Q_OS_WIN
          setImageTransparency(image, Alpha);
 #endif
+
          QPixmap pixmap = QPixmap::fromImage(image);
          pixmap.setMask(mask);
          drag->setPixmap(pixmap);
       }
       break;
    }
+
    // determine hot spot and reconstruct the exact starting position as form window
    // introduces some offset when detecting DnD
    m_globalStartPos =  m_items.first()->decoration()->pos() +  m_items.first()->hotSpot();
