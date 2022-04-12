@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <qtgradienteditor.h>
-#include <qtgradientstopscontroller.h>
+#include <gradient_editor.h>
+#include <gradientstops_controller.h>
 #include <ui_gradient_editor.h>
 
 class QtGradientEditorPrivate
@@ -287,11 +287,11 @@ void QtGradientEditorPrivate::layoutDetails(bool details)
    if (details) {
       if (m_hiddenLayout) {
          delete m_hiddenLayout;
-         m_hiddenLayout = 0;
+         m_hiddenLayout = nullptr;
       }
       if (m_hiddenWidget) {
          delete m_hiddenWidget;
-         m_hiddenWidget = 0;
+         m_hiddenWidget = nullptr;
       }
    }
 }
@@ -345,7 +345,7 @@ void QtGradientEditorPrivate::showDetails(bool details)
    if (m_gridLayout) {
       m_gridLayout->setEnabled(false);
       delete m_gridLayout;
-      m_gridLayout = 0;
+      m_gridLayout = nullptr;
    }
 
    if (!details) {
@@ -386,18 +386,18 @@ void QtGradientEditorPrivate::setSpinBox(QDoubleSpinBox *spinBox, const QString 
 
 void QtGradientEditorPrivate::reset()
 {
-   startLinearXSpinBox = 0;
-   startLinearYSpinBox = 0;
-   endLinearXSpinBox = 0;
-   endLinearYSpinBox = 0;
-   centralRadialXSpinBox = 0;
-   centralRadialYSpinBox = 0;
-   focalRadialXSpinBox = 0;
-   focalRadialYSpinBox = 0;
-   radiusRadialSpinBox = 0;
-   centralConicalXSpinBox = 0;
-   centralConicalYSpinBox = 0;
-   angleConicalSpinBox = 0;
+   startLinearXSpinBox    = nullptr;
+   startLinearYSpinBox    = nullptr;
+   endLinearXSpinBox      = nullptr;
+   endLinearYSpinBox      = nullptr;
+   centralRadialXSpinBox  = nullptr;
+   centralRadialYSpinBox  = nullptr;
+   focalRadialXSpinBox    = nullptr;
+   focalRadialYSpinBox    = nullptr;
+   radiusRadialSpinBox    = nullptr;
+   centralConicalXSpinBox = nullptr;
+   centralConicalYSpinBox = nullptr;
+   angleConicalSpinBox    = nullptr;
 }
 
 void QtGradientEditorPrivate::setType(QGradient::Type type)
@@ -740,12 +740,15 @@ QtGradientEditor::QtGradientEditor(QWidget *parent)
    d_ptr->q_ptr = this;
    d_ptr->m_type = QGradient::RadialGradient;
    d_ptr->m_ui.setupUi(this);
-   d_ptr->m_gridLayout = 0;
-   d_ptr->m_hiddenLayout = 0;
-   d_ptr->m_hiddenWidget = 0;
-   bool detailsDefault = false;
+
+   d_ptr->m_gridLayout   = nullptr;
+   d_ptr->m_hiddenLayout = nullptr;
+   d_ptr->m_hiddenWidget = nullptr;
+   bool detailsDefault   = false;
+
    d_ptr->m_details = !detailsDefault;
    d_ptr->m_detailsButtonVisible = true;
+
    bool checkeredDefault = true;
    d_ptr->m_backgroundCheckered = !checkeredDefault;
    d_ptr->m_gradientStopsController = new QtGradientStopsController(this);

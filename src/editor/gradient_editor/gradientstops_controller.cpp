@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <qtgradientstopscontroller.h>
-#include <qtgradientstopsmodel.h>
+#include <gradientstops_controller.h>
+#include <gradientstops_model.h>
 #include <ui_gradient_editor.h>
 
 #include <QTimer>
@@ -132,15 +132,18 @@ void QtGradientStopsControllerPrivate::updateZoom(double zoom)
    m_ui->zoomSpinBox->blockSignals(true);
    m_ui->zoomSpinBox->setValue(qRound(zoom * 100));
    m_ui->zoomSpinBox->blockSignals(false);
+
    bool zoomInEnabled = true;
    bool zoomOutEnabled = true;
    bool zoomAllEnabled = true;
+
    if (zoom <= 1) {
       zoomAllEnabled = false;
       zoomOutEnabled = false;
    } else if (zoom >= 100) {
       zoomInEnabled = false;
    }
+
    m_ui->zoomInButton->setEnabled(zoomInEnabled);
    m_ui->zoomOutButton->setEnabled(zoomOutEnabled);
    m_ui->zoomAllButton->setEnabled(zoomAllEnabled);
@@ -220,33 +223,42 @@ void QtGradientStopsControllerPrivate::setColorSpinBoxes(const QColor &color)
    m_ui->saturationSpinBox->blockSignals(true);
    m_ui->valueSpinBox->blockSignals(true);
    m_ui->alphaSpinBox->blockSignals(true);
+
    if (m_ui->hsvRadioButton->isChecked()) {
       if (m_ui->hueSpinBox->maximum() != 359) {
          m_ui->hueSpinBox->setMaximum(359);
       }
+
       if (m_ui->hueSpinBox->value() != color.hue()) {
          m_ui->hueSpinBox->setValue(color.hue());
       }
+
       if (m_ui->saturationSpinBox->value() != color.saturation()) {
          m_ui->saturationSpinBox->setValue(color.saturation());
       }
+
       if (m_ui->valueSpinBox->value() != color.value()) {
          m_ui->valueSpinBox->setValue(color.value());
       }
+
    } else {
       if (m_ui->hueSpinBox->maximum() != 255) {
          m_ui->hueSpinBox->setMaximum(255);
       }
+
       if (m_ui->hueSpinBox->value() != color.red()) {
          m_ui->hueSpinBox->setValue(color.red());
       }
+
       if (m_ui->saturationSpinBox->value() != color.green()) {
          m_ui->saturationSpinBox->setValue(color.green());
       }
+
       if (m_ui->valueSpinBox->value() != color.blue()) {
          m_ui->valueSpinBox->setValue(color.blue());
       }
    }
+
    m_ui->alphaSpinBox->setValue(color.alpha());
    m_ui->hueSpinBox->blockSignals(false);
    m_ui->saturationSpinBox->blockSignals(false);
@@ -684,8 +696,10 @@ QtGradientStopsController::~QtGradientStopsController()
 void QtGradientStopsController::setGradientStops(const QVector<QPair<qreal, QColor>> &stops)
 {
    d_ptr->m_model->clear();
+
    QVectorIterator<QPair<qreal, QColor>> it(stops);
-   QtGradientStop *first = 0;
+   QtGradientStop *first = nullptr;
+
    while (it.hasNext()) {
       QPair<qreal, QColor> pair = it.next();
       QtGradientStop *stop = d_ptr->m_model->addStop(pair.first, pair.second);
@@ -693,6 +707,7 @@ void QtGradientStopsController::setGradientStops(const QVector<QPair<qreal, QCol
          first = stop;
       }
    }
+
    if (first) {
       d_ptr->m_model->setCurrentStop(first);
    }

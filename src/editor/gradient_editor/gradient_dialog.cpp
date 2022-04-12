@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qtgradientdialog.h>
+#include <gradient_dialog.h>
 #include <ui_gradient_dialog.h>
 
 #include <QPushButton>

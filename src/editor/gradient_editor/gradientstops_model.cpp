@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qtgradientstopsmodel.h>
+#include <gradientstops_model.h>
 
 #include <QColor>
 
@@ -70,6 +70,7 @@ class QtGradientStopsModelPrivate
 {
    QtGradientStopsModel *q_ptr;
    Q_DECLARE_PUBLIC(QtGradientStopsModel)
+
  public:
    QMap<qreal, QtGradientStop *> m_posToStop;
    QMap<QtGradientStop *, qreal> m_stopToPos;
@@ -83,7 +84,7 @@ QtGradientStopsModel::QtGradientStopsModel(QObject *parent)
    : QObject(parent), d_ptr(new QtGradientStopsModelPrivate)
 {
    d_ptr->q_ptr = this;
-   d_ptr->m_current = 0;
+   d_ptr->m_current = nullptr;
 }
 
 QtGradientStopsModel::~QtGradientStopsModel()
@@ -101,7 +102,7 @@ QtGradientStop *QtGradientStopsModel::at(qreal pos) const
    if (d_ptr->m_posToStop.contains(pos)) {
       return d_ptr->m_posToStop[pos];
    }
-   return 0;
+   return nullptr;
 }
 
 QColor QtGradientStopsModel::color(qreal pos) const
@@ -110,16 +111,19 @@ QColor QtGradientStopsModel::color(qreal pos) const
    if (gradStops.isEmpty()) {
       return QColor::fromRgbF(pos, pos, pos, 1.0);
    }
+
    if (gradStops.contains(pos)) {
       return gradStops[pos]->color();
    }
 
-   gradStops[pos] = 0;
+   gradStops[pos] = nullptr;
+
    auto itStop = gradStops.constFind(pos);
    if (itStop == gradStops.constBegin()) {
       ++itStop;
       return itStop.value()->color();
    }
+
    if (itStop == --gradStops.constEnd()) {
       --itStop;
       return itStop.value()->color();
@@ -143,6 +147,7 @@ QColor QtGradientStopsModel::color(qreal pos) const
       (nextCol.greenF() - prevCol.greenF()) * coefX + prevCol.greenF(),
       (nextCol.blueF()  - prevCol.blueF() ) * coefX + prevCol.blueF(),
       (nextCol.alphaF() - prevCol.alphaF()) * coefX + prevCol.alphaF());
+
    return newColor;
 }
 
@@ -174,7 +179,7 @@ QtGradientStop *QtGradientStopsModel::addStop(qreal pos, const QColor &color)
       newPos = 1.0;
    }
    if (d_ptr->m_posToStop.contains(newPos)) {
-      return 0;
+      return nullptr;
    }
    QtGradientStop *stop = new QtGradientStop();
    stop->setPosition(newPos);
@@ -193,8 +198,9 @@ void QtGradientStopsModel::removeStop(QtGradientStop *stop)
    if (!d_ptr->m_stopToPos.contains(stop)) {
       return;
    }
+
    if (currentStop() == stop) {
-      setCurrentStop(0);
+      setCurrentStop(nullptr);
    }
    selectStop(stop, false);
 
@@ -211,6 +217,7 @@ void QtGradientStopsModel::moveStop(QtGradientStop *stop, qreal newPos)
    if (!d_ptr->m_stopToPos.contains(stop)) {
       return;
    }
+
    if (d_ptr->m_posToStop.contains(newPos)) {
       return;
    }
@@ -313,7 +320,7 @@ QtGradientStop *QtGradientStopsModel::firstSelected() const
       }
       ++itStop;
    };
-   return 0;
+   return nullptr;
 }
 
 QtGradientStop *QtGradientStopsModel::lastSelected() const
@@ -328,7 +335,7 @@ QtGradientStop *QtGradientStopsModel::lastSelected() const
          return stop;
       }
    };
-   return 0;
+   return nullptr;
 }
 
 QtGradientStopsModel *QtGradientStopsModel::clone() const

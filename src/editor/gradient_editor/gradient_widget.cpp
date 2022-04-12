@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qtgradientwidget.h>
+#include <gradient_widget.h>
 
 #include <QMap>
 #include <QImage>
@@ -513,21 +513,26 @@ void QtGradientWidget::paintEvent(QPaintEvent *e)
       p.setBrushOrigin(0, 0);
    }
 
-   QGradient *gradient = 0;
+   QGradient *gradient = nullptr;
+
    switch (d_ptr->m_gradientType) {
       case QGradient::LinearGradient:
          gradient = new QLinearGradient(d_ptr->m_startLinear, d_ptr->m_endLinear);
          break;
+
       case QGradient::RadialGradient:
          gradient = new QRadialGradient(d_ptr->m_centralRadial, d_ptr->m_radiusRadial, d_ptr->m_focalRadial);
          break;
+
       case QGradient::ConicalGradient:
          gradient = new QConicalGradient(d_ptr->m_centralConical, d_ptr->m_angleConical);
          break;
+
       default:
          break;
    }
-   if (!gradient) {
+
+   if (! gradient) {
       return;
    }
 

@@ -54,8 +54,8 @@ class QtColorLine : public QWidget
       Alpha
    };
 
-   QSize minimumSizeHint() const;
-   QSize sizeHint() const;
+   QSize minimumSizeHint() const override;
+   QSize sizeHint() const override;
 
    QtColorLine(QWidget *parent = nullptr);
    ~QtColorLine();
@@ -87,12 +87,12 @@ class QtColorLine : public QWidget
    CS_SIGNAL_2(colorChanged, color)
 
  protected:
-   void resizeEvent(QResizeEvent *event);
-   void paintEvent(QPaintEvent *event);
-   void mousePressEvent(QMouseEvent *event);
-   void mouseMoveEvent(QMouseEvent *event);
-   void mouseReleaseEvent(QMouseEvent *event);
-   void mouseDoubleClickEvent(QMouseEvent *event);
+   void resizeEvent(QResizeEvent *event) override;
+   void paintEvent(QPaintEvent *event) override;
+   void mousePressEvent(QMouseEvent *event) override;
+   void mouseMoveEvent(QMouseEvent *event) override;
+   void mouseReleaseEvent(QMouseEvent *event) override;
+   void mouseDoubleClickEvent(QMouseEvent *event) override;
 
  private:
    QScopedPointer<class QtColorLinePrivate> d_ptr;

@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qtcolorbutton.h>
+#include <color_button.h>
 
 #include <QColorDialog>
 #include <QPainter>

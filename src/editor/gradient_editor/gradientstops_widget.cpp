@@ -17,27 +17,21 @@
 *
 ***********************************************************************/
 
-#include <qtgradientstopswidget.h>
-#include <qtgradientstopsmodel.h>
+#include <gradientstops_model.h>
+#include <gradientstops_widget.h>
 
-#include <QMap>
-#include <QMimeData>
 #include <QImage>
-#include <QPainter>
-#include <QScrollBar>
-#include <QMouseEvent>
-#include <QRubberBand>
+#include <QMap>
 #include <QMenu>
+#include <QMimeData>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QRubberBand>
+#include <QScrollBar>
 
 class QtGradientStopsWidgetPrivate
 {
-   QtGradientStopsWidget *q_ptr;
-   Q_DECLARE_PUBLIC(QtGradientStopsWidget)
-
  public:
-   typedef QMap<qreal, QColor> PositionColorMap;
-   typedef QMap<QtGradientStop *, qreal> StopPositionMap;
-
    void slotStopAdded(QtGradientStop *stop);
    void slotStopRemoved(QtGradientStop *stop);
    void slotStopMoved(QtGradientStop *stop, qreal newPos);
@@ -58,7 +52,7 @@ class QtGradientStopsWidgetPrivate
    QtGradientStop *stopAt(const QPoint &viewportPos) const;
    QList<QtGradientStop *> stopsAt(const QPoint &viewportPos) const;
    void setupMove(QtGradientStop *stop, int x);
-   void ensureVisible(double x); // x = stop position
+   void ensureVisible(double x);                      // x = stop position
    void ensureVisible(QtGradientStop *stop);
    QtGradientStop *newStop(const QPoint &viewportPos);
 
@@ -72,6 +66,7 @@ class QtGradientStopsWidgetPrivate
    QtGradientStop *m_changedStop;
    QtGradientStop *m_clonedStop;
    QtGradientStopsModel *m_dragModel;
+
    QColor m_dragColor;
    void clearDrag();
    void removeClonedStop();
@@ -86,9 +81,13 @@ class QtGradientStopsWidgetPrivate
 
    bool m_moving;
    int m_moveOffset;
-   StopPositionMap m_moveStops;
 
-   PositionColorMap m_moveOriginal;
+   QMap<QtGradientStop *, qreal> m_moveStops;
+   QMap<qreal, QColor> m_moveOriginal;
+
+ private:
+   QtGradientStopsWidget *q_ptr;
+   Q_DECLARE_PUBLIC(QtGradientStopsWidget)
 };
 
 double QtGradientStopsWidgetPrivate::fromViewport(int x) const
@@ -97,6 +96,7 @@ double QtGradientStopsWidgetPrivate::fromViewport(int x) const
    int w = size.width();
    int max = q_ptr->horizontalScrollBar()->maximum();
    int val = q_ptr->horizontalScrollBar()->value();
+
    return ((double)x * m_scaleFactor + w * val) / (w * (m_scaleFactor + max));
 }
 
@@ -106,6 +106,7 @@ double QtGradientStopsWidgetPrivate::toViewport(double x) const
    int w = size.width();
    int max = q_ptr->horizontalScrollBar()->maximum();
    int val = q_ptr->horizontalScrollBar()->value();
+
    return w * (x * (m_scaleFactor + max) - val) / m_scaleFactor;
 }
 
@@ -113,6 +114,7 @@ QtGradientStop *QtGradientStopsWidgetPrivate::stopAt(const QPoint &viewportPos) 
 {
    double posY = m_handleSize / 2;
    QListIterator<QtGradientStop *> itStop(m_stops);
+
    while (itStop.hasNext()) {
       QtGradientStop *stop = itStop.next();
 
@@ -125,7 +127,8 @@ QtGradientStop *QtGradientStopsWidgetPrivate::stopAt(const QPoint &viewportPos) 
          return stop;
       }
    }
-   return 0;
+
+   return nullptr;
 }
 
 QList<QtGradientStop *> QtGradientStopsWidgetPrivate::stopsAt(const QPoint &viewportPos) const
@@ -133,6 +136,7 @@ QList<QtGradientStop *> QtGradientStopsWidgetPrivate::stopsAt(const QPoint &view
    QList<QtGradientStop *> stops;
    double posY = m_handleSize / 2;
    QListIterator<QtGradientStop *> itStop(m_stops);
+
    while (itStop.hasNext()) {
       QtGradientStop *stop = itStop.next();
 
@@ -145,6 +149,7 @@ QList<QtGradientStop *> QtGradientStopsWidgetPrivate::stopsAt(const QPoint &view
          stops.append(stop);
       }
    }
+
    return stops;
 }
 
@@ -267,7 +272,9 @@ void QtGradientStopsWidgetPrivate::slotCurrentStopChanged(QtGradientStop *stop)
    if (!m_model) {
       return;
    }
+
    q_ptr->viewport()->update();
+
    if (stop) {
       m_stops.removeAll(stop);
       m_stops.prepend(stop);
@@ -361,17 +368,17 @@ QtGradientStopsWidget::QtGradientStopsWidget(QWidget *parent)
 {
    d_ptr->q_ptr = this;
    d_ptr->m_backgroundCheckered = true;
-   d_ptr->m_model = 0;
-   d_ptr->m_handleSize = 25.0;
+   d_ptr->m_model       = nullptr;
+   d_ptr->m_handleSize  = 25.0;
    d_ptr->m_scaleFactor = 1000;
-   d_ptr->m_moving = false;
-   d_ptr->m_zoom = 1;
-   d_ptr->m_rubber = new QRubberBand(QRubberBand::Rectangle, this);
+   d_ptr->m_moving      = false;
+   d_ptr->m_zoom        = 1;
+   d_ptr->m_rubber      = new QRubberBand(QRubberBand::Rectangle, this);
 
-   d_ptr->m_dragStop = 0;
-   d_ptr->m_changedStop = 0;
-   d_ptr->m_clonedStop = 0;
-   d_ptr->m_dragModel = 0;
+   d_ptr->m_dragStop    = nullptr;
+   d_ptr->m_changedStop = nullptr;
+   d_ptr->m_clonedStop  = nullptr;
+   d_ptr->m_dragModel   = nullptr;
 
    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -474,8 +481,7 @@ void QtGradientStopsWidget::setGradientStopsModel(QtGradientStopsModel *model)
 
 void QtGradientStopsWidget::mousePressEvent(QMouseEvent *e)
 {
-   typedef QtGradientStopsModel::PositionStopMap PositionStopMap;
-   if (!d_ptr->m_model) {
+   if (! d_ptr->m_model) {
       return;
    }
 
@@ -488,20 +494,24 @@ void QtGradientStopsWidget::mousePressEvent(QMouseEvent *e)
    d_ptr->m_moveStops.clear();
    d_ptr->m_moveOriginal.clear();
    d_ptr->m_clickPos = e->pos();
+
    QtGradientStop *stop = d_ptr->stopAt(e->pos());
+
    if (stop) {
       if (e->modifiers() & Qt::ControlModifier) {
-         d_ptr->m_model->selectStop(stop, !d_ptr->m_model->isSelected(stop));
+         d_ptr->m_model->selectStop(stop, ! d_ptr->m_model->isSelected(stop));
+
       } else if (e->modifiers() & Qt::ShiftModifier) {
          QtGradientStop *oldCurrent = d_ptr->m_model->currentStop();
 
          if (oldCurrent) {
-            PositionStopMap stops = d_ptr->m_model->stops();
-            auto itSt = stops.constFind(oldCurrent->position());
+            auto stops = d_ptr->m_model->stops();
+            auto itSt  = stops.constFind(oldCurrent->position());
 
             if (itSt != stops.constEnd()) {
                while (itSt != stops.constFind(stop->position())) {
                   d_ptr->m_model->selectStop(itSt.value(), true);
+
                   if (oldCurrent->position() < stop->position()) {
                      ++itSt;
                   } else {
@@ -510,7 +520,9 @@ void QtGradientStopsWidget::mousePressEvent(QMouseEvent *e)
                }
             }
          }
+
          d_ptr->m_model->selectStop(stop, true);
+
       } else {
          if (!d_ptr->m_model->isSelected(stop)) {
             d_ptr->m_model->clearSelection();
@@ -518,11 +530,13 @@ void QtGradientStopsWidget::mousePressEvent(QMouseEvent *e)
          }
       }
       d_ptr->setupMove(stop, e->pos().x());
+
    } else {
       d_ptr->m_model->clearSelection();
       d_ptr->m_rubber->setGeometry(QRect(d_ptr->m_clickPos, QSize()));
       d_ptr->m_rubber->show();
    }
+
    viewport()->update();
 }
 
@@ -544,10 +558,7 @@ void QtGradientStopsWidget::mouseReleaseEvent(QMouseEvent *e)
 
 void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
 {
-   typedef QtGradientStopsWidgetPrivate::PositionColorMap PositionColorMap;
-   typedef QtGradientStopsModel::PositionStopMap PositionStopMap;
-   typedef QtGradientStopsWidgetPrivate::StopPositionMap StopPositionMap;
-   if (!d_ptr->m_model) {
+   if (! d_ptr->m_model) {
       return;
    }
 
@@ -562,7 +573,8 @@ void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
    if (!d_ptr->m_moveStops.isEmpty()) {
       double maxOffset = 0.0;
       double minOffset = 0.0;
-      bool first = true;
+
+      bool first  = true;
       auto itStop = d_ptr->m_moveStops.constBegin();
 
       while (itStop != d_ptr->m_moveStops.constEnd()) {
@@ -572,6 +584,7 @@ void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
             maxOffset = offset;
             minOffset = offset;
             first = false;
+
          } else {
             if (maxOffset < offset) {
                maxOffset = offset;
@@ -585,7 +598,7 @@ void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
       double viewportMin = d_ptr->toViewport(-minOffset);
       double viewportMax = d_ptr->toViewport(1.0 - maxOffset);
 
-      PositionStopMap newPositions;
+      QtGradientStopsModel::PositionStopMap newPositions;
 
       int viewportX = e->pos().x() - d_ptr->m_moveOffset;
 
@@ -604,6 +617,7 @@ void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
       }
 
       itStop = d_ptr->m_moveStops.constBegin();
+
       while (itStop != d_ptr->m_moveStops.constEnd()) {
          QtGradientStop *stop = itStop.key();
 
@@ -624,8 +638,10 @@ void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
          if (!forward) {
             --itNewPos;
          }
+
          QtGradientStop *stop = itNewPos.value();
          double newPos = itNewPos.key();
+
          if (newPos > 1) {
             newPos = 1;
          } else if (newPos < 0) {
@@ -633,6 +649,7 @@ void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
          }
 
          QtGradientStop *existingStop = d_ptr->m_model->at(newPos);
+
          if (existingStop && !d_ptr->m_moveStops.contains(existingStop)) {
             d_ptr->m_model->removeStop(existingStop);
          }
@@ -644,6 +661,7 @@ void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
       }
 
       auto itOld = d_ptr->m_moveOriginal.constBegin();
+
       while (itOld != d_ptr->m_moveOriginal.constEnd()) {
          double position = itOld.key();
          if (!d_ptr->m_model->at(position)) {
@@ -661,11 +679,13 @@ void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
 
       int xv1 = d_ptr->m_clickPos.x();
       int xv2 = e->pos().x();
+
       if (xv1 > xv2) {
          int temp = xv1;
          xv1 = xv2;
          xv2 = temp;
       }
+
       int yv1 = d_ptr->m_clickPos.y();
       int yv2 = e->pos().y();
       if (yv1 > yv2) {
@@ -679,9 +699,11 @@ void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
       if (yv2 < d_ptr->m_handleSize / 2) {
          p1 = QPoint(xv1, yv2);
          p2 = QPoint(xv2, yv2);
+
       } else if (yv1 > d_ptr->m_handleSize / 2) {
          p1 = QPoint(xv1, yv1);
          p2 = QPoint(xv2, yv1);
+
       } else {
          p1 = QPoint(xv1, qRound(d_ptr->m_handleSize / 2));
          p2 = QPoint(xv2, qRound(d_ptr->m_handleSize / 2));
@@ -694,8 +716,10 @@ void QtGradientStopsWidget::mouseMoveEvent(QMouseEvent *e)
       double x2 = d_ptr->fromViewport(xv2);
 
       QListIterator<QtGradientStop *> itStop(d_ptr->m_stops);
+
       while (itStop.hasNext()) {
          QtGradientStop *stop = itStop.next();
+
          if ((stop->position() >= x1 && stop->position() <= x2) ||
             beginList.contains(stop) || endList.contains(stop)) {
             d_ptr->m_model->selectStop(stop, true);
@@ -720,6 +744,7 @@ void QtGradientStopsWidget::mouseDoubleClickEvent(QMouseEvent *e)
       mousePressEvent(e);
       return;
    }
+
    d_ptr->m_moving = true;
    d_ptr->m_moveStops.clear();
    d_ptr->m_moveOriginal.clear();
@@ -740,20 +765,23 @@ void QtGradientStopsWidget::mouseDoubleClickEvent(QMouseEvent *e)
 
 void QtGradientStopsWidget::keyPressEvent(QKeyEvent *e)
 {
-   typedef QtGradientStopsModel::PositionStopMap PositionStopMap;
-   if (!d_ptr->m_model) {
+   if (! d_ptr->m_model) {
       return;
    }
 
    if (e->key() == Qt::Key_Delete || e->key() == Qt::Key_Backspace) {
       d_ptr->m_model->deleteStops();
+
    } else if (e->key() == Qt::Key_Left || e->key() == Qt::Key_Right ||
-      e->key() == Qt::Key_Home || e->key() == Qt::Key_End) {
-      PositionStopMap stops = d_ptr->m_model->stops();
+         e->key() == Qt::Key_Home || e->key() == Qt::Key_End) {
+
+      auto stops = d_ptr->m_model->stops();
+
       if (stops.isEmpty()) {
          return;
       }
-      QtGradientStop *newCurrent = 0;
+
+      QtGradientStop *newCurrent = nullptr;
       QtGradientStop *current = d_ptr->m_model->currentStop();
 
       if (!current || e->key() == Qt::Key_Home || e->key() == Qt::Key_End) {
@@ -775,6 +803,7 @@ void QtGradientStopsWidget::keyPressEvent(QKeyEvent *e)
          }
          newCurrent = itStop.value();
       }
+
       d_ptr->m_model->clearSelection();
       d_ptr->m_model->selectStop(newCurrent, true);
       d_ptr->m_model->setCurrentStop(newCurrent);
@@ -789,7 +818,8 @@ void QtGradientStopsWidget::keyPressEvent(QKeyEvent *e)
 
 void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
 {
-   Q_UNUSED(e)
+   (void) e;
+
    if (!d_ptr->m_model) {
       return;
    }
@@ -802,6 +832,7 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
 
    QSize size = viewport()->size();
    int w = size.width();
+
    double h = size.height() - d_ptr->m_handleSize;
    if (w <= 0) {
       return;
@@ -814,6 +845,7 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
       int pixSize = 20;
       QPixmap pm(2 * pixSize, 2 * pixSize);
       QPainter pmp(&pm);
+
       pmp.fillRect(0, 0, pixSize, pixSize, Qt::white);
       pmp.fillRect(pixSize, pixSize, pixSize, pixSize, Qt::white);
       pmp.fillRect(0, pixSize, pixSize, pixSize, Qt::black);
@@ -823,6 +855,7 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
       p.setBrushOrigin((size.width() % pixSize + pixSize) / 2, (size.height() % pixSize + pixSize) / 2);
       p.fillRect(viewport()->rect(), pm);
       p.setBrushOrigin(0, 0);
+
    } else {
       p.begin(viewport());
    }
@@ -840,6 +873,7 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
       QLinearGradient lg(0, 0, w, 0);
       QMap<qreal, QtGradientStop *> stops = model->stops();
       QMapIterator<qreal, QtGradientStop *> itStop(stops);
+
       while (itStop.hasNext()) {
          QtGradientStop *stop = itStop.next().value();
          double pos = stop->position();
@@ -848,8 +882,10 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
             QColor c = stop->color();
             lg.setColorAt(gradPos, c);
          }
+
          //lg.setColorAt(stop->position(), stop->color());
       }
+
       lg.setColorAt(0, model->color(begin));
       lg.setColorAt(1, model->color(end));
       QImage img(w, 1, QImage::Format_ARGB32_Premultiplied);
@@ -861,7 +897,8 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
           p1.translate(-viewBegin, 0);
       if (d_ptr->m_zoom != 1)
           p1.scale(d_ptr->m_zoom, 1);
-          */
+      */
+
       p1.fillRect(0, 0, w, 1, lg);
 
       p.fillRect(QRectF(0, d_ptr->m_handleSize, w, h), QPixmap::fromImage(img));
@@ -874,18 +911,20 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
    QColor drawColor;
    QColor back1 = QColor(Qt::lightGray);
    QColor back2 = QColor(Qt::darkGray);
+
    QColor back = QColor::fromRgb((back1.red() + back2.red()) / 2,
-         (back1.green() + back2.green()) / 2,
-         (back1.blue() + back2.blue()) / 2);
+         (back1.green() + back2.green()) / 2, (back1.blue() + back2.blue()) / 2);
 
    QPen pen;
    p.setRenderHint(QPainter::Antialiasing);
+
    QListIterator<QtGradientStop *> itStop(d_ptr->m_stops);
    itStop.toBack();
 
    while (itStop.hasPrevious()) {
       QtGradientStop *stop = itStop.previous();
       double x = stop->position();
+
       if (x >= begin - handleWidth / 2 && x <= end + handleWidth / 2) {
          double viewX = x * w * (d_ptr->m_scaleFactor + max) / d_ptr->m_scaleFactor - viewBegin;
          p.save();
@@ -901,12 +940,15 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
          } else {
             drawColor = QColor::fromRgb(0x40, 0x40, 0x40, 0x80);
          }
+
          QRectF rect(viewX - d_ptr->m_handleSize / 2, 0, d_ptr->m_handleSize, d_ptr->m_handleSize);
          rect.adjust(0.5, 0.5, -0.5, -0.5);
+
          if (h > 0) {
             pen.setWidthF(1);
             QLinearGradient lg(0, d_ptr->m_handleSize, 0, d_ptr->m_handleSize + h / 2);
             lg.setColorAt(0, drawColor);
+
             QColor alphaZero = drawColor;
             alphaZero.setAlpha(0);
             lg.setColorAt(1, alphaZero);
@@ -917,9 +959,11 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
             pen.setWidthF(1);
             pen.setBrush(drawColor);
             p.setPen(pen);
+
             QRectF r1 = rect.adjusted(0.5, 0.5, -0.5, -0.5);
             QRectF r2 = rect.adjusted(1.5, 1.5, -1.5, -1.5);
             QColor inColor = QColor::fromRgb(0x80, 0x80, 0x80, 0x80);
+
             if (!d_ptr->m_model->isSelected(stop)) {
                p.setBrush(c);
                p.drawEllipse(rect);
@@ -954,11 +998,13 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
          p.restore();
       }
    }
+
    if (d_ptr->m_backgroundCheckered) {
       p.end();
       p.begin(viewport());
       p.drawPixmap(0, 0, pix);
    }
+
    p.end();
 }
 
@@ -983,29 +1029,33 @@ void QtGradientStopsWidget::contextMenuEvent(QContextMenuEvent *e)
    d_ptr->m_clickPos = e->pos();
 
    QMenu menu(this);
-   QAction *newStopAction = new QAction(tr("New Stop"), &menu);
-   QAction *deleteAction = new QAction(tr("Delete"), &menu);
-   QAction *flipAllAction = new QAction(tr("Flip All"), &menu);
+   QAction *newStopAction   = new QAction(tr("New Stop"), &menu);
+   QAction *deleteAction    = new QAction(tr("Delete"), &menu);
+   QAction *flipAllAction   = new QAction(tr("Flip All"), &menu);
    QAction *selectAllAction = new QAction(tr("Select All"), &menu);
-   QAction *zoomInAction = new QAction(tr("Zoom In"), &menu);
-   QAction *zoomOutAction = new QAction(tr("Zoom Out"), &menu);
-   QAction *zoomAllAction = new QAction(tr("Reset Zoom"), &menu);
+   QAction *zoomInAction    = new QAction(tr("Zoom In"), &menu);
+   QAction *zoomOutAction   = new QAction(tr("Zoom Out"), &menu);
+   QAction *zoomAllAction   = new QAction(tr("Reset Zoom"), &menu);
+
    if (d_ptr->m_model->selectedStops().isEmpty() && !d_ptr->m_model->currentStop()) {
       deleteAction->setEnabled(false);
    }
    if (zoom() <= 1) {
       zoomOutAction->setEnabled(false);
       zoomAllAction->setEnabled(false);
+
    } else if (zoom() >= 100) {
       zoomInAction->setEnabled(false);
    }
-   connect(newStopAction, SIGNAL(triggered()), this, SLOT(slotNewStop()));
-   connect(deleteAction, SIGNAL(triggered()), this, SLOT(slotDelete()));
-   connect(flipAllAction, SIGNAL(triggered()), this, SLOT(slotFlipAll()));
+
+   connect(newStopAction,   SIGNAL(triggered()), this, SLOT(slotNewStop()));
+   connect(deleteAction,    SIGNAL(triggered()), this, SLOT(slotDelete()));
+   connect(flipAllAction,   SIGNAL(triggered()), this, SLOT(slotFlipAll()));
    connect(selectAllAction, SIGNAL(triggered()), this, SLOT(slotSelectAll()));
-   connect(zoomInAction, SIGNAL(triggered()), this, SLOT(slotZoomIn()));
-   connect(zoomOutAction, SIGNAL(triggered()), this, SLOT(slotZoomOut()));
-   connect(zoomAllAction, SIGNAL(triggered()), this, SLOT(slotResetZoom()));
+   connect(zoomInAction,    SIGNAL(triggered()), this, SLOT(slotZoomIn()));
+   connect(zoomOutAction,   SIGNAL(triggered()), this, SLOT(slotZoomOut()));
+   connect(zoomAllAction,   SIGNAL(triggered()), this, SLOT(slotResetZoom()));
+
    menu.addAction(newStopAction);
    menu.addAction(deleteAction);
    menu.addAction(flipAllAction);
@@ -1020,16 +1070,19 @@ void QtGradientStopsWidget::contextMenuEvent(QContextMenuEvent *e)
 void QtGradientStopsWidget::wheelEvent(QWheelEvent *e)
 {
    int numDegrees = e->delta() / 8;
-   int numSteps = numDegrees / 15;
+   int numSteps   = numDegrees / 15;
 
    int shift = numSteps;
    if (shift < 0) {
       shift = -shift;
    }
+
    int pow = 1 << shift;
    //const double c = 0.7071067; // 2 steps per doubled value
+
    const double c = 0.5946036; // 4 steps pre doubled value
    // in general c = pow(2, 1 / n) / 2; where n is the step
+
    double factor = pow * c;
 
    double newZoom = zoom();
@@ -1126,7 +1179,8 @@ void QtGradientStopsWidgetPrivate::clearDrag()
    removeClonedStop();
    restoreChangedStop();
    delete m_dragModel;
-   m_dragModel = 0;
+
+   m_dragModel = nullptr;
 }
 
 void QtGradientStopsWidgetPrivate::removeClonedStop()
@@ -1134,8 +1188,9 @@ void QtGradientStopsWidgetPrivate::removeClonedStop()
    if (!m_clonedStop) {
       return;
    }
+
    m_dragModel->removeStop(m_clonedStop);
-   m_clonedStop = 0;
+   m_clonedStop = nullptr;
 }
 
 void QtGradientStopsWidgetPrivate::restoreChangedStop()
@@ -1143,21 +1198,22 @@ void QtGradientStopsWidgetPrivate::restoreChangedStop()
    if (!m_changedStop) {
       return;
    }
+
    m_dragModel->changeStop(m_changedStop, m_model->at(m_changedStop->position())->color());
-   m_changedStop = 0;
-   m_dragStop = 0;
+   m_changedStop = nullptr;
+   m_dragStop    = nullptr;
 }
 
 void QtGradientStopsWidgetPrivate::changeStop(qreal pos)
 {
    QtGradientStop *stop = m_dragModel->at(pos);
-   if (!stop) {
+   if (! stop) {
       return;
    }
 
    m_dragModel->changeStop(stop, m_dragColor);
    m_changedStop = stop;
-   m_dragStop = m_model->at(stop->position());
+   m_dragStop    = m_model->at(stop->position());
 }
 
 void QtGradientStopsWidgetPrivate::cloneStop(qreal pos)
@@ -1166,7 +1222,9 @@ void QtGradientStopsWidgetPrivate::cloneStop(qreal pos)
       m_dragModel->moveStop(m_clonedStop, pos);
       return;
    }
+
    QtGradientStop *stop = m_dragModel->at(pos);
+
    if (stop) {
       return;
    }
@@ -1192,8 +1250,10 @@ void QtGradientStopsWidget::setZoom(double zoom)
    int oldVal = horizontalScrollBar()->value();
    horizontalScrollBar()->setRange(0, qRound(d_ptr->m_scaleFactor * (d_ptr->m_zoom - 1)));
    int newMax = horizontalScrollBar()->maximum();
+
    double newVal = (oldVal + (double)d_ptr->m_scaleFactor / 2) * (newMax + d_ptr->m_scaleFactor)
       / (oldMax + d_ptr->m_scaleFactor) - (double)d_ptr->m_scaleFactor / 2;
+
    horizontalScrollBar()->setValue(qRound(newVal));
    viewport()->update();
 }

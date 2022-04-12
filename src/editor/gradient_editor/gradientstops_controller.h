@@ -20,7 +20,7 @@
 #ifndef QTGRADIENTSTOPSCONTROLLER_H
 #define QTGRADIENTSTOPSCONTROLLER_H
 
-#include <qtgradientstopsmodel.h>
+#include <gradientstops_model.h>
 
 #include <QWidget>
 

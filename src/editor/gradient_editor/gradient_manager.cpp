@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qtgradientmanager.h>
+#include <gradient_manager.h>
 
 #include <QPixmap>
 #include <QMetaEnum>

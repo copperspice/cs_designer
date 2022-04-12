@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#include <qtgradientview.h>
-#include <qtgradientmanager.h>
-#include <qtgradientdialog.h>
-#include <qtgradientutils.h>
+#include <gradient_view.h>
+#include <gradient_manager.h>
+#include <gradient_dialog.h>
+#include <gradient_utils.h>
 
 #include <QColor>
 #include <QClipboard>
@@ -40,7 +40,7 @@ void QtGradientView::slotGradientAdded(const QString &id, const QGradient &gradi
 
 void QtGradientView::slotGradientRenamed(const QString &id, const QString &newId)
 {
-   if (!m_idToItem.contains(id)) {
+   if (! m_idToItem.contains(id)) {
       return;
    }
 
@@ -82,6 +82,7 @@ void QtGradientView::slotNewGradient()
    if (item) {
       grad = m_manager->gradients().value(m_itemToId.value(item));
    }
+
    QGradient gradient = QtGradientDialog::getGradient(&ok, grad, this);
    if (!ok) {
       return;
@@ -129,7 +130,7 @@ void QtGradientView::slotRemoveGradient()
 void QtGradientView::slotRenameGradient()
 {
    QListWidgetItem *item = m_ui.listWidget->currentItem();
-   if (!item) {
+   if (! item) {
       return;
    }
 
@@ -138,7 +139,7 @@ void QtGradientView::slotRenameGradient()
 
 void QtGradientView::slotRenameGradient(QListWidgetItem *item)
 {
-   if (!item) {
+   if (! item) {
       return;
    }
 
@@ -165,7 +166,7 @@ void QtGradientView::slotGradientActivated(QListWidgetItem *item)
 QtGradientView::QtGradientView(QWidget *parent)
    : QWidget(parent)
 {
-   m_manager = 0;
+   m_manager = nullptr;
 
    m_ui.setupUi(this);
 
@@ -183,6 +184,7 @@ QtGradientView::QtGradientView(QWidget *parent)
    QColor c1 = palette().color(QPalette::Midlight);
    QColor c2 = palette().color(QPalette::Dark);
    QPainter pmp(&pm);
+
    pmp.fillRect(0, 0, pixSize, pixSize, c1);
    pmp.fillRect(pixSize, pixSize, pixSize, pixSize, c1);
    pmp.fillRect(0, pixSize, pixSize, pixSize, c2);
@@ -249,7 +251,7 @@ void QtGradientView::setGradientManager(QtGradientManager *manager)
 
    m_manager = manager;
 
-   if (!m_manager) {
+   if (! m_manager) {
       return;
    }
 
@@ -282,7 +284,8 @@ QtGradientManager *QtGradientView::gradientManager() const
 void QtGradientView::setCurrentGradient(const QString &id)
 {
    QListWidgetItem *item = m_idToItem.value(id);
-   if (!item) {
+
+   if (! item) {
       return;
    }
 

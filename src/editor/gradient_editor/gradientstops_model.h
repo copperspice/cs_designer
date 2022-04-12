@@ -35,7 +35,7 @@ class QtGradientStop
    QtGradientStopsModel *gradientModel() const;
 
  private:
-   QtGradientStop(QtGradientStopsModel *model = 0);
+   QtGradientStop(QtGradientStopsModel *model = nullptr);
    ~QtGradientStop();
 
    void setColor(const QColor &color);
@@ -81,16 +81,22 @@ class QtGradientStopsModel : public QObject
 
    CS_SIGNAL_1(Public, void stopAdded(QtGradientStop *stop))
    CS_SIGNAL_2(stopAdded, stop)
+
    CS_SIGNAL_1(Public, void stopRemoved(QtGradientStop *stop))
    CS_SIGNAL_2(stopRemoved, stop)
+
    CS_SIGNAL_1(Public, void stopMoved(QtGradientStop *stop, qreal newPos))
    CS_SIGNAL_2(stopMoved, stop, newPos)
+
    CS_SIGNAL_1(Public, void stopsSwapped(QtGradientStop *stop1, QtGradientStop *stop2))
    CS_SIGNAL_2(stopsSwapped, stop1, stop2)
+
    CS_SIGNAL_1(Public, void stopChanged(QtGradientStop *stop, const QColor &newColor))
    CS_SIGNAL_2(stopChanged, stop, newColor)
+
    CS_SIGNAL_1(Public, void stopSelected(QtGradientStop *stop, bool selected))
    CS_SIGNAL_2(stopSelected, stop, selected)
+
    CS_SIGNAL_1(Public, void currentStopChanged(QtGradientStop *stop))
    CS_SIGNAL_2(currentStopChanged, stop)
 

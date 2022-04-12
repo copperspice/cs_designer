@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <qtgradientutils.h>
-#include <qtgradientmanager.h>
+#include <gradient_utils.h>
+#include <gradient_manager.h>
 
 #include <QLinearGradient>
 #include <QRadialGradient>

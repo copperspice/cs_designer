@@ -17,9 +17,9 @@
 *
 ***********************************************************************/
 
-#include <qtcolorline.h>
-#include <qdrawutil.h>
+#include <color_line.h>
 
+#include <qdrawutil.h>
 #include <QPainter>
 #include <QPaintEvent>
 #include <QStyleOption>
@@ -27,9 +27,6 @@
 
 class QtColorLinePrivate
 {
-   QtColorLine *q_ptr;
-   Q_DECLARE_PUBLIC(QtColorLine)
-
  public:
    QtColorLinePrivate();
 
@@ -62,6 +59,9 @@ class QtColorLinePrivate
    void mouseDoubleClickEvent(QMouseEvent *event);
 
  private:
+   QtColorLine *q_ptr;
+   Q_DECLARE_PUBLIC(QtColorLine)
+
    void checkColor();
    bool isMainPixmapValid() const;
    void validate();
@@ -109,9 +109,10 @@ class QtColorLinePrivate
 
 QtColorLinePrivate::QtColorLinePrivate()
    : m_color(Qt::black), m_component(QtColorLine::Value),
-     m_flipped(false), m_backgroundCheckered(true), m_orientation(Qt::Horizontal), m_dragging(false), m_combiningAlpha(false)
+     m_flipped(false), m_backgroundCheckered(true), m_orientation(Qt::Horizontal), m_dragging(false),
+     m_combiningAlpha(false)
 {
-   m_indicatorSize = 22;
+   m_indicatorSize  = 22;
    m_indicatorSpace = 0;
    m_pixmapSize = QSize(0, 0);
    m_point = pointFromColor(m_color);
@@ -122,12 +123,16 @@ void QtColorLinePrivate::setColor(const QColor &color)
    if (m_color == color) {
       return;
    }
+
    if (!color.isValid()) {
       return;
    }
-   if (m_dragging) { // Warning perhaps here, recursive call
+
+   if (m_dragging) {
+      // Warning perhaps here, recursive call
       return;
    }
+
    m_color = color;
    checkColor();
    m_point = pointFromColor(m_color);
@@ -144,9 +149,11 @@ void QtColorLinePrivate::setColorComponent(QtColorLine::ColorComponent component
    if (m_component == component) {
       return;
    }
+
    if (m_dragging) { // Warning perhaps here, recursive call
       return;
    }
+
    m_component = component;
    checkColor();
    m_point = pointFromColor(m_color);
