@@ -35,19 +35,18 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/previewactiongroup.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/undostack.h
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtcolorbutton.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientstopsmodel.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientstopswidget.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientstopscontroller.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientwidget.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradienteditor.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientdialog.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtcolorbutton.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtcolorline.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientview.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/color_button.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/color_line.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_dialog.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_editor.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_manager.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_select.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientmanager.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientutils.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_utils.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_view.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_widget.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradientstops_controller.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradientstops_model.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradientstops_widget.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/edit_property.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/edit_property_manager.h
@@ -129,19 +128,18 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/templateoptionspage.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/undostack.cpp
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtcolorbutton.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientstopsmodel.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientstopswidget.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientstopscontroller.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientwidget.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradienteditor.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientdialog.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtcolorbutton.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtcolorline.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientview.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/color_button.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/color_line.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_dialog.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_editor.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_manager.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_select.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientmanager.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/qtgradientutils.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_utils.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_view.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradient_widget.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradientstops_controller.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradientstops_model.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/gradientstops_widget.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/edit_property.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/property_editor/edit_property_manager.cpp
