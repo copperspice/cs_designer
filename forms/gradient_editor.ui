@@ -1309,24 +1309,24 @@
   <customwidget>
    <class>QtColorButton</class>
    <extends>QToolButton</extends>
-   <header>qtcolorbutton.h</header>
+   <header>color_button.h</header>
   </customwidget>
   <customwidget>
    <class>QtColorLine</class>
    <extends>QWidget</extends>
-   <header>qtcolorline.h</header>
+   <header>color_line.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QtGradientStopsWidget</class>
    <extends>QWidget</extends>
-   <header>qtgradientstopswidget.h</header>
+   <header>gradientstops_widget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QtGradientWidget</class>
    <extends>QWidget</extends>
-   <header>qtgradientwidget.h</header>
+   <header>gradient_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

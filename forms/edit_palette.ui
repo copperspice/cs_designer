@@ -198,7 +198,7 @@
   <customwidget>
    <class>QtColorButton</class>
    <extends>QToolButton</extends>
-   <header>qtcolorbutton.h</header>
+   <header>color_button.h</header>
   </customwidget>
   <customwidget>
    <class>qdesigner_internal::PreviewFrame</class>
