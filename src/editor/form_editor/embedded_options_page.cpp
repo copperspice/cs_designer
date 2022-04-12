@@ -17,29 +17,29 @@
 *
 ***********************************************************************/
 
-#include <embeddedoptionspage.h>
-#include <deviceprofiledialog.h>
-#include <formwindowmanager.h>
 #include <abstract_formeditor.h>
-
+#include <abstract_dialoggui.h>
+#include <deviceprofiledialog.h>
+#include <embedded_options_page.h>
+#include <formwindowmanager.h>
 #include <widgetfactory.h>
+
 #include <deviceprofile_p.h>
+#include <formwindowbase_p.h>
+#include <formwindowbase_p.h>
 #include <iconloader_p.h>
 #include <shared_settings_p.h>
-#include <abstract_dialoggui.h>
-#include <formwindowbase_p.h>
-#include <formwindowbase_p.h>
 
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
 #include <QApplication>
 #include <QComboBox>
-#include <QToolButton>
-#include <QMessageBox>
-#include <QLabel>
 #include <QGroupBox>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QLabel>
+#include <QMessageBox>
 #include <QSet>
+#include <QToolButton>
+#include <QVBoxLayout>
 
 #include <algorithm>
 
@@ -47,7 +47,7 @@ namespace qdesigner_internal {
 
 typedef QList<DeviceProfile> DeviceProfileList;
 
-enum { profileComboIndexOffset = 1 };
+constexpr const int profileComboIndexOffset = 1;
 
 // Sort by name. Used by template, do not make it static!
 bool deviceProfileLessThan(const DeviceProfile &d1, const DeviceProfile  &d2)
@@ -105,9 +105,9 @@ class EmbeddedOptionsControlPrivate
    QSet<QString> m_usedProfiles;
 };
 
-EmbeddedOptionsControlPrivate::EmbeddedOptionsControlPrivate(QDesignerFormEditorInterface *core) :
-   m_core(core), m_profileCombo(new QComboBox), m_addButton(new QToolButton), m_editButton(new QToolButton),
-   m_deleteButton(new QToolButton), m_descriptionLabel(new QLabel), m_q(0), m_dirty(false)
+EmbeddedOptionsControlPrivate::EmbeddedOptionsControlPrivate(QDesignerFormEditorInterface *core)
+   : m_core(core), m_profileCombo(new QComboBox), m_addButton(new QToolButton), m_editButton(new QToolButton),
+     m_deleteButton(new QToolButton), m_descriptionLabel(new QLabel), m_q(nullptr), m_dirty(false)
 {
    m_descriptionLabel->setMinimumHeight(80);
 
@@ -118,6 +118,7 @@ EmbeddedOptionsControlPrivate::EmbeddedOptionsControlPrivate(QDesignerFormEditor
       for (int i = 0; i < fwCount; i++)
          if (const FormWindowBase *fwb = dynamic_cast<const FormWindowBase *>(fwm->formWindow(i))) {
             const QString deviceProfileName = fwb->deviceProfileName();
+
             if (!deviceProfileName.isEmpty()) {
                m_usedProfiles.insert(deviceProfileName);
             }
@@ -127,34 +128,39 @@ EmbeddedOptionsControlPrivate::EmbeddedOptionsControlPrivate(QDesignerFormEditor
 
 void EmbeddedOptionsControlPrivate::init(EmbeddedOptionsControl *q)
 {
-   typedef void (QComboBox::*QComboIntSignal)(int);
-
    m_q = q;
+
    QVBoxLayout *vLayout = new QVBoxLayout;
    QHBoxLayout *hLayout = new QHBoxLayout;
    m_profileCombo->setMinimumWidth(200);
    m_profileCombo->setEditable(false);
    hLayout->addWidget(m_profileCombo);
    m_profileCombo->addItem(EmbeddedOptionsControl::tr("None"));
-   EmbeddedOptionsControl::connect(m_profileCombo, static_cast<QComboIntSignal>(&QComboBox::currentIndexChanged),
-      m_q, &EmbeddedOptionsControl::slotProfileIndexChanged);
+
+   EmbeddedOptionsControl::connect(m_profileCombo, cs_mp_cast<int>(&QComboBox::currentIndexChanged),
+         m_q, &EmbeddedOptionsControl::slotProfileIndexChanged);
 
    m_addButton->setIcon(createIconSet(QString::fromUtf8("plus.png")));
    m_addButton->setToolTip(EmbeddedOptionsControl::tr("Add a profile"));
+
    EmbeddedOptionsControl::connect(m_addButton, &QAbstractButton::clicked,
-      m_q, &EmbeddedOptionsControl::slotAdd);
+         m_q, &EmbeddedOptionsControl::slotAdd);
+
    hLayout->addWidget(m_addButton);
 
    EmbeddedOptionsControl::connect(m_editButton, &QAbstractButton::clicked,
-      m_q, &EmbeddedOptionsControl::slotEdit);
+         m_q, &EmbeddedOptionsControl::slotEdit);
+
    m_editButton->setIcon(createIconSet(QString::fromUtf8("edit.png")));
    m_editButton->setToolTip(EmbeddedOptionsControl::tr("Edit the selected profile"));
    hLayout->addWidget(m_editButton);
 
    m_deleteButton->setIcon(createIconSet(QString::fromUtf8("minus.png")));
    m_deleteButton->setToolTip(EmbeddedOptionsControl::tr("Delete the selected profile"));
+
    EmbeddedOptionsControl::connect(m_deleteButton, &QAbstractButton::clicked,
-      m_q, &EmbeddedOptionsControl::slotDelete);
+         m_q, &EmbeddedOptionsControl::slotDelete);
+
    hLayout->addWidget(m_deleteButton);
 
    hLayout->addStretch();
@@ -166,10 +172,12 @@ void EmbeddedOptionsControlPrivate::init(EmbeddedOptionsControl *q)
 QStringList EmbeddedOptionsControlPrivate::existingProfileNames() const
 {
    QStringList rc;
-   const DeviceProfileList::const_iterator dcend = m_sortedProfiles.constEnd();
-   for (DeviceProfileList::const_iterator it = m_sortedProfiles.constBegin(); it != dcend; ++it) {
+   auto dcend = m_sortedProfiles.constEnd();
+
+   for (auto it = m_sortedProfiles.constBegin(); it != dcend; ++it) {
       rc.push_back(it->name());
    }
+
    return rc;
 }
 
@@ -177,6 +185,7 @@ void EmbeddedOptionsControlPrivate::slotAdd()
 {
    DeviceProfileDialog dlg(m_core->dialogGui(), m_q);
    dlg.setWindowTitle(EmbeddedOptionsControl::tr("Add Profile"));
+
    // Create a new profile with a new, unique name
    DeviceProfile settings;
    settings.fromSystem();
@@ -184,7 +193,9 @@ void EmbeddedOptionsControlPrivate::slotAdd()
 
    const QStringList names = existingProfileNames();
    const QString newNamePrefix = EmbeddedOptionsControl::tr("New profile");
+
    QString newName = newNamePrefix;
+
    for (int i = 2; names.contains(newName); i++) {
       newName = newNamePrefix;
       newName += QString::number(i);

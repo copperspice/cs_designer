@@ -17,9 +17,9 @@
 *
 ***********************************************************************/
 
+#include <embedded_options_page.h>
 #include <formeditor.h>
 #include <formeditor_optionspage.h>
-#include <embeddedoptionspage.h>
 #include <templateoptionspage.h>
 #include <formwindowmanager.h>
 #include <qmainwindow_container.h>

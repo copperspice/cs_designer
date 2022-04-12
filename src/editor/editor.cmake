@@ -7,6 +7,7 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_plugin.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_tool.h
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/embedded_options_page.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_widgetstack.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_dnditem.h
@@ -26,7 +27,6 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/default_layoutdecoration.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/tool_widgeteditor.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formeditor_optionspage.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/embeddedoptionspage.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindowsettings.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/deviceprofiledialog.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/dpi_chooser.h
@@ -101,6 +101,7 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_tool.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/buddy_editor/buddyeditor_plugin.cpp
 
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/embedded_options_page.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_widgetstack.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindow_dnditem.cpp
@@ -120,7 +121,6 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/default_actionprovider.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/tool_widgeteditor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formeditor_optionspage.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/embeddedoptionspage.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindowsettings.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/deviceprofiledialog.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/dpi_chooser.cpp
