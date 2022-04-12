@@ -64,7 +64,8 @@ QDesignerFormWindowInterface *WidgetEditorTool::formWindow() const
 bool WidgetEditorTool::mainWindowSeparatorEvent(QWidget *widget, QEvent *event)
 {
    QMainWindow *mw = dynamic_cast<QMainWindow *>(widget);
-   if (mw == 0) {
+
+   if (mw == nullptr) {
       return false;
    }
 
@@ -92,7 +93,7 @@ bool WidgetEditorTool::mainWindowSeparatorEvent(QWidget *widget, QEvent *event)
       if (m_separator_drag_mw != mw) {
          return false;
       }
-      m_separator_drag_mw = 0;
+      m_separator_drag_mw = nullptr;
       return true;
    }
 
@@ -246,7 +247,7 @@ bool WidgetEditorTool::handleDragEnterMoveEvent(QWidget *widget, QWidget * /*man
 
    QPoint globalPos = QPoint(0, 0);
    if (m_specialDockDrag) {
-      m_lastDropTarget = 0;
+      m_lastDropTarget = nullptr;
       QMainWindow *mw = dynamic_cast<QMainWindow *>(m_formWindow->mainContainer());
       if (mw) {
          m_lastDropTarget = mw->centralWidget();
@@ -311,7 +312,7 @@ bool WidgetEditorTool::restoreDropHighlighting()
    }
 
    m_formWindow->highlightWidget(m_lastDropTarget, m_lastDropTarget->mapFromGlobal(QCursor::pos()), FormWindow::Restore);
-   m_lastDropTarget = 0;
+   m_lastDropTarget = nullptr;
    return true;
 }
 
@@ -326,7 +327,7 @@ bool WidgetEditorTool::handleDragLeaveEvent(QWidget *, QWidget *, QDragLeaveEven
 
 QWidget *WidgetEditorTool::editor() const
 {
-   Q_ASSERT(formWindow() != 0);
+   Q_ASSERT(formWindow() != nullptr);
    return formWindow()->mainContainer();
 }
 
@@ -336,7 +337,7 @@ void WidgetEditorTool::activated()
       core()->widgetBox()->setEnabled(true);
    }
 
-   if (m_formWindow == 0) {
+   if (m_formWindow == nullptr) {
       return;
    }
 
@@ -352,7 +353,7 @@ void WidgetEditorTool::deactivated()
       core()->widgetBox()->setEnabled(false);
    }
 
-   if (m_formWindow == 0) {
+   if (m_formWindow == nullptr) {
       return;
    }
 

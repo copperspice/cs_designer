@@ -101,7 +101,7 @@ class FormWindow: public FormWindowBase
    void setFileName(const QString &fileName) override;
 
    QString contents() const override;
-   bool setContents(QIODevice *dev, QString *errorMessage = 0) override;
+   bool setContents(QIODevice *dev, QString *errorMessage = nullptr) override;
    bool setContents(const QString &) override;
 
    QDir absoluteDir() const override;
@@ -219,7 +219,7 @@ class FormWindow: public FormWindowBase
    CS_SLOT_1(Public, void selectAll())
    CS_SLOT_2(selectAll)
 
-   CS_SLOT_1(Public, void createLayout(int type, QWidget *container = 0))
+   CS_SLOT_1(Public, void createLayout(int type, QWidget *container = nullptr))
    CS_SLOT_2(createLayout)
    CS_SLOT_1(Public, void morphLayout(QWidget *container, int newType))
    CS_SLOT_2(morphLayout)

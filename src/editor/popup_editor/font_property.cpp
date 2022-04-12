@@ -39,8 +39,8 @@ static const char *aliasingC[] = {
    cs_mark_tr("FontPropertyManager", "PreferAntialias")
 };
 
-FontPropertyManager::FontPropertyManager() :
-   m_createdFontProperty(0)
+FontPropertyManager::FontPropertyManager()
+   : m_createdFontProperty(nullptr)
 {
    const int nameCount = sizeof(aliasingC) / sizeof(const char *);
 
@@ -161,7 +161,7 @@ void FontPropertyManager::removeAntialiasingProperty(QtProperty *property)
       return;
    }
 
-   m_propertyToAntialiasing[ait.value()] = 0;
+   m_propertyToAntialiasing[ait.value()] = nullptr;
    m_antialiasingToProperty.erase(ait);
 }
 
@@ -245,7 +245,7 @@ unsigned FontPropertyManager::fontFlag(int idx)
 
 int FontPropertyManager::valueChanged(QtVariantPropertyManager *vm, QtProperty *property, const QVariant &value)
 {
-   QtProperty *antialiasingProperty = m_antialiasingToProperty.value(property, 0);
+   QtProperty *antialiasingProperty = m_antialiasingToProperty.value(property, nullptr);
 
    if (! antialiasingProperty) {
       if (m_propertyToFontSubProperties.contains(property)) {
@@ -293,7 +293,7 @@ void FontPropertyManager::setValue(QtVariantPropertyManager *vm, QtProperty *pro
 {
    updateModifiedState(property, value);
 
-   if (QtProperty *antialiasingProperty = m_propertyToAntialiasing.value(property, 0)) {
+   if (QtProperty *antialiasingProperty = m_propertyToAntialiasing.value(property, nullptr)) {
       QtVariantProperty *antialiasing = vm->variantProperty(antialiasingProperty);
 
       if (antialiasing) {

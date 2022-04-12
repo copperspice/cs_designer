@@ -71,7 +71,7 @@ void TabOrderEditorPlugin::initialize(QDesignerFormEditorInterface *core)
 
 void TabOrderEditorPlugin::activeFormWindowChanged(QDesignerFormWindowInterface *formWindow)
 {
-   m_action->setEnabled(formWindow != 0);
+   m_action->setEnabled(formWindow != nullptr);
 }
 
 QDesignerFormEditorInterface *TabOrderEditorPlugin::core() const
@@ -81,7 +81,7 @@ QDesignerFormEditorInterface *TabOrderEditorPlugin::core() const
 
 void TabOrderEditorPlugin::addFormWindow(QDesignerFormWindowInterface *formWindow)
 {
-   Q_ASSERT(formWindow != 0);
+   Q_ASSERT(formWindow != nullptr);
    Q_ASSERT(m_tools.contains(formWindow) == false);
 
    TabOrderEditorTool *tool = new TabOrderEditorTool(formWindow, this);
@@ -94,7 +94,7 @@ void TabOrderEditorPlugin::addFormWindow(QDesignerFormWindowInterface *formWindo
 
 void TabOrderEditorPlugin::removeFormWindow(QDesignerFormWindowInterface *formWindow)
 {
-   Q_ASSERT(formWindow != 0);
+   Q_ASSERT(formWindow != nullptr);
    Q_ASSERT(m_tools.contains(formWindow) == true);
 
    TabOrderEditorTool *tool = m_tools.value(formWindow);

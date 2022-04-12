@@ -191,9 +191,9 @@ static inline QToolButton *createDropDownButton(QAction *defaultAction, QWidget 
 }
 
 PropertyEditor::PropertyEditor(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
-    : QDesignerPropertyEditor(parent, flags), m_core(core), m_propertySheet(0), m_currentBrowser(0),
-      m_treeBrowser(0), m_propertyManager(new DesignerPropertyManager(m_core, this)),
-      m_dynamicGroup(0), m_updatingBrowser(false), m_stackedWidget(new QStackedWidget),
+    : QDesignerPropertyEditor(parent, flags), m_core(core), m_propertySheet(nullptr), m_currentBrowser(nullptr),
+      m_treeBrowser(nullptr), m_propertyManager(new DesignerPropertyManager(m_core, this)),
+      m_dynamicGroup(nullptr), m_updatingBrowser(false), m_stackedWidget(new QStackedWidget),
       m_filterWidget(new QLineEdit), m_buttonIndex(-1), m_treeIndex(-1),
       m_addDynamicAction(new QAction(createIconSet("plus.png"), tr("Add Dynamic Property..."), this)),
       m_removeDynamicAction(new QAction(createIconSet("minus.png"), tr("Remove Dynamic Property"), this)),
@@ -879,7 +879,7 @@ static inline QLayout *layoutOfQLayoutWidget(QObject *o)
       return static_cast<QWidget *>(o)->layout();
    }
 
-   return 0;
+   return nullptr;
 }
 
 void PropertyEditor::updateToolBarLabel()
@@ -1257,7 +1257,7 @@ void PropertyEditor::setObject(QObject *object)
             property->setAttribute(m_strings.m_resettableAttribute, m_propertySheet->hasReset(i));
 
             const QString groupName = m_propertySheet->propertyGroup(i);
-            QtVariantProperty *groupProperty = 0;
+            QtVariantProperty *groupProperty = nullptr;
 
             if (newProperty) {
                auto itPrev = m_nameToProperty.insert(propertyName, property);
@@ -1544,14 +1544,16 @@ bool PropertyEditor::isDynamicProperty(const QtBrowserItem *item) const
 void PropertyEditor::editProperty(const QString &name)
 {
    // find the browser item belonging to the property, make it current and edit it
-   QtBrowserItem *browserItem = 0;
-   if (QtVariantProperty *property = m_nameToProperty.value(name, 0)) {
+   QtBrowserItem *browserItem = nullptr;
+
+   if (QtVariantProperty *property = m_nameToProperty.value(name, nullptr)) {
       const QList<QtBrowserItem *> items = m_currentBrowser->items(property);
       if (items.size() == 1) {
          browserItem = items.front();
       }
    }
-   if (browserItem == 0) {
+
+   if (browserItem == nullptr) {
       return;
    }
    m_currentBrowser->setFocus(Qt::OtherFocusReason);

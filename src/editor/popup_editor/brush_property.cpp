@@ -266,13 +266,13 @@ void BrushPropertyManager::slotPropertyDestroyed(QtProperty *property)
 {
    PropertyToPropertyMap::iterator subit = m_brushStyleSubPropertyToProperty.find(property);
    if (subit != m_brushStyleSubPropertyToProperty.end()) {
-      m_brushPropertyToStyleSubProperty[subit.value()] = 0;
+      m_brushPropertyToStyleSubProperty[subit.value()] = nullptr;
       m_brushStyleSubPropertyToProperty.erase(subit);
    }
 
    subit = m_brushColorSubPropertyToProperty.find(property);
    if (subit != m_brushColorSubPropertyToProperty.end()) {
-      m_brushPropertyToColorSubProperty[subit.value()] = 0;
+      m_brushPropertyToColorSubProperty[subit.value()] = nullptr;
       m_brushColorSubPropertyToProperty.erase(subit);
    }
 }
@@ -281,7 +281,7 @@ int BrushPropertyManager::valueChanged(QtVariantPropertyManager *vm, QtProperty 
 {
    switch (value.type()) {
       case QVariant::Int: // Style subproperty?
-         if (QtProperty *brushProperty = m_brushStyleSubPropertyToProperty.value(property, 0)) {
+         if (QtProperty *brushProperty = m_brushStyleSubPropertyToProperty.value(property, nullptr)) {
             const QBrush oldValue = m_brushValues.value(brushProperty);
 
             QBrush newBrush = oldValue;
@@ -297,7 +297,7 @@ int BrushPropertyManager::valueChanged(QtVariantPropertyManager *vm, QtProperty 
          break;
 
       case QVariant::Color: // Color  subproperty?
-         if (QtProperty *brushProperty = m_brushColorSubPropertyToProperty.value(property, 0)) {
+         if (QtProperty *brushProperty = m_brushColorSubPropertyToProperty.value(property, nullptr)) {
             const QBrush oldValue = m_brushValues.value(brushProperty);
 
             QBrush newBrush = oldValue;

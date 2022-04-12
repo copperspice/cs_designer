@@ -42,7 +42,7 @@ class PaletteEditor: public QDialog
 
    static QPalette getPalette(QDesignerFormEditorInterface *core,
       QWidget *parent, const QPalette &init = QPalette(),
-      const QPalette &parentPal = QPalette(), int *result = 0);
+      const QPalette &parentPal = QPalette(), int *result = nullptr);
 
    QPalette palette() const;
    void setPalette(const QPalette &palette);

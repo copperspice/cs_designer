@@ -39,7 +39,7 @@ class SignalSlotEditor;
 class SignalSlotConnection : public Connection
 {
  public:
-   explicit SignalSlotConnection(ConnectionEdit *edit, QWidget *source = 0, QWidget *target = 0);
+   explicit SignalSlotConnection(ConnectionEdit *edit, QWidget *source = nullptr, QWidget *target = nullptr);
 
    void setSignal(const QString &signal);
    void setSlot(const QString &slot);
@@ -72,7 +72,7 @@ class ConnectionModel : public QAbstractItemModel
    CS_OBJECT(ConnectionModel)
  public:
    explicit ConnectionModel(QObject *parent = nullptr);
-   void setEditor(SignalSlotEditor *editor = 0);
+   void setEditor(SignalSlotEditor *editor = nullptr);
 
    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
    QModelIndex parent(const QModelIndex &child) const override;

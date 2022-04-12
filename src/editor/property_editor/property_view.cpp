@@ -485,7 +485,9 @@ class QtBrowserItemPrivate
 {
  public:
    QtBrowserItemPrivate(QtAbstractPropertyBrowser *browser, QtProperty *property, QtBrowserItem *parent)
-      : m_browser(browser), m_property(property), m_parent(parent), q_ptr(0) {}
+      : m_browser(browser), m_property(property), m_parent(parent), q_ptr(nullptr)
+   {
+   }
 
    void addChild(QtBrowserItem *index, QtBrowserItem *after);
    void removeChild(QtBrowserItem *index);
@@ -589,7 +591,7 @@ class QtAbstractPropertyBrowserPrivate
 };
 
 QtAbstractPropertyBrowserPrivate::QtAbstractPropertyBrowserPrivate()
-   : m_currentItem(0)
+   : m_currentItem(nullptr)
 {
 }
 
@@ -713,10 +715,11 @@ void QtAbstractPropertyBrowserPrivate::createBrowserIndexes(QtProperty *property
 
       while (itIndex.hasNext()) {
          QtBrowserItem *idx = itIndex.next();
-         parentToAfter[idx] = 0;
+         parentToAfter[idx] = nullptr;
       }
+
    } else {
-      parentToAfter[0] = 0;
+      parentToAfter[nullptr] = nullptr;
    }
 
    auto pcend = parentToAfter.constEnd();
@@ -959,10 +962,10 @@ QtBrowserItem *QtAbstractPropertyBrowser::insertProperty(QtProperty *property, Q
       ++pos;
    }
 
-   d_ptr->createBrowserIndexes(property, 0, afterProperty);
+   d_ptr->createBrowserIndexes(property, nullptr, afterProperty);
 
    // traverse inserted subtree and connect to manager's signals
-   d_ptr->insertSubTree(property, 0);
+   d_ptr->insertSubTree(property, nullptr);
 
    d_ptr->m_subItems.insert(newPos, property);
    // propertyInserted(property, 0, properAfterProperty);
@@ -981,11 +984,12 @@ void QtAbstractPropertyBrowser::removeProperty(QtProperty *property)
 
    while (pos < pendingList.count()) {
       if (pendingList.at(pos) == property) {
-         d_ptr->m_subItems.removeAt(pos); //perhaps this two lines
-         d_ptr->removeSubTree(property, 0); //should be moved down after propertyRemoved call.
+         d_ptr->m_subItems.removeAt(pos);           // perhaps these two linesshould be
+         d_ptr->removeSubTree(property, nullptr);  // moved down after propertyRemoved call
          //propertyRemoved(property, 0);
 
-         d_ptr->removeBrowserIndexes(property, 0);
+
+         d_ptr->removeBrowserIndexes(property, nullptr);
 
          // when item is deleted, item will call removeItem for top level items,
          // and itemRemoved for nested items.
@@ -1018,7 +1022,7 @@ void QtAbstractPropertyBrowser::removeProperty(QtProperty *property)
 QWidget *QtAbstractPropertyBrowser::createEditor(QtProperty *property,
    QWidget *parent)
 {
-   QtAbstractEditorFactoryBase *factory = 0;
+   QtAbstractEditorFactoryBase *factory = nullptr;
    QtAbstractPropertyManager *manager = property->propertyManager();
 
    if (m_viewToManagerToFactory()->contains(this) &&

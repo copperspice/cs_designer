@@ -28,7 +28,7 @@ namespace qdesigner_internal {
 
 struct Property {
    Property()
-      : m_sheet(0), m_id(-1) {
+      : m_sheet(nullptr), m_id(-1) {
    }
 
    Property(QDesignerPropertySheetExtension *sheet, int id)
@@ -115,7 +115,7 @@ QString ItemViewPropertySheetPrivate::fakePropertyName(const QString &prefix, co
 
 ItemViewPropertySheet::ItemViewPropertySheet(QTreeView *treeViewObject, QObject *parent)
    : QDesignerPropertySheet(treeViewObject, parent),
-     d(new ItemViewPropertySheetPrivate(core(), treeViewObject->header(), 0))
+     d(new ItemViewPropertySheetPrivate(core(), treeViewObject->header(), nullptr))
 {
    initHeaderProperties(treeViewObject->header(), "header");
 }

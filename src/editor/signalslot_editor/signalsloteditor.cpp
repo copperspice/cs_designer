@@ -95,7 +95,7 @@ QString SignalSlotConnection::sender() const
    }
 
    SignalSlotEditor *edit = dynamic_cast<SignalSlotEditor *>(this->edit());
-   Q_ASSERT(edit != 0);
+   Q_ASSERT(edit != nullptr);
 
    return realObjectName(edit->formWindow()->core(), source);
 }
@@ -109,7 +109,7 @@ QString SignalSlotConnection::receiver() const
    }
 
    SignalSlotEditor *edit = dynamic_cast<SignalSlotEditor *>(this->edit());
-   Q_ASSERT(edit != 0);
+   Q_ASSERT(edit != nullptr);
 
    return realObjectName(edit->formWindow()->core(), sink);
 }
@@ -296,10 +296,10 @@ void SignalSlotEditor::modifyConnection(Connection *con)
 
 Connection *SignalSlotEditor::createConnection(QWidget *source, QWidget *destination)
 {
-   SignalSlotConnection *con = 0;
+   SignalSlotConnection *con = nullptr;
 
-   Q_ASSERT(source != 0);
-   Q_ASSERT(destination != 0);
+   Q_ASSERT(source != nullptr);
+   Q_ASSERT(destination != nullptr);
 
    ConnectDialog dialog(m_form_window, source, destination, m_form_window->core()->topLevel());
    dialog.setShowAllSignalsSlots(m_showAllSignalsSlots);
@@ -323,7 +323,7 @@ DomConnections *SignalSlotEditor::toUi() const
    const int count = connectionCount();
    for (int i = 0; i < count; ++i) {
       const SignalSlotConnection *con = static_cast<const SignalSlotConnection *>(connection(i));
-      Q_ASSERT(con != 0);
+      Q_ASSERT(con != nullptr);
 
       // If a widget's parent has been removed or moved to a different form,
       // and the parent was not a managed widget
@@ -349,11 +349,13 @@ DomConnections *SignalSlotEditor::toUi() const
 QObject *SignalSlotEditor::objectByName(QWidget *topLevel, const QString &name) const
 {
    if (name.isEmpty()) {
-      return 0;
+      return nullptr;
    }
 
    Q_ASSERT(topLevel);
-   QObject *object = 0;
+
+   QObject *object = nullptr;
+
    if (topLevel->objectName() == name) {
       object = topLevel;
    } else {
@@ -363,12 +365,13 @@ QObject *SignalSlotEditor::objectByName(QWidget *topLevel, const QString &name) 
    if (mdb->item(object)) {
       return object;
    }
-   return 0;
+
+   return nullptr;
 }
 
 void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent)
 {
-   if (connections == 0) {
+   if (connections == nullptr) {
       return;
    }
 
@@ -377,13 +380,15 @@ void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent
    const QList<DomConnection *> list = connections->elementConnection();
    for (const DomConnection *dom_con : list) {
       QObject *source = objectByName(parent, dom_con->elementSender());
-      if (source == 0) {
+
+      if (source == nullptr) {
          qDebug("SignalSlotEditor::fromUi(): no source widget called \"%s\"",
             dom_con->elementSender().toUtf8().constData());
          continue;
       }
       QObject *destination = objectByName(parent, dom_con->elementReceiver());
-      if (destination == 0) {
+
+      if (destination == nullptr) {
          qDebug("SignalSlotEditor::fromUi(): no destination widget called \"%s\"",
             dom_con->elementReceiver().toUtf8().constData());
          continue;
@@ -391,7 +396,8 @@ void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent
 
       QPoint sp = QPoint(20, 20), tp = QPoint(20, 20);
       const DomConnectionHints *dom_hints = dom_con->elementHints();
-      if (dom_hints != 0) {
+
+      if (dom_hints != nullptr) {
          QList<DomConnectionHint *> list = dom_hints->elementHint();
          for (DomConnectionHint *hint : list) {
             QString attr_type = hint->attributeType();
@@ -442,9 +448,10 @@ QWidget *SignalSlotEditor::widgetAt(const QPoint &pos) const
       return widget;
    }
 
-   for (; widget != 0; widget = widget->parentWidget()) {
+   for (; widget != nullptr; widget = widget->parentWidget()) {
       QDesignerMetaDataBaseItemInterface *item = m_form_window->core()->metaDataBase()->item(widget);
-      if (item == 0) {
+
+      if (item == nullptr) {
          continue;
       }
       if (skipWidget(widget)) {

@@ -38,7 +38,7 @@ class QtGradientSelect : public QDialog
    QtGradientManager *gradientManager() const;
 
    static QGradient getGradient(bool *ok, QtGradientManager *manager, QWidget *parent = nullptr,
-      const QString &caption = tr("Select Gradient", 0));
+      const QString &caption = tr("Select Gradient", nullptr));
 
  private:
    CS_SLOT_1(Private, void slotGradientSelected(const QString &id))

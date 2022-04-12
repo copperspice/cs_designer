@@ -1301,7 +1301,7 @@ bool QtCharEdit::eventFilter(QObject *o, QEvent *e)
          action->setText(actionString);
       }
 
-      QAction *actionBefore = 0;
+      QAction *actionBefore = nullptr;
       if (actions.count() > 0) {
          actionBefore = actions[0];
       }

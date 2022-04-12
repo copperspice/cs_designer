@@ -44,7 +44,7 @@ class FormWindowWidgetStack: public QObject
    int currentIndex() const;
    int indexOf(QDesignerFormWindowToolInterface *tool) const;
 
-   void setMainContainer(QWidget *w = 0);
+   void setMainContainer(QWidget *w = nullptr);
 
    // Return the widget containing the form which can be used to apply embedded design settings to.
    // These settings should not affect the other editing tools.

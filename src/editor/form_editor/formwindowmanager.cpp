@@ -82,15 +82,11 @@ static inline Iterator findFirstChildOf(Iterator it, Iterator end, const QWidget
 
 namespace qdesigner_internal {
 
-FormWindowManager::FormWindowManager(QDesignerFormEditorInterface *core, QObject *parent) :
-   QDesignerFormWindowManager(parent),
-   m_core(core),
-   m_activeFormWindow(0),
-   m_previewManager(new PreviewManager(PreviewManager::SingleFormNonModalPreview, this)),
-   m_createLayoutContext(LayoutContainer),
-   m_morphLayoutContainer(0),
-   m_actionGroupPreviewInStyle(0),
-   m_actionShowFormWindowSettingsDialog(0)
+FormWindowManager::FormWindowManager(QDesignerFormEditorInterface *core, QObject *parent)
+   : QDesignerFormWindowManager(parent), m_core(core), m_activeFormWindow(nullptr),
+     m_previewManager(new PreviewManager(PreviewManager::SingleFormNonModalPreview, this)),
+     m_createLayoutContext(LayoutContainer), m_morphLayoutContainer(nullptr),
+     m_actionGroupPreviewInStyle(nullptr), m_actionShowFormWindowSettingsDialog(nullptr)
 {
    setupActions();
    qApp->installEventFilter(this);
@@ -129,7 +125,8 @@ bool FormWindowManager::eventFilter(QObject *o, QEvent *e)
 
    // If we don't have an active form, we only listen for WindowActivate to speed up integrations
    const QEvent::Type eventType = e->type();
-   if (m_activeFormWindow == 0 && eventType != QEvent::WindowActivate) {
+
+   if (m_activeFormWindow == nullptr && eventType != QEvent::WindowActivate) {
       return false;
    }
 
@@ -183,7 +180,7 @@ bool FormWindowManager::eventFilter(QObject *o, QEvent *e)
    }
 
    FormWindow *fw = FormWindow::findFormWindow(widget);
-   if (fw == 0) {
+   if (fw == nullptr) {
       return false;
    }
 
@@ -279,7 +276,7 @@ void FormWindowManager::removeFormWindow(QDesignerFormWindowInterface *w)
    emit formWindowRemoved(formWindow);
 
    if (formWindow == m_activeFormWindow) {
-      setActiveFormWindow(0);
+      setActiveFormWindow(nullptr);
    }
 
    // Make sure that widget box is enabled by default
@@ -608,7 +605,7 @@ void FormWindowManager::slotActionBreakLayoutActivated()
 
 void FormWindowManager::slotActionSimplifyLayoutActivated()
 {
-   Q_ASSERT(m_activeFormWindow != 0);
+   Q_ASSERT(m_activeFormWindow != nullptr);
    QWidgetList selectedWidgets = m_activeFormWindow->selectedWidgets();
    m_activeFormWindow->simplifySelection(&selectedWidgets);
    if (selectedWidgets.size() != 1) {
@@ -624,7 +621,7 @@ void FormWindowManager::slotActionSimplifyLayoutActivated()
 
 void FormWindowManager::slotActionAdjustSizeActivated()
 {
-   Q_ASSERT(m_activeFormWindow != 0);
+   Q_ASSERT(m_activeFormWindow != nullptr);
 
    m_activeFormWindow->beginCommand(tr("Adjust Size"));
 
@@ -632,7 +629,7 @@ void FormWindowManager::slotActionAdjustSizeActivated()
    m_activeFormWindow->simplifySelection(&selectedWidgets);
 
    if (selectedWidgets.isEmpty()) {
-      Q_ASSERT(m_activeFormWindow->mainContainer() != 0);
+      Q_ASSERT(m_activeFormWindow->mainContainer() != nullptr);
       selectedWidgets.append(m_activeFormWindow->mainContainer());
    }
 
@@ -832,7 +829,7 @@ static inline bool hasManagedLayoutItems(const QDesignerFormEditorInterface *cor
 void FormWindowManager::slotUpdateActions()
 {
    m_createLayoutContext  = LayoutSelection;
-   m_morphLayoutContainer = 0;
+   m_morphLayoutContainer = nullptr;
    bool canMorphIntoVBoxLayout = false;
    bool canMorphIntoHBoxLayout = false;
    bool canMorphIntoGridLayout = false;
@@ -849,7 +846,7 @@ void FormWindowManager::slotUpdateActions()
    bool canChangeZOrder   = true;
 
    do {
-      if (m_activeFormWindow == 0 || m_activeFormWindow->currentTool() != 0) {
+      if (m_activeFormWindow == nullptr || m_activeFormWindow->currentTool() != 0) {
          break;
       }
 
@@ -952,7 +949,7 @@ void FormWindowManager::slotUpdateActions()
    m_actionRaise->setEnabled(canChangeZOrder && selectedWidgetCount > 0);
 
 
-   m_actionSelectAll->setEnabled(m_activeFormWindow != 0);
+   m_actionSelectAll->setEnabled(m_activeFormWindow != nullptr);
 
    m_actionAdjustSize->setEnabled(unlaidoutWidgetCount > 0);
 
@@ -965,7 +962,7 @@ void FormWindowManager::slotUpdateActions()
 
    m_actionBreakLayout->setEnabled(breakAvailable);
    m_actionSimplifyLayout->setEnabled(simplifyAvailable);
-   m_actionShowFormWindowSettingsDialog->setEnabled(m_activeFormWindow != 0);
+   m_actionShowFormWindowSettingsDialog->setEnabled(m_activeFormWindow != nullptr);
 }
 
 QDesignerFormWindowInterface *FormWindowManager::createFormWindow(QWidget *parentWidget, Qt::WindowFlags flags)
@@ -1019,12 +1016,12 @@ void FormWindowManager::slotActionShowFormWindowSettingsDialog()
       return;
    }
 
-   QDialog *settingsDialog = 0;
+   QDialog *settingsDialog = nullptr;
    const bool wasDirty = fw->isDirty();
 
    // Ask the language extension for a dialog. If not, create our own
    if (QDesignerLanguageExtension *lang = qt_extension<QDesignerLanguageExtension *>(m_core->extensionManager(), m_core)) {
-      settingsDialog = lang->createFormWindowSettingsDialog(fw, 0);
+      settingsDialog = lang->createFormWindowSettingsDialog(fw, nullptr);
    }
 
    if (!settingsDialog) {
@@ -1113,14 +1110,14 @@ QAction *FormWindowManager::action(Action action) const
 
    csWarning(QString("FormWindowManager::action: Unhandled enumeration value %1").formatArg(action));
 
-   return 0;
+   return nullptr;
 }
 
 QActionGroup *FormWindowManager::actionGroup(ActionGroup actionGroup) const
 {
    switch (actionGroup) {
       case QDesignerFormWindowManagerInterface::StyledPreviewActionGroup:
-         if (m_actionGroupPreviewInStyle == 0) {
+         if (m_actionGroupPreviewInStyle == nullptr) {
             // Wish we could make the 'this' pointer mutable ;-)
             QObject *parent = const_cast<FormWindowManager *>(this);
 
@@ -1132,7 +1129,7 @@ QActionGroup *FormWindowManager::actionGroup(ActionGroup actionGroup) const
    }
 
    qWarning("FormWindowManager::actionGroup: Unhanlded enumeration value %d", actionGroup);
-   return 0;
+   return nullptr;
 }
 
 }

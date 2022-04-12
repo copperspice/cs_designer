@@ -43,7 +43,7 @@ int QWizardContainer::count() const
 
 QWidget *QWizardContainer::widget(int index) const
 {
-   QWidget *rc = 0;
+   QWidget *rc = nullptr;
    if (index >= 0) {
       const IdList idList = m_wizard->pageIds();
       if (index < idList.size()) {

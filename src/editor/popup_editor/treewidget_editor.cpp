@@ -37,7 +37,7 @@
 namespace qdesigner_internal {
 
 TreeWidgetEditor::TreeWidgetEditor(QDesignerFormWindowInterface *form, QDialog *dialog)
-   : AbstractItemEditor(form, 0), m_updatingBrowser(false)
+   : AbstractItemEditor(form, nullptr), m_updatingBrowser(false)
 {
    m_columnEditor = new ItemListEditor(form, this);
    m_columnEditor->setObjectName(QString("columnEditor"));
@@ -101,35 +101,35 @@ TreeWidgetEditor::TreeWidgetEditor(QDesignerFormWindowInterface *form, QDialog *
 }
 
 static AbstractItemEditor::PropertyDefinition treeHeaderPropList[] = {
-   { Qt::DisplayPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "text" },
-   { Qt::DecorationPropertyRole, 0, DesignerPropertyManager::designerIconTypeId, "icon" },
-   { Qt::ToolTipPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "toolTip" },
-   { Qt::StatusTipPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "statusTip" },
-   { Qt::WhatsThisPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "whatsThis" },
-   { Qt::FontRole, QVariant::Font, 0, "font" },
+   { Qt::DisplayPropertyRole,      0, DesignerPropertyManager::designerStringTypeId, "text" },
+   { Qt::DecorationPropertyRole,   0, DesignerPropertyManager::designerIconTypeId,   "icon" },
+   { Qt::ToolTipPropertyRole,      0, DesignerPropertyManager::designerStringTypeId, "toolTip"   },
+   { Qt::StatusTipPropertyRole,    0, DesignerPropertyManager::designerStringTypeId, "statusTip" },
+   { Qt::WhatsThisPropertyRole,    0, DesignerPropertyManager::designerStringTypeId, "whatsThis" },
+   { Qt::FontRole,          QVariant::Font,  nullptr, "font"       },
    { Qt::TextAlignmentRole, 0, DesignerPropertyManager::designerAlignmentTypeId, "textAlignment" },
-   { Qt::BackgroundRole, QVariant::Color, 0, "background" },
-   { Qt::ForegroundRole, QVariant::Brush, 0, "foreground" },
-   { 0, 0, 0, "" }
+   { Qt::BackgroundRole,    QVariant::Color, nullptr, "background" },
+   { Qt::ForegroundRole,    QVariant::Brush, nullptr, "foreground" },
+   { 0, 0, nullptr, QString() }
 };
 
 static AbstractItemEditor::PropertyDefinition treeItemColumnPropList[] = {
-   { Qt::DisplayPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "text" },
-   { Qt::DecorationPropertyRole, 0, DesignerPropertyManager::designerIconTypeId, "icon" },
-   { Qt::ToolTipPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "toolTip" },
-   { Qt::StatusTipPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "statusTip" },
-   { Qt::WhatsThisPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "whatsThis" },
-   { Qt::FontRole, QVariant::Font, 0, "font" },
+   { Qt::DisplayPropertyRole,    0, DesignerPropertyManager::designerStringTypeId, "text" },
+   { Qt::DecorationPropertyRole, 0, DesignerPropertyManager::designerIconTypeId,   "icon" },
+   { Qt::ToolTipPropertyRole,    0, DesignerPropertyManager::designerStringTypeId, "toolTip"   },
+   { Qt::StatusTipPropertyRole,  0, DesignerPropertyManager::designerStringTypeId, "statusTip" },
+   { Qt::WhatsThisPropertyRole,  0, DesignerPropertyManager::designerStringTypeId, "whatsThis" },
+   { Qt::FontRole,          QVariant::Font,  nullptr, "font"       },
    { Qt::TextAlignmentRole, 0, DesignerPropertyManager::designerAlignmentTypeId, "textAlignment" },
-   { Qt::BackgroundRole, QVariant::Brush, 0, "background" },
-   { Qt::ForegroundRole, QVariant::Brush, 0, "foreground" },
-   { Qt::CheckStateRole, 0, QtVariantPropertyManager::enumTypeId, "checkState" },
-   { 0, 0, 0, "" }
+   { Qt::BackgroundRole,    QVariant::Brush, nullptr, "background" },
+   { Qt::ForegroundRole,    QVariant::Brush, nullptr, "foreground" },
+   { Qt::CheckStateRole,    0, QtVariantPropertyManager::enumTypeId, "checkState" },
+   { 0, 0, nullptr, QString() }
 };
 
 static AbstractItemEditor::PropertyDefinition treeItemCommonPropList[] = {
    { ItemFlagsShadowRole, 0, QtVariantPropertyManager::flagTypeId, "flags" },
-   { 0, 0, 0, "" }
+   { 0, 0, nullptr, QString()}
 };
 
 QtVariantProperty *TreeWidgetEditor::setupPropertyGroup(const QString &title, PropertyDefinition *propDefs)
@@ -208,7 +208,7 @@ QVariant TreeWidgetEditor::getItemData(int role) const
 void TreeWidgetEditor::newItemButton()
 {
    QTreeWidgetItem *curItem = ui.treeWidget->currentItem();
-   QTreeWidgetItem *newItem = 0;
+   QTreeWidgetItem *newItem = nullptr;
    ui.treeWidget->blockSignals(true);
 
    if (curItem) {
@@ -260,7 +260,7 @@ void TreeWidgetEditor::deleteItemButton()
       return;
    }
 
-   QTreeWidgetItem *nextCurrent = 0;
+   QTreeWidgetItem *nextCurrent = nullptr;
    if (curItem->parent()) {
       int idx = curItem->parent()->indexOfChild(curItem);
       if (idx == curItem->parent()->childCount() - 1) {

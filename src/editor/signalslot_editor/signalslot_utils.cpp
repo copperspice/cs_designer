@@ -185,9 +185,8 @@ class ReverseClassesMemberIterator
    QStringList *m_memberList;
 };
 
-ReverseClassesMemberIterator::ReverseClassesMemberIterator(qdesigner_internal::ClassesMemberFunctions *result) :
-   m_result(result),
-   m_memberList(0)
+ReverseClassesMemberIterator::ReverseClassesMemberIterator(qdesigner_internal::ClassesMemberFunctions *result)
+   : m_result(result), m_memberList(nullptr)
 {
 }
 
@@ -250,7 +249,8 @@ bool signalMatchesSlot(QDesignerFormEditorInterface *core, const QString &signal
 ClassesMemberFunctions reverseClassesMemberFunctions(const QString &obj_name, MemberType member_type,
    const QString &peer, QDesignerFormWindowInterface *form)
 {
-   QObject *object = 0;
+   QObject *object = nullptr;
+
    if (obj_name == form->mainContainer()->objectName()) {
       object = form->mainContainer();
    } else {

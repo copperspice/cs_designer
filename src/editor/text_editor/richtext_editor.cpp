@@ -373,7 +373,8 @@ void ColorAction::setColor(const QColor &color)
 
 void ColorAction::chooseColor()
 {
-   const QColor col = QColorDialog::getColor(m_color, 0);
+   const QColor col = QColorDialog::getColor(m_color, nullptr);
+
    if (col.isValid() && col != m_color) {
       setColor(col);
       emit colorChanged(m_color);
@@ -684,7 +685,7 @@ void RichTextEditorToolBar::layoutDirectionChanged()
 
 void RichTextEditorToolBar::updateActions()
 {
-   if (m_editor == 0) {
+   if (m_editor == nullptr) {
       setEnabled(false);
       return;
    }

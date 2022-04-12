@@ -34,7 +34,7 @@ QDesignerLayoutDecorationFactory::QDesignerLayoutDecorationFactory(QExtensionMan
 QObject *QDesignerLayoutDecorationFactory::createExtension(QObject *object, const QString &iid, QObject *parent) const
 {
    if (!object->isWidgetType() || iid != CS_TYPEID(QDesignerLayoutDecorationExtension)) {
-      return 0;
+      return nullptr;
    }
 
    QWidget *widget = dynamic_cast<QWidget *>(object);
@@ -48,7 +48,7 @@ QObject *QDesignerLayoutDecorationFactory::createExtension(QObject *object, cons
          return QLayoutSupport::createLayoutSupport(fw, widget, parent);
       }
 
-   return 0;
+   return nullptr;
 }
 
 }   // end namespace

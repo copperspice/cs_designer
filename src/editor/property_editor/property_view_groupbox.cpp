@@ -45,8 +45,9 @@ class QtGroupBoxPropertyBrowserPrivate
    void slotUpdate();
 
    struct WidgetItem {
-      WidgetItem() : widget(0), label(0), widgetLabel(0),
-         groupBox(0), layout(0), line(0), parent(0)
+      WidgetItem()
+         : widget(nullptr), label(nullptr), widgetLabel(nullptr), groupBox(nullptr),
+           layout(nullptr), line(nullptr), parent(nullptr)
       {
       }
 
@@ -96,7 +97,7 @@ void QtGroupBoxPropertyBrowserPrivate::slotEditorDestroyed()
       return;
    }
 
-   m_widgetToItem[editor]->widget = 0;
+   m_widgetToItem[editor]->widget = nullptr;
    m_widgetToItem.remove(editor);
 }
 
@@ -107,8 +108,8 @@ void QtGroupBoxPropertyBrowserPrivate::slotUpdate()
       WidgetItem *item = itItem.next();
 
       WidgetItem *par = item->parent;
-      QWidget *w = 0;
-      QGridLayout *l = 0;
+      QWidget *w      = nullptr;
+      QGridLayout *l  = nullptr;
       int oldRow = -1;
 
       if (!par) {
@@ -226,7 +227,7 @@ void QtGroupBoxPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, Qt
          if (parentItem->label) {
             l->removeWidget(parentItem->label);
             delete parentItem->label;
-            parentItem->label = 0;
+            parentItem->label = nullptr;
          }
 
          if (parentItem->widget) {
@@ -238,7 +239,7 @@ void QtGroupBoxPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, Qt
          } else if (parentItem->widgetLabel) {
             l->removeWidget(parentItem->widgetLabel);
             delete parentItem->widgetLabel;
-            parentItem->widgetLabel = 0;
+            parentItem->widgetLabel = nullptr;
          }
          if (parentItem->line) {
             parentItem->line->setFrameShape(QFrame::HLine);
@@ -327,7 +328,7 @@ void QtGroupBoxPropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
       removeRow(parentItem->layout, row);
    } else {
       WidgetItem *par = parentItem->parent;
-      QGridLayout *l = 0;
+      QGridLayout *l = nullptr;
       int oldRow = -1;
       if (!par) {
          l = m_mainLayout;
@@ -351,9 +352,11 @@ void QtGroupBoxPropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
       }
       l->removeWidget(parentItem->groupBox);
       delete parentItem->groupBox;
-      parentItem->groupBox = 0;
-      parentItem->line = 0;
-      parentItem->layout = 0;
+
+      parentItem->groupBox = nullptr;
+      parentItem->line     = nullptr;
+      parentItem->layout   = nullptr;
+
       if (!m_recreateQueue.contains(parentItem)) {
          m_recreateQueue.append(parentItem);
       }

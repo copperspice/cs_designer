@@ -201,7 +201,8 @@ int SingleChildContainer<Container>::currentIndex() const
 template <class Container>
 void SingleChildContainer<Container>::addWidget(QWidget *widget)
 {
-   Q_ASSERT(m_container->widget() == 0);
+   Q_ASSERT(m_container->widget() == nullptr);
+
    widget->setParent(m_container);
    m_container->setWidget(widget);
 }

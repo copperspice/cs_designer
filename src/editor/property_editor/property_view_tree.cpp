@@ -298,7 +298,7 @@ void QtPropertyEditorDelegate::slotEditorDestroyed(QObject *object)
 
 void QtPropertyEditorDelegate::closeEditor(QtProperty *property)
 {
-   if (QWidget *w = m_propertyToEditor.value(property, 0)) {
+   if (QWidget *w = m_propertyToEditor.value(property, nullptr)) {
       w->deleteLater();
    }
 }
@@ -480,8 +480,10 @@ QtBrowserItem *QtTreePropertyBrowserPrivate::currentItem() const
 void QtTreePropertyBrowserPrivate::setCurrentItem(QtBrowserItem *browserItem, bool block)
 {
    const bool blocked = block ? m_treeWidget->blockSignals(true) : false;
-   if (browserItem == 0) {
-      m_treeWidget->setCurrentItem(0);
+
+   if (browserItem == nullptr) {
+      m_treeWidget->setCurrentItem(nullptr);
+
    } else {
       m_treeWidget->setCurrentItem(m_indexToItem.value(browserItem));
    }
@@ -560,7 +562,7 @@ void QtTreePropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, QtBrow
    QTreeWidgetItem *afterItem = m_indexToItem.value(afterIndex);
    QTreeWidgetItem *parentItem = m_indexToItem.value(index->parent());
 
-   QTreeWidgetItem *newItem = 0;
+   QTreeWidgetItem *newItem = nullptr;
    if (parentItem) {
       newItem = new QTreeWidgetItem(parentItem, afterItem);
    } else {
@@ -580,7 +582,7 @@ void QtTreePropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
    QTreeWidgetItem *item = m_indexToItem.value(index);
 
    if (m_treeWidget->currentItem() == item) {
-      m_treeWidget->setCurrentItem(0);
+      m_treeWidget->setCurrentItem(nullptr);
    }
 
    delete item;
@@ -700,7 +702,7 @@ void QtTreePropertyBrowserPrivate::slotCurrentBrowserItemChanged(QtBrowserItem *
 
 void QtTreePropertyBrowserPrivate::slotCurrentTreeItemChanged(QTreeWidgetItem *newItem, QTreeWidgetItem *)
 {
-   QtBrowserItem *browserItem = newItem ? m_itemToIndex.value(newItem) : 0;
+   QtBrowserItem *browserItem = newItem ? m_itemToIndex.value(newItem) : nullptr;
    m_browserChangedBlocked = true;
    q_ptr->setCurrentItem(browserItem);
    m_browserChangedBlocked = false;
@@ -713,7 +715,7 @@ QTreeWidgetItem *QtTreePropertyBrowserPrivate::editedItem() const
 
 void QtTreePropertyBrowserPrivate::editItem(QtBrowserItem *browserItem)
 {
-   if (QTreeWidgetItem *treeItem = m_indexToItem.value(browserItem, 0)) {
+   if (QTreeWidgetItem *treeItem = m_indexToItem.value(browserItem, nullptr)) {
       m_treeWidget->setCurrentItem (treeItem, 1);
       m_treeWidget->editItem(treeItem, 1);
    }

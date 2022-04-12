@@ -233,7 +233,7 @@ void AbstractItemEditor::resetProperty(QtProperty *property)
    if (role == ItemFlagsShadowRole) {
       prop->setValue(QVariant::fromValue((int)QListWidgetItem().flags()));
    } else {
-      prop->setValue(QVariant(prop->valueType(), (void *)0));
+      prop->setValue(QVariant(prop->valueType(), nullptr));
    }
    prop->setModified(false);
 

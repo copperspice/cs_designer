@@ -44,7 +44,7 @@ int QMainWindowContainer::count() const
 QWidget *QMainWindowContainer::widget(int index) const
 {
    if (index == -1) {
-      return 0;
+      return nullptr;
    }
 
    return m_widgets.at(index);
@@ -167,12 +167,12 @@ void QMainWindowContainer::remove(int index)
       m_mainWindow->removeToolBar(toolBar);
    } else if (QMenuBar *menuBar = dynamic_cast<QMenuBar *>(widget)) {
       menuBar->hide();
-      menuBar->setParent(0);
-      m_mainWindow->setMenuBar(0);
+      menuBar->setParent(nullptr);
+      m_mainWindow->setMenuBar(nullptr);
    } else if (QStatusBar *statusBar = dynamic_cast<QStatusBar *>(widget)) {
       statusBar->hide();
-      statusBar->setParent(0);
-      m_mainWindow->setStatusBar(0);
+      statusBar->setParent(nullptr);
+      m_mainWindow->setStatusBar(nullptr);
    } else if (QDockWidget *dockWidget = dynamic_cast<QDockWidget *>(widget)) {
       m_mainWindow->removeDockWidget(dockWidget);
    }

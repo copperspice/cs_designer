@@ -131,7 +131,7 @@ static int getLayoutMargin(const QLayout *l, LayoutPropertyType type)
       case LayoutPropertyBottomMargin:
          return bottom;
       default:
-         Q_ASSERT(0);
+         Q_ASSERT(false);
          break;
    }
    return 0;
@@ -156,7 +156,7 @@ static void setLayoutMargin(QLayout *l, LayoutPropertyType type, int margin)
          bottom = margin;
          break;
       default:
-         Q_ASSERT(0);
+         Q_ASSERT(false);
          break;
    }
    l->setContentsMargins(left, top, right, bottom);

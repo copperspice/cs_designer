@@ -266,7 +266,7 @@ void ConnectDialog::populateSignalList()
    font.setItalic(true);
    QVariant variantFont = QVariant::fromValue(font);
 
-   QListWidgetItem *curr = 0;
+   QListWidgetItem *curr = nullptr;
    auto itMember = memberToClassName.constBegin();
    auto itMemberEnd = memberToClassName.constEnd();
 

@@ -38,7 +38,7 @@ ListWidgetEditor::ListWidgetEditor(QDesignerFormWindowInterface *form, QWidget *
    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
-   m_itemsEditor = new ItemListEditor(form, 0);
+   m_itemsEditor = new ItemListEditor(form, nullptr);
    m_itemsEditor->layout()->setMargin(0);
    m_itemsEditor->setNewItemText(tr("New Item"));
 
@@ -56,18 +56,18 @@ ListWidgetEditor::ListWidgetEditor(QDesignerFormWindowInterface *form, QWidget *
 }
 
 static AbstractItemEditor::PropertyDefinition listBoxPropList[] = {
-   { Qt::DisplayPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "text" },
-   { Qt::DecorationPropertyRole, 0, DesignerPropertyManager::designerIconTypeId, "icon" },
-   { Qt::ToolTipPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "toolTip" },
-   { Qt::StatusTipPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "statusTip" },
-   { Qt::WhatsThisPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "whatsThis" },
-   { Qt::FontRole, QVariant::Font, 0, "font" },
-   { Qt::TextAlignmentRole, 0, DesignerPropertyManager::designerAlignmentTypeId, "textAlignment" },
-   { Qt::BackgroundRole, QVariant::Brush, 0, "background" },
-   { Qt::ForegroundRole, QVariant::Brush, 0, "foreground" },
-   { ItemFlagsShadowRole, 0, QtVariantPropertyManager::flagTypeId, "flags" },
-   { Qt::CheckStateRole, 0, QtVariantPropertyManager::enumTypeId, "checkState" },
-   { 0, 0, 0, "" }
+   { Qt::DisplayPropertyRole,      0, DesignerPropertyManager::designerStringTypeId, "text" },
+   { Qt::DecorationPropertyRole,   0, DesignerPropertyManager::designerIconTypeId,   "icon" },
+   { Qt::ToolTipPropertyRole,      0, DesignerPropertyManager::designerStringTypeId, "toolTip"   },
+   { Qt::StatusTipPropertyRole,    0, DesignerPropertyManager::designerStringTypeId, "statusTip" },
+   { Qt::WhatsThisPropertyRole,    0, DesignerPropertyManager::designerStringTypeId, "whatsThis" },
+   { Qt::FontRole,                 QVariant::Font,  nullptr, "font" },
+   { Qt::TextAlignmentRole,        0, DesignerPropertyManager::designerAlignmentTypeId, "textAlignment" },
+   { Qt::BackgroundRole,           QVariant::Brush, nullptr, "background" },
+   { Qt::ForegroundRole,           QVariant::Brush, nullptr, "foreground" },
+   { ItemFlagsShadowRole,          0, QtVariantPropertyManager::flagTypeId, "flags" },
+   { Qt::CheckStateRole,           0, QtVariantPropertyManager::enumTypeId, "checkState" },
+   { 0, 0, nullptr, QString() }
 };
 
 ListData ListWidgetEditor::fillContentsFromListWidget(QListWidget *listWidget)
@@ -84,9 +84,9 @@ ListData ListWidgetEditor::fillContentsFromListWidget(QListWidget *listWidget)
 }
 
 static AbstractItemEditor::PropertyDefinition comboBoxPropList[] = {
-   { Qt::DisplayPropertyRole, 0, DesignerPropertyManager::designerStringTypeId, "text" },
-   { Qt::DecorationPropertyRole, 0, DesignerPropertyManager::designerIconTypeId, "icon" },
-   { 0, 0, 0, "" }
+   { Qt::DisplayPropertyRole,    0, DesignerPropertyManager::designerStringTypeId, "text" },
+   { Qt::DecorationPropertyRole, 0, DesignerPropertyManager::designerIconTypeId,   "icon" },
+   { 0, 0, nullptr, QString() }
 };
 
 ListData ListWidgetEditor::fillContentsFromComboBox(QComboBox *comboBox)

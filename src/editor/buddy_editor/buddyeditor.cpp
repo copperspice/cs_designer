@@ -65,7 +65,7 @@ static bool canBeBuddy(QWidget *w, QDesignerFormWindowInterface *form)
 static QString buddy(QLabel *label, QDesignerFormEditorInterface *core)
 {
    QDesignerPropertySheetExtension *sheet = qt_extension<QDesignerPropertySheetExtension *>(core->extensionManager(), label);
-   if (sheet == 0) {
+   if (sheet == nullptr) {
       return QString();
    }
 
@@ -91,7 +91,7 @@ QWidget *BuddyEditor::widgetAt(const QPoint &pos) const
 {
    QWidget *w = ConnectionEdit::widgetAt(pos);
 
-   while (w != 0 && !m_formWindow->isManaged(w)) {
+   while (w != nullptr && !m_formWindow->isManaged(w)) {
       w = w->parentWidget();
    }
    if (!w) {
@@ -100,19 +100,20 @@ QWidget *BuddyEditor::widgetAt(const QPoint &pos) const
 
    if (state() == Editing) {
       QLabel *label = dynamic_cast<QLabel *>(w);
-      if (label == 0) {
-         return 0;
+
+      if (label == nullptr) {
+         return nullptr;
       }
       const int cnt = connectionCount();
       for (int i = 0; i < cnt; ++i) {
          Connection *con = connection(i);
          if (con->widget(EndPoint::Source) == w) {
-            return 0;
+            return nullptr;
          }
       }
    } else {
       if (!canBeBuddy(w, m_formWindow)) {
-         return 0;
+         return nullptr;
       }
    }
 
@@ -131,7 +132,7 @@ QDesignerFormWindowInterface *BuddyEditor::formWindow() const
 
 void BuddyEditor::updateBackground()
 {
-   if (m_updating || background() == 0) {
+   if (m_updating || background() == nullptr) {
       return;
    }
    ConnectionEdit::updateBackground();
@@ -151,18 +152,20 @@ void BuddyEditor::updateBackground()
          continue;
       }
 
-      QWidget *target = 0;
+      QWidget *target = nullptr;
 
       QListIterator<QWidget *> it(targets);
+
       while (it.hasNext()) {
          QWidget *widget = it.next();
+
          if (widget && !widget->isHidden()) {
             target = widget;
             break;
          }
       }
 
-      if (target == 0) {
+      if (target == nullptr) {
          continue;
       }
 
@@ -236,7 +239,7 @@ void BuddyEditor::setBackground(QWidget *background)
          continue;
       }
       QWidget *target = background->findChild<QWidget *>(buddy_name);
-      if (target == 0) {
+      if (target == nullptr) {
          continue;
       }
 
@@ -259,17 +262,19 @@ static QUndoCommand *createBuddyCommand(QDesignerFormWindowInterface *fw, QLabel
 void BuddyEditor::endConnection(QWidget *target, const QPoint &pos)
 {
    Connection *tmp_con = newlyAddedConnection();
-   Q_ASSERT(tmp_con != 0);
+   Q_ASSERT(tmp_con != nullptr);
 
    tmp_con->setEndPoint(EndPoint::Target, target, pos);
 
    QWidget *source = tmp_con->widget(EndPoint::Source);
-   Q_ASSERT(source != 0);
-   Q_ASSERT(target != 0);
+   Q_ASSERT(source != nullptr);
+   Q_ASSERT(target != nullptr);
+
    setEnabled(false);
    Connection *new_con = createConnection(source, target);
    setEnabled(true);
-   if (new_con != 0) {
+
+   if (new_con != nullptr) {
       new_con->setEndPoint(EndPoint::Source, source, tmp_con->endPointPos(EndPoint::Source));
       new_con->setEndPoint(EndPoint::Target, target, tmp_con->endPointPos(EndPoint::Target));
 
@@ -313,7 +318,8 @@ void BuddyEditor::widgetRemoved(QWidget *widget)
          setSelected(con, false);
          con->update();
          QWidget *source = con->widget(EndPoint::Source);
-         if (dynamic_cast<QLabel *>(source) == 0) {
+
+         if (dynamic_cast<QLabel *>(source) == nullptr) {
             qDebug("BuddyConnection::widgetRemoved(): not a label");
          } else {
             ResetPropertyCommand *command = new ResetPropertyCommand(formWindow());
@@ -333,12 +339,13 @@ void BuddyEditor::deleteSelected()
       return;
    }
 
-   undoStack()->beginMacro(tr("Remove %n buddies", 0, selectedConnections.size()));
+   undoStack()->beginMacro(tr("Remove %n buddies", nullptr, selectedConnections.size()));
    for (Connection *con : selectedConnections) {
       setSelected(con, false);
       con->update();
       QWidget *source = con->widget(EndPoint::Source);
-      if (dynamic_cast<QLabel *>(source) == 0) {
+
+      if (dynamic_cast<QLabel *>(source) == nullptr) {
          qDebug("BuddyConnection::deleteSelected(): not a label");
       } else {
          ResetPropertyCommand *command = new ResetPropertyCommand(formWindow());
@@ -368,7 +375,7 @@ void BuddyEditor::autoBuddy()
    QWidgetList buddies;
    for (LabelList::iterator it = labelList.begin(); it != labelList.end(); ) {
       QLabel *label = *it;
-      QWidget *newBuddy = 0;
+      QWidget *newBuddy = nullptr;
       if (m_formWindow->isManaged(label)) {
          const QString buddy_name = buddy(label, m_formWindow->core());
          if (buddy_name.isEmpty()) {
@@ -389,7 +396,8 @@ void BuddyEditor::autoBuddy()
    }
    const int count = labelList.size();
    Q_ASSERT(count == buddies.size());
-   undoStack()->beginMacro(tr("Add %n buddies", 0, count));
+
+   undoStack()->beginMacro(tr("Add %n buddies", nullptr, count));
    for (int i = 0; i < count; i++) {
       undoStack()->push(createBuddyCommand(m_formWindow, labelList.at(i), buddies.at(i)));
    }
@@ -410,7 +418,8 @@ QWidget *BuddyEditor::findBuddy(QLabel *l, const QWidgetList &existingBuddies) c
    // Try to find next managed neighbour on horizontal line
    const QRect geom = l->geometry();
    const int y = geom.center().y();
-   QWidget *neighbour = 0;
+
+   QWidget *neighbour = nullptr;
    switch (l->layoutDirection()) {
       case Qt::LayoutDirectionAuto:
       case Qt::LeftToRight: { // Walk right to find next managed neighbour
@@ -436,7 +445,7 @@ QWidget *BuddyEditor::findBuddy(QLabel *l, const QWidgetList &existingBuddies) c
       return neighbour;
    }
 
-   return 0;
+   return nullptr;
 }
 
 void BuddyEditor::createContextMenu(QMenu &menu)
