@@ -18,8 +18,8 @@
 ***********************************************************************/
 
 #include <palette_editor.h>
-#include <qtcolorbutton.h>
 #include <abstract_formeditor.h>
+#include <color_button.h>
 
 #include <iconloader_p.h>
 #include <formwindowbase_p.h>

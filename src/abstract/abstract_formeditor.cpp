@@ -31,8 +31,8 @@
 #include <abstract_introspection.h>
 #include <designer_widgetbox.h>
 #include <extension_manager.h>
+#include <gradient_manager.h>
 #include <plugin_manager.h>
-#include <qtgradientmanager.h>
 #include <resource_model.h>
 #include <widgetfactory.h>
 

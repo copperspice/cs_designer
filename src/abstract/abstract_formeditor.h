@@ -23,7 +23,7 @@
 #include <abstract_settings.h>
 #include <abstract_formwindowmanager.h>
 #include <extension_manager.h>
-#include <qtgradientmanager.h>
+#include <gradient_manager.h>
 #include <resource_model.h>
 
 class QDesignerWidgetBoxInterface;

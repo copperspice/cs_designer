@@ -23,8 +23,8 @@
 #include <abstract_integration.h>
 #include <extension.h>
 #include <gradient_select.h>
-#include <qtgradientmanager.h>
-#include <qtgradientutils.h>
+#include <gradient_manager.h>
+#include <gradient_utils.h>
 #include <designer_settings.h>
 #include <stylesheet_editor.h>
 

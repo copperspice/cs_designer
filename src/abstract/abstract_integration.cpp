@@ -28,8 +28,8 @@
 #include <propertysheet.h>
 #include <abstract_propertyeditor.h>
 #include <extension_manager.h>
-#include <qtgradientmanager.h>
-#include <qtgradientutils.h>
+#include <gradient_manager.h>
+#include <gradient_utils.h>
 #include <designer_widgetbox.h>
 #include <resource_model.h>
 #include <designer_property_command.h>
