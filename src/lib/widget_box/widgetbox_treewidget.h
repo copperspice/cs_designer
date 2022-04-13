@@ -76,8 +76,8 @@ class WidgetBoxTreeWidget : public QTreeWidget
    CS_SLOT_2(filter)
 
  protected:
-   void contextMenuEvent(QContextMenuEvent *e);
-   void resizeEvent(QResizeEvent *e);
+   void contextMenuEvent(QContextMenuEvent *e) override;
+   void resizeEvent(QResizeEvent *e) override;
 
  private:
    CS_SLOT_1(Private, void slotSave())

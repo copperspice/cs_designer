@@ -75,8 +75,8 @@ class QtToolBarDialog : public QDialog
    void setToolBarManager(QtToolBarManager *toolBarManager);
 
  protected:
-   void showEvent(QShowEvent *event);
-   void hideEvent(QHideEvent *event);
+   void showEvent(QShowEvent *event) override;
+   void hideEvent(QHideEvent *event) override;
 
  private:
    QScopedPointer<QtToolBarDialogPrivate> d_ptr;

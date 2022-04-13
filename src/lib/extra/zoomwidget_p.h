@@ -107,11 +107,12 @@ class ZoomView : public QGraphicsView
 
    CS_SLOT_1(Public, void setZoom(int percent))
    CS_SLOT_2(setZoom)
+
    CS_SLOT_1(Public, void showContextMenu(const QPoint &globalPos))
    CS_SLOT_2(showContextMenu)
 
  protected:
-   void contextMenuEvent(QContextMenuEvent *event);
+   void contextMenuEvent(QContextMenuEvent *event) override;
 
    // Overwrite for implementing additional behaviour when doing setZoom();
    virtual void applyZoom();

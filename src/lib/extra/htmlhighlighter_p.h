@@ -55,7 +55,7 @@ class HtmlHighlighter : public QSyntaxHighlighter
       InTag
    };
 
-   void highlightBlock(const QString &text);
+   void highlightBlock(const QString &text) override;
 
  private:
    QTextCharFormat m_formats[LastConstruct + 1];

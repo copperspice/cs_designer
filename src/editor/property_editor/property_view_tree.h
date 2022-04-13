@@ -104,9 +104,9 @@ class QtTreePropertyBrowser : public QtAbstractPropertyBrowser
    CS_SIGNAL_2(expanded, item)
 
  protected:
-   virtual void itemInserted(QtBrowserItem *item, QtBrowserItem *afterItem);
-   virtual void itemRemoved(QtBrowserItem *item);
-   virtual void itemChanged(QtBrowserItem *item);
+   void itemInserted(QtBrowserItem *item, QtBrowserItem *afterItem) override;
+   void itemRemoved(QtBrowserItem *item) override;
+   void itemChanged(QtBrowserItem *item) override;
 
  private:
    QScopedPointer<QtTreePropertyBrowserPrivate> d_ptr;

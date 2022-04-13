@@ -59,12 +59,12 @@ class QDesignerDialog : public QDialog
  public:
    explicit QDesignerDialog(QDesignerFormWindowInterface *fw, QWidget *parent);
 
-   virtual QSize minimumSizeHint() const {
+   QSize minimumSizeHint() const override {
       return QWidget::minimumSizeHint().expandedTo(QSize(16, 16));
    }
 
  protected:
-   void paintEvent(QPaintEvent *e);
+   void paintEvent(QPaintEvent *e) override;
 
  private:
    qdesigner_internal::FormWindowBase *m_formWindow;

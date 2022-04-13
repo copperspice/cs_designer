@@ -78,7 +78,7 @@ class ActionGroupDelegate: public QItemDelegate
    {
    }
 
-   virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override {
       if (option.state & QStyle::State_Selected) {
          painter->fillRect(option.rect, option.palette.highlight());
       }
@@ -86,7 +86,7 @@ class ActionGroupDelegate: public QItemDelegate
       QItemDelegate::paint(painter, option, index);
    }
 
-   virtual void drawFocus(QPainter *, const QStyleOptionViewItem &, const QRect &) const
+   void drawFocus(QPainter *, const QStyleOptionViewItem &, const QRect &) const override
    { }
 };
 

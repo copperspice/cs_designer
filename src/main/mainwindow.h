@@ -85,7 +85,7 @@ class DockedMdiArea : public QMdiArea
    CS_SIGNAL_2(fileDropped, un_named_arg1)
 
  protected:
-   bool event (QEvent *event);
+   bool event (QEvent *event) override;
 
  private:
    Q_DISABLE_COPY(DockedMdiArea)

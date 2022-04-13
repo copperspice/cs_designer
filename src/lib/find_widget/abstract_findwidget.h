@@ -48,7 +48,7 @@ class AbstractFindWidget : public QWidget
    explicit AbstractFindWidget(FindFlags flags = FindFlags(), QWidget *parent = nullptr);
    virtual ~AbstractFindWidget();
 
-   bool eventFilter(QObject *object, QEvent *e);
+   bool eventFilter(QObject *object, QEvent *e) override;
 
    static QIcon findIconSet();
 
@@ -64,7 +64,7 @@ class AbstractFindWidget : public QWidget
    CS_SLOT_2(findCurrentText)
 
  protected:
-   void keyPressEvent(QKeyEvent *event);
+   void keyPressEvent(QKeyEvent *event) override;
 
    virtual void find(const QString &textToFind, bool skipCurrent, bool backward, bool *found, bool *wrapped) = 0;
 

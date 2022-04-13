@@ -36,10 +36,12 @@ class SaveFormAsTemplate: public QDialog
    virtual ~SaveFormAsTemplate();
 
  private:
-   CS_SLOT_1(Private, void accept())
+   CS_SLOT_1(Private, void accept() override)
    CS_SLOT_2(accept)
+
    CS_SLOT_1(Private, void updateOKButton(const QString &str))
    CS_SLOT_2(updateOKButton)
+
    CS_SLOT_1(Private, void checkToAddPath(int itemIndex))
    CS_SLOT_2(checkToAddPath)
 

@@ -78,8 +78,8 @@ class InsertWidgetCommand: public QDesignerFormWindowCommand
 
    void init(QWidget *widget, bool already_in_form = false, int layoutRow = -1, int layoutColumn = -1);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    void refreshBuddyLabels();
@@ -99,8 +99,8 @@ class ChangeZOrderCommand: public QDesignerFormWindowCommand
 
    void init(QWidget *widget);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  protected:
    virtual QWidgetList reorderWidget(const QWidgetList &list, QWidget *widget) const = 0;
@@ -146,8 +146,8 @@ class AdjustWidgetSizeCommand: public QDesignerFormWindowCommand
 
    void init(QWidget *widget);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    QWidget *widgetForAdjust() const;
@@ -190,8 +190,8 @@ class DeleteWidgetCommand: public QDesignerFormWindowCommand
 
    void init(QWidget *widget, unsigned flags = 0);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QWidget> m_widget;
@@ -218,8 +218,8 @@ class ReparentWidgetCommand: public QDesignerFormWindowCommand
 
    void init(QWidget *widget, QWidget *parentWidget);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QWidget> m_widget;
@@ -240,8 +240,8 @@ class ChangeFormLayoutItemRoleCommand : public QDesignerFormWindowCommand
 
    void init(QWidget *widget, Operation op);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
    // Return a mask of possible operations of that item
    static unsigned possibleOperations(QDesignerFormEditorInterface *core, QWidget *w);
@@ -263,8 +263,8 @@ class ChangeLayoutItemGeometry: public QDesignerFormWindowCommand
 
    void init(QWidget *widget, int row, int column, int rowspan, int colspan);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  protected:
    void changeItemPosition(const QRect &g);
@@ -291,8 +291,8 @@ class TabOrderCommand: public QDesignerFormWindowCommand
       return m_newTabOrder;
    }
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    QDesignerMetaDataBaseItemInterface *m_widgetItem;
@@ -308,8 +308,8 @@ class PromoteToCustomWidgetCommand : public QDesignerFormWindowCommand
    explicit PromoteToCustomWidgetCommand(QDesignerFormWindowInterface *formWindow);
 
    void init(const WidgetList &widgets, const QString &customClassName);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    void updateSelection();
@@ -325,8 +325,8 @@ class DemoteFromCustomWidgetCommand : public QDesignerFormWindowCommand
    explicit DemoteFromCustomWidgetCommand(QDesignerFormWindowInterface *formWindow);
 
    void init(const WidgetList &promoted);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    PromoteToCustomWidgetCommand m_promote_cmd;
@@ -364,8 +364,8 @@ class LayoutCommand: public QDesignerFormWindowCommand
       // Reparent/Hide instances of QLayoutWidget.
       bool reparentLayoutWidget = true);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QWidget> m_parentWidget;
@@ -391,8 +391,8 @@ class BreakLayoutCommand: public QDesignerFormWindowCommand
       // Reparent/Hide instances of QLayoutWidget.
       bool reparentLayoutWidget = true);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
    // Access the properties of the layout, 0 in case of splitters.
    const LayoutProperties *layoutProperties() const;
@@ -419,8 +419,8 @@ class SimplifyLayoutCommand: public QDesignerFormWindowCommand
    // Quick check
    static bool canSimplify(QDesignerFormEditorInterface *core, const QWidget *w, int *layoutType = nullptr);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    const QRect m_area;
@@ -458,8 +458,8 @@ class MoveToolBoxPageCommand: public ToolBoxCommand
 
    void init(QToolBox *toolBox, QWidget *page, int newIndex);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;;
 
  private:
    int m_newIndex;
@@ -475,8 +475,8 @@ class DeleteToolBoxPageCommand: public ToolBoxCommand
 
    void init(QToolBox *toolBox);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 };
 
 class AddToolBoxPageCommand: public ToolBoxCommand
@@ -493,8 +493,8 @@ class AddToolBoxPageCommand: public ToolBoxCommand
    void init(QToolBox *toolBox);
    void init(QToolBox *toolBox, InsertionMode mode);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 };
 
 class TabWidgetCommand: public QDesignerFormWindowCommand
@@ -526,8 +526,8 @@ class DeleteTabPageCommand: public TabWidgetCommand
 
    void init(QTabWidget *tabWidget);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 };
 
 class AddTabPageCommand: public TabWidgetCommand
@@ -544,8 +544,8 @@ class AddTabPageCommand: public TabWidgetCommand
    void init(QTabWidget *tabWidget);
    void init(QTabWidget *tabWidget, InsertionMode mode);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 };
 
 class MoveTabPageCommand: public TabWidgetCommand
@@ -559,8 +559,8 @@ class MoveTabPageCommand: public TabWidgetCommand
       const QIcon &icon, const QString &label,
       int index, int newIndex);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    int m_newIndex;
@@ -597,8 +597,8 @@ class MoveStackedWidgetCommand: public StackedWidgetCommand
 
    void init(QStackedWidget *stackedWidget, QWidget *page, int newIndex);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    int m_newIndex;
@@ -614,8 +614,8 @@ class DeleteStackedWidgetPageCommand: public StackedWidgetCommand
 
    void init(QStackedWidget *stackedWidget);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 };
 
 class AddStackedWidgetPageCommand: public StackedWidgetCommand
@@ -632,8 +632,8 @@ class AddStackedWidgetPageCommand: public StackedWidgetCommand
    void init(QStackedWidget *stackedWidget);
    void init(QStackedWidget *stackedWidget, InsertionMode mode);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 };
 
 class CreateMenuBarCommand: public QDesignerFormWindowCommand
@@ -644,8 +644,8 @@ class CreateMenuBarCommand: public QDesignerFormWindowCommand
 
    void init(QMainWindow *mainWindow);
 
-   virtual void undo();
-   virtual void redo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QMainWindow> m_mainWindow;
@@ -660,8 +660,8 @@ class DeleteMenuBarCommand: public QDesignerFormWindowCommand
 
    void init(QMenuBar *menuBar);
 
-   virtual void undo();
-   virtual void redo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QMainWindow> m_mainWindow;
@@ -676,8 +676,8 @@ class CreateStatusBarCommand: public QDesignerFormWindowCommand
 
    void init(QMainWindow *mainWindow);
 
-   virtual void undo();
-   virtual void redo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QMainWindow> m_mainWindow;
@@ -686,14 +686,13 @@ class CreateStatusBarCommand: public QDesignerFormWindowCommand
 
 class DeleteStatusBarCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit DeleteStatusBarCommand(QDesignerFormWindowInterface *formWindow);
 
    void init(QStatusBar *statusBar);
 
-   virtual void undo();
-   virtual void redo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QMainWindow> m_mainWindow;
@@ -708,8 +707,8 @@ class AddToolBarCommand: public QDesignerFormWindowCommand
 
    void init(QMainWindow *mainWindow);
 
-   virtual void undo();
-   virtual void redo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QMainWindow> m_mainWindow;
@@ -718,14 +717,13 @@ class AddToolBarCommand: public QDesignerFormWindowCommand
 
 class DeleteToolBarCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit DeleteToolBarCommand(QDesignerFormWindowInterface *formWindow);
 
    void init(QToolBar *toolBar);
 
-   virtual void undo();
-   virtual void redo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QMainWindow> m_mainWindow;
@@ -754,8 +752,8 @@ class AddDockWidgetCommand: public QDesignerFormWindowCommand
    void init(QMainWindow *mainWindow, QDockWidget *dockWidget);
    void init(QMainWindow *mainWindow);
 
-   virtual void undo();
-   virtual void redo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QMainWindow> m_mainWindow;
@@ -791,8 +789,8 @@ class DeleteContainerWidgetPageCommand: public ContainerWidgetCommand
 
    void init(QWidget *containerWidget, ContainerType ct);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 };
 
 class AddContainerWidgetPageCommand: public ContainerWidgetCommand
@@ -808,8 +806,8 @@ class AddContainerWidgetPageCommand: public ContainerWidgetCommand
 
    void init(QWidget *containerWidget, ContainerType ct, InsertionMode mode);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 };
 
 class ChangeCurrentPageCommand: public QDesignerFormWindowCommand
@@ -823,8 +821,8 @@ class ChangeCurrentPageCommand: public QDesignerFormWindowCommand
 
    void init(QWidget *containerWidget, int newIndex);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  protected:
    QPointer<QWidget> m_containerWidget;
@@ -917,8 +915,8 @@ class ChangeTableDataCommand : public QDesignerFormWindowCommand
    explicit ChangeTableDataCommand(QDesignerFormWindowInterface *formWindow);
 
    void init(QTableWidget *tableWidget, const TableWidgetData &oldCont, const TableWidgetData &newCont);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QTableWidget> m_tableWidget;
@@ -973,8 +971,8 @@ class ChangeTreeDataCommand: public QDesignerFormWindowCommand
    explicit ChangeTreeDataCommand(QDesignerFormWindowInterface *formWindow);
 
    void init(QTreeWidget *treeWidget, const TreeWidgetData &oldState, const TreeWidgetData &newState);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
    enum ApplyIconStrategy {
       SetIconStrategy,
@@ -995,8 +993,8 @@ class ChangeListDataCommand : public QDesignerFormWindowCommand
 
    void init(QListWidget *listWidget, const ListData &oldItems, const ListData &items);
    void init(QComboBox *comboBox, const ListData &oldItems, const ListData &items);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    QPointer<QListWidget> m_listWidget;
@@ -1011,8 +1009,8 @@ class AddActionCommand : public QDesignerFormWindowCommand
  public:
    explicit AddActionCommand(QDesignerFormWindowInterface *formWindow);
    void init(QAction *action);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    QAction *m_action;
@@ -1026,8 +1024,8 @@ class RemoveActionCommand : public QDesignerFormWindowCommand
  public:
    explicit RemoveActionCommand(QDesignerFormWindowInterface *formWindow);
    void init(QAction *action);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
    struct ActionDataItem {
       ActionDataItem(QAction *_before = nullptr, QWidget *_widget = nullptr)
@@ -1070,10 +1068,11 @@ class InsertActionIntoCommand : public ActionInsertionCommand
  public:
    explicit InsertActionIntoCommand(QDesignerFormWindowInterface *formWindow);
 
-   virtual void redo() {
+   void redo() override {
       insertAction();
    }
-   virtual void undo() {
+
+   void undo() override {
       removeAction();
    }
 };
@@ -1083,10 +1082,11 @@ class RemoveActionFromCommand : public ActionInsertionCommand
  public:
    explicit RemoveActionFromCommand(QDesignerFormWindowInterface *formWindow);
 
-   virtual void redo()  {
+   void redo() override {
       removeAction();
    }
-   virtual void undo()  {
+
+   void undo() override {
       insertAction();
    }
 };
@@ -1114,10 +1114,11 @@ class AddMenuActionCommand : public MenuActionCommand
  public:
    explicit AddMenuActionCommand(QDesignerFormWindowInterface *formWindow);
 
-   virtual void redo() {
+   void redo()  override {
       insertMenu();
    }
-   virtual void undo() {
+
+   void undo()  override {
       removeMenu();
    }
 };
@@ -1127,10 +1128,11 @@ class RemoveMenuActionCommand : public MenuActionCommand
  public:
    explicit RemoveMenuActionCommand(QDesignerFormWindowInterface *formWindow);
 
-   virtual void redo() {
+   void redo() override {
       removeMenu();
    }
-   virtual void undo() {
+
+   void undo() override {
       insertMenu();
    }
 };
@@ -1140,8 +1142,8 @@ class CreateSubmenuCommand : public QDesignerFormWindowCommand
  public:
    explicit CreateSubmenuCommand(QDesignerFormWindowInterface *formWindow);
    void init(QDesignerMenu *menu, QAction *action, QObject *m_objectToSelect = nullptr);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    QAction *m_action;
@@ -1168,8 +1170,8 @@ class MorphLayoutCommand : public QDesignerFormWindowCommand
 
    static bool canMorph(const QDesignerFormWindowInterface *formWindow, QWidget *w, int *ptrToCurrentType = nullptr);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    static QString formatDescription(QDesignerFormEditorInterface *core, const QWidget *w, int oldType, int newType);
@@ -1191,8 +1193,8 @@ class LayoutAlignmentCommand : public QDesignerFormWindowCommand
 
    bool init(QWidget *w, Qt::Alignment alignment);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
    // Find out alignment and return whether command is enabled.
    static Qt::Alignment alignmentOf(const QDesignerFormEditorInterface *core, QWidget *w, bool *enabled = nullptr);

@@ -89,7 +89,7 @@ class QtBoolEdit : public QWidget
    CS_SIGNAL_2(toggled, un_named_arg1)
 
  protected:
-   void mousePressEvent(QMouseEvent *event);
+   void mousePressEvent(QMouseEvent *event) override;
 
  private:
    QCheckBox *m_checkBox;

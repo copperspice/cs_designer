@@ -191,7 +191,7 @@ class FormWindow: public FormWindowBase
 
    void paste(PasteMode pasteMode) override;
 
-   virtual QEditorFormBuilder *createFormBuilder() override;
+   QEditorFormBuilder *createFormBuilder() override;
 
    bool eventFilter(QObject *watched, QEvent *event) override;
 

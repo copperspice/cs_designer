@@ -1245,7 +1245,7 @@ class QtCharEdit : public QWidget
    QtCharEdit(QWidget *parent = nullptr);
 
    QChar value() const;
-   bool eventFilter(QObject *o, QEvent *e);
+   bool eventFilter(QObject *o, QEvent *e) override;
 
    CS_SLOT_1(Public, void setValue(const QChar &value))
    CS_SLOT_2(setValue)
@@ -1254,11 +1254,11 @@ class QtCharEdit : public QWidget
    CS_SIGNAL_2(valueChanged, value)
 
  protected:
-   void focusInEvent(QFocusEvent *e);
-   void focusOutEvent(QFocusEvent *e);
-   void keyPressEvent(QKeyEvent *e);
-   void keyReleaseEvent(QKeyEvent *e);
-   bool event(QEvent *e);
+   void focusInEvent(QFocusEvent *e) override;
+   void focusOutEvent(QFocusEvent *e) override;
+   void keyPressEvent(QKeyEvent *e) override;
+   void keyReleaseEvent(QKeyEvent *e) override;
+   bool event(QEvent *e) override;
 
  private:
    CS_SLOT_1(Private, void slotClearChar())
@@ -1816,7 +1816,7 @@ class QtColorEditWidget : public QWidget
  public:
    QtColorEditWidget(QWidget *parent);
 
-   bool eventFilter(QObject *obj, QEvent *ev);
+   bool eventFilter(QObject *obj, QEvent *ev) override;
 
    CS_SLOT_1(Public, void setValue(const QColor &value))
    CS_SLOT_2(setValue)
@@ -1983,7 +1983,7 @@ class QtFontEditWidget : public QWidget
  public:
    QtFontEditWidget(QWidget *parent);
 
-   bool eventFilter(QObject *obj, QEvent *ev);
+   bool eventFilter(QObject *obj, QEvent *ev) override;
 
    CS_SIGNAL_1(Public, void valueChanged(const QFont &value))
    CS_SIGNAL_2(valueChanged, value)

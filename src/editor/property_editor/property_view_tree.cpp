@@ -113,9 +113,9 @@ class QtPropertyEditorView : public QTreeWidget
    }
 
  protected:
-   void keyPressEvent(QKeyEvent *event);
-   void mousePressEvent(QMouseEvent *event);
-   void drawRow(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+   void keyPressEvent(QKeyEvent *event) override;
+   void mousePressEvent(QMouseEvent *event) override;
+   void drawRow(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
  private:
    QtTreePropertyBrowserPrivate *m_editorPrivate;
@@ -220,22 +220,24 @@ class QtPropertyEditorDelegate : public QItemDelegate
    }
 
    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
-      const QModelIndex &index) const;
+      const QModelIndex &index) const override;
 
    void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option,
-      const QModelIndex &index) const;
+      const QModelIndex &index) const override;
 
-   void paint(QPainter *painter, const QStyleOptionViewItem &option,
-      const QModelIndex &index) const;
+   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-   QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+   QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-   void setModelData(QWidget *, QAbstractItemModel *,
-      const QModelIndex &) const {}
+   void setModelData(QWidget *, QAbstractItemModel *, const QModelIndex &) const override
+   {
+   }
 
-   void setEditorData(QWidget *, const QModelIndex &) const {}
+   void setEditorData(QWidget *, const QModelIndex &) const override
+   {
+   }
 
-   bool eventFilter(QObject *object, QEvent *event);
+   bool eventFilter(QObject *object, QEvent *event) override;
    void closeEditor(QtProperty *property);
 
    QTreeWidgetItem *editedItem() const {

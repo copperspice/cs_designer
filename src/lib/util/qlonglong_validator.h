@@ -39,7 +39,7 @@ class QLongLongValidator : public QValidator
    QLongLongValidator(qint64 bottom, qint64 top, QObject *parent);
    ~QLongLongValidator();
 
-   QValidator::State validate(QString &, int &) const;
+   QValidator::State validate(QString &, int &) const override;
 
    void setBottom(qint64);
    void setTop(qint64);
@@ -74,7 +74,7 @@ class QULongLongValidator : public QValidator
    QULongLongValidator(quint64 bottom, quint64 top, QObject *parent);
    ~QULongLongValidator();
 
-   QValidator::State validate(QString &, int &) const;
+   QValidator::State validate(QString &, int &) const override;
 
    void setBottom(quint64);
    void setTop(quint64);

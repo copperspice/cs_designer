@@ -37,8 +37,8 @@ class QDesignerFormWindowCommand: public QUndoCommand
       QDesignerFormWindowInterface *formWindow,
       QUndoCommand *parent = nullptr);
 
-   virtual void undo();
-   virtual void redo();
+   void undo() override;
+   void redo() override;
 
    static void updateBuddies(QDesignerFormWindowInterface *form,
       const QString &old_name, const QString &new_name);

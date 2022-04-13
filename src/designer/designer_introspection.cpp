@@ -116,15 +116,15 @@ class QDesignerMetaProperty : public QDesignerMetaPropertyInterface
       return m_property.type();
    }
 
-   QString name() const override        {
+   QString name() const override {
       return m_name;
    }
 
-   QString typeName() const override    {
+   QString typeName() const override {
       return m_typeName;
    }
 
-   int userType() const override        {
+   int userType() const override {
       return m_property.userType();
    }
 
@@ -240,28 +240,35 @@ class QDesignerMetaMethod : public QDesignerMetaMethodInterface
  public:
    QDesignerMetaMethod(const QMetaMethod &method);
 
-   virtual Access access() const               {
+   Access access() const override {
       return m_access;
    }
-   virtual MethodType methodType() const       {
+
+   MethodType methodType() const override {
       return m_methodType;
    }
-   virtual QStringList parameterNames() const  {
+
+   QStringList parameterNames() const override {
       return m_parameterNames;
    }
-   virtual QStringList parameterTypes() const  {
+
+   QStringList parameterTypes() const override {
       return m_parameterTypes;
    }
-   virtual QString signature() const           {
+
+   QString signature() const override {
       return m_signature;
    }
-   virtual QString normalizedSignature() const {
+
+   QString normalizedSignature() const override {
       return m_normalizedSignature;
    }
-   virtual QString tag() const                 {
+
+   QString tag() const override {
       return m_tag;
    }
-   virtual QString typeName() const            {
+
+   QString typeName() const override {
       return m_typeName;
    }
 
@@ -320,24 +327,27 @@ class QDesignerMetaObject : public QDesignerMetaObjectInterface
    QDesignerMetaObject(const qdesigner_internal::QDesignerIntrospection *introspection, const QMetaObject *metaObject);
    virtual ~QDesignerMetaObject();
 
-   virtual QString className() const {
+   QString className() const override {
       return m_className;
    }
-   virtual const QDesignerMetaEnumInterface *enumerator(int index) const {
+
+   const QDesignerMetaEnumInterface *enumerator(int index) const override {
       return m_enumerators[index];
    }
-   virtual int enumeratorCount() const {
+
+   int enumeratorCount() const override {
       return m_enumerators.size();
    }
-   virtual int enumeratorOffset() const {
+
+   int enumeratorOffset() const override {
       return m_metaObject->enumeratorOffset();
    }
 
-   virtual int indexOfEnumerator(const QString &name) const {
+   int indexOfEnumerator(const QString &name) const override {
       return m_metaObject->indexOfEnumerator(name);
    }
 
-   virtual int indexOfMethod(const QString &method) const {
+   int indexOfMethod(const QString &method) const override {
       return m_metaObject->indexOfMethod(method);
    }
 
@@ -345,40 +355,41 @@ class QDesignerMetaObject : public QDesignerMetaObjectInterface
       return m_metaObject->indexOfProperty(name);
    }
 
-   virtual int indexOfSignal(const QString &signal) const {
+   int indexOfSignal(const QString &signal) const override {
       return m_metaObject->indexOfSignal(signal);
    }
 
-   virtual int indexOfSlot(const QString &slot) const {
+   int indexOfSlot(const QString &slot) const override {
       return m_metaObject->indexOfSlot(slot);
    }
 
-   virtual const QDesignerMetaMethodInterface *method(int index) const {
+   const QDesignerMetaMethodInterface *method(int index) const override {
       return m_methods[index];
    }
 
-   virtual int methodCount() const {
+   int methodCount() const override {
       return m_methods.size();
    }
 
-   virtual int methodOffset() const {
+   int methodOffset() const override {
       return m_metaObject->methodOffset();
    }
 
-   virtual const QDesignerMetaPropertyInterface *property(int index) const {
+   const QDesignerMetaPropertyInterface *property(int index) const override {
       return m_properties[index];
    }
 
-   virtual int propertyCount() const {
+   int propertyCount() const override {
       return m_properties.size();
    }
 
-   virtual int propertyOffset() const {
+   int propertyOffset() const override {
       return m_metaObject->propertyOffset();
    }
 
-   const QDesignerMetaObjectInterface *superClass() const;
-   virtual const QDesignerMetaPropertyInterface *userProperty() const {
+   const QDesignerMetaObjectInterface *superClass() const override;
+
+   const QDesignerMetaPropertyInterface *userProperty() const override {
       return m_userProperty;
    }
 

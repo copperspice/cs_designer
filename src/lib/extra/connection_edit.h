@@ -179,7 +179,7 @@ class ConnectionEdit : public QWidget, public CETypes
 
    void clear();
 
-   void showEvent(QShowEvent * /*e*/) override {
+   void showEvent(QShowEvent *) override {
       updateBackground();
    }
 
@@ -306,7 +306,7 @@ class CECommand : public QUndoCommand, public CETypes
    explicit  CECommand(ConnectionEdit *edit)
       : m_edit(edit) {}
 
-   virtual bool mergeWith(const QUndoCommand *) {
+   bool mergeWith(const QUndoCommand *) override {
       return false;
    }
 
@@ -322,8 +322,8 @@ class AddConnectionCommand : public CECommand
 {
  public:
    AddConnectionCommand(ConnectionEdit *edit, Connection *con);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    Connection *m_con;
@@ -333,8 +333,8 @@ class DeleteConnectionsCommand : public CECommand
 {
  public:
    DeleteConnectionsCommand(ConnectionEdit *edit, const ConnectionList &con_list);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
  private:
    ConnectionList m_con_list;
 };

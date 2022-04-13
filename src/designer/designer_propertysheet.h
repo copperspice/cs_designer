@@ -178,7 +178,7 @@ class QDesignerAbstractPropertySheetFactory: public QExtensionFactory
    explicit QDesignerAbstractPropertySheetFactory(QExtensionManager *parent = nullptr);
    virtual ~QDesignerAbstractPropertySheetFactory();
 
-   QObject *extension(QObject *object, const QString &iid) const;
+   QObject *extension(QObject *object, const QString &iid) const override;
 
  private:
    CS_SLOT_1(Private, void objectDestroyed(QObject *object))

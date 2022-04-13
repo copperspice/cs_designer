@@ -62,7 +62,7 @@ class QDesigner: public QApplication
    CS_SLOT_2(showErrorMessage)
 
  protected:
-   bool event(QEvent *ev);
+   bool event(QEvent *ev) override;
 
  private:
    CS_SLOT_1(Private, void callCreateForm())

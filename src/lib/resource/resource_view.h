@@ -68,7 +68,7 @@ class QtResourceView : public QWidget
    CS_SIGNAL_2(resourceActivated, resource)
 
  protected:
-   bool event(QEvent *event);
+   bool event(QEvent *event) override;
 
  private:
    QScopedPointer<class QtResourceViewPrivate> d_ptr;

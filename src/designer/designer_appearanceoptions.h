@@ -90,10 +90,11 @@ class QDesignerAppearanceOptionsPage : public QObject, public QDesignerOptionsPa
  public:
    QDesignerAppearanceOptionsPage(QDesignerFormEditorInterface *core);
 
-   QString name() const;
-   QWidget *createPage(QWidget *parent);
-   virtual void apply();
-   virtual void finish();
+   QString name() const override;
+   QWidget *createPage(QWidget *parent) override;
+
+   void apply() override;
+   void finish() override;
 
    CS_SIGNAL_1(Public, void settingsChanged())
    CS_SIGNAL_2(settingsChanged)

@@ -41,7 +41,8 @@ class ItemViewFindWidget : public AbstractFindWidget
 
  protected:
    virtual void deactivate();
-   virtual void find(const QString &textToFind, bool skipCurrent, bool backward, bool *found, bool *wrapped);
+   void find(const QString &textToFind, bool skipCurrent, bool backward,
+         bool *found, bool *wrapped) override;
 
  private:
    QModelIndex findHelper(const QString &textToFind, bool skipCurrent, bool backward,

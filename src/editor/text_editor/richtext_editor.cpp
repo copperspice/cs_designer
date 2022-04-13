@@ -214,7 +214,7 @@ class AddLinkDialog : public QDialog
 
    int showDialog();
 
-   CS_SLOT_1(Public, void accept())
+   CS_SLOT_1(Public, void accept() override)
    CS_SLOT_2(accept)
 
  private:
@@ -282,7 +282,7 @@ class HtmlTextEdit : public QTextEdit
       : QTextEdit(parent)
    {}
 
-   void contextMenuEvent(QContextMenuEvent *event);
+   void contextMenuEvent(QContextMenuEvent *event) override;
 
  private:
    CS_SLOT_1(Private, void actionTriggered(QAction *action))

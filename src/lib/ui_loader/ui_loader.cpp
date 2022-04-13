@@ -184,7 +184,7 @@ class TranslationWatcher: public QObject
       : QObject(parent), m_className(className) {
    }
 
-   virtual bool eventFilter(QObject *o, QEvent *event) {
+   bool eventFilter(QObject *o, QEvent *event) override {
       if (event->type() == QEvent::LanguageChange) {
          for (const QString &prop : o->dynamicPropertyNames()) {
 

@@ -138,7 +138,7 @@ class PropertyListCommand : public QDesignerFormWindowCommand
    void setOldValue(const QVariant &oldValue, int index = 0);
 
    // Calls restoreDefaultValue() and update()
-   virtual void undo();
+   void undo() override;
 
  protected:
    typedef QSharedPointer<PropertyHelper> PropertyHelperPtr;
@@ -222,10 +222,10 @@ class SetPropertyCommand: public PropertyListCommand
       m_newValue = newValue;
    }
 
-   int id() const;
-   bool mergeWith(const QUndoCommand *other);
+   int id() const override;
+   bool mergeWith(const QUndoCommand *other) override;
 
-   virtual void redo();
+   void redo() override;
 
  protected:
    virtual QVariant mergeValue(const QVariant &newValue);
@@ -248,10 +248,10 @@ class ResetPropertyCommand: public PropertyListCommand
    bool init(QObject *object, const QString &propertyName);
    bool init(const ObjectList &list, const QString &propertyName, QObject *referenceObject = nullptr);
 
-   virtual void redo();
+   void redo() override;
 
  protected:
-   virtual bool mergeWith(const QUndoCommand *) {
+   bool mergeWith(const QUndoCommand *) override {
       return false;
    }
 
@@ -269,8 +269,8 @@ class AddDynamicPropertyCommand: public QDesignerFormWindowCommand
 
    bool init(const QList<QObject *> &selection, QObject *current, const QString &propertyName, const QVariant &value);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
  private:
    void setDescription();
    QString m_propertyName;
@@ -286,8 +286,8 @@ class RemoveDynamicPropertyCommand: public QDesignerFormWindowCommand
 
    bool init(const QList<QObject *> &selection, QObject *current, const QString &propertyName);
 
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
  private:
    void setDescription();
    QString m_propertyName;

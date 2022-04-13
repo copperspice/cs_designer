@@ -48,7 +48,7 @@ class QtResourceEditorDialog : public QDialog
    // Helper to display a message box with rcc logs in case of errors.
    static void displayResourceFailures(const QString &logOutput, QDesignerDialogGuiInterface *dlgGui, QWidget *parent = nullptr);
 
-   CS_SLOT_1(Public, virtual void accept())
+   CS_SLOT_1(Public, void accept() override)
    CS_SLOT_2(accept)
 
  private:

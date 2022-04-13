@@ -44,7 +44,7 @@ class FormWindowSettings: public QDialog
    explicit FormWindowSettings(QDesignerFormWindowInterface *formWindow);
    virtual ~FormWindowSettings();
 
-   virtual void accept();
+   void accept() override;
 
  private:
    FormWindowSettings(const FormWindowSettings &) = delete;

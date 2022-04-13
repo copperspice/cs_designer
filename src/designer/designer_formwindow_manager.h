@@ -41,7 +41,7 @@ class QDesignerFormWindowManager : public QDesignerFormWindowManagerInterface
 
    virtual PreviewManager *previewManager() const = 0;
 
-   virtual void showPluginDialog();
+   void showPluginDialog() override;
 
  private:
    void *m_unused;

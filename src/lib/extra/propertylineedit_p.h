@@ -37,9 +37,10 @@ class PropertyLineEdit : public QLineEdit
       return m_wantNewLine;
    }
 
-   bool event(QEvent *e);
+   bool event(QEvent *e) override;
+
  protected:
-   void contextMenuEvent (QContextMenuEvent *event );
+   void contextMenuEvent (QContextMenuEvent *event) override;
  private:
    CS_SLOT_1(Private, void insertNewLine())
    CS_SLOT_2(insertNewLine)

@@ -46,7 +46,7 @@ class ItemPropertyBrowser : public QtTreePropertyBrowser
       m_width += fontMetrics().width("/this/is/some/random/path");
    }
 
-   virtual QSize sizeHint() const {
+   QSize sizeHint() const override {
       return QSize(m_width, 1);
    }
 
