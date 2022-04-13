@@ -2182,7 +2182,7 @@ void QtSpinBoxFactory::slotPropertyChanged(QtProperty *un_named_arg1, int un_nam
 void QtSpinBoxFactory::slotRangeChanged(QtProperty *un_named_arg1, int un_named_arg2, int un_named_arg3)
 {
    Q_D(QtSpinBoxFactory);
-   d->slotRangeChanged(un_named_arg1, un_named_arg3, un_named_arg3);
+   d->slotRangeChanged(un_named_arg1, un_named_arg2, un_named_arg3);
 }
 
 void QtSpinBoxFactory::slotSingleStepChanged(QtProperty *un_named_arg1, int un_named_arg2)
@@ -2212,7 +2212,7 @@ void QtSliderFactory::slotPropertyChanged(QtProperty *un_named_arg1, int un_name
 void QtSliderFactory::slotRangeChanged(QtProperty *un_named_arg1, int un_named_arg2, int un_named_arg3)
 {
    Q_D(QtSliderFactory);
-   d->slotRangeChanged(un_named_arg1, un_named_arg2, un_named_arg2);
+   d->slotRangeChanged(un_named_arg1, un_named_arg2, un_named_arg3);
 }
 
 void QtSliderFactory::slotSingleStepChanged(QtProperty *un_named_arg1, int un_named_arg2)
@@ -2326,7 +2326,7 @@ void QtDateEditFactory::slotPropertyChanged(QtProperty *un_named_arg1, const QDa
 void QtDateEditFactory::slotRangeChanged(QtProperty *un_named_arg1, const QDate &un_named_arg2, const QDate &un_named_arg3)
 {
    Q_D(QtDateEditFactory);
-   d->slotRangeChanged(un_named_arg1, un_named_arg2, un_named_arg2);
+   d->slotRangeChanged(un_named_arg1, un_named_arg2, un_named_arg3);
 }
 
 void QtDateEditFactory::slotSetValue(const QDate &un_named_arg1)
