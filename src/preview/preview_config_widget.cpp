@@ -326,7 +326,7 @@ PreviewConfigurationWidget::PreviewConfigurationWidget(QDesignerFormEditorInterf
        connect(m_impl->skinRemoveButton(), &QAbstractButton::clicked,
                this, &PreviewConfigurationWidget::slotDeleteSkinEntry);
 
-       connect(m_impl->skinCombo(), static_cast<QComboIntSignal>(&QComboBox::currentIndexChanged),
+       connect(m_impl->skinCombo(), cs_mp_cast<int>(&QComboBox::currentIndexChanged),
                this, &PreviewConfigurationWidget::slotSkinChanged);
    */
 

@@ -460,8 +460,6 @@ RichTextEditorToolBar::RichTextEditorToolBar(QDesignerFormEditorInterface *core,
    : QToolBar(parent), m_link_action(new QAction(this)), m_image_action(new QAction(this)),
      m_color_action(new ColorAction(this)), m_font_size_input(new QComboBox), m_core(core), m_editor(editor)
 {
-   typedef void (QComboBox::*QComboStringSignal)(const QString &);
-
    // Font size combo box
    m_font_size_input->setEditable(false);
    const QList<int> font_sizes = QFontDatabase::standardSizes();
@@ -470,8 +468,8 @@ RichTextEditorToolBar::RichTextEditorToolBar(QDesignerFormEditorInterface *core,
       m_font_size_input->addItem(QString::number(font_size));
    }
 
-   connect(m_font_size_input, static_cast<QComboStringSignal>(&QComboBox::activated),
-      this, &RichTextEditorToolBar::sizeInputActivated);
+   connect(m_font_size_input, cs_mp_cast<const QString &>(&QComboBox::activated),
+         this, &RichTextEditorToolBar::sizeInputActivated);
 
    addWidget(m_font_size_input);
    addSeparator();

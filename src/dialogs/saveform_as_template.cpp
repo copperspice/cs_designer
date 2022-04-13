@@ -32,8 +32,6 @@ SaveFormAsTemplate::SaveFormAsTemplate(QDesignerFormEditorInterface *core,
    QDesignerFormWindowInterface *formWindow, QWidget *parent)
    : QDialog(parent, Qt::Sheet), m_core(core), m_formWindow(formWindow)
 {
-   typedef void (QComboBox::*QComboIntSignal)(int);
-
    ui.setupUi(this);
    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
@@ -48,7 +46,8 @@ SaveFormAsTemplate::SaveFormAsTemplate(QDesignerFormEditorInterface *core,
    m_addPathIndex = ui.categoryCombo->count() - 1;
    connect(ui.templateNameEdit, &QLineEdit::textChanged,
       this, &SaveFormAsTemplate::updateOKButton);
-   connect(ui.categoryCombo, static_cast<QComboIntSignal>(&QComboBox::activated),
+
+   connect(ui.categoryCombo, cs_mp_cast<int>(&QComboBox::activated),
       this, &SaveFormAsTemplate::checkToAddPath);
 }
 

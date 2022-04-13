@@ -819,14 +819,12 @@ void ActionEditor::slotPaste()
 
 void ActionEditor::slotContextMenuRequested(QContextMenuEvent *e, QAction *item)
 {
-   typedef void (QSignalMapper::*MapperQWidgetSignal)(QWidget *);
-   typedef void (QSignalMapper::*MapperVoidSlot)();
-
    // set up signal mapper
-   if (!m_selectAssociatedWidgetsMapper) {
+   if (! m_selectAssociatedWidgetsMapper) {
       m_selectAssociatedWidgetsMapper = new QSignalMapper(this);
-      connect(m_selectAssociatedWidgetsMapper, static_cast<MapperQWidgetSignal>(&QSignalMapper::mapped),
-         this, &ActionEditor::slotSelectAssociatedWidget);
+
+      connect(m_selectAssociatedWidgetsMapper, cs_mp_cast<QWidget *>(&QSignalMapper::mapped),
+            this, &ActionEditor::slotSelectAssociatedWidget);
    }
 
    QMenu menu(this);
@@ -846,7 +844,7 @@ void ActionEditor::slotContextMenuRequested(QContextMenuEvent *e, QAction *item)
             QAction *action = associatedWidgetsSubMenu->addAction(w->objectName());
             m_selectAssociatedWidgetsMapper->setMapping(action, w);
             connect(action, &QAction::triggered,
-               m_selectAssociatedWidgetsMapper, static_cast<MapperVoidSlot>(&QSignalMapper::map));
+               m_selectAssociatedWidgetsMapper, cs_mp_cast<>(&QSignalMapper::map));
          }
       }
    }

@@ -101,9 +101,6 @@ void PromotionTaskMenu::setDemoteLabel(const QString &demoteLabel)
 
 PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDesignerFormWindowInterface *formWindow)
 {
-   typedef void (QSignalMapper::*MapperVoidSlot)();
-   typedef void (QSignalMapper::*MapperStringSignal)(const QString &);
-
    // clear out old
    if (!m_promotionActions.empty()) {
       qDeleteAll(m_promotionActions);
@@ -144,8 +141,9 @@ PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDe
    // Set up a signal mapper to associate class names
    if (!m_promotionMapper) {
       m_promotionMapper = new QSignalMapper(this);
-      connect(m_promotionMapper, static_cast<MapperStringSignal>(&QSignalMapper::mapped),
-         this, &PromotionTaskMenu::slotPromoteToCustomWidget);
+
+      connect(m_promotionMapper, cs_mp_cast<const QString &>(&QSignalMapper::mapped),
+            this, &PromotionTaskMenu::slotPromoteToCustomWidget);
    }
 
    QMenu *candidatesMenu = new QMenu();
@@ -158,7 +156,8 @@ PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDe
       const QString customClassName = (*it)->name();
       QAction *action = new QAction((*it)->name(), this);
       connect(action, &QAction::triggered,
-         m_promotionMapper, static_cast<MapperVoidSlot>(&QSignalMapper::map));
+            m_promotionMapper, cs_mp_cast<>(&QSignalMapper::map));
+
       m_promotionMapper->setMapping(action, customClassName);
       candidatesMenu->addAction(action);
    }

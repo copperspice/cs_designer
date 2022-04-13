@@ -143,16 +143,15 @@ QDesignerIntegrationPrivate::QDesignerIntegrationPrivate(QDesignerIntegration *q
 
 void QDesignerIntegrationPrivate::initialize()
 {
-   typedef void (QDesignerIntegration::*QDesignerIntegrationUpdatePropertySlot3)(const QString &, const QVariant &, bool);
-
    // integrate the `Form Editor component'
 
    // Extensions
    QDesignerFormEditorInterface *core = q->core();
 
    if (QDesignerPropertyEditor *designerPropertyEditor = dynamic_cast<QDesignerPropertyEditor *>(core->propertyEditor())) {
+
       QObject::connect(designerPropertyEditor, &QDesignerPropertyEditor::propertyValueChanged,
-         q, static_cast<QDesignerIntegrationUpdatePropertySlot3>(&QDesignerIntegration::updateProperty));
+         q, cs_mp_cast<const QString &, const QVariant &, bool>(&QDesignerIntegration::updateProperty));
 
       QObject::connect(designerPropertyEditor, &QDesignerPropertyEditor::resetProperty,
          q, &QDesignerIntegration::resetProperty);
