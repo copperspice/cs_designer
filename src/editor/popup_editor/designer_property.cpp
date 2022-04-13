@@ -196,7 +196,7 @@ int TranslatablePropertyManager<PropertySheetValue>::valueChanged(QtVariantPrope
 
 template <class PropertySheetValue>
 int TranslatablePropertyManager<PropertySheetValue>::setValue(QtVariantPropertyManager *m,
-         QtProperty *property, int expectedTypeId, const QVariant &variantValue)
+         QtProperty *property, uint expectedTypeId, const QVariant &variantValue)
 {
    typedef typename QMap<QtProperty *, PropertySheetValue>::iterator Iterator;
 
@@ -1245,7 +1245,7 @@ void DesignerPropertyManager::slotPropertyDestroyed(QtProperty *property)
    }
 }
 
-QStringList DesignerPropertyManager::attributes(int propertyType) const
+QStringList DesignerPropertyManager::attributes(uint propertyType) const
 {
    if (!isPropertyTypeSupported(propertyType)) {
       return QStringList();
@@ -1270,7 +1270,7 @@ QStringList DesignerPropertyManager::attributes(int propertyType) const
    return list;
 }
 
-int DesignerPropertyManager::attributeType(int propertyType, const QString &attribute) const
+uint DesignerPropertyManager::attributeType(uint propertyType, const QString &attribute) const
 {
    if (!isPropertyTypeSupported(propertyType)) {
       return 0;
@@ -1569,50 +1569,50 @@ void DesignerPropertyManager::setAttribute(QtProperty *property,
    QtVariantPropertyManager::setAttribute(property, attribute, value);
 }
 
-int DesignerPropertyManager::designerFlagTypeId()
+uint DesignerPropertyManager::designerFlagTypeId()
 {
    static const int rc = QVariant::typeToTypeId<DesignerFlagPropertyType>();
    return rc;
 }
 
-int DesignerPropertyManager::designerFlagListTypeId()
+uint DesignerPropertyManager::designerFlagListTypeId()
 {
    static const int rc = QVariant::typeToTypeId<DesignerFlagList>();
    return rc;
 }
 
-int DesignerPropertyManager::designerAlignmentTypeId()
+uint DesignerPropertyManager::designerAlignmentTypeId()
 {
    static const int rc = QVariant::typeToTypeId<DesignerAlignmentPropertyType>();
    return rc;
 }
 
-int DesignerPropertyManager::designerPixmapTypeId()
+uint DesignerPropertyManager::designerPixmapTypeId()
 {
    return QVariant::typeToTypeId<PropertySheetPixmapValue>();
 }
 
-int DesignerPropertyManager::designerIconTypeId()
+uint DesignerPropertyManager::designerIconTypeId()
 {
    return QVariant::typeToTypeId<PropertySheetIconValue>();
 }
 
-int DesignerPropertyManager::designerStringTypeId()
+uint DesignerPropertyManager::designerStringTypeId()
 {
    return QVariant::typeToTypeId<PropertySheetStringValue>();
 }
 
-int DesignerPropertyManager::designerStringListTypeId()
+uint DesignerPropertyManager::designerStringListTypeId()
 {
    return QVariant::typeToTypeId<PropertySheetStringListValue>();
 }
 
-int DesignerPropertyManager::designerKeySequenceTypeId()
+uint DesignerPropertyManager::designerKeySequenceTypeId()
 {
    return QVariant::typeToTypeId<PropertySheetKeySequenceValue>();
 }
 
-bool DesignerPropertyManager::isPropertyTypeSupported(int propertyType) const
+bool DesignerPropertyManager::isPropertyTypeSupported(uint propertyType) const
 {
    switch (propertyType) {
       case QVariant::Palette:
@@ -1725,7 +1725,7 @@ QString DesignerPropertyManager::valueText(const QtProperty *property) const
       return QString::fromUtf8(m_byteArrayValues.value(const_cast<QtProperty *>(property)));
    }
 
-   const int vType = QtVariantPropertyManager::valueType(property);
+   const uint vType = QtVariantPropertyManager::valueType(property);
 
    if (vType == QVariant::String || vType == designerStringTypeId()) {
 
@@ -1877,7 +1877,7 @@ QVariant DesignerPropertyManager::value(const QtProperty *property) const
    return QtVariantPropertyManager::value(property);
 }
 
-int DesignerPropertyManager::valueType(int propertyType) const
+uint DesignerPropertyManager::valueType(uint propertyType) const
 {
    switch (propertyType) {
       case QVariant::Palette:
@@ -2223,7 +2223,7 @@ void DesignerPropertyManager::initializeProperty(QtProperty *property)
 {
    m_resetMap[property] = false;
 
-   const int type = propertyType(property);
+   const uint type = propertyType(property);
 
    m_fontManager.preInitializeProperty(property, type, m_resetMap);
 
@@ -2522,7 +2522,7 @@ static inline void applyToEditors(const EditorContainer &list, void (Editor::*se
 void DesignerEditorFactory::slotAttributeChanged(QtProperty *property, const QString &attribute, const QVariant &value)
 {
    QtVariantPropertyManager *manager = propertyManager(property);
-   const int type = manager->propertyType(property);
+   const uint type = manager->propertyType(property);
 
    if (type == DesignerPropertyManager::designerPixmapTypeId() && attribute == defaultResourceAttributeC) {
       const QPixmap pixmap = value.value<QPixmap>();
@@ -2553,7 +2553,7 @@ void DesignerEditorFactory::slotAttributeChanged(QtProperty *property, const QSt
 void DesignerEditorFactory::slotPropertyChanged(QtProperty *property)
 {
    QtVariantPropertyManager *manager = propertyManager(property);
-   const int type = manager->propertyType(property);
+   const uint type = manager->propertyType(property);
 
    if (type == DesignerPropertyManager::designerIconTypeId()) {
       QPixmap defaultPixmap;
@@ -2584,7 +2584,7 @@ void DesignerEditorFactory::slotValueChanged(QtProperty *property, const QVarian
    }
 
    QtVariantPropertyManager *manager = propertyManager(property);
-   const int type = manager->propertyType(property);
+   const uint type = manager->propertyType(property);
    switch (type) {
       case QVariant::String:
          applyToEditors(m_stringPropertyToEditors.value(property), &TextEditor::setText, value.toString());
@@ -2656,7 +2656,7 @@ QWidget *DesignerEditorFactory::createEditor(QtVariantPropertyManager *manager,
       QtProperty *property, QWidget *parent)
 {
    QWidget *editor = nullptr;
-   const int type = manager->propertyType(property);
+   const uint type = manager->propertyType(property);
 
    switch (type) {
       case QVariant::Bool: {

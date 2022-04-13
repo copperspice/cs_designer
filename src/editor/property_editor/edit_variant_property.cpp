@@ -42,22 +42,22 @@ CS_DECLARE_METATYPE(QtEnumPropertyType)
 CS_DECLARE_METATYPE(QtFlagPropertyType)
 CS_DECLARE_METATYPE(QtGroupPropertyType)
 
-int QtVariantPropertyManager::enumTypeId()
+uint QtVariantPropertyManager::enumTypeId()
 {
    return QVariant::typeToTypeId<QtEnumPropertyType>();
 }
 
-int QtVariantPropertyManager::flagTypeId()
+uint QtVariantPropertyManager::flagTypeId()
 {
    return QVariant::typeToTypeId<QtFlagPropertyType>();
 }
 
-int QtVariantPropertyManager::groupTypeId()
+uint QtVariantPropertyManager::groupTypeId()
 {
    return QVariant::typeToTypeId<QtGroupPropertyType>();
 }
 
-int QtVariantPropertyManager::iconMapTypeId()
+uint QtVariantPropertyManager::iconMapTypeId()
 {
    return QVariant::typeToTypeId<QtIconMap>();
 }
@@ -102,7 +102,7 @@ int QtVariantProperty::valueType() const
    return d_ptr->manager->valueType(this);
 }
 
-int QtVariantProperty::propertyType() const
+uint QtVariantProperty::propertyType() const
 {
    return d_ptr->manager->propertyType(this);
 }
@@ -946,7 +946,7 @@ QtVariantProperty *QtVariantPropertyManager::variantProperty(const QtProperty *p
    return it.value().first;
 }
 
-bool QtVariantPropertyManager::isPropertyTypeSupported(int propertyType) const
+bool QtVariantPropertyManager::isPropertyTypeSupported(uint propertyType) const
 {
    if (d_ptr->m_typeToValueType.contains(propertyType)) {
       return true;
@@ -954,7 +954,7 @@ bool QtVariantPropertyManager::isPropertyTypeSupported(int propertyType) const
    return false;
 }
 
-QtVariantProperty *QtVariantPropertyManager::addProperty(int propertyType, const QString &name)
+QtVariantProperty *QtVariantPropertyManager::addProperty(uint propertyType, const QString &name)
 {
    if (!isPropertyTypeSupported(propertyType)) {
       return nullptr;
@@ -1038,13 +1038,13 @@ QVariant QtVariantPropertyManager::value(const QtProperty *property) const
    return QVariant();
 }
 
-int QtVariantPropertyManager::valueType(const QtProperty *property) const
+uint QtVariantPropertyManager::valueType(const QtProperty *property) const
 {
-   int propType = propertyType(property);
+   uint propType = propertyType(property);
    return valueType(propType);
 }
 
-int QtVariantPropertyManager::valueType(int propertyType) const
+uint QtVariantPropertyManager::valueType(uint propertyType) const
 {
    if (d_ptr->m_typeToValueType.contains(propertyType)) {
       return d_ptr->m_typeToValueType[propertyType];
@@ -1053,7 +1053,7 @@ int QtVariantPropertyManager::valueType(int propertyType) const
    return 0;
 }
 
-int QtVariantPropertyManager::propertyType(const QtProperty *property) const
+uint QtVariantPropertyManager::propertyType(const QtProperty *property) const
 {
    const QMap<const QtProperty *, QPair<QtVariantProperty *, int>>::const_iterator it = d_ptr->m_propertyToType.constFind(property);
    if (it == d_ptr->m_propertyToType.constEnd()) {
@@ -1065,7 +1065,7 @@ int QtVariantPropertyManager::propertyType(const QtProperty *property) const
 
 QVariant QtVariantPropertyManager::attributeValue(const QtProperty *property, const QString &attribute) const
 {
-   int propType = propertyType(property);
+   uint propType = propertyType(property);
    if (!propType) {
       return QVariant();
    }
@@ -1198,7 +1198,7 @@ QVariant QtVariantPropertyManager::attributeValue(const QtProperty *property, co
    return QVariant();
 }
 
-QStringList QtVariantPropertyManager::attributes(int propertyType) const
+QStringList QtVariantPropertyManager::attributes(uint propertyType) const
 {
    auto it = d_ptr->m_typeToAttributeToAttributeType.find(propertyType);
 
@@ -1209,7 +1209,7 @@ QStringList QtVariantPropertyManager::attributes(int propertyType) const
    return it.value().keys();
 }
 
-int QtVariantPropertyManager::attributeType(int propertyType, const QString &attribute) const
+uint QtVariantPropertyManager::attributeType(uint propertyType, const QString &attribute) const
 {
    auto it = d_ptr->m_typeToAttributeToAttributeType.find(propertyType);
 
@@ -1346,7 +1346,7 @@ void QtVariantPropertyManager::setAttribute(QtProperty *property,
       return;
    }
 
-   int attrType = value.userType();
+   uint attrType = value.userType();
    if (! attrType) {
       return;
    }
@@ -1790,7 +1790,8 @@ void QtVariantEditorFactory::connectPropertyManager(QtVariantPropertyManager *ma
 QWidget *QtVariantEditorFactory::createEditor(QtVariantPropertyManager *manager, QtProperty *property,
    QWidget *parent)
 {
-   const int propType = manager->propertyType(property);
+   const uint propType = manager->propertyType(property);
+
    QtAbstractEditorFactoryBase *factory = d_ptr->m_typeToFactory.value(propType, nullptr);
    if (!factory) {
       return nullptr;

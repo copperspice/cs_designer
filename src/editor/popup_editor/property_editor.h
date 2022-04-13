@@ -105,7 +105,7 @@ class PropertyEditor: public QDesignerPropertyEditor
 
    void updateBrowserValue(QtVariantProperty *property, const QVariant &value);
    void updateToolBarLabel();
-   int toBrowserType(const QVariant &value, const QString &propertyName) const;
+   uint toBrowserType(const QVariant &value, const QString &propertyName) const;
    QString removeScope(const QString &value) const;
    QDesignerMetaDataBaseItemInterface *metaDataBaseItem() const;
    void setupStringProperty(QtVariantProperty *property, bool isMainContainer);

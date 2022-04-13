@@ -70,8 +70,8 @@ class AbstractItemEditor: public QWidget
 
    struct PropertyDefinition {
       int role;
-      int type;
-      int (*typeFunc)();
+      uint type;
+      uint (*typeFunc)();
       const QString name;
    };
 
@@ -84,6 +84,7 @@ class AbstractItemEditor: public QWidget
    void setupEditor(QWidget *object, PropertyDefinition *propDefs);
    void injectPropertyBrowser(QWidget *parent, QWidget *widget);
    void updateBrowser();
+
    virtual void setItemData(int role, const QVariant &v) = 0;
    virtual QVariant getItemData(int role) const = 0;
 

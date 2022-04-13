@@ -92,7 +92,7 @@ class TranslatablePropertyManager
       const QVariant &value);
 
    int setValue(QtVariantPropertyManager *m, QtProperty *property,
-      int expectedTypeId, const QVariant &value);
+      uint expectedTypeId, const QVariant &value);
 
  private:
    QMap<QtProperty *, PropertySheetValue> m_values;
@@ -114,13 +114,13 @@ class DesignerPropertyManager : public QtVariantPropertyManager
    explicit DesignerPropertyManager(QDesignerFormEditorInterface *core, QObject *parent = nullptr);
    ~DesignerPropertyManager();
 
-   QStringList attributes(int propertyType) const override;
-   int attributeType(int propertyType, const QString &attribute) const override;
+   QStringList attributes(uint propertyType) const override;
+   uint attributeType(uint propertyType, const QString &attribute) const override;
 
    QVariant attributeValue(const QtProperty *property, const QString &attribute) const override;
-   bool isPropertyTypeSupported(int propertyType) const override;
+   bool isPropertyTypeSupported(uint propertyType) const override;
    QVariant value(const QtProperty *property) const override;
-   int valueType(int propertyType) const override;
+   uint valueType(uint propertyType) const override;
    QString valueText(const QtProperty *property) const override;
    QIcon valueIcon(const QtProperty *property) const override;
 
@@ -129,14 +129,14 @@ class DesignerPropertyManager : public QtVariantPropertyManager
 
    void reloadResourceProperties();
 
-   static int designerFlagTypeId();
-   static int designerFlagListTypeId();
-   static int designerAlignmentTypeId();
-   static int designerPixmapTypeId();
-   static int designerIconTypeId();
-   static int designerStringTypeId();
-   static int designerStringListTypeId();
-   static int designerKeySequenceTypeId();
+   static uint designerFlagTypeId();
+   static uint designerFlagListTypeId();
+   static uint designerAlignmentTypeId();
+   static uint designerPixmapTypeId();
+   static uint designerIconTypeId();
+   static uint designerStringTypeId();
+   static uint designerStringListTypeId();
+   static uint designerKeySequenceTypeId();
 
    void setObject(QObject *object) {
       m_object = object;

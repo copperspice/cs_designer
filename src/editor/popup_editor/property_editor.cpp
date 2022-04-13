@@ -912,7 +912,7 @@ void PropertyEditor::updateToolBarLabel()
 void PropertyEditor::updateBrowserValue(QtVariantProperty *property, const QVariant &value)
 {
    QVariant v = value;
-   const int type = property->propertyType();
+   const uint type = property->propertyType();
 
    if (type == QtVariantPropertyManager::enumTypeId()) {
       const PropertySheetEnumValue e = v.value<PropertySheetEnumValue>();
@@ -958,7 +958,7 @@ void PropertyEditor::updateBrowserValue(QtVariantProperty *property, const QVari
    m_updatingBrowser = false;
 }
 
-int PropertyEditor::toBrowserType(const QVariant &value, const QString &propertyName) const
+uint PropertyEditor::toBrowserType(const QVariant &value, const QString &propertyName) const
 {
    if (value.canConvert<PropertySheetFlagValue>()) {
       if (m_strings.m_alignmentProperties.contains(propertyName)) {
@@ -998,7 +998,7 @@ QString PropertyEditor::realClassName(QObject *object) const
    return className;
 }
 
-static const QString typeName(int type)
+static const QString typeName(uint type)
 {
    QString retval;
 
@@ -1041,7 +1041,7 @@ static const QString typeName(int type)
    return retval;
 }
 
-static QString msgUnsupportedType(const QString &propertyName, int type)
+static QString msgUnsupportedType(const QString &propertyName, uint type)
 {
    QString rc;
    QTextStream str(&rc);
@@ -1168,7 +1168,7 @@ void PropertyEditor::setObject(QObject *object)
 
          const QVariant value = m_propertySheet->property(i);
 
-         const int type = toBrowserType(value, propertyName);
+         const uint type = toBrowserType(value, propertyName);
 
          QtVariantProperty *property = m_nameToProperty.value(propertyName, nullptr);
          bool newProperty = (property == nullptr);

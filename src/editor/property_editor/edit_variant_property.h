@@ -51,7 +51,7 @@ class QtVariantProperty : public QtProperty
    QVariant value() const;
    QVariant attributeValue(const QString &attribute) const;
    int valueType() const;
-   int propertyType() const;
+   uint propertyType() const;
 
    void setValue(const QVariant &value);
    void setAttribute(const QString &attribute, const QVariant &value);
@@ -72,24 +72,24 @@ class QtVariantPropertyManager : public QtAbstractPropertyManager
    QtVariantPropertyManager(QObject *parent = nullptr);
    ~QtVariantPropertyManager();
 
-   virtual QtVariantProperty *addProperty(int propertyType, const QString &name = QString());
+   virtual QtVariantProperty *addProperty(uint propertyType, const QString &name = QString());
 
-   int propertyType(const QtProperty *property) const;
-   int valueType(const QtProperty *property) const;
+   uint propertyType(const QtProperty *property) const;
+   uint valueType(const QtProperty *property) const;
    QtVariantProperty *variantProperty(const QtProperty *property) const;
 
-   virtual bool isPropertyTypeSupported(int propertyType) const;
-   virtual int valueType(int propertyType) const;
-   virtual QStringList attributes(int propertyType) const;
-   virtual int attributeType(int propertyType, const QString &attribute) const;
+   virtual bool isPropertyTypeSupported(uint propertyType) const;
+   virtual uint valueType(uint propertyType) const;
+   virtual QStringList attributes(uint propertyType) const;
+   virtual uint attributeType(uint propertyType, const QString &attribute) const;
 
    virtual QVariant value(const QtProperty *property) const;
    virtual QVariant attributeValue(const QtProperty *property, const QString &attribute) const;
 
-   static int enumTypeId();
-   static int flagTypeId();
-   static int groupTypeId();
-   static int iconMapTypeId();
+   static uint enumTypeId();
+   static uint flagTypeId();
+   static uint groupTypeId();
+   static uint iconMapTypeId();
 
    CS_SLOT_1(Public, virtual void setValue(QtProperty *property, const QVariant &val))
    CS_SLOT_2(setValue)
