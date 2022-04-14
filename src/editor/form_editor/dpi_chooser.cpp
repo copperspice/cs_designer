@@ -44,14 +44,14 @@ struct DPI_Entry {
 };
 
 const struct DPI_Entry dpiEntries[] = {
-   //: Embedded device standard screen resolution
-   {  96,   96, QT_TRANSLATE_NOOP("DPI_Chooser", "Standard (96 x 96)") },
+   // Embedded device standard screen resolution
+   {  96,   96, cs_mark_tr("DPI_Chooser", "Standard (96 x 96)") },
 
-   //: Embedded device screen resolution
-   { 179,  185, QT_TRANSLATE_NOOP("DPI_Chooser", "Greenphone (179 x 185)") },
+   // Embedded device screen resolution
+   { 179,  185, cs_mark_tr("DPI_Chooser", "Greenphone (179 x 185)") },
 
-   //: Embedded device high definition screen resolution
-   { 192,  192, QT_TRANSLATE_NOOP("DPI_Chooser", "High (192 x 192)") }
+   // Embedded device high definition screen resolution
+   { 192,  192, cs_mark_tr("DPI_Chooser", "High (192 x 192)") }
 };
 
 }   // end namespace - qdesigner_internal

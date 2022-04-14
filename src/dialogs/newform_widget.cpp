@@ -617,7 +617,7 @@ QString NewFormWidget::currentTemplate(QString *ptrToErrorMessage)
    const QString contents = currentTemplateI(&errorMessage);
 
    if (!errorMessage.isEmpty()) {
-      qWarning("%s", errorMessage.toUtf8().constData());
+      qWarning("%s", csPrintable(errorMessage));
    }
    return contents;
 }

@@ -187,7 +187,7 @@ void QDesigner::showErrorMessage(const QString &message)
       showErrorMessageBox(message);
 
    } else {
-      qWarning(csPrintable(message));
+      qWarning("%s", csPrintable(message));
 
       m_initializationErrors += message + '\n';
    }
