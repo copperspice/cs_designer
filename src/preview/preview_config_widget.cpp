@@ -75,20 +75,16 @@ class PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate
    Ui::PreviewConfigurationWidget m_ui;
 
 
-   int m_firstUserSkinIndex;
-   int m_browseSkinIndex;
-   int m_lastSkinIndex; // required in case browse fails
-
+   //   int m_firstUserSkinIndex;
+   //   int m_browseSkinIndex;
+   //   int m_lastSkinIndex;          // required in case browse fails
 };
 
 PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::PreviewConfigurationWidgetPrivate(
-   QDesignerFormEditorInterface *core, QGroupBox *g) :
-   m_core(core),
-   m_defaultStyle(PreviewConfigurationWidget::tr("Default")),
-   m_parent(g),
-   m_firstUserSkinIndex(0),
-   m_browseSkinIndex(0),
-   m_lastSkinIndex(0)
+      QDesignerFormEditorInterface *core, QGroupBox *g)
+   : m_core(core), m_defaultStyle(PreviewConfigurationWidget::tr("Default")), m_parent(g)
+
+     //  m_firstUserSkinIndex(0), m_browseSkinIndex(0), m_lastSkinIndex(0)
 {
    m_ui.setupUi(g);
 

@@ -451,6 +451,10 @@ static QAction *createCheckableAction(const QIcon &icon, const QString &text, R 
 
    if constexpr (! std::is_same_v<T, std::nullptr_t>) {
       QObject::connect(result, &QAction::triggered, receiver, slot);
+
+   } else {
+      (void) receiver;
+      (void) slot;
    }
 
    return result;

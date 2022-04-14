@@ -630,11 +630,8 @@ class Grid
    void simplify();
    bool locateWidget(QWidget *w, int &row, int &col, int &rowspan, int &colspan) const;
 
-   QDebug debug(QDebug str) const;
-
-   friend inline QDebug operator<<(QDebug str, const Grid &g) {
-      return g.debug(str);
-   }
+   // not used
+   // QDebug debug(QDebug str) const;
 
  private:
    void setCell(int row, int col, QWidget *w) {
@@ -691,6 +688,7 @@ void Grid::resize(int nrows, int ncols)
    }
 }
 
+/*
 QDebug Grid::debug(QDebug str) const
 {
    str << m_nrows << 'x' << m_ncols << '\n';
@@ -706,7 +704,7 @@ QDebug Grid::debug(QDebug str) const
    for (int c = 0; c < cellCount; c++) {
 
       if (QWidget *w = m_cells[c])
-         if (!widgets.contains(w)) {
+         if (! widgets.contains(w)) {
             widgets.insert(w);
             locateWidget(w, row, col, rowspan, colspan);
             str << w << " at " << row <<  col << rowspan << 'x' << colspan << '\n';
@@ -721,6 +719,7 @@ QDebug Grid::debug(QDebug str) const
 
    return str;
 }
+*/
 
 void Grid::setCells(const QRect &c, QWidget *w)
 {

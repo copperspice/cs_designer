@@ -196,7 +196,7 @@ bool TabOrderEditor::skipWidget(QWidget *w) const
          if (! ok) {
             return true;
 
-         } else if (q & Qt::TabFocus != 0) {
+         } else if ((q & Qt::TabFocus) != 0) {
             return false;
 
          }

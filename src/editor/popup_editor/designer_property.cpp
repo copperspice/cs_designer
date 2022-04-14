@@ -565,7 +565,7 @@ class PixmapEditor : public QWidget
    CS_SIGNAL_2(themeChanged, theme)
 
  protected:
-   void contextMenuEvent(QContextMenuEvent *event);
+   void contextMenuEvent(QContextMenuEvent *event) override;
 
  private:
    CS_SLOT_1(Private, void defaultActionActivated())

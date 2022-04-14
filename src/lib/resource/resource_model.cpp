@@ -145,7 +145,7 @@ void QtResourceSet::setModified(const QString &path)
 const QByteArray *QtResourceModelPrivate::createResource(const QString &path, QStringList *contents,
       int *errorCount, QIODevice &errorDevice) const
 {
-   const QByteArray *rc;
+   const QByteArray *rc = nullptr;
    *errorCount = -1;
 
    contents->clear();

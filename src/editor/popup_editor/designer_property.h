@@ -252,10 +252,9 @@ class DesignerEditorFactory : public QtVariantEditorFactory
    CS_SIGNAL_2(resetProperty, property)
 
  protected:
-   void connectPropertyManager(QtVariantPropertyManager *manager);
-   QWidget *createEditor(QtVariantPropertyManager *manager, QtProperty *property,
-      QWidget *parent);
-   void disconnectPropertyManager(QtVariantPropertyManager *manager);
+   void connectPropertyManager(QtVariantPropertyManager *manager) override;
+   QWidget *createEditor(QtVariantPropertyManager *manager, QtProperty *property, QWidget *parent) override;
+   void disconnectPropertyManager(QtVariantPropertyManager *manager) override;
 
  private:
    CS_SLOT_1(Private, void slotEditorDestroyed(QObject *object))

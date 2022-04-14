@@ -615,10 +615,7 @@ class ConnectionDelegate : public QItemDelegate
    ConnectionDelegate(QWidget *parent = nullptr);
 
    void setForm(QDesignerFormWindowInterface *form);
-
-   virtual QWidget *createEditor(QWidget *parent,
-      const QStyleOptionViewItem &option,
-      const QModelIndex &index) const;
+   QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
  private:
    CS_SLOT_1(Private, void emitCommitData())

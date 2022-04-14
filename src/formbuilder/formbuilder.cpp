@@ -319,6 +319,7 @@ void QFormBuilder::setPluginPath(const QStringList &pluginPaths)
    updateCustomWidgets();
 }
 
+/*
 static void insertPlugins(QObject *o, QMap<QString, QDesignerCustomWidgetInterface *> *customWidgets)
 {
    // step 1) try with a normal plugin
@@ -334,6 +335,7 @@ static void insertPlugins(QObject *o, QMap<QString, QDesignerCustomWidgetInterfa
       }
    }
 }
+*/
 
 void QFormBuilder::updateCustomWidgets()
 {

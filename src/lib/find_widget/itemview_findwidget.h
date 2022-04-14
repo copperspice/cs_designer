@@ -40,7 +40,7 @@ class ItemViewFindWidget : public AbstractFindWidget
    void setItemView(QAbstractItemView *itemView);
 
  protected:
-   virtual void deactivate();
+   void deactivate() override;
    void find(const QString &textToFind, bool skipCurrent, bool backward,
          bool *found, bool *wrapped) override;
 

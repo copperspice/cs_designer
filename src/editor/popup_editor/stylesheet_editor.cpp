@@ -61,9 +61,6 @@ StyleSheetEditorDialog::StyleSheetEditorDialog(QDesignerFormEditorInterface *cor
          QWidget *applyWidget, Mode mode)
    : QDialog(parent), m_ui(new Ui::StyleSheetEditor), m_core(core), m_applyWidget(applyWidget)
 {
-   using MapperVoidSlot      = void (QSignalMapper::*)();
-   using MapperQStringSignal = void (QSignalMapper::*)(const QString &);
-
    m_ui->setupUi(this);
    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 

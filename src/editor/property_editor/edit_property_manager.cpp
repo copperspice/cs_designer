@@ -241,8 +241,6 @@ static void setValueInRange(PropertyManager *manager, PropertyManagerPrivate *ma
       void (PropertyManagerPrivate::*setSubPropertyValue)(QtProperty *, ValueChangeParameter))
 {
    typedef typename PropertyManagerPrivate::Data PrivateData;
-   typedef QMap<const QtProperty *, PrivateData> PropertyToData;
-   typedef typename PropertyToData::iterator PropertyToDataIterator;
 
    auto it = managerPrivate->m_values.find(property);
 

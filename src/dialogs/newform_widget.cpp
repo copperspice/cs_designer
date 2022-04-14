@@ -46,7 +46,6 @@
 #include <QPushButton>
 
 constexpr const int profileComboIndexOffset = 1;
-constexpr const int debugNewFormWidget = 0;
 
 enum NewForm_CustomRole {
    // File name (templates from resources, paths)

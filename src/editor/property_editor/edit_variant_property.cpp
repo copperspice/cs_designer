@@ -500,6 +500,8 @@ void QtVariantPropertyManagerPrivate::slotEnumIconsChanged(QtProperty *property,
 
    if (varProp != nullptr) {
       QVariant v;
+
+      (void) iconMap;
 //    v.setValue(iconMap);
 
 //    broom - put back when QVariant operator= resolved
