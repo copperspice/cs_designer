@@ -206,7 +206,6 @@ QString ConnectDialog::slot() const
 
 void ConnectDialog::populateSlotList(const QString &signal)
 {
-   enum { deprecatedSlot = 0 };
    QString selectedName;
    if (const QListWidgetItem *item = m_ui.slotList->currentItem()) {
       selectedName = item->text();
@@ -232,11 +231,6 @@ void ConnectDialog::populateSlotList(const QString &signal)
          curr = item;
       }
 
-      // Mark deprecated slots red.
-      if (deprecatedSlot) {
-         item->setData(Qt::FontRole, variantFont);
-         item->setData(Qt::ForegroundRole, QColor(Qt::red));
-      }
       ++itMember;
    }
 
@@ -251,8 +245,6 @@ void ConnectDialog::populateSlotList(const QString &signal)
 
 void ConnectDialog::populateSignalList()
 {
-   enum { deprecatedSignal = 0 };
-
    QString selectedName;
    if (const QListWidgetItem *item = m_ui.signalList->currentItem()) {
       selectedName = item->text();
@@ -279,11 +271,6 @@ void ConnectDialog::populateSignalList()
          curr = item;
       }
 
-      // Mark deprecated signals red
-      if (deprecatedSignal) {
-         item->setData(Qt::FontRole, variantFont);
-         item->setData(Qt::ForegroundRole, QColor(Qt::red));
-      }
       ++itMember;
    }
 

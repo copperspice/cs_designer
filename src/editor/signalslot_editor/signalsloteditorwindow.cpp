@@ -267,8 +267,6 @@ int ConnectionModel::columnCount(const QModelIndex &parent) const
 
 QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 {
-   enum { deprecatedMember = 0 };
-
    if ((role != Qt::DisplayRole && role != Qt::EditRole && role != Qt::FontRole && role != Qt::ForegroundRole) || !m_editor) {
       return QVariant();
    }
@@ -279,16 +277,6 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 
    const SignalSlotConnection *con = static_cast<SignalSlotConnection *>(m_editor->connection(index.row()));
    Q_ASSERT(con != nullptr);
-
-   // Mark deprecated slots red/italic.
-   if (deprecatedMember && role == Qt::ForegroundRole) {
-      return QColor(Qt::red);
-   }
-   if (deprecatedMember && role ==  Qt::FontRole) {
-      QFont font = QApplication::font();
-      font.setItalic(true);
-      return font;
-   }
 
    static const QVariant senderDefault = tr("<sender>");
    static const QVariant signalDefault = tr("<signal>");
