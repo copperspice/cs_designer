@@ -17,12 +17,11 @@
 *
 ***********************************************************************/
 
-#include <formwindowcursor.h>
-#include <formwindow.h>
-#include <propertysheet.h>
-#include <extension.h>
-
 #include <designer_property_command.h>
+#include <extension.h>
+#include <formwindow.h>
+#include <formwindowcursor.h>
+#include <propertysheet.h>
 
 #include <QDebug>
 

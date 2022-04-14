@@ -17,25 +17,24 @@
 *
 ***********************************************************************/
 
-#include <tabordereditor.h>
-#include <extension.h>
 #include <abstract_formwindow.h>
 #include <abstract_formwindowcursor.h>
 #include <abstract_formeditor.h>
 #include <abstract_widgetfactory.h>
-#include <order_dialog.h>
-
-#include <metadatabase_p.h>
 #include <designer_command.h>
 #include <designer_utils.h>
-#include <layout_widget.h>
 #include <designer_propertysheet.h>
+#include <extension.h>
+#include <layout_widget.h>
+#include <order_dialog.h>
+#include <tabordereditor.h>
+
+#include <metadatabase_p.h>
 
 #include <QPainter>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QResizeEvent>
-#include <QMenu>
-#include <QApplication>
 
 CS_DECLARE_METATYPE(QWidgetList)
 

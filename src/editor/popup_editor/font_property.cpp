@@ -17,11 +17,11 @@
 *
 ***********************************************************************/
 
-#include <font_property.h>
 #include <designer_property.h>
-#include <edit_property_manager.h>
-#include <property_view_utils.h>
 #include <designer_utils.h>
+#include <edit_property_manager.h>
+#include <font_property.h>
+#include <property_view_utils.h>
 
 #include <QCoreApplication>
 #include <QVariant>

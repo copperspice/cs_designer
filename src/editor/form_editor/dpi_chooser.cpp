@@ -21,13 +21,13 @@
 
 #include <deviceprofile_p.h>
 
-#include <QComboBox>
-#include <QSpinBox>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
 #include <QCheckBox>
+#include <QComboBox>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
 
 enum {
    minDPI = 50,

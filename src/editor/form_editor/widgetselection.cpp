@@ -17,30 +17,30 @@
 *
 ***********************************************************************/
 
-#include <widgetselection.h>
-#include <formwindow.h>
-#include <formwindowmanager.h>
 #include <abstract_formeditor.h>
-#include <extension.h>
-#include <extension_manager.h>
-#include <layout.h>
-#include <layout_info.h>
 #include <designer_command.h>
 #include <designer_property_command.h>
+#include <extension.h>
+#include <extension_manager.h>
+#include <formwindow.h>
+#include <formwindowmanager.h>
+#include <layout.h>
+#include <layout_info.h>
+#include <widgetselection.h>
 
 #include <formwindowbase_p.h>
 #include <grid_p.h>
 
-#include <QMenu>
-#include <QWidget>
-#include <QMouseEvent>
-#include <QStylePainter>
-#include <QGridLayout>
-#include <QFormLayout>
-#include <QStyleOptionToolButton>
 #include <QApplication>
-#include <QVariant>
 #include <QDebug>
+#include <QFormLayout>
+#include <QGridLayout>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QStyleOptionToolButton>
+#include <QStylePainter>
+#include <QVariant>
+#include <QWidget>
 
 #include <algorithm>
 

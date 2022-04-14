@@ -34,12 +34,13 @@
 #include <metadatabase_p.h>
 #include <widgetdatabase_p.h>
 
-#include <qalgorithms.h>
 #include <QAction>
 #include <QDebug>
 #include <QMenu>
 #include <QSignalMapper>
 #include <QWidget>
+
+#include <qalgorithms.h>
 
 static QAction *separatorAction(QObject *parent)
 {

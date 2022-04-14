@@ -17,9 +17,9 @@
 *
 ***********************************************************************/
 
-#include <palette_editor.h>
 #include <abstract_formeditor.h>
 #include <color_button.h>
+#include <palette_editor.h>
 
 #include <iconloader_p.h>
 #include <formwindowbase_p.h>

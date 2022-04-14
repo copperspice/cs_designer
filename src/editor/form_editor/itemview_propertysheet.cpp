@@ -17,12 +17,12 @@
 *
 ***********************************************************************/
 
-#include <itemview_propertysheet.h>
 #include <abstract_formeditor.h>
+#include <itemview_propertysheet.h>
 
 #include <QAbstractItemView>
-#include <QHeaderView>
 #include <QDebug>
+#include <QHeaderView>
 
 namespace qdesigner_internal {
 

@@ -17,35 +17,35 @@
 *
 ***********************************************************************/
 
-#include <embedded_options_page.h>
-#include <formeditor.h>
-#include <formeditor_optionspage.h>
-#include <templateoptionspage.h>
-#include <formwindowmanager.h>
-#include <qmainwindow_container.h>
-#include <qmdiarea_container.h>
-#include <qwizard_container.h>
+#include <abstract_integration.h>
+#include <default_actionprovider.h>
 #include <default_container.h>
 #include <default_layoutdecoration.h>
-#include <default_actionprovider.h>
-#include <qlayoutwidget_propertysheet.h>
-#include <spacer_propertysheet.h>
-#include <line_propertysheet.h>
-#include <layout_propertysheet.h>
-#include <itemview_propertysheet.h>
-#include <extension.h>
-#include <abstract_integration.h>
-#include <resource_model.h>
-#include <widgetfactory.h>
-#include <plugin_manager.h>
-#include <designer_taskmenu.h>
+#include <designer_introspection.h>
 #include <designer_membersheet.h>
 #include <designer_promotion.h>
 #include <designer_qsettings.h>
-#include <designer_introspection.h>
 #include <designer_stackedbox.h>
-#include <designer_toolbox.h>
 #include <designer_tabwidget.h>
+#include <designer_taskmenu.h>
+#include <designer_toolbox.h>
+#include <embedded_options_page.h>
+#include <extension.h>
+#include <formeditor.h>
+#include <formeditor_optionspage.h>
+#include <formwindowmanager.h>
+#include <itemview_propertysheet.h>
+#include <layout_propertysheet.h>
+#include <line_propertysheet.h>
+#include <plugin_manager.h>
+#include <qlayoutwidget_propertysheet.h>
+#include <qmainwindow_container.h>
+#include <qmdiarea_container.h>
+#include <qwizard_container.h>
+#include <resource_model.h>
+#include <spacer_propertysheet.h>
+#include <templateoptionspage.h>
+#include <widgetfactory.h>
 
 #include <dialoggui_p.h>
 #include <metadatabase_p.h>
