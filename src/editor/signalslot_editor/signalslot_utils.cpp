@@ -256,14 +256,17 @@ ClassesMemberFunctions reverseClassesMemberFunctions(const QString &obj_name, Me
    } else {
       object = form->mainContainer()->findChild<QObject *>(obj_name);
    }
+
    if (!object) {
       return ClassesMemberFunctions();
    }
+
    QDesignerFormEditorInterface *core = form->core();
 
    ClassesMemberFunctions rc;
    memberList(form->core(), object, member_type, true, SignalMatchesSlotPredicate(core, peer,  member_type),
       ReverseClassesMemberIterator(&rc));
+
    return rc;
 }
 
@@ -271,6 +274,7 @@ QMap<QString, QString> getSignals(QDesignerFormEditorInterface *core, QObject *o
 {
    QMap<QString, QString> rc;
    memberList(core, object, SignalMember, showAll, truePredicate, SignatureIterator(&rc));
+
    return rc;
 }
 
@@ -278,8 +282,9 @@ QMap<QString, QString> getMatchingSlots(QDesignerFormEditorInterface *core, QObj
    bool showAll)
 {
    QMap<QString, QString> rc;
-   memberList(core, object, SlotMember, showAll, SignalMatchesSlotPredicate(core, signalSignature,  qdesigner_internal::SlotMember),
-      SignatureIterator(&rc));
+   memberList(core, object, SlotMember, showAll, SignalMatchesSlotPredicate(core, signalSignature,
+         qdesigner_internal::SlotMember), SignatureIterator(&rc));
+
    return rc;
 }
 

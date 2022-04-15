@@ -162,9 +162,10 @@ PropertyEditorToolWindow::PropertyEditorToolWindow(QDesignerWorkbench *workbench
 
 QRect PropertyEditorToolWindow::geometryHint() const
 {
-   const QRect g = availableToolWindowGeometry();
-   const int margin = workbench()->marginHint();
+   const QRect g     = availableToolWindowGeometry();
+   const int margin  = workbench()->marginHint();
    const int spacing = 40;
+
    const QSize sz(g.width() * 1 / 4, g.height() * 4 / 6);
 
    const QRect rc = QRect((g.right() + 1 - sz.width() - margin),
@@ -226,6 +227,7 @@ QRect ActionEditorToolWindow::geometryHint() const
    if (debugToolWindow) {
       qDebug() << Q_FUNC_INFO << rc;
    }
+
    return rc;
 }
 
@@ -269,6 +271,7 @@ QRect ObjectInspectorToolWindow::geometryHint() const
    if (debugToolWindow) {
       qDebug() << Q_FUNC_INFO << rc;
    }
+
    return rc;
 }
 
@@ -305,8 +308,6 @@ QRect ResourceEditorToolWindow::geometryHint() const
    return r;
 }
 
-//  ---------------------- SignalSlotEditorToolWindow
-
 class SignalSlotEditorToolWindow: public QDesignerToolWindow
 {
  public:
@@ -335,11 +336,9 @@ QRect SignalSlotEditorToolWindow::geometryHint() const
    if (debugToolWindow) {
       qDebug() << Q_FUNC_INFO << r;
    }
+
    return r;
 }
-
-//  ---------------------- WidgetBoxToolWindow
-
 static inline QWidget *createWidgetBox(QDesignerFormEditorInterface *core, QWidget *parent = nullptr)
 {
    QDesignerWidgetBoxInterface *widget = QDesignerComponents::createWidgetBox(core, parent);
@@ -375,10 +374,10 @@ QRect WidgetBoxToolWindow::geometryHint() const
    if (debugToolWindow) {
       qDebug() << Q_FUNC_INFO << rc;
    }
+
    return rc;
 }
 
-// -- Factory
 QDesignerToolWindow *QDesignerToolWindow::createStandardToolWindow(StandardToolWindow which,
    QDesignerWorkbench *workbench)
 {

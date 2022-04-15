@@ -119,7 +119,7 @@ QDesignerFormWindowInterface *FormWindowManager::formWindow(int index) const
 
 bool FormWindowManager::eventFilter(QObject *o, QEvent *e)
 {
-   if (!o->isWidgetType()) {
+   if (! o->isWidgetType()) {
       return false;
    }
 
@@ -190,6 +190,7 @@ bool FormWindowManager::eventFilter(QObject *o, QEvent *e)
          e->ignore();
          return true;
       }
+
       switch (eventType) {
 
          case QEvent::WindowActivate: {
@@ -231,7 +232,7 @@ bool FormWindowManager::eventFilter(QObject *o, QEvent *e)
          }
          break;
 
-      } // end switch
+      }
    }
 
    return false;
@@ -240,6 +241,7 @@ bool FormWindowManager::eventFilter(QObject *o, QEvent *e)
 void FormWindowManager::addFormWindow(QDesignerFormWindowInterface *w)
 {
    FormWindow *formWindow = dynamic_cast<FormWindow *>(w);
+
    if (! formWindow || m_formWindows.contains(formWindow)) {
       return;
    }
@@ -609,8 +611,10 @@ void FormWindowManager::slotActionBreakLayoutActivated()
 void FormWindowManager::slotActionSimplifyLayoutActivated()
 {
    Q_ASSERT(m_activeFormWindow != nullptr);
+
    QWidgetList selectedWidgets = m_activeFormWindow->selectedWidgets();
    m_activeFormWindow->simplifySelection(&selectedWidgets);
+
    if (selectedWidgets.size() != 1) {
       return;
    }
@@ -821,11 +825,13 @@ static inline bool hasManagedLayoutItems(const QDesignerFormEditorInterface *cor
    if (const QLayout *ml = LayoutInfo::managedLayout(core, w)) {
       // Try to find managed items, ignore dummy grid spacers
       const int count = ml->count();
+
       for (int i = 0; i < count; i++)
-         if (!LayoutInfo::isEmptyItem(ml->itemAt(i))) {
+         if (! LayoutInfo::isEmptyItem(ml->itemAt(i))) {
             return true;
          }
    }
+
    return false;
 }
 
@@ -833,6 +839,7 @@ void FormWindowManager::slotUpdateActions()
 {
    m_createLayoutContext  = LayoutSelection;
    m_morphLayoutContainer = nullptr;
+
    bool canMorphIntoVBoxLayout = false;
    bool canMorphIntoHBoxLayout = false;
    bool canMorphIntoGridLayout = false;
@@ -1015,7 +1022,7 @@ QUndoGroup *FormWindowManager::undoGroup() const
 void FormWindowManager::slotActionShowFormWindowSettingsDialog()
 {
    QDesignerFormWindowInterface *fw = activeFormWindow();
-   if (!fw) {
+   if (! fw) {
       return;
    }
 

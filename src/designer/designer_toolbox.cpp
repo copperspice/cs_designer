@@ -237,8 +237,6 @@ QMenu *QToolBoxHelper::addContextMenuActions(QMenu *popup) const
    return pageMenu;
 }
 
-// -------- QToolBoxWidgetPropertySheet
-
 static const QString currentItemTextKey    = "currentItemText";
 static const QString currentItemNameKey    = "currentItemName";
 static const QString currentItemIconKey    = "currentItemIcon";

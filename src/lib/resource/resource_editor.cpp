@@ -347,7 +347,6 @@ class QtQrcManager : public QObject
 
    void clear();
 
- public :
    CS_SLOT_1(Public, QtQrcFile *insertQrcFile(const QString &path, QtQrcFile *beforeQrcFile = nullptr, bool newFile = false))
    CS_SLOT_2(insertQrcFile)
 
@@ -439,7 +438,6 @@ class QtQrcManager : public QObject
 QtQrcManager::QtQrcManager(QObject *parent)
    : QObject(parent)
 {
-
 }
 
 QtQrcManager::~QtQrcManager()
@@ -535,6 +533,7 @@ void QtQrcManager::exportQrcFile(QtQrcFile *qrcFile, QtQrcFileData *qrcFileData)
 
       resourceList << prefixData;
    }
+
    data = QtQrcFileData();
    data.qrcPath = qrcFile->path();
    data.resourceList = resourceList;

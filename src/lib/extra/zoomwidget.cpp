@@ -40,23 +40,24 @@ static const int menuZoomList[] = { 100, 25, 50, 75, 125, 150, 175, 200 };
 
 namespace qdesigner_internal {
 
-// ---------- ZoomMenu
-
-ZoomMenu::ZoomMenu(QObject *parent) :
-   QObject(parent),
-   m_menuActions(new QActionGroup(this))
+ZoomMenu::ZoomMenu(QObject *parent)
+   : QObject(parent), m_menuActions(new QActionGroup(this))
 {
    connect(m_menuActions, &QActionGroup::triggered, this, &ZoomMenu::slotZoomMenu);
    const int nz = sizeof(menuZoomList) / sizeof(int);
+
    for (int i = 0; i < nz; i++) {
       const int zoom = menuZoomList[i];
+
       //: Zoom factor
       QAction *a = m_menuActions->addAction(tr("%1 %").formatArg(zoom));
       a->setCheckable(true);
       a->setData(QVariant(zoom));
+
       if (zoom == 100) {
          a->setChecked(true);
       }
+
       m_menuActions->addAction(a);
    }
 }
@@ -70,6 +71,7 @@ void ZoomMenu::addActions(QMenu *m)
 {
    const ActionList za = m_menuActions->actions();
    const ActionList::const_iterator cend = za.constEnd();
+
    for (ActionList::const_iterator it =  za.constBegin(); it != cend; ++it) {
       m->addAction(*it);
       if (zoomOf(*it)  == 100) {
@@ -109,7 +111,6 @@ QList<int> ZoomMenu::zoomValues()
    return rc;
 }
 
-// --------- ZoomView
 ZoomView::ZoomView(QWidget *parent)
    : QGraphicsView(parent), m_scene(new QGraphicsScene(this)), m_zoom(100),
      m_zoomFactor(1.0), m_zoomContextMenuEnabled(false), m_zoomMenu(nullptr)
@@ -419,7 +420,7 @@ void ZoomWidget::applyZoom()
    resizeToWidgetSize();
 }
 
-/* virtual */ void  ZoomWidget::doResize(const QSize &s)
+void  ZoomWidget::doResize(const QSize &s)
 {
    if (debugZoomWidget > 1) {
       qDebug() << ">ZoomWidget::doResize() " << s;
@@ -499,6 +500,7 @@ bool ZoomWidget::zoomedEventFilter(QObject * /*watched*/, QEvent *event)
          }
 
          break;
+
       case QEvent::ContextMenu:
          if (m_widgetZoomContextMenuEnabled) {
             // Calculate global position from scaled
@@ -510,9 +512,11 @@ bool ZoomWidget::zoomedEventFilter(QObject * /*watched*/, QEvent *event)
             return true;
          }
          break;
+
       default:
          break;
    }
+
    return false;
 }
 
@@ -552,5 +556,4 @@ void ZoomWidget::dump() const
 }
 
 } // namespace qdesigner_internal
-
 

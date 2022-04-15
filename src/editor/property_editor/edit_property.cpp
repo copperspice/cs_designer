@@ -1290,11 +1290,14 @@ bool QtCharEdit::eventFilter(QObject *o, QEvent *e)
       QMenu *menu = m_lineEdit->createStandardContextMenu();
       QList<QAction *> actions = menu->actions();
       QListIterator<QAction *> itAction(actions);
+
       while (itAction.hasNext()) {
          QAction *action = itAction.next();
          action->setShortcut(QKeySequence());
+
          QString actionString = action->text();
-         const int pos = actionString.lastIndexOf(QLatin1Char('\t'));
+         const int pos = actionString.lastIndexOf('\t');
+
          if (pos > 0) {
             actionString = actionString.remove(pos, actionString.length() - pos);
          }

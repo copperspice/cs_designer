@@ -100,10 +100,10 @@ TableWidgetEditor::TableWidgetEditor(QDesignerFormWindowInterface *form, QDialog
          this, &TableWidgetEditor::row_itemDeleted);
 
    connect(m_rowEditor, &ItemListEditor::itemMovedUp,
-      this, &TableWidgetEditor::row_itemMovedUp);
+         this, &TableWidgetEditor::row_itemMovedUp);
 
    connect(m_rowEditor, &ItemListEditor::itemMovedDown,
-      this, &TableWidgetEditor::row_itemMovedDown);
+         this, &TableWidgetEditor::row_itemMovedDown);
 }
 
 static AbstractItemEditor::PropertyDefinition tableHeaderPropList[] = {

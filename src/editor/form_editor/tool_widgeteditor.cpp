@@ -69,9 +69,8 @@ bool WidgetEditorTool::mainWindowSeparatorEvent(QWidget *widget, QEvent *event)
       return false;
    }
 
-   if (event->type() != QEvent::MouseButtonPress
-      && event->type() != QEvent::MouseMove
-      && event->type() != QEvent::MouseButtonRelease) {
+   if (event->type() != QEvent::MouseButtonPress && event->type() != QEvent::MouseMove
+         && event->type() != QEvent::MouseButtonRelease) {
       return false;
    }
 
@@ -129,33 +128,36 @@ bool WidgetEditorTool::handleEvent(QWidget *widget, QWidget *managedWidget, QEve
          return !passive && handleKeyReleaseEvent(widget, managedWidget, static_cast<QKeyEvent *>(event));
 
       case QEvent::MouseMove:
-         return !passive && handleMouseMoveEvent(widget, managedWidget, static_cast<QMouseEvent *>(event));
+         return ! passive && handleMouseMoveEvent(widget, managedWidget, static_cast<QMouseEvent *>(event));
 
       case QEvent::MouseButtonPress:
-         return !passive && handleMousePressEvent(widget, managedWidget, static_cast<QMouseEvent *>(event));
+         return ! passive && handleMousePressEvent(widget, managedWidget, static_cast<QMouseEvent *>(event));
 
       case QEvent::MouseButtonRelease:
-         return !passive && handleMouseReleaseEvent(widget, managedWidget, static_cast<QMouseEvent *>(event));
+         return ! passive && handleMouseReleaseEvent(widget, managedWidget, static_cast<QMouseEvent *>(event));
 
       case QEvent::MouseButtonDblClick:
-         return !passive && handleMouseButtonDblClickEvent(widget, managedWidget, static_cast<QMouseEvent *>(event));
+         return ! passive && handleMouseButtonDblClickEvent(widget, managedWidget, static_cast<QMouseEvent *>(event));
 
       case QEvent::ContextMenu:
-         return !passive && handleContextMenu(widget, managedWidget, static_cast<QContextMenuEvent *>(event));
+         return ! passive && handleContextMenu(widget, managedWidget, static_cast<QContextMenuEvent *>(event));
 
       case QEvent::DragEnter:
          return handleDragEnterMoveEvent(widget, managedWidget, static_cast<QDragEnterEvent *>(event), true);
+
       case QEvent::DragMove:
          return handleDragEnterMoveEvent(widget, managedWidget, static_cast<QDragMoveEvent *>(event), false);
 
       case QEvent::DragLeave:
          return handleDragLeaveEvent(widget, managedWidget, static_cast<QDragLeaveEvent *>(event));
+
       case QEvent::Drop:
          return handleDropEvent(widget, managedWidget, static_cast<QDropEvent *>(event));
+
       default:
          break;
 
-   } // end switch
+   }
 
    return false;
 }

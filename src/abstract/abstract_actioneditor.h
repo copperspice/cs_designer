@@ -25,7 +25,7 @@
 class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;
 
-class QDesignerActionEditorInterface: public QWidget
+class QDesignerActionEditorInterface : public QWidget
 {
    CS_OBJECT(QDesignerActionEditorInterface)
 

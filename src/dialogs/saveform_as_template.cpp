@@ -29,7 +29,7 @@
 #include <abstract_formwindow.h>
 
 SaveFormAsTemplate::SaveFormAsTemplate(QDesignerFormEditorInterface *core,
-   QDesignerFormWindowInterface *formWindow, QWidget *parent)
+      QDesignerFormWindowInterface *formWindow, QWidget *parent)
    : QDialog(parent, Qt::Sheet), m_core(core), m_formWindow(formWindow)
 {
    ui.setupUi(this);
@@ -44,6 +44,7 @@ SaveFormAsTemplate::SaveFormAsTemplate(QDesignerFormEditorInterface *core,
    ui.categoryCombo->addItems(paths);
    ui.categoryCombo->addItem(tr("Add path..."));
    m_addPathIndex = ui.categoryCombo->count() - 1;
+
    connect(ui.templateNameEdit, &QLineEdit::textChanged,
       this, &SaveFormAsTemplate::updateOKButton);
 

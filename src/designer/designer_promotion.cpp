@@ -75,7 +75,7 @@ QDesignerWidgetDataBaseItemInterface *promotedWidgetDataBaseItem(const QDesigner
    return widgetDataBase->item(index);
 }
 
-// extract class name from xml  "<widget class="QWidget" ...>". Quite a hack.
+// extract class name from xml  "<widget class="QWidget" ...>"
 QString classNameFromXml(QString xml)
 {
    static const QString tag = QString("class=\"");

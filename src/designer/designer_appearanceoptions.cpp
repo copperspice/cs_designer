@@ -48,11 +48,9 @@ void AppearanceOptions::fromSettings(const QDesignerSettings &settings)
    toolWindowFontSettings = settings.toolWindowFont();
 }
 
-// ---------------- QDesignerAppearanceOptionsWidget
-QDesignerAppearanceOptionsWidget::QDesignerAppearanceOptionsWidget(QWidget *parent) :
-   QWidget(parent),
-   m_ui(new Ui::AppearanceOptionsWidget),
-   m_initialUIMode(NeutralMode)
+QDesignerAppearanceOptionsWidget::QDesignerAppearanceOptionsWidget(QWidget *parent)
+   : QWidget(parent), m_ui(new Ui::AppearanceOptionsWidget),
+     m_initialUIMode(NeutralMode)
 {
    m_ui->setupUi(this);
 
@@ -64,7 +62,6 @@ QDesignerAppearanceOptionsWidget::QDesignerAppearanceOptionsWidget(QWidget *pare
 
    m_ui->m_fontPanel->setCheckable(true);
    m_ui->m_fontPanel->setTitle(tr("Toolwindow Font"));
-
 }
 
 QDesignerAppearanceOptionsWidget::~QDesignerAppearanceOptionsWidget()

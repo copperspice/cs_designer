@@ -731,9 +731,11 @@ void QDesignerPluginManager::registerPlugin(const QString &plugin)
    if (debugPluginManager) {
       qDebug() << Q_FUNC_INFO << plugin;
    }
+
    if (m_d->m_disabledPlugins.contains(plugin)) {
       return;
    }
+
    if (m_d->m_registeredPlugins.contains(plugin)) {
       return;
    }
@@ -745,6 +747,7 @@ void QDesignerPluginManager::registerPlugin(const QString &plugin)
       if (fit != m_d->m_failedPlugins.end()) {
          m_d->m_failedPlugins.erase(fit);
       }
+
       return;
    }
 
@@ -755,9 +758,10 @@ void QDesignerPluginManager::registerPlugin(const QString &plugin)
 bool QDesignerPluginManager::syncSettings()
 {
    QSettings settings(qApp->organizationName(), QDesignerQSettings::settingsApplicationName());
-   settings.beginGroup(QString("PluginManager"));
-   settings.setValue(QString("DisabledPlugins"), m_d->m_disabledPlugins);
+   settings.beginGroup("PluginManager");
+   settings.setValue("DisabledPlugins", m_d->m_disabledPlugins);
    settings.endGroup();
+
    return settings.status() == QSettings::NoError;
 }
 

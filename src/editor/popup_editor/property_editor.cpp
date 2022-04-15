@@ -84,6 +84,7 @@ class ElidingLabel : public QWidget
 
    QSize sizeHint() const override;
    void paintEvent(QPaintEvent *e) override;
+
    void setText(const QString &text) {
       m_text = text;
       updateGeometry();
@@ -964,8 +965,10 @@ uint PropertyEditor::toBrowserType(const QVariant &value, const QString &propert
       if (m_strings.m_alignmentProperties.contains(propertyName)) {
          return DesignerPropertyManager::designerAlignmentTypeId();
       }
+
       return DesignerPropertyManager::designerFlagTypeId();
    }
+
    if (value.canConvert<PropertySheetEnumValue>()) {
       return DesignerPropertyManager::enumTypeId();
    }
@@ -975,7 +978,7 @@ uint PropertyEditor::toBrowserType(const QVariant &value, const QString &propert
 
 QString PropertyEditor::realClassName(QObject *object) const
 {
-   if (!object) {
+   if (! object) {
       return QString();
    }
 
@@ -1019,19 +1022,19 @@ static const QString typeName(uint type)
    }
 
    else if (type == QVariant::typeToTypeId<PropertySheetKeySequenceValue>()) {
-      retval =  "QKeySequence";
+      retval = "QKeySequence";
    }
 
    else if (type == QVariant::typeToTypeId<PropertySheetFlagValue>()) {
-      retval =  "QFlags";
+      retval = "QFlags";
    }
 
    else if (type == QVariant::typeToTypeId<PropertySheetEnumValue>()) {
-      retval =  "enum";
+      retval = "enum";
    }
 
    else if (type == QVariant::Invalid) {
-      retval =  "invalid";
+      retval = "invalid";
    }
 
    else if (type == QVariant::UserType) {
@@ -1556,8 +1559,11 @@ void PropertyEditor::editProperty(const QString &name)
    if (browserItem == nullptr) {
       return;
    }
+
    m_currentBrowser->setFocus(Qt::OtherFocusReason);
-   if (m_currentBrowser == m_treeBrowser) { // edit is currently only supported in tree view
+
+   if (m_currentBrowser == m_treeBrowser) {
+      // edit is currently only supported in tree view
       m_treeBrowser->editItem(browserItem);
    } else {
       m_currentBrowser->setCurrentItem(browserItem);

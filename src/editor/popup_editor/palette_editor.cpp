@@ -599,10 +599,8 @@ void RoleEditor::emitResetProperty()
    emit changed(this);
 }
 
-//////////////////////////
-ColorDelegate::ColorDelegate(QDesignerFormEditorInterface *core, QObject *parent) :
-   QItemDelegate(parent),
-   m_core(core)
+ColorDelegate::ColorDelegate(QDesignerFormEditorInterface *core, QObject *parent)
+   : QItemDelegate(parent), m_core(core)
 {
 }
 
@@ -614,8 +612,10 @@ QWidget *ColorDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem
    if (index.column() == 0) {
       RoleEditor *editor = new RoleEditor(parent);
       connect(editor, &RoleEditor::changed, this, &ColorDelegate::commitData);
+
       //editor->setFocusPolicy(Qt::NoFocus);
       //editor->installEventFilter(const_cast<ColorDelegate *>(this));
+
       ed = editor;
 
    } else {
@@ -628,6 +628,7 @@ QWidget *ColorDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem
       editor->installEventFilter(const_cast<ColorDelegate *>(this));
       ed = editor;
    }
+
    return ed;
 }
 

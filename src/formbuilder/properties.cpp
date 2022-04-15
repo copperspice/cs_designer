@@ -105,8 +105,9 @@ QVariant domPropertyToVariant(QAbstractFormBuilder *afb, const QMetaObject &meta
          QString enumValue = p->elementEnum();
 
          // Triggers in case of objects in Designer like Spacer/Line for which properties
-         // are serialized using language introspection. On preview, however, these objects are
-         // emulated by hacks in the formbuilder (size policy/orientation)
+         // are serialized using language introspection. On preview these objects are
+         // emulated by a work around in the formbuilder (size policy/orientation)
+
          fixEnum(enumValue);
 
          if (index == -1) {

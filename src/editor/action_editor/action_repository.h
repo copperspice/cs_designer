@@ -40,8 +40,18 @@ class PropertySheetKeySequenceValue;
 class ActionModel: public QStandardItemModel
 {
    CS_OBJECT(ActionModel)
+
  public:
-   enum Columns { NameColumn, UsedColumn, TextColumn, ShortCutColumn, CheckedColumn, ToolTipColumn, NumColumns };
+   enum Columns {
+      NameColumn,
+      UsedColumn,
+      TextColumn,
+      ShortCutColumn,
+      CheckedColumn,
+      ToolTipColumn,
+      NumColumns
+   };
+
    enum   { ActionRole = Qt::UserRole + 1000 };
 
    explicit ActionModel(QWidget *parent = nullptr);
@@ -51,8 +61,10 @@ class ActionModel: public QStandardItemModel
 
    void clearActions();
    QModelIndex addAction(QAction *a);
+
    // remove row
    void remove(int row);
+
    // update the row from the underlying action
    void update(int row);
 
@@ -94,15 +106,14 @@ class ActionModel: public QStandardItemModel
 class  ActionTreeView: public QTreeView
 {
    CS_OBJECT(ActionTreeView)
+
  public:
    explicit ActionTreeView(ActionModel *model, QWidget *parent = nullptr);
    QAction *currentAction() const;
 
- public :
    CS_SLOT_1(Public, void filter(const QString &text))
    CS_SLOT_2(filter)
 
- public:
    CS_SIGNAL_1(Public, void actionContextMenuRequested(QContextMenuEvent *event, QAction *un_named_arg2))
    CS_SIGNAL_2(actionContextMenuRequested, event, un_named_arg2)
    CS_SIGNAL_1(Public, void currentActionChanged(QAction *action))
@@ -110,11 +121,10 @@ class  ActionTreeView: public QTreeView
    CS_SIGNAL_1(Public, void actionActivated(QAction *action))
    CS_SIGNAL_2(actionActivated, action)
 
- protected :
+ protected:
    CS_SLOT_1(Protected, void currentChanged(const QModelIndex &current, const QModelIndex &previous)override)
    CS_SLOT_2(currentChanged)
 
- protected:
    void dragEnterEvent(QDragEnterEvent *event) override;
    void dragMoveEvent(QDragMoveEvent *event) override;
    void dropEvent(QDropEvent *event) override;
@@ -126,7 +136,6 @@ class  ActionTreeView: public QTreeView
    CS_SLOT_1(Private, void slotActivated(const QModelIndex &un_named_arg1))
    CS_SLOT_2(slotActivated)
 
- private:
    ActionModel *m_model;
 };
 
@@ -134,27 +143,27 @@ class  ActionTreeView: public QTreeView
 class ActionListView: public QListView
 {
    CS_OBJECT(ActionListView)
+
  public:
    explicit ActionListView(ActionModel *model, QWidget *parent = nullptr);
    QAction *currentAction() const;
 
- public :
    CS_SLOT_1(Public, void filter(const QString &text))
    CS_SLOT_2(filter)
 
- public:
    CS_SIGNAL_1(Public, void actionContextMenuRequested(QContextMenuEvent *event, QAction *un_named_arg2))
    CS_SIGNAL_2(actionContextMenuRequested, event, un_named_arg2)
+
    CS_SIGNAL_1(Public, void currentActionChanged(QAction *action))
    CS_SIGNAL_2(currentActionChanged, action)
+
    CS_SIGNAL_1(Public, void actionActivated(QAction *action))
    CS_SIGNAL_2(actionActivated, action)
 
- protected :
+ protected:
    CS_SLOT_1(Protected, void currentChanged(const QModelIndex &current, const QModelIndex &previous)override)
    CS_SLOT_2(currentChanged)
 
- protected:
    void dragEnterEvent(QDragEnterEvent *event) override;
    void dragMoveEvent(QDragMoveEvent *event) override;
    void dropEvent(QDropEvent *event) override;
@@ -166,7 +175,6 @@ class ActionListView: public QListView
    CS_SLOT_1(Private, void slotActivated(const QModelIndex &un_named_arg1))
    CS_SLOT_2(slotActivated)
 
- private:
    ActionModel *m_model;
 };
 
@@ -174,19 +182,22 @@ class ActionListView: public QListView
 // using a  QStackedWidget of  ActionListView / ActionTreeView
 // that share the item model and the selection model.
 
-class ActionView : public  QStackedWidget
+class ActionView : public QStackedWidget
 {
    CS_OBJECT(ActionView)
+
  public:
    // Separate initialize() function takes core argument to make this
    // thing usable as promoted widget.
    explicit ActionView(QWidget *parent = nullptr);
+
    void initialize(QDesignerFormEditorInterface *core) {
       m_model->initialize(core);
    }
 
    // View mode
    enum { DetailedView, IconView };
+
    int viewMode() const;
    void setViewMode(int lm);
 
@@ -204,23 +215,27 @@ class ActionView : public  QStackedWidget
    ActionList selectedActions() const;
    QItemSelection selection() const;
 
- public :
    CS_SLOT_1(Public, void filter(const QString &text))
    CS_SLOT_2(filter)
+
    CS_SLOT_1(Public, void selectAll())
    CS_SLOT_2(selectAll)
+
    CS_SLOT_1(Public, void clearSelection())
    CS_SLOT_2(clearSelection)
 
- public:
    CS_SIGNAL_1(Public, void contextMenuRequested(QContextMenuEvent *event, QAction *un_named_arg2))
    CS_SIGNAL_2(contextMenuRequested, event, un_named_arg2)
+
    CS_SIGNAL_1(Public, void currentChanged(QAction *action))
    CS_SIGNAL_2(currentChanged, action)
+
    CS_SIGNAL_1(Public, void activated(QAction *action))
    CS_SIGNAL_2(activated, action)
+
    CS_SIGNAL_1(Public, void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected))
    CS_SIGNAL_2(selectionChanged, selected, deselected)
+
    CS_SIGNAL_1(Public, void resourceImageDropped(const QString &data, QAction *action))
    CS_SIGNAL_2(resourceImageDropped, data, action)
 
@@ -228,7 +243,6 @@ class ActionView : public  QStackedWidget
    CS_SLOT_1(Private, void slotCurrentChanged(QAction *action))
    CS_SLOT_2(slotCurrentChanged)
 
- private:
    ActionModel *m_model;
    ActionTreeView *m_actionTreeView;
    ActionListView *m_actionListView;
@@ -237,6 +251,7 @@ class ActionView : public  QStackedWidget
 class ActionRepositoryMimeData: public QMimeData
 {
    CS_OBJECT(ActionRepositoryMimeData)
+
  public:
    typedef QList<QAction *> ActionList;
 
@@ -252,13 +267,12 @@ class ActionRepositoryMimeData: public QMimeData
 
    // Utility to accept with right action
    void accept(QDragMoveEvent *event) const;
+
  private:
    const Qt::DropAction m_dropAction;
    ActionList m_actionList;
 };
 
 } // namespace qdesigner_internal
-
-
 
 #endif // ACTIONREPOSITORY_H

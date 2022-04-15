@@ -506,7 +506,10 @@ void QtBrowserItemPrivate::addChild(QtBrowserItem *index, QtBrowserItem *after)
    if (m_children.contains(index)) {
       return;
    }
-   int idx = m_children.indexOf(after) + 1; // we insert after returned idx, if it was -1 then we set idx to 0;
+
+   // we insert after returned idx, if it was -1 then we set idx to 0;
+   int idx = m_children.indexOf(after) + 1;
+
    m_children.insert(idx, index);
 }
 
@@ -986,8 +989,8 @@ void QtAbstractPropertyBrowser::removeProperty(QtProperty *property)
       if (pendingList.at(pos) == property) {
          d_ptr->m_subItems.removeAt(pos);           // perhaps these two linesshould be
          d_ptr->removeSubTree(property, nullptr);  // moved down after propertyRemoved call
-         //propertyRemoved(property, 0);
 
+         // propertyRemoved(property, 0);
 
          d_ptr->removeBrowserIndexes(property, nullptr);
 
@@ -1001,38 +1004,20 @@ void QtAbstractPropertyBrowser::removeProperty(QtProperty *property)
    }
 }
 
-/*!
-    Creates an editing widget (with the given \a parent) for the given
-    \a property according to the previously established associations
-    between property managers and editor factories.
-
-    If the property is created by a property manager which was not
-    associated with any of the existing factories in \e this property
-    editor, the function returns 0.
-
-    To make a property editable in the property browser, the
-    createEditor() function must be called to provide the
-    property with a suitable editing widget.
-
-    Reimplement this function to provide additional decoration for the
-    editing widgets created by the installed factories.
-
-    \sa setFactoryForManager()
-*/
 QWidget *QtAbstractPropertyBrowser::createEditor(QtProperty *property,
    QWidget *parent)
 {
    QtAbstractEditorFactoryBase *factory = nullptr;
    QtAbstractPropertyManager *manager = property->propertyManager();
 
-   if (m_viewToManagerToFactory()->contains(this) &&
-      (*m_viewToManagerToFactory())[this].contains(manager)) {
+   if (m_viewToManagerToFactory()->contains(this) && (*m_viewToManagerToFactory())[this].contains(manager)) {
       factory = (*m_viewToManagerToFactory())[this][manager];
    }
 
    if (!factory) {
       return nullptr;
    }
+
    QWidget *w = factory->createEditor(property, parent);
 
    // Since some editors can be QComboBoxes and we changed their focus policy

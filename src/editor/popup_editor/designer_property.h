@@ -53,6 +53,7 @@ class FormWindowBase;
 class ResetDecorator : public QObject
 {
    CS_OBJECT(ResetDecorator)
+
  public:
    explicit ResetDecorator(const QDesignerFormEditorInterface *core, QObject *parent = nullptr);
    ~ResetDecorator();
@@ -88,8 +89,7 @@ class TranslatablePropertyManager
    bool destroy(QtProperty *subProperty);
 
    bool value(const QtProperty *property, QVariant *rc) const;
-   int valueChanged(QtVariantPropertyManager *m, QtProperty *property,
-      const QVariant &value);
+   int valueChanged(QtVariantPropertyManager *m, QtProperty *property, const QVariant &value);
 
    int setValue(QtVariantPropertyManager *m, QtProperty *property,
       uint expectedTypeId, const QVariant &value);
@@ -108,6 +108,7 @@ class TranslatablePropertyManager
 class DesignerPropertyManager : public QtVariantPropertyManager
 {
    CS_OBJECT(DesignerPropertyManager)
+
  public:
    enum ValueChangedResult { NoMatch, Unchanged, Changed };
 
@@ -142,25 +143,27 @@ class DesignerPropertyManager : public QtVariantPropertyManager
       m_object = object;
    }
 
- public :
+
    CS_SLOT_1(Public, void setAttribute(QtProperty *property, const QString &attribute, const QVariant &value)override)
    CS_SLOT_2(setAttribute)
    CS_SLOT_1(Public, void setValue(QtProperty *property, const QVariant &value)override)
    CS_SLOT_2(setValue)
- public:
+
    // sourceOfChange - a subproperty (or just property) which caused a change
    //void valueChanged(QtProperty *property, const QVariant &value, QtProperty *sourceOfChange);
    CS_SIGNAL_1(Public, void valueChanged(QtProperty *property, const QVariant &value, bool enableSubPropertyHandling))
    CS_SIGNAL_2(valueChanged, property, value, enableSubPropertyHandling)
+
  protected:
    void initializeProperty(QtProperty *property) override;
    void uninitializeProperty(QtProperty *property) override;
+
  private:
    CS_SLOT_1(Private, void slotValueChanged(QtProperty *property, const QVariant &value))
    CS_SLOT_2(slotValueChanged)
    CS_SLOT_1(Private, void slotPropertyDestroyed(QtProperty *property))
    CS_SLOT_2(slotPropertyDestroyed)
- private:
+
    void createIconSubProperty(QtProperty *iconProperty, QIcon::Mode mode, QIcon::State state, const QString &subName);
 
    typedef QMap<QtProperty *, bool> PropertyBoolMap;
@@ -173,10 +176,13 @@ class DesignerPropertyManager : public QtVariantPropertyManager
       DesignerFlagList flags;
       QList<uint> values;
    };
+
    typedef QMap<QtProperty *, FlagData> PropertyFlagDataMap;
    PropertyFlagDataMap m_flagValues;
+
    typedef  QMap<QtProperty *, QList<QtProperty *>> PropertyToPropertyListMap;
    PropertyToPropertyListMap m_propertyToFlags;
+
    QMap<QtProperty *, QtProperty *> m_flagToProperty;
 
    int alignToIndexH(uint align) const;
@@ -186,7 +192,9 @@ class DesignerPropertyManager : public QtVariantPropertyManager
    QString indexHToString(int idx) const;
    QString indexVToString(int idx) const;
    QMap<QtProperty *, uint> m_alignValues;
+
    typedef QMap<QtProperty *, QtProperty *> PropertyToPropertyMap;
+
    PropertyToPropertyMap m_propertyToAlignH;
    PropertyToPropertyMap m_propertyToAlignV;
    PropertyToPropertyMap m_alignHToProperty;
@@ -205,6 +213,7 @@ class DesignerPropertyManager : public QtVariantPropertyManager
       QPalette val;
       QPalette superPalette;
    };
+
    typedef QMap<QtProperty *, PaletteData>  PropertyPaletteDataMap;
    PropertyPaletteDataMap m_paletteValues;
 
@@ -299,31 +308,41 @@ class DesignerEditorFactory : public QtVariantEditorFactory
 
    int m_spacing;
 
-   QMap<QtProperty *, QList<TextEditor *>>                m_stringPropertyToEditors;
-   QMap<TextEditor *, QtProperty *>                        m_editorToStringProperty;
-   QMap<QtProperty *, QList<QKeySequenceEdit *>>         m_keySequencePropertyToEditors;
-   QMap<QKeySequenceEdit *, QtProperty *>                 m_editorToKeySequenceProperty;
-   QMap<QtProperty *, QList<PaletteEditorButton *>>       m_palettePropertyToEditors;
-   QMap<PaletteEditorButton *, QtProperty *>               m_editorToPaletteProperty;
-   QMap<QtProperty *, QList<PixmapEditor *>>              m_pixmapPropertyToEditors;
-   QMap<PixmapEditor *, QtProperty *>                      m_editorToPixmapProperty;
-   QMap<QtProperty *, QList<PixmapEditor *>>              m_iconPropertyToEditors;
-   QMap<PixmapEditor *, QtProperty *>                      m_editorToIconProperty;
-   QMap<QtProperty *, QList<QLineEdit *>>                 m_uintPropertyToEditors;
-   QMap<QLineEdit *, QtProperty *>                         m_editorToUintProperty;
-   QMap<QtProperty *, QList<QLineEdit *>>                 m_longLongPropertyToEditors;
-   QMap<QLineEdit *, QtProperty *>                         m_editorToLongLongProperty;
-   QMap<QtProperty *, QList<QLineEdit *>>                 m_uLongLongPropertyToEditors;
-   QMap<QLineEdit *, QtProperty *>                         m_editorToULongLongProperty;
-   QMap<QtProperty *, QList<TextEditor *>>                m_urlPropertyToEditors;
-   QMap<TextEditor *, QtProperty *>                        m_editorToUrlProperty;
-   QMap<QtProperty *, QList<TextEditor *>>                m_byteArrayPropertyToEditors;
-   QMap<TextEditor *, QtProperty *>                        m_editorToByteArrayProperty;
-   QMap<QtProperty *, QList<StringListEditorButton *>>    m_stringListPropertyToEditors;
-   QMap<StringListEditorButton *, QtProperty *>            m_editorToStringListProperty;
+   QMap<QtProperty *, QList<TextEditor *>> m_stringPropertyToEditors;
+   QMap<TextEditor *, QtProperty *> m_editorToStringProperty;
+
+   QMap<QtProperty *, QList<QKeySequenceEdit *>> m_keySequencePropertyToEditors;
+   QMap<QKeySequenceEdit *, QtProperty *> m_editorToKeySequenceProperty;
+
+   QMap<QtProperty *, QList<PaletteEditorButton *>> m_palettePropertyToEditors;
+   QMap<PaletteEditorButton *, QtProperty *> m_editorToPaletteProperty;
+
+   QMap<QtProperty *, QList<PixmapEditor *>> m_pixmapPropertyToEditors;
+   QMap<PixmapEditor *, QtProperty *> m_editorToPixmapProperty;
+
+   QMap<QtProperty *, QList<PixmapEditor *>> m_iconPropertyToEditors;
+   QMap<PixmapEditor *, QtProperty *> m_editorToIconProperty;
+
+   QMap<QtProperty *, QList<QLineEdit *>> m_uintPropertyToEditors;
+   QMap<QLineEdit *, QtProperty *> m_editorToUintProperty;
+
+   QMap<QtProperty *, QList<QLineEdit *>> m_longLongPropertyToEditors;
+   QMap<QLineEdit *, QtProperty *> m_editorToLongLongProperty;
+
+   QMap<QtProperty *, QList<QLineEdit *>> m_uLongLongPropertyToEditors;
+   QMap<QLineEdit *, QtProperty *> m_editorToULongLongProperty;
+
+   QMap<QtProperty *, QList<TextEditor *>> m_urlPropertyToEditors;
+   QMap<TextEditor *, QtProperty *> m_editorToUrlProperty;
+
+   QMap<QtProperty *, QList<TextEditor *>> m_byteArrayPropertyToEditors;
+   QMap<TextEditor *, QtProperty *> m_editorToByteArrayProperty;
+
+   QMap<QtProperty *, QList<StringListEditorButton *>> m_stringListPropertyToEditors;
+   QMap<StringListEditorButton *, QtProperty *> m_editorToStringListProperty;
 };
 
-} // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
 CS_DECLARE_METATYPE(DesignerIntPair)
 CS_DECLARE_METATYPE(DesignerFlagList)

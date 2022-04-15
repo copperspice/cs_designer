@@ -239,7 +239,6 @@ class SetPropertyCommand: public PropertyListCommand
 
 class ResetPropertyCommand: public PropertyListCommand
 {
-
  public:
    typedef QList<QObject *> ObjectList;
 
@@ -260,10 +259,8 @@ class ResetPropertyCommand: public PropertyListCommand
    QString m_propertyName;
 };
 
-
 class AddDynamicPropertyCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit AddDynamicPropertyCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -271,6 +268,7 @@ class AddDynamicPropertyCommand: public QDesignerFormWindowCommand
 
    void redo() override;
    void undo() override;
+
  private:
    void setDescription();
    QString m_propertyName;
@@ -280,7 +278,6 @@ class AddDynamicPropertyCommand: public QDesignerFormWindowCommand
 
 class RemoveDynamicPropertyCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit RemoveDynamicPropertyCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -288,6 +285,7 @@ class RemoveDynamicPropertyCommand: public QDesignerFormWindowCommand
 
    void redo() override;
    void undo() override;
+
  private:
    void setDescription();
    QString m_propertyName;

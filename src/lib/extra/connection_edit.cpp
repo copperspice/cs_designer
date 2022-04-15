@@ -148,6 +148,7 @@ class AdjustConnectionCommand : public CECommand
 
    void redo() override;
    void undo() override;
+
  private:
    Connection *m_con;
    const QPoint m_old_source_pos;
@@ -156,17 +157,10 @@ class AdjustConnectionCommand : public CECommand
    const QPoint m_new_target_pos;
 };
 
-AdjustConnectionCommand::AdjustConnectionCommand(ConnectionEdit *edit, Connection *con,
-   const QPoint &old_source_pos,
-   const QPoint &old_target_pos,
-   const QPoint &new_source_pos,
-   const QPoint &new_target_pos) :
-   CECommand(edit),
-   m_con(con),
-   m_old_source_pos(old_source_pos),
-   m_old_target_pos(old_target_pos),
-   m_new_source_pos(new_source_pos),
-   m_new_target_pos(new_target_pos)
+AdjustConnectionCommand::AdjustConnectionCommand(ConnectionEdit *edit, Connection *con, const QPoint &old_source_pos,
+      const QPoint &old_target_pos, const QPoint &new_source_pos, const QPoint &new_target_pos)
+   : CECommand(edit), m_con(con), m_old_source_pos(old_source_pos), m_old_target_pos(old_target_pos),
+     m_new_source_pos(new_source_pos), m_new_target_pos(new_target_pos)
 {
    setText(QApplication::translate("Command", "Adjust connection"));
 }
@@ -183,8 +177,7 @@ void AdjustConnectionCommand::redo()
    m_con->setEndPoint(EndPoint::Target, m_con->widget(EndPoint::Target), m_new_target_pos);
 }
 
-DeleteConnectionsCommand::DeleteConnectionsCommand(ConnectionEdit *edit,
-   const ConnectionList &con_list)
+DeleteConnectionsCommand::DeleteConnectionsCommand(ConnectionEdit *edit, const ConnectionList &con_list)
    : CECommand(edit), m_con_list(con_list)
 {
    setText(QApplication::translate("Command", "Delete connections"));
@@ -195,7 +188,9 @@ void DeleteConnectionsCommand::redo()
    for (Connection *con : m_con_list) {
       const int idx = edit()->indexOfConnection(con);
       emit edit()->aboutToRemoveConnection(con);
+
       Q_ASSERT(edit()->m_con_list.contains(con));
+
       edit()->setSelected(con, false);
       con->update();
       con->removed();
@@ -208,6 +203,7 @@ void DeleteConnectionsCommand::undo()
 {
    for (Connection *con : m_con_list) {
       Q_ASSERT(!edit()->m_con_list.contains(con));
+
       emit edit()->aboutToAddConnection(edit()->m_con_list.size());
       edit()->m_con_list.append(con);
       edit()->setSelected(con, true);
@@ -223,6 +219,7 @@ class SetEndPointCommand : public CECommand
    SetEndPointCommand(ConnectionEdit *edit, Connection *con, EndPoint::Type type, QObject *object);
    void redo() override;
    void undo() override;
+
  private:
    Connection *m_con;
    const EndPoint::Type m_type;
@@ -231,14 +228,9 @@ class SetEndPointCommand : public CECommand
    QPoint m_new_pos;
 };
 
-SetEndPointCommand::SetEndPointCommand(ConnectionEdit *edit, Connection *con,
-   EndPoint::Type type, QObject *object) :
-   CECommand(edit),
-   m_con(con),
-   m_type(type),
-   m_old_widget(con->object(type)),
-   m_new_widget(object),
-   m_old_pos(con->endPointPos(type))
+SetEndPointCommand::SetEndPointCommand(ConnectionEdit *edit, Connection *con, EndPoint::Type type, QObject *object)
+   : CECommand(edit), m_con(con), m_type(type), m_old_widget(con->object(type)), m_new_widget(object),
+     m_old_pos(con->endPointPos(type))
 {
    if (QWidget *widget = dynamic_cast<QWidget *>(object)) {
       m_new_pos = edit->widgetRect(widget).center();
@@ -262,10 +254,6 @@ void SetEndPointCommand::undo()
    m_con->setEndPoint(m_type, m_old_widget, m_old_pos);
    emit edit()->connectionChanged(m_con);
 }
-
-/*******************************************************************************
-** Connection
-*/
 
 Connection::Connection(ConnectionEdit *edit)
    : m_source_pos(QPoint(-1, -1)), m_target_pos(QPoint(-1, -1)),

@@ -72,7 +72,6 @@ class WidgetHandle: public InvisibleWidget
    void trySetGeometry(QWidget *w, int x, int y, int width, int height);
    void tryResize(QWidget *w, int width, int height);
 
- private:
    QWidget *m_widget;
    const Type m_type;
    QPoint m_origPressPos;

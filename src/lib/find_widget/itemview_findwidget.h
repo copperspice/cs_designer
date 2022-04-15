@@ -46,7 +46,7 @@ class ItemViewFindWidget : public AbstractFindWidget
 
  private:
    QModelIndex findHelper(const QString &textToFind, bool skipCurrent, bool backward,
-      QModelIndex parent, int row, int column);
+         QModelIndex parent, int row, int column);
 
    QAbstractItemView *m_itemView;
 };

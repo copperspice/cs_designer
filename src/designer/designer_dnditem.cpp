@@ -147,11 +147,13 @@ QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag
             unitedGeometry  = unitedGeometry .united((*it)->decoration()->geometry());
          }
 
-         // paint with offset. At the same time, create a mask bitmap, containing widget rectangles.
+         // paint with offset. At the same time, create a mask bitmap, containing widget rectangles
          const QSize imageSize = (QSizeF(unitedGeometry.size()) * devicePixelRatio).toSize();
+
          QImage image(imageSize, QImage::Format_ARGB32);
          image.setDevicePixelRatio(devicePixelRatio);
          image.fill(QColor(Qt::transparent).rgba());
+
          QBitmap mask(imageSize);
          mask.setDevicePixelRatio(devicePixelRatio);
          mask.clear();
@@ -182,7 +184,8 @@ QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag
 
    // determine hot spot and reconstruct the exact starting position as form window
    // introduces some offset when detecting DnD
-   m_globalStartPos =  m_items.first()->decoration()->pos() +  m_items.first()->hotSpot();
+
+   m_globalStartPos = m_items.first()->decoration()->pos() +  m_items.first()->hotSpot();
    m_hotSpot = m_globalStartPos - decorationTopLeft;
    drag->setHotSpot(m_hotSpot);
 
@@ -222,10 +225,11 @@ Qt::DropAction QDesignerMimeData::execDrag(const QDesignerDnDItems &items, QWidg
 
    const Qt::DropAction executedAction = drag->exec(Qt::CopyAction | Qt::MoveAction, mimeData->proposedDropAction());
 
-   if (executedAction == Qt::IgnoreAction && !reshowWidgets.empty())
+   if (executedAction == Qt::IgnoreAction && !reshowWidgets.empty()) {
       for (QWidget *w : reshowWidgets) {
          w->show();
       }
+   }
 
    return executedAction;
 }
@@ -280,9 +284,11 @@ void QDesignerMimeData::acceptEvent(QDropEvent *e) const
 void QDesignerMimeData::setImageTransparency(QImage &image, int alpha)
 {
    const int height = image.height();
+
    for (int l = 0; l < height; l++) {
       QRgb *line = reinterpret_cast<QRgb *>(image.scanLine(l));
       QRgb *lineEnd = line + image.width();
+
       for ( ; line < lineEnd; line++) {
          const QRgb rgba = *line;
          *line = qRgba(qRed(rgba), qGreen(rgba), qBlue(rgba), alpha);

@@ -39,10 +39,10 @@ class Connection;
 class SignalSlotEditorWindow : public QWidget
 {
    CS_OBJECT(SignalSlotEditorWindow)
+
  public:
    explicit SignalSlotEditorWindow(QDesignerFormEditorInterface *core, QWidget *parent = nullptr);
 
- public :
    CS_SLOT_1(Public, void setActiveFormWindow(QDesignerFormWindowInterface *form))
    CS_SLOT_2(setActiveFormWindow)
 
@@ -52,8 +52,8 @@ class SignalSlotEditorWindow : public QWidget
    CS_SLOT_1(Private, void updateEditorSelection(const QModelIndex &index))
    CS_SLOT_2(updateEditorSelection)
 
-   CS_SLOT_1(Private, void objectNameChanged(QDesignerFormWindowInterface *formWindow, QObject *object, const QString &newName,
-         const QString &oldName))
+   CS_SLOT_1(Private, void objectNameChanged(QDesignerFormWindowInterface *formWindow, QObject *object,
+         const QString &newName, const QString &oldName))
    CS_SLOT_2(objectNameChanged)
 
    CS_SLOT_1(Private, void addConnectionX())
@@ -65,7 +65,6 @@ class SignalSlotEditorWindow : public QWidget
    CS_SLOT_1(Private, void updateUi())
    CS_SLOT_2(updateUi)
 
- private:
    QTreeView *m_view;
    QPointer<SignalSlotEditor> m_editor;
    QToolButton *m_add_button, *m_remove_button;

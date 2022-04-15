@@ -60,10 +60,12 @@ QWidget *BuddyEditorTool::editor() const
    if (!m_editor) {
       Q_ASSERT(formWindow() != nullptr);
       m_editor = new BuddyEditor(formWindow(), nullptr);
+
       connect(formWindow(), &QDesignerFormWindowInterface::mainContainerChanged,
-         m_editor.data(), &BuddyEditor::setBackground);
+            m_editor.data(), &BuddyEditor::setBackground);
+
       connect(formWindow(), &QDesignerFormWindowInterface::changed,
-         m_editor.data(), &BuddyEditor::updateBackground);
+            m_editor.data(), &BuddyEditor::updateBackground);
    }
 
    return m_editor;

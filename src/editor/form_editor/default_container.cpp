@@ -41,7 +41,6 @@ static const QString PageLabel = "Page";
 
 namespace qdesigner_internal {
 
-// --------- QStackedWidgetContainer
 QStackedWidgetContainer::QStackedWidgetContainer(QStackedWidget *widget, QObject *parent) :
    QObject(parent),
    m_widget(widget)
@@ -70,7 +69,6 @@ void QStackedWidgetContainer::remove(int index)
    m_widget->removeWidget(widget(index));
 }
 
-// --------- QTabWidgetContainer
 QTabWidgetContainer::QTabWidgetContainer(QTabWidget *widget, QObject *parent) :
    QObject(parent),
    m_widget(widget)
@@ -99,10 +97,8 @@ void QTabWidgetContainer::remove(int index)
    m_widget->removeTab(index);
 }
 
-// ------------------- QToolBoxContainer
-QToolBoxContainer::QToolBoxContainer(QToolBox *widget, QObject *parent) :
-   QObject(parent),
-   m_widget(widget)
+QToolBoxContainer::QToolBoxContainer(QToolBox *widget, QObject *parent)
+   : QObject(parent), m_widget(widget)
 {
 }
 
@@ -141,9 +137,8 @@ QScrollAreaContainer::QScrollAreaContainer(QScrollArea *widget, QObject *parent)
 }
 
 // ------------------- QDockWidgetContainer
-QDockWidgetContainer::QDockWidgetContainer(QDockWidget *widget, QObject *parent) :
-   QObject(parent),
-   SingleChildContainer<QDockWidget>(widget)
+QDockWidgetContainer::QDockWidgetContainer(QDockWidget *widget, QObject *parent)
+   : QObject(parent), SingleChildContainer<QDockWidget>(widget)
 {
 }
 

@@ -42,7 +42,6 @@ class BuddyEditor : public ConnectionEdit
    void setBackground(QWidget *background) override;
    void deleteSelected() override;
 
- public :
    CS_SLOT_1(Public, void updateBackground())
    CS_SLOT_2(updateBackground)
 

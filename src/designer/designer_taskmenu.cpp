@@ -609,7 +609,7 @@ void QDesignerTaskMenu::changeTextProperty(const QString &propertyName, const QS
    const int index = sheet->indexOf(propertyName);
 
    if (index == -1) {
-      qDebug() << "** WARNING Invalid property" << propertyName << " passed to changeTextProperty!";
+      qDebug() << "Invalid property" << propertyName << " passed to changeTextProperty!";
       return;
    }
 
@@ -648,11 +648,11 @@ void QDesignerTaskMenu::changeTextProperty(const QString &propertyName, const QS
       }
       break;
    }
+
    // change property
    if (!accepted || oldText == newText) {
       return;
    }
-
 
    textValue.setValue(newText);
    setProperty(fw, pm, propertyName, QVariant::fromValue(textValue));
@@ -741,12 +741,16 @@ void QDesignerTaskMenu::navigateToSlot(QDesignerFormEditorInterface *core, QObje
    }
 
    // fake signals
-   if (qdesigner_internal::MetaDataBase * metaDataBase
-      = dynamic_cast<qdesigner_internal::MetaDataBase *>(core->metaDataBase())) {
+   qdesigner_internal::MetaDataBase *metaDataBase =
+         dynamic_cast<qdesigner_internal::MetaDataBase *>(core->metaDataBase());
+
+   if (metaDataBase != nullptr) {
+
       qdesigner_internal::MetaDataBaseItem *item = metaDataBase->metaDataBaseItem(object);
       Q_ASSERT(item);
 
       const QStringList fakeSignals = item->fakeSignals();
+
       for (const QString &fakeSignal : fakeSignals) {
          classToSignalList[item->customClassName()][fakeSignal] = QStringList();
       }
@@ -754,6 +758,7 @@ void QDesignerTaskMenu::navigateToSlot(QDesignerFormEditorInterface *core, QObje
 
    if (object->isWidgetType()) {
       QWidget *widget = static_cast<QWidget *>(object);
+
       if (WidgetDataBase *db = dynamic_cast<WidgetDataBase *>(core->widgetDataBase())) {
          const QString promotedClassName = promotedCustomClassName(core, widget);
          const int index = core->widgetDataBase()->indexOfClassName(promotedClassName);
@@ -761,6 +766,7 @@ void QDesignerTaskMenu::navigateToSlot(QDesignerFormEditorInterface *core, QObje
          if (index >= 0) {
             WidgetDataBaseItem *item = static_cast<WidgetDataBaseItem *>(db->item(index));
             const QStringList fakeSignals = item->fakeSignals();
+
             for (const QString &fakeSignal : fakeSignals) {
                classToSignalList[promotedClassName][fakeSignal] = QStringList();
             }
@@ -791,16 +797,17 @@ void QDesignerTaskMenu::navigateToSlot(QDesignerFormEditorInterface *core, QObje
       QTreeWidgetItem *row = new QTreeWidgetItem(QStringList() << tr("no signals available"));
       dialogUi.signalList->addTopLevelItem(row);
       dialogUi.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+
    } else {
       connect(dialogUi.signalList, &QTreeWidget::itemDoubleClicked,
-         &selectSignalDialog, &QDialog::accept);
+            &selectSignalDialog, &QDialog::accept);
    }
 
    if (defaultSignal.isEmpty()) {
       dialogUi.signalList->setCurrentItem(dialogUi.signalList->topLevelItem(0));
    } else {
       const QList<QTreeWidgetItem *> items = dialogUi.signalList->findItems (defaultSignal, Qt::MatchExactly, 0);
-      if (!items.empty()) {
+      if (! items.empty()) {
          dialogUi.signalList->setCurrentItem(items.front());
       }
    }
@@ -810,10 +817,12 @@ void QDesignerTaskMenu::navigateToSlot(QDesignerFormEditorInterface *core, QObje
    if (selectSignalDialog.exec() != QDialog::Accepted) {
       return;
    }
+
    const QList<QTreeWidgetItem *> &selectedItems = dialogUi.signalList->selectedItems();
    if (selectedItems.isEmpty()) {
       return;
    }
+
    const QTreeWidgetItem *selectedItem = selectedItems.constFirst();
    const QString signalSignature = selectedItem->text(0);
 
@@ -849,6 +858,7 @@ static void createSizeCommand(QDesignerFormWindowInterface *fw, QWidget *w, int 
       if (flags & ApplyMaximumHeight) {
          maximumSize.setHeight(size.height());
       }
+
       SetPropertyCommand *cmd = new SetPropertyCommand(fw);
       cmd->init(w, QString("maximumSize"), maximumSize);
       fw->commandHistory()->push(cmd);
@@ -858,7 +868,7 @@ static void createSizeCommand(QDesignerFormWindowInterface *fw, QWidget *w, int 
 void QDesignerTaskMenu::applySize(QAction *a)
 {
    QDesignerFormWindowInterface *fw = formWindow();
-   if (!fw) {
+   if (! fw) {
       return;
    }
 
@@ -871,7 +881,7 @@ void QDesignerTaskMenu::applySize(QAction *a)
    const int size = selection.size();
    fw->commandHistory()->beginMacro(tr("Set size constraint on %n widget(s)", nullptr, size));
 
-  for (int i = 0; i < size; i++) {
+   for (int i = 0; i < size; ++i) {
       createSizeCommand(fw, selection.at(i), mask);
    }
 
@@ -895,6 +905,7 @@ static void getApplicableObjects(const QDesignerFormWindowInterface *fw, QWidget
       // an old-style Object Inspector was used
       return;
    }
+
    // Add managed or unmanaged selection according to current type, make current first
    Selection s;
    designerObjectInspector->getSelection(s);
@@ -902,17 +913,19 @@ static void getApplicableObjects(const QDesignerFormWindowInterface *fw, QWidget
    const QWidgetList &source = fw->isManaged(current) ? s.managed : s.unmanaged;
    const QWidgetList::const_iterator cend = source.constEnd();
 
-   for ( QWidgetList::const_iterator it = source.constBegin(); it != cend; ++it)
+   for ( QWidgetList::const_iterator it = source.constBegin(); it != cend; ++it) {
       if (*it != current) {
          // was first
          c->push_back(*it);
       }
+   }
 }
 
 QObjectList QDesignerTaskMenu::applicableObjects(const QDesignerFormWindowInterface *fw, PropertyMode pm) const
 {
    QObjectList rc;
    getApplicableObjects(fw, d->m_widget, pm, &rc);
+
    return rc;
 }
 
@@ -920,10 +933,12 @@ QWidgetList QDesignerTaskMenu::applicableWidgets(const QDesignerFormWindowInterf
 {
    QWidgetList rc;
    getApplicableObjects(fw, d->m_widget, pm, &rc);
+
    return rc;
 }
 
-void QDesignerTaskMenu::setProperty(QDesignerFormWindowInterface *fw,  PropertyMode pm, const QString &name, const QVariant &newValue)
+void QDesignerTaskMenu::setProperty(QDesignerFormWindowInterface *fw,  PropertyMode pm,
+      const QString &name, const QVariant &newValue)
 {
    SetPropertyCommand *setPropertyCommand = new SetPropertyCommand(fw);
 

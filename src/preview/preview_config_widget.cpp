@@ -38,8 +38,6 @@
 
 namespace qdesigner_internal {
 
-// ------------- PreviewConfigurationWidgetPrivate
-
 class PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate
 {
  public:
@@ -47,8 +45,8 @@ class PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate
 
    void slotEditAppStyleSheet();
 
-   //       void slotDeleteSkinEntry();
-   //       void slotSkinChanged(int index);
+   //   void slotDeleteSkinEntry();
+   //   void slotSkinChanged(int index);
 
    void retrieveSettings();
    void storeSettings() const;
@@ -56,8 +54,9 @@ class PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate
    QAbstractButton *appStyleSheetChangeButton() const {
       return m_ui.m_appStyleSheetChangeButton;
    }
-   //    QAbstractButton *skinRemoveButton() const { return m_ui.m_skinRemoveButton; }
-   //    QComboBox *skinCombo() const { return m_ui.m_skinCombo; }
+
+   //   QAbstractButton *skinRemoveButton() const { return m_ui.m_skinRemoveButton; }
+   //   QComboBox *skinCombo() const { return m_ui.m_skinCombo; }
 
    QDesignerFormEditorInterface *m_core;
 
@@ -65,10 +64,10 @@ class PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate
    PreviewConfiguration previewConfiguration() const;
    void setPreviewConfiguration(const PreviewConfiguration &pc);
 
-   //    QStringList userSkins() const;
-   //    void addUserSkins(const QStringList &files);
-   //    bool canRemoveSkin(int index) const;
-   //    int browseSkin();
+   //   QStringList userSkins() const;
+   //   void addUserSkins(const QStringList &files);
+   //   bool canRemoveSkin(int index) const;
+   //   int browseSkin();
 
    const QString m_defaultStyle;
    QGroupBox *m_parent;
@@ -117,7 +116,6 @@ PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::PreviewConfigurat
        m_ui.m_skinCombo->setMaxVisibleItems (qMax(15, 2 * m_browseSkinIndex));
        m_ui.m_skinCombo->setEditable(false);
    */
-
 
    retrieveSettings();
 }
@@ -313,7 +311,7 @@ int PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::browseSkin()
 
 // ------------- PreviewConfigurationWidget
 PreviewConfigurationWidget::PreviewConfigurationWidget(QDesignerFormEditorInterface *core, QWidget *parent)
-   : QGroupBox(parent),     m_impl(new PreviewConfigurationWidgetPrivate(core, this))
+   : QGroupBox(parent),m_impl(new PreviewConfigurationWidgetPrivate(core, this))
 {
    connect(m_impl->appStyleSheetChangeButton(), &QAbstractButton::clicked,
       this, &PreviewConfigurationWidget::slotEditAppStyleSheet);

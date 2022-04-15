@@ -256,30 +256,34 @@ void TreeWidgetEditor::newSubItemButton()
 void TreeWidgetEditor::deleteItemButton()
 {
    QTreeWidgetItem *curItem = ui.treeWidget->currentItem();
-   if (!curItem) {
+   if (! curItem) {
       return;
    }
 
    QTreeWidgetItem *nextCurrent = nullptr;
    if (curItem->parent()) {
       int idx = curItem->parent()->indexOfChild(curItem);
+
       if (idx == curItem->parent()->childCount() - 1) {
-         idx--;
+         --idx;
       } else {
-         idx++;
+         ++idx;
       }
+
       if (idx < 0) {
          nextCurrent = curItem->parent();
       } else {
          nextCurrent = curItem->parent()->child(idx);
       }
+
    } else {
       int idx = ui.treeWidget->indexOfTopLevelItem(curItem);
       if (idx == ui.treeWidget->topLevelItemCount() - 1) {
-         idx--;
+         --idx;
       } else {
-         idx++;
+         ++idx;
       }
+
       if (idx >= 0) {
          nextCurrent = ui.treeWidget->topLevelItem(idx);
       }

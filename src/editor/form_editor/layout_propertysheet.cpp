@@ -121,19 +121,25 @@ static int getLayoutMargin(const QLayout *l, LayoutPropertyType type)
 {
    int left, top, right, bottom;
    l->getContentsMargins(&left, &top, &right, &bottom);
+
    switch (type) {
       case LayoutPropertyLeftMargin:
          return left;
+
       case LayoutPropertyTopMargin:
          return top;
+
       case LayoutPropertyRightMargin:
          return right;
+
       case LayoutPropertyBottomMargin:
          return bottom;
+
       default:
          Q_ASSERT(false);
          break;
    }
+
    return 0;
 }
 
@@ -142,23 +148,29 @@ static void setLayoutMargin(QLayout *l, LayoutPropertyType type, int margin)
 {
    int left, top, right, bottom;
    l->getContentsMargins(&left, &top, &right, &bottom);
+
    switch (type) {
       case LayoutPropertyLeftMargin:
          left = margin;
          break;
+
       case LayoutPropertyTopMargin:
          top = margin;
          break;
+
       case LayoutPropertyRightMargin:
          right = margin;
          break;
+
       case LayoutPropertyBottomMargin:
          bottom = margin;
          break;
+
       default:
          Q_ASSERT(false);
          break;
    }
+
    l->setContentsMargins(left, top, right, bottom);
 }
 
@@ -242,20 +254,25 @@ LayoutPropertySheet::~LayoutPropertySheet()
 void LayoutPropertySheet::setProperty(int index, const QVariant &value)
 {
    const LayoutPropertyType type = layoutPropertyType(propertyName(index));
+
    if (QLayoutWidget *lw = dynamic_cast<QLayoutWidget *>(m_layout->parent())) {
       switch (type) {
          case LayoutPropertyLeftMargin:
             lw->setLayoutLeftMargin(value.toInt());
             return;
+
          case LayoutPropertyTopMargin:
             lw->setLayoutTopMargin(value.toInt());
             return;
+
          case LayoutPropertyRightMargin:
             lw->setLayoutRightMargin(value.toInt());
             return;
+
          case LayoutPropertyBottomMargin:
             lw->setLayoutBottomMargin(value.toInt());
             return;
+
          case LayoutPropertyMargin: {
             const int v = value.toInt();
             lw->setLayoutLeftMargin(v);
@@ -264,10 +281,12 @@ void LayoutPropertySheet::setProperty(int index, const QVariant &value)
             lw->setLayoutBottomMargin(v);
          }
          return;
+
          default:
             break;
       }
    }
+
    switch (type) {
       case LayoutPropertyLeftMargin:
       case LayoutPropertyTopMargin:
@@ -275,6 +294,7 @@ void LayoutPropertySheet::setProperty(int index, const QVariant &value)
       case LayoutPropertyBottomMargin:
          setLayoutMargin(m_layout, type, value.toInt());
          return;
+
       case LayoutPropertyHorizontalSpacing:
          if (QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             grid->setHorizontalSpacing(value.toInt());
@@ -285,6 +305,7 @@ void LayoutPropertySheet::setProperty(int index, const QVariant &value)
             return;
          }
          break;
+
       case LayoutPropertyVerticalSpacing:
          if (QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             grid->setVerticalSpacing(value.toInt());
@@ -295,6 +316,7 @@ void LayoutPropertySheet::setProperty(int index, const QVariant &value)
             return;
          }
          break;
+
       case LayoutPropertyBoxStretch:
          // TODO: Remove the regexp check once a proper editor for integer
          // lists is in place?
@@ -305,6 +327,7 @@ void LayoutPropertySheet::setProperty(int index, const QVariant &value)
             }
          }
          break;
+
       case LayoutPropertyGridRowStretch:
          if (QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             const QString stretch = value.toString();
@@ -313,6 +336,7 @@ void LayoutPropertySheet::setProperty(int index, const QVariant &value)
             }
          }
          break;
+
       case LayoutPropertyGridColumnStretch:
          if (QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             const QString stretch = value.toString();
@@ -329,6 +353,7 @@ void LayoutPropertySheet::setProperty(int index, const QVariant &value)
             }
          }
          break;
+
       case LayoutPropertyGridColumnMinimumWidth:
          if (QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             const QString minSize = value.toString();
@@ -337,6 +362,7 @@ void LayoutPropertySheet::setProperty(int index, const QVariant &value)
             }
          }
          break;
+
       default:
          break;
    }
@@ -346,38 +372,48 @@ void LayoutPropertySheet::setProperty(int index, const QVariant &value)
 QVariant LayoutPropertySheet::property(int index) const
 {
    const LayoutPropertyType type = layoutPropertyType(propertyName(index));
+
    if (const QLayoutWidget *lw = dynamic_cast<QLayoutWidget *>(m_layout->parent())) {
       switch (type) {
          case LayoutPropertyLeftMargin:
             return lw->layoutLeftMargin();
+
          case LayoutPropertyTopMargin:
             return lw->layoutTopMargin();
+
          case LayoutPropertyRightMargin:
             return lw->layoutRightMargin();
+
          case LayoutPropertyBottomMargin:
             return lw->layoutBottomMargin();
+
          default:
             break;
       }
    }
+
    switch (type) {
       case LayoutPropertyLeftMargin:
       case LayoutPropertyTopMargin:
       case LayoutPropertyRightMargin:
       case LayoutPropertyBottomMargin:
          return getLayoutMargin(m_layout, type);
+
       case LayoutPropertyHorizontalSpacing:
          if (const QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             return grid->horizontalSpacing();
          }
+
          if (const QFormLayout *form = dynamic_cast<QFormLayout *>(m_layout)) {
             return form->horizontalSpacing();
          }
          break;
+
       case LayoutPropertyVerticalSpacing:
          if (const QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             return grid->verticalSpacing();
          }
+
          if (const QFormLayout *form = dynamic_cast<QFormLayout *>(m_layout)) {
             return form->verticalSpacing();
          }
@@ -388,29 +424,35 @@ QVariant LayoutPropertySheet::property(int index) const
             return QVariant(QByteArray(QFormBuilderExtra::boxLayoutStretch(box).toUtf8()));
          }
          break;
+
       case LayoutPropertyGridRowStretch:
          if (const QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             return QVariant(QByteArray(QFormBuilderExtra::gridLayoutRowStretch(grid).toUtf8()));
          }
          break;
+
       case LayoutPropertyGridColumnStretch:
          if (const QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             return QVariant(QByteArray(QFormBuilderExtra::gridLayoutColumnStretch(grid).toUtf8()));
          }
          break;
+
       case LayoutPropertyGridRowMinimumHeight:
          if (const QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             return QVariant(QByteArray(QFormBuilderExtra::gridLayoutRowMinimumHeight(grid).toUtf8()));
          }
          break;
+
       case LayoutPropertyGridColumnMinimumWidth:
          if (const QGridLayout *grid = dynamic_cast<QGridLayout *>(m_layout)) {
             return QVariant(QByteArray(QFormBuilderExtra::gridLayoutColumnMinimumWidth(grid).toUtf8()));
          }
          break;
+
       default:
          break;
    }
+
    return QDesignerPropertySheet::property(index);
 }
 
@@ -420,10 +462,12 @@ bool LayoutPropertySheet::reset(int index)
    m_layout->getContentsMargins(&left, &top, &right, &bottom);
    const LayoutPropertyType type = layoutPropertyType(propertyName(index));
    bool rc = true;
+
    switch (type) {
       case LayoutPropertyLeftMargin:
          m_layout->setContentsMargins(-1, top, right, bottom);
          break;
+
       case LayoutPropertyTopMargin:
          m_layout->setContentsMargins(left, -1, right, bottom);
          break;

@@ -30,9 +30,8 @@ typedef QList<QWizardPage *> WizardPageList;
 
 namespace qdesigner_internal {
 
-QWizardContainer::QWizardContainer(QWizard *widget, QObject *parent) :
-   QObject(parent),
-   m_wizard(widget)
+QWizardContainer::QWizardContainer(QWizard *widget, QObject *parent)
+   : QObject(parent), m_wizard(widget)
 {
 }
 
@@ -83,6 +82,7 @@ void QWizardContainer::setCurrentIndex(int index)
       for (int i = 0; i < d; i++) {
          m_wizard->next();
       }
+
    } else {
       for (int i = 0; i < d; i++) {
          m_wizard->back();
@@ -112,6 +112,7 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
    enum { delta = 5 };
 
    QWizardPage *newPage = dynamic_cast<QWizardPage *>(widget);
+
    if (! newPage) {
       qWarning("%s", csPrintable(msgWrongType));
       return;
@@ -119,6 +120,7 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
 
    const IdList idList = m_wizard->pageIds();
    const int pageCount = idList.size();
+
    if (index >= pageCount) {
       addWidget(widget);
       return;
@@ -127,13 +129,16 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
    // Insert before, reshuffle ids if required
    const int idBefore = idList.at(index);
    const int newId = idBefore - 1;
+
    const bool needsShuffle =
       (index == 0 && newId < 0)                        // At start: QWizard refuses to insert id -1
       || (index > 0 && idList.at(index - 1) == newId); // In-between
+
    if (needsShuffle) {
       // Create a gap by shuffling pages
       WizardPageList pageList;
       pageList.push_back(newPage);
+
       for (int i = index; i < pageCount; i++) {
          pageList.push_back(m_wizard->page(idList.at(i)));
          m_wizard->removePage(idList.at(i));
@@ -144,6 +149,7 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
          m_wizard->setPage(newId, *it);
          newId += delta;
       }
+
    } else {
       // Gap found, just insert
       m_wizard->setPage(newId, newPage);
@@ -164,8 +170,10 @@ void QWizardContainer::remove(int index)
    }
 
    m_wizard->removePage(idList.at(index));
+
    // goto next page, preferably
    const int newSize = idList.size() - 1;
+
    if (index < newSize) {
       setCurrentIndex(index);
    } else {

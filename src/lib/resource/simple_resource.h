@@ -115,5 +115,4 @@ class QEditorFormBuilder : public QSimpleResource
 
 }   // end namespace qdesigner_internal
 
-
 #endif

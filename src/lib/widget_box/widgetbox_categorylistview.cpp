@@ -37,7 +37,7 @@ static const QString nameAttributeC = "name";
 static const QString uiOpeningTagC  = "<ui>";
 static const QString uiClosingTagC  = "</ui>";
 
-static constexpr const auto FilterRole = Qt::UserRole + 11;
+constexpr const auto FilterRole = Qt::UserRole + 11;
 
 static QString domToString(const QDomElement &elt)
 {

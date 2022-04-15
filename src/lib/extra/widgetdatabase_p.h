@@ -54,7 +54,6 @@ class WidgetDataBaseItem: public QDesignerWidgetDataBaseItemInterface
    QString includeFile() const;
    void setIncludeFile(const QString &includeFile);
 
-
    QIcon icon() const;
    void setIcon(const QIcon &icon);
 
@@ -142,29 +141,22 @@ class WidgetDataBase: public QDesignerWidgetDataBaseInterface
    // Helpers for 'New Form' wizards: Set a fixed size on a XML form template
    static QString scaleFormTemplate(const QString &xml, const QSize &size, bool fixed);
 
- public :
    CS_SLOT_1(Public, void loadPlugins())
    CS_SLOT_2(loadPlugins)
 
  private:
    QList<QVariant> defaultPropertyValues(const QString &name);
-
    QDesignerFormEditorInterface *m_core;
 };
 
-QDesignerWidgetDataBaseItemInterface
-*appendDerived(QDesignerWidgetDataBaseInterface *db,
-   const QString &className,
-   const QString &group,
-   const QString &baseClassName,
-   const QString &includeFile,
-   bool promoted,
-   bool custom);
+QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInterface *db,
+      const QString &className, const QString &group, const QString &baseClassName,
+      const QString &includeFile, bool promoted, bool custom);
 
 typedef  QList<QDesignerWidgetDataBaseItemInterface *> WidgetDataBaseItemList;
 
 WidgetDataBaseItemList promotionCandidates(const QDesignerWidgetDataBaseInterface *db, const QString &baseClassName);
 
-} // namespace qdesigner_internal
+}   // end namespace qdesigner_internal
 
-#endif // WIDGETDATABASE_H
+#endif

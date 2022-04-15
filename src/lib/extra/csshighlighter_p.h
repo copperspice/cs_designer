@@ -33,7 +33,7 @@ class CssHighlighter : public QSyntaxHighlighter
 
  protected:
    void highlightBlock(const QString &) override;
-   void highlight(const QString &, int, int, int/*State*/);
+   void highlight(const QString &, int, int, int);
 
  private:
    enum State { Selector, Property, Value, Pseudo, Pseudo1, Pseudo2, Quote,
@@ -43,6 +43,4 @@ class CssHighlighter : public QSyntaxHighlighter
 
 } // namespace qdesigner_internal
 
-
-
-#endif // CSSHIGHLIGHTER_H
+#endif

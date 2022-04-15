@@ -107,6 +107,7 @@ PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDe
       qDeleteAll(m_promotionActions);
       m_promotionActions.clear();
    }
+
    // No promotion of main container
    if (formWindow->mainContainer() == m_widget) {
       return NotApplicable;
@@ -128,8 +129,10 @@ PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDe
       QAction *demoteAction = new QAction(label, this);
       connect(demoteAction, &QAction::triggered, this, &PromotionTaskMenu::slotDemoteFromCustomWidget);
       m_promotionActions.push_back(demoteAction);
+
       return CanDemote;
    }
+
    // figure out candidates
    const QString baseClassName = WidgetFactory::classNameOf(core, m_widget);
    const WidgetDataBaseItemList candidates = promotionCandidates(core->widgetDataBase(), baseClassName);
@@ -140,7 +143,7 @@ PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDe
    }
 
    // Set up a signal mapper to associate class names
-   if (!m_promotionMapper) {
+   if (! m_promotionMapper) {
       m_promotionMapper = new QSignalMapper(this);
 
       connect(m_promotionMapper, cs_mp_cast<const QString &>(&QSignalMapper::mapped),
@@ -156,12 +159,14 @@ PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDe
    for (WidgetDataBaseItemList::const_iterator it = candidates.constBegin(); it != cend; ++it) {
       const QString customClassName = (*it)->name();
       QAction *action = new QAction((*it)->name(), this);
+
       connect(action, &QAction::triggered,
             m_promotionMapper, cs_mp_cast<>(&QSignalMapper::map));
 
       m_promotionMapper->setMapping(action, customClassName);
       candidatesMenu->addAction(action);
    }
+
    // Sub menu action
    QAction *subMenuAction = new QAction(m_promoteLabel, this);
    subMenuAction->setMenu(candidatesMenu);

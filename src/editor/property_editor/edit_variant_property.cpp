@@ -536,16 +536,16 @@ QtVariantPropertyManager::QtVariantPropertyManager(QObject *parent)
 {
    d_ptr->q_ptr = this;
 
-   d_ptr->m_creatingProperty = false;
-   d_ptr->m_creatingSubProperties = false;
+   d_ptr->m_creatingProperty        = false;
+   d_ptr->m_creatingSubProperties   = false;
    d_ptr->m_destroyingSubProperties = false;
    d_ptr->m_propertyType = 0;
 
    // IntPropertyManager
    QtIntPropertyManager *intPropertyManager = new QtIntPropertyManager(this);
    d_ptr->m_typeToPropertyManager[QVariant::Int] = intPropertyManager;
-   d_ptr->m_typeToAttributeToAttributeType[QVariant::Int][d_ptr->m_minimumAttribute] = QVariant::Int;
-   d_ptr->m_typeToAttributeToAttributeType[QVariant::Int][d_ptr->m_maximumAttribute] = QVariant::Int;
+   d_ptr->m_typeToAttributeToAttributeType[QVariant::Int][d_ptr->m_minimumAttribute]    = QVariant::Int;
+   d_ptr->m_typeToAttributeToAttributeType[QVariant::Int][d_ptr->m_maximumAttribute]    = QVariant::Int;
    d_ptr->m_typeToAttributeToAttributeType[QVariant::Int][d_ptr->m_singleStepAttribute] = QVariant::Int;
    d_ptr->m_typeToValueType[QVariant::Int] = QVariant::Int;
 
@@ -958,7 +958,7 @@ bool QtVariantPropertyManager::isPropertyTypeSupported(uint propertyType) const
 
 QtVariantProperty *QtVariantPropertyManager::addProperty(uint propertyType, const QString &name)
 {
-   if (!isPropertyTypeSupported(propertyType)) {
+   if (! isPropertyTypeSupported(propertyType)) {
       return nullptr;
    }
 
@@ -969,7 +969,7 @@ QtVariantProperty *QtVariantPropertyManager::addProperty(uint propertyType, cons
    d_ptr->m_creatingProperty = wasCreating;
    d_ptr->m_propertyType = 0;
 
-   if (!property) {
+   if (! property) {
       return nullptr;
    }
 
@@ -988,16 +988,22 @@ QVariant QtVariantPropertyManager::value(const QtProperty *property) const
 
    if (QtIntPropertyManager *intManager = dynamic_cast<QtIntPropertyManager *>(manager)) {
       return intManager->value(internProp);
+
    } else if (QtDoublePropertyManager *doubleManager = dynamic_cast<QtDoublePropertyManager *>(manager)) {
       return doubleManager->value(internProp);
+
    } else if (QtBoolPropertyManager *boolManager = dynamic_cast<QtBoolPropertyManager *>(manager)) {
       return boolManager->value(internProp);
+
    } else if (QtStringPropertyManager *stringManager = dynamic_cast<QtStringPropertyManager *>(manager)) {
       return stringManager->value(internProp);
+
    } else if (QtDatePropertyManager *dateManager = dynamic_cast<QtDatePropertyManager *>(manager)) {
       return dateManager->value(internProp);
+
    } else if (QtTimePropertyManager *timeManager = dynamic_cast<QtTimePropertyManager *>(manager)) {
       return timeManager->value(internProp);
+
    } else if (QtDateTimePropertyManager *dateTimeManager = dynamic_cast<QtDateTimePropertyManager *>(manager)) {
       return dateTimeManager->value(internProp);
 
@@ -1006,27 +1012,37 @@ QVariant QtVariantPropertyManager::value(const QtProperty *property) const
 
    } else if (QtCharPropertyManager *charManager = dynamic_cast<QtCharPropertyManager *>(manager)) {
       return charManager->value(internProp);
+
    } else if (QtLocalePropertyManager *localeManager = dynamic_cast<QtLocalePropertyManager *>(manager)) {
       return localeManager->value(internProp);
+
    } else if (QtPointPropertyManager *pointManager = dynamic_cast<QtPointPropertyManager *>(manager)) {
       return pointManager->value(internProp);
+
    } else if (QtPointFPropertyManager *pointFManager = dynamic_cast<QtPointFPropertyManager *>(manager)) {
       return pointFManager->value(internProp);
+
    } else if (QtSizePropertyManager *sizeManager = dynamic_cast<QtSizePropertyManager *>(manager)) {
       return sizeManager->value(internProp);
+
    } else if (QtSizeFPropertyManager *sizeFManager = dynamic_cast<QtSizeFPropertyManager *>(manager)) {
       return sizeFManager->value(internProp);
+
    } else if (QtRectPropertyManager *rectManager = dynamic_cast<QtRectPropertyManager *>(manager)) {
       return rectManager->value(internProp);
+
    } else if (QtRectFPropertyManager *rectFManager = dynamic_cast<QtRectFPropertyManager *>(manager)) {
       return rectFManager->value(internProp);
+
    } else if (QtColorPropertyManager *colorManager = dynamic_cast<QtColorPropertyManager *>(manager)) {
       return colorManager->value(internProp);
+
    } else if (QtEnumPropertyManager *enumManager = dynamic_cast<QtEnumPropertyManager *>(manager)) {
       return enumManager->value(internProp);
-   } else if (QtSizePolicyPropertyManager *sizePolicyManager =
-         dynamic_cast<QtSizePolicyPropertyManager *>(manager)) {
+
+   } else if (QtSizePolicyPropertyManager *sizePolicyManager = dynamic_cast<QtSizePolicyPropertyManager *>(manager)) {
       return sizePolicyManager->value(internProp);
+
    } else if (QtFontPropertyManager *fontManager = dynamic_cast<QtFontPropertyManager *>(manager)) {
       return fontManager->value(internProp);
 
@@ -1068,7 +1084,7 @@ uint QtVariantPropertyManager::propertyType(const QtProperty *property) const
 QVariant QtVariantPropertyManager::attributeValue(const QtProperty *property, const QString &attribute) const
 {
    uint propType = propertyType(property);
-   if (!propType) {
+   if (! propType) {
       return QVariant();
    }
 
@@ -1795,9 +1811,11 @@ QWidget *QtVariantEditorFactory::createEditor(QtVariantPropertyManager *manager,
    const uint propType = manager->propertyType(property);
 
    QtAbstractEditorFactoryBase *factory = d_ptr->m_typeToFactory.value(propType, nullptr);
+
    if (!factory) {
       return nullptr;
    }
+
    return factory->createEditor(wrappedProperty(property), parent);
 }
 

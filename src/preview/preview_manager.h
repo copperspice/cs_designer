@@ -43,8 +43,7 @@ class PreviewConfiguration
  public:
    PreviewConfiguration();
    explicit PreviewConfiguration(const QString &style,
-      const QString &applicationStyleSheet = QString(),
-      const QString &deviceSkin = QString());
+      const QString &applicationStyleSheet = QString(), const QString &deviceSkin = QString());
 
    PreviewConfiguration(const PreviewConfiguration &);
    PreviewConfiguration &operator=(const PreviewConfiguration &);
@@ -80,8 +79,8 @@ class PreviewManagerPrivate;
 class PreviewManager : public QObject
 {
    CS_OBJECT(PreviewManager)
- public:
 
+ public:
    enum PreviewMode {
       // Modal preview. Do not use on Macs as dialogs would have no close button
       ApplicationModalPreview,
@@ -108,6 +107,7 @@ class PreviewManager : public QObject
    // Create a pixmap for printing.
    QPixmap createPreviewPixmap(const QDesignerFormWindowInterface *fw, const PreviewConfiguration &pc, int deviceProfileIndex /*=-1*/,
       QString *errorMessage);
+
    // Convenience that creates a pixmap using a configuration taken from the settings.
    QPixmap createPreviewPixmap(const QDesignerFormWindowInterface *fw, const QString &style, int deviceProfileIndex /*=-1*/,
       QString *errorMessage);
@@ -115,21 +115,18 @@ class PreviewManager : public QObject
 
    bool eventFilter(QObject *watched, QEvent *event) override;
 
- public :
    CS_SLOT_1(Public, void closeAllPreviews())
    CS_SLOT_2(closeAllPreviews)
 
- public:
    CS_SIGNAL_1(Public, void firstPreviewOpened())
    CS_SIGNAL_2(firstPreviewOpened)
+
    CS_SIGNAL_1(Public, void lastPreviewClosed())
    CS_SIGNAL_2(lastPreviewClosed)
 
  private:
    CS_SLOT_1(Private, void slotZoomChanged(int un_named_arg1))
    CS_SLOT_2(slotZoomChanged)
-
- private:
 
    virtual Qt::WindowFlags previewWindowFlags(const QWidget *widget) const;
    virtual QWidget *createDeviceSkinContainer(const QDesignerFormWindowInterface *) const;
@@ -149,8 +146,7 @@ class PreviewManager : public QObject
    PreviewManager(const PreviewManager &other);
    PreviewManager &operator =(const PreviewManager &other);
 };
-}
 
+}   // end namespace
 
-
-#endif // PREVIEWMANAGER_H
+#endif

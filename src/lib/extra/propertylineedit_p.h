@@ -28,11 +28,13 @@ namespace qdesigner_internal {
 class PropertyLineEdit : public QLineEdit
 {
    CS_OBJECT(PropertyLineEdit)
+
  public:
    explicit PropertyLineEdit(QWidget *parent);
    void setWantNewLine(bool nl) {
       m_wantNewLine = nl;
    }
+
    bool wantNewLine() const {
       return m_wantNewLine;
    }
@@ -41,13 +43,14 @@ class PropertyLineEdit : public QLineEdit
 
  protected:
    void contextMenuEvent (QContextMenuEvent *event) override;
+
  private:
    CS_SLOT_1(Private, void insertNewLine())
    CS_SLOT_2(insertNewLine)
- private:
+
    void insertText(const QString &);
    bool m_wantNewLine;
 };
 }
 
-#endif // PROPERTYLINEEDIT_H
+#endif

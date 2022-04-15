@@ -612,11 +612,12 @@ QString NewFormWidget::currentTemplate(QString *ptrToErrorMessage)
    if (ptrToErrorMessage) {
       return currentTemplateI(ptrToErrorMessage);
    }
+
    // Do not loose the error
    QString errorMessage;
    const QString contents = currentTemplateI(&errorMessage);
 
-   if (!errorMessage.isEmpty()) {
+   if (! errorMessage.isEmpty()) {
       qWarning("%s", csPrintable(errorMessage));
    }
    return contents;

@@ -140,7 +140,6 @@ class FormWindowBase: public QDesignerFormWindowInterface
    void setLineTerminatorMode(LineTerminatorMode mode);
    LineTerminatorMode lineTerminatorMode() const;
 
- public :
    CS_SLOT_1(Public, void resourceSetActivated(QtResourceSet *resourceSet, bool resourceSetChanged))
    CS_SLOT_2(resourceSetActivated)
 
@@ -148,7 +147,6 @@ class FormWindowBase: public QDesignerFormWindowInterface
    CS_SLOT_1(Private, void triggerDefaultAction(QWidget *w))
    CS_SLOT_2(triggerDefaultAction)
 
- private:
    void syncGridFeature();
 
    FormWindowBasePrivate *m_d;
@@ -156,6 +154,4 @@ class FormWindowBase: public QDesignerFormWindowInterface
 
 }  // namespace qdesigner_internal
 
-
-
-#endif // FORMWINDOWBASE_H
+#endif

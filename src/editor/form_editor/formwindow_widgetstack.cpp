@@ -147,10 +147,12 @@ void FormWindowWidgetStack::setMainContainer(QWidget *w)
    if (previousMainContainer == w) {
       return;
    }
+
    // Swap
    if (previousCount) {
       delete m_formContainerLayout->takeAt(0);
    }
+
    if (w) {
       m_formContainerLayout->addWidget(w);
    }

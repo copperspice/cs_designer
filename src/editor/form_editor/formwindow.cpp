@@ -163,6 +163,7 @@ void FormWindow::Selection::clear()
 {
    if (!m_usedSelections.empty()) {
       const SelectionHash::iterator mend = m_usedSelections.end();
+
       for (SelectionHash::iterator it = m_usedSelections.begin(); it != mend; ++it) {
          it.value()->setWidget(nullptr);
       }
@@ -203,6 +204,7 @@ WidgetSelection *FormWindow::Selection::addWidget(FormWindow *fw, QWidget *w)
 
    m_usedSelections.insert(w, rc);
    rc->setWidget(w);
+
    return rc;
 }
 
@@ -321,9 +323,11 @@ FormWindow::~FormWindow()
 
    m_widgetStack = nullptr;
    m_rubberBand  = nullptr;
+
    if (resourceSet()) {
       core()->resourceModel()->removeResourceSet(resourceSet());
    }
+
    delete m_selection;
 }
 
@@ -546,6 +550,7 @@ static inline unsigned mouseFlags(Qt::KeyboardModifiers mod)
       default:
          break;
    }
+
    return 0;
 }
 
@@ -568,12 +573,14 @@ void FormWindow::handleClickSelection(QWidget *managedWidget, unsigned mouseMode
    }
 
    QWidget *selectionCandidate = nullptr;
+
    // Hierarchy cycling: If the same widget clicked again: Attempt to cycle
    // trough the hierarchy. Find the next currently selected parent
    if (sameWidget && (mouseMode & CycleParentModifier))
       if (QWidget *currentlySelectedParent = selected ? managedWidget : findSelectedParent(this, managedWidget, true)) {
          selectionCandidate = findSelectedParent(this, currentlySelectedParent, false);
       }
+
    // Not the same widget, list wrapped over or there was no unselected parent
    if (!selectionCandidate && !selected) {
       selectionCandidate = managedWidget;
@@ -1237,6 +1244,7 @@ bool FormWindow::unify(QObject *w, QString &s, bool changeIt)
       num += (s.at(idx).unicode() - zeroUnicode) * factor;
       factor *= 10;
    }
+
    // Position index past '_'.
    const QChar underscore = QLatin1Char('_');
    if (idx >= 0 && s.at(idx) == underscore) {
@@ -1254,8 +1262,10 @@ bool FormWindow::unify(QObject *w, QString &s, bool changeIt)
          break;
       }
    }
+
    return false;
 }
+
 /* already_in_form is true when we are moving a widget from one parent to another inside the same
  * form. All this means is that InsertWidgetCommand::undo() must not unmanage it. */
 
@@ -1268,8 +1278,10 @@ void FormWindow::insertWidget(QWidget *w, const QRect &rect, QWidget *container,
    /* Reparenting into a QSplitter automatically adjusts child's geometry. We create the geometry
     * command before we push the reparent command, so that the geometry command has the original
     * geometry of the widget. */
+
    QRect r = rect;
    Q_ASSERT(r.isValid());
+
    SetPropertyCommand *geom_cmd = new SetPropertyCommand(this);
    geom_cmd->init(w, QString("geometry"), r); // ### use rc.size()
 
@@ -1321,6 +1333,7 @@ static bool isDescendant(const QWidget *parent, const QWidget *child)
 
       child = child->parentWidget();
    }
+
    return false;
 }
 
@@ -1348,6 +1361,7 @@ QWidget *FormWindow::containerAt(const QPoint &pos, QWidget *notParentOf)
 {
    QWidget *container = nullptr;
    int depth = -1;
+
    const QWidgetList selected = selectedWidgets();
    if (rect().contains(mapFromGlobal(pos))) {
       container = mainContainer();
@@ -1781,22 +1795,26 @@ void FormWindow::paste()
 // for cases like QMainWindow (central widget is an inner container) or QStackedWidget (page is an inner container)
 QWidget *FormWindow::innerContainer(QWidget *outerContainer) const
 {
-   if (m_core->widgetDataBase()->isContainer(outerContainer))
+   if (m_core->widgetDataBase()->isContainer(outerContainer)) {
       if (const QDesignerContainerExtension *container = qt_extension<QDesignerContainerExtension *>(m_core->extensionManager(),
                outerContainer)) {
          const int currentIndex = container->currentIndex();
 
          return currentIndex >= 0 ? container->widget(currentIndex) : nullptr;
       }
+   }
+
    return outerContainer;
 }
 
 QWidget *FormWindow::containerForPaste() const
 {
    QWidget *w = mainContainer();
-   if (!w) {
+
+   if (! w) {
       return nullptr;
    }
+
    do {
       // Try to find a close parent, for example a non-laid-out
       // QFrame/QGroupBox when a widget within it is selected.
@@ -1815,11 +1833,15 @@ QWidget *FormWindow::containerForPaste() const
       if (!containerOfW) {
          break;
       }
+
       if (LayoutInfo::layoutType(m_core, containerOfW) != LayoutInfo::NoLayout || !m_core->widgetDataBase()->isContainer(containerOfW)) {
          break;
       }
+
       w = containerOfW;
+
    } while (false);
+
    // First check for layout (note that it does not cover QMainWindow
    // and the like as the central widget has the layout).
 
@@ -1827,9 +1849,11 @@ QWidget *FormWindow::containerForPaste() const
    if (!w) {
       return nullptr;
    }
+
    if (LayoutInfo::layoutType(m_core, w) != LayoutInfo::NoLayout) {
       return nullptr;
    }
+
    // Go up via container extension (also includes step from QMainWindow to its central widget)
    w = m_core->widgetFactory()->containerOfWidget(w);
 
@@ -1848,8 +1872,9 @@ static inline DomUI *domUIFromClipboard(int *widgetCount, int *actionCount)
 {
    *widgetCount = 0;
    *actionCount = 0;
+
    const QString clipboardText = qApp->clipboard()->text();
-   if (clipboardText.isEmpty() || clipboardText.indexOf(QLatin1Char('<')) == -1) {
+   if (clipboardText.isEmpty() || clipboardText.indexOf('<') == -1) {
       return nullptr;
    }
 
@@ -1884,10 +1909,12 @@ static inline DomUI *domUIFromClipboard(int *widgetCount, int *actionCount)
       *widgetCount = topLevel->elementWidget().size();
       *actionCount = topLevel->elementAction().size();
    }
+
    if (*widgetCount == 0 && *actionCount == 0) {
       delete ui;
       return nullptr;
    }
+
    return ui;
 }
 
@@ -1896,9 +1923,11 @@ static inline QString pasteCommandDescription(int widgetCount, int actionCount)
    if (widgetCount == 0) {
       return FormWindow::tr("Paste %n action(s)", nullptr, actionCount);
    }
+
    if (actionCount == 0) {
       return FormWindow::tr("Paste %n widget(s)", nullptr, widgetCount);
    }
+
    return FormWindow::tr("Paste (%1 widgets, %2 actions)").formatArg(widgetCount).formatArg(actionCount);
 }
 
@@ -1910,14 +1939,18 @@ static void positionPastedWidgetsAtMousePosition(FormWindow *fw, const QPoint &c
    // If it fails, the old coordinates relative to the previous parent will be used.
    QPoint currentPos = contextMenuPosition.x() >= 0 ? parent->mapFrom(fw, contextMenuPosition) : parent->mapFromGlobal(QCursor::pos());
    const Grid &grid = fw->designerGrid();
+
    QPoint cursorPos = grid.snapPoint(currentPos);
    const QRect parentGeometry = QRect(QPoint(0, 0), parent->size());
    const bool outside = !parentGeometry.contains(cursorPos);
+
    if (outside) {
       cursorPos = grid.snapPoint(QPoint(0, 0));
    }
+
    // Determine area of pasted widgets
    QRect pasteArea;
+
    const QWidgetList::const_iterator lcend = l.constEnd();
    for (QWidgetList::const_iterator it = l.constBegin(); it != lcend; ++it) {
       pasteArea = pasteArea.isNull() ? (*it)->geometry() : pasteArea.united((*it)->geometry());
@@ -1932,8 +1965,10 @@ static void positionPastedWidgetsAtMousePosition(FormWindow *fw, const QPoint &c
       }
       cursorPos += QPoint(grid.deltaX(), grid.deltaY());
    } while (true);
-   // Move.
+
+   // Move
    const QPoint offset = cursorPos - pasteArea.topLeft();
+
    for (QWidgetList::const_iterator it = l.constBegin(); it != lcend; ++it) {
       (*it)->move((*it)->pos() + offset);
    }
@@ -1944,9 +1979,11 @@ void FormWindow::paste(PasteMode pasteMode)
    // Avoid QDesignerResource constructing widgets that are not used as
    // QDesignerResource manages the widgets it creates (creating havoc if one remains unused)
    DomUI *ui = nullptr;
+
    do {
       int widgetCount;
       int actionCount;
+
       ui = domUIFromClipboard(&widgetCount, &actionCount);
       if (!ui) {
          break;
@@ -1964,11 +2001,13 @@ void FormWindow::paste(PasteMode pasteMode)
 
          const QString message = tr("Cannot paste widgets. Designer could not find a container "
                "without a layout to paste into.");
+
          const QString infoMessage = tr("Break the layout of the "
-               "container you want to paste into, select this container "
-               "and then paste again.");
+               "container you want to paste into, select this container and then paste again.");
+
          core()->dialogGui()->message(this, QDesignerDialogGuiInterface::FormEditorMessage, QMessageBox::Information,
             tr("Paste error"), message, infoMessage, QMessageBox::Ok);
+
          break;
       }
 
@@ -1979,6 +2018,7 @@ void FormWindow::paste(PasteMode pasteMode)
       const FormBuilderClipboard clipboard = resource.paste(ui, pasteContainer, this);
 
       clearSelection(false);
+
       // Create command sequence
       beginCommand(pasteCommandDescription(widgetCount, actionCount));
 
@@ -2285,16 +2325,19 @@ bool FormWindow::handleContextMenu(QWidget *, QWidget *managedWidget, QContextMe
    delete contextMenu;
    e->accept();
    m_contextMenuPosition = QPoint(-1, -1);
+
    return true;
 }
 
-bool FormWindow::setContents(QIODevice *dev, QString *errorMessageIn /* = 0 */)
+bool FormWindow::setContents(QIODevice *dev, QString *errorMessageIn)
 {
    UpdateBlocker ub(this);
    clearSelection();
+
    m_selection->clearSelectionPool();
    m_insertedWidgets.clear();
    m_widgets.clear();
+
    // The main container is cleared as otherwise
    // the names of the newly loaded objects will be unified.
    clearMainContainer();
@@ -2303,10 +2346,12 @@ bool FormWindow::setContents(QIODevice *dev, QString *errorMessageIn /* = 0 */)
 
    QDesignerResource r(this);
    QWidget *w = r.load(dev, formContainer());
+
    if (w) {
       setMainContainer(w);
       emit changed();
    }
+
    if (errorMessageIn) {
       *errorMessageIn = r.errorString();
    }
@@ -2412,18 +2457,24 @@ QAction *FormWindow::createSelectAncestorSubMenu(QWidget *w)
    // Find the managed, unselected parents
    QWidgetList parents;
    QWidget *mc = mainContainer();
-   for (QWidget *p = w->parentWidget(); p && p != mc; p = p->parentWidget())
+
+   for (QWidget *p = w->parentWidget(); p && p != mc; p = p->parentWidget()) {
       if (isManaged(p) && !isWidgetSelected(p)) {
          parents.push_back(p);
       }
+   }
+
    if (parents.empty()) {
       return nullptr;
    }
+
    // Create a submenu listing the managed, unselected parents
    QMenu *menu = new QMenu;
    QActionGroup *ag = new QActionGroup(menu);
    QObject::connect(ag, &QActionGroup::triggered, this, &FormWindow::slotSelectWidget);
+
    const int size = parents.size();
+
    for (int i = 0; i < size; i++) {
       QWidget *w = parents.at(i);
       QAction *a = ag->addAction(objectNameOf(w));
@@ -2433,6 +2484,7 @@ QAction *FormWindow::createSelectAncestorSubMenu(QWidget *w)
 
    QAction *ma = new QAction(tr("Select Ancestor"), nullptr);
    ma->setMenu(menu);
+
    return ma;
 }
 
@@ -2442,6 +2494,7 @@ QMenu *FormWindow::createPopupMenu(QWidget *w)
    if (!popup) {
       popup = new QMenu;
    }
+
    // if w doesn't have a QDesignerTaskMenu as a child create one and make it a child.
    // insert actions from QDesignerTaskMenu
 
@@ -2452,10 +2505,13 @@ QMenu *FormWindow::createPopupMenu(QWidget *w)
    if (!isFormWindow) {
       if (QStackedWidget *stackedWidget  = dynamic_cast<QStackedWidget *>(w)) {
          QStackedWidgetEventFilter::addStackedWidgetContextMenuActions(stackedWidget, popup);
+
       } else if (QTabWidget *tabWidget = dynamic_cast<QTabWidget *>(w)) {
          QTabWidgetEventFilter::addTabWidgetContextMenuActions(tabWidget, popup);
+
       } else if (QToolBox *toolBox = dynamic_cast<QToolBox *>(w)) {
          QToolBoxHelper::addToolBoxContextMenuActions(toolBox, popup);
+
       }
 
       if (manager->action(QDesignerFormWindowManagerInterface::LowerAction)->isEnabled()) {
@@ -2463,6 +2519,7 @@ QMenu *FormWindow::createPopupMenu(QWidget *w)
          popup->addAction(manager->action(QDesignerFormWindowManagerInterface::RaiseAction));
          popup->addSeparator();
       }
+
       popup->addAction(manager->action(QDesignerFormWindowManagerInterface::CutAction));
       popup->addAction(manager->action(QDesignerFormWindowManagerInterface::CopyAction));
    }
@@ -2483,10 +2540,12 @@ QMenu *FormWindow::createPopupMenu(QWidget *w)
    layoutMenu->addAction(manager->action(QDesignerFormWindowManagerInterface::AdjustSizeAction));
    layoutMenu->addAction(manager->action(QDesignerFormWindowManagerInterface::HorizontalLayoutAction));
    layoutMenu->addAction(manager->action(QDesignerFormWindowManagerInterface::VerticalLayoutAction));
+
    if (!isFormWindow) {
       layoutMenu->addAction(manager->action(QDesignerFormWindowManagerInterface::SplitHorizontalAction));
       layoutMenu->addAction(manager->action(QDesignerFormWindowManagerInterface::SplitVerticalAction));
    }
+
    layoutMenu->addAction(manager->action(QDesignerFormWindowManagerInterface::GridLayoutAction));
    layoutMenu->addAction(manager->action(QDesignerFormWindowManagerInterface::FormLayoutAction));
    layoutMenu->addAction(manager->action(QDesignerFormWindowManagerInterface::BreakLayoutAction));
@@ -2502,16 +2561,11 @@ void FormWindow::resizeEvent(QResizeEvent *e)
    QWidget::resizeEvent(e);
 }
 
-/*!
-  Maps \a pos in \a w's coordinates to the form's coordinate system.
-
-  This is the equivalent to mapFromGlobal(w->mapToGlobal(pos)) but
-  avoids the two roundtrips to the X-Server on Unix/X11.
- */
 QPoint FormWindow::mapToForm(const QWidget *w, const QPoint &pos) const
 {
    QPoint p = pos;
    const QWidget *i = w;
+
    while (i && !i->isWindow() && !isMainContainer(i)) {
       p = i->mapToParent(p);
       i = i->parentWidget();
@@ -2635,20 +2689,25 @@ QWidget *FormWindow::containerAt(const QPoint &pos)
 static QWidget *childAt_SkipDropLine(QWidget *w, QPoint pos)
 {
    const QObjectList child_list = w->children();
+
    for (int i = child_list.size() - 1; i >= 0; --i) {
       QObject *child_obj = child_list[i];
       if (dynamic_cast<WidgetHandle *>(child_obj) != nullptr) {
          continue;
       }
+
       QWidget *child = dynamic_cast<QWidget *>(child_obj);
+
       if (!child || child->isWindow() || !child->isVisible() ||
          !child->geometry().contains(pos) || child->testAttribute(Qt::WA_TransparentForMouseEvents)) {
          continue;
       }
+
       const QPoint childPos = child->mapFromParent(pos);
       if (QWidget *res = childAt_SkipDropLine(child, childPos)) {
          return res;
       }
+
       if (child->testAttribute(Qt::WA_MouseNoMask) || child->mask().contains(pos)
          || child->mask().isEmpty()) {
          return child;
@@ -2712,15 +2771,19 @@ void FormWindow::highlightWidget(QWidget *widget, const QPoint &pos, HighlightMo
 
    if (mode == Restore) {
       const WidgetPaletteMap::iterator pit = m_palettesBeforeHighlight.find(container);
+
       if (pit != m_palettesBeforeHighlight.end()) {
          container->setPalette(pit.value().first);
          container->setAutoFillBackground(pit.value().second);
          m_palettesBeforeHighlight.erase(pit);
       }
+
    } else {
       QPalette p = container->palette();
+
       if (!m_palettesBeforeHighlight.contains(container)) {
          PaletteAndFill paletteAndFill;
+
          if (container->testAttribute(Qt::WA_SetPalette)) {
             paletteAndFill.first = p;
          }
@@ -2873,12 +2936,14 @@ bool FormWindow::blockSelectionChanged(bool b)
 {
    const bool blocked = m_blockSelectionChanged;
    m_blockSelectionChanged = b;
+
    return blocked;
 }
 
 void FormWindow::editContents()
 {
    const QWidgetList sel = selectedWidgets();
+
    if (sel.count() == 1) {
       QWidget *widget = sel.first();
 
@@ -2891,8 +2956,10 @@ void FormWindow::editContents()
 void FormWindow::dragWidgetWithinForm(QWidget *widget, const QRect &targetGeometry, QWidget *targetContainer)
 {
    const bool fromLayout = canDragWidgetInLayout(core(), widget);
-   const QDesignerLayoutDecorationExtension *targetDeco = qt_extension<QDesignerLayoutDecorationExtension *>(core()->extensionManager(),
-         targetContainer);
+
+   const QDesignerLayoutDecorationExtension *targetDeco =
+         qt_extension<QDesignerLayoutDecorationExtension *>(core()->extensionManager(), targetContainer);
+
    const bool toLayout = targetDeco != nullptr;
 
    if (fromLayout) {
@@ -2911,6 +2978,7 @@ void FormWindow::dragWidgetWithinForm(QWidget *widget, const QRect &targetGeomet
    if (toLayout) {
       // Drag from form to layout: just insert. Do not manage
       insertWidget(widget, targetGeometry, targetContainer, true);
+
    } else {
       // into container without layout
       if (targetContainer != widget->parent()) { // different parent
@@ -2927,8 +2995,10 @@ void FormWindow::dragWidgetWithinForm(QWidget *widget, const QRect &targetGeomet
 static Qt::DockWidgetArea detectDropArea(QMainWindow *mainWindow, const QRect &area, const QPoint &drop)
 {
    QPoint offset = area.topLeft();
+
    QRect rect = area;
    rect.moveTopLeft(QPoint(0, 0));
+
    QPoint point = drop - offset;
    const int x = point.x();
    const int y = point.y();
@@ -2938,6 +3008,7 @@ static Qt::DockWidgetArea detectDropArea(QMainWindow *mainWindow, const QRect &a
    if (rect.contains(point)) {
       bool topRight = false;
       bool topLeft = false;
+
       if (w * y < h * x) { // top and right, oterwise bottom and left
          topRight = true;
       }
@@ -2952,6 +3023,7 @@ static Qt::DockWidgetArea detectDropArea(QMainWindow *mainWindow, const QRect &a
       } else if (!topRight && topLeft) {
          return Qt::LeftDockWidgetArea;
       }
+
       return Qt::BottomDockWidgetArea;
    }
 
@@ -2963,6 +3035,7 @@ static Qt::DockWidgetArea detectDropArea(QMainWindow *mainWindow, const QRect &a
       } else {
          return Qt::LeftDockWidgetArea;
       }
+
    } else if (x > w) {
       if (y < 0) {
          return mainWindow->corner(Qt::TopRightCorner);
@@ -2971,6 +3044,7 @@ static Qt::DockWidgetArea detectDropArea(QMainWindow *mainWindow, const QRect &a
       } else {
          return Qt::RightDockWidgetArea;
       }
+
    } else {
       if (y < 0) {
          return Qt::TopDockWidgetArea;
@@ -2978,6 +3052,7 @@ static Qt::DockWidgetArea detectDropArea(QMainWindow *mainWindow, const QRect &a
          return Qt::BottomDockWidgetArea;
       }
    }
+
    return Qt::LeftDockWidgetArea;
 }
 
@@ -2986,7 +3061,7 @@ bool FormWindow::dropDockWidget(QDesignerDnDItemInterface *item, const QPoint &g
    DomUI *dom_ui = item->domUi();
 
    QMainWindow *mw = dynamic_cast<QMainWindow *>(mainContainer());
-   if (!mw) {
+   if (! mw) {
       return false;
    }
 
@@ -3035,13 +3110,13 @@ bool FormWindow::dropDockWidget(QDesignerDnDItemInterface *item, const QPoint &g
    }
 
    endCommand();
+
    return true;
 }
 
-bool FormWindow::dropWidgets(const QList<QDesignerDnDItemInterface *> &item_list, QWidget *target,
-   const QPoint &global_mouse_pos)
+bool FormWindow::dropWidgets(const QList<QDesignerDnDItemInterface *> &item_list,
+         QWidget *target, const QPoint &global_mouse_pos)
 {
-
    QWidget *parent = target;
 
    if (parent == nullptr) {
@@ -3077,16 +3152,20 @@ bool FormWindow::dropWidgets(const QList<QDesignerDnDItemInterface *> &item_list
    QPoint offset;
    QDesignerDnDItemInterface *current = nullptr;
    QDesignerFormWindowCursorInterface *c = cursor();
+
    for (QDesignerDnDItemInterface *item : item_list) {
       QWidget *w = item->widget();
+
       if (!current) {
          current = item;
       }
+
       if (c->current() == w) {
          current = item;
          break;
       }
    }
+
    if (current) {
       QRect geom = current->decoration()->geometry();
       QPoint topLeft = container->mapFromGlobal(geom.topLeft());
@@ -3094,26 +3173,34 @@ bool FormWindow::dropWidgets(const QList<QDesignerDnDItemInterface *> &item_list
    }
 
    for (QDesignerDnDItemInterface *item : item_list) {
-      DomUI *dom_ui = item->domUi();
+      DomUI *dom_ui  = item->domUi();
       QRect geometry = item->decoration()->geometry();
       Q_ASSERT(dom_ui != nullptr);
 
       geometry.moveTopLeft(container->mapFromGlobal(geometry.topLeft()) + offset);
-      if (item->type() == QDesignerDnDItemInterface::CopyDrop) { // from widget box or CTRL + mouse move
+
+      if (item->type() == QDesignerDnDItemInterface::CopyDrop) {
+         // from widget box or CTRL + mouse move
          QWidget *widget = createWidget(dom_ui, geometry, parent);
+
          if (!widget) {
             endCommand();
             return false;
          }
          selectWidget(widget, true);
          mainContainer()->setFocus(Qt::MouseFocusReason); // in case focus was in e.g. object inspector
+
       } else { // same form move
          QWidget *widget = item->widget();
          Q_ASSERT(widget != nullptr);
+
          QDesignerFormWindowInterface *dest = findFormWindow(widget);
+
          if (dest == this) {
             dragWidgetWithinForm(widget, geometry, container);
-         } else { // from other form
+
+         } else {
+            // from other form
             FormWindow *source = dynamic_cast<FormWindow *>(item->source());
             Q_ASSERT(source != nullptr);
 

@@ -34,8 +34,8 @@
 
 #include <algorithm>
 
-static constexpr const int CONSTANT_COMPRESSLEVEL_DEFAULT     = -1;
-static constexpr const int CONSTANT_COMPRESSTHRESHOLD_DEFAULT = 70;
+constexpr const int CONSTANT_COMPRESSLEVEL_DEFAULT     = -1;
+constexpr const int CONSTANT_COMPRESSTHRESHOLD_DEFAULT = 70;
 
 #define writeString(s) write(s, sizeof(s))
 

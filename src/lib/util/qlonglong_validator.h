@@ -48,6 +48,7 @@ class QLongLongValidator : public QValidator
    qint64 bottom() const {
       return b;
    }
+
    qint64 top() const {
       return t;
    }
@@ -94,6 +95,6 @@ class QULongLongValidator : public QValidator
    quint64 t;
 };
 
-}  // namespace qdesigner_internal
+}  // end namespace qdesigner_internal
 
 #endif

@@ -102,6 +102,7 @@ class PaletteModel : public QAbstractTableModel
    QPalette::ColorRole colorRole() const {
       return QPalette::NoRole;
    }
+
    void setCompute(bool on) {
       m_compute = on;
    }
@@ -183,6 +184,7 @@ class ColorDelegate : public QItemDelegate
 
    void paint(QPainter *painter, const QStyleOptionViewItem &opt,
       const QModelIndex &index) const override;
+
    QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const override;
 
  private:

@@ -97,9 +97,10 @@ class QDesignerIntegrationInterface: public QObject
          const QString &oldName))
    CS_SIGNAL_2(objectNameChanged, formWindow, object, newName, oldName)
 
-   CS_SIGNAL_1(Public, void navigateToSlot(const QString &objectName, const QString &signalSignature, const QStringList &parameterNames))
-   CS_SIGNAL_OVERLOAD(navigateToSlot, (const QString &, const QString &, const QStringList &), objectName, signalSignature,
-      parameterNames)
+   CS_SIGNAL_1(Public, void navigateToSlot(const QString &objectName, const QString &signalSignature,
+         const QStringList &parameterNames))
+   CS_SIGNAL_OVERLOAD(navigateToSlot, (const QString &, const QString &, const QStringList &), objectName,
+         signalSignature, parameterNames)
 
    CS_SIGNAL_1(Public, void navigateToSlot(const QString &slotSignature))
    CS_SIGNAL_OVERLOAD(navigateToSlot, (const QString &), slotSignature)
@@ -164,7 +165,7 @@ class QDesignerIntegration: public QDesignerIntegrationInterface
 
    // Load plugins into widget database and factory
 
-   // emerald - temporary hold, pulgins
+   // emerald - temporary hold, plugins
    // static void initializePlugins(QDesignerFormEditorInterface *formEditor);
 
    // Create a resource browser specific to integration. Language integration takes precedence
@@ -190,6 +191,5 @@ class QDesignerIntegration: public QDesignerIntegrationInterface
  private:
    QScopedPointer<qdesigner_internal::QDesignerIntegrationPrivate> d;
 };
-
 
 #endif

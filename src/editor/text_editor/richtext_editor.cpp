@@ -444,6 +444,7 @@ static QAction *createCheckableAction(const QIcon &icon, const QString &text, R 
    T slot, QObject *parent = nullptr)
 {
    QAction *result = new QAction(parent);
+
    result->setIcon(icon);
    result->setText(text);
    result->setCheckable(true);
@@ -675,9 +676,11 @@ void RichTextEditorToolBar::layoutDirectionChanged()
 {
    QTextCursor cursor = m_editor->textCursor();
    QTextBlock block = cursor.block();
+
    if (block.isValid()) {
       QTextBlockFormat format = block.blockFormat();
       const Qt::LayoutDirection newDirection = m_layoutDirectionAction->isChecked() ? Qt::RightToLeft : Qt::LeftToRight;
+
       if (format.layoutDirection() != newDirection) {
          format.setLayoutDirection(newDirection);
          cursor.setBlockFormat(format);
@@ -693,13 +696,15 @@ void RichTextEditorToolBar::updateActions()
    }
 
    const Qt::Alignment alignment = m_editor->alignment();
-   const QTextCursor cursor = m_editor->textCursor();
+   const QTextCursor cursor      = m_editor->textCursor();
+
    const QTextCharFormat charFormat = cursor.charFormat();
    const QFont font = charFormat.font();
-   const QTextCharFormat::VerticalAlignment valign =
-      charFormat.verticalAlignment();
-   const bool superScript = valign == QTextCharFormat::AlignSuperScript;
-   const bool subScript = valign == QTextCharFormat::AlignSubScript;
+
+   const QTextCharFormat::VerticalAlignment valign = charFormat.verticalAlignment();
+
+   const bool superScript = (valign == QTextCharFormat::AlignSuperScript);
+   const bool subScript   = (valign == QTextCharFormat::AlignSubScript);
 
    if (alignment & Qt::AlignLeft) {
       m_align_left_action->setChecked(true);
@@ -731,9 +736,10 @@ RichTextEditor::RichTextEditor(QWidget *parent)
    : QTextEdit(parent), m_simplifyRichText(simplifyRichTextDefault)
 {
    connect(this, &RichTextEditor::currentCharFormatChanged,
-      this, &RichTextEditor::stateChanged);
+         this, &RichTextEditor::stateChanged);
+
    connect(this, &RichTextEditor::cursorPositionChanged,
-      this, &RichTextEditor::stateChanged);
+         this, &RichTextEditor::stateChanged);
 }
 
 QToolBar *RichTextEditor::createToolBar(QDesignerFormEditorInterface *core, QWidget *parent)
@@ -797,17 +803,23 @@ QString RichTextEditor::text(Qt::TextFormat format) const
    switch (format) {
       case Qt::PlainText:
          return toPlainText();
+
       case Qt::RichText:
          return m_simplifyRichText ? simplifyRichTextFilter(toHtml()) : toHtml();
+
       case Qt::AutoText:
          break;
    }
+
    const QString html = toHtml();
    bool isPlainText;
+
    const QString simplifiedHtml = simplifyRichTextFilter(html, &isPlainText);
+
    if (isPlainText) {
       return toPlainText();
    }
+
    return m_simplifyRichText ? simplifiedHtml : html;
 }
 

@@ -28,8 +28,7 @@
 using namespace qdesigner_internal;
 
 SignalSlotEditorTool::SignalSlotEditorTool(QDesignerFormWindowInterface *formWindow, QObject *parent)
-   : QDesignerFormWindowToolInterface(parent),
-     m_formWindow(formWindow),
+   : QDesignerFormWindowToolInterface(parent), m_formWindow(formWindow),
      m_action(new QAction(tr("Edit Signals/Slots"), this))
 {
 }

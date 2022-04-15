@@ -54,7 +54,7 @@ const struct DPI_Entry dpiEntries[] = {
    { 192,  192, cs_mark_tr("DPI_Chooser", "High (192 x 192)") }
 };
 
-}   // end namespace - qdesigner_internal
+}   // end namespace qdesigner_internal
 
 CS_DECLARE_METATYPE(const struct qdesigner_internal::DPI_Entry *);
 
@@ -62,24 +62,26 @@ namespace qdesigner_internal {
 
 DPI_Chooser::DPI_Chooser(QWidget *parent)
    : QWidget(parent), m_systemEntry(new DPI_Entry), m_predefinedCombo(new QComboBox),
-     m_dpiXSpinBox(new QSpinBox),     m_dpiYSpinBox(new QSpinBox)
+     m_dpiXSpinBox(new QSpinBox), m_dpiYSpinBox(new QSpinBox)
 {
    // Predefined settings: System
    DeviceProfile::systemResolution(&(m_systemEntry->dpiX), &(m_systemEntry->dpiY));
    m_systemEntry->description = nullptr;
    const struct DPI_Entry *systemEntry = m_systemEntry;
 
-   //: System resolution
+   // System resolution
    m_predefinedCombo->addItem(tr("System (%1 x %2)").formatArg(m_systemEntry->dpiX).formatArg(m_systemEntry->dpiY),
       QVariant::fromValue(systemEntry));
 
    // Devices. Exclude the system values as not to duplicate the entries
    const int predefinedCount = sizeof(dpiEntries) / sizeof(DPI_Entry);
    const struct DPI_Entry *ecend = dpiEntries + predefinedCount;
-   for (const struct DPI_Entry *it = dpiEntries; it < ecend; ++it)
+
+   for (const struct DPI_Entry *it = dpiEntries; it < ecend; ++it) {
       if (it->dpiX != m_systemEntry->dpiX || it->dpiY != m_systemEntry->dpiY) {
          m_predefinedCombo->addItem(tr(it->description), QVariant::fromValue(it));
       }
+   }
    m_predefinedCombo->addItem(tr("User defined"));
 
    setFocusProxy(m_predefinedCombo);
@@ -93,6 +95,7 @@ DPI_Chooser::DPI_Chooser(QWidget *parent)
    QVBoxLayout *vBoxLayout = new QVBoxLayout;
    vBoxLayout->setMargin(0);
    vBoxLayout->addWidget(m_predefinedCombo);
+
    // Spin box row
    QHBoxLayout *hBoxLayout = new QHBoxLayout;
    hBoxLayout->setMargin(0);
@@ -100,7 +103,8 @@ DPI_Chooser::DPI_Chooser(QWidget *parent)
    m_dpiXSpinBox->setMinimum(minDPI);
    m_dpiXSpinBox->setMaximum(maxDPI);
    hBoxLayout->addWidget(m_dpiXSpinBox);
-   //: DPI X/Y separator
+
+   // DPI X/Y separator
    hBoxLayout->addWidget(new QLabel(tr(" x ")));
 
    m_dpiYSpinBox->setMinimum(minDPI);

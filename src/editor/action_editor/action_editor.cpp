@@ -87,7 +87,8 @@ class ActionGroupDelegate: public QItemDelegate
    }
 
    void drawFocus(QPainter *, const QStyleOptionViewItem &, const QRect &) const override
-   { }
+   {
+   }
 };
 
 ActionEditor::ActionEditor(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
@@ -297,6 +298,7 @@ void ActionEditor::setFormWindow(QDesignerFormWindowInterface *formWindow)
    m_filterWidget->setEnabled(true);
 
    const ActionList actionList = formWindow->mainContainer()->findChildren<QAction *>();
+
    for (QAction *action : actionList)
       if (!action->isSeparator() && core()->metaDataBase()->item(action) != nullptr) {
          // Show unless it has a menu. However, listen for change on menu actions also as it might be removed
@@ -321,14 +323,14 @@ void  ActionEditor::slotSelectionChanged(const QItemSelection &selected, const Q
 void ActionEditor::slotCurrentItemChanged(QAction *action)
 {
    QDesignerFormWindowInterface *fw = formWindow();
-   if (!fw) {
+   if (! fw) {
       return;
    }
 
    const bool hasCurrentAction = (action != nullptr);
    m_actionEdit->setEnabled(hasCurrentAction);
 
-   if (!action) {
+   if (! action) {
       fw->clearSelection();
       return;
    }
@@ -356,6 +358,7 @@ void ActionEditor::slotActionChanged()
 
    ActionModel *model = m_actionView->model();
    const int row = model->findAction(action);
+
    if (row == -1) {
       if (action->menu() == nullptr) {
          // action got its menu deleted, create item
@@ -365,6 +368,7 @@ void ActionEditor::slotActionChanged()
    } else if (action->menu() != nullptr) {
       // action got its menu created, remove item
       model->removeRow(row);
+
    } else {
       // action text or icon changed, update item
       model->update(row);
@@ -831,6 +835,7 @@ void ActionEditor::slotContextMenuRequested(QContextMenuEvent *e, QAction *item)
    menu.addAction(m_actionNew);
    menu.addSeparator();
    menu.addAction(m_actionEdit);
+
    if (QDesignerTaskMenu::isSlotNavigationEnabled(m_core)) {
       menu.addAction(m_actionNavigateToSlot);
    }
@@ -838,10 +843,13 @@ void ActionEditor::slotContextMenuRequested(QContextMenuEvent *e, QAction *item)
    // Associated Widgets
    if (QAction *action = m_actionView->currentAction()) {
       const QWidgetList associatedWidgets = ActionModel::associatedWidgets(action);
-      if (!associatedWidgets.empty()) {
+
+      if (! associatedWidgets.empty()) {
          QMenu *associatedWidgetsSubMenu =  menu.addMenu(tr("Used In"));
+
          for (QWidget *w : associatedWidgets) {
             QAction *action = associatedWidgetsSubMenu->addAction(w->objectName());
+
             m_selectAssociatedWidgetsMapper->setMapping(action, w);
             connect(action, &QAction::triggered,
                m_selectAssociatedWidgetsMapper, cs_mp_cast<>(&QSignalMapper::map));

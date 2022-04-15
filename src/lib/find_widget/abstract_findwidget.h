@@ -54,12 +54,16 @@ class AbstractFindWidget : public QWidget
 
    CS_SLOT_1(Public, void activate())
    CS_SLOT_2(activate)
+
    CS_SLOT_1(Public, virtual void deactivate())
    CS_SLOT_2(deactivate)
+
    CS_SLOT_1(Public, void findNext())
    CS_SLOT_2(findNext)
+
    CS_SLOT_1(Public, void findPrevious())
    CS_SLOT_2(findPrevious)
+
    CS_SLOT_1(Public, void findCurrentText())
    CS_SLOT_2(findCurrentText)
 

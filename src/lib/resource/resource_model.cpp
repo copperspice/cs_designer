@@ -141,7 +141,6 @@ void QtResourceSet::setModified(const QString &path)
    d_ptr->m_resourceModel->setModified(path);
 }
 
-// -------------------
 const QByteArray *QtResourceModelPrivate::createResource(const QString &path, QStringList *contents,
       int *errorCount, QIODevice &errorDevice) const
 {

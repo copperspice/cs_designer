@@ -304,7 +304,9 @@ class CECommand : public QUndoCommand, public CETypes
 {
  public:
    explicit  CECommand(ConnectionEdit *edit)
-      : m_edit(edit) {}
+      : m_edit(edit)
+   {
+   }
 
    bool mergeWith(const QUndoCommand *) override {
       return false;
@@ -335,6 +337,7 @@ class DeleteConnectionsCommand : public CECommand
    DeleteConnectionsCommand(ConnectionEdit *edit, const ConnectionList &con_list);
    void redo() override;
    void undo() override;
+
  private:
    ConnectionList m_con_list;
 };
@@ -343,4 +346,4 @@ class DeleteConnectionsCommand : public CECommand
 
 
 
-#endif // CONNECTIONEDIT_H
+#endif

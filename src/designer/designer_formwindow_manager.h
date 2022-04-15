@@ -28,9 +28,6 @@ namespace qdesigner_internal {
 
 class PreviewManager;
 
-//
-// Convenience methods to manage form previews (ultimately forwarded to PreviewManager).
-//
 class QDesignerFormWindowManager : public QDesignerFormWindowManagerInterface
 {
    CS_OBJECT(QDesignerFormWindowManager)
@@ -40,7 +37,6 @@ class QDesignerFormWindowManager : public QDesignerFormWindowManagerInterface
    virtual ~QDesignerFormWindowManager();
 
    virtual PreviewManager *previewManager() const = 0;
-
    void showPluginDialog() override;
 
  private:

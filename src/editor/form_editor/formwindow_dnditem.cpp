@@ -33,6 +33,7 @@ static QWidget *decorationFromWidget(QWidget *w)
 {
    QLabel *label = new QLabel(nullptr, Qt::ToolTip);
    QPixmap pm = w->grab(QRect(0, 0, -1, -1));
+
    label->setPixmap(pm);
    label->resize((QSizeF(pm.size()) / pm.devicePixelRatio()).toSize());
 
@@ -47,7 +48,7 @@ static DomUI *widgetToDom(QWidget *widget, FormWindow *form)
 }
 
 FormWindowDnDItem::FormWindowDnDItem(QDesignerDnDItemInterface::DropType type, FormWindow *form,
-   QWidget *widget, const QPoint &global_mouse_pos)
+         QWidget *widget, const QPoint &global_mouse_pos)
    : QDesignerDnDItem(type, form)
 {
    QWidget *decoration = decorationFromWidget(widget);
@@ -63,6 +64,7 @@ DomUI *FormWindowDnDItem::domUi() const
    if (result != nullptr) {
       return result;
    }
+
    FormWindow *form = dynamic_cast<FormWindow *>(source());
 
    if (widget() == nullptr || form == nullptr) {

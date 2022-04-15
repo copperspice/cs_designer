@@ -45,20 +45,20 @@
 #include <algorithm>
 
 namespace qdesigner_internal {
-enum { debugWidgetSelection = 0 };
 
 // Return the layout the widget is in
 template <class Layout>
 static inline Layout *managedLayoutOf(const QDesignerFormEditorInterface *core, QWidget *w, const Layout * = nullptr)
 {
-   if (QWidget *p = w->parentWidget())
+   if (QWidget *p = w->parentWidget()) {
       if (QLayout *l = LayoutInfo::managedLayout(core, p)) {
          return dynamic_cast<Layout *>(l);
       }
+   }
+
    return nullptr;
 }
 
-// ----------- WidgetHandle
 WidgetHandle::WidgetHandle(FormWindow *parent, WidgetHandle::Type t, WidgetSelection *s)
    : InvisibleWidget(parent->formContainer()), m_widget(nullptr),
      m_type(t), m_formWindow( parent), m_sel(s), m_active(true)
@@ -74,7 +74,7 @@ WidgetHandle::WidgetHandle(FormWindow *parent, WidgetHandle::Type t, WidgetSelec
 
 void WidgetHandle::updateCursor()
 {
-   if (!m_active) {
+   if (! m_active) {
       setCursor(Qt::ArrowCursor);
       return;
    }
@@ -83,27 +83,35 @@ void WidgetHandle::updateCursor()
       case LeftTop:
          setCursor(Qt::SizeFDiagCursor);
          break;
+
       case Top:
          setCursor(Qt::SizeVerCursor);
          break;
+
       case RightTop:
          setCursor(Qt::SizeBDiagCursor);
          break;
+
       case Right:
          setCursor(Qt::SizeHorCursor);
          break;
+
       case RightBottom:
          setCursor(Qt::SizeFDiagCursor);
          break;
+
       case Bottom:
          setCursor(Qt::SizeVerCursor);
          break;
+
       case LeftBottom:
          setCursor(Qt::SizeBDiagCursor);
          break;
+
       case Left:
          setCursor(Qt::SizeHorCursor);
          break;
+
       default:
          Q_ASSERT(false);
    }
@@ -349,11 +357,14 @@ void WidgetHandle::mouseReleaseEvent(QMouseEvent *e)
             m_formWindow->emitSelectionChanged();
          }
          break;
+
       case WidgetSelection::LaidOut:
          break;
+
       case WidgetSelection::ManagedGridLayout:
          changeGridLayoutItemSpan();
          break;
+
       case WidgetSelection::ManagedFormLayout:
          changeFormLayoutItemSpan();
          break;
@@ -367,11 +378,14 @@ static inline int formLayoutLeftHandleOperation(int dx, unsigned possibleOperati
       if (possibleOperations & ChangeFormLayoutItemRoleCommand::FieldToSpanning) {
          return ChangeFormLayoutItemRoleCommand::FieldToSpanning;
       }
+
       return 0;
    }
+
    if (possibleOperations & ChangeFormLayoutItemRoleCommand::SpanningToField) {
       return ChangeFormLayoutItemRoleCommand::SpanningToField;
    }
+
    return 0;
 }
 
@@ -383,9 +397,11 @@ static inline int formLayoutRightHandleOperation(int dx, unsigned possibleOperat
       }
       return 0;
    }
+
    if (possibleOperations & ChangeFormLayoutItemRoleCommand::LabelToSpanning) {
       return ChangeFormLayoutItemRoleCommand::LabelToSpanning;
    }
+
    return 0;
 }
 
@@ -395,19 +411,24 @@ void WidgetHandle::changeFormLayoutItemSpan()
    QUndoCommand *cmd = nullptr;
    // Figure out command according to the movement
    const int dx = m_widget->geometry().center().x() - m_origGeom.center().x();
+
    if (qAbs(dx) >= QApplication::startDragDistance()) {
       int operation = 0;
+
       if (const unsigned possibleOperations = ChangeFormLayoutItemRoleCommand::possibleOperations(m_formWindow->core(), m_widget)) {
          switch (m_type) {
             case WidgetHandle::Left:
                operation = formLayoutLeftHandleOperation(dx, possibleOperations);
                break;
+
             case WidgetHandle::Right:
                operation = formLayoutRightHandleOperation(dx, possibleOperations);
                break;
+
             default:
                break;
          }
+
          if (operation) {
             ChangeFormLayoutItemRoleCommand *fcmd = new ChangeFormLayoutItemRoleCommand(m_formWindow);
             fcmd->init(m_widget, static_cast<ChangeFormLayoutItemRoleCommand::Operation>(operation));
@@ -415,8 +436,10 @@ void WidgetHandle::changeFormLayoutItemSpan()
          }
       }
    }
+
    if (cmd) {
       m_formWindow->commandHistory()->push(cmd);
+
    } else {
       // Cancelled/Invalid. Restore the size of the widget.
       if (QFormLayout *form = managedLayoutOf<QFormLayout>(m_formWindow->core(), m_widget)) {
@@ -432,22 +455,24 @@ void WidgetHandle::changeGridLayoutItemSpan()
 {
    QDesignerLayoutDecorationExtension *deco = qt_extension<QDesignerLayoutDecorationExtension *>(core()->extensionManager(),
          m_widget->parentWidget());
-   if (!deco) {
+
+   if (! deco) {
       return;
    }
+
    QGridLayout *grid = managedLayoutOf<QGridLayout>(m_formWindow->core(), m_widget);
-   if (!grid) {
+   if (! grid) {
       return;
    }
 
-   const int index = deco->indexOf(m_widget);
+   const int index  = deco->indexOf(m_widget);
    const QRect info = deco->itemInfo(index);
-   const int top = deco->findItemAt(info.top() - 1, info.left());
-   const int left = deco->findItemAt(info.top(), info.left() - 1);
+   const int top    = deco->findItemAt(info.top() - 1, info.left());
+   const int left   = deco->findItemAt(info.top(), info.left() - 1);
    const int bottom = deco->findItemAt(info.bottom() + 1, info.left());
-   const int right = deco->findItemAt(info.top(), info.right() + 1);
+   const int right  = deco->findItemAt(info.top(), info.right() + 1);
 
-   const QPoint pt = m_origGeom.center() - m_widget->geometry().center();
+   const QPoint pt  = m_origGeom.center() - m_widget->geometry().center();
 
    ChangeLayoutItemGeometry *cmd = nullptr;
 
@@ -512,7 +537,7 @@ void WidgetHandle::changeGridLayoutItemSpan()
 
 void WidgetHandle::trySetGeometry(QWidget *w, int x, int y, int width, int height)
 {
-   if (!m_formWindow->hasFeature(FormWindow::EditFeature)) {
+   if (! m_formWindow->hasFeature(FormWindow::EditFeature)) {
       return;
    }
 
@@ -549,26 +574,30 @@ void WidgetHandle::tryResize(QWidget *w, int width, int height)
    w->resize(qMax(minw, width), qMax(minh, height));
 }
 
-// ------------------ WidgetSelection
-
 WidgetSelection::WidgetState WidgetSelection::widgetState(const QDesignerFormEditorInterface *core, QWidget *w)
 {
    bool isManaged;
    const LayoutInfo::Type  lt =  LayoutInfo::laidoutWidgetType(core, w, &isManaged);
-   if (lt == LayoutInfo::NoLayout) {
+
+ if (lt == LayoutInfo::NoLayout) {
       return UnlaidOut;
    }
-   if (!isManaged) {
+
+   if (! isManaged) {
       return LaidOut;
    }
+
    switch (lt) {
       case LayoutInfo::Grid:
          return ManagedGridLayout;
+
       case  LayoutInfo::Form:
          return ManagedFormLayout;
+
       default:
          break;
    }
+
    return LaidOut;
 }
 
@@ -578,6 +607,7 @@ WidgetSelection::WidgetSelection(FormWindow *parent)
    for (int i = WidgetHandle::LeftTop; i < WidgetHandle::TypeCount; ++i) {
       m_handles[i] = new WidgetHandle(m_formWindow, static_cast<WidgetHandle::Type>(i), this);
    }
+
    hide();
 }
 
@@ -608,14 +638,17 @@ void WidgetSelection::updateActive()
    const WidgetState ws = widgetState(m_formWindow->core(), m_widget);
    bool active[WidgetHandle::TypeCount];
    std::fill(active, active + WidgetHandle::TypeCount, false);
+
    // Determine active handles
    switch (ws) {
       case UnlaidOut:
          std::fill(active, active + WidgetHandle::TypeCount, true);
          break;
+
       case ManagedGridLayout: // Grid: Allow changing span
          active[WidgetHandle::Left] = active[WidgetHandle::Top] = active[WidgetHandle::Right] = active[WidgetHandle::Bottom] = true;
          break;
+
       case ManagedFormLayout:  // Form: Allow changing column span
          if (const unsigned operation = ChangeFormLayoutItemRoleCommand::possibleOperations(m_formWindow->core(), m_widget)) {
             active[WidgetHandle::Left]  = operation & (ChangeFormLayoutItemRoleCommand::SpanningToField |
@@ -624,6 +657,7 @@ void WidgetSelection::updateActive()
                   ChangeFormLayoutItemRoleCommand::LabelToSpanning);
          }
          break;
+
       default:
          break;
    }

@@ -29,9 +29,8 @@ enum { MaxDeviceActions = 20 };
 
 namespace qdesigner_internal {
 
-PreviewActionGroup::PreviewActionGroup(QDesignerFormEditorInterface *core, QObject *parent) :
-   QActionGroup(parent),
-   m_core(core)
+PreviewActionGroup::PreviewActionGroup(QDesignerFormEditorInterface *core, QObject *parent)
+   : QActionGroup(parent), m_core(core)
 {
    /* Create a list of up to MaxDeviceActions invisible actions to be
     * populated with device profiles (actiondata: index) followed by the
@@ -58,6 +57,7 @@ PreviewActionGroup::PreviewActionGroup(QDesignerFormEditorInterface *core, QObje
    sep->setSeparator(true);
    sep->setVisible(false);
    addAction(sep);
+
    // Populate devices
    updateDeviceProfiles();
 
@@ -86,10 +86,12 @@ void PreviewActionGroup::updateDeviceProfiles()
    const QDesignerSharedSettings settings(m_core);
    const DeviceProfileList profiles = settings.deviceProfiles();
    const ActionList al = actions();
+
    // Separator?
    const bool hasProfiles = !profiles.empty();
    al.at(MaxDeviceActions)->setVisible(hasProfiles);
    int index = 0;
+
    if (hasProfiles) {
       // Make actions visible
       const int maxIndex = qMin(static_cast<int>(MaxDeviceActions), profiles.size());
@@ -99,6 +101,7 @@ void PreviewActionGroup::updateDeviceProfiles()
          al.at(index)->setVisible(true);
       }
    }
+
    // Hide rest
    for ( ; index < MaxDeviceActions; index++) {
       al.at(index)->setVisible(false);

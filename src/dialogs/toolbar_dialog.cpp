@@ -80,6 +80,7 @@ class QtFullToolBarManager : public QObject
 
    CS_SLOT_1(Public, void resetToolBar(QToolBar *toolBar))
    CS_SLOT_2(resetToolBar)
+
    CS_SLOT_1(Public, void resetAllToolBars())
    CS_SLOT_2(resetAllToolBars)
 
@@ -130,7 +131,7 @@ class QtFullToolBarManagerPrivate
    QtFullToolBarManagerPrivate();
 
    QMap<QString, QList<QAction *>> categoryToActions;
-   QMap<QAction *, QString>         actionToCategory;
+   QMap<QAction *, QString> actionToCategory;
 
    QSet<QAction *> allActions;
    QMap<QAction *, QToolBar *> widgetActions;

@@ -28,6 +28,7 @@ class QDesignerMetaEnumInterface
  public:
    QDesignerMetaEnumInterface();
    virtual ~QDesignerMetaEnumInterface();
+
    virtual bool isFlag() const = 0;
    virtual QString key(int index) const = 0;
    virtual int keyCount() const = 0;

@@ -207,6 +207,7 @@ QString ConnectDialog::slot() const
 void ConnectDialog::populateSlotList(const QString &signal)
 {
    QString selectedName;
+
    if (const QListWidgetItem *item = m_ui.slotList->currentItem()) {
       selectedName = item->text();
    }
@@ -226,7 +227,9 @@ void ConnectDialog::populateSlotList(const QString &signal)
    while (itMember != itMemberEnd) {
       const QString member = itMember.key();
       QListWidgetItem *item = new QListWidgetItem(m_ui.slotList);
+
       item->setText(member);
+
       if (member == selectedName) {
          curr = item;
       }
@@ -246,6 +249,7 @@ void ConnectDialog::populateSlotList(const QString &signal)
 void ConnectDialog::populateSignalList()
 {
    QString selectedName;
+
    if (const QListWidgetItem *item = m_ui.signalList->currentItem()) {
       selectedName = item->text();
    }

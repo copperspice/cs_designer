@@ -129,7 +129,9 @@ class QtAbstractEditorFactoryBase : public QObject
 
  protected:
    explicit QtAbstractEditorFactoryBase(QObject *parent = nullptr)
-      : QObject(parent) {}
+      : QObject(parent)
+   {
+   }
 
    virtual void breakConnection(QtAbstractPropertyManager *manager) = 0;
 
@@ -143,7 +145,10 @@ template <class PropertyManager>
 class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
 {
  public:
-   explicit QtAbstractEditorFactory(QObject *parent) : QtAbstractEditorFactoryBase(parent) {}
+   explicit QtAbstractEditorFactory(QObject *parent) : QtAbstractEditorFactoryBase(parent)
+   {
+   }
+
    QWidget *createEditor(QtProperty *property, QWidget *parent) {
       QSetIterator<PropertyManager *> it(m_managers);
       while (it.hasNext()) {
@@ -152,6 +157,7 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
             return createEditor(manager, property, parent);
          }
       }
+
       return nullptr;
    }
 
@@ -193,12 +199,12 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
 
  protected:
    virtual void connectPropertyManager(PropertyManager *manager) = 0;
-   virtual QWidget *createEditor(PropertyManager *manager, QtProperty *property,
-      QWidget *parent) = 0;
-
+   virtual QWidget *createEditor(PropertyManager *manager, QtProperty *property, QWidget *parent) = 0;
    virtual void disconnectPropertyManager(PropertyManager *manager) = 0;
+
    void managerDestroyed(QObject *manager) {
       QSetIterator<PropertyManager *> it(m_managers);
+
       while (it.hasNext()) {
          PropertyManager *m = it.next();
          if (m == manager) {

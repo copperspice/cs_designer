@@ -45,7 +45,6 @@ class QDesignerIntrospection : public QDesignerIntrospectionInterface
  private:
    typedef QMap<const QMetaObject *, QDesignerMetaObjectInterface *> MetaObjectMap;
    mutable MetaObjectMap m_metaObjectMap;
-
 };
 
 }

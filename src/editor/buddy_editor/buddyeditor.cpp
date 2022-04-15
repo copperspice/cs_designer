@@ -59,6 +59,7 @@ static bool canBeBuddy(QWidget *w, QDesignerFormWindowInterface *form)
          return (ok && q != Qt::NoFocus) || qdesigner_internal::isPromoted(form->core(), w);
       }
    }
+
    return false;
 }
 
@@ -104,6 +105,7 @@ QWidget *BuddyEditor::widgetAt(const QPoint &pos) const
       if (label == nullptr) {
          return nullptr;
       }
+
       const int cnt = connectionCount();
       for (int i = 0; i < cnt; ++i) {
          Connection *con = connection(i);
@@ -111,8 +113,9 @@ QWidget *BuddyEditor::widgetAt(const QPoint &pos) const
             return nullptr;
          }
       }
+
    } else {
-      if (!canBeBuddy(w, m_formWindow)) {
+      if (! canBeBuddy(w, m_formWindow)) {
          return nullptr;
       }
    }
@@ -178,12 +181,15 @@ void BuddyEditor::updateBackground()
    QList<Connection *> toRemove;
 
    const int c = connectionCount();
+
    for (int i = 0; i < c; i++) {
       Connection *con = connection(i);
       QObject *source = con->object(EndPoint::Source);
       QObject *target = con->object(EndPoint::Target);
+
       bool found = false;
       QListIterator<Connection *> it(newList);
+
       while (it.hasNext()) {
          Connection *newConn = it.next();
          if (newConn->object(EndPoint::Source) == source && newConn->object(EndPoint::Target) == target) {
@@ -204,19 +210,22 @@ void BuddyEditor::updateBackground()
    }
 
    QListIterator<Connection *> it(newList);
+
    while (it.hasNext()) {
       Connection *newConn = it.next();
 
       bool found = false;
       const int c = connectionCount();
+
       for (int i = 0; i < c; i++) {
          Connection *con = connection(i);
          if (con->object(EndPoint::Source) == newConn->object(EndPoint::Source) &&
-            con->object(EndPoint::Target) == newConn->object(EndPoint::Target)) {
+               con->object(EndPoint::Target) == newConn->object(EndPoint::Target)) {
             found = true;
             break;
          }
       }
+
       if (found == false) {
          AddConnectionCommand command(this, newConn);
          command.redo();
@@ -224,6 +233,7 @@ void BuddyEditor::updateBackground()
          delete newConn;
       }
    }
+
    m_updating = false;
 }
 
@@ -238,6 +248,7 @@ void BuddyEditor::setBackground(QWidget *background)
       if (buddy_name.isEmpty()) {
          continue;
       }
+
       QWidget *target = background->findChild<QWidget *>(buddy_name);
       if (target == nullptr) {
          continue;
@@ -280,13 +291,16 @@ void BuddyEditor::endConnection(QWidget *target, const QPoint &pos)
 
       selectNone();
       addConnectionX(new_con);
-      QLabel *source = dynamic_cast<QLabel *>(new_con->widget(EndPoint::Source));
+
+      QLabel *source  = dynamic_cast<QLabel *>(new_con->widget(EndPoint::Source));
       QWidget *target = new_con->widget(EndPoint::Target);
+
       if (source) {
          undoStack()->push(createBuddyCommand(m_formWindow, source, target));
       } else {
          qDebug("BuddyEditor::endConnection(): not a label");
       }
+
       setSelected(new_con, true);
    }
 
@@ -328,6 +342,7 @@ void BuddyEditor::widgetRemoved(QWidget *widget)
          }
          delete takeConnection(con);
       }
+
       undoStack()->endMacro();
    }
 }
@@ -343,6 +358,7 @@ void BuddyEditor::deleteSelected()
    for (Connection *con : selectedConnections) {
       setSelected(con, false);
       con->update();
+
       QWidget *source = con->widget(EndPoint::Source);
 
       if (dynamic_cast<QLabel *>(source) == nullptr) {
@@ -354,6 +370,7 @@ void BuddyEditor::deleteSelected()
       }
       delete takeConnection(con);
    }
+
    undoStack()->endMacro();
 }
 
@@ -371,17 +388,21 @@ void BuddyEditor::autoBuddy()
    for (const Connection *c : beforeConnections) {
       usedBuddies.push_back(c->widget(EndPoint::Target));
    }
+
    // Find potential new buddies, keep lists in sync
    QWidgetList buddies;
+
    for (LabelList::iterator it = labelList.begin(); it != labelList.end(); ) {
-      QLabel *label = *it;
+      QLabel *label     = *it;
       QWidget *newBuddy = nullptr;
+
       if (m_formWindow->isManaged(label)) {
          const QString buddy_name = buddy(label, m_formWindow->core());
          if (buddy_name.isEmpty()) {
             newBuddy = findBuddy(label, usedBuddies);
          }
       }
+
       if (newBuddy) {
          buddies.push_back(newBuddy);
          usedBuddies.push_back(newBuddy);
@@ -390,10 +411,12 @@ void BuddyEditor::autoBuddy()
          it = labelList.erase(it);
       }
    }
+
    // Add the list in one go.
    if (labelList.empty()) {
       return;
    }
+
    const int count = labelList.size();
    Q_ASSERT(count == buddies.size());
 
@@ -401,7 +424,9 @@ void BuddyEditor::autoBuddy()
    for (int i = 0; i < count; i++) {
       undoStack()->push(createBuddyCommand(m_formWindow, labelList.at(i), buddies.at(i)));
    }
+
    undoStack()->endMacro();
+
    // Now select all new ones
    const ConnectionList &connections = connectionList();
 
@@ -415,14 +440,17 @@ QWidget *BuddyEditor::findBuddy(QLabel *l, const QWidgetList &existingBuddies) c
 {
    enum { DeltaX = 5 };
    const QWidget *parent = l->parentWidget();
+
    // Try to find next managed neighbour on horizontal line
    const QRect geom = l->geometry();
    const int y = geom.center().y();
 
    QWidget *neighbour = nullptr;
+
    switch (l->layoutDirection()) {
       case Qt::LayoutDirectionAuto:
-      case Qt::LeftToRight: { // Walk right to find next managed neighbour
+      case Qt::LeftToRight: {
+         // Walk right to find next managed neighbour
          const int xEnd = parent->size().width();
          for (int x = geom.right() + 1; x < xEnd; x += DeltaX)
             if (QWidget *c = parent->childAt (x, y))
@@ -441,6 +469,7 @@ QWidget *BuddyEditor::findBuddy(QLabel *l, const QWidgetList &existingBuddies) c
                }
          break;
    }
+
    if (neighbour && !existingBuddies.contains(neighbour) && canBeBuddy(neighbour, m_formWindow)) {
       return neighbour;
    }
@@ -457,5 +486,3 @@ void BuddyEditor::createContextMenu(QMenu &menu)
 }
 
 }
-
-

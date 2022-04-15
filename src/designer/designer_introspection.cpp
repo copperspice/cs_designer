@@ -97,7 +97,7 @@ class QDesignerMetaProperty : public QDesignerMetaPropertyInterface
 {
  public:
    QDesignerMetaProperty(const QMetaProperty &property);
-   virtual ~QDesignerMetaProperty();
+   ~QDesignerMetaProperty();
 
    const QDesignerMetaEnumInterface *enumerator() const override {
       return m_enumerator;
@@ -148,6 +148,7 @@ class QDesignerMetaProperty : public QDesignerMetaPropertyInterface
    const QMetaProperty m_property;
    const QString m_name;
    const QString m_typeName;
+
    Kind m_kind;
    AccessFlags m_access;
    Attributes m_defaultAttributes;
@@ -275,6 +276,7 @@ class QDesignerMetaMethod : public QDesignerMetaMethodInterface
  private:
    Access m_access;
    MethodType m_methodType;
+
    const QStringList m_parameterNames;
    const QStringList m_parameterTypes;
    const QString m_signature;
@@ -294,14 +296,17 @@ QDesignerMetaMethod::QDesignerMetaMethod(const QMetaMethod &method)
       case QMetaMethod::Public:
          m_access = Public;
          break;
+
       case QMetaMethod::Protected:
          m_access = Protected;
          break;
+
       case QMetaMethod::Private:
          m_access = Private;
          break;
 
    }
+
    switch (method.methodType()) {
       case QMetaMethod::Constructor:
          m_methodType = Constructor;
@@ -325,7 +330,7 @@ class QDesignerMetaObject : public QDesignerMetaObjectInterface
 {
  public:
    QDesignerMetaObject(const qdesigner_internal::QDesignerIntrospection *introspection, const QMetaObject *metaObject);
-   virtual ~QDesignerMetaObject();
+   ~QDesignerMetaObject();
 
    QString className() const override {
       return m_className;
@@ -417,6 +422,7 @@ QDesignerMetaObject::QDesignerMetaObject(const qdesigner_internal::QDesignerIntr
 {
    const int numEnumerators = metaObject->enumeratorCount();
    m_enumerators.reserve(numEnumerators);
+
    for (int i = 0; i < numEnumerators; i++) {
       m_enumerators.push_back(new QDesignerMetaEnum(metaObject->enumerator(i)));
    }

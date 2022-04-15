@@ -460,23 +460,21 @@ qdesigner_internal::PropertySheetKeySequenceValue applyKeySequenceSubProperty(co
 // Apply the font-subproperties keeping the [undocumented]
 // resolve flag in sync (note that PropertySetterType might be something like const T&).
 template <class PropertyReturnType, class PropertySetterType>
-inline void setFontSubProperty(unsigned mask,
-   const QFont &newValue,
-   unsigned maskBit,
-   PropertyReturnType (QFont::*getter) () const,
-   void (QFont::*setter) (PropertySetterType),
-   QFont &value)
+inline void setFontSubProperty(unsigned mask, const QFont &newValue, unsigned maskBit,
+      PropertyReturnType (QFont::*getter) () const, void (QFont::*setter) (PropertySetterType), QFont &value)
 {
    if (mask & maskBit) {
       (value.*setter)((newValue.*getter)());
       // Set the resolve bit from NewValue in return value
       uint r = value.resolve();
       const bool origFlag = newValue.resolve() & maskBit;
+
       if (origFlag) {
          r |= maskBit;
       } else {
          r &= ~maskBit;
       }
+
       value.resolve(r);
       if (debugPropertyCommands) {
          qDebug() << "setFontSubProperty " <<  fontMask(maskBit) << " resolve=" << origFlag;

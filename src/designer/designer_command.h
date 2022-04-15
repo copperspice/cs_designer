@@ -71,7 +71,6 @@ struct LayoutProperties;
 
 class InsertWidgetCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit InsertWidgetCommand(QDesignerFormWindowInterface *formWindow);
    ~InsertWidgetCommand();
@@ -93,7 +92,6 @@ class InsertWidgetCommand: public QDesignerFormWindowCommand
 
 class ChangeZOrderCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit ChangeZOrderCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -140,7 +138,6 @@ class LowerWidgetCommand: public ChangeZOrderCommand
 
 class AdjustWidgetSizeCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit AdjustWidgetSizeCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -174,6 +171,7 @@ class  ManageWidgetCommandHelper
    const WidgetVector &managedChildren() const {
       return m_managedChildren;
    }
+
  private:
    QWidget *m_widget;
    WidgetVector m_managedChildren;
@@ -181,7 +179,6 @@ class  ManageWidgetCommandHelper
 
 class DeleteWidgetCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit DeleteWidgetCommand(QDesignerFormWindowInterface *formWindow);
    ~DeleteWidgetCommand();
@@ -212,7 +209,6 @@ class DeleteWidgetCommand: public QDesignerFormWindowCommand
 
 class ReparentWidgetCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit ReparentWidgetCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -257,7 +253,6 @@ class ChangeFormLayoutItemRoleCommand : public QDesignerFormWindowCommand
 
 class ChangeLayoutItemGeometry: public QDesignerFormWindowCommand
 {
-
  public:
    explicit ChangeLayoutItemGeometry(QDesignerFormWindowInterface *formWindow);
 
@@ -277,7 +272,6 @@ class ChangeLayoutItemGeometry: public QDesignerFormWindowCommand
 
 class TabOrderCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit TabOrderCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -355,7 +349,7 @@ class LayoutCommand: public QDesignerFormWindowCommand
    explicit LayoutCommand(QDesignerFormWindowInterface *formWindow);
    virtual ~LayoutCommand();
 
-   inline QWidgetList widgets() const {
+   QWidgetList widgets() const {
       return m_widgets;
    }
 
@@ -378,7 +372,6 @@ class LayoutCommand: public QDesignerFormWindowCommand
 
 class BreakLayoutCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit BreakLayoutCommand(QDesignerFormWindowInterface *formWindow);
    virtual ~BreakLayoutCommand();
@@ -431,7 +424,6 @@ class SimplifyLayoutCommand: public QDesignerFormWindowCommand
 
 class ToolBoxCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit ToolBoxCommand(QDesignerFormWindowInterface *formWindow);
    virtual ~ToolBoxCommand();
@@ -499,7 +491,6 @@ class AddToolBoxPageCommand: public ToolBoxCommand
 
 class TabWidgetCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit TabWidgetCommand(QDesignerFormWindowInterface *formWindow);
    virtual ~TabWidgetCommand();
@@ -701,7 +692,6 @@ class DeleteStatusBarCommand: public QDesignerFormWindowCommand
 
 class AddToolBarCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit AddToolBarCommand(QDesignerFormWindowInterface *formWindow);
 
@@ -732,7 +722,6 @@ class DeleteToolBarCommand: public QDesignerFormWindowCommand
 
 class DockWidgetCommand: public QDesignerFormWindowCommand
 {
-
  public:
    explicit DockWidgetCommand(const QString &description, QDesignerFormWindowInterface *formWindow);
    virtual ~DockWidgetCommand();

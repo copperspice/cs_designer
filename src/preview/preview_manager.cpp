@@ -344,7 +344,6 @@ public:
 
     int zoomPercent() const; // Device Skins have a double 'zoom' property
 
-public :
     CS_SLOT_1(Public, void setZoomPercent(int un_named_arg1))
     CS_SLOT_2(setZoomPercent)
 
@@ -774,9 +773,7 @@ QWidget *PreviewManager::createPreview(const QDesignerFormWindowInterface *fw,
 }
 
 QWidget *PreviewManager::showPreview(const QDesignerFormWindowInterface *fw,
-   const PreviewConfiguration &pc,
-   int deviceProfileIndex,
-   QString *errorMessage)
+      const PreviewConfiguration &pc, int deviceProfileIndex, QString *errorMessage)
 {
    enum { Spacing = 10 };
    if (QWidget *existingPreviewWidget = raise(fw, pc)) {
@@ -787,9 +784,10 @@ QWidget *PreviewManager::showPreview(const QDesignerFormWindowInterface *fw,
    const int initialZoom = settings.zoomEnabled() ? settings.zoom() : -1;
 
    QWidget *widget = createPreview(fw, pc, deviceProfileIndex, errorMessage, initialZoom);
-   if (!widget) {
+   if (! widget) {
       return nullptr;
    }
+
    // Install filter for Escape key
    widget->setAttribute(Qt::WA_DeleteOnClose, true);
    widget->installEventFilter(this);
@@ -799,27 +797,34 @@ QWidget *PreviewManager::showPreview(const QDesignerFormWindowInterface *fw,
          // Cannot do this on the Mac as the dialog would have no close button
          widget->setWindowModality(Qt::ApplicationModal);
          break;
+
       case SingleFormNonModalPreview:
       case MultipleFormNonModalPreview:
          widget->setWindowModality(Qt::NonModal);
+
          connect(fw, &QDesignerFormWindowInterface::changed, widget, &QWidget::close);
          connect(fw, &QObject::destroyed, widget, &QWidget::close);
+
          if (d->m_mode == SingleFormNonModalPreview) {
             connect(fw->core()->formWindowManager(), &QDesignerFormWindowManagerInterface::activeFormWindowChanged,
                widget, &QWidget::close);
          }
          break;
    }
+
    // Semi-smart algorithm to position previews:
    // If its the first one, position relative to form.
    // 2nd, attempt to tile right (for comparing styles) or cascade
+
    const QSize size = widget->size();
    const bool firstPreview = d->m_previews.empty();
+
    if (firstPreview) {
       widget->move(fw->mapToGlobal(QPoint(Spacing, Spacing)));
    } else {
       if (QWidget *lastPreview = d->m_previews.back().m_widget) {
          QDesktopWidget *desktop = qApp->desktop();
+
          const QRect lastPreviewGeometry = lastPreview->frameGeometry();
          const QRect availGeometry = desktop->availableGeometry(desktop->screenNumber(lastPreview));
          const QPoint newPos = lastPreviewGeometry.topRight() + QPoint(Spacing, 0);
@@ -831,11 +836,14 @@ QWidget *PreviewManager::showPreview(const QDesignerFormWindowInterface *fw,
       }
 
    }
+
    d->m_previews.push_back(PreviewData(widget, fw, pc));
    widget->show();
+
    if (firstPreview) {
       emit firstPreviewOpened();
    }
+
    return widget;
 }
 

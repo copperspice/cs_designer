@@ -342,7 +342,9 @@ DomConnections *SignalSlotEditor::toUi() const
             break;
       }
    }
+
    result->setElementConnection(list);
+
    return result;
 }
 
@@ -361,6 +363,7 @@ QObject *SignalSlotEditor::objectByName(QWidget *topLevel, const QString &name) 
    } else {
       object = topLevel->findChild<QObject *>(name);
    }
+
    const QDesignerMetaDataBaseInterface *mdb = formWindow()->core()->metaDataBase();
    if (mdb->item(object)) {
       return object;
@@ -378,6 +381,7 @@ void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent
    setBackground(parent);
    clear();
    const QList<DomConnection *> list = connections->elementConnection();
+
    for (const DomConnection *dom_con : list) {
       QObject *source = objectByName(parent, dom_con->elementSender());
 
@@ -386,6 +390,7 @@ void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent
             dom_con->elementSender().toUtf8().constData());
          continue;
       }
+
       QObject *destination = objectByName(parent, dom_con->elementReceiver());
 
       if (destination == nullptr) {
@@ -399,10 +404,12 @@ void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent
 
       if (dom_hints != nullptr) {
          QList<DomConnectionHint *> list = dom_hints->elementHint();
+
          for (DomConnectionHint *hint : list) {
             QString attr_type = hint->attributeType();
             QPoint p = QPoint(hint->elementX(), hint->elementY());
-            if (attr_type == QString("sourcelabel")) {
+
+            if (attr_type == "sourcelabel") {
                sp = p;
             } else if (attr_type == QString("destinationlabel")) {
                tp = p;
@@ -424,16 +431,19 @@ static bool skipWidget(const QWidget *w)
 {
    const QString name = w->metaObject()->className();
 
-   if (name == QString("QDesignerWidget")) {
+   if (name == "QDesignerWidget") {
       return true;
    }
-   if (name == QString("QLayoutWidget")) {
+
+   if (name == "QLayoutWidget") {
       return true;
    }
-   if (name == QString("qdesigner_internal::FormWindow")) {
+
+   if (name == "qdesigner_internal::FormWindow") {
       return true;
    }
-   if (name == QString("Spacer")) {
+
+   if (name == "Spacer") {
       return true;
    }
 
@@ -454,9 +464,11 @@ QWidget *SignalSlotEditor::widgetAt(const QPoint &pos) const
       if (item == nullptr) {
          continue;
       }
+
       if (skipWidget(widget)) {
          continue;
       }
+
       break;
    }
 

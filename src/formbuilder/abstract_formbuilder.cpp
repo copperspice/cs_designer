@@ -1788,6 +1788,7 @@ DomButtonGroups *QAbstractFormBuilder::saveButtonGroups(const QWidget *mainConta
    if (mchildren.empty()) {
       return nullptr;
    }
+
    QList<DomButtonGroup *> domGroups;
    const QObjectList::const_iterator cend = mchildren.constEnd();
    for (QObjectList::const_iterator it = mchildren.constBegin(); it != cend; ++it)
@@ -1799,12 +1800,13 @@ DomButtonGroups *QAbstractFormBuilder::saveButtonGroups(const QWidget *mainConta
    if (domGroups.empty()) {
       return nullptr;
    }
+
    DomButtonGroups *rc = new DomButtonGroups;
    rc->setElementButtonGroup(domGroups);
    return rc;
 }
 
-// VC6 would not find templated members, so we use statics and this utter hack.
+// VC6 does not find templated members so we use statics and this work around
 class FriendlyFB : public QAbstractFormBuilder
 {
  public:

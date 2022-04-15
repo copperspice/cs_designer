@@ -38,6 +38,7 @@ class PromotionTaskMenu;
 class QStackedWidgetPreviewEventFilter : public QObject
 {
    CS_OBJECT(QStackedWidgetPreviewEventFilter)
+
  public:
    explicit QStackedWidgetPreviewEventFilter(QStackedWidget *parent);
 
@@ -48,15 +49,17 @@ class QStackedWidgetPreviewEventFilter : public QObject
    void setButtonToolTipEnabled(bool v) {
       m_buttonToolTipEnabled = v;
    }
+
    bool buttonToolTipEnabled() const    {
       return m_buttonToolTipEnabled;
    }
 
- public :
    CS_SLOT_1(Public, void updateButtons())
    CS_SLOT_2(updateButtons)
+
    CS_SLOT_1(Public, void prevPage())
    CS_SLOT_2(prevPage)
+
    CS_SLOT_1(Public, void nextPage())
    CS_SLOT_2(nextPage)
 

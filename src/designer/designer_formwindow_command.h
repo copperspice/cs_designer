@@ -31,7 +31,6 @@ namespace qdesigner_internal {
 
 class QDesignerFormWindowCommand: public QUndoCommand
 {
-
  public:
    QDesignerFormWindowCommand(const QString &description,
       QDesignerFormWindowInterface *formWindow,
@@ -42,6 +41,7 @@ class QDesignerFormWindowCommand: public QUndoCommand
 
    static void updateBuddies(QDesignerFormWindowInterface *form,
       const QString &old_name, const QString &new_name);
+
  protected:
    QDesignerFormWindowInterface *formWindow() const;
    QDesignerFormEditorInterface *core() const;

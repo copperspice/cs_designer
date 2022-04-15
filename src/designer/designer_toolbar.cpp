@@ -465,6 +465,7 @@ QRect ToolBarEventFilter::handleArea(const QToolBar *tb)
 {
    QStyleOptionToolBar opt;
    static_cast<const FriendlyToolBar *>(tb)->initStyleOption(&opt);
+
    return tb->style()->subElementRect(QStyle::SE_ToolBarHandle, &opt, tb);
 }
 

@@ -163,19 +163,24 @@ void QMainWindowContainer::insertWidget(int index, QWidget *widget)
 void QMainWindowContainer::remove(int index)
 {
    QWidget *widget = m_widgets.at(index);
+
    if (QToolBar *toolBar = dynamic_cast<QToolBar *>(widget)) {
       m_mainWindow->removeToolBar(toolBar);
+
    } else if (QMenuBar *menuBar = dynamic_cast<QMenuBar *>(widget)) {
       menuBar->hide();
       menuBar->setParent(nullptr);
       m_mainWindow->setMenuBar(nullptr);
+
    } else if (QStatusBar *statusBar = dynamic_cast<QStatusBar *>(widget)) {
       statusBar->hide();
       statusBar->setParent(nullptr);
       m_mainWindow->setStatusBar(nullptr);
+
    } else if (QDockWidget *dockWidget = dynamic_cast<QDockWidget *>(widget)) {
       m_mainWindow->removeDockWidget(dockWidget);
    }
+
    m_widgets.removeAt(index);
 }
 

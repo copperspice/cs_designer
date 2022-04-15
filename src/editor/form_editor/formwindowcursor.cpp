@@ -28,8 +28,7 @@
 namespace qdesigner_internal {
 
 FormWindowCursor::FormWindowCursor(FormWindow *fw, QObject *parent)
-   : QObject(parent),
-     m_formWindow(fw)
+   : QObject(parent), m_formWindow(fw)
 {
    update();
    connect(fw, &QDesignerFormWindowInterface::changed, this, &FormWindowCursor::update);
@@ -59,6 +58,7 @@ bool FormWindowCursor::movePosition(MoveOperation op, MoveMode mode)
    switch (op) {
       case Next:
          ++iterator;
+
          if (iterator >= widgetCount()) {
             iterator = 0;
          }

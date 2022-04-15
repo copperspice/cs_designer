@@ -46,10 +46,12 @@ class SignalSlotConnection : public Connection
 
    QString sender() const;
    QString receiver() const;
-   inline QString signal() const {
+
+   QString signal() const {
       return m_signal;
    }
-   inline QString slot() const {
+
+   QString slot() const {
       return m_slot;
    }
 
@@ -64,12 +66,14 @@ class SignalSlotConnection : public Connection
    QString toString() const;
 
  private:
-   QString m_signal, m_slot;
+   QString m_signal;
+   QString m_slot;
 };
 
 class ConnectionModel : public QAbstractItemModel
 {
    CS_OBJECT(ConnectionModel)
+
  public:
    explicit ConnectionModel(QObject *parent = nullptr);
    void setEditor(SignalSlotEditor *editor = nullptr);

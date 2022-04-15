@@ -94,4 +94,4 @@ class Line : public QFrame
    }
 };
 
-#endif // QDESIGNER_WIDGET_H
+#endif

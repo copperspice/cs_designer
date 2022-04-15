@@ -107,9 +107,12 @@ class PropertyEditor: public QDesignerPropertyEditor
    void updateToolBarLabel();
    uint toBrowserType(const QVariant &value, const QString &propertyName) const;
    QString removeScope(const QString &value) const;
+
    QDesignerMetaDataBaseItemInterface *metaDataBaseItem() const;
+
    void setupStringProperty(QtVariantProperty *property, bool isMainContainer);
    void setupPaletteProperty(QtVariantProperty *property);
+
    QString realClassName(QObject *object) const;
    void storeExpansionState();
    void applyExpansionState();
@@ -117,6 +120,7 @@ class PropertyEditor: public QDesignerPropertyEditor
    void applyPropertiesExpansionState(const QList<QtBrowserItem *> &items);
    void applyFilter();
    int applyPropertiesFilter(const QList<QtBrowserItem *> &items);
+
    void setExpanded(QtBrowserItem *item, bool expanded);
    bool isExpanded(QtBrowserItem *item) const;
    void setItemVisible(QtBrowserItem *item, bool visible);

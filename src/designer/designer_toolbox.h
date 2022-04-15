@@ -38,10 +38,12 @@ class QToolBoxHelper : public QObject
    CS_OBJECT(QToolBoxHelper)
 
    explicit QToolBoxHelper(QToolBox *toolbox);
+
  public:
    // Install helper on QToolBox
    static void install(QToolBox *toolbox);
    static QToolBoxHelper *helperOf(const QToolBox *toolbox);
+
    // Convenience to add a menu on a toolbox
    static QMenu *addToolBoxContextMenuActions(const QToolBox *toolbox, QMenu *popup);
 
@@ -56,19 +58,22 @@ class QToolBoxHelper : public QObject
  private:
    CS_SLOT_1(Private, void removeCurrentPage())
    CS_SLOT_2(removeCurrentPage)
+
    CS_SLOT_1(Private, void addPage())
    CS_SLOT_2(addPage)
+
    CS_SLOT_1(Private, void addPageAfter())
    CS_SLOT_2(addPageAfter)
+
    CS_SLOT_1(Private, void changeOrder())
    CS_SLOT_2(changeOrder)
 
- private:
    QToolBox *m_toolbox;
    QAction *m_actionDeletePage;
    QAction *m_actionInsertPage;
    QAction *m_actionInsertPageAfter;
    QAction *m_actionChangePageOrder;
+
    qdesigner_internal::PromotionTaskMenu *m_pagePromotionTaskMenu;
 };
 

@@ -66,6 +66,7 @@ int QResourceBuilder::iconStateFlags(const DomResourceIcon *dpi)
    if (dpi->hasElementSelectedOn()) {
       rc |= SelectedOn;
    }
+
    return rc;
 }
 
@@ -80,6 +81,7 @@ QVariant QResourceBuilder::loadResource(const QDir &workingDirectory, const DomP
 
       case DomProperty::IconSet: {
          const DomResourceIcon *dpi = property->elementIconSet();
+
          if (!dpi->attributeTheme().isEmpty()) {
             const QString theme = dpi->attributeTheme();
             const bool known = QIcon::hasThemeIcon(theme);

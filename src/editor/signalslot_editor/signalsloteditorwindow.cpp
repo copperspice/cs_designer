@@ -220,9 +220,11 @@ QModelIndex ConnectionModel::index(int row, int column,
    if (parent.isValid() || !m_editor) {
       return QModelIndex();
    }
+
    if (row < 0 || row >= m_editor->connectionCount()) {
       return QModelIndex();
    }
+
    return createIndex(row, column);
 }
 
@@ -235,6 +237,7 @@ Connection *ConnectionModel::indexToConnection(const QModelIndex &index) const
    if (index.row() < 0 || index.row() >= m_editor->connectionCount()) {
       return nullptr;
    }
+
    return m_editor->connection(index.row());
 }
 
@@ -254,6 +257,7 @@ int ConnectionModel::rowCount(const QModelIndex &parent) const
    if (parent.isValid() || !m_editor) {
       return 0;
    }
+
    return m_editor->connectionCount();
 }
 
@@ -262,6 +266,7 @@ int ConnectionModel::columnCount(const QModelIndex &parent) const
    if (parent.isValid()) {
       return 0;
    }
+
    return 4;
 }
 
@@ -278,10 +283,10 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
    const SignalSlotConnection *con = static_cast<SignalSlotConnection *>(m_editor->connection(index.row()));
    Q_ASSERT(con != nullptr);
 
-   static const QVariant senderDefault = tr("<sender>");
-   static const QVariant signalDefault = tr("<signal>");
+   static const QVariant senderDefault   = tr("<sender>");
+   static const QVariant signalDefault   = tr("<signal>");
    static const QVariant receiverDefault = tr("<receiver>");
-   static const QVariant slotDefault = tr("<slot>");
+   static const QVariant slotDefault     = tr("<slot>");
 
    switch (index.column()) {
       case 0: {
@@ -291,6 +296,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
          }
          return sender;
       }
+
       case 1: {
          const QString signal = con->signal();
          if (signal.isEmpty()) {
@@ -298,6 +304,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
          }
          return signal;
       }
+
       case 2: {
          const QString receiver = con->receiver();
          if (receiver.isEmpty()) {
@@ -305,6 +312,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
          }
          return receiver;
       }
+
       case 3: {
          const QString slot = con->slot();
          if (slot.isEmpty()) {
@@ -313,6 +321,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
          return slot;
       }
    }
+
    return QVariant();
 }
 
@@ -321,6 +330,7 @@ bool ConnectionModel::setData(const QModelIndex &index, const QVariant &data, in
    if (!index.isValid() || !m_editor) {
       return false;
    }
+
    if (data.type() != QVariant::String) {
       return false;
    }
@@ -336,18 +346,21 @@ bool ConnectionModel::setData(const QModelIndex &index, const QVariant &data, in
          }
          m_editor->setSource(con, s);
          break;
+
       case 1:
          if (!memberFunctionListContains(form->core(), con->object(CETypes::EndPoint::Source), SignalMember, s)) {
             s.clear();
          }
          m_editor->setSignal(con, s);
          break;
+
       case 2:
          if (!s.isEmpty() && !objectNameList(form).contains(s)) {
             s.clear();
          }
          m_editor->setTarget(con, s);
          break;
+
       case 3:
          if (!memberFunctionListContains(form->core(), con->object(CETypes::EndPoint::Target), SlotMember, s)) {
             s.clear();
@@ -393,19 +406,25 @@ void ConnectionModel::connectionChanged(Connection *con)
    const int idx = m_editor->indexOfConnection(con);
    SignalSlotConnection *changedCon = static_cast<SignalSlotConnection *>(m_editor->connection(idx));
    SignalSlotConnection *c = nullptr;
+
    for (int i = 0; i < m_editor->connectionCount(); ++i) {
       if (i == idx) {
          continue;
       }
+
       c = static_cast<SignalSlotConnection *>(m_editor->connection(i));
+
       if (c->sender() == changedCon->sender() && c->signal() == changedCon->signal()
-         && c->receiver() == changedCon->receiver() && c->slot() == changedCon->slot()) {
-         const QString message = tr("The connection already exists!<br>%1").formatArg(changedCon->toString());
+            && c->receiver() == changedCon->receiver() && c->slot() == changedCon->slot()) {
+
+         const QString message = tr("The connection already exists<br>%1").formatArg(changedCon->toString());
+
          m_editor->formWindow()->core()->dialogGui()->message(m_editor->parentWidget(), QDesignerDialogGuiInterface::SignalSlotEditorMessage,
-            QMessageBox::Warning,  tr("Signal and Slot Editor"), message, QMessageBox::Ok);
+            QMessageBox::Warning, tr("Signal and Slot Editor"), message, QMessageBox::Ok);
          break;
       }
    }
+
    emit dataChanged(createIndex(idx, 0), createIndex(idx, 3));
 }
 
@@ -413,9 +432,8 @@ void ConnectionModel::updateAll()
 {
    emit dataChanged(index(0, 0), index(rowCount(), columnCount()));
 }
-}
 
-// ---------------------- InlineEditorModel
+}   //
 
 class InlineEditorModel : public QStandardItemModel
 {
@@ -448,8 +466,10 @@ void InlineEditorModel::addTitle(const QString &title)
    QModelIndex cat_idx = index(cnt, 0);
    setData(cat_idx, QString(title + QLatin1Char(':')), Qt::DisplayRole);
    setData(cat_idx, TitleItem, Qt::UserRole);
+
    QFont font = QApplication::font();
    font.setBold(true);
+
    setData(cat_idx, font, Qt::FontRole);
 }
 
@@ -502,11 +522,13 @@ Qt::ItemFlags InlineEditorModel::flags(const QModelIndex &index) const
 int InlineEditorModel::findText(const QString &text) const
 {
    const int cnt = rowCount();
+
    for (int i = 0; i < cnt; ++i) {
       const QModelIndex idx = index(i, 0);
       if (data(idx, Qt::UserRole).toInt() == TitleItem) {
          continue;
       }
+
       if (data(idx, Qt::DisplayRole).toString() == text) {
          return i;
       }
@@ -591,14 +613,14 @@ void InlineEditor::setText(const QString &text)
    if (m_idx == -1) {
       m_idx = 0;
    }
+
    setCurrentIndex(m_idx);
 }
-
-// ------------------ ConnectionDelegate
 
 class ConnectionDelegate : public QItemDelegate
 {
    CS_OBJECT(ConnectionDelegate)
+
  public:
    ConnectionDelegate(QWidget *parent = nullptr);
 
@@ -609,7 +631,6 @@ class ConnectionDelegate : public QItemDelegate
    CS_SLOT_1(Private, void emitCommitData())
    CS_SLOT_2(emitCommitData)
 
- private:
    QDesignerFormWindowInterface *m_form;
 };
 
@@ -622,8 +643,7 @@ ConnectionDelegate::ConnectionDelegate(QWidget *parent)
 
    if (factory == nullptr) {
       factory = new QItemEditorFactory;
-      QItemEditorCreatorBase *creator
-         = new QItemEditorCreator<InlineEditor>("text");
+      QItemEditorCreatorBase *creator = new QItemEditorCreator<InlineEditor>("text");
       factory->registerEditor(QVariant::String, creator);
    }
 
@@ -635,17 +655,17 @@ void ConnectionDelegate::setForm(QDesignerFormWindowInterface *form)
    m_form = form;
 }
 
-QWidget *ConnectionDelegate::createEditor(QWidget *parent,
-   const QStyleOptionViewItem &option,
-   const QModelIndex &index) const
+QWidget *ConnectionDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
    if (m_form == nullptr) {
       return nullptr;
    }
 
    QWidget *w = QItemDelegate::createEditor(parent, option, index);
+
    InlineEditor *inline_editor = dynamic_cast<InlineEditor *>(w);
    Q_ASSERT(inline_editor != nullptr);
+
    const QAbstractItemModel *model = index.model();
 
    const QModelIndex obj_name_idx = model->index(index.row(), index.column() <= 1 ? 0 : 2);
@@ -653,7 +673,8 @@ QWidget *ConnectionDelegate::createEditor(QWidget *parent,
 
    switch (index.column()) {
       case 0:
-      case 2:  { // object names
+      case 2:  {
+         // object names
          QStringList obj_name_list = objectNameList(m_form);
          QMap<QString, bool> markedNameList;
          markedNameList.insert(tr("<object>"), false);
@@ -669,13 +690,16 @@ QWidget *ConnectionDelegate::createEditor(QWidget *parent,
       break;
 
       case 1:
-      case 3: { // signals, slots
-         const qdesigner_internal::MemberType type = index.column() == 1 ? qdesigner_internal::SignalMember : qdesigner_internal::SlotMember;
+      case 3: {
+         // signals, slots
+         const qdesigner_internal::MemberType type = index.column() == 1 ?
+               qdesigner_internal::SignalMember : qdesigner_internal::SlotMember;
+
          const QModelIndex peer_index = model->index(index.row(), type == qdesigner_internal::SignalMember ? 3 : 1);
          const QString peer = model->data(peer_index, Qt::DisplayRole).toString();
 
-         const qdesigner_internal::ClassesMemberFunctions class_list = qdesigner_internal::reverseClassesMemberFunctions(obj_name, type, peer,
-               m_form);
+         const qdesigner_internal::ClassesMemberFunctions class_list =
+               qdesigner_internal::reverseClassesMemberFunctions(obj_name, type, peer, m_form);
 
          inline_editor->addText(type == qdesigner_internal::SignalMember ? tr("<signal>") : tr("<slot>"));
 
@@ -683,6 +707,7 @@ QWidget *ConnectionDelegate::createEditor(QWidget *parent,
             if (classInfo.m_className.isEmpty() || classInfo.m_memberList.isEmpty()) {
                continue;
             }
+
             // Mark deprecated members by passing bool=true.
             QMap<QString, bool> markedMemberList;
 
@@ -712,10 +737,6 @@ void ConnectionDelegate::emitCommitData()
 }
 
 namespace qdesigner_internal {
-
-/*******************************************************************************
-** SignalSlotEditorWindow
-*/
 
 SignalSlotEditorWindow::SignalSlotEditorWindow(QDesignerFormEditorInterface *core, QWidget *parent)
    : QWidget(parent), m_view(new QTreeView), m_editor(nullptr), m_add_button(new QToolButton),

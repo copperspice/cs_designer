@@ -91,6 +91,7 @@ bool ComboEventFilter::eventFilter(QObject *watched, QEvent *event)
          le->setCursor(Qt::ArrowCursor);
       }
    }
+
    return QObject::eventFilter(watched, event);
 }
 
@@ -102,16 +103,16 @@ bool ComboEventFilter::eventFilter(QObject *watched, QEvent *event)
 class WizardPageChangeWatcher : public QObject
 {
    CS_OBJECT(WizardPageChangeWatcher)
+
  public:
    explicit WizardPageChangeWatcher(QWizard *parent);
 
- public :
    CS_SLOT_1(Public, void pageChanged())
    CS_SLOT_2(pageChanged)
 };
 
-WizardPageChangeWatcher::WizardPageChangeWatcher(QWizard *parent) :
-   QObject(parent)
+WizardPageChangeWatcher::WizardPageChangeWatcher(QWizard *parent)
+   : QObject(parent)
 {
    connect(parent, &QWizard::currentIdChanged, this, &WizardPageChangeWatcher::pageChanged);
 }
