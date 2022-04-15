@@ -43,12 +43,8 @@
 
 CS_DECLARE_METATYPE(QAction *)
 
-namespace {
-
-enum {
-   listModeIconSize = 16,
-   iconModeIconSize = 24 };
-}
+constexpr const int LIST_MODE_SIZE = 16;
+constexpr const int ICON_MODE_SIZE = 24;
 
 static const QString actionMimeType    = "action-repository/actions";
 static const QString plainTextMimeType = "text/plain";
@@ -376,7 +372,7 @@ ActionTreeView::ActionTreeView(ActionModel *model, QWidget *parent)
    connect(header(), &QHeaderView::sectionDoubleClicked,
          this, &QTreeView::resizeColumnToContents);
 
-   setIconSize(QSize(listModeIconSize, listModeIconSize));
+   setIconSize(QSize(LIST_MODE_SIZE, LIST_MODE_SIZE));
 
 }
 
@@ -460,9 +456,9 @@ ActionListView::ActionListView(ActionModel *model, QWidget *parent) :
 
    setMovement(Snap);
    setViewMode(IconMode);
-   setIconSize(QSize(iconModeIconSize, iconModeIconSize));
-   setGridSize(QSize(4 * iconModeIconSize, 2 *  iconModeIconSize));
-   setSpacing(iconModeIconSize / 3);
+   setIconSize(QSize(ICON_MODE_SIZE, ICON_MODE_SIZE));
+   setGridSize(QSize(4 * ICON_MODE_SIZE, 2 *  ICON_MODE_SIZE));
+   setSpacing(ICON_MODE_SIZE / 3);
 }
 
 QAction *ActionListView::currentAction() const

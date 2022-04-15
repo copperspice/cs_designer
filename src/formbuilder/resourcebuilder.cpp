@@ -27,7 +27,7 @@
 #include <QIcon>
 #include <QVariant>
 
-enum { themeDebug = 0 };
+constexpr const int DEBUG_THEME = 0;
 
 QResourceBuilder::QResourceBuilder()
 {
@@ -86,7 +86,7 @@ QVariant QResourceBuilder::loadResource(const QDir &workingDirectory, const DomP
             const QString theme = dpi->attributeTheme();
             const bool known = QIcon::hasThemeIcon(theme);
 
-            if (themeDebug) {
+            if (DEBUG_THEME) {
                qDebug("Theme %s known %d", csPrintable(theme), known);
             }
 

@@ -56,7 +56,7 @@ static const QString stringPropertyNameAttrC = "name";
 static const QString stringPropertyTypeAttrC = "type";
 static const QString stringPropertyNoTrAttrC = "notr";
 
-enum { debugPluginManager = 0 };
+constexpr const int DEBUG_PLUGIN = 0;
 
 /* Custom widgets: Loading custom widgets is a 2-step process: PluginManager
  * scans for its plugins in the constructor. At this point, it might not be safe
@@ -356,7 +356,7 @@ static bool parsePropertySpecs(QXmlStreamReader &sr,
 QDesignerCustomWidgetData::ParseResult QDesignerCustomWidgetData::parseXml(const QString &xml,
    const QString &name, QString *errorMessage)
 {
-   if (debugPluginManager) {
+   if (DEBUG_PLUGIN) {
       qDebug() << Q_FUNC_INFO << name;
    }
 
@@ -516,7 +516,7 @@ bool QDesignerPluginManagerPrivate::addCustomWidget(QDesignerCustomWidgetInterfa
    const QString &pluginPath,
    const QString &designerLanguage)
 {
-   if (debugPluginManager) {
+   if (DEBUG_PLUGIN) {
       qDebug() << Q_FUNC_INFO << c->name();
    }
 
@@ -583,7 +583,7 @@ QDesignerPluginManager::QDesignerPluginManager(QDesignerFormEditorInterface *cor
    // Register plugins
    updateRegisteredPlugins();
 
-   if (debugPluginManager) {
+   if (DEBUG_PLUGIN) {
       qDebug() << "QDesignerPluginManager::disabled: " <<  m_d->m_disabledPlugins << " static " << m_d->m_customWidgets.size();
    }
 }
@@ -601,7 +601,7 @@ QDesignerFormEditorInterface *QDesignerPluginManager::core() const
 
 QStringList QDesignerPluginManager::findPlugins(const QString &path)
 {
-   if (debugPluginManager) {
+   if (DEBUG_PLUGIN) {
       qDebug() << Q_FUNC_INFO << path;
    }
    const QDir dir(path);
@@ -684,7 +684,7 @@ QObject *QDesignerPluginManager::instance(const QString &plugin) const
 
 void QDesignerPluginManager::updateRegisteredPlugins()
 {
-   if (debugPluginManager) {
+   if (DEBUG_PLUGIN) {
       qDebug() << Q_FUNC_INFO;
    }
    m_d->m_registeredPlugins.clear();
@@ -696,7 +696,7 @@ void QDesignerPluginManager::updateRegisteredPlugins()
 
 bool QDesignerPluginManager::registerNewPlugins()
 {
-   if (debugPluginManager) {
+   if (DEBUG_PLUGIN) {
       qDebug() << Q_FUNC_INFO;
    }
 
@@ -716,7 +716,7 @@ bool QDesignerPluginManager::registerNewPlugins()
 
 void QDesignerPluginManager::registerPath(const QString &path)
 {
-   if (debugPluginManager) {
+   if (DEBUG_PLUGIN) {
       qDebug() << Q_FUNC_INFO << path;
    }
    QStringList candidates = findPlugins(path);
@@ -728,7 +728,7 @@ void QDesignerPluginManager::registerPath(const QString &path)
 
 void QDesignerPluginManager::registerPlugin(const QString &plugin)
 {
-   if (debugPluginManager) {
+   if (DEBUG_PLUGIN) {
       qDebug() << Q_FUNC_INFO << plugin;
    }
 
@@ -767,7 +767,7 @@ bool QDesignerPluginManager::syncSettings()
 
 void QDesignerPluginManager::ensureInitialized()
 {
-   if (debugPluginManager) {
+   if (DEBUG_PLUGIN) {
       qDebug() << Q_FUNC_INFO <<  m_d->m_initialized << m_d->m_customWidgets.size();
    }
 

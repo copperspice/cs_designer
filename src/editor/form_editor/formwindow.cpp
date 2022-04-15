@@ -83,6 +83,8 @@ CS_DECLARE_METATYPE(QWidget *)
 
 namespace {
 
+constexpr const int DEBUG_FORM_WINDOW = 0;
+
 class BlockSelection
 {
  public:
@@ -101,8 +103,6 @@ class BlockSelection
    QPointer<qdesigner_internal::FormWindow> m_formWindow;
    const bool m_blocked;
 };
-
-constexpr const int debugFormWindow = 0;
 
 }   // end namespace - anonymous
 
@@ -562,7 +562,7 @@ void FormWindow::handleClickSelection(QWidget *managedWidget, unsigned mouseMode
    m_lastClickedWidget = managedWidget;
 
    const bool selected = isWidgetSelected(managedWidget);
-   if (debugFormWindow) {
+   if (DEBUG_FORM_WINDOW) {
       qDebug() << "handleClickSelection" << managedWidget << " same=" << sameWidget << " mouse= " << mouseMode << " selected=" << selected;
    }
 
@@ -618,7 +618,7 @@ bool FormWindow::handleMousePressEvent(QWidget *widget, QWidget *managedWidget, 
 
    m_startPos = mapFromGlobal(e->globalPos());
 
-   if (debugFormWindow) {
+   if (DEBUG_FORM_WINDOW) {
       qDebug() << "handleMousePressEvent:" <<  widget << ',' << managedWidget;
    }
 
@@ -778,7 +778,7 @@ bool FormWindow::handleMouseReleaseEvent(QWidget *w, QWidget *mw, QMouseEvent *e
    const MouseState oldState = m_mouseState;
    m_mouseState = NoMouseState;
 
-   if (debugFormWindow) {
+   if (DEBUG_FORM_WINDOW) {
       qDebug() << "handleMouseeleaseEvent:" << w << ',' << mw << "state=" << oldState;
    }
 
@@ -888,7 +888,7 @@ QWidget *FormWindow::currentWidget() const
 
 bool FormWindow::setCurrentWidget(QWidget *currentWidget)
 {
-   if (debugFormWindow) {
+   if (DEBUG_FORM_WINDOW) {
       qDebug() << "setCurrentWidget:" <<  m_currentWidget << " --> " << currentWidget;
    }
    if (currentWidget == m_currentWidget) {
@@ -916,7 +916,7 @@ void FormWindow::selectWidget(QWidget *w, bool select)
 // Selects a widget and determines the new current one. Returns true if a change occurs.
 bool FormWindow::trySelectWidget(QWidget *w, bool select)
 {
-   if (debugFormWindow) {
+   if (DEBUG_FORM_WINDOW) {
       qDebug() << "trySelectWidget:" << w << select;
    }
    if (!isManaged(w) && !isCentralWidget(w)) {
@@ -951,7 +951,7 @@ bool FormWindow::trySelectWidget(QWidget *w, bool select)
 
 void FormWindow::clearSelection(bool changePropertyDisplay)
 {
-   if (debugFormWindow) {
+   if (DEBUG_FORM_WINDOW) {
       qDebug() << "clearSelection(" <<  changePropertyDisplay << ')';
    }
    // At all events, we need a current widget.
@@ -1861,7 +1861,7 @@ QWidget *FormWindow::containerForPaste() const
       return nullptr;
    }
 
-   if (debugFormWindow) {
+   if (DEBUG_FORM_WINDOW) {
       qDebug() << "containerForPaste() " <<  w;
    }
    return w;
@@ -2240,7 +2240,7 @@ void FormWindow::lowerWidgets()
 
 bool FormWindow::handleMouseButtonDblClickEvent(QWidget *w, QWidget *managedWidget, QMouseEvent *e)
 {
-   if (debugFormWindow) {
+   if (DEBUG_FORM_WINDOW) {
       qDebug() << "handleMouseButtonDblClickEvent:" << w << ',' << managedWidget << "state=" << m_mouseState;
    }
 

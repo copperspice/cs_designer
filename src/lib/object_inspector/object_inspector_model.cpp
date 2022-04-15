@@ -44,13 +44,11 @@
 
 #include <algorithm>
 
-namespace {
-enum { DataRole = 1000 };
-}
+constexpr const int DATA_ROLE = 1000;
 
 static inline QObject *objectOfItem(const QStandardItem *item)
 {
-   QVariant tmp = item->data(DataRole);
+   QVariant tmp = item->data(DATA_ROLE);
    return tmp.value<QObject *>();
 }
 
@@ -276,8 +274,8 @@ void ObjectData::setItemsDisplayData(const StandardItemList &row, const ObjectIn
 void ObjectData::setItems(const StandardItemList &row, const ObjectInspectorIcons &icons) const
 {
    const QVariant object = QVariant::fromValue(m_object);
-   row[ObjectInspectorModel::ObjectNameColumn]->setData(object, DataRole);
-   row[ObjectInspectorModel::ClassNameColumn]->setData(object, DataRole);
+   row[ObjectInspectorModel::ObjectNameColumn]->setData(object, DATA_ROLE);
+   row[ObjectInspectorModel::ClassNameColumn]->setData(object, DATA_ROLE);
    setItemsDisplayData(row, icons, ClassNameChanged | ObjectNameChanged | ClassIconChanged | TypeChanged | LayoutTypeChanged);
 }
 

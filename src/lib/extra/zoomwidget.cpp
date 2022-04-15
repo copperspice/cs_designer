@@ -34,7 +34,7 @@
 typedef QList<QAction *> ActionList;
 typedef QList<QGraphicsItem *> GraphicsItemList;
 
-enum { debugZoomWidget = 0 };
+constexpr const int DEBUG_ZOOM_WIDGET = 0;
 
 static const int menuZoomList[] = { 100, 25, 50, 75, 125, 150, 175, 200 };
 
@@ -120,10 +120,9 @@ ZoomView::ZoomView(QWidget *parent)
    setFrameShape(QFrame::NoFrame);
    setScene(m_scene);
 
-   if (debugZoomWidget) {
+   if (DEBUG_ZOOM_WIDGET) {
       qDebug() << "scene" << m_scene->sceneRect();
    }
-
 }
 
 int ZoomView::zoom() const
@@ -136,7 +135,7 @@ void ZoomView::scrollToOrigin()
    const QPoint origin(0, 0);
    const QPoint current = scrollPosition();
    if (current != origin) {
-      if (debugZoomWidget) {
+      if (DEBUG_ZOOM_WIDGET) {
          qDebug() << "ZoomView::scrollToOrigin from " << current;
       }
       setScrollPosition(origin);
@@ -145,7 +144,7 @@ void ZoomView::scrollToOrigin()
 
 void ZoomView::setZoom(int percent)
 {
-   if (debugZoomWidget) {
+   if (DEBUG_ZOOM_WIDGET) {
       qDebug() << "ZoomView::setZoom" << percent;
    }
 
@@ -197,7 +196,7 @@ ZoomMenu *ZoomView::zoomMenu()
 
 void ZoomView::contextMenuEvent(QContextMenuEvent *event)
 {
-   if (debugZoomWidget > 1) {
+   if (DEBUG_ZOOM_WIDGET > 1) {
       qDebug() << "ZoomView::contextMenuEvent" << event->pos() << event->globalPos() << zoom() << '%';
    }
 
@@ -238,7 +237,7 @@ QVariant ZoomProxyWidget::itemChange(GraphicsItemChange change, const QVariant &
       case ItemPositionChange: {
          const QPointF newPos = value.toPointF();
          const QPointF desiredPos = QPointF(0, 0);
-         if (newPos != desiredPos && debugZoomWidget) {
+         if (newPos != desiredPos && DEBUG_ZOOM_WIDGET) {
             qDebug() << "ZoomProxyWidget::itemChange: refusing " << newPos;
          }
          return desiredPos;
@@ -288,7 +287,7 @@ ZoomWidget::ZoomWidget(QWidget *parent)
 
 void ZoomWidget::setWidget(QWidget *w, Qt::WindowFlags wFlags)
 {
-   if (debugZoomWidget) {
+   if (DEBUG_ZOOM_WIDGET) {
       qDebug() << "ZoomWidget::setWidget" << w << bin << wFlags;
    }
 
@@ -394,7 +393,7 @@ void ZoomWidget::resizeToWidgetSize()
    const QSize maximumSize = m_proxy->widget()->maximumSize();
    const QSize viewMaximumSize = widgetSizeToViewSize(maximumSize, &hasMaximumSize);
 
-   if (debugZoomWidget) {
+   if (DEBUG_ZOOM_WIDGET) {
       qDebug()
             << "ZoomWidget::resizeToWidgetSize()\n"
                << "Widget: " <<  wsize << "(scaled)"  << (wsize * zoomFactor()) << " Min/Max" << minimumSize  <<  maximumSize << '\n'
@@ -409,7 +408,7 @@ void ZoomWidget::resizeToWidgetSize()
    }
    // now resize
    doResize(viewSize);
-   if (debugZoomWidget) {
+   if (DEBUG_ZOOM_WIDGET) {
       qDebug() << "ZoomWidget::resizeToWidgetSize(): resulting view size" << size();
    }
    m_viewResizeBlocked = false;
@@ -422,7 +421,7 @@ void ZoomWidget::applyZoom()
 
 void  ZoomWidget::doResize(const QSize &s)
 {
-   if (debugZoomWidget > 1) {
+   if (DEBUG_ZOOM_WIDGET > 1) {
       qDebug() << ">ZoomWidget::doResize() " << s;
    }
    resize(s);
@@ -435,7 +434,7 @@ void ZoomWidget::resizeEvent(QResizeEvent *event)
     * to some QScrollArea event fiddling. Have QScrollArea resize first
     * and the use the size ZoomView::resizeEvent(event); */
    if (m_proxy && !m_viewResizeBlocked) {
-      if (debugZoomWidget > 1) {
+      if (DEBUG_ZOOM_WIDGET > 1) {
          qDebug() << '>' << Q_FUNC_INFO << size() << ")::resizeEvent from " << event->oldSize() << " to " << event->size();
       }
       const QSizeF newViewPortSize = size() - viewPortMargin();
@@ -445,7 +444,7 @@ void ZoomWidget::resizeEvent(QResizeEvent *event)
       setSceneRect(QRectF(QPointF(0, 0), widgetSizeF));
       scrollToOrigin();
       m_widgetResizeBlocked = false;
-      if (debugZoomWidget > 1) {
+      if (DEBUG_ZOOM_WIDGET > 1) {
          qDebug() << '<' << Q_FUNC_INFO << widgetSizeF << m_proxy->widget()->size() << m_proxy->size();
       }
    }
@@ -459,9 +458,11 @@ QSize ZoomWidget::minimumSizeHint() const
 
    const QSizeF wmsh = m_proxy->widget()->minimumSizeHint();
    const QSize rc = viewPortMargin() + (wmsh * zoomFactor()).toSize();
-   if (debugZoomWidget > 1) {
+
+   if (DEBUG_ZOOM_WIDGET > 1) {
       qDebug() << "minimumSizeHint()" << rc;
    }
+
    return rc;
 }
 
@@ -473,7 +474,7 @@ QSize ZoomWidget::sizeHint() const
 
    const QSizeF wsh = m_proxy->widget()->sizeHint();
    const QSize rc = viewPortMargin() + (wsh * zoomFactor()).toSize();
-   if (debugZoomWidget > 1) {
+   if (DEBUG_ZOOM_WIDGET > 1) {
       qDebug() << "sizeHint()" << rc;
    }
    return rc;
@@ -483,15 +484,16 @@ bool ZoomWidget::zoomedEventFilter(QObject * /*watched*/, QEvent *event)
 {
    switch (event->type()) {
       case QEvent::KeyPress:
-         if (debugZoomWidget) { // Debug helper: Press 'D' on the zoomed widget
+         if (DEBUG_ZOOM_WIDGET) { // Debug helper: Press 'D' on the zoomed widget
             const QKeyEvent *kevent = static_cast<QKeyEvent *>(event);
             if (kevent->key() == Qt::Key_D) {
                dump();
             }
          }
          break;
+
       case QEvent::Resize:
-         if (debugZoomWidget > 1) {
+         if (DEBUG_ZOOM_WIDGET > 1) {
             const QResizeEvent *re = static_cast<const QResizeEvent *>(event);
             qDebug() << "ZoomWidget::zoomedEventFilter" << re->oldSize() << re->size() << " at " << m_proxy->widget()->geometry();
          }

@@ -52,7 +52,7 @@
 
 #include <algorithm>
 
-enum { FormLayoutColumns = 2 };
+constexpr const int COLUMNS_IN_FORM = 2;
 
 namespace qdesigner_internal {
 
@@ -1130,7 +1130,7 @@ bool Grid::shrinkFormLayoutSpans()
 void Grid::reallocFormLayout()
 {
    // Columns matching?
-   if (m_ncols == FormLayoutColumns) {
+   if (m_ncols == COLUMNS_IN_FORM) {
       return;
    }
 
@@ -1139,13 +1139,13 @@ void Grid::reallocFormLayout()
    // following reallocation from creating empty form rows.
    int pastRightWidgetCount = 0;
 
-   if (m_ncols > FormLayoutColumns) {
+   if (m_ncols > COLUMNS_IN_FORM) {
       for (int r = 0; r < m_nrows; r++) {
          // Try to find a column where the form columns are empty and
          // there are widgets further to the right.
 
          if (cell(r, 0) == nullptr && cell(r, 1) == nullptr) {
-            int sourceCol = FormLayoutColumns;
+            int sourceCol = COLUMNS_IN_FORM;
             QWidget *firstWidget = nullptr;
 
             for ( ; sourceCol < m_ncols; ++sourceCol) {
@@ -1173,7 +1173,7 @@ void Grid::reallocFormLayout()
          }
 
          // Any protruding widgets left on that row?
-         for (int c = FormLayoutColumns; c < m_ncols; c++)
+         for (int c = COLUMNS_IN_FORM; c < m_ncols; c++)
             if (cell(r, c)) {
                pastRightWidgetCount++;
             }
@@ -1183,18 +1183,20 @@ void Grid::reallocFormLayout()
    // Reallocate with 2 columns. Just insert the protruding ones as fields.
    const int formNRows = m_nrows + pastRightWidgetCount;
 
-   QWidget **formCells = new QWidget*[FormLayoutColumns * formNRows];
-   std::fill(formCells, formCells + FormLayoutColumns * formNRows, nullptr);
+   QWidget **formCells = new QWidget*[COLUMNS_IN_FORM * formNRows];
+   std::fill(formCells, formCells + COLUMNS_IN_FORM * formNRows, nullptr);
 
    QWidget **formPtr = formCells;
-   const int matchingColumns = qMin(m_ncols, static_cast<int>(FormLayoutColumns));
+   const int matchingColumns = qMin(m_ncols, static_cast<int>(COLUMNS_IN_FORM));
 
    for (int r = 0; r < m_nrows; r++) {
       int c = 0;
       for ( ; c < matchingColumns; c++) {             // Just copy over matching columns
          *formPtr++ = cell(r, c);
       }
-      formPtr += FormLayoutColumns - matchingColumns; // In case old format was 1 column
+
+      formPtr += COLUMNS_IN_FORM - matchingColumns; // In case old format was 1 column
+
       // protruding widgets: Insert as single-field rows
       for ( ; c < m_ncols; c++) {
          if (QWidget *w = cell(r, c)) {
@@ -1205,12 +1207,12 @@ void Grid::reallocFormLayout()
       }
    }
 
-   Q_ASSERT(formPtr == formCells + FormLayoutColumns * formNRows);
+   Q_ASSERT(formPtr == formCells + COLUMNS_IN_FORM * formNRows);
    delete [] m_cells;
 
    m_cells = formCells;
    m_nrows = formNRows;
-   m_ncols = FormLayoutColumns;
+   m_ncols = COLUMNS_IN_FORM;
 }
 
 bool Grid::locateWidget(QWidget *w, int &row, int &col, int &rowspan, int &colspan) const

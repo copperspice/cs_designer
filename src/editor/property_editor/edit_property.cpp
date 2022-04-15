@@ -44,11 +44,12 @@
 
 static inline void setupTreeViewEditorMargin(QLayout *lt)
 {
-   enum { DecorationMargin = 4 };
+   constexpr const int MARGIN = 4;
+
    if (QApplication::layoutDirection() == Qt::LeftToRight) {
-      lt->setContentsMargins(DecorationMargin, 0, 0, 0);
+      lt->setContentsMargins(MARGIN, 0, 0, 0);
    } else {
-      lt->setContentsMargins(0, 0, DecorationMargin, 0);
+      lt->setContentsMargins(0, 0, MARGIN, 0);
    }
 }
 

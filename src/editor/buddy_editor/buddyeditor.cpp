@@ -438,7 +438,8 @@ void BuddyEditor::autoBuddy()
 // Geometrically find  a potential buddy for label by checking neighbouring children of parent
 QWidget *BuddyEditor::findBuddy(QLabel *l, const QWidgetList &existingBuddies) const
 {
-   enum { DeltaX = 5 };
+   constexpr const int DELTA = 5;
+
    const QWidget *parent = l->parentWidget();
 
    // Try to find next managed neighbour on horizontal line
@@ -452,21 +453,29 @@ QWidget *BuddyEditor::findBuddy(QLabel *l, const QWidgetList &existingBuddies) c
       case Qt::LeftToRight: {
          // Walk right to find next managed neighbour
          const int xEnd = parent->size().width();
-         for (int x = geom.right() + 1; x < xEnd; x += DeltaX)
-            if (QWidget *c = parent->childAt (x, y))
+
+         for (int x = geom.right() + 1; x < xEnd; x += DELTA) {
+            if (QWidget *c = parent->childAt (x, y)) {
                if (m_formWindow->isManaged(c)) {
                   neighbour = c;
                   break;
                }
+            }
+         }
       }
       break;
-      case Qt::RightToLeft:  // Walk left to find next managed neighbour
-         for (int x = geom.x() - 1; x >= 0; x -= DeltaX)
-            if (QWidget *c = parent->childAt (x, y))
+
+      case Qt::RightToLeft:
+         // Walk left to find next managed neighbor
+
+         for (int x = geom.x() - 1; x >= 0; x -= DELTA) {
+            if (QWidget *c = parent->childAt (x, y)) {
                if (m_formWindow->isManaged(c)) {
                   neighbour = c;
                   break;
                }
+            }
+         }
          break;
    }
 

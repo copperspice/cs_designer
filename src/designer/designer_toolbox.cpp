@@ -34,6 +34,8 @@
 #include <QMenu>
 #include <QToolBox>
 
+constexpr const int DEFAULT_TAB_SPACING = -1;
+
 QToolBoxHelper::QToolBoxHelper(QToolBox *toolbox)
    : QObject(toolbox), m_toolbox(toolbox),
      m_actionDeletePage(new QAction(tr("Delete Page"), this)),
@@ -243,7 +245,6 @@ static const QString currentItemIconKey    = "currentItemIcon";
 static const QString currentItemToolTipKey = "currentItemToolTip";
 static const QString tabSpacingKey         = "tabSpacing";
 
-constexpr const int tabSpacingDefault = -1;
 
 QToolBoxWidgetPropertySheet::QToolBoxWidgetPropertySheet(QToolBox *object, QObject *parent)
    : QDesignerPropertySheet(object, parent), m_toolBox(object)
@@ -257,7 +258,7 @@ QToolBoxWidgetPropertySheet::QToolBoxWidgetPropertySheet(QToolBox *object, QObje
    }
 
    createFakeProperty(currentItemToolTipKey, QVariant::fromValue(qdesigner_internal::PropertySheetStringValue()));
-   createFakeProperty(tabSpacingKey, QVariant(tabSpacingDefault));
+   createFakeProperty(tabSpacingKey, QVariant(DEFAULT_TAB_SPACING));
 }
 
 QToolBoxWidgetPropertySheet::ToolBoxProperty QToolBoxWidgetPropertySheet::toolBoxPropertyFromName(const QString &name)
@@ -410,7 +411,7 @@ bool QToolBoxWidgetPropertySheet::reset(int index)
    // independent of index
    switch (toolBoxProperty) {
       case PropertyTabSpacing:
-         setProperty(index, QVariant(tabSpacingDefault));
+         setProperty(index, QVariant(DEFAULT_TAB_SPACING));
          return true;
 
       case PropertyToolBoxNone:

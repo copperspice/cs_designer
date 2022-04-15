@@ -25,14 +25,14 @@
 #include <QStyleFactory>
 #include <QVariant>
 
-enum { MaxDeviceActions = 20 };
+constexpr const int MAX_DEVICE_ACTIONS = 20;
 
 namespace qdesigner_internal {
 
 PreviewActionGroup::PreviewActionGroup(QDesignerFormEditorInterface *core, QObject *parent)
    : QActionGroup(parent), m_core(core)
 {
-   /* Create a list of up to MaxDeviceActions invisible actions to be
+   /* Create a list of up to MAX_DEVICE_ACTIONS invisible actions to be
     * populated with device profiles (actiondata: index) followed by the
     * standard style actions (actiondata: style name). */
    connect(this, &PreviewActionGroup::triggered, this, &PreviewActionGroup::slotTriggered);
@@ -41,7 +41,7 @@ PreviewActionGroup::PreviewActionGroup(QDesignerFormEditorInterface *core, QObje
    const QString objNamePostfix = QString("_action");
    // Create invisible actions for devices. Set index as action data.
    QString objNamePrefix = QString("__qt_designer_device_");
-   for (int i = 0; i < MaxDeviceActions; i++) {
+   for (int i = 0; i < MAX_DEVICE_ACTIONS; i++) {
       QAction *a = new QAction(this);
       QString objName = objNamePrefix;
       objName += QString::number(i);
@@ -51,7 +51,8 @@ PreviewActionGroup::PreviewActionGroup(QDesignerFormEditorInterface *core, QObje
       a->setData(i);
       addAction(a);
    }
-   // Create separator at index MaxDeviceActions
+
+   // Create separator at index MAX_DEVICE_ACTIONS
    QAction *sep = new QAction(this);
    sep->setObjectName(QString("__qt_designer_deviceseparator"));
    sep->setSeparator(true);
@@ -89,12 +90,12 @@ void PreviewActionGroup::updateDeviceProfiles()
 
    // Separator?
    const bool hasProfiles = !profiles.empty();
-   al.at(MaxDeviceActions)->setVisible(hasProfiles);
+   al.at(MAX_DEVICE_ACTIONS)->setVisible(hasProfiles);
    int index = 0;
 
    if (hasProfiles) {
       // Make actions visible
-      const int maxIndex = qMin(static_cast<int>(MaxDeviceActions), profiles.size());
+      const int maxIndex = qMin(static_cast<int>(MAX_DEVICE_ACTIONS), profiles.size());
       for (; index < maxIndex; index++) {
          const QString name = profiles.at(index).name();
          al.at(index)->setText(name);
@@ -103,7 +104,7 @@ void PreviewActionGroup::updateDeviceProfiles()
    }
 
    // Hide rest
-   for ( ; index < MaxDeviceActions; index++) {
+   for ( ; index < MAX_DEVICE_ACTIONS; index++) {
       al.at(index)->setVisible(false);
    }
 }

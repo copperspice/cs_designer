@@ -29,6 +29,8 @@
 
 namespace qdesigner_internal {
 
+constexpr const int INDICATOR_SIZE = 2;
+
 // ------------ ActionProviderBase:
 // Draws the drag indicator when dragging an action over a widget
 // that receives action Dnd, such as ToolBar, Menu or MenuBar.
@@ -46,24 +48,24 @@ ActionProviderBase::ActionProviderBase(QWidget *widget) :
    m_indicator->hide();
 }
 
-enum { indicatorSize = 2 };
-
 // Position an indicator horizontally over the rectangle, indicating
 // 'Insert before' (left or right according to layout direction)
 static inline QRect horizontalIndicatorRect(const QRect &rect, Qt::LayoutDirection layoutDirection)
 {
    // Position right?
-   QRect rc = QRect(rect.x(), 0, indicatorSize, rect.height() - 1);
+   QRect rc = QRect(rect.x(), 0, INDICATOR_SIZE, rect.height() - 1);
+
    if (layoutDirection == Qt::RightToLeft) {
-      rc.moveLeft(rc.x() + rect.width() -  indicatorSize);
+      rc.moveLeft(rc.x() + rect.width() -  INDICATOR_SIZE);
    }
+
    return rc;
 }
 
 // Position an indicator vertically over the rectangle, indicating 'Insert before' (top)
 static inline QRect verticalIndicatorRect(const QRect &rect)
 {
-   return QRect(0, rect.top(), rect.width() - 1, indicatorSize);
+   return QRect(0, rect.top(), rect.width() - 1, INDICATOR_SIZE);
 }
 
 // Determine the geometry of the indicator by retrieving

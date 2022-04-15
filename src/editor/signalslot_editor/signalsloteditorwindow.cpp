@@ -440,7 +440,7 @@ class InlineEditorModel : public QStandardItemModel
    CS_OBJECT(InlineEditorModel)
 
  public:
-   enum {  TitleItem = 1 };
+   static constexpr const int TITLE_ITEM = 1;
 
    InlineEditorModel(int rows, int cols, QObject *parent = nullptr);
 
@@ -463,9 +463,10 @@ void InlineEditorModel::addTitle(const QString &title)
 {
    const int cnt = rowCount();
    insertRows(cnt, 1);
+
    QModelIndex cat_idx = index(cnt, 0);
    setData(cat_idx, QString(title + QLatin1Char(':')), Qt::DisplayRole);
-   setData(cat_idx, TitleItem, Qt::UserRole);
+   setData(cat_idx, TITLE_ITEM, Qt::UserRole);
 
    QFont font = QApplication::font();
    font.setBold(true);
@@ -479,7 +480,7 @@ bool InlineEditorModel::isTitle(int idx) const
       return false;
    }
 
-   return data(index(idx, 0), Qt::UserRole).toInt() == TitleItem;
+   return data(index(idx, 0), Qt::UserRole).toInt() == TITLE_ITEM;
 }
 
 void InlineEditorModel::addText(const QString &text)
@@ -525,7 +526,8 @@ int InlineEditorModel::findText(const QString &text) const
 
    for (int i = 0; i < cnt; ++i) {
       const QModelIndex idx = index(i, 0);
-      if (data(idx, Qt::UserRole).toInt() == TitleItem) {
+
+      if (data(idx, Qt::UserRole).toInt() == TITLE_ITEM) {
          continue;
       }
 

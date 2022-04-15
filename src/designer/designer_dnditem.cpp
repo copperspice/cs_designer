@@ -102,7 +102,7 @@ QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag
    : m_items(items)
 {
 #ifdef Q_OS_WIN
-    constexpr const int Alpha = 200;
+    constexpr const int ALPHA = 200;
 #endif
 
    QPoint decorationTopLeft;
@@ -128,7 +128,7 @@ QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag
          painter.drawPixmap(QPoint(0, 0), widgetPixmap);
          painter.end();
 
-         setImageTransparency(image, Alpha);
+         setImageTransparency(image, ALPHA);
          drag->setPixmap(QPixmap::fromImage(image));
 #else
          drag->setPixmap(widgetPixmap);
@@ -172,7 +172,7 @@ QDesignerMimeData::QDesignerMimeData(const QDesignerDnDItems &items, QDrag *drag
          maskPainter.end();
 
 #ifdef Q_OS_WIN
-         setImageTransparency(image, Alpha);
+         setImageTransparency(image, ALPHA);
 #endif
 
          QPixmap pixmap = QPixmap::fromImage(image);

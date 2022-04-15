@@ -147,9 +147,6 @@ class QDesignerPromotionDialog : public QDialog
    QDialogButtonBox *createButtonBox();
    void delayedUpdateFromWidgetDatabase();
 
-   // Return item at model index and a combination of flags or 0.
-   enum { Referenced = 1, CanPromote = 2 };
-
    QDesignerWidgetDataBaseItemInterface *databaseItemAt(const QItemSelection &, unsigned &flags) const;
    void displayError(const QString &message);
 

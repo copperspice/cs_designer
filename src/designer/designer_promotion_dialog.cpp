@@ -44,6 +44,10 @@
 #include <QVBoxLayout>
 #include <QValidator>
 
+// return item at model index and a combination of flags or 0
+constexpr const int IS_REFERENCED = 1;
+constexpr const int CAN_PROMOTE   = 2;
+
 namespace qdesigner_internal {
 
 //  NewPromotedClassPanel
@@ -302,7 +306,7 @@ void  QDesignerPromotionDialog::slotAcceptPromoteTo()
    unsigned flags;
    // Ok pressed: Promote to selected class
    if (QDesignerWidgetDataBaseItemInterface *dbItem = databaseItemAt(m_treeView->selectionModel()->selection(), flags)) {
-      if (flags & CanPromote) {
+      if (flags & CAN_PROMOTE) {
          *m_promoteTo = dbItem ->name();
          accept();
       }
@@ -313,7 +317,8 @@ void QDesignerPromotionDialog::slotRemove()
 {
    unsigned flags;
    QDesignerWidgetDataBaseItemInterface *dbItem = databaseItemAt(m_treeView->selectionModel()->selection(), flags);
-   if (!dbItem || (flags & Referenced)) {
+
+   if (! dbItem || (flags & IS_REFERENCED)) {
       return;
    }
 
@@ -330,10 +335,10 @@ void QDesignerPromotionDialog::slotSelectionChanged(const QItemSelection &select
    // Enable deleting non-referenced items
    unsigned flags;
    const QDesignerWidgetDataBaseItemInterface *dbItem = databaseItemAt(selected, flags);
-   m_removeButton->setEnabled(dbItem && !(flags & Referenced));
+   m_removeButton->setEnabled(dbItem && ! (flags & IS_REFERENCED));
    // In choose mode, can we promote to the class?
    if (m_mode == ModeEditChooseClass) {
-      const bool enablePromoted = flags & CanPromote;
+      const bool enablePromoted = flags & CAN_PROMOTE;
       m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enablePromoted);
       m_buttonBox->button(QDialogButtonBox::Ok)->setDefault(enablePromoted);
    }
@@ -363,13 +368,12 @@ QDesignerWidgetDataBaseItemInterface *QDesignerPromotionDialog::databaseItemAt(c
 
    if (dbItem) {
       if (referenced) {
-         flags |= Referenced;
+         flags |= IS_REFERENCED;
       }
-
 
       // In choose mode, can we promote to the class?
       if (m_mode == ModeEditChooseClass &&  dbItem && dbItem->isPromoted() && dbItem->extends() ==  m_promotableWidgetClassName) {
-         flags |= CanPromote;
+         flags |= CAN_PROMOTE;
       }
 
    }

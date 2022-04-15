@@ -46,10 +46,11 @@
 
 #include <algorithm>
 
-enum { ShiftValue = 1 };
-enum { debugLayout = 0 };
-enum { FormLayoutColumns = 2 };
-enum { indicatorSize = 2 };
+constexpr const int DEBUG_LAYOUT    = 0;
+
+constexpr const int MIN_MARGIN      = 1;
+constexpr const int COLUMNS_IN_FORM = 2;
+constexpr const int INDICATOR_SIZE  = 2;
 
 // Grid/form Helpers: get info (overloads to make templates work)
 
@@ -87,7 +88,7 @@ inline int gridRowCount(const QFormLayout *formLayout)
 }
 inline int gridColumnCount(const QFormLayout *)
 {
-   return FormLayoutColumns;
+   return COLUMNS_IN_FORM;
 }
 
 inline void getGridItemPosition(QFormLayout *formLayout, int index, int *row, int *column, int *rowspan, int *colspan)
@@ -177,7 +178,7 @@ static inline bool isEmptyFormLayoutRow(const QFormLayout *fl, int row)
 
 static inline bool canSimplifyFormLayout(const QFormLayout *formLayout, const QRect &restrictionArea)
 {
-   if (restrictionArea.x() >= FormLayoutColumns) {
+   if (restrictionArea.x() >= COLUMNS_IN_FORM) {
       return false;
    }
 
@@ -814,7 +815,8 @@ GridLayoutState::CellStates GridLayoutState::cellStates(const QList<QRect> &rect
          }
       }
    }
-   if (debugLayout) {
+
+   if (DEBUG_LAYOUT) {
       qDebug() << "GridLayoutState::cellStates: " << numRows << " x " << numColumns;
 
       for (int r = 0; r < numRows; r++) {
@@ -850,7 +852,8 @@ void GridLayoutState::applyToLayout(const QDesignerFormEditorInterface *core, QW
    typedef QMap<QLayoutItem *, QRect> LayoutItemRectMap;
    QGridLayout *grid = dynamic_cast<QGridLayout *>(LayoutInfo::managedLayout(core, w));
    Q_ASSERT(grid);
-   if (debugLayout) {
+
+   if (DEBUG_LAYOUT) {
       qDebug() << ">GridLayoutState::applyToLayout" <<  *this << *grid;
    }
    const bool shrink = grid->rowCount() > rowCount || grid->columnCount() > colCount;
@@ -900,7 +903,8 @@ void GridLayoutState::applyToLayout(const QDesignerFormEditorInterface *core, QW
             grid->addItem(createGridSpacer(), r, c);
          }
    grid->activate();
-   if (debugLayout) {
+
+   if (DEBUG_LAYOUT) {
       qDebug() << "<GridLayoutState::applyToLayout" <<  *grid;
    }
 }
@@ -1217,15 +1221,17 @@ void GridLayoutHelper::simplify(const QDesignerFormEditorInterface *core, QWidge
 {
    QGridLayout *gridLayout = dynamic_cast<QGridLayout *>(LayoutInfo::managedLayout(core, widgetWithManagedLayout));
    Q_ASSERT(gridLayout);
-   if (debugLayout) {
+   if (DEBUG_LAYOUT) {
       qDebug() << ">GridLayoutHelper::simplify" <<  *gridLayout;
    }
+
    GridLayoutState gs;
    gs.fromLayout(gridLayout);
    if (gs.simplify(restrictionArea, false)) {
       gs.applyToLayout(core, widgetWithManagedLayout);
    }
-   if (debugLayout) {
+
+   if (DEBUG_LAYOUT) {
       qDebug() << "<GridLayoutHelper::simplify" <<  *gridLayout;
    }
 }
@@ -1272,7 +1278,7 @@ QRect FormLayoutHelper::itemInfo(QLayout *lt, int index) const
 
 void FormLayoutHelper::insertWidget(QLayout *lt, const QRect &info, QWidget *w)
 {
-   if (debugLayout) {
+   if (DEBUG_LAYOUT) {
       qDebug() << "FormLayoutHelper::insertWidget:" << w << info;
    }
 
@@ -1303,7 +1309,7 @@ void FormLayoutHelper::removeWidget(QLayout *lt, QWidget *widget)
    int row, column, colspan;
    getFormLayoutItemPosition(formLayout, index, &row, &column, nullptr, &colspan);
 
-   if (debugLayout) {
+   if (DEBUG_LAYOUT) {
       qDebug() << "FormLayoutHelper::removeWidget: #" << index << widget << " at " << row << column <<  colspan;
    }
 
@@ -1378,7 +1384,7 @@ FormLayoutHelper::FormLayoutState FormLayoutHelper::state(const QFormLayout *lt)
       }
    }
 
-   if (debugLayout) {
+   if (DEBUG_LAYOUT) {
       qDebug() << "FormLayoutHelper::state: " << rowCount;
 
       for (int r = 0; r < rowCount; r++) {
@@ -1416,14 +1422,14 @@ void FormLayoutHelper::popState(const QDesignerFormEditorInterface *core, QWidge
    }
 
    for (int r = 0; r < rowCount; r++) {
-      QWidget *widgets[FormLayoutColumns] = { storedState[r].first, storedState[r].second };
+      QWidget *widgets[COLUMNS_IN_FORM] = { storedState[r].first, storedState[r].second };
       const bool spanning = widgets[0] != nullptr && widgets[0] == widgets[1];
 
       if (spanning) {
          formLayout->setWidget(r, QFormLayout::SpanningRole, widgets[0]);
 
       } else {
-         for (int c = 0; c < FormLayoutColumns; c++) {
+         for (int c = 0; c < COLUMNS_IN_FORM; c++) {
             const QFormLayout::ItemRole role = c == 0 ? QFormLayout::LabelRole : QFormLayout::FieldRole;
 
             if (widgets[c] && BoxLayoutHelper::findItemOfWidget(items, widgets[c])) {
@@ -1452,7 +1458,7 @@ void FormLayoutHelper::simplify(const QDesignerFormEditorInterface *core, QWidge
 
    QFormLayout *formLayout = dynamic_cast<QFormLayout *>(LayoutInfo::managedLayout(core, widgetWithManagedLayout));
    Q_ASSERT(formLayout);
-   if (debugLayout) {
+   if (DEBUG_LAYOUT) {
       qDebug() << "FormLayoutHelper::simplify";
    }
 
@@ -1609,10 +1615,11 @@ void QLayoutSupport::adjustIndicator(const QPoint &pos, int index)
       QPalette redPalette;
       redPalette.setColor(QPalette::Window, Qt::red);
 
-      showIndicator(LeftIndicator,   QRect(g.x(),     g.y(),      indicatorSize, g.height()), redPalette);
-      showIndicator(TopIndicator,    QRect(g.x(),     g.y(),      g.width(),     indicatorSize), redPalette);
-      showIndicator(RightIndicator,  QRect(g.right(), g.y(),      indicatorSize, g.height()), redPalette);
-      showIndicator(BottomIndicator, QRect(g.x(),     g.bottom(), g.width(),     indicatorSize), redPalette);
+      showIndicator(LeftIndicator,   QRect(g.x(),     g.y(),      INDICATOR_SIZE, g.height()),     redPalette);
+      showIndicator(TopIndicator,    QRect(g.x(),     g.y(),      g.width(),      INDICATOR_SIZE), redPalette);
+      showIndicator(RightIndicator,  QRect(g.right(), g.y(),      INDICATOR_SIZE, g.height()),     redPalette);
+      showIndicator(BottomIndicator, QRect(g.x(),     g.bottom(), g.width(),      INDICATOR_SIZE), redPalette);
+
       setCurrentCellFromIndicatorOnEmptyCell(m_currentIndex);
 
    } else {
@@ -1641,7 +1648,8 @@ void QLayoutSupport::adjustIndicator(const QPoint &pos, int index)
             case  Qt::Vertical: {
                hideIndicator(BottomIndicator);
                const bool closeToLeft = fromLeftRight == fromLeft;
-               showIndicator(RightIndicator, QRect(closeToLeft ? g.x() : g.right() + 1 - indicatorSize, 0, indicatorSize, r.height()), bluePalette);
+               showIndicator(RightIndicator, QRect(closeToLeft ? g.x() : g.right() + 1 - INDICATOR_SIZE,
+                     0, INDICATOR_SIZE, r.height()), bluePalette);
 
                const QWidget *parent = layout()->parentWidget();
                const bool leftToRight = Qt::LeftToRight == (parent ? parent->layoutDirection() : QApplication::layoutDirection());
@@ -1653,8 +1661,9 @@ void QLayoutSupport::adjustIndicator(const QPoint &pos, int index)
             case  Qt::Horizontal: {
                hideIndicator(RightIndicator);
                const bool closeToTop = fromBottomTop == fromTop;
-               showIndicator(BottomIndicator, QRect(r.x(), closeToTop ? g.y() : g.bottom() + 1 - indicatorSize, r.width(), indicatorSize),
-                  bluePalette);
+
+               showIndicator(BottomIndicator, QRect(r.x(), closeToTop ? g.y() : g.bottom() + 1 - INDICATOR_SIZE,
+                     r.width(), INDICATOR_SIZE), bluePalette);
 
                const int incr = closeToTop ? 0 : +1;
                setCurrentCellFromIndicator(indicatorOrientation, m_currentIndex, incr);
@@ -1806,11 +1815,13 @@ void QLayoutSupport::createEmptyCells(QFormLayout *formLayout)
 {
    // No spanning items here..
    if (const int rowCount = formLayout->rowCount()) {
-      for (int c = 0; c < FormLayoutColumns; c++)
-         for (int r = 0; r < rowCount; r++)
+      for (int c = 0; c < COLUMNS_IN_FORM; ++c) {
+         for (int r = 0; r < rowCount; ++r) {
             if (findGridItemAt(formLayout, r, c) == -1) {
                formLayout->setItem(r, c == 0 ? QFormLayout::LabelRole : QFormLayout::FieldRole, createFormSpacer());
             }
+         }
+      }
    }
 }
 
@@ -2203,7 +2214,8 @@ QFormLayoutSupport::QFormLayoutSupport(QDesignerFormWindowInterface *formWindow,
 
 void QFormLayoutSupport::checkCellForInsertion(int *row, int *col) const
 {
-   if (*col >= FormLayoutColumns) { // Clamp to 2 columns
+   if (*col >= COLUMNS_IN_FORM) {
+      // Clamp to 2 columns
       *col = 1;
       (*row)++;
    }
@@ -2390,8 +2402,8 @@ void QLayoutWidget::setLayoutLeftMargin(int layoutMargin)
    if (layout()) {
       int newMargin = m_leftMargin;
 
-      if (newMargin >= 0 && newMargin < ShiftValue) {
-         newMargin = ShiftValue;
+      if (newMargin >= 0 && newMargin < MIN_MARGIN) {
+         newMargin = MIN_MARGIN;
       }
 
       int left, top, right, bottom;
@@ -2417,8 +2429,8 @@ void QLayoutWidget::setLayoutTopMargin(int layoutMargin)
 
    if (layout()) {
       int newMargin = m_topMargin;
-      if (newMargin >= 0 && newMargin < ShiftValue) {
-         newMargin = ShiftValue;
+      if (newMargin >= 0 && newMargin < MIN_MARGIN) {
+         newMargin = MIN_MARGIN;
       }
 
       int left, top, right, bottom;
@@ -2444,8 +2456,8 @@ void QLayoutWidget::setLayoutRightMargin(int layoutMargin)
 
    if (layout()) {
       int newMargin = m_rightMargin;
-      if (newMargin >= 0 && newMargin < ShiftValue) {
-         newMargin = ShiftValue;
+      if (newMargin >= 0 && newMargin < MIN_MARGIN) {
+         newMargin = MIN_MARGIN;
       }
 
       int left, top, right, bottom;
@@ -2472,8 +2484,8 @@ void QLayoutWidget::setLayoutBottomMargin(int layoutMargin)
    if (layout()) {
 
       int newMargin = m_bottomMargin;
-      if (newMargin >= 0 && newMargin < ShiftValue) {
-         newMargin = ShiftValue;
+      if (newMargin >= 0 && newMargin < MIN_MARGIN) {
+         newMargin = MIN_MARGIN;
       }
 
       int left, top, right, bottom;

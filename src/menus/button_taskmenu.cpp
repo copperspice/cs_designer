@@ -43,7 +43,7 @@ CS_DECLARE_METATYPE(QButtonGroup *)
 
 namespace qdesigner_internal {
 
-constexpr const int debugButtonMenu = 0;
+constexpr const int DEBUG_BUTTON_MENU = 0;
 
 typedef QList<QAbstractButton *> ButtonList;
 typedef QList<QButtonGroup *> ButtonGroupList;
@@ -98,7 +98,7 @@ void ButtonGroupCommand::initialize(const ButtonList &bl, QButtonGroup *buttonGr
 
 void ButtonGroupCommand::addButtonsToGroup()
 {
-   if (debugButtonMenu) {
+   if (DEBUG_BUTTON_MENU) {
       qDebug() << "Adding " << m_buttonList << " to " << m_buttonGroup;
    }
 
@@ -109,7 +109,7 @@ void ButtonGroupCommand::addButtonsToGroup()
 
 void ButtonGroupCommand::removeButtonsFromGroup()
 {
-   if (debugButtonMenu) {
+   if (DEBUG_BUTTON_MENU) {
       qDebug() << "Removing " << m_buttonList << " from " << m_buttonGroup;
    }
 
@@ -120,7 +120,7 @@ void ButtonGroupCommand::removeButtonsFromGroup()
 
 void ButtonGroupCommand::createButtonGroup()
 {
-   if (debugButtonMenu) {
+   if (DEBUG_BUTTON_MENU) {
       qDebug() << "Creating " <<  m_buttonGroup << " from " <<  m_buttonList;
    }
 
@@ -135,7 +135,7 @@ void ButtonGroupCommand::createButtonGroup()
 
 void ButtonGroupCommand::breakButtonGroup()
 {
-   if (debugButtonMenu) {
+   if (DEBUG_BUTTON_MENU) {
       qDebug() << "Removing " <<  m_buttonGroup << " consisting of " <<  m_buttonList;
    }
 

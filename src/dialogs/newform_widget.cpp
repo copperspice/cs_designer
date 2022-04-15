@@ -45,7 +45,7 @@
 #include <QPainter>
 #include <QPushButton>
 
-constexpr const int profileComboIndexOffset = 1;
+constexpr const int INDEX_OFFSET = 1;
 
 enum NewForm_CustomRole {
    // File name (templates from resources, paths)
@@ -168,7 +168,7 @@ NewFormWidget::NewFormWidget(QDesignerFormEditorInterface *core, QWidget *parent
       }
       const int ci = settings.currentDeviceProfileIndex();
       if (ci >= 0) {
-         m_ui->profileComboBox->setCurrentIndex(ci + profileComboIndexOffset);
+         m_ui->profileComboBox->setCurrentIndex(ci + INDEX_OFFSET);
       }
    }
 
@@ -567,7 +567,7 @@ void NewFormWidget::slotDeviceProfileIndexChanged(int idx)
 {
    // Store index for form windows to take effect and refresh pixmap
    QDesignerSharedSettings settings(m_core);
-   settings.setCurrentDeviceProfileIndex(idx - profileComboIndexOffset);
+   settings.setCurrentDeviceProfileIndex(idx - INDEX_OFFSET);
    showCurrentItemPixmap();
 }
 
@@ -580,7 +580,7 @@ qdesigner_internal::DeviceProfile NewFormWidget::currentDeviceProfile() const
 {
    const int ci = profileComboIndex();
    if (ci > 0) {
-      return m_deviceProfiles.at(ci - profileComboIndexOffset);
+      return m_deviceProfiles.at(ci - INDEX_OFFSET);
    }
    return qdesigner_internal::DeviceProfile();
 }

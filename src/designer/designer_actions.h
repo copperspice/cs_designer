@@ -190,7 +190,7 @@ class QDesignerActions: public QObject
    QPixmap createPreviewPixmap(QDesignerFormWindowInterface *fw);
    qdesigner_internal::PreviewConfiguration previewConfiguration();
 
-   static constexpr const int MaxRecentFiles = 10;
+   static constexpr const int MAX_RECENT_FILES = 10;
 
    QDesignerWorkbench *m_workbench;
    QDesignerFormEditorInterface *m_core;

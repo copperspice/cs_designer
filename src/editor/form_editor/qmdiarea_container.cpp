@@ -77,14 +77,16 @@ void QMdiAreaContainer::addWidget(QWidget *widget)
 // cascaded other windows
 void QMdiAreaContainer::positionNewMdiChild(const QWidget *area, QWidget *mdiChild)
 {
-   enum { MinSize = 20 };
-   const QPoint pos = mdiChild->pos();
+   constexpr const int MIN_SIZE = 20;
+
+   const QPoint pos     = mdiChild->pos();
    const QSize areaSize = area->size();
+
    switch (QApplication::layoutDirection()) {
       case Qt::LayoutDirectionAuto:
       case Qt::LeftToRight: {
          const QSize fullSize = QSize(areaSize.width() - pos.x(), areaSize.height() - pos.y());
-         if (fullSize.width() > MinSize && fullSize.height() > MinSize) {
+         if (fullSize.width() > MIN_SIZE && fullSize.height() > MIN_SIZE) {
             mdiChild->resize(fullSize);
          }
       }
@@ -92,7 +94,7 @@ void QMdiAreaContainer::positionNewMdiChild(const QWidget *area, QWidget *mdiChi
 
       case Qt::RightToLeft: {
          const QSize fullSize = QSize(pos.x() + mdiChild->width(), areaSize.height() - pos.y());
-         if (fullSize.width() > MinSize && fullSize.height() > MinSize) {
+         if (fullSize.width() > MIN_SIZE && fullSize.height() > MIN_SIZE) {
             mdiChild->move(0, pos.y());
             mdiChild->resize(fullSize);
          }

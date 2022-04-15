@@ -109,7 +109,7 @@ void QWizardContainer::addWidget(QWidget *widget)
 
 void QWizardContainer::insertWidget(int index, QWidget *widget)
 {
-   enum { delta = 5 };
+   constexpr const int DELTA = 5;
 
    QWizardPage *newPage = dynamic_cast<QWizardPage *>(widget);
 
@@ -143,11 +143,13 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
          pageList.push_back(m_wizard->page(idList.at(i)));
          m_wizard->removePage(idList.at(i));
       }
-      int newId = idBefore + delta;
-      const WizardPageList::const_iterator wcend = pageList.constEnd();
-      for (WizardPageList::const_iterator it = pageList.constBegin(); it != wcend; ++it) {
+
+      int newId = idBefore + DELTA;
+      auto wcend = pageList.constEnd();
+
+      for (auto it = pageList.constBegin(); it != wcend; ++it) {
          m_wizard->setPage(newId, *it);
-         newId += delta;
+         newId += DELTA;
       }
 
    } else {

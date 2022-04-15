@@ -33,7 +33,7 @@
 #include <QDebug>
 #include <QEvent>
 
-constexpr const int debugToolWindow = 0;
+constexpr const int DEBUG_TOOL_WINDOW = 0;
 
 ToolWindowFontSettings::ToolWindowFontSettings()
    : m_writingSystem(QFontDatabase::Any), m_useFont(false)
@@ -172,7 +172,7 @@ QRect PropertyEditorToolWindow::geometryHint() const
          (g.top() + margin + g.height() * 1 / 6) + spacing,
          sz.width(), sz.height());
 
-   if (debugToolWindow) {
+   if (DEBUG_TOOL_WINDOW) {
       qDebug() << Q_FUNC_INFO << rc;
    }
 
@@ -221,10 +221,9 @@ QRect ActionEditorToolWindow::geometryHint() const
 
    const QSize sz(g.width() * 1 / 4, g.height() * 1 / 6);
 
-   const QRect rc = QRect((g.right() + 1 - sz.width() - margin),
-         g.top() + margin,
-         sz.width(), sz.height());
-   if (debugToolWindow) {
+   const QRect rc = QRect((g.right() + 1 - sz.width() - margin), g.top() + margin, sz.width(), sz.height());
+
+   if (DEBUG_TOOL_WINDOW) {
       qDebug() << Q_FUNC_INFO << rc;
    }
 
@@ -265,10 +264,9 @@ QRect ObjectInspectorToolWindow::geometryHint() const
 
    const QSize sz(g.width() * 1 / 4, g.height() * 1 / 6);
 
-   const QRect rc = QRect((g.right() + 1 - sz.width() - margin),
-         g.top() + margin,
-         sz.width(), sz.height());
-   if (debugToolWindow) {
+   const QRect rc = QRect((g.right() + 1 - sz.width() - margin), g.top() + margin, sz.width(), sz.height());
+
+   if (DEBUG_TOOL_WINDOW) {
       qDebug() << Q_FUNC_INFO << rc;
    }
 
@@ -301,7 +299,7 @@ QRect ResourceEditorToolWindow::geometryHint() const
    r.moveCenter(g.center());
    r.moveBottom(g.bottom() - margin);
 
-   if (debugToolWindow) {
+   if (DEBUG_TOOL_WINDOW) {
       qDebug() << Q_FUNC_INFO << r;
    }
 
@@ -333,7 +331,8 @@ QRect SignalSlotEditorToolWindow::geometryHint() const
    QRect r(QPoint(0, 0), sz);
    r.moveCenter(g.center());
    r.moveTop(margin + g.top());
-   if (debugToolWindow) {
+
+   if (DEBUG_TOOL_WINDOW) {
       qDebug() << Q_FUNC_INFO << r;
    }
 
@@ -368,10 +367,9 @@ QRect WidgetBoxToolWindow::geometryHint() const
 {
    const QRect g = availableToolWindowGeometry();
    const int margin = workbench()->marginHint();
-   const  QRect rc = QRect(g.left() + margin,
-         g.top() + margin,
-         g.width() * 1 / 4, g.height() * 5 / 6);
-   if (debugToolWindow) {
+   const  QRect rc = QRect(g.left() + margin, g.top() + margin, g.width() * 1 / 4, g.height() * 5 / 6);
+
+   if (DEBUG_TOOL_WINDOW) {
       qDebug() << Q_FUNC_INFO << rc;
    }
 

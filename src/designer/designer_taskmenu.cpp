@@ -63,6 +63,12 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+constexpr const int APPLY_MIN_WIDTH  = 0x1;
+constexpr const int APPLY_MIN_HEIGHT = 0x2;
+
+constexpr const int APPLY_MAX_WIDTH  = 0x4;
+constexpr const int APPLY_MAX_HEIGHT = 0x8;
+
 static QMenuBar *findMenuBar(const QWidget *widget)
 {
    const QList<QObject *> children = widget->children();
@@ -114,13 +120,6 @@ static QString objName(const QDesignerFormEditorInterface *core, QObject *object
 
    return objectNameValue.value();
 }
-
-enum {
-   ApplyMinimumWidth  = 0x1,
-   ApplyMinimumHeight = 0x2,
-   ApplyMaximumWidth  = 0x4,
-   ApplyMaximumHeight = 0x8
-};
 
 class ObjectNameDialog : public QDialog
 {
@@ -383,29 +382,29 @@ QDesignerTaskMenuPrivate::QDesignerTaskMenuPrivate(QWidget *widget, QObject *par
    QMenu *sizeMenu = new QMenu;
    m_sizeActionsSubMenu->setMenu(sizeMenu);
    QAction *sizeAction = m_sizeActionGroup->addAction(QDesignerTaskMenu::tr("Set Minimum Width"));
-   sizeAction->setData(ApplyMinimumWidth);
+   sizeAction->setData(APPLY_MIN_WIDTH);
    sizeMenu->addAction(sizeAction);
 
    sizeAction = m_sizeActionGroup->addAction(QDesignerTaskMenu::tr("Set Minimum Height"));
-   sizeAction->setData(ApplyMinimumHeight);
+   sizeAction->setData(APPLY_MIN_HEIGHT);
    sizeMenu->addAction(sizeAction);
 
    sizeAction = m_sizeActionGroup->addAction(QDesignerTaskMenu::tr("Set Minimum Size"));
-   sizeAction->setData(ApplyMinimumWidth | ApplyMinimumHeight);
+   sizeAction->setData(APPLY_MIN_WIDTH | APPLY_MIN_HEIGHT);
    sizeMenu->addAction(sizeAction);
 
    sizeMenu->addSeparator();
 
    sizeAction = m_sizeActionGroup->addAction(QDesignerTaskMenu::tr("Set Maximum Width"));
-   sizeAction->setData(ApplyMaximumWidth);
+   sizeAction->setData(APPLY_MAX_WIDTH);
    sizeMenu->addAction(sizeAction);
 
    sizeAction = m_sizeActionGroup->addAction(QDesignerTaskMenu::tr("Set Maximum Height"));
-   sizeAction->setData(ApplyMaximumHeight);
+   sizeAction->setData(APPLY_MAX_HEIGHT);
    sizeMenu->addAction(sizeAction);
 
    sizeAction = m_sizeActionGroup->addAction(QDesignerTaskMenu::tr("Set Maximum Size"));
-   sizeAction->setData(ApplyMaximumWidth | ApplyMaximumHeight);
+   sizeAction->setData(APPLY_MAX_WIDTH | APPLY_MAX_HEIGHT);
    sizeMenu->addAction(sizeAction);
 }
 
@@ -838,24 +837,28 @@ void QDesignerTaskMenu::navigateToSlot(QDesignerFormEditorInterface *core, QObje
 static void createSizeCommand(QDesignerFormWindowInterface *fw, QWidget *w, int flags)
 {
    const QSize size = w->size();
-   if (flags & (ApplyMinimumWidth | ApplyMinimumHeight)) {
+   if (flags & (APPLY_MIN_WIDTH | APPLY_MIN_HEIGHT)) {
       QSize minimumSize = w-> minimumSize();
-      if (flags & ApplyMinimumWidth) {
+      if (flags & APPLY_MIN_WIDTH) {
          minimumSize.setWidth(size.width());
       }
-      if (flags & ApplyMinimumHeight) {
+
+      if (flags & APPLY_MIN_HEIGHT) {
          minimumSize.setHeight(size.height());
       }
+
       SetPropertyCommand *cmd = new SetPropertyCommand(fw);
       cmd->init(w, QString("minimumSize"), minimumSize);
       fw->commandHistory()->push(cmd);
    }
-   if (flags & (ApplyMaximumWidth | ApplyMaximumHeight)) {
+
+   if (flags & (APPLY_MAX_WIDTH | APPLY_MAX_HEIGHT)) {
       QSize maximumSize = w-> maximumSize();
-      if (flags & ApplyMaximumWidth) {
+      if (flags & APPLY_MAX_WIDTH) {
          maximumSize.setWidth(size.width());
       }
-      if (flags & ApplyMaximumHeight) {
+
+      if (flags & APPLY_MAX_HEIGHT) {
          maximumSize.setHeight(size.height());
       }
 

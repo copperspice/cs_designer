@@ -29,10 +29,8 @@
 #include <QSpinBox>
 #include <QVBoxLayout>
 
-enum {
-   minDPI = 50,
-   maxDPI = 400
-};
+constexpr const int MIN_DPI = 50;
+constexpr const int MAX_DPI = 400;
 
 namespace qdesigner_internal {
 
@@ -100,15 +98,15 @@ DPI_Chooser::DPI_Chooser(QWidget *parent)
    QHBoxLayout *hBoxLayout = new QHBoxLayout;
    hBoxLayout->setMargin(0);
 
-   m_dpiXSpinBox->setMinimum(minDPI);
-   m_dpiXSpinBox->setMaximum(maxDPI);
+   m_dpiXSpinBox->setMinimum(MIN_DPI);
+   m_dpiXSpinBox->setMaximum(MAX_DPI);
    hBoxLayout->addWidget(m_dpiXSpinBox);
 
    // DPI X/Y separator
    hBoxLayout->addWidget(new QLabel(tr(" x ")));
 
-   m_dpiYSpinBox->setMinimum(minDPI);
-   m_dpiYSpinBox->setMaximum(maxDPI);
+   m_dpiYSpinBox->setMinimum(MIN_DPI);
+   m_dpiYSpinBox->setMaximum(MAX_DPI);
    hBoxLayout->addWidget(m_dpiYSpinBox);
 
    hBoxLayout->addStretch();
@@ -132,7 +130,7 @@ void DPI_Chooser::getDPI(int *dpiX, int *dpiY) const
 void DPI_Chooser::setDPI(int dpiX, int dpiY)
 {
    // Default to system if it is something odd
-   const bool valid = dpiX >= minDPI && dpiX <= maxDPI &&  dpiY >= minDPI && dpiY <= maxDPI;
+   const bool valid = dpiX >= MIN_DPI && dpiX <= MAX_DPI &&  dpiY >= MIN_DPI && dpiY <= MAX_DPI;
    if (!valid) {
       m_predefinedCombo->setCurrentIndex(0);
       return;

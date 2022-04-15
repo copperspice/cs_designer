@@ -42,7 +42,7 @@
 #include <QXmlStreamWriter>
 
 namespace {
-constexpr const int debugWidgetDataBase = 0;
+constexpr const int DEBUG_WIDGET = 0;
 }
 
 namespace qdesigner_internal {
@@ -410,7 +410,7 @@ void WidgetDataBase::loadPlugins()
          }
       }
    }
-   if (debugWidgetDataBase) {
+   if (DEBUG_WIDGET) {
       qDebug() << "WidgetDataBase::loadPlugins(): " << addedPlugins << " added, " << replacedPlugins << " replaced, " << removedPlugins <<
          "deleted.";
    }
@@ -809,7 +809,7 @@ QString buildIncludeFile(QString includeFile, IncludeType includeType)
 QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInterface *db, const QString &className,
       const QString &group, const QString &baseClassName, const QString &includeFile, bool promoted, bool custom)
 {
-   if (debugWidgetDataBase) {
+   if (DEBUG_WIDGET) {
       qDebug() << "appendDerived " << className << " derived from " << baseClassName;
    }
 
@@ -851,7 +851,7 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
    // Create this item, inheriting its base properties
    const int baseIndex = db->indexOfClassName(baseClassName);
    if (baseIndex == -1) {
-      if (debugWidgetDataBase) {
+      if (DEBUG_WIDGET) {
          qDebug() << "appendDerived failed due to missing base class";
       }
       return nullptr;

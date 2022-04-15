@@ -47,7 +47,7 @@ namespace qdesigner_internal {
 
 typedef QList<DeviceProfile> DeviceProfileList;
 
-constexpr const int profileComboIndexOffset = 1;
+constexpr const int INDEX_OFFSET = 1;
 
 // Sort by name. Used by template, do not make it static!
 bool deviceProfileLessThan(const DeviceProfile &d1, const DeviceProfile  &d2)
@@ -216,7 +216,7 @@ void EmbeddedOptionsControlPrivate::slotAdd()
 
 void EmbeddedOptionsControlPrivate::slotEdit()
 {
-   const int index =  m_profileCombo->currentIndex() - profileComboIndexOffset;
+   const int index =  m_profileCombo->currentIndex() - INDEX_OFFSET;
    if (index < 0) {
       return;
    }
@@ -251,7 +251,7 @@ void EmbeddedOptionsControlPrivate::slotEdit()
 
 void EmbeddedOptionsControlPrivate::slotDelete()
 {
-   const int index =  m_profileCombo->currentIndex() - profileComboIndexOffset;
+   const int index =  m_profileCombo->currentIndex() - INDEX_OFFSET;
    if (index < 0) {
       return;
    }
@@ -261,7 +261,7 @@ void EmbeddedOptionsControlPrivate::slotDelete()
          EmbeddedOptionsControl::tr("Would you like to delete the profile '%1'?").formatArg(name))) {
       m_profileCombo->setCurrentIndex(0);
       m_sortedProfiles.removeAt(index);
-      m_profileCombo->removeItem(index + profileComboIndexOffset);
+      m_profileCombo->removeItem(index + INDEX_OFFSET);
       m_dirty = true;
    }
 }
@@ -285,7 +285,7 @@ void EmbeddedOptionsControlPrivate::loadSettings()
    sortAndPopulateProfileCombo();
    // Index: 0 is "None"
    const int settingsIndex = settings.currentDeviceProfileIndex();
-   const int profileIndex = settingsIndex >= 0 && settingsIndex <  m_sortedProfiles.size() ? settingsIndex + profileComboIndexOffset : 0;
+   const int profileIndex = settingsIndex >= 0 && settingsIndex <  m_sortedProfiles.size() ? settingsIndex + INDEX_OFFSET : 0;
    m_profileCombo->setCurrentIndex(profileIndex);
    updateState();
    m_dirty = false;
@@ -297,7 +297,7 @@ void EmbeddedOptionsControlPrivate::saveSettings()
    settings.setDeviceProfiles(m_sortedProfiles);
 
    // Index: 0 is "None"
-   settings.setCurrentDeviceProfileIndex(m_profileCombo->currentIndex() - profileComboIndexOffset);
+   settings.setCurrentDeviceProfileIndex(m_profileCombo->currentIndex() - INDEX_OFFSET);
    m_dirty = false;
 }
 
@@ -329,7 +329,7 @@ static inline QString description(const DeviceProfile &p)
 
 void EmbeddedOptionsControlPrivate::updateDescriptionLabel()
 {
-   const int profileIndex = m_profileCombo->currentIndex() - profileComboIndexOffset;
+   const int profileIndex = m_profileCombo->currentIndex() - INDEX_OFFSET;
    if (profileIndex >= 0) {
       m_descriptionLabel->setText(description(m_sortedProfiles.at(profileIndex)));
    } else {
@@ -339,7 +339,7 @@ void EmbeddedOptionsControlPrivate::updateDescriptionLabel()
 
 void EmbeddedOptionsControlPrivate::updateState()
 {
-   const int profileIndex = m_profileCombo->currentIndex() - profileComboIndexOffset;
+   const int profileIndex = m_profileCombo->currentIndex() - INDEX_OFFSET;
    // Allow for changing/deleting only if it is not in use
    bool modifyEnabled = false;
    if (profileIndex >= 0) {

@@ -30,7 +30,7 @@
 #include <QBuffer>
 #include <QFileSystemWatcher>
 
-constexpr const int debugResourceModel = 0;
+constexpr const int DEBUG_RESOURCE = 0;
 
 class QtResourceSetPrivate
 {
@@ -177,7 +177,7 @@ const QByteArray *QtResourceModelPrivate::createResource(const QString &path, QS
       rc = new QByteArray(buffer.data());
    }
 
-   if (debugResourceModel) {
+   if (DEBUG_RESOURCE) {
       qDebug() << "createResource" << path << "returns data=" << rc << " hasWarnings=" << *errorCount;
    }
 
@@ -187,7 +187,7 @@ const QByteArray *QtResourceModelPrivate::createResource(const QString &path, QS
 void QtResourceModelPrivate::deleteResource(const QByteArray *data) const
 {
    if (data) {
-      if (debugResourceModel) {
+      if (DEBUG_RESOURCE) {
          qDebug() << "deleteResource";
       }
       delete data;
@@ -206,7 +206,7 @@ void QtResourceModelPrivate::registerResourceSet(QtResourceSet *resourceSet)
 
    while (itRegister.hasNext()) {
       const QString path = itRegister.next();
-      if (debugResourceModel) {
+      if (DEBUG_RESOURCE) {
          qDebug() << "registerResourceSet " << path;
       }
 
@@ -248,7 +248,7 @@ void QtResourceModelPrivate::unregisterResourceSet(QtResourceSet *resourceSet)
    while (itUnregister.hasNext()) {
       const QString path = itUnregister.next();
 
-      if (debugResourceModel) {
+      if (DEBUG_RESOURCE) {
          qDebug() << "unregisterResourceSet " << path;
       }
 
@@ -269,7 +269,7 @@ void QtResourceModelPrivate::unregisterResourceSet(QtResourceSet *resourceSet)
 void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringList &newPaths,
       int *errorCountPtr, QString *errorMessages)
 {
-   if (debugResourceModel) {
+   if (DEBUG_RESOURCE) {
       qDebug() << "activate " << resourceSet;
    }
 
@@ -354,7 +354,7 @@ void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringL
       }
       errorStream.close();
       const QString stderrOutput = QString::fromUtf8(errorStream.data());
-      if (debugResourceModel) {
+      if (DEBUG_RESOURCE) {
          qDebug() << "Output: (" << errorCount << ")\n" << stderrOutput;
       }
       if (errorMessages) {

@@ -523,7 +523,7 @@ QAction *QDesignerActions::createRecentFilesMenu()
    QAction *act;
 
    // Need to insert this into the QAction
-   for (int i = 0; i < MaxRecentFiles; ++i) {
+   for (int i = 0; i < MAX_RECENT_FILES; ++i) {
       act = new QAction(this);
       act->setVisible(false);
       connect(act, &QAction::triggered, this, &QDesignerActions::openRecentForm);
@@ -1082,7 +1082,7 @@ void QDesignerActions::updateRecentFileActions()
 {
    QStringList files = m_settings.recentFilesList();
    const int originalSize = files.size();
-   int numRecentFiles = qMin(files.size(), int(MaxRecentFiles));
+   int numRecentFiles = qMin(files.size(), int(MAX_RECENT_FILES));
    const QList<QAction *> recentFilesActs = m_recentFilesActions->actions();
 
    for (int i = 0; i < numRecentFiles; ++i) {
@@ -1091,7 +1091,7 @@ void QDesignerActions::updateRecentFileActions()
       if (! fi.exists()) {
          files.removeAt(i);
          --i;
-         numRecentFiles = qMin(files.size(), int(MaxRecentFiles));
+         numRecentFiles = qMin(files.size(), int(MAX_RECENT_FILES));
 
          continue;
       }
@@ -1101,7 +1101,7 @@ void QDesignerActions::updateRecentFileActions()
       recentFilesActs[i]->setVisible(true);
    }
 
-   for (int j = numRecentFiles; j < MaxRecentFiles; ++j) {
+   for (int j = numRecentFiles; j < MAX_RECENT_FILES; ++j) {
       recentFilesActs[j]->setVisible(false);
    }
 
@@ -1137,7 +1137,7 @@ void QDesignerActions::addRecentFile(const QString &fileName)
    files.removeAll(fileName);
    files.prepend(fileName);
 
-   while (files.size() > MaxRecentFiles) {
+   while (files.size() > MAX_RECENT_FILES) {
       files.removeLast();
    }
 

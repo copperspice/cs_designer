@@ -775,7 +775,8 @@ QWidget *PreviewManager::createPreview(const QDesignerFormWindowInterface *fw,
 QWidget *PreviewManager::showPreview(const QDesignerFormWindowInterface *fw,
       const PreviewConfiguration &pc, int deviceProfileIndex, QString *errorMessage)
 {
-   enum { Spacing = 10 };
+   constexpr const int DEFAULT_SPACING = 10;
+
    if (QWidget *existingPreviewWidget = raise(fw, pc)) {
       return existingPreviewWidget;
    }
@@ -820,18 +821,20 @@ QWidget *PreviewManager::showPreview(const QDesignerFormWindowInterface *fw,
    const bool firstPreview = d->m_previews.empty();
 
    if (firstPreview) {
-      widget->move(fw->mapToGlobal(QPoint(Spacing, Spacing)));
+      widget->move(fw->mapToGlobal(QPoint(DEFAULT_SPACING, DEFAULT_SPACING)));
+
    } else {
       if (QWidget *lastPreview = d->m_previews.back().m_widget) {
          QDesktopWidget *desktop = qApp->desktop();
 
          const QRect lastPreviewGeometry = lastPreview->frameGeometry();
          const QRect availGeometry = desktop->availableGeometry(desktop->screenNumber(lastPreview));
-         const QPoint newPos = lastPreviewGeometry.topRight() + QPoint(Spacing, 0);
+         const QPoint newPos = lastPreviewGeometry.topRight() + QPoint(DEFAULT_SPACING, 0);
+
          if (newPos.x() +  size.width() < availGeometry.right()) {
             widget->move(newPos);
          } else {
-            widget->move(lastPreviewGeometry.topLeft() + QPoint(Spacing, Spacing));
+            widget->move(lastPreviewGeometry.topLeft() + QPoint(DEFAULT_SPACING, DEFAULT_SPACING));
          }
       }
 

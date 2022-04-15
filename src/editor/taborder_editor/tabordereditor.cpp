@@ -38,9 +38,9 @@
 
 CS_DECLARE_METATYPE(QWidgetList)
 
-namespace {
-enum { VBOX_MARGIN = 1, HBOX_MARGIN = 4, BG_ALPHA = 32 };
-}
+constexpr const int VBOX_MARGIN = 1;
+constexpr const int HBOX_MARGIN = 4;
+constexpr const int BG_ALPHA    = 32;
 
 static QRect fixRect(const QRect &r)
 {
@@ -136,7 +136,6 @@ static bool isWidgetVisible(QWidget *widget)
 
 void TabOrderEditor::paintEvent(QPaintEvent *e)
 {
-
    QPainter p(this);
    p.setClipRegion(e->region());
 

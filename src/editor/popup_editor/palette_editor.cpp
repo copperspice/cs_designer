@@ -32,7 +32,7 @@
 
 namespace qdesigner_internal {
 
-constexpr const int BrushRole = 33;
+constexpr const int BRUSH_ROLE = 33;
 
 PaletteEditor::PaletteEditor(QDesignerFormEditorInterface *core, QWidget *parent)
    : QDialog(parent), m_currentColorGroup(QPalette::Active), m_paletteModel(new PaletteModel(this)),
@@ -324,7 +324,7 @@ QVariant PaletteModel::data(const QModelIndex &index, int role) const
       return QVariant();
    }
 
-   if (role == BrushRole) {
+   if (role == BRUSH_ROLE) {
       auto iter = m_roleNames.find(index.row());
 
       if (iter != m_roleNames.cend()) {
@@ -344,7 +344,7 @@ bool PaletteModel::setData(const QModelIndex &index, const QVariant &value, int 
       return false;
    }
 
-   if (index.column() != 0 && role == BrushRole) {
+   if (index.column() != 0 && role == BRUSH_ROLE) {
       auto iter = m_roleNames.find(index.row());
 
       if (iter == m_roleNames.cend()) {
@@ -647,7 +647,7 @@ void ColorDelegate::setEditorData(QWidget *ed, const QModelIndex &index) const
       editor->setLabel(colorName);
 
    } else {
-      QVariant data = index.model()->data(index, BrushRole);
+      QVariant data = index.model()->data(index, BRUSH_ROLE);
       const QBrush br = data.value<QBrush>();
 
       BrushEditor *editor = static_cast<BrushEditor *>(ed);
@@ -666,7 +666,7 @@ void ColorDelegate::setModelData(QWidget *ed, QAbstractItemModel *model, const Q
       BrushEditor *editor = static_cast<BrushEditor *>(ed);
       if (editor->changed()) {
          QBrush br = editor->brush();
-         model->setData(index, br, BrushRole);
+         model->setData(index, br, BRUSH_ROLE);
       }
    }
 }
@@ -689,7 +689,7 @@ void ColorDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt, co
       option.font.setBold(true);
    }
 
-   data = index.model()->data(index, BrushRole);
+   data = index.model()->data(index, BRUSH_ROLE);
    QBrush br = data.value<QBrush>();
 
    if (br.style() == Qt::LinearGradientPattern || br.style() == Qt::RadialGradientPattern ||

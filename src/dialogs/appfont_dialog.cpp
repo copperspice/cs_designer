@@ -46,7 +46,7 @@
 constexpr const int FileNameRole = Qt::UserRole + 1;
 constexpr const int IdRole       = Qt::UserRole + 2;
 
-constexpr const int debugAppFontWidget = 0;
+constexpr const int DEBUG_FONT_WIDGET = 0;
 
 static const char fontFileKeyC[] = "fontFiles";
 
@@ -104,7 +104,7 @@ void AppFontManager::save(QDesignerSettingsInterface *s, const QString &prefix) 
    s->setValue(fontFileKeyC,  fontFiles);
    s->endGroup();
 
-   if (debugAppFontWidget) {
+   if (DEBUG_FONT_WIDGET) {
       qDebug() << "AppFontManager::saved" << fontFiles.size() << "fonts under " << prefix;
    }
 }
@@ -114,7 +114,7 @@ void AppFontManager::restore(const QDesignerSettingsInterface *s, const QString 
    QString key = prefix + '/' + fontFileKeyC;
    const QStringList fontFiles = s->value(key, QStringList()).toStringList();
 
-   if (debugAppFontWidget) {
+   if (DEBUG_FONT_WIDGET) {
       qDebug() << "AppFontManager::restoring" << fontFiles.size() << "fonts from " << prefix;
    }
 
@@ -161,7 +161,7 @@ int AppFontManager::add(const QString &fontFile, QString *errorMessage)
       return -1;
    }
 
-   if (debugAppFontWidget) {
+   if (DEBUG_FONT_WIDGET) {
       qDebug() << "AppFontManager::add" << fontFile << id;
    }
    m_fonts.push_back(FileNameFontIdPair(fullPath, id));
@@ -202,7 +202,7 @@ bool AppFontManager::removeAt(int index, QString *errorMessage)
    const QString fontFile = m_fonts[index].first;
    const int id = m_fonts[index].second;
 
-   if (debugAppFontWidget) {
+   if (DEBUG_FONT_WIDGET) {
       qDebug() << "AppFontManager::removeAt" << index << '(' <<  fontFile << id << ')';
    }
 
