@@ -777,13 +777,13 @@ void QDesignerTaskMenu::navigateToSlot(QDesignerFormEditorInterface *core, QObje
    QDialog selectSignalDialog(nullptr, Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
    dialogUi.setupUi(&selectSignalDialog);
 
-   QMap<QString, QMap<QString, QStringList>>::const_iterator iter(classToSignalList.constBegin());
+   auto iter = classToSignalList.constBegin();
 
    for (; iter != classToSignalList.constEnd(); ++iter) {
       const QString className = iter.key();
       QMap<QString, QStringList> signalNames = iter.value();
 
-      QMap<QString, QStringList>::const_iterator itSignal(signalNames.constBegin());
+      auto itSignal = signalNames.constBegin();
       for (; itSignal != signalNames.constEnd(); ++itSignal) {
          const QString signalName = itSignal.key();
          QTreeWidgetItem *row = new QTreeWidgetItem(QStringList() << signalName << className);

@@ -200,9 +200,8 @@ template <class PropertySheetValue>
 int TranslatablePropertyManager<PropertySheetValue>::setValue(QtVariantPropertyManager *m,
          QtProperty *property, uint expectedTypeId, const QVariant &variantValue)
 {
-   typedef typename QMap<QtProperty *, PropertySheetValue>::iterator Iterator;
+   auto it = m_values.find(property);
 
-   const Iterator it = m_values.find(property);
    if (it == m_values.end()) {
       return DesignerPropertyManager::NoMatch;
    }

@@ -1790,12 +1790,14 @@ DomButtonGroups *QAbstractFormBuilder::saveButtonGroups(const QWidget *mainConta
    }
 
    QList<DomButtonGroup *> domGroups;
-   const QObjectList::const_iterator cend = mchildren.constEnd();
-   for (QObjectList::const_iterator it = mchildren.constBegin(); it != cend; ++it)
+   auto cend = mchildren.constEnd();
+
+   for (auto it = mchildren.constBegin(); it != cend; ++it) {
       if (QButtonGroup *bg = dynamic_cast<QButtonGroup *>(*it))
          if (DomButtonGroup *dg = createDom(bg)) {
             domGroups.push_back(dg);
          }
+   }
 
    if (domGroups.empty()) {
       return nullptr;

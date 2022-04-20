@@ -1073,7 +1073,8 @@ uint QtVariantPropertyManager::valueType(uint propertyType) const
 
 uint QtVariantPropertyManager::propertyType(const QtProperty *property) const
 {
-   const QMap<const QtProperty *, QPair<QtVariantProperty *, int>>::const_iterator it = d_ptr->m_propertyToType.constFind(property);
+   auto it = d_ptr->m_propertyToType.constFind(property);
+
    if (it == d_ptr->m_propertyToType.constEnd()) {
       return 0;
    }
@@ -1549,7 +1550,8 @@ void QtVariantPropertyManager::uninitializeProperty(QtProperty *property)
       return;
    }
 
-   PropertyMap::iterator it = propertyToWrappedProperty()->find(property);
+   auto it = propertyToWrappedProperty()->find(property);
+
    if (it != propertyToWrappedProperty()->end()) {
       QtProperty *internProp = it.value();
       if (internProp) {
