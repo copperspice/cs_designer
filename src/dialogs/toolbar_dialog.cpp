@@ -115,9 +115,9 @@ class QtFullToolBarManagerPrivate
    QToolBar *toolBarWidgetAction(QAction *action) const;
    void removeWidgetActions(const QMap<QToolBar *, QList<QAction *>> &actions);
 
-   enum {
-      VersionMarker = 0xff,
-      ToolBarMarker = 0xfe,
+   enum MarkerType {
+      VersionMarker       = 0xff,
+      ToolBarMarker       = 0xfe,
       CustomToolBarMarker = 0xfd,
    };
 
@@ -201,7 +201,7 @@ void QtFullToolBarManagerPrivate::removeWidgetActions(const QMap<QToolBar *, QLi
 
 void QtFullToolBarManagerPrivate::saveState(QDataStream &stream) const
 {
-   stream << (uchar) ToolBarMarker;
+   stream << static_cast<uchar>(QtFullToolBarManagerPrivate::MarkerType::ToolBarMarker);
    stream << defaultToolBars.size();
 
    auto itToolBar = defaultToolBars.constBegin();
@@ -240,7 +240,7 @@ void QtFullToolBarManagerPrivate::saveState(QDataStream &stream) const
    }
 
 
-   stream << (uchar) CustomToolBarMarker;
+   stream << static_cast<uchar>(QtFullToolBarManagerPrivate::MarkerType::CustomToolBarMarker);
    stream << toolBars.size() - defaultToolBars.size();
    itToolBar = toolBars.constBegin();
 
@@ -276,7 +276,8 @@ bool QtFullToolBarManagerPrivate::restoreState(QDataStream &stream) const
 {
    uchar tmarker;
    stream >> tmarker;
-   if (tmarker != ToolBarMarker) {
+
+   if (tmarker != QtFullToolBarManagerPrivate::MarkerType::ToolBarMarker) {
       return false;
    }
 
@@ -315,7 +316,7 @@ bool QtFullToolBarManagerPrivate::restoreState(QDataStream &stream) const
    uchar ctmarker;
    stream >> ctmarker;
 
-   if (ctmarker != CustomToolBarMarker) {
+   if (ctmarker != QtFullToolBarManagerPrivate::MarkerType::CustomToolBarMarker) {
       return false;
    }
 
@@ -819,9 +820,10 @@ QByteArray QtFullToolBarManager::saveState(int version) const
 {
    QByteArray data;
    QDataStream stream(&data, QIODevice::WriteOnly);
-   stream << QtFullToolBarManagerPrivate::VersionMarker;
+   stream << QtFullToolBarManagerPrivate::MarkerType::VersionMarker;
    stream << version;
    d_ptr->saveState(stream);
+
    return data;
 }
 
@@ -832,7 +834,7 @@ bool QtFullToolBarManager::restoreState(const QByteArray &state, int version)
    int marker, v;
    stream >> marker;
    stream >> v;
-   if (marker != QtFullToolBarManagerPrivate::VersionMarker || v != version) {
+   if (marker != QtFullToolBarManagerPrivate::MarkerType::VersionMarker || v != version) {
       return false;
    }
    return d_ptr->restoreState(stream);

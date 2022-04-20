@@ -168,7 +168,7 @@ ActionEditor::ActionEditor(QDesignerFormEditorInterface *core, QWidget *parent, 
    configureMenu->addAction(m_iconViewAction);
 
    m_listViewAction = m_viewModeGroup->addAction(tr("Detailed View"));
-   m_listViewAction->setData(QVariant(ActionView::DetailedView));
+   m_listViewAction->setData(QVariant(ActionView::ViewMode::DetailedView));
    m_listViewAction->setCheckable(true);
    m_listViewAction->setIcon(style()->standardIcon (QStyle::SP_FileDialogDetailedView));
    configureMenu->addAction(m_listViewAction);
@@ -771,10 +771,11 @@ void ActionEditor::saveSettings()
 void ActionEditor::updateViewModeActions()
 {
    switch (m_actionView->viewMode()) {
-      case ActionView::IconView:
+      case ActionView::ViewMode::IconView:
          m_iconViewAction->setChecked(true);
          break;
-      case ActionView::DetailedView:
+
+      case ActionView::ViewMode::DetailedView:
          m_listViewAction->setChecked(true);
          break;
    }

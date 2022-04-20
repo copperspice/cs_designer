@@ -52,7 +52,7 @@ class ActionModel: public QStandardItemModel
       NumColumns
    };
 
-   enum   { ActionRole = Qt::UserRole + 1000 };
+   static constexpr const int ActionRole = Qt::UserRole + 1000;
 
    explicit ActionModel(QWidget *parent = nullptr);
    void initialize(QDesignerFormEditorInterface *core) {
@@ -187,6 +187,11 @@ class ActionView : public QStackedWidget
    CS_OBJECT(ActionView)
 
  public:
+   enum ViewMode {
+      DetailedView,
+      IconView
+   };
+
    // Separate initialize() function takes core argument to make this
    // thing usable as promoted widget.
    explicit ActionView(QWidget *parent = nullptr);
@@ -194,9 +199,6 @@ class ActionView : public QStackedWidget
    void initialize(QDesignerFormEditorInterface *core) {
       m_model->initialize(core);
    }
-
-   // View mode
-   enum { DetailedView, IconView };
 
    int viewMode() const;
    void setViewMode(int lm);

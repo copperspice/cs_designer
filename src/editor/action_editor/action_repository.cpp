@@ -561,7 +561,12 @@ ActionView::ActionView(QWidget *parent)
 
 int ActionView::viewMode() const
 {
-   return currentWidget() == m_actionListView ? IconView : DetailedView;
+   if (currentWidget() == m_actionListView) {
+      return ViewMode::IconView;
+
+   } else {
+      return ViewMode::DetailedView;
+   }
 }
 
 void ActionView::setViewMode(int lm)
@@ -571,11 +576,11 @@ void ActionView::setViewMode(int lm)
    }
 
    switch (lm) {
-      case IconView:
+      case ViewMode::IconView:
          setCurrentWidget(m_actionListView);
          break;
 
-      case DetailedView:
+      case ViewMode::DetailedView:
          setCurrentWidget(m_actionTreeView);
          break;
 
