@@ -526,7 +526,9 @@ QAction *QDesignerActions::createRecentFilesMenu()
    for (int i = 0; i < MAX_RECENT_FILES; ++i) {
       act = new QAction(this);
       act->setVisible(false);
+
       connect(act, &QAction::triggered, this, &QDesignerActions::openRecentForm);
+
       m_recentFilesActions->addAction(act);
       menu->addAction(act);
    }

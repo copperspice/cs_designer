@@ -85,6 +85,7 @@ NewPromotedClassPanel::NewPromotedClassPanel(const QStringList &baseClasses,
    formLayout->addRow(tr("Global include"),       m_globalIncludeCheckBox);
    hboxLayout->addLayout(formLayout);
    hboxLayout->addItem(new QSpacerItem(15, 0, QSizePolicy::Fixed, QSizePolicy::Ignored));
+
    // Button box
    QVBoxLayout *buttonLayout = new QVBoxLayout();
 
@@ -108,6 +109,7 @@ void NewPromotedClassPanel::slotAdd()
 {
    bool ok = false;
    emit newPromotedClass(promotionParameters(), &ok);
+
    if (ok) {
       slotReset();
    }
@@ -129,12 +131,15 @@ void NewPromotedClassPanel::grabFocus()
 void NewPromotedClassPanel::slotNameChanged(const QString &className)
 {
    // Suggest a name
-   if (!className.isEmpty()) {
-      const QChar dot(QLatin1Char('.'));
+   if (! className.isEmpty()) {
+      const QChar dot('.');
+
       QString suggestedHeader = m_promotedHeaderLowerCase ?
          className.toLower() : className;
+
       suggestedHeader.replace(QString("::"), QString(QLatin1Char('_')));
-      if (!m_promotedHeaderSuffix.startsWith(dot)) {
+
+      if (! m_promotedHeaderSuffix.startsWith(dot)) {
          suggestedHeader += dot;
       }
       suggestedHeader += m_promotedHeaderSuffix;
@@ -143,6 +148,7 @@ void NewPromotedClassPanel::slotNameChanged(const QString &className)
       m_includeFileEdit->setText(suggestedHeader);
       m_includeFileEdit->blockSignals(blocked);
    }
+
    enableButtons();
 }
 
@@ -198,20 +204,22 @@ QDesignerPromotionDialog::QDesignerPromotionDialog(QDesignerFormEditorInterface 
    QGroupBox *treeViewGroup = new QGroupBox();
    treeViewGroup->setTitle(tr("Promoted Classes"));
    QVBoxLayout *treeViewVBoxLayout = new QVBoxLayout(treeViewGroup);
+
    // tree view
    m_treeView->setModel (m_model);
    m_treeView->setMinimumWidth(450);
    m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
 
    connect(m_treeView->selectionModel(), &QItemSelectionModel::selectionChanged,
-      this, &QDesignerPromotionDialog::slotSelectionChanged);
+         this, &QDesignerPromotionDialog::slotSelectionChanged);
 
    connect(m_treeView, &QWidget::customContextMenuRequested,
-      this, &QDesignerPromotionDialog::slotTreeViewContextMenu);
+         this, &QDesignerPromotionDialog::slotTreeViewContextMenu);
 
    QHeaderView *headerView = m_treeView->header();
    headerView->setSectionResizeMode(QHeaderView::ResizeToContents);
    treeViewVBoxLayout->addWidget(m_treeView);
+
    // remove button
    QHBoxLayout *hboxLayout = new QHBoxLayout();
    hboxLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Ignored));
@@ -222,9 +230,11 @@ QDesignerPromotionDialog::QDesignerPromotionDialog(QDesignerFormEditorInterface 
    hboxLayout->addWidget(m_removeButton);
    treeViewVBoxLayout->addLayout(hboxLayout);
    vboxLayout->addWidget(treeViewGroup);
+
    // Create new panel: Try to be smart and preselect a base class. Default to QFrame
    const QStringList &baseClassNameList = baseClassNames(m_promotion);
    int preselectedBaseClass = -1;
+
    if (m_mode == ModeEditChooseClass) {
       preselectedBaseClass = baseClassNameList.indexOf(m_promotableWidgetClassName);
    }
@@ -235,19 +245,24 @@ QDesignerPromotionDialog::QDesignerPromotionDialog(QDesignerFormEditorInterface 
    NewPromotedClassPanel *newPromotedClassPanel = new NewPromotedClassPanel(baseClassNameList, preselectedBaseClass);
    newPromotedClassPanel->setPromotedHeaderSuffix(core->integration()->headerSuffix());
    newPromotedClassPanel->setPromotedHeaderLowerCase(core->integration()->isHeaderLowercase());
+
    connect(newPromotedClassPanel, &NewPromotedClassPanel::newPromotedClass,
-      this, &QDesignerPromotionDialog::slotNewPromotedClass);
+         this, &QDesignerPromotionDialog::slotNewPromotedClass);
+
    connect(this, &QDesignerPromotionDialog::selectedBaseClassChanged,
-      newPromotedClassPanel, &NewPromotedClassPanel::chooseBaseClass);
+         newPromotedClassPanel, &NewPromotedClassPanel::chooseBaseClass);
+
    vboxLayout->addWidget(newPromotedClassPanel);
+
    // button box
    vboxLayout->addWidget(m_buttonBox);
+
    // connect model
    connect(m_model, &PromotionModel::includeFileChanged,
-      this, &QDesignerPromotionDialog::slotIncludeFileChanged);
+         this, &QDesignerPromotionDialog::slotIncludeFileChanged);
 
    connect(m_model, &PromotionModel::classNameChanged,
-      this, &QDesignerPromotionDialog::slotClassNameChanged);
+         this, &QDesignerPromotionDialog::slotClassNameChanged);
 
    // focus
    if (m_mode == ModeEditChooseClass) {
@@ -262,12 +277,13 @@ QDialogButtonBox *QDesignerPromotionDialog::createButtonBox()
    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Close, Qt::Horizontal);
 
    connect(buttonBox, &QDialogButtonBox::accepted,
-      this, &QDesignerPromotionDialog::slotAcceptPromoteTo);
+         this, &QDesignerPromotionDialog::slotAcceptPromoteTo);
 
    buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Promote"));
    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
    return buttonBox;
 }
 
@@ -291,7 +307,8 @@ const QStringList &QDesignerPromotionDialog::baseClassNames(const QDesignerPromo
    if (rc.empty()) {
       // Convert the item list into a string list.
       const WidgetDataBaseItemList dbItems =  promotion->promotionBaseClasses();
-      const WidgetDataBaseItemList::const_iterator cend =  dbItems.constEnd();
+      auto cend =  dbItems.constEnd();
+
       for (WidgetDataBaseItemList::const_iterator it = dbItems.constBegin() ; it != cend; ++it) {
          rc.push_back( (*it)->name());
       }
@@ -304,6 +321,7 @@ void  QDesignerPromotionDialog::slotAcceptPromoteTo()
 {
    Q_ASSERT(m_mode == ModeEditChooseClass);
    unsigned flags;
+
    // Ok pressed: Promote to selected class
    if (QDesignerWidgetDataBaseItemInterface *dbItem = databaseItemAt(m_treeView->selectionModel()->selection(), flags)) {
       if (flags & CAN_PROMOTE) {
@@ -316,6 +334,7 @@ void  QDesignerPromotionDialog::slotAcceptPromoteTo()
 void QDesignerPromotionDialog::slotRemove()
 {
    unsigned flags;
+
    QDesignerWidgetDataBaseItemInterface *dbItem = databaseItemAt(m_treeView->selectionModel()->selection(), flags);
 
    if (! dbItem || (flags & IS_REFERENCED)) {
@@ -334,8 +353,10 @@ void QDesignerPromotionDialog::slotSelectionChanged(const QItemSelection &select
 {
    // Enable deleting non-referenced items
    unsigned flags;
+
    const QDesignerWidgetDataBaseItemInterface *dbItem = databaseItemAt(selected, flags);
    m_removeButton->setEnabled(dbItem && ! (flags & IS_REFERENCED));
+
    // In choose mode, can we promote to the class?
    if (m_mode == ModeEditChooseClass) {
       const bool enablePromoted = flags & CAN_PROMOTE;
@@ -346,7 +367,8 @@ void QDesignerPromotionDialog::slotSelectionChanged(const QItemSelection &select
    // different base?
    if (dbItem) {
       const QString baseClass = dbItem->extends();
-      if (baseClass !=  m_lastSelectedBaseClass) {
+
+      if (baseClass != m_lastSelectedBaseClass) {
          m_lastSelectedBaseClass = baseClass;
          emit selectedBaseClassChanged(m_lastSelectedBaseClass);
       }
@@ -375,8 +397,8 @@ QDesignerWidgetDataBaseItemInterface *QDesignerPromotionDialog::databaseItemAt(c
       if (m_mode == ModeEditChooseClass &&  dbItem && dbItem->isPromoted() && dbItem->extends() ==  m_promotableWidgetClassName) {
          flags |= CAN_PROMOTE;
       }
-
    }
+
    return dbItem;
 }
 
@@ -389,6 +411,7 @@ void QDesignerPromotionDialog::slotNewPromotedClass(const PromotionParameters &p
       // update and select
       slotUpdateFromWidgetDatabase();
       const QModelIndex newClassIndex = m_model->indexOfClass(p.m_className);
+
       if (newClassIndex.isValid()) {
          m_treeView->selectionModel()->select(newClassIndex, QItemSelectionModel::SelectCurrent | QItemSelectionModel::Rows);
       }
@@ -410,7 +433,7 @@ void QDesignerPromotionDialog::slotIncludeFileChanged(QDesignerWidgetDataBaseIte
    }
 
    QString errorMessage;
-   if (!m_promotion->setPromotedClassIncludeFile(dbItem->name(), includeFile, &errorMessage)) {
+   if (! m_promotion->setPromotedClassIncludeFile(dbItem->name(), includeFile, &errorMessage)) {
       displayError(errorMessage);
       delayedUpdateFromWidgetDatabase();
    }

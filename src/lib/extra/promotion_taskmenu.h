@@ -89,9 +89,15 @@ class PromotionTaskMenu: public QObject
    CS_SLOT_2(slotEditSignalsSlots)
 
  private:
+   enum PromotionState {
+      NotApplicable,
+      NoHomogenousSelection,
+      CanPromote,
+      CanDemote
+   };
+
    void promoteTo(QDesignerFormWindowInterface *fw, const QString &customClassName);
 
-   enum PromotionState { NotApplicable, NoHomogenousSelection, CanPromote, CanDemote };
    PromotionState createPromotionActions(QDesignerFormWindowInterface *formWindow);
    QDesignerFormWindowInterface *formWindow() const;
 

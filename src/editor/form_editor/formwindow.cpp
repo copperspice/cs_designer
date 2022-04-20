@@ -568,7 +568,7 @@ void FormWindow::handleClickSelection(QWidget *managedWidget, unsigned mouseMode
 
    // // toggle selection state of widget
    if (mouseMode & ToggleSelectionModifier) {
-      selectWidget(managedWidget, !selected);
+      selectWidget(managedWidget, ! selected);
       return;
    }
 

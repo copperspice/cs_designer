@@ -2365,9 +2365,10 @@ bool QLayoutWidget::event(QEvent *e)
    switch (e->type()) {
       case QEvent::LayoutRequest: {
          (void) QWidget::event(e);
-         // Magic: We are layouted, but the parent is not..
-         if (layout() &&
-            qdesigner_internal::LayoutInfo::layoutType(formWindow()->core(), parentWidget()) == qdesigner_internal::LayoutInfo::NoLayout) {
+
+         // current widget has a layout, parent does not
+         if (layout() && qdesigner_internal::LayoutInfo::layoutType(formWindow()->core(),
+                  parentWidget()) == qdesigner_internal::LayoutInfo::NoLayout) {
             resize(layout()->totalMinimumSize().expandedTo(size()));
          }
 
