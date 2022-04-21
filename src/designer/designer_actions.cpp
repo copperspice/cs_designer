@@ -1174,24 +1174,17 @@ void QDesignerActions::showDesignerHelp()
 
 void QDesignerActions::aboutDesigner()
 {
-   QString icon = ":/resources/designer.png";
-
    QString textBody =
       "<font color='#000080'>"
       "<table style=margin-right:25>"
-      "  <tr><td><img width='96' height='96'src='" + icon + "'></td>"
-      "    <td>"
-      "      <table style='margin-left:25; margin-top:15px' >"
-      "        <tr><td><nobr>Developed by Barbara Geller</nobr></td>"
-      "            <td>barbara@copperspice.com</td></tr>"
-      "        <tr><td style=padding-right:25><nobr>Developed by Ansel Sermersheim</nobr></td>"
-      "            <td>ansel@copperspice.com</td></tr>"
-      "       </table>"
-      "    </td>"
-      "  </tr>"
+      "   <tr><td><nobr>Developed by Barbara Geller</nobr></td>"
+      "       <td>barbara@copperspice.com</td></tr>"
+      "   <tr><td style=padding-right:25><nobr>Developed by Ansel Sermersheim</nobr></td>"
+      "       <td>ansel@copperspice.com</td></tr>"
       "</table></font>"
+      "<br>"
 
-      "<p><small>Copyright 2021-2022 BG Consulting, released under LGPL 2.1 license<br>"
+      "<p><small>Copyright 2021-2022 BG Consulting, released under the LGPL 2.1 license<br>"
       "This program is provided AS IS with no warranty of any kind.<br><br>"
       "Copyright (c) 2015 The Qt Company Ltd.</small></p>";
 
