@@ -182,7 +182,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
    cs_copy_plugins(CsGui ../plugins)
    cs_copy_plugins(CsPrinterDriver ../plugins)
 
-   install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/designer.icns DESTINATION ./resources)
+   install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/designer.icns DESTINATION .)
 
 elseif(CMAKE_SYSTEM_NAME MATCHES "(Linux|OpenBSD|FreeBSD|NetBSD|DragonFly)")
 
@@ -191,7 +191,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "(Linux|OpenBSD|FreeBSD|NetBSD|DragonFly)")
    cs_copy_plugins(CsPrinterDriver)
    cs_copy_plugins(CsOpenGL)
 
-   install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/designer.png DESTINATION ./resources)
+   install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/designer.png DESTINATION .)
 
 elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
 
@@ -199,7 +199,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
    cs_copy_plugins(CsGui)
    cs_copy_plugins(CsPrinterDriver)
 
-   install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/designer.ico DESTINATION ./resources)
+   install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/designer.ico DESTINATION .)
 
 endif()
 
