@@ -23,6 +23,14 @@ include(CheckTypeSize)
 
 find_package(CopperSpice REQUIRED)
 
+if (${COPPERSPICE_VERSION} VERSION_LESS "1.7.4")
+   message("")
+   message("** Error: Minimum required version for CopperSpice is 1.7.4")
+
+   message("")
+   message(FATAL_ERROR)
+endif()
+
 # file locations for installing
 if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
    include(GNUInstallDirs)
