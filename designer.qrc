@@ -4,7 +4,7 @@
         <file>resources/designer.icns</file>
         <file>resources/designer.ico</file>
         <file>resources/designer.png</file>
-        <file>resources/Info_mac.plist</file>
+        <file>resources/Info.plist</file>
         <file>resources/widgetbox.xml</file>
 
         <file>resources/designer_de.qm</file>
