@@ -675,10 +675,12 @@ QToolBar *QtFullToolBarManager::createToolBar(const QString &toolBarName)
    }
 
    toolBar->setObjectName(name);
+
    mainWindow()->addToolBar(toolBar);
    d_ptr->customToolBars.append(toolBar);
    d_ptr->toolBars.insert(toolBar, QList<QAction *>());
    d_ptr->toolBarsWithSeparators.insert(toolBar, QList<QAction *>());
+
    return toolBar;
 }
 
@@ -687,9 +689,11 @@ void QtFullToolBarManager::deleteToolBar(QToolBar *toolBar)
    if (!d_ptr->toolBars.contains(toolBar)) {
       return;
    }
+
    if (d_ptr->defaultToolBars.contains(toolBar)) {
       return;
    }
+
    setToolBar(toolBar, QList<QAction *>());
    d_ptr->customToolBars.removeAll(toolBar);
    d_ptr->toolBars.remove(toolBar);

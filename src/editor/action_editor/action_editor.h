@@ -61,7 +61,7 @@ class ActionEditor: public QDesignerActionEditorInterface
    void manageAction(QAction *action) override;
    void unmanageAction(QAction *action) override;
 
-   static QString actionTextToName(const QString &text, const QString &prefix = QLatin1String("action"));
+   static QString actionTextToName(const QString &text, const QString &prefix = "action");
 
    // Utility to create a configure button with menu for usage on toolbars
    static QToolButton *createConfigureMenuButton(const QString &t, QMenu **ptrToMenu);

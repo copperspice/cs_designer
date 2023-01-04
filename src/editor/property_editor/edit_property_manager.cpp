@@ -3597,19 +3597,20 @@ QString QtFlagPropertyManager::valueText(const QtProperty *property) const
    QString str;
 
    int level = 0;
-   const QChar bar = QLatin1Char('|');
+   const QChar bar = QChar('|');
    const QStringList::const_iterator fncend = data.flagNames.constEnd();
 
    for (auto it =  data.flagNames.constBegin(); it != fncend; ++it) {
       if (data.val & (1 << level)) {
-         if (!str.isEmpty()) {
+         if (! str.isEmpty()) {
             str += bar;
          }
          str += *it;
       }
 
-      level++;
+      ++level;
    }
+
    return str;
 }
 
@@ -3641,12 +3642,15 @@ void QtFlagPropertyManager::setValue(QtProperty *property, int val)
 
    QListIterator<QtProperty *> itProp(d_ptr->m_propertyToFlags[property]);
    int level = 0;
+
    while (itProp.hasNext()) {
       QtProperty *prop = itProp.next();
-      if (prop) {
+
+      if (prop != nullptr) {
          d_ptr->m_boolPropertyManager->setValue(prop, val & (1 << level));
       }
-      level++;
+
+      ++level;
    }
 
    emit propertyChanged(property);
@@ -3673,8 +3677,10 @@ void QtFlagPropertyManager::setFlagNames(QtProperty *property, const QStringList
    it.value() = data;
 
    QListIterator<QtProperty *> itProp(d_ptr->m_propertyToFlags[property]);
+
    while (itProp.hasNext()) {
       QtProperty *prop = itProp.next();
+
       if (prop) {
          delete prop;
          d_ptr->m_flagToProperty.remove(prop);
@@ -3683,8 +3689,10 @@ void QtFlagPropertyManager::setFlagNames(QtProperty *property, const QStringList
    d_ptr->m_propertyToFlags[property].clear();
 
    QStringListIterator itFlag(flagNames);
+
    while (itFlag.hasNext()) {
       const QString flagName = itFlag.next();
+
       QtProperty *prop = d_ptr->m_boolPropertyManager->addProperty();
       prop->setPropertyName(flagName);
       property->addSubProperty(prop);
@@ -3693,14 +3701,10 @@ void QtFlagPropertyManager::setFlagNames(QtProperty *property, const QStringList
    }
 
    emit flagNamesChanged(property, data.flagNames);
-
    emit propertyChanged(property);
    emit valueChanged(property, data.val);
 }
 
-/*!
-    \reimp
-*/
 void QtFlagPropertyManager::initializeProperty(QtProperty *property)
 {
    d_ptr->m_values[property] = QtFlagPropertyManagerPrivate::Data();
@@ -3708,14 +3712,13 @@ void QtFlagPropertyManager::initializeProperty(QtProperty *property)
    d_ptr->m_propertyToFlags[property] = QList<QtProperty *>();
 }
 
-/*!
-    \reimp
-*/
 void QtFlagPropertyManager::uninitializeProperty(QtProperty *property)
 {
    QListIterator<QtProperty *> itProp(d_ptr->m_propertyToFlags[property]);
+
    while (itProp.hasNext()) {
       QtProperty *prop = itProp.next();
+
       if (prop) {
          delete prop;
          d_ptr->m_flagToProperty.remove(prop);

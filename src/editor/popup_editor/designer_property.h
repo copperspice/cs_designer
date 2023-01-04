@@ -63,15 +63,17 @@ class ResetDecorator : public QObject
       QWidget *parent);
    void disconnectPropertyManager(QtAbstractPropertyManager *manager);
    void setSpacing(int spacing);
- public:
+
    CS_SIGNAL_1(Public, void resetProperty(QtProperty *property))
    CS_SIGNAL_2(resetProperty, property)
+
  private:
    CS_SLOT_1(Private, void slotPropertyChanged(QtProperty *property))
    CS_SLOT_2(slotPropertyChanged)
+
    CS_SLOT_1(Private, void slotEditorDestroyed(QObject *object))
    CS_SLOT_2(slotEditorDestroyed)
- private:
+
    QMap<QtProperty *, QList<ResetWidget *>> m_createdResetWidgets;
    QMap<ResetWidget *, QtProperty *> m_resetWidgetToProperty;
    int m_spacing;
@@ -143,9 +145,9 @@ class DesignerPropertyManager : public QtVariantPropertyManager
       m_object = object;
    }
 
-
    CS_SLOT_1(Public, void setAttribute(QtProperty *property, const QString &attribute, const QVariant &value)override)
    CS_SLOT_2(setAttribute)
+
    CS_SLOT_1(Public, void setValue(QtProperty *property, const QVariant &value)override)
    CS_SLOT_2(setValue)
 
@@ -161,6 +163,7 @@ class DesignerPropertyManager : public QtVariantPropertyManager
  private:
    CS_SLOT_1(Private, void slotValueChanged(QtProperty *property, const QVariant &value))
    CS_SLOT_2(slotValueChanged)
+
    CS_SLOT_1(Private, void slotPropertyDestroyed(QtProperty *property))
    CS_SLOT_2(slotPropertyDestroyed)
 
@@ -171,7 +174,10 @@ class DesignerPropertyManager : public QtVariantPropertyManager
 
    int bitCount(int mask) const;
    struct FlagData {
-      FlagData() : val(0) {}
+      FlagData()
+         : val(0)
+      {}
+
       uint val;
       DesignerFlagList flags;
       QList<uint> values;
@@ -226,10 +232,10 @@ class DesignerPropertyManager : public QtVariantPropertyManager
    QMap<QtProperty *, QUrl> m_urlValues;
    QMap<QtProperty *, QByteArray> m_byteArrayValues;
 
-   typedef QMap<QtProperty *, int>  PropertyIntMap;
+   typedef QMap<QtProperty *, int> PropertyIntMap;
    PropertyIntMap m_stringAttributes;
 
-   typedef QMap<QtProperty *, QFont>  PropertyFontMap;
+   typedef QMap<QtProperty *, QFont> PropertyFontMap;
    PropertyFontMap m_stringFontAttributes;
    PropertyBoolMap m_stringThemeAttributes;
 
@@ -254,6 +260,7 @@ class DesignerEditorFactory : public QtVariantEditorFactory
  public:
    explicit DesignerEditorFactory(QDesignerFormEditorInterface *core, QObject *parent = nullptr);
    ~DesignerEditorFactory();
+
    void setSpacing(int spacing);
    void setFormWindowBase(FormWindowBase *fwb);
 

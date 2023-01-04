@@ -18,10 +18,11 @@
 ***********************************************************************/
 
 #include <abstract_formbuilder.h>
-#include <properties.h>
-#include <ui4.h>
 #include <formbuilderextra.h>
+#include <properties.h>
 #include <resourcebuilder.h>
+#include <ui4.h>
+#include <utils.h>
 
 #include <QDateTime>
 #include <QUrl>
@@ -31,7 +32,6 @@
 #include <QFont>
 #include <QFrame>
 #include <QAbstractScrollArea>
-#include <utils.h>
 
 static inline void fixEnum(QString &s)
 {
@@ -303,6 +303,7 @@ QVariant domPropertyToVariant(const DomProperty *p)
 
          if (sizep->hasElementHSizeType()) {
             sizePolicy.setHorizontalPolicy((QSizePolicy::Policy) sizep->elementHSizeType());
+
          } else if (sizep->hasAttributeHSizeType()) {
             const QSizePolicy::Policy sp = enumKeyToValue<QSizePolicy::Policy>(sizeType_enum, sizep->attributeHSizeType().toLatin1());
             sizePolicy.setHorizontalPolicy(sp);
@@ -310,6 +311,7 @@ QVariant domPropertyToVariant(const DomProperty *p)
 
          if (sizep->hasElementVSizeType()) {
             sizePolicy.setVerticalPolicy((QSizePolicy::Policy) sizep->elementVSizeType());
+
          } else if (sizep->hasAttributeVSizeType()) {
             const  QSizePolicy::Policy sp = enumKeyToValue<QSizePolicy::Policy>(sizeType_enum, sizep->attributeVSizeType().toLatin1());
             sizePolicy.setVerticalPolicy(sp);

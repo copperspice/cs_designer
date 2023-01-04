@@ -195,33 +195,38 @@ void QDesignerIntegrationPrivate::initialize()
    }
 }
 
-void QDesignerIntegrationPrivate::updateProperty(const QString &name, const QVariant &value, bool enableSubPropertyHandling)
+void QDesignerIntegrationPrivate::updateProperty(const QString &name, const QVariant &value,
+      bool enableSubPropertyHandling)
 {
    QDesignerFormWindowInterface *formWindow = q->core()->formWindowManager()->activeFormWindow();
-   if (!formWindow) {
+   if (! formWindow) {
       return;
    }
 
    Selection selection;
    getSelection(selection);
+
    if (selection.empty()) {
       return;
    }
 
    SetPropertyCommand *cmd = new SetPropertyCommand(formWindow);
-   // find a reference object to compare to and to find the right group
+
+   // find a reference object to compare and find the right group
    if (cmd->init(selection.selection(), name, value, propertyEditorObject(), enableSubPropertyHandling)) {
       formWindow->commandHistory()->push(cmd);
+
    } else {
       delete cmd;
-      qDebug() << "Unable to set  property " << name << '.';
+      qDebug() << "Unable to set property " << name << '.';
+
    }
 }
 
 void QDesignerIntegrationPrivate::resetProperty(const QString &name)
 {
    QDesignerFormWindowInterface *formWindow = q->core()->formWindowManager()->activeFormWindow();
-   if (!formWindow) {
+   if (! formWindow) {
       return;
    }
 

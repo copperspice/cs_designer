@@ -203,7 +203,6 @@ class PropertyListCommand : public QDesignerFormWindowCommand
 
 class SetPropertyCommand: public PropertyListCommand
 {
-
  public:
    typedef QList<QObject *> ObjectList;
 
@@ -212,7 +211,6 @@ class SetPropertyCommand: public PropertyListCommand
    bool init(QObject *object, const QString &propertyName, const QVariant &newValue);
    bool init(const ObjectList &list, const QString &propertyName, const QVariant &newValue,
       QObject *referenceObject = nullptr, bool enableSubPropertyHandling = true);
-
 
    inline QVariant newValue() const {
       return m_newValue;

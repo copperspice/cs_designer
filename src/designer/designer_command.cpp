@@ -403,6 +403,7 @@ void ManageWidgetCommandHelper::unmanage(QDesignerFormWindowInterface *fw)
          fw->unmanageWidget(*it);
       }
    }
+
    fw->unmanageWidget(m_widget);
 }
 

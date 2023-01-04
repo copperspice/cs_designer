@@ -327,6 +327,7 @@ QWidget *QtPropertyEditorDelegate::createEditor(QWidget *parent,
             m_editedItem = item;
             m_editedWidget = editor;
          }
+
          return editor;
       }
    }
@@ -492,6 +493,7 @@ void QtTreePropertyBrowserPrivate::setCurrentItem(QtBrowserItem *browserItem, bo
    } else {
       m_treeWidget->setCurrentItem(m_indexToItem.value(browserItem));
    }
+
    if (block) {
       m_treeWidget->blockSignals(blocked);
    }
@@ -528,12 +530,15 @@ bool QtTreePropertyBrowserPrivate::lastColumn(int column) const
 void QtTreePropertyBrowserPrivate::disableItem(QTreeWidgetItem *item) const
 {
    Qt::ItemFlags flags = item->flags();
+
    if (flags & Qt::ItemIsEnabled) {
       flags &= ~Qt::ItemIsEnabled;
       item->setFlags(flags);
+
       m_delegate->closeEditor(m_itemToIndex[item]->property());
       const int childCount = item->childCount();
-      for (int i = 0; i < childCount; i++) {
+
+      for (int i = 0; i < childCount; ++i) {
          QTreeWidgetItem *child = item->child(i);
          disableItem(child);
       }
@@ -543,12 +548,16 @@ void QtTreePropertyBrowserPrivate::disableItem(QTreeWidgetItem *item) const
 void QtTreePropertyBrowserPrivate::enableItem(QTreeWidgetItem *item) const
 {
    Qt::ItemFlags flags = item->flags();
+
    flags |= Qt::ItemIsEnabled;
    item->setFlags(flags);
+
    const int childCount = item->childCount();
+
    for (int i = 0; i < childCount; i++) {
       QTreeWidgetItem *child = item->child(i);
       QtProperty *property = m_itemToIndex[child]->property();
+
       if (property->isEnabled()) {
          enableItem(child);
       }
@@ -562,6 +571,7 @@ bool QtTreePropertyBrowserPrivate::hasValue(QTreeWidgetItem *item) const
    if (browserItem) {
       return browserItem->property()->hasValue();
    }
+
    return false;
 }
 
@@ -604,7 +614,6 @@ void QtTreePropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
 void QtTreePropertyBrowserPrivate::propertyChanged(QtBrowserItem *index)
 {
    QTreeWidgetItem *item = m_indexToItem.value(index);
-
    updateItem(item);
 }
 
@@ -631,7 +640,7 @@ void QtTreePropertyBrowserPrivate::updateItem(QTreeWidgetItem *item)
       item->setFirstColumnSpanned(true);
    }
 
-   const QString descriptionToolTip  = property->descriptionToolTip();
+   const QString descriptionToolTip = property->descriptionToolTip();
    const QString propertyName = property->propertyName();
 
    if (! descriptionToolTip.isEmpty()) {
@@ -644,7 +653,7 @@ void QtTreePropertyBrowserPrivate::updateItem(QTreeWidgetItem *item)
    item->setText(0, propertyName);
 
    bool wasEnabled = item->flags() & Qt::ItemIsEnabled;
-   bool isEnabled = wasEnabled;
+   bool isEnabled  = wasEnabled;
 
    if (property->isEnabled()) {
       QTreeWidgetItem *parent = item->parent();

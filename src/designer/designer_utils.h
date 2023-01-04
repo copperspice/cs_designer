@@ -152,7 +152,10 @@ class DesignerMetaEnum : public MetaEnum<int>
 {
  public:
    DesignerMetaEnum(const QString &name, const QString &scope, const QString &separator);
-   DesignerMetaEnum() {}
+
+   DesignerMetaEnum()
+   {
+   }
 
    enum SerializationMode { FullyQualified, NameOnly };
    QString toString(int value, SerializationMode sm, bool *ok = nullptr) const;
@@ -166,9 +169,7 @@ class DesignerMetaEnum : public MetaEnum<int>
    }
 };
 
-// -------------- DesignerMetaFlags: Meta type for flags.
-// Note that while the handling of flags is done using unsigned integers, the actual values returned
-// by the property system  are integers.
+// -------------- DesignerMetaFlags: Meta type for flags
 
 class DesignerMetaFlags : public MetaEnum<uint>
 {
@@ -189,11 +190,11 @@ class DesignerMetaFlags : public MetaEnum<uint>
 
    void messageParseFailed(const QString &s) const;
 
-   // parse a string (ignorant of scopes)
+   // parse a string (ignore scopes)
    int parseFlags(const QString &s, bool *ok = nullptr) const;
 };
 
-// -------------- EnumValue: Returned by the property sheet for enumerations
+// -------------- EnumValue: Returned by the property sheet for enums
 
 struct PropertySheetEnumValue {
    PropertySheetEnumValue(int v, const DesignerMetaEnum &me);

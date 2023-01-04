@@ -58,6 +58,7 @@ class AppFontManager
 {
    Q_DISABLE_COPY(AppFontManager)
    AppFontManager();
+
  public:
    static AppFontManager &instance();
 

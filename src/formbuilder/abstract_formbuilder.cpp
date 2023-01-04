@@ -390,17 +390,18 @@ QActionGroup *QAbstractFormBuilder::create(DomActionGroup *ui_action_group, QObj
    return a;
 }
 
-// figure out the toolbar area of a DOM attrib list.
-// By legacy, it is stored as an integer. As of 4.3.0, it is the enumeration value.
+// figure out the toolbar area of a DOM attrib list
+// for newer files it is the enumeration value
 Qt::ToolBarArea QAbstractFormBuilder::toolbarAreaFromDOMAttributes(const DomPropertyHash &attributes)
 {
    const DomProperty *attr = attributes.value(QFormBuilderStrings::instance().toolBarAreaAttribute);
-   if (!attr) {
+   if (! attr) {
       return Qt::TopToolBarArea;
    }
 
    switch (attr->kind()) {
       case DomProperty::Number:
+         // legacy
          return static_cast<Qt::ToolBarArea>(attr->elementNumber());
 
       case DomProperty::Enum:
@@ -1037,7 +1038,6 @@ void QAbstractFormBuilder::setupColorGroup(QPalette &palette, QPalette::ColorGro
 
 DomColorGroup *QAbstractFormBuilder::saveColorGroup(const QPalette &palette)
 {
-
    const QMetaEnum colorRole_enum = metaEnum<QAbstractFormBuilderGadget>("colorRole");
 
    DomColorGroup *group = new DomColorGroup();
@@ -1072,8 +1072,8 @@ QBrush QAbstractFormBuilder::setupBrush(DomBrush *brush)
 
    if (style == Qt::LinearGradientPattern || style == Qt::RadialGradientPattern || style == Qt::ConicalGradientPattern) {
 
-      const QMetaEnum gradientType_enum = metaEnum<QAbstractFormBuilderGadget>("gradientType");
-      const QMetaEnum gradientSpread_enum = metaEnum<QAbstractFormBuilderGadget>("gradientSpread");
+      const QMetaEnum gradientType_enum       = metaEnum<QAbstractFormBuilderGadget>("gradientType");
+      const QMetaEnum gradientSpread_enum     = metaEnum<QAbstractFormBuilderGadget>("gradientSpread");
       const QMetaEnum gradientCoordinate_enum = metaEnum<QAbstractFormBuilderGadget>("gradientCoordinate");
 
       const DomGradient *gradient = brush->elementGradient();
@@ -1113,20 +1113,23 @@ QBrush QAbstractFormBuilder::setupBrush(DomBrush *brush)
       while (it.hasNext()) {
          const DomGradientStop *stop = it.next();
          const DomColor *color = stop->elementColor();
+
          gr->setColorAt(stop->attributePosition(), QColor::fromRgb(color->elementRed(),
                color->elementGreen(), color->elementBlue(), color->attributeAlpha()));
       }
+
       br = QBrush(*gr);
       delete gr;
+
    } else if (style == Qt::TexturePattern) {
       const DomProperty *texture = brush->elementTexture();
       if (texture && texture->kind() == DomProperty::Pixmap) {
          br.setTexture(domPropertyToPixmap(texture));
       }
+
    } else {
       const DomColor *color = brush->elementColor();
-      br.setColor(QColor::fromRgb(color->elementRed(),
-            color->elementGreen(), color->elementBlue(), color->attributeAlpha()));
+      br.setColor(QColor::fromRgb(color->elementRed(), color->elementGreen(), color->elementBlue(), color->attributeAlpha()));
       br.setStyle((Qt::BrushStyle)style);
    }
    return br;
@@ -1143,8 +1146,8 @@ DomBrush *QAbstractFormBuilder::saveBrush(const QBrush &br)
    if (style == Qt::LinearGradientPattern ||
       style == Qt::RadialGradientPattern ||
       style == Qt::ConicalGradientPattern) {
-      const QMetaEnum gradientType_enum = metaEnum<QAbstractFormBuilderGadget>("gradientType");
-      const QMetaEnum gradientSpread_enum = metaEnum<QAbstractFormBuilderGadget>("gradientSpread");
+      const QMetaEnum gradientType_enum       = metaEnum<QAbstractFormBuilderGadget>("gradientType");
+      const QMetaEnum gradientSpread_enum     = metaEnum<QAbstractFormBuilderGadget>("gradientSpread");
       const QMetaEnum gradientCoordinate_enum = metaEnum<QAbstractFormBuilderGadget>("gradientCoordinate");
 
       DomGradient *gradient = new DomGradient();
@@ -2263,8 +2266,8 @@ void QAbstractFormBuilder::loadTreeWidgetExtraInfo(DomWidget *ui_widget, QTreeWi
    Q_UNUSED(parentWidget);
 
    const QFormBuilderStrings &strings = QFormBuilderStrings::instance();
-   const QMetaEnum itemFlags_enum  = metaEnum<QAbstractFormBuilderGadget>("itemFlags");
-   const QList<DomColumn *> columns = ui_widget->elementColumn();
+   const QMetaEnum itemFlags_enum     = metaEnum<QAbstractFormBuilderGadget>("itemFlags");
+   const QList<DomColumn *> columns   = ui_widget->elementColumn();
 
    if (columns.count() > 0) {
       treeWidget->setColumnCount(columns.count());
@@ -2689,7 +2692,7 @@ void QAbstractFormBuilder::reset()
    d->m_laidout.clear();
    d->m_actions.clear();
    d->m_actionGroups.clear();
-   d->m_defaultMargin = INT_MIN;
+   d->m_defaultMargin  = INT_MIN;
    d->m_defaultSpacing = INT_MIN;
 }
 

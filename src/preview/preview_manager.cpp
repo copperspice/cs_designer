@@ -625,19 +625,20 @@ QWidget *PreviewManager::createDeviceSkinContainer(const QDesignerFormWindowInte
 }
 
 // Some widgets might require fake containers
-
 static QWidget *fakeContainer(QWidget *w)
 {
    // Prevent a dock widget from trying to dock to Designer's main window
-   // (which can be found in the parent hierarchy in MDI mode) by
-   // providing a fake mainwindow
+   // (which can be found in the parent hierarchy in MDI mode) by  providing a fake mainwindow
+
    if (QDockWidget *dock = dynamic_cast<QDockWidget *>(w)) {
       // Reparent: Clear modality, propagate title and resize outer container
       const QSize size = w->size();
       w->setWindowModality(Qt::NonModal);
+
       dock->setFeatures(dock->features() & ~(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable |
             QDockWidget::DockWidgetClosable));
       dock->setAllowedAreas(Qt::LeftDockWidgetArea);
+
       QMainWindow *mw = new QMainWindow;
       int leftMargin, topMargin, rightMargin, bottomMargin;
       mw->getContentsMargins(&leftMargin, &topMargin, &rightMargin, &bottomMargin);
@@ -645,6 +646,7 @@ static QWidget *fakeContainer(QWidget *w)
       mw->resize(size + QSize(leftMargin + rightMargin, topMargin + bottomMargin));
       return mw;
    }
+
    return w;
 }
 
@@ -652,12 +654,15 @@ static PreviewConfiguration configurationFromSettings(QDesignerFormEditorInterfa
 {
    qdesigner_internal::PreviewConfiguration pc;
    const QDesignerSharedSettings settings(core);
+
    if (settings.isCustomPreviewConfigurationEnabled()) {
       pc = settings.customPreviewConfiguration();
    }
+
    if (!style.isEmpty()) {
       pc.setStyle(style);
    }
+
    return pc;
 }
 

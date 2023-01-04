@@ -68,18 +68,22 @@ typedef QPair<Qt::ToolBarArea, bool> ToolBarData;
 ToolBarData toolBarData(QToolBar *me)
 {
    const QMainWindow *mw = dynamic_cast<const QMainWindow *>(me->parentWidget());
-   if (!mw || !mw->layout() ||  mw->layout()->indexOf(me) == -1) {
+
+   if (! mw || ! mw->layout() || mw->layout()->indexOf(me) == -1) {
       return ToolBarData(Qt::TopToolBarArea, false);
    }
+
    return ToolBarData(mw->toolBarArea(me), mw->toolBarBreak(me));
 }
 
 Qt::DockWidgetArea dockWidgetArea(QDockWidget *me)
 {
    if (const QMainWindow *mw = dynamic_cast<const QMainWindow *>(me->parentWidget())) {
-      // Make sure that me is actually managed by mw, otherwise
-      // QMainWindow::dockWidgetArea() will be VERY upset
+      // Make sure that the varaiable me is actually managed by mw, otherwise
+      // QMainWindow::dockWidgetArea() will not work
+
       QList<QLayout *> candidates;
+
       if (mw->layout()) {
          candidates.append(mw->layout());
          candidates += mw->layout()->findChildren<QLayout *>();

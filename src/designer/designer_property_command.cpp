@@ -237,20 +237,18 @@ unsigned compareSubProperties(const qdesigner_internal::PropertySheetKeySequence
    return rc;
 }
 
-// Compare font-subproperties taking the [undocumented]
-// resolve flag into account
+// Compare font-subproperties taking the [undocumented] resolve flag into account
 template <class Property>
-void compareFontSubProperty(const QFont &f1,
-   const QFont &f2,
-   Property (QFont::*getter) () const,
-   unsigned maskBit,
-   unsigned &mask)
+void compareFontSubProperty(const QFont &f1, const QFont &f2, Property (QFont::*getter) () const,
+      unsigned maskBit, unsigned &mask)
 {
    const bool f1Changed = f1.resolve() & maskBit;
    const bool f2Changed = f2.resolve() & maskBit;
+
    // Role has been set/reset in editor
    if (f1Changed != f2Changed) {
       mask |= maskBit;
+
    } else {
       // Was modified in both palettes: Compare values.
       if (f1Changed && f2Changed && (f1.*getter)() != (f2.*getter)()) {
@@ -283,12 +281,15 @@ bool roleColorChanged(const QPalette &p1, const QPalette &p2, QPalette::ColorRol
 {
    for (int group = QPalette::Active; group < QPalette::NColorGroups;  group++) {
       const QPalette::ColorGroup pgroup = static_cast<QPalette::ColorGroup>(group);
+
       if (p1.color(pgroup, role) != p2.color(pgroup, role)) {
          return true;
       }
    }
+
    return false;
 }
+
 // find changed subproperties of a QPalette taking the [undocumented] resolve flags into account
 unsigned compareSubProperties(const QPalette &p1, const QPalette &p2)
 {
@@ -297,6 +298,7 @@ unsigned compareSubProperties(const QPalette &p1, const QPalette &p2)
    // generate a mask for each role
    const unsigned p1Changed = p1.resolve();
    const unsigned p2Changed = p2.resolve();
+
    for (int role = QPalette::WindowText;  role < QPalette::NColorRoles; role++, maskBit <<= 1u) {
       const bool p1RoleChanged = p1Changed & maskBit;
       const bool p2RoleChanged = p2Changed & maskBit;
@@ -321,9 +323,11 @@ unsigned compareSubProperties(Qt::Alignment a1, Qt::Alignment a2)
    if ((a1 & Qt::AlignHorizontal_Mask) != (a2 & Qt::AlignHorizontal_Mask)) {
       rc |= SubPropertyHorizontalAlignment;
    }
+
    if ((a1 & Qt::AlignVertical_Mask) != (a2 & Qt::AlignVertical_Mask)) {
       rc |= SubPropertyVerticalAlignment;
    }
+
    return rc;
 }
 
@@ -331,6 +335,7 @@ Qt::Alignment variantToAlignment(const QVariant &q)
 {
    return Qt::Alignment(qdesigner_internal::Utils::valueOf(q));
 }
+
 // find changed subproperties of a variant
 unsigned compareSubProperties(const QVariant &q1, const QVariant &q2, qdesigner_internal::SpecialProperty specialProperty)
 {
@@ -431,6 +436,7 @@ qdesigner_internal::PropertySheetStringValue applyStringSubProperty(const qdesig
    SET_SUBPROPERTY(rc, newValue, comment, setComment, mask, SubPropertyStringComment)
    SET_SUBPROPERTY(rc, newValue, translatable, setTranslatable, mask, SubPropertyStringTranslatable)
    SET_SUBPROPERTY(rc, newValue, disambiguation, setDisambiguation, mask, SubPropertyStringDisambiguation)
+
    return rc;
 }
 
@@ -785,6 +791,7 @@ void PropertyHelper::checkApplyWidgetValue(QDesignerFormWindowInterface *fw, QWi
          value.setValue(r);
       }
       break;
+
       default:
          break;
    }
@@ -928,11 +935,13 @@ PropertyHelper::Value PropertyHelper::setValue(QDesignerFormWindowInterface *fw,
 {
    // Set new whole value
    if (subPropertyMask == SubPropertyAll) {
-      return  applyValue(fw, m_oldValue.first, Value(value, changed));
+      return applyValue(fw, m_oldValue.first, Value(value, changed));
    }
 
    // apply subproperties
-   const PropertyHelper::Value maskedNewValue = applySubProperty(m_oldValue.first, value, m_specialProperty, subPropertyMask, changed);
+   const PropertyHelper::Value maskedNewValue = applySubProperty(m_oldValue.first, value,
+         m_specialProperty, subPropertyMask, changed);
+
    return applyValue(fw, m_oldValue.first, maskedNewValue);
 }
 
@@ -1152,25 +1161,24 @@ void PropertyListCommand::setOldValue(const QVariant &oldValue, int index)
    Q_ASSERT(index < m_propertyHelperList.size());
    m_propertyHelperList.at(index)->setOldValue(oldValue);
 }
-// ----- SetValueFunction: Set a new value when applied to a PropertyHelper.
+
+// Set a new value when applied to a PropertyHelper.
 class SetValueFunction
 {
  public:
    SetValueFunction(QDesignerFormWindowInterface *formWindow, const PropertyHelper::Value &newValue, unsigned subPropertyMask);
 
    PropertyHelper::Value operator()(PropertyHelper &);
+
  private:
    QDesignerFormWindowInterface *m_formWindow;
    const PropertyHelper::Value m_newValue;
    const unsigned m_subPropertyMask;
 };
 
-
 SetValueFunction::SetValueFunction(QDesignerFormWindowInterface *formWindow, const PropertyHelper::Value &newValue,
-   unsigned subPropertyMask) :
-   m_formWindow(formWindow),
-   m_newValue(newValue),
-   m_subPropertyMask(subPropertyMask)
+      unsigned subPropertyMask)
+   : m_formWindow(formWindow), m_newValue(newValue), m_subPropertyMask(subPropertyMask)
 {
 }
 
@@ -1179,7 +1187,7 @@ PropertyHelper::Value SetValueFunction::operator()(PropertyHelper &ph)
    return ph.setValue(m_formWindow, m_newValue.first, m_newValue.second, m_subPropertyMask);
 }
 
-// ----- UndoSetValueFunction: Restore old value when applied to a PropertyHelper.
+// Restore old value when applied to a PropertyHelper.
 class UndoSetValueFunction
 {
  public:
@@ -1203,41 +1211,41 @@ class RestoreDefaultFunction
    QDesignerFormWindowInterface *m_formWindow;
 };
 
-// ----- changePropertyList: Iterates over a sequence of PropertyHelpers and
-// applies a function to them.
-// The function returns the  corrected value which is then set in  the property editor.
+// Iterates over a sequence of PropertyHelpers and applies a function to them.
+// The function returns the corrected value which is then set in the property editor.
 // Returns a combination of update flags.
+
 template <class PropertyListIterator, class Function>
-unsigned changePropertyList(QDesignerFormEditorInterface *core,
-   const QString &propertyName,
-   PropertyListIterator begin,
-   PropertyListIterator end,
-   Function function)
+unsigned changePropertyList(QDesignerFormEditorInterface *core, const QString &propertyName,
+      PropertyListIterator begin, PropertyListIterator end, Function function)
 {
    unsigned updateMask = 0;
+
    QDesignerPropertyEditorInterface *propertyEditor = core->propertyEditor();
    bool updatedPropertyEditor = false;
 
    for (PropertyListIterator it = begin; it != end; ++it) {
       PropertyHelper *ph = it->data();
-      if (QObject *object = ph->object()) { // Might have been deleted in the meantime
+
+      if (QObject *object = ph->object()) {
+         // Might have been deleted in the meantime
          const PropertyHelper::Value newValue = function( *ph );
          updateMask |= ph->updateMask();
+
          // Update property editor if it is the current object
-         if (!updatedPropertyEditor && propertyEditor && object == propertyEditor->object()) {
-            propertyEditor->setPropertyValue(propertyName, newValue.first,  newValue.second);
+         if (! updatedPropertyEditor && propertyEditor && object == propertyEditor->object()) {
+            propertyEditor->setPropertyValue(propertyName, newValue.first, newValue.second);
             updatedPropertyEditor = true;
          }
       }
    }
 
-   if (!updatedPropertyEditor) {
+   if (! updatedPropertyEditor) {
       updateMask |=  PropertyHelper::UpdatePropertyEditor;
    }
 
    return updateMask;
 }
-
 
 // set a new value, return update mask
 unsigned PropertyListCommand::setValue(QVariant value, bool changed, unsigned subPropertyMask)
@@ -1253,7 +1261,7 @@ unsigned PropertyListCommand::setValue(QVariant value, bool changed, unsigned su
          SetValueFunction(formWindow(), PropertyHelper::Value(value, changed), subPropertyMask));
 }
 
-// restore old value,  return update mask
+// restore old value,return update mask
 unsigned PropertyListCommand::restoreOldValue()
 {
    if (DEBUG_COMMANDS) {
@@ -1265,7 +1273,7 @@ unsigned PropertyListCommand::restoreOldValue()
          UndoSetValueFunction(formWindow()));
 }
 
-// set default value,  return update mask
+// set default value and return update mask
 unsigned PropertyListCommand::restoreDefaultValue()
 {
    if (DEBUG_COMMANDS) {
@@ -1277,7 +1285,6 @@ unsigned PropertyListCommand::restoreDefaultValue()
          RestoreDefaultFunction(formWindow()));
 }
 
-// update
 void PropertyListCommand::update(unsigned updateMask)
 {
    if (DEBUG_COMMANDS) {
@@ -1301,6 +1308,7 @@ void PropertyListCommand::undo()
 {
    update(restoreOldValue());
    QDesignerPropertyEditor *designerPropertyEditor = dynamic_cast<QDesignerPropertyEditor *>(core()->propertyEditor());
+
    if (designerPropertyEditor) {
       designerPropertyEditor->updatePropertySheet();
    }
@@ -1309,51 +1317,54 @@ void PropertyListCommand::undo()
 // check if lists are aequivalent for command merging (same widgets and props)
 bool PropertyListCommand::canMergeLists(const PropertyHelperList &other) const
 {
-   if (m_propertyHelperList.size() !=  other.size()) {
+   if (m_propertyHelperList.size() != other.size()) {
       return false;
    }
+
    for (int i = 0; i < m_propertyHelperList.size(); i++) {
       if (!m_propertyHelperList.at(i)->canMerge(*other.at(i))) {
          return false;
       }
    }
+
    return true;
 }
 
 // ---- SetPropertyCommand ----
 SetPropertyCommand::SetPropertyCommand(QDesignerFormWindowInterface *formWindow,
    QUndoCommand *parent)
-   :  PropertyListCommand(formWindow, parent),
-      m_subPropertyMask(SubPropertyAll)
+   :  PropertyListCommand(formWindow, parent), m_subPropertyMask(SubPropertyAll)
 {
 }
 
 bool SetPropertyCommand::init(QObject *object, const QString &apropertyName, const QVariant &newValue)
 {
-   Q_ASSERT(object);
+   Q_ASSERT(object != nullptr);
 
    m_newValue = newValue;
-
    propertyHelperList().clear();
-   if (!add(object, apropertyName)) {
+
+   if (! add(object, apropertyName)) {
       return false;
    }
 
    setDescription();
+
    return true;
 }
 
 bool SetPropertyCommand::init(const ObjectList &list, const QString &apropertyName, const QVariant &newValue,
    QObject *referenceObject, bool enableSubPropertyHandling)
 {
-   if (!initList(list, apropertyName, referenceObject)) {
+   if (! initList(list, apropertyName, referenceObject)) {
       return false;
    }
 
    m_newValue = newValue;
 
    if (DEBUG_COMMANDS) {
-      qDebug() << "SetPropertyCommand::init()" << propertyHelperList().size() << '/' << list.size() << " reference " << referenceObject;
+      qDebug() << "SetPropertyCommand::init()" << propertyHelperList().size() << '/'
+               << list.size() << " reference " << referenceObject;
    }
 
    setDescription();
@@ -1361,6 +1372,7 @@ bool SetPropertyCommand::init(const ObjectList &list, const QString &apropertyNa
    if (enableSubPropertyHandling) {
       m_subPropertyMask = subPropertyMask(newValue, referenceObject);
    }
+
    return true;
 }
 
@@ -1386,22 +1398,27 @@ void SetPropertyCommand::setDescription()
 {
    if (propertyHelperList().size() == 1) {
       setText(QApplication::translate("Command",
-            "Changed '%1' of '%2'").formatArg(propertyName()).formatArg(propertyHelperList().at(0)->object()->objectName()));
+            "Changed '%1' of '%2'").formatArg(propertyName())
+            .formatArg(propertyHelperList().at(0)->object()->objectName()));
+
    } else {
       int count = propertyHelperList().size();
-      setText(QCoreApplication::translate("Command", "Changed '%1' of %n objects", "", count).formatArg(propertyName()));
+      setText(QCoreApplication::translate("Command", "Changed '%1' of %n objects", "", count)
+            .formatArg(propertyName()));
    }
 }
 
 void SetPropertyCommand::redo()
 {
    update(setValue(m_newValue, true, m_subPropertyMask));
-   QDesignerPropertyEditor *designerPropertyEditor = dynamic_cast<QDesignerPropertyEditor *>(core()->propertyEditor());
+
+   QDesignerPropertyEditor *designerPropertyEditor =
+         dynamic_cast<QDesignerPropertyEditor *>(core()->propertyEditor());
+
    if (designerPropertyEditor) {
       designerPropertyEditor->updatePropertySheet();
    }
 }
-
 
 int SetPropertyCommand::id() const
 {
@@ -1426,14 +1443,14 @@ bool SetPropertyCommand::mergeWith(const QUndoCommand *other)
    // This is why the m_subPropertyMask is checked.
 
    const SetPropertyCommand *cmd = static_cast<const SetPropertyCommand *>(other);
-   if (!propertyDescription().equals(cmd->propertyDescription()) ||
-      m_subPropertyMask  != cmd->m_subPropertyMask ||
-      !canMergeLists(cmd->propertyHelperList())) {
+   if (! propertyDescription().equals(cmd->propertyDescription()) ||
+      m_subPropertyMask  != cmd->m_subPropertyMask || ! canMergeLists(cmd->propertyHelperList())) {
+
       return false;
    }
 
    const QVariant newValue = mergeValue(cmd->newValue());
-   if (!newValue.isValid()) {
+   if (! newValue.isValid()) {
       return false;
    }
 
@@ -1447,7 +1464,6 @@ bool SetPropertyCommand::mergeWith(const QUndoCommand *other)
    return true;
 }
 
-// ---- ResetPropertyCommand ----
 ResetPropertyCommand::ResetPropertyCommand(QDesignerFormWindowInterface *formWindow)
    : PropertyListCommand(formWindow)
 {
@@ -1458,30 +1474,38 @@ bool ResetPropertyCommand::init(QObject *object, const QString &apropertyName)
    Q_ASSERT(object);
 
    propertyHelperList().clear();
-   if (!add(object, apropertyName)) {
+
+ if (! add(object, apropertyName)) {
       return false;
    }
 
    setDescription();
+
    return true;
 }
 
 bool ResetPropertyCommand::init(const ObjectList &list, const QString &apropertyName, QObject *referenceObject)
 {
    ObjectList modifiedList = list; // filter out modified properties
+
    for (ObjectList::iterator it = modifiedList.begin(); it != modifiedList.end() ; ) {
       QDesignerPropertySheetExtension *sheet = propertySheet(*it);
+
       Q_ASSERT(sheet);
+
       const int index = sheet->indexOf(apropertyName);
+
       if (index == -1 || !sheet->isChanged(index)) {
          it = modifiedList.erase(it);
       } else {
          ++it;
       }
    }
+
    if (!modifiedList.contains(referenceObject)) {
       referenceObject = nullptr;
    }
+
    if (modifiedList.isEmpty() || !initList(modifiedList, apropertyName, referenceObject)) {
       return false;
    }
@@ -1509,6 +1533,7 @@ void ResetPropertyCommand::redo()
 {
    update(restoreDefaultValue());
    QDesignerPropertyEditor *designerPropertyEditor = dynamic_cast<QDesignerPropertyEditor *>(core()->propertyEditor());
+
    if (designerPropertyEditor) {
       designerPropertyEditor->updatePropertySheet();
    }
@@ -1517,7 +1542,6 @@ void ResetPropertyCommand::redo()
 AddDynamicPropertyCommand::AddDynamicPropertyCommand(QDesignerFormWindowInterface *formWindow)
    : QDesignerFormWindowCommand(QString(), formWindow)
 {
-
 }
 
 bool AddDynamicPropertyCommand::init(const QList<QObject *> &selection, QObject *current,

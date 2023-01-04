@@ -89,8 +89,7 @@ class BlockSelection
 {
  public:
    BlockSelection(qdesigner_internal::FormWindow *fw)
-      : m_formWindow(fw),
-        m_blocked(m_formWindow->blockSelectionChanged(true)) {
+      : m_formWindow(fw), m_blocked(m_formWindow->blockSelectionChanged(true)) {
    }
 
    ~BlockSelection() {
@@ -2566,7 +2565,7 @@ QPoint FormWindow::mapToForm(const QWidget *w, const QPoint &pos) const
    QPoint p = pos;
    const QWidget *i = w;
 
-   while (i && !i->isWindow() && !isMainContainer(i)) {
+   while (i && ! i->isWindow() && ! isMainContainer(i)) {
       p = i->mapToParent(p);
       i = i->parentWidget();
    }
@@ -2574,10 +2573,11 @@ QPoint FormWindow::mapToForm(const QWidget *w, const QPoint &pos) const
    return mapFromGlobal(w->mapToGlobal(pos));
 }
 
-bool FormWindow::canBeBuddy(QWidget *w) const // ### rename me.
+bool FormWindow::canBeBuddy(QWidget *w) const
 {
    if (QDesignerPropertySheetExtension *sheet = qt_extension<QDesignerPropertySheetExtension *>(core()->extensionManager(), w)) {
-      const int index = sheet->indexOf(QString("focusPolicy"));
+      const int index = sheet->indexOf("focusPolicy");
+
       if (index != -1) {
          bool ok = false;
          const Qt::FocusPolicy q = static_cast<Qt::FocusPolicy>(Utils::valueOf(sheet->property(index), &ok));
@@ -2590,8 +2590,7 @@ bool FormWindow::canBeBuddy(QWidget *w) const // ### rename me.
 
 QWidget *FormWindow::findContainer(QWidget *w, bool excludeLayout) const
 {
-   if (!isChildOf(w, this)
-      || const_cast<const QWidget *>(w) == this) {
+   if (! isChildOf(w, this) || const_cast<const QWidget *>(w) == this) {
       return nullptr;
    }
 
@@ -2600,7 +2599,10 @@ QWidget *FormWindow::findContainer(QWidget *w, bool excludeLayout) const
    QDesignerMetaDataBaseInterface *metaDataBase = core()->metaDataBase();
 
    QWidget *container = widgetFactory->containerOfWidget(mainContainer()); // default parent for new widget is the formwindow
-   if (!isMainContainer(w)) { // press was not on formwindow, check if we can find another parent
+
+   if (! isMainContainer(w)) {
+      // press was not on formwindow, check if we can find another parent
+
       while (w) {
          if (dynamic_cast<InvisibleWidget *>(w) || !metaDataBase->item(w)) {
             w = w->parentWidget();
@@ -2626,11 +2628,13 @@ void FormWindow::simplifySelection(QWidgetList *sel) const
    if (sel->size() < 2) {
       return;
    }
+
    // Figure out which widgets should be removed from selection.
    // We want to remove those whose parent widget is also in the
    // selection (because the child widgets are contained by
    // their parent, they shouldn't be in the selection --
    // they are "implicitly" selected).
+
    QWidget *mainC = mainContainer(); // Quick check for main container first
    if (sel->contains(mainC)) {
       sel->clear();
@@ -2641,8 +2645,10 @@ void FormWindow::simplifySelection(QWidgetList *sel) const
    WidgetVector toBeRemoved;
    toBeRemoved.reserve(sel->size());
    const QWidgetList::const_iterator scend = sel->constEnd();
+
    for (QWidgetList::const_iterator it = sel->constBegin(); it != scend; ++it) {
       QWidget *child = *it;
+
       for (QWidget *w = child; true ; ) { // Is any of the parents also selected?
          QWidget *parent = w->parentWidget();
          if (!parent || parent == mainC) {
@@ -2655,13 +2661,12 @@ void FormWindow::simplifySelection(QWidgetList *sel) const
          w = parent;
       }
    }
-   // Now we can actually remove the widgets that were marked
-   // for removal in the previous pass.
    if (!toBeRemoved.isEmpty()) {
       const WidgetVector::const_iterator rcend = toBeRemoved.constEnd();
       for (WidgetVector::const_iterator it = toBeRemoved.constBegin(); it != rcend; ++it) {
          sel->removeAll(*it);
       }
+   // actually remove the widgets that were marked for removal in the previous pass.
    }
 }
 

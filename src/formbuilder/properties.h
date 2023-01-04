@@ -40,39 +40,39 @@ QVariant domPropertyToVariant(const DomProperty *property);
 QVariant domPropertyToVariant(QAbstractFormBuilder *abstractFormBuilder,
    const QMetaObject &meta, const DomProperty *property);
 
-// This class exists to provide meta information for enumerations only.
+// This class exists to provide meta information for enumerations only
 class QAbstractFormBuilderGadget: public QWidget
 {
    CS_OBJECT(QAbstractFormBuilderGadget)
 
-   CS_PROPERTY_READ(itemFlags, fakeItemFlags)
-   CS_PROPERTY_READ(checkState, fakeCheckState)
-   CS_PROPERTY_READ(textAlignment, fakeAlignment)
-   CS_PROPERTY_READ(orientation, fakeOrientation)
-   CS_PROPERTY_READ(sizeType, fakeSizeType)
-   CS_PROPERTY_READ(colorRole, fakeColorRole)
-   CS_PROPERTY_READ(colorGroup, fakeColorGroup)
-   CS_PROPERTY_READ(styleStrategy, fakeStyleStrategy)
-   CS_PROPERTY_READ(cursorShape, fakeCursorShape)
-   CS_PROPERTY_READ(brushStyle, fakeBrushStyle)
-   CS_PROPERTY_READ(toolBarArea, fakeToolBarArea)
-   CS_PROPERTY_READ(gradientType, fakeGradientType)
-   CS_PROPERTY_READ(gradientSpread, fakeGradientSpread)
+   CS_PROPERTY_READ(itemFlags,          fakeItemFlags)
+   CS_PROPERTY_READ(checkState,         fakeCheckState)
+   CS_PROPERTY_READ(textAlignment,      fakeAlignment)
+   CS_PROPERTY_READ(orientation,        fakeOrientation)
+   CS_PROPERTY_READ(sizeType,           fakeSizeType)
+   CS_PROPERTY_READ(colorRole,          fakeColorRole)
+   CS_PROPERTY_READ(colorGroup,         fakeColorGroup)
+   CS_PROPERTY_READ(styleStrategy,      fakeStyleStrategy)
+   CS_PROPERTY_READ(cursorShape,        fakeCursorShape)
+   CS_PROPERTY_READ(brushStyle,         fakeBrushStyle)
+   CS_PROPERTY_READ(toolBarArea,        fakeToolBarArea)
+   CS_PROPERTY_READ(gradientType,       fakeGradientType)
+   CS_PROPERTY_READ(gradientSpread,     fakeGradientSpread)
    CS_PROPERTY_READ(gradientCoordinate, fakeGradientCoordinate)
-   CS_PROPERTY_READ(language, fakeLanguage)
-   CS_PROPERTY_READ(country, fakeCountry)
+   CS_PROPERTY_READ(language,           fakeLanguage)
+   CS_PROPERTY_READ(country,            fakeCountry)
 
  public:
    QAbstractFormBuilderGadget() {
       Q_ASSERT(0);
    }
 
-   Qt::Orientation fakeOrientation() const     {
+   Qt::Orientation fakeOrientation() const {
       Q_ASSERT(0);
       return Qt::Horizontal;
    }
 
-   QSizePolicy::Policy fakeSizeType() const    {
+   QSizePolicy::Policy fakeSizeType() const {
       Q_ASSERT(0);
       return QSizePolicy::Expanding;
    }
@@ -82,22 +82,22 @@ class QAbstractFormBuilderGadget: public QWidget
       return static_cast<QPalette::ColorGroup>(0);
    }
 
-   QPalette::ColorRole fakeColorRole() const   {
+   QPalette::ColorRole fakeColorRole() const {
       Q_ASSERT(0);
       return static_cast<QPalette::ColorRole>(0);
    }
 
-   QFont::StyleStrategy fakeStyleStrategy() const     {
+   QFont::StyleStrategy fakeStyleStrategy() const {
       Q_ASSERT(0);
       return QFont::PreferDefault;
    }
 
-   Qt::CursorShape fakeCursorShape() const     {
+   Qt::CursorShape fakeCursorShape() const {
       Q_ASSERT(0);
       return Qt::ArrowCursor;
    }
 
-   Qt::BrushStyle fakeBrushStyle() const       {
+   Qt::BrushStyle fakeBrushStyle() const {
       Q_ASSERT(0);
       return Qt::NoBrush;
    }
@@ -106,7 +106,8 @@ class QAbstractFormBuilderGadget: public QWidget
       Q_ASSERT(0);
       return Qt::NoToolBarArea;
    }
-   QGradient::Type fakeGradientType() const    {
+
+   QGradient::Type fakeGradientType() const {
       Q_ASSERT(0);
       return QGradient::NoGradient;
    }
@@ -121,23 +122,27 @@ class QAbstractFormBuilderGadget: public QWidget
       return QGradient::LogicalMode;
    }
 
-   QLocale::Language fakeLanguage() const  {
+   QLocale::Language fakeLanguage() const {
       Q_ASSERT(0);
       return QLocale::C;
    }
-   QLocale::Country fakeCountry() const    {
+
+   QLocale::Country fakeCountry() const {
       Q_ASSERT(0);
       return QLocale::AnyCountry;
    }
-   Qt::ItemFlags fakeItemFlags() const     {
+
+   Qt::ItemFlags fakeItemFlags() const {
       Q_ASSERT(0);
       return Qt::NoItemFlags;
    }
-   Qt::CheckState fakeCheckState() const   {
+
+   Qt::CheckState fakeCheckState() const {
       Q_ASSERT(0);
       return Qt::Unchecked;
    }
-   Qt::Alignment fakeAlignment() const     {
+
+   Qt::Alignment fakeAlignment() const {
       Q_ASSERT(0);
       return Qt::AlignLeft;
    }
@@ -150,7 +155,6 @@ inline E enumKeyToValue(const QMetaEnum &metaEnum, const QString &key, const E *
    int val = metaEnum.keyToValue(key);
 
    if (val == -1) {
-
       csWarning(QCoreApplication::translate("QFormBuilder",
             "The enumeration value '%1' is invalid, default value '%2' will be used instead.")
             .formatArg(key).formatArg(metaEnum.key(0)));
@@ -180,10 +184,10 @@ inline E enumKeysToValue(const QMetaEnum &metaEnum, const QString &keys, const E
 template <class T>
 inline QMetaEnum metaEnum(const QString &name, const T * = nullptr)
 {
-   const int e_index = T::staticMetaObject().indexOfProperty(name);
-   Q_ASSERT(e_index != -1);
+   const int index = T::staticMetaObject().indexOfProperty(name);
+   Q_ASSERT(index != -1);
 
-   return T::staticMetaObject().property(e_index).enumerator();
+   return T::staticMetaObject().property(index).enumerator();
 }
 
 // Convert key to value for enumeration by name

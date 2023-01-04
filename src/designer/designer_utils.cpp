@@ -47,7 +47,7 @@ namespace qdesigner_internal {
 
 void reloadTreeItem(DesignerIconCache *iconCache, QTreeWidgetItem *item)
 {
-   if (!item) {
+   if (! item) {
       return;
    }
 
@@ -62,7 +62,7 @@ void reloadTreeItem(DesignerIconCache *iconCache, QTreeWidgetItem *item)
 
 void reloadListItem(DesignerIconCache *iconCache, QListWidgetItem *item)
 {
-   if (!item) {
+   if (! item) {
       return;
    }
 
@@ -74,7 +74,7 @@ void reloadListItem(DesignerIconCache *iconCache, QListWidgetItem *item)
 
 void reloadTableItem(DesignerIconCache *iconCache, QTableWidgetItem *item)
 {
-   if (!item) {
+   if (! item) {
       return;
    }
 
@@ -90,6 +90,7 @@ void reloadIconResources(DesignerIconCache *iconCache, QObject *object)
       for (int i = 0; i < listWidget->count(); i++) {
          reloadListItem(iconCache, listWidget->item(i));
       }
+
    } else if (QComboBox *comboBox = dynamic_cast<QComboBox *>(object)) {
       for (int i = 0; i < comboBox->count(); i++) {
          const QVariant v = comboBox->itemData(i, Qt::DecorationPropertyRole);
@@ -99,25 +100,32 @@ void reloadIconResources(DesignerIconCache *iconCache, QObject *object)
             comboBox->setItemData(i, icon);
          }
       }
+
    } else if (QTreeWidget *treeWidget = dynamic_cast<QTreeWidget *>(object)) {
       reloadTreeItem(iconCache, treeWidget->headerItem());
       QQueue<QTreeWidgetItem *> itemsQueue;
+
       for (int i = 0; i < treeWidget->topLevelItemCount(); i++) {
          itemsQueue.enqueue(treeWidget->topLevelItem(i));
       }
+
       while (!itemsQueue.isEmpty()) {
          QTreeWidgetItem *item = itemsQueue.dequeue();
          for (int i = 0; i < item->childCount(); i++) {
             itemsQueue.enqueue(item->child(i));
          }
+
          reloadTreeItem(iconCache, item);
       }
+
    } else if (QTableWidget *tableWidget = dynamic_cast<QTableWidget *>(object)) {
       const int columnCount = tableWidget->columnCount();
       const int rowCount = tableWidget->rowCount();
+
       for (int c = 0; c < columnCount; c++) {
          reloadTableItem(iconCache, tableWidget->horizontalHeaderItem(c));
       }
+
       for (int r = 0; r < rowCount; r++) {
          reloadTableItem(iconCache, tableWidget->verticalHeaderItem(r));
       }
@@ -197,6 +205,7 @@ QStringList DesignerMetaFlags::flags(int ivalue) const
             rc.push_back(iter.key());
          }
    }
+
    return rc;
 }
 
@@ -304,7 +313,8 @@ PropertySheetPixmapValue::PixmapSource PropertySheetPixmapValue::getPixmapSource
    if (const QDesignerLanguageExtension *lang = qt_extension<QDesignerLanguageExtension *>(core->extensionManager(), core)) {
       return lang->isLanguageResource(path) ?  LanguageResourcePixmap : FilePixmap;
    }
-   return path.startsWith(QLatin1Char(':')) ? ResourcePixmap : FilePixmap;
+
+   return path.startsWith(':') ? ResourcePixmap : FilePixmap;
 }
 
 int PropertySheetPixmapValue::compare(const PropertySheetPixmapValue &other) const
@@ -322,6 +332,7 @@ void PropertySheetPixmapValue::setPath(const QString &path)
    if (m_path == path) {
       return;
    }
+
    m_path = path;
 }
 
@@ -372,27 +383,34 @@ bool PropertySheetIconValue::operator<(const PropertySheetIconValue &other) cons
    if (const int themeCmp = m_data->m_theme.compare(other.m_data->m_theme)) {
       return themeCmp < 0;
    }
+
    QMapIterator<ModeStateKey, PropertySheetPixmapValue> itThis(m_data->m_paths);
    QMapIterator<ModeStateKey, PropertySheetPixmapValue> itOther(other.m_data->m_paths);
+
    while (itThis.hasNext() && itOther.hasNext()) {
       const ModeStateKey thisPair = itThis.next().key();
       const ModeStateKey otherPair = itOther.next().key();
+
       if (thisPair < otherPair) {
          return true;
       } else if (otherPair < thisPair) {
          return false;
       }
+
       const int crc = itThis.value().compare(itOther.value());
       if (crc < 0) {
          return true;
       }
+
       if (crc > 0) {
          return false;
       }
    }
+
    if (itOther.hasNext()) {
       return true;
    }
+
    return false;
 }
 
@@ -420,6 +438,7 @@ PropertySheetPixmapValue PropertySheetIconValue::pixmap(QIcon::Mode mode, QIcon:
 void PropertySheetIconValue::setPixmap(QIcon::Mode mode, QIcon::State state, const PropertySheetPixmapValue &pixmap)
 {
    const ModeStateKey pair = qMakePair(mode, state);
+
    if (pixmap.path().isEmpty()) {
       m_data->m_paths.remove(pair);
    } else {
@@ -471,11 +490,14 @@ QIcon DesignerIconCache::icon(const PropertySheetIconValue &value) const
    QIcon icon;
    const PropertySheetIconValue::ModeStateToPixmapMap &paths = value.paths();
    const ModeStateToPixmapMapConstIt cend = paths.constEnd();
+
    for (ModeStateToPixmapMapConstIt it = paths.constBegin(); it != cend; ++it) {
       const QPair<QIcon::Mode, QIcon::State> pair = it.key();
       icon.addFile(it.value().path(), QSize(), pair.first, pair.second);
    }
+
    m_cache.insert(value, icon);
+
    return icon;
 }
 
@@ -488,7 +510,6 @@ DesignerIconCache::DesignerIconCache(DesignerPixmapCache *pixmapCache, QObject *
    : QObject(parent),
      m_pixmapCache(pixmapCache)
 {
-
 }
 
 PropertySheetTranslatableData::PropertySheetTranslatableData(bool translatable, const QString &disambiguation,
@@ -614,10 +635,13 @@ static inline uint iconStateToSubPropertyFlag(QIcon::Mode mode, QIcon::State sta
    switch (mode) {
       case QIcon::Disabled:
          return state == QIcon::On ? DisabledOnIconMask : DisabledOffIconMask;
+
       case QIcon::Active:
-         return state == QIcon::On ?   ActiveOnIconMask :   ActiveOffIconMask;
+         return state == QIcon::On ?   ActiveOnIconMask : ActiveOffIconMask;
+
       case QIcon::Selected:
          return state == QIcon::On ? SelectedOnIconMask : SelectedOffIconMask;
+
       case QIcon::Normal:
          break;
    }
@@ -629,23 +653,31 @@ static inline QPair<QIcon::Mode, QIcon::State> subPropertyFlagToIconModeState(un
    switch (flag) {
       case NormalOnIconMask:
          return qMakePair(QIcon::Normal,   QIcon::On);
+
       case DisabledOffIconMask:
          return qMakePair(QIcon::Disabled, QIcon::Off);
+
       case DisabledOnIconMask:
          return qMakePair(QIcon::Disabled, QIcon::On);
+
       case ActiveOffIconMask:
          return qMakePair(QIcon::Active,   QIcon::Off);
+
       case ActiveOnIconMask:
          return qMakePair(QIcon::Active,   QIcon::On);
+
       case SelectedOffIconMask:
          return qMakePair(QIcon::Selected, QIcon::Off);
+
       case SelectedOnIconMask:
          return qMakePair(QIcon::Selected, QIcon::On);
+
       case NormalOffIconMask:
       default:
          break;
    }
-   return     qMakePair(QIcon::Normal,   QIcon::Off);
+
+   return qMakePair(QIcon::Normal,   QIcon::Off);
 }
 
 uint PropertySheetIconValue::mask() const
@@ -653,19 +685,24 @@ uint PropertySheetIconValue::mask() const
    typedef ModeStateToPixmapMap::const_iterator ModeStateToPixmapMapConstIt;
 
    uint flags = 0;
+
    const ModeStateToPixmapMapConstIt cend = m_data->m_paths.constEnd();
+
    for (ModeStateToPixmapMapConstIt it = m_data->m_paths.constBegin(); it != cend; ++it) {
       flags |= iconStateToSubPropertyFlag(it.key().first, it.key().second);
    }
+
    if (!m_data->m_theme.isEmpty()) {
       flags |= ThemeIconMask;
    }
+
    return flags;
 }
 
 uint PropertySheetIconValue::compare(const PropertySheetIconValue &other) const
 {
    uint diffMask = mask() | other.mask();
+
    for (int i = 0; i < 8; i++) {
       const uint flag = 1 << i;
       if (diffMask & flag) { // if state is set in both icons, compare the values
@@ -675,9 +712,11 @@ uint PropertySheetIconValue::compare(const PropertySheetIconValue &other) const
          }
       }
    }
+
    if ((diffMask & ThemeIconMask) && theme() == other.theme()) {
       diffMask &= ~ThemeIconMask;
    }
+
    return diffMask;
 }
 
@@ -735,8 +774,8 @@ QDebug operator<<(QDebug d, const PropertySheetIconValue &p)
    return d;
 }
 
-QDesignerFormWindowCommand *createTextPropertyCommand(const QString &propertyName, const QString &text, QObject *object,
-   QDesignerFormWindowInterface *fw)
+QDesignerFormWindowCommand *createTextPropertyCommand(const QString &propertyName, const QString &text,
+      QObject *object, QDesignerFormWindowInterface *fw)
 {
    if (text.isEmpty()) {
       ResetPropertyCommand *cmd = new ResetPropertyCommand(fw);
@@ -754,10 +793,12 @@ QAction *preferredEditAction(QDesignerFormEditorInterface *core, QWidget *manage
 {
    QAction *action = nullptr;
 
-   if (const QDesignerTaskMenuExtension *taskMenu = qt_extension<QDesignerTaskMenuExtension *>(core->extensionManager(), managedWidget)) {
+   if (const QDesignerTaskMenuExtension *taskMenu =
+            qt_extension<QDesignerTaskMenuExtension *>(core->extensionManager(), managedWidget)) {
+
       action = taskMenu->preferredEditAction();
 
-      if (!action) {
+      if (! action) {
          const QList<QAction *> actions = taskMenu->taskActions();
          if (!actions.isEmpty()) {
             action = actions.first();
@@ -765,7 +806,7 @@ QAction *preferredEditAction(QDesignerFormEditorInterface *core, QWidget *manage
       }
    }
 
-   if (!action) {
+   if (! action) {
       if (const QDesignerTaskMenuExtension *taskMenu = dynamic_cast<QDesignerTaskMenuExtension *>(
                core->extensionManager()->extension(managedWidget, "QDesignerInternalTaskMenuExtension"))) {
          action = taskMenu->preferredEditAction();
@@ -784,10 +825,8 @@ QAction *preferredEditAction(QDesignerFormEditorInterface *core, QWidget *manage
 
 bool runUIC(const QString &fileName, QByteArray &ba, QString &errorMessage)
 {
-   //
    errorMessage = "Feature is not used";
    return false;
-
 
    // uic app should be found in the same place as designer app
    const QString binary = QApplication::applicationDirPath() + "/uic";

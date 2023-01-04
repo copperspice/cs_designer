@@ -44,23 +44,24 @@ class QDesignerPropertyEditor: public QDesignerPropertyEditorInterface
    static TextValidPair textPropertyValidationMode(QDesignerFormEditorInterface *core,
       const QObject *object, const QString &propertyName, bool isMainContainer);
 
- public:
    CS_SIGNAL_1(Public, void propertyValueChanged(const QString &name, const QVariant &value, bool enableSubPropertyHandling))
    CS_SIGNAL_2(propertyValueChanged, name, value, enableSubPropertyHandling)
+
    CS_SIGNAL_1(Public, void resetProperty(const QString &name))
    CS_SIGNAL_2(resetProperty, name)
+
    CS_SIGNAL_1(Public, void addDynamicProperty(const QString &name, const QVariant &value))
    CS_SIGNAL_2(addDynamicProperty, name, value)
+
    CS_SIGNAL_1(Public, void removeDynamicProperty(const QString &name))
    CS_SIGNAL_2(removeDynamicProperty, name)
+
    CS_SIGNAL_1(Public, void editorOpened())
    CS_SIGNAL_2(editorOpened)
+
    CS_SIGNAL_1(Public, void editorClosed())
    CS_SIGNAL_2(editorClosed)
 
-   /* Quick update that assumes the actual count of properties has not changed
-    * (as opposed to setObject()). N/A when for example executing a
-    * layout command and margin properties appear. */
    CS_SLOT_1(Public, virtual void updatePropertySheet() = 0)
    CS_SLOT_2(updatePropertySheet)
 

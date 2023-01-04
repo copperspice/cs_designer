@@ -814,12 +814,15 @@ void PropertyEditor::slotAddDynamicProperty(QAction *action)
          }
       }
       dlg.setReservedNames(reservedNames);
+
       if (dlg.exec() == QDialog::Rejected) {
          return;
       }
+
       newName = dlg.propertyName();
       newValue = dlg.propertyValue();
    }
+
    m_recentlyAddedDynamicProperty = newName;
    emit addDynamicProperty(newName, newValue);
 }
@@ -834,7 +837,7 @@ bool PropertyEditor::isReadOnly() const
    return false;
 }
 
-void PropertyEditor::setReadOnly(bool /*readOnly*/)
+void PropertyEditor::setReadOnly(bool)
 {
    qDebug() << "PropertyEditor::setReadOnly() request";
 }
@@ -852,8 +855,8 @@ void PropertyEditor::setPropertyValue(const QString &name, const QVariant &value
    property->setModified(changed);
 }
 
-/* Quick update that assumes the actual count of properties has not changed
- * N/A when for example executing a layout command and margin properties appear. */
+// Quick update which assumes the actual count of properties has not changed
+// N/A when executing a layout command and margin properties appear
 void PropertyEditor::updatePropertySheet()
 {
    if (! m_propertySheet) {
@@ -894,6 +897,7 @@ void PropertyEditor::updateToolBarLabel()
       } else {
          objectName = m_object->objectName();
       }
+
       className = realClassName(m_object);
    }
 
@@ -901,7 +905,7 @@ void PropertyEditor::updateToolBarLabel()
    m_classLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
    QString classLabelText;
-   if (!objectName.isEmpty()) {
+   if (! objectName.isEmpty()) {
       classLabelText += objectName + QString(" : ");
    }
    classLabelText += className;
@@ -933,17 +937,19 @@ void PropertyEditor::updateBrowserValue(QtVariantProperty *property, const QVari
 
    int index = -1;
 
-   if (sheet) {
+   if (sheet != nullptr) {
       index = sheet->indexOf(property->propertyName());
-   }
 
-   if (sheet && m_propertyToGroup.contains(property)) {    // don't do it for comments since property sheet doesn't keep them
-      property->setEnabled(sheet->isEnabled(index));
+      if (m_propertyToGroup.contains(property)) {
+         // do not do this for comments since property sheets do not store them
+         property->setEnabled(sheet->isEnabled(index));
+      }
    }
 
    // Rich text string property with comment: Store/Update the font the rich text editor dialog starts out with
-   if (type == QVariant::String && !property->subProperties().empty()) {
+   if (type == QVariant::String && ! property->subProperties().empty()) {
       const int fontIndex = m_propertySheet->indexOf(m_strings.m_fontProperty);
+
       if (fontIndex != -1) {
          property->setAttribute(m_strings.m_fontAttribute, m_propertySheet->property(fontIndex));
       }
@@ -952,8 +958,8 @@ void PropertyEditor::updateBrowserValue(QtVariantProperty *property, const QVari
    m_updatingBrowser = true;
    property->setValue(v);
 
-   if (sheet && sheet->isResourceProperty(index)) {
-      property->setAttribute(QString("defaultResource"), sheet->defaultResourceProperty(index));
+   if (sheet != nullptr && sheet->isResourceProperty(index)) {
+      property->setAttribute("defaultResource", sheet->defaultResourceProperty(index));
    }
 
    m_updatingBrowser = false;
@@ -1490,13 +1496,13 @@ void PropertyEditor::slotValueChanged(QtProperty *property, const QVariant &valu
       return;
    }
 
-   if (!m_propertySheet) {
+   if (! m_propertySheet) {
       return;
    }
 
    QtVariantProperty *varProp = m_propertyManager->variantProperty(property);
 
-   if (!varProp) {
+   if (! varProp) {
       return;
    }
 
@@ -1513,6 +1519,7 @@ void PropertyEditor::slotValueChanged(QtProperty *property, const QVariant &valu
       const QString valName = varProp->attributeValue(m_strings.m_enumNamesAttribute).toStringList().at(val);
       bool ok = false;
       e.value = e.metaEnum.parseEnum(valName, &ok);
+
       Q_ASSERT(ok);
       QVariant v;
       v.setValue(e);
@@ -1526,7 +1533,7 @@ void PropertyEditor::slotValueChanged(QtProperty *property, const QVariant &valu
 
 bool PropertyEditor::isDynamicProperty(const QtBrowserItem *item) const
 {
-   if (!item) {
+   if (! item) {
       return false;
    }
 

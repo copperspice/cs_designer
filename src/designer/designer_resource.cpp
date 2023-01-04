@@ -1222,10 +1222,10 @@ QLayout *QDesignerResource::createLayout(const QString &layoutName, QObject *par
 }
 
 // save
-DomWidget *QDesignerResource::createDom(QWidget *widget, DomWidget *ui_parentWidget, bool recursive)
+DomWidget * QDesignerResource::createDom(QWidget *widget, DomWidget *ui_parentWidget, bool recursive)
 {
    QDesignerMetaDataBaseItemInterface *item = core()->metaDataBase()->item(widget);
-   if (!item) {
+   if (! item) {
       return nullptr;
    }
 
@@ -1498,21 +1498,23 @@ DomWidget *QDesignerResource::saveWidget(QStackedWidget *widget, DomWidget *ui_p
 DomWidget *QDesignerResource::saveWidget(QToolBar *toolBar, DomWidget *ui_parentWidget)
 {
    DomWidget *ui_widget = QAbstractFormBuilder::createDom(toolBar, ui_parentWidget, false);
+
    if (const QMainWindow *mainWindow = dynamic_cast<QMainWindow *>(toolBar->parentWidget())) {
-      const bool toolBarBreak = mainWindow->toolBarBreak(toolBar);
+      const bool toolBarBreak    = mainWindow->toolBarBreak(toolBar);
       const Qt::ToolBarArea area = mainWindow->toolBarArea(toolBar);
 
       QList<DomProperty *> attributes = ui_widget->elementAttribute();
 
       DomProperty *attr = new DomProperty();
-      attr->setAttributeName(QString("toolBarArea"));
-      attr->setElementEnum(QLatin1String(toolBarAreaMetaEnum().valueToKey(area)));
-      attributes  << attr;
+      attr->setAttributeName("toolBarArea");
+
+      attr->setElementEnum(QString(toolBarAreaMetaEnum().valueToKey(area)));
+      attributes << attr;
 
       attr = new DomProperty();
-      attr->setAttributeName(QString("toolBarBreak"));
-      attr->setElementBool(toolBarBreak ? QLatin1String("true") : QLatin1String("false"));
-      attributes  << attr;
+      attr->setAttributeName("toolBarBreak");
+      attr->setElementBool(toolBarBreak ? QString("true") : QString("false"));
+      attributes << attr;
       ui_widget->setElementAttribute(attributes);
    }
 
@@ -1522,10 +1524,11 @@ DomWidget *QDesignerResource::saveWidget(QToolBar *toolBar, DomWidget *ui_parent
 DomWidget *QDesignerResource::saveWidget(QDesignerDockWidget *dockWidget, DomWidget *ui_parentWidget)
 {
    DomWidget *ui_widget = QAbstractFormBuilder::createDom(dockWidget, ui_parentWidget, true);
+
    if (QMainWindow *mainWindow = dynamic_cast<QMainWindow *>(dockWidget->parentWidget())) {
       const Qt::DockWidgetArea area = mainWindow->dockWidgetArea(dockWidget);
       DomProperty *attr = new DomProperty();
-      attr->setAttributeName(QString("dockWidgetArea"));
+      attr->setAttributeName("dockWidgetArea");
       attr->setElementNumber(int(area));
       ui_widget->setElementAttribute(ui_widget->elementAttribute() << attr);
    }
@@ -2207,7 +2210,7 @@ static inline bool hasSetter(QDesignerFormEditorInterface *core, QObject *object
 
 DomProperty *QDesignerResource::createProperty(QObject *object, const QString &propertyName, const QVariant &value)
 {
-   if (!checkProperty(object, propertyName)) {
+   if (! checkProperty(object, propertyName)) {
       return nullptr;
    }
 

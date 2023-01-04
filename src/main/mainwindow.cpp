@@ -215,6 +215,7 @@ ToolBarManager::ToolBarManager(QMainWindow *configureableMainWindow, QWidget *pa
 
    for (QToolBar *tb : m_toolbars) {
       const QString title = tb->windowTitle();
+
       m_manager->addToolBar(tb, title);
       addActionsToToolBarManager(tb->actions(), title, m_manager);
    }
