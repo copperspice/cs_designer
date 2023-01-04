@@ -62,11 +62,8 @@ class QDesignerPropertyEditor: public QDesignerPropertyEditorInterface
    CS_SIGNAL_1(Public, void editorClosed())
    CS_SIGNAL_2(editorClosed)
 
-   CS_SLOT_1(Public, virtual void updatePropertySheet() = 0)
-   CS_SLOT_2(updatePropertySheet)
-
-   CS_SLOT_1(Public, virtual void reloadResourceProperties() = 0)
-   CS_SLOT_2(reloadResourceProperties)
+   virtual void updatePropertySheet() = 0;
+   virtual void reloadResourceProperties() = 0;
 
  protected:
    void emitPropertyValueChanged(const QString &name, const QVariant &value, bool enableSubPropertyHandling);
