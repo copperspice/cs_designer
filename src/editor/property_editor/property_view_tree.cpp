@@ -302,7 +302,10 @@ void QtPropertyEditorDelegate::slotEditorDestroyed(QObject *object)
 void QtPropertyEditorDelegate::closeEditor(QtProperty *property)
 {
    if (QWidget *w = m_propertyToEditor.value(property, nullptr)) {
-      w->deleteLater();
+      (void) w;
+
+      // temporarily removed
+      // w->deleteLater()
    }
 }
 
@@ -529,6 +532,10 @@ bool QtTreePropertyBrowserPrivate::lastColumn(int column) const
 
 void QtTreePropertyBrowserPrivate::disableItem(QTreeWidgetItem *item) const
 {
+   (void) item;
+
+/* temporarily removed, concern with closeEditor()
+
    Qt::ItemFlags flags = item->flags();
 
    if (flags & Qt::ItemIsEnabled) {
@@ -543,6 +550,8 @@ void QtTreePropertyBrowserPrivate::disableItem(QTreeWidgetItem *item) const
          disableItem(child);
       }
    }
+*/
+
 }
 
 void QtTreePropertyBrowserPrivate::enableItem(QTreeWidgetItem *item) const
