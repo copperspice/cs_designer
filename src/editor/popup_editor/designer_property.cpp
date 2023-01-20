@@ -945,7 +945,7 @@ DesignerPropertyManager::~DesignerPropertyManager()
    clear();
 }
 
-int DesignerPropertyManager::bitCount(int mask) const
+int DesignerPropertyManager::bitCount(uint mask) const
 {
    int count = 0;
 
@@ -1620,19 +1620,19 @@ void DesignerPropertyManager::setAttribute(QtProperty *property,
 
 uint DesignerPropertyManager::designerFlagTypeId()
 {
-   static const int rc = QVariant::typeToTypeId<DesignerFlagPropertyType>();
+   static const uint rc = QVariant::typeToTypeId<DesignerFlagPropertyType>();
    return rc;
 }
 
 uint DesignerPropertyManager::designerFlagListTypeId()
 {
-   static const int rc = QVariant::typeToTypeId<DesignerFlagList>();
+   static const uint rc = QVariant::typeToTypeId<DesignerFlagList>();
    return rc;
 }
 
 uint DesignerPropertyManager::designerAlignmentTypeId()
 {
-   static const int rc = QVariant::typeToTypeId<DesignerAlignmentPropertyType>();
+   static const uint rc = QVariant::typeToTypeId<DesignerAlignmentPropertyType>();
    return rc;
 }
 

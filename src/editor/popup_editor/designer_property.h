@@ -172,7 +172,8 @@ class DesignerPropertyManager : public QtVariantPropertyManager
    typedef QMap<QtProperty *, bool> PropertyBoolMap;
    PropertyBoolMap m_resetMap;
 
-   int bitCount(int mask) const;
+   int bitCount(uint mask) const;
+
    struct FlagData {
       FlagData()
          : val(0)
