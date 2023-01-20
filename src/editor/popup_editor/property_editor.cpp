@@ -866,13 +866,15 @@ void PropertyEditor::updatePropertySheet()
    updateToolBarLabel();
 
    const int propertyCount = m_propertySheet->count();
-   auto npcend = m_nameToProperty.constEnd();
+   auto end_iter = m_nameToProperty.constEnd();
 
    for (int i = 0; i < propertyCount; ++i) {
       const QString propertyName = m_propertySheet->propertyName(i);
-      QMap<QString, QtVariantProperty *>::const_iterator it = m_nameToProperty.constFind(propertyName);
-      if (it != npcend) {
-         updateBrowserValue(it.value(), m_propertySheet->property(i));
+
+      QMap<QString, QtVariantProperty *>::const_iterator iter = m_nameToProperty.constFind(propertyName);
+
+      if (iter != end_iter) {
+         updateBrowserValue(iter.value(), m_propertySheet->property(i));
       }
    }
 }
@@ -1193,8 +1195,8 @@ void PropertyEditor::setObject(QObject *object)
                   QStringList names;
                   QStringListIterator it(e.metaEnum.keys());
 
-                  while (it.hasNext()) {
-                     names.append(it.next());
+                  for (const QString &name : e.metaEnum.keys() ) {
+                     names.append(name);
                   }
 
                   m_updatingBrowser = true;

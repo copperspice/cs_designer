@@ -1449,21 +1449,21 @@ void DesignerPropertyManager::setAttribute(QtProperty *property,
       }
 
       PropertyToPropertyListMap::iterator pfit = m_propertyToFlags.find(property);
-      QListIterator<QtProperty *> itProp(pfit.value());
-      while (itProp.hasNext()) {
-         if (QtProperty *prop = itProp.next()) {
+
+      for (auto prop : pfit.value()) {
+         if (prop != nullptr) {
             delete prop;
             m_flagToProperty.remove(prop);
          }
       }
+
       pfit.value().clear();
 
       QList<uint> values;
 
-      QListIterator<QPair<QString, uint>> itFlag(flags);
-      while (itFlag.hasNext()) {
-         const QPair<QString, uint> pair = itFlag.next();
+      for (auto pair : flags) {
          const QString flagName = pair.first;
+
          QtProperty *prop = addProperty(QVariant::Bool);
          prop->setPropertyName(flagName);
          property->addSubProperty(prop);
@@ -1600,10 +1600,11 @@ void DesignerPropertyManager::setAttribute(QtProperty *property,
       qdesigner_internal::PropertySheetIconValue icon = m_iconValues.value(property);
       if (icon.paths().isEmpty()) {
          QMap<QPair<QIcon::Mode, QIcon::State>, QtProperty *> subIconProperties = m_propertyToIconSubProperties.value(property);
-         QMapIterator<QPair<QIcon::Mode, QIcon::State>, QtProperty *> itSub(subIconProperties);
-         while (itSub.hasNext()) {
-            QPair<QIcon::Mode, QIcon::State> pair = itSub.next().key();
-            QtProperty *subProp = itSub.value();
+
+         for (auto iter = subIconProperties.begin(); iter != subIconProperties.end(); ++iter ) {
+            QPair<QIcon::Mode, QIcon::State> pair = iter.key();
+            QtProperty *subProp = iter.value();
+
             setAttribute(subProp, defaultResourceAttributeC,
                defaultIcon.pixmap(16, 16, pair.first, pair.second));
          }
@@ -2463,10 +2464,8 @@ void DesignerPropertyManager::uninitializeProperty(QtProperty *property)
 {
    m_resetMap.remove(property);
 
-   QListIterator<QtProperty *> itProp(m_propertyToFlags[property]);
-   while (itProp.hasNext()) {
-      QtProperty *prop = itProp.next();
-      if (prop) {
+   for (auto prop : m_propertyToFlags[property]) {
+      if (prop != nullptr) {
          delete prop;
          m_flagToProperty.remove(prop);
       }
