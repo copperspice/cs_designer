@@ -1442,8 +1442,9 @@ void DesignerPropertyManager::setAttribute(QtProperty *property,
       }
 
       const DesignerFlagList flags = value.value<DesignerFlagList>();
-      PropertyFlagDataMap::iterator fit = m_flagValues.find(property);
-      FlagData data = fit.value();
+      PropertyFlagDataMap::iterator flag_iter = m_flagValues.find(property);
+      FlagData data = flag_iter.value();
+
       if (data.flags == flags) {
          return;
       }
@@ -1476,7 +1477,7 @@ void DesignerPropertyManager::setAttribute(QtProperty *property,
       data.flags  = flags;
       data.values = values;
 
-      fit.value() = data;
+      flag_iter.value() = data;
 
       QVariant v;
       v.setValue(flags);
@@ -2025,46 +2026,48 @@ void DesignerPropertyManager::setValue(QtProperty *property, const QVariant &val
       return;
    }
 
-   const PropertyFlagDataMap::iterator fit = m_flagValues.find(property);
+   const PropertyFlagDataMap::iterator flag_iter = m_flagValues.find(property);
 
-   if (fit != m_flagValues.end()) {
+   if (flag_iter != m_flagValues.end()) {
       if (value.type() != QVariant::UInt && ! value.canConvert(QVariant::UInt)) {
          return;
       }
 
-      const uint v = value.toUInt();
+      const uint newValue = value.toUInt();
 
-      FlagData data = fit.value();
-      if (data.val == v) {
+      FlagData data = flag_iter.value();
+      if (data.val == newValue) {
          return;
       }
 
       // set new value
-      const QList<uint> values = data.values;
+      const QList<uint> valueList = data.values;
       const QList<QtProperty *> subFlags = m_propertyToFlags.value(property);
       const int subFlagCount = subFlags.count();
 
       for (int i = 0; i < subFlagCount; ++i) {
          QtVariantProperty *subFlag = variantProperty(subFlags.at(i));
-         const uint val = values.at(i);
-         const bool checked = (val == 0) ? (v == 0) : ((val & v) == val);
+
+         const uint tmpValue = valueList.at(i);
+         const bool checked  = (tmpValue == 0) ? (newValue == 0) : ((tmpValue & newValue) == tmpValue);
+
          subFlag->setValue(checked);
       }
 
       for (int i = 0; i < subFlagCount; ++i) {
          QtVariantProperty *subFlag = variantProperty(subFlags.at(i));
 
-         const uint val     = values.at(i);
-         const bool checked = (val == 0) ? (v == 0) : ((val & v) == val);
+         const uint tmpValue = valueList.at(i);
+         const bool checked  = (tmpValue == 0) ? (newValue == 0) : ((tmpValue & newValue) == tmpValue);
          bool enabled = true;
 
-         if (val == 0) {
+         if (tmpValue == 0) {
             // like "NoEditTriggers" or a "none" type flag
             if (checked) {
                enabled = false;
             }
 
-         } else if (bitCount(val) > 1) {
+         } else if (bitCount(tmpValue) > 1) {
             // disable this property if all flags which are contained in the mask are checked
             // like "AllEditTriggers"
             uint currentMask = 0;
@@ -2072,12 +2075,12 @@ void DesignerPropertyManager::setValue(QtProperty *property, const QVariant &val
             for (int j = 0; j < subFlagCount; ++j) {
                QtVariantProperty *subFlag = variantProperty(subFlags.at(j));
 
-               if (bitCount(values.at(j)) == 1) {
-                  currentMask |= subFlag->value().toBool() ? values.at(j) : 0;
+               if (bitCount(valueList.at(j)) == 1) {
+                  currentMask |= subFlag->value().toBool() ? valueList.at(j) : 0;
                }
             }
 
-            if ((currentMask & values.at(i)) == values.at(i)) {
+            if ((currentMask & valueList.at(i)) == valueList.at(i)) {
                enabled = false;
             }
          }
@@ -2085,8 +2088,8 @@ void DesignerPropertyManager::setValue(QtProperty *property, const QVariant &val
          subFlag->setEnabled(enabled);
       }
 
-      data.val = v;
-      fit.value() = data;
+      data.val    = newValue;
+      flag_iter.value() = data;
 
       emit QtVariantPropertyManager::valueChanged(property, data.val);
       emit propertyChanged(property);
