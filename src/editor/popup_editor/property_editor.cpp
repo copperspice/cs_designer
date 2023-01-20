@@ -1521,8 +1521,8 @@ void PropertyEditor::slotValueChanged(QtProperty *property, const QVariant &valu
       e.value = e.metaEnum.parseEnum(valName, &ok);
 
       Q_ASSERT(ok);
-      QVariant v;
-      v.setValue(e);
+
+      QVariant v = QVariant::fromValue(e);
       emitPropertyValueChanged(property->propertyName(), v, true);
 
       return;

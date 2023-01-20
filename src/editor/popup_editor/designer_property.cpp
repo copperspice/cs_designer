@@ -1185,9 +1185,7 @@ void DesignerPropertyManager::slotValueChanged(QtProperty *property, const QVari
       m_changingSubValue = false;
       data.val = newValue;
 
-      QVariant v;
-      v.setValue(data.val);
-      variantProperty(flagProperty)->setValue(v);
+      variantProperty(flagProperty)->setValue(QVariant::fromValue(newValue));
 
    } else if (QtProperty *alignProperty = m_alignHToProperty.value(property, nullptr)) {
       const uint v = m_alignValues.value(alignProperty);
