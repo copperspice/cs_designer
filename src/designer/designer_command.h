@@ -159,22 +159,20 @@ class AdjustWidgetSizeCommand: public QDesignerFormWindowCommand
 class  ManageWidgetCommandHelper
 {
  public:
-   typedef QVector<QWidget *> WidgetVector;
-
    ManageWidgetCommandHelper();
    void init(const QDesignerFormWindowInterface *fw, QWidget *widget);
-   void init(QWidget *widget, const WidgetVector &managedChildren);
+   void init(QWidget *widget, const QVector<QWidget *> &managedChildren);
 
    void manage(QDesignerFormWindowInterface *fw);
    void unmanage(QDesignerFormWindowInterface *fw);
 
-   const WidgetVector &managedChildren() const {
+   const QVector<QWidget *> &managedChildren() const {
       return m_managedChildren;
    }
 
  private:
    QWidget *m_widget;
-   WidgetVector m_managedChildren;
+   QVector<QWidget *> m_managedChildren;
 };
 
 class DeleteWidgetCommand: public QDesignerFormWindowCommand

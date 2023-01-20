@@ -2641,8 +2641,8 @@ void FormWindow::simplifySelection(QWidgetList *sel) const
       sel->push_back(mainC);
       return;
    }
-   typedef QVector<QWidget *> WidgetVector;
-   WidgetVector toBeRemoved;
+
+   QVector<QWidget *> toBeRemoved;
    toBeRemoved.reserve(sel->size());
    const QWidgetList::const_iterator scend = sel->constEnd();
 
@@ -2661,12 +2661,10 @@ void FormWindow::simplifySelection(QWidgetList *sel) const
          w = parent;
       }
    }
-   if (!toBeRemoved.isEmpty()) {
-      const WidgetVector::const_iterator rcend = toBeRemoved.constEnd();
-      for (WidgetVector::const_iterator it = toBeRemoved.constBegin(); it != rcend; ++it) {
-         sel->removeAll(*it);
-      }
+
    // actually remove the widgets that were marked for removal in the previous pass.
+   for (auto item : toBeRemoved) {
+      sel->removeAll(item);
    }
 }
 

@@ -375,7 +375,7 @@ void ManageWidgetCommandHelper::init(const QDesignerFormWindowInterface *fw, QWi
       }
 }
 
-void ManageWidgetCommandHelper::init(QWidget *widget, const WidgetVector &managedChildren)
+void ManageWidgetCommandHelper::init(QWidget *widget, const QVector<QWidget *> &managedChildren)
 {
    m_widget = widget;
    m_managedChildren = managedChildren;
@@ -386,10 +386,9 @@ void ManageWidgetCommandHelper::manage(QDesignerFormWindowInterface *fw)
    // Manage the managed children after parent
    fw->manageWidget(m_widget);
 
-   if (!m_managedChildren.empty()) {
-      const WidgetVector::const_iterator lcend = m_managedChildren.constEnd();
-      for (WidgetVector::const_iterator it = m_managedChildren.constBegin(); it != lcend; ++it) {
-         fw->manageWidget(*it);
+   if (! m_managedChildren.empty()) {
+      for (auto item : m_managedChildren) {
+         fw->manageWidget(item);
       }
    }
 }
@@ -397,10 +396,9 @@ void ManageWidgetCommandHelper::manage(QDesignerFormWindowInterface *fw)
 void ManageWidgetCommandHelper::unmanage(QDesignerFormWindowInterface *fw)
 {
    // Unmanage the managed children first
-   if (!m_managedChildren.empty()) {
-      const WidgetVector::const_iterator lcend = m_managedChildren.constEnd();
-      for (WidgetVector::const_iterator it = m_managedChildren.constBegin(); it != lcend; ++it) {
-         fw->unmanageWidget(*it);
+   if (! m_managedChildren.empty()) {
+      for (auto item : m_managedChildren) {
+         fw->unmanageWidget(item);
       }
    }
 
