@@ -922,16 +922,26 @@ void PropertyEditor::updateBrowserValue(QtVariantProperty *property, const QVari
    const uint type = property->propertyType();
 
    if (type == QtVariantPropertyManager::enumTypeId()) {
-      const PropertySheetEnumValue e = v.value<PropertySheetEnumValue>();
-      v = static_cast<int>(e.metaEnum.keys().indexOf(e.metaEnum.valueToKey(e.value)));
+
+      if (v.canConvert<PropertySheetEnumValue>()) {
+         const PropertySheetEnumValue e = v.value<PropertySheetEnumValue>();
+         v = static_cast<int>(e.metaEnum.keys().indexOf(e.metaEnum.valueToKey(e.value)));
+      }
 
    } else if (type == DesignerPropertyManager::designerFlagTypeId()) {
-      const PropertySheetFlagValue f = v.value<PropertySheetFlagValue>();
-      v = QVariant(f.value);
+
+      if (v.canConvert<PropertySheetFlagValue>()) {
+
+         const PropertySheetFlagValue f = v.value<PropertySheetFlagValue>();
+         v = QVariant(f.value);
+      }
 
    } else if (type == DesignerPropertyManager::designerAlignmentTypeId()) {
-      const PropertySheetFlagValue f = v.value<PropertySheetFlagValue>();
-      v = QVariant(f.value);
+
+      if (v.canConvert<PropertySheetFlagValue>()) {
+         const PropertySheetFlagValue f = v.value<PropertySheetFlagValue>();
+         v = QVariant(f.value);
+      }
    }
 
    QDesignerPropertySheet *sheet = dynamic_cast<QDesignerPropertySheet *>(
@@ -1193,7 +1203,6 @@ void PropertyEditor::setObject(QObject *object)
                if (type == DesignerPropertyManager::enumTypeId()) {
                   const PropertySheetEnumValue e = value.value<PropertySheetEnumValue>();
                   QStringList names;
-                  QStringListIterator it(e.metaEnum.keys());
 
                   for (const QString &name : e.metaEnum.keys() ) {
                      names.append(name);
@@ -1204,22 +1213,20 @@ void PropertyEditor::setObject(QObject *object)
                   m_updatingBrowser = false;
 
                } else if (type == DesignerPropertyManager::designerFlagTypeId()) {
-                  const PropertySheetFlagValue f = value.value<PropertySheetFlagValue>();
-                  QList<QPair<QString, uint>> flags;
-                  QStringListIterator it(f.metaFlags.keys());
+                  if (value.canConvert<PropertySheetFlagValue>()) {
+                     const PropertySheetFlagValue f = value.value<PropertySheetFlagValue>();
 
-                  while (it.hasNext()) {
-                     const QString name = it.next();
-                     const uint val = f.metaFlags.keyToValue(name);
-                     flags.append(std::make_pair(name, val));
+                     QList<QPair<QString, uint>> flags;
+
+                     for (const QString &name : f.metaFlags.keys() ) {
+                        const uint val = f.metaFlags.keyToValue(name);
+                        flags.append(std::make_pair(name, val));
+                     }
+
+                     m_updatingBrowser = true;
+                     property->setAttribute(m_strings.m_flagsAttribute, QVariant::fromValue(flags));
+                     m_updatingBrowser = false;
                   }
-
-                  m_updatingBrowser = true;
-
-                  QVariant v;
-                  v.setValue(flags);
-                  property->setAttribute(m_strings.m_flagsAttribute, v);
-                  m_updatingBrowser = false;
                }
             }
          }
