@@ -11,7 +11,7 @@ project(Designer)
 
 set(BUILD_MAJOR "1")
 set(BUILD_MINOR "0")
-set(BUILD_MICRO "1")
+set(BUILD_MICRO "2")
 
 set(BUILD_COMPONENTS "Designer")
 
@@ -23,9 +23,9 @@ include(CheckTypeSize)
 
 find_package(CopperSpice REQUIRED)
 
-if (${COPPERSPICE_VERSION} VERSION_LESS "1.7.4")
+if (${COPPERSPICE_VERSION} VERSION_LESS "1.8.0")
    message("")
-   message("** Error: Minimum required version for CopperSpice is 1.7.4")
+   message("** Error: Minimum required version for CopperSpice is 1.8.0")
 
    message("")
    message(FATAL_ERROR)
