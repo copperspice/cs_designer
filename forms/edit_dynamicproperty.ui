@@ -1,4 +1,5 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>qdesigner_internal::NewDynamicPropertyDialog</class>
  <widget class="QDialog" name="qdesigner_internal::NewDynamicPropertyDialog" >
   <property name="geometry" >
