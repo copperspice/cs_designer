@@ -141,7 +141,6 @@ class FormWindow::Selection
    void show(QWidget *w);
 
  private:
-
    typedef QList<WidgetSelection *> SelectionPool;
    SelectionPool m_selectionPool;
 
@@ -160,12 +159,13 @@ FormWindow::Selection::~Selection()
 
 void FormWindow::Selection::clear()
 {
-   if (!m_usedSelections.empty()) {
+   if (! m_usedSelections.empty()) {
       const SelectionHash::iterator mend = m_usedSelections.end();
 
       for (SelectionHash::iterator it = m_usedSelections.begin(); it != mend; ++it) {
          it.value()->setWidget(nullptr);
       }
+
       m_usedSelections.clear();
    }
 }
@@ -1065,6 +1065,7 @@ static inline void insertNames(const QDesignerMetaDataBaseInterface *metaDataBas
 static QSet<QString> languageKeywords()
 {
    static QSet<QString> keywords;
+
    if (keywords.isEmpty()) {
       // C++ keywords
       keywords.insert(QString("asm"));
@@ -1187,21 +1188,21 @@ static QSet<QString> languageKeywords()
       keywords.insert(QString("volatile"));
       keywords.insert(QString("while"));
    }
+
    return keywords;
 }
 
 bool FormWindow::unify(QObject *w, QString &s, bool changeIt)
 {
-   typedef QSet<QString> StringSet;
-
    QWidget *main = mainContainer();
-   if (!main) {
+   if (! main) {
       return true;
    }
 
-   StringSet existingNames = languageKeywords();
+   QSet<QString> existingNames = languageKeywords();
+
    // build a set of existing names of other widget excluding self
-   if (!(w->isWidgetType() && isMainContainer(dynamic_cast<QWidget *>(w)))) {
+   if (! (w->isWidgetType() && isMainContainer(dynamic_cast<QWidget *>(w)))) {
       existingNames.insert(main->objectName());
    }
 
@@ -1212,21 +1213,21 @@ bool FormWindow::unify(QObject *w, QString &s, bool changeIt)
    }
 
    const QList<QLayout *> layoutChildren = main->findChildren<QLayout *>();
-   if (!layoutChildren.empty()) {
+   if (! layoutChildren.empty()) {
       insertNames(metaDataBase, layoutChildren.constBegin(), layoutChildren.constEnd(), w, existingNames);
    }
 
    const QList<QAction *> actionChildren = main->findChildren<QAction *>();
-   if (!actionChildren.empty()) {
+   if (! actionChildren.empty()) {
       insertNames(metaDataBase, actionChildren.constBegin(), actionChildren.constEnd(), w, existingNames);
    }
 
    const QList<QButtonGroup *> buttonGroupChildren = main->findChildren<QButtonGroup *>();
-   if (!buttonGroupChildren.empty()) {
+   if (! buttonGroupChildren.empty()) {
       insertNames(metaDataBase, buttonGroupChildren.constBegin(), buttonGroupChildren.constEnd(), w, existingNames);
    }
 
-   const StringSet::const_iterator enEnd = existingNames.constEnd();
+   const auto enEnd = existingNames.constEnd();
    if (existingNames.constFind(s) == enEnd) {
       return true;
    } else if (!changeIt) {

@@ -677,7 +677,7 @@ QStringList QUiLoader::availableLayouts() const
    QStringList rc;
 
 #define DECLARE_WIDGET(a, b)
-#define DECLARE_LAYOUT(a, b) rc.push_back(QLatin1String(#a));
+#define DECLARE_LAYOUT(a, b) rc.push_back(#a);
 
 #include "widgets.table"
 

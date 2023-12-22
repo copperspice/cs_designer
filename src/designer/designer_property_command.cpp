@@ -149,6 +149,7 @@ void checkSizes(QDesignerFormWindowInterface *fw, const QSize &size, QSize *form
    if (formSize) {
       *formSize = newFormSize;
    }
+
    if (containerSize) {
       *containerSize = newContainerSize;
    }
@@ -162,14 +163,49 @@ void checkSizes(QDesignerFormWindowInterface *fw, const QSize &size, QSize *form
  * The following routines can be used to find out the changed subproperties of a property,
  * which are represented as a mask, and to apply them while leaving the others intact. */
 
-enum RectSubPropertyMask {  SubPropertyX = 1, SubPropertyY = 2, SubPropertyWidth = 4, SubPropertyHeight = 8 };
-enum SizePolicySubPropertyMask { SubPropertyHSizePolicy = 1, SubPropertyHStretch = 2, SubPropertyVSizePolicy = 4, SubPropertyVStretch = 8 };
-enum AlignmentSubPropertyMask { SubPropertyHorizontalAlignment = 1, SubPropertyVerticalAlignment = 2 };
-enum StringSubPropertyMask { SubPropertyStringValue = 1, SubPropertyStringComment = 2, SubPropertyStringTranslatable = 4, SubPropertyStringDisambiguation = 8 };
-enum StringListSubPropertyMask { SubPropertyStringListValue = 1, SubPropertyStringListComment = 2, SubPropertyStringListTranslatable = 4, SubPropertyStringListDisambiguation = 8 };
-enum KeySequenceSubPropertyMask { SubPropertyKeySequenceValue = 1, SubPropertyKeySequenceComment = 2, SubPropertyKeySequenceTranslatable = 4, SubPropertyKeySequenceDisambiguation = 8 };
+enum RectSubPropertyMask {
+   SubPropertyX      = 1,
+   SubPropertyY      = 2,
+   SubPropertyWidth  = 4,
+   SubPropertyHeight = 8
+};
 
-enum CommonSubPropertyMask { SubPropertyAll = 0xFFFFFFFF };
+enum SizePolicySubPropertyMask {
+   SubPropertyHSizePolicy = 1,
+   SubPropertyHStretch    = 2,
+   SubPropertyVSizePolicy = 4,
+   SubPropertyVStretch    = 8
+};
+
+enum AlignmentSubPropertyMask {
+   SubPropertyHorizontalAlignment = 1,
+   SubPropertyVerticalAlignment   = 2
+};
+
+enum StringSubPropertyMask {
+   SubPropertyStringValue          = 1,
+   SubPropertyStringComment        = 2,
+   SubPropertyStringTranslatable   = 4,
+   SubPropertyStringDisambiguation = 8
+};
+
+enum StringListSubPropertyMask {
+   SubPropertyStringListValue          = 1,
+   SubPropertyStringListComment        = 2,
+   SubPropertyStringListTranslatable   = 4,
+   SubPropertyStringListDisambiguation = 8
+ };
+
+enum KeySequenceSubPropertyMask {
+   SubPropertyKeySequenceValue          = 1,
+   SubPropertyKeySequenceComment        = 2,
+   SubPropertyKeySequenceTranslatable   = 4,
+   SubPropertyKeySequenceDisambiguation = 8
+};
+
+enum CommonSubPropertyMask {
+   SubPropertyAll = 0xFFFFFFFF
+};
 
 // Set the mask flag in mask if the properties do not match.
 #define COMPARE_SUBPROPERTY(object1, object2, getter, mask, maskFlag) if (object1.getter() != object2.getter()) mask |= maskFlag;

@@ -1684,7 +1684,7 @@ DomWidget *QDesignerResource::saveWidget(QWizardPage *wizardPage, DomWidget *ui_
    QDesignerPropertySheetExtension *sheet = qt_extension<QDesignerPropertySheetExtension *>(core()->extensionManager(), wizardPage);
 
    // Save the page id (string) attribute, append to existing attributes
-   const QString pageIdPropertyName = QLatin1String(QWizardPagePropertySheet::pageIdProperty);
+   const QString pageIdPropertyName = QWizardPagePropertySheet::pageIdProperty;
    const int pageIdIndex = sheet->indexOf(pageIdPropertyName);
 
    if (pageIdIndex != -1 && sheet->isChanged(pageIdIndex)) {
@@ -1900,7 +1900,7 @@ DomUI *QDesignerResource::copy(const FormBuilderClipboard &selection)
    m_copyWidget = true;
 
    DomWidget *ui_widget = new DomWidget();
-   ui_widget->setAttributeName(QLatin1String(clipboardObjectName));
+   ui_widget->setAttributeName(clipboardObjectName);
    bool hasItems = false;
 
    // Widgets
@@ -1920,21 +1920,21 @@ DomUI *QDesignerResource::copy(const FormBuilderClipboard &selection)
          }
       }
 
-      if (!ui_widget_list.empty()) {
+      if (! ui_widget_list.empty()) {
          ui_widget->setElementWidget(ui_widget_list);
          hasItems = true;
       }
    }
 
    // actions
-   if (!selection.m_actions.empty()) {
+   if (! selection.m_actions.empty()) {
       QList<DomAction *> domActions;
 
       for (QAction *action :  selection.m_actions)
          if (DomAction *domAction = createDom(action)) {
             domActions += domAction;
          }
-      if (!domActions.empty()) {
+      if (! domActions.empty()) {
          ui_widget-> setElementAction(domActions);
          hasItems = true;
       }
@@ -1950,7 +1950,7 @@ DomUI *QDesignerResource::copy(const FormBuilderClipboard &selection)
 
    // UI
    DomUI *ui = new DomUI();
-   ui->setAttributeVersion(QLatin1String(currentUiVersion));
+   ui->setAttributeVersion(currentUiVersion);
    ui->setElementWidget(ui_widget);
    ui->setElementResources(saveResources(m_resourceBuilder->usedQrcFiles()));
 

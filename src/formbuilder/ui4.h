@@ -384,24 +384,25 @@ class DomUI
    DomDesignerData *m_designerdata;
    DomSlots *m_slots;
    DomButtonGroups *m_buttonGroups;
+
    enum Child {
-      Author = 1,
-      Comment = 2,
-      ExportMacro = 4,
-      Class = 8,
-      Widget = 16,
-      LayoutDefault = 32,
-      LayoutFunction = 64,
-      PixmapFunction = 128,
-      CustomWidgets = 256,
-      TabStops = 512,
-      Images = 1024,
-      Includes = 2048,
-      Resources = 4096,
-      Connections = 8192,
-      Designerdata = 16384,
-      Slots = 32768,
-      ButtonGroups = 65536
+      Author          = 1,
+      Comment         = 2,
+      ExportMacro     = 4,
+      Class           = 8,
+      Widget          = 16,
+      LayoutDefault   = 32,
+      LayoutFunction  = 64,
+      PixmapFunction  = 128,
+      CustomWidgets   = 256,
+      TabStops        = 512,
+      Images          = 1024,
+      Includes        = 2048,
+      Resources       = 4096,
+      Connections     = 8192,
+      Designerdata    = 16384,
+      Slots           = 32768,
+      ButtonGroups    = 65536
    };
 
    DomUI(const DomUI &other);
@@ -438,9 +439,6 @@ class DomIncludes
    // child element data
    uint m_children;
    QList<DomInclude *> m_include;
-   enum Child {
-      Include = 1
-   };
 
    DomIncludes(const DomIncludes &other);
    void operator = (const DomIncludes &other);
@@ -517,9 +515,11 @@ class DomResources
 
    void read(QXmlStreamReader &reader);
    void write(QXmlStreamWriter &writer, const QString &tagName = QString()) const;
-   inline QString text() const {
+
+  inline QString text() const {
       return m_text;
    }
+
    inline void setText(const QString &s) {
       m_text = s;
    }
@@ -528,13 +528,16 @@ class DomResources
    inline bool hasAttributeName() const {
       return m_has_attr_name;
    }
+
    inline QString attributeName() const {
       return m_attr_name;
    }
+
    inline void setAttributeName(const QString &a) {
       m_attr_name = a;
       m_has_attr_name = true;
    }
+
    inline void clearAttributeName() {
       m_has_attr_name = false;
    }
@@ -556,9 +559,6 @@ class DomResources
    // child element data
    uint m_children;
    QList<DomResource *> m_include;
-   enum Child {
-      Include = 1
-   };
 
    DomResources(const DomResources &other);
    void operator = (const DomResources &other);
@@ -675,11 +675,12 @@ class DomActionGroup
    QList<DomActionGroup *> m_actionGroup;
    QList<DomProperty *> m_property;
    QList<DomProperty *> m_attribute;
+
    enum Child {
-      Action = 1,
+      Action      = 1,
       ActionGroup = 2,
-      Property = 4,
-      Attribute = 8
+      Property    = 4,
+      Attribute   = 8
    };
 
    DomActionGroup(const DomActionGroup &other);
@@ -756,8 +757,9 @@ class DomAction
    uint m_children;
    QList<DomProperty *> m_property;
    QList<DomProperty *> m_attribute;
+
    enum Child {
-      Property = 1,
+      Property  = 1,
       Attribute = 2
    };
 
@@ -864,8 +866,9 @@ class DomButtonGroup
    uint m_children;
    QList<DomProperty *> m_property;
    QList<DomProperty *> m_attribute;
+
    enum Child {
-      Property = 1,
+      Property  = 1,
       Attribute = 2
    };
 
@@ -884,6 +887,7 @@ class DomButtonGroups
    inline QString text() const {
       return m_text;
    }
+
    inline void setText(const QString &s) {
       m_text = s;
    }
@@ -903,6 +907,7 @@ class DomButtonGroups
    // child element data
    uint m_children;
    QList<DomButtonGroup *> m_buttonGroup;
+
    enum Child {
       ButtonGroup = 1
    };
@@ -941,6 +946,7 @@ class DomImages
    // child element data
    uint m_children;
    QList<DomImage *> m_image;
+
    enum Child {
       Image = 1
    };
@@ -1001,6 +1007,7 @@ class DomImage
    // child element data
    uint m_children;
    DomImageData *m_data;
+
    enum Child {
       Data = 1
    };
@@ -1102,6 +1109,7 @@ class DomCustomWidgets
    // child element data
    uint m_children;
    QList<DomCustomWidget *> m_customWidget;
+
    enum Child {
       CustomWidget = 1
    };
@@ -1118,9 +1126,11 @@ class DomHeader
 
    void read(QXmlStreamReader &reader);
    void write(QXmlStreamWriter &writer, const QString &tagName = QString()) const;
+
    inline QString text() const {
       return m_text;
    }
+
    inline void setText(const QString &s) {
       m_text = s;
    }
@@ -1307,6 +1317,7 @@ class DomCustomWidget
    DomProperties *m_properties;
    DomSlots *m_slots;
    DomPropertySpecifications *m_propertyspecifications;
+
    enum Child {
       Class = 1,
       Extends = 2,
@@ -1356,6 +1367,7 @@ class DomProperties
    // child element data
    uint m_children;
    QList<DomPropertyData *> m_property;
+
    enum Child {
       Property = 1
    };
@@ -1454,6 +1466,7 @@ class DomSizePolicyData
    uint m_children;
    int m_horData;
    int m_verData;
+
    enum Child {
       HorData = 1,
       VerData = 2
@@ -1619,6 +1632,7 @@ class DomTabStops
    // child element data
    uint m_children;
    QStringList m_tabStop;
+
    enum Child {
       TabStop = 1
    };
@@ -1638,6 +1652,7 @@ class DomLayout
    inline QString text() const {
       return m_text;
    }
+
    inline void setText(const QString &s) {
       m_text = s;
    }
@@ -1646,13 +1661,16 @@ class DomLayout
    inline bool hasAttributeClass() const {
       return m_has_attr_class;
    }
+
    inline QString attributeClass() const {
       return m_attr_class;
    }
+
    inline void setAttributeClass(const QString &a) {
       m_attr_class = a;
       m_has_attr_class = true;
    }
+
    inline void clearAttributeClass() {
       m_has_attr_class = false;
    }
@@ -1660,13 +1678,16 @@ class DomLayout
    inline bool hasAttributeName() const {
       return m_has_attr_name;
    }
+
    inline QString attributeName() const {
       return m_attr_name;
    }
+
    inline void setAttributeName(const QString &a) {
       m_attr_name = a;
       m_has_attr_name = true;
    }
+
    inline void clearAttributeName() {
       m_has_attr_name = false;
    }
@@ -1674,13 +1695,16 @@ class DomLayout
    inline bool hasAttributeStretch() const {
       return m_has_attr_stretch;
    }
+
    inline QString attributeStretch() const {
       return m_attr_stretch;
    }
+
    inline void setAttributeStretch(const QString &a) {
       m_attr_stretch = a;
       m_has_attr_stretch = true;
    }
+
    inline void clearAttributeStretch() {
       m_has_attr_stretch = false;
    }
@@ -1688,13 +1712,16 @@ class DomLayout
    inline bool hasAttributeRowStretch() const {
       return m_has_attr_rowStretch;
    }
+
    inline QString attributeRowStretch() const {
       return m_attr_rowStretch;
    }
+
    inline void setAttributeRowStretch(const QString &a) {
       m_attr_rowStretch = a;
       m_has_attr_rowStretch = true;
    }
+
    inline void clearAttributeRowStretch() {
       m_has_attr_rowStretch = false;
    }
@@ -1702,13 +1729,16 @@ class DomLayout
    inline bool hasAttributeColumnStretch() const {
       return m_has_attr_columnStretch;
    }
+
    inline QString attributeColumnStretch() const {
       return m_attr_columnStretch;
    }
+
    inline void setAttributeColumnStretch(const QString &a) {
       m_attr_columnStretch = a;
       m_has_attr_columnStretch = true;
    }
+
    inline void clearAttributeColumnStretch() {
       m_has_attr_columnStretch = false;
    }
@@ -1716,13 +1746,16 @@ class DomLayout
    inline bool hasAttributeRowMinimumHeight() const {
       return m_has_attr_rowMinimumHeight;
    }
+
    inline QString attributeRowMinimumHeight() const {
       return m_attr_rowMinimumHeight;
    }
+
    inline void setAttributeRowMinimumHeight(const QString &a) {
       m_attr_rowMinimumHeight = a;
       m_has_attr_rowMinimumHeight = true;
    }
+
    inline void clearAttributeRowMinimumHeight() {
       m_has_attr_rowMinimumHeight = false;
    }
@@ -1730,13 +1763,16 @@ class DomLayout
    inline bool hasAttributeColumnMinimumWidth() const {
       return m_has_attr_columnMinimumWidth;
    }
+
    inline QString attributeColumnMinimumWidth() const {
       return m_attr_columnMinimumWidth;
    }
+
    inline void setAttributeColumnMinimumWidth(const QString &a) {
       m_attr_columnMinimumWidth = a;
       m_has_attr_columnMinimumWidth = true;
    }
+
    inline void clearAttributeColumnMinimumWidth() {
       m_has_attr_columnMinimumWidth = false;
    }
@@ -1788,10 +1824,11 @@ class DomLayout
    QList<DomProperty *> m_property;
    QList<DomProperty *> m_attribute;
    QList<DomLayoutItem *> m_item;
+
    enum Child {
-      Property = 1,
+      Property  = 1,
       Attribute = 2,
-      Item = 4
+      Item      = 4
    };
 
    DomLayout(const DomLayout &other);
@@ -1968,6 +2005,7 @@ class DomRow
    // child element data
    uint m_children;
    QList<DomProperty *> m_property;
+
    enum Child {
       Property = 1
    };
@@ -2006,6 +2044,7 @@ class DomColumn
    // child element data
    uint m_children;
    QList<DomProperty *> m_property;
+
    enum Child {
       Property = 1
    };
@@ -2084,9 +2123,10 @@ class DomItem
    uint m_children;
    QList<DomProperty *> m_property;
    QList<DomItem *> m_item;
+
    enum Child {
       Property = 1,
-      Item = 2
+      Item     = 2
    };
 
    DomItem(const DomItem &other);
@@ -2252,6 +2292,7 @@ class DomWidget
    QList<DomActionGroup *> m_actionGroup;
    QList<DomActionRef *> m_addAction;
    QStringList m_zOrder;
+
    enum Child {
       Class = 1,
       Property = 2,
@@ -2320,6 +2361,7 @@ class DomSpacer
    // child element data
    uint m_children;
    QList<DomProperty *> m_property;
+
    enum Child {
       Property = 1
    };
@@ -2399,10 +2441,11 @@ class DomColor
    int m_red;
    int m_green;
    int m_blue;
+
    enum Child {
-      Red = 1,
+      Red   = 1,
       Green = 2,
-      Blue = 4
+      Blue  = 4
    };
 
    DomColor(const DomColor &other);
@@ -2461,6 +2504,7 @@ class DomGradientStop
    // child element data
    uint m_children;
    DomColor *m_color;
+
    enum Child {
       Color = 1
    };
@@ -2720,6 +2764,7 @@ class DomGradient
    // child element data
    uint m_children;
    QList<DomGradientStop *> m_gradientStop;
+
    enum Child {
       GradientStop = 1
    };
@@ -2852,6 +2897,7 @@ class DomColorRole
    // child element data
    uint m_children;
    DomBrush *m_brush;
+
    enum Child {
       Brush = 1
    };
@@ -2896,6 +2942,7 @@ class DomColorGroup
    uint m_children;
    QList<DomColorRole *> m_colorRole;
    QList<DomColor *> m_color;
+
    enum Child {
       ColorRole = 1,
       Color = 2
@@ -2962,6 +3009,7 @@ class DomPalette
    DomColorGroup *m_active;
    DomColorGroup *m_inactive;
    DomColorGroup *m_disabled;
+
    enum Child {
       Active = 1,
       Inactive = 2,
@@ -3096,6 +3144,7 @@ class DomFont
    bool m_antialiasing;
    QString m_styleStrategy;
    bool m_kerning;
+
    enum Child {
       Family = 1,
       PointSize = 2,
@@ -3142,6 +3191,7 @@ class DomPoint
    inline int elementY() const {
       return m_y;
    }
+
    void setElementY(int a);
    inline bool hasElementY() const {
       return m_children & Y;
@@ -3157,6 +3207,7 @@ class DomPoint
    uint m_children;
    int m_x;
    int m_y;
+
    enum Child {
       X = 1,
       Y = 2
@@ -3230,10 +3281,11 @@ class DomRect
    int m_y;
    int m_width;
    int m_height;
+
    enum Child {
-      X = 1,
-      Y = 2,
-      Width = 4,
+      X      = 1,
+      Y      = 2,
+      Width  = 4,
       Height = 8
    };
 
@@ -3402,6 +3454,7 @@ class DomSizePolicy
    int m_vSizeType;
    int m_horStretch;
    int m_verStretch;
+
    enum Child {
       HSizeType = 1,
       VSizeType = 2,
@@ -3457,6 +3510,7 @@ class DomSize
    uint m_children;
    int m_width;
    int m_height;
+
    enum Child {
       Width = 1,
       Height = 2
@@ -3520,6 +3574,7 @@ class DomDate
    int m_year;
    int m_month;
    int m_day;
+
    enum Child {
       Year = 1,
       Month = 2,
@@ -3584,6 +3639,7 @@ class DomTime
    int m_hour;
    int m_minute;
    int m_second;
+
    enum Child {
       Hour = 1,
       Minute = 2,
@@ -3678,6 +3734,7 @@ class DomDateTime
    int m_year;
    int m_month;
    int m_day;
+
    enum Child {
       Hour = 1,
       Minute = 2,
@@ -3699,9 +3756,11 @@ class DomStringList
 
    void read(QXmlStreamReader &reader);
    void write(QXmlStreamWriter &writer, const QString &tagName = QString()) const;
+
    inline QString text() const {
       return m_text;
    }
+
    inline void setText(const QString &s) {
       m_text = s;
    }
@@ -3710,13 +3769,16 @@ class DomStringList
    inline bool hasAttributeNotr() const {
       return m_has_attr_notr;
    }
+
    inline QString attributeNotr() const {
       return m_attr_notr;
    }
+
    inline void setAttributeNotr(const QString &a) {
       m_attr_notr = a;
       m_has_attr_notr = true;
    }
+
    inline void clearAttributeNotr() {
       m_has_attr_notr = false;
    }
@@ -3724,9 +3786,11 @@ class DomStringList
    inline bool hasAttributeComment() const {
       return m_has_attr_comment;
    }
+
    inline QString attributeComment() const {
       return m_attr_comment;
    }
+
    inline void setAttributeComment(const QString &a) {
       m_attr_comment = a;
       m_has_attr_comment = true;
@@ -3738,13 +3802,16 @@ class DomStringList
    inline bool hasAttributeExtraComment() const {
       return m_has_attr_extraComment;
    }
+
    inline QString attributeExtraComment() const {
       return m_attr_extraComment;
    }
+
    inline void setAttributeExtraComment(const QString &a) {
       m_attr_extraComment = a;
       m_has_attr_extraComment = true;
    }
+
    inline void clearAttributeExtraComment() {
       m_has_attr_extraComment = false;
    }
@@ -3753,6 +3820,7 @@ class DomStringList
    inline QStringList elementString() const {
       return m_string;
    }
+
    void setElementString(const QStringList &a);
 
  private:
@@ -3772,9 +3840,6 @@ class DomStringList
    // child element data
    uint m_children;
    QStringList m_string;
-   enum Child {
-      String = 1
-   };
 
    DomStringList(const DomStringList &other);
    void operator = (const DomStringList &other);
@@ -3989,6 +4054,7 @@ class DomResourceIcon
    DomResourcePixmap *m_activeOn;
    DomResourcePixmap *m_selectedOff;
    DomResourcePixmap *m_selectedOn;
+
    enum Child {
       NormalOff = 1,
       NormalOn = 2,
@@ -4128,6 +4194,7 @@ class DomPointF
    uint m_children;
    double m_x;
    double m_y;
+
    enum Child {
       X = 1,
       Y = 2
@@ -4201,6 +4268,7 @@ class DomRectF
    double m_y;
    double m_width;
    double m_height;
+
    enum Child {
       X = 1,
       Y = 2,
@@ -4256,6 +4324,7 @@ class DomSizeF
    uint m_children;
    double m_width;
    double m_height;
+
    enum Child {
       Width = 1,
       Height = 2
@@ -4315,36 +4384,34 @@ class DomUrl
 
    void read(QXmlStreamReader &reader);
    void write(QXmlStreamWriter &writer, const QString &tagName = QString()) const;
+
    inline QString text() const {
       return m_text;
    }
+
    inline void setText(const QString &s) {
       m_text = s;
    }
 
-   // attribute accessors
-   // child element accessors
    inline DomString *elementString() const {
       return m_string;
    }
+
    DomString *takeElementString();
    void setElementString(DomString *a);
+
    inline bool hasElementString() const {
-      return m_children & String;
+      return m_children & 0x0001;
    }
+
    void clearElementString();
 
  private:
    QString m_text;
    void clear(bool clear_all = true);
 
-   // attribute data
-   // child element data
    uint m_children;
    DomString *m_string;
-   enum Child {
-      String = 1
-   };
 
    DomUrl(const DomUrl &other);
    void operator = (const DomUrl &other);
@@ -4358,9 +4425,11 @@ class DomProperty
 
    void read(QXmlStreamReader &reader);
    void write(QXmlStreamWriter &writer, const QString &tagName = QString()) const;
+
    inline QString text() const {
       return m_text;
    }
+
    inline void setText(const QString &s) {
       m_text = s;
    }
@@ -4369,13 +4438,16 @@ class DomProperty
    inline bool hasAttributeName() const {
       return m_has_attr_name;
    }
+
    inline QString attributeName() const {
       return m_attr_name;
    }
+
    inline void setAttributeName(const QString &a) {
       m_attr_name = a;
       m_has_attr_name = true;
    }
+
    inline void clearAttributeName() {
       m_has_attr_name = false;
    }
@@ -4383,19 +4455,26 @@ class DomProperty
    inline bool hasAttributeStdset() const {
       return m_has_attr_stdset;
    }
+
    inline int attributeStdset() const {
       return m_attr_stdset;
    }
+
    inline void setAttributeStdset(int a) {
       m_attr_stdset = a;
       m_has_attr_stdset = true;
    }
+
    inline void clearAttributeStdset() {
       m_has_attr_stdset = false;
    }
 
    // child element accessors
-   enum Kind { Unknown = 0, Bool, Color, Cstring, Cursor, CursorShape, Enum, Font, IconSet, Pixmap, Palette, Point, Rect, Set, Locale, SizePolicy, Size, String, StringList, Number, Float, Double, Date, Time, DateTime, PointF, RectF, SizeF, LongLong, Char, Url, UInt, ULongLong, Brush };
+   enum Kind { Unknown = 0, Bool, Color, Cstring, Cursor, CursorShape, Enum, Font, IconSet,
+      Pixmap, Palette, Point, Rect, Set, Locale, SizePolicy, Size, String, StringList,
+      Number, Float, Double, Date, Time, DateTime, PointF, RectF, SizeF,
+      LongLong, Char, Url, UInt, ULongLong, Brush };
+
    inline Kind kind() const {
       return m_kind;
    }
@@ -4667,6 +4746,7 @@ class DomConnections
    // child element data
    uint m_children;
    QList<DomConnection *> m_connection;
+
    enum Child {
       Connection = 1
    };
@@ -4750,6 +4830,7 @@ class DomConnection
    QString m_receiver;
    QString m_slot;
    DomConnectionHints *m_hints;
+
    enum Child {
       Sender = 1,
       Signal = 2,
@@ -4792,6 +4873,7 @@ class DomConnectionHints
    // child element data
    uint m_children;
    QList<DomConnectionHint *> m_hint;
+
    enum Child {
       Hint = 1
    };
@@ -4861,6 +4943,7 @@ class DomConnectionHint
    uint m_children;
    int m_x;
    int m_y;
+
    enum Child {
       X = 1,
       Y = 2
@@ -4963,6 +5046,7 @@ class DomWidgetData
    // child element data
    uint m_children;
    QList<DomProperty *> m_property;
+
    enum Child {
       Property = 1
    };
@@ -5001,6 +5085,7 @@ class DomDesignerData
    // child element data
    uint m_children;
    QList<DomProperty *> m_property;
+
    enum Child {
       Property = 1
    };
@@ -5045,6 +5130,7 @@ class DomSlots
    uint m_children;
    QStringList m_signal;
    QStringList m_slot;
+
    enum Child {
       Signal = 1,
       Slot = 2
@@ -5090,6 +5176,7 @@ class DomPropertySpecifications
    uint m_children;
    QList<DomPropertyToolTip *> m_tooltip;
    QList<DomStringPropertySpecification *> m_stringpropertyspecification;
+
    enum Child {
       Tooltip = 1,
       Stringpropertyspecification = 2

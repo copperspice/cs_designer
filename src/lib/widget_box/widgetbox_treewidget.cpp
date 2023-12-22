@@ -151,14 +151,13 @@ void WidgetBoxTreeWidget::saveExpandedState() const
 
 void  WidgetBoxTreeWidget::restoreExpandedState()
 {
-   typedef QSet<QString> StringSet;
-
    QDesignerSettingsInterface *settings = m_core->settingsManager();
    const QString groupKey = widgetBoxSettingsGroupC + '/';
+
    m_iconMode = settings->value(groupKey + widgetBoxViewModeKeyC).toBool();
    updateViewMode();
 
-   const StringSet closedCategories = settings->value(groupKey + widgetBoxExpandedKeyC, QStringList()).toStringList().toSet();
+   const QSet<QString> closedCategories = settings->value(groupKey + widgetBoxExpandedKeyC, QStringList()).toStringList().toSet();
    expandAll();
 
    if (closedCategories.empty()) {

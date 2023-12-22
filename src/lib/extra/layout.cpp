@@ -195,7 +195,7 @@ bool Layout::prepareLayout(bool &needMove, bool &needReparent)
 
    if (m_layoutBase == nullptr) {
       const bool useSplitter = m_layoutType == LayoutInfo::HSplitter || m_layoutType == LayoutInfo::VSplitter;
-      const QString baseWidgetClassName = useSplitter ? QLatin1String("QSplitter") : QLatin1String("QLayoutWidget");
+      const QString baseWidgetClassName = useSplitter ? QString("QSplitter") : QString("QLayoutWidget");
       m_layoutBase = widgetFactory->createWidget(baseWidgetClassName, widgetFactory->containerOfWidget(m_parentWidget));
 
       if (useSplitter) {

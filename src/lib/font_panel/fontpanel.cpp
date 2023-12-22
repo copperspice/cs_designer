@@ -80,9 +80,9 @@ QFont FontPanel::selectedFont() const
    rc.setPointSize(pointSize());
    const QString styleDescription = styleString();
 
-   if (styleDescription.contains(QLatin1String("Italic"))) {
+   if (styleDescription.contains("Italic")) {
       rc.setStyle(QFont::StyleItalic);
-   } else if (styleDescription.contains(QLatin1String("Oblique"))) {
+   } else if (styleDescription.contains("Oblique")) {
       rc.setStyle(QFont::StyleOblique);
    } else {
       rc.setStyle(QFont::StyleNormal);

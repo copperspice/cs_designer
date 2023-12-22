@@ -140,8 +140,8 @@ QMdiAreaPropertySheet::MdiAreaProperty QMdiAreaPropertySheet::mdiAreaProperty(co
    static MdiAreaPropertyHash mdiAreaPropertyHash;
 
    if (mdiAreaPropertyHash.empty()) {
-      mdiAreaPropertyHash.insert(QLatin1String(subWindowNameC), MdiAreaSubWindowName);
-      mdiAreaPropertyHash.insert(QLatin1String(subWindowTitleC), MdiAreaSubWindowTitle);
+      mdiAreaPropertyHash.insert(subWindowNameC, MdiAreaSubWindowName);
+      mdiAreaPropertyHash.insert(subWindowTitleC, MdiAreaSubWindowTitle);
    }
 
    return mdiAreaPropertyHash.value(name, MdiAreaNone);

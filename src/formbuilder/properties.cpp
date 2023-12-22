@@ -489,7 +489,7 @@ static bool applySimpleProperty(const QVariant &v, bool translateString, DomProp
          }
          if (mask & QFont::StyleStrategyResolved) {
             const QMetaEnum styleStrategy_enum = metaEnum<QAbstractFormBuilderGadget>("styleStrategy");
-            fnt->setElementStyleStrategy(QLatin1String(styleStrategy_enum.valueToKey(font.styleStrategy())));
+            fnt->setElementStyleStrategy(styleStrategy_enum.valueToKey(font.styleStrategy()));
          }
          dom_prop->setElementFont(fnt);
       }
@@ -498,7 +498,7 @@ static bool applySimpleProperty(const QVariant &v, bool translateString, DomProp
 
       case QVariant::Cursor: {
          const QMetaEnum cursorShape_enum = metaEnum<QAbstractFormBuilderGadget>("cursorShape");
-         dom_prop->setElementCursorShape(QLatin1String(cursorShape_enum.valueToKey(v.value<QCursor>().shape())));
+         dom_prop->setElementCursorShape(cursorShape_enum.valueToKey(v.value<QCursor>().shape()));
       }
 
       return true;
@@ -518,8 +518,8 @@ static bool applySimpleProperty(const QVariant &v, bool translateString, DomProp
          const QMetaEnum language_enum = metaEnum<QAbstractFormBuilderGadget>("language");
          const QMetaEnum country_enum  = metaEnum<QAbstractFormBuilderGadget>("country");
 
-         dom->setAttributeLanguage(QLatin1String(language_enum.valueToKey(locale.language())));
-         dom->setAttributeCountry(QLatin1String(country_enum.valueToKey(locale.country())));
+         dom->setAttributeLanguage(language_enum.valueToKey(locale.language()));
+         dom->setAttributeCountry(country_enum.valueToKey(locale.country()));
 
          dom_prop->setElementLocale(dom);
       }
@@ -534,8 +534,8 @@ static bool applySimpleProperty(const QVariant &v, bool translateString, DomProp
 
          const QMetaEnum sizeType_enum = metaEnum<QAbstractFormBuilderGadget>("sizeType");
 
-         dom->setAttributeHSizeType(QLatin1String(sizeType_enum.valueToKey(sizePolicy.horizontalPolicy())));
-         dom->setAttributeVSizeType(QLatin1String(sizeType_enum.valueToKey(sizePolicy.verticalPolicy())));
+         dom->setAttributeHSizeType(sizeType_enum.valueToKey(sizePolicy.horizontalPolicy()));
+         dom->setAttributeVSizeType(sizeType_enum.valueToKey(sizePolicy.verticalPolicy()));
 
          dom_prop->setElementSizePolicy(dom);
       }

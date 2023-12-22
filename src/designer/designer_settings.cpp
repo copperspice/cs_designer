@@ -139,12 +139,12 @@ void QDesignerSettings::setRecentFilesList(const QStringList &sl)
 
 void QDesignerSettings::setShowNewFormOnStartup(bool showIt)
 {
-   settings()->setValue(QLatin1String(newFormShowKey), showIt);
+   settings()->setValue(newFormShowKey, showIt);
 }
 
 bool QDesignerSettings::showNewFormOnStartup() const
 {
-   return settings()->value(QLatin1String(newFormShowKey), true).toBool();
+   return settings()->value(newFormShowKey, true).toBool();
 }
 
 QByteArray QDesignerSettings::mainWindowState(UIMode mode) const
@@ -162,9 +162,6 @@ QByteArray QDesignerSettings::toolBarsState(UIMode mode) const
    QString key = toolBarsStateKey;
    key += modeChar(mode);
 
-
-
-
    return settings()->value(key).toByteArray();
 }
 
@@ -179,8 +176,8 @@ void QDesignerSettings::clearBackup()
 {
    QDesignerSettingsInterface *s = settings();
 
-   s->remove(QLatin1String(backupOrgListKey));
-   s->remove(QLatin1String(backupBakListKey));
+   s->remove(backupOrgListKey);
+   s->remove(backupBakListKey);
 }
 
 void QDesignerSettings::setBackup(const QMap<QString, QString> &map)
@@ -189,14 +186,14 @@ void QDesignerSettings::setBackup(const QMap<QString, QString> &map)
    const QStringList bak = map.values();
 
    QDesignerSettingsInterface *s = settings();
-   s->setValue(QLatin1String(backupOrgListKey), org);
-   s->setValue(QLatin1String(backupBakListKey), bak);
+   s->setValue(backupOrgListKey, org);
+   s->setValue(backupBakListKey, bak);
 }
 
 QMap<QString, QString> QDesignerSettings::backup() const
 {
-   const QStringList org = settings()->value(QLatin1String(backupOrgListKey), QStringList()).toStringList();
-   const QStringList bak = settings()->value(QLatin1String(backupBakListKey), QStringList()).toStringList();
+   const QStringList org = settings()->value(backupOrgListKey, QStringList()).toStringList();
+   const QStringList bak = settings()->value(backupBakListKey, QStringList()).toStringList();
 
    QMap<QString, QString> map;
    const int orgCount = org.count();

@@ -538,13 +538,13 @@ void PreviewConfiguration::fromSettings(const QString &prefix, const QDesignerSe
 
    const QVariant emptyString = QVariant(QString());
 
-   key += QLatin1String(styleKey);
+   key += styleKey;
    d.m_style = settings->value(key, emptyString).toString();
 
-   key.replace(prefixSize, key.size() - prefixSize, QLatin1String(appStyleSheetKey));
+   key.replace(prefixSize, key.size() - prefixSize, appStyleSheetKey);
    d.m_applicationStyleSheet = settings->value(key, emptyString).toString();
 
-   key.replace(prefixSize, key.size() - prefixSize, QLatin1String(skinKey));
+   key.replace(prefixSize, key.size() - prefixSize, skinKey);
    d.m_deviceSkin = settings->value(key, emptyString).toString();
 }
 
@@ -575,7 +575,6 @@ class PreviewManagerPrivate
    QPointer<QWidget> m_activePreview;
 
    typedef QList<PreviewData> PreviewDataList;
-
    PreviewDataList m_previews;
 
    //    typedef QMap<QString, DeviceSkinParameters> DeviceSkinConfigCache;

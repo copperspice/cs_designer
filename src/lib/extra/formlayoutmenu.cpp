@@ -480,7 +480,7 @@ static void addFormLayoutRow(const FormLayoutRow &formLayoutRow, int row, QWidge
 
    if (formLayoutRow.buddy) {
       SetPropertyCommand *buddyCommand = new SetPropertyCommand(formWindow);
-      buddyCommand->init(widgetPair.first, QLatin1String(buddyPropertyC), widgetPair.second->objectName());
+      buddyCommand->init(widgetPair.first, buddyPropertyC, widgetPair.second->objectName());
       undoStack->push(buddyCommand);
    }
 
