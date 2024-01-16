@@ -1,7 +1,7 @@
 /***********************************************************************
 *
-* Copyright (c) 2021-2023 Barbara Geller
-* Copyright (c) 2021-2023 Ansel Sermersheim
+* Copyright (c) 2021-2024 Barbara Geller
+* Copyright (c) 2021-2024 Ansel Sermersheim
 *
 * Copyright (c) 2015 The Qt Company Ltd.
 *
@@ -1184,7 +1184,7 @@ void QDesignerActions::aboutDesigner()
       "</table></font>"
       "<br>"
 
-      "<p><small>Copyright 2021-2023 BG Consulting, released under the LGPL 2.1 license<br>"
+      "<p><small>Copyright 2021-2024 BG Consulting, released under the LGPL 2.1 license<br>"
       "This program is provided AS IS with no warranty of any kind.<br><br>"
       "Copyright (c) 2015 The Qt Company Ltd.</small></p>";
 
