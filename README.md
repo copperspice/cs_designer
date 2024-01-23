@@ -42,5 +42,13 @@ This application is released under the LGPL 2.1 license. For more information re
 
 ### References
 
-* Website: www.copperspice.com
-* Email:   info@copperspice.com
+ * Website:  https://www.copperspice.com
+ * Twitter:  https://twitter.com/copperspice_cpp
+ * Email:    info@copperspice.com
+
+<!-- -->
+ * Github:   https://github.com/copperspice
+
+<!-- -->
+ * Forum:    https://forum.copperspice.com
+ * Journal:  https://journal.copperspice.com
