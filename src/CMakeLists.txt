@@ -152,12 +152,26 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "(Linux|OpenBSD|FreeBSD|NetBSD|DragonFly)")
    set_target_properties(Designer PROPERTIES OUTPUT_NAME designer)
 
 elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
-   # disable console on windows
    target_link_libraries(Designer
       netapi32
       mpr
-      -mwindows
    )
+
+   if (MSVC)
+      # disables the console window
+      target_link_options(Designer
+         PRIVATE
+         /subsystem:windows
+         /entry:mainCRTStartup
+      )
+
+   else()
+      # disables the console window
+      target_link_libraries(Designer
+         -mwindows
+      )
+
+   endif()
 
 endif()
 
