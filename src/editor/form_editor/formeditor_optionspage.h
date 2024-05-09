@@ -37,10 +37,10 @@ class FormEditorOptionsPage : public QDesignerOptionsPageInterface
  public:
    explicit FormEditorOptionsPage(QDesignerFormEditorInterface *core);
 
-   QString name() const;
-   QWidget *createPage(QWidget *parent);
-   virtual void apply();
-   virtual void finish();
+   QString name() const override;
+   QWidget *createPage(QWidget *parent) override;
+   virtual void apply() override;
+   virtual void finish() override;
 
  private:
    QDesignerFormEditorInterface *m_core;

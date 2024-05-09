@@ -144,26 +144,26 @@ static int getLayoutMargin(const QLayout *l, LayoutPropertyType type)
 }
 
 // return the layout margin if it is  margin
-static void setLayoutMargin(QLayout *l, LayoutPropertyType type, int margin)
+static void setLayoutMargin(QLayout *l, LayoutPropertyType type, int layoutMargin)
 {
    int left, top, right, bottom;
    l->getContentsMargins(&left, &top, &right, &bottom);
 
    switch (type) {
       case LayoutPropertyLeftMargin:
-         left = margin;
+         left = layoutMargin;
          break;
 
       case LayoutPropertyTopMargin:
-         top = margin;
+         top = layoutMargin;
          break;
 
       case LayoutPropertyRightMargin:
-         right = margin;
+         right = layoutMargin;
          break;
 
       case LayoutPropertyBottomMargin:
-         bottom = margin;
+         bottom = layoutMargin;
          break;
 
       default:

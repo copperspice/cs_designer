@@ -350,9 +350,9 @@ class WidgetBoxCategoryEntryDelegate : public QItemDelegate
 {
  public:
    explicit WidgetBoxCategoryEntryDelegate(QWidget *parent = nullptr) : QItemDelegate(parent) {}
-   QWidget *createEditor(QWidget *parent,
-      const QStyleOptionViewItem &option,
-      const QModelIndex &index) const;
+
+   QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
+         const QModelIndex &index) const override;
 };
 
 QWidget *WidgetBoxCategoryEntryDelegate::createEditor(QWidget *parent,

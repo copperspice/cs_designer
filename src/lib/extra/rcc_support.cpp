@@ -500,16 +500,16 @@ bool RCC_Support::interpretResourceFile(QIODevice *inputDevice, const QString &f
 
                      while (it.hasNext()) {
                         it.next();
-                        QFileInfo child(it.fileInfo());
+                        QFileInfo childFile(it.fileInfo());
 
-                        if (child.fileName() != "." && child.fileName() != "..") {
+                        if (childFile.fileName() != "." && childFile.fileName() != "..") {
 
-                           const bool arc = addFile(alias + child.fileName(),
-                                 RCCFileInfo(child.fileName(), child, language, country,
-                                    RCCFileInfo::NoFlags, compressLevel, compressThreshold));
+                           const bool arc = addFile(alias + childFile.fileName(),
+                                 RCCFileInfo(childFile.fileName(), childFile, language, country,
+                                 RCCFileInfo::NoFlags, compressLevel, compressThreshold));
 
                            if (! arc) {
-                              m_failedResources.push_back(child.fileName());
+                              m_failedResources.push_back(childFile.fileName());
                            }
                         }
                      }

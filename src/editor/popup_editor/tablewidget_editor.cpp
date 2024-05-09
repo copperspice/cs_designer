@@ -211,8 +211,8 @@ void TableWidgetEditor::table_itemChanged(QTableWidgetItem *item)
       return;
    }
 
-   QVariant data = item->data(Qt::DisplayPropertyRole);
-   PropertySheetStringValue val = data.value<PropertySheetStringValue>();
+   QVariant data1 = item->data(Qt::DisplayPropertyRole);
+   PropertySheetStringValue val = data1.value<PropertySheetStringValue>();
 
    val.setValue(item->text());
    BoolBlocker block(m_updatingBrowser);
@@ -282,7 +282,8 @@ void TableWidgetEditor::moveColumnsLeft(int fromColumn, int toColumn)
    ui.tableWidget->setHorizontalHeaderItem(fromColumn, lastItem);
 
    for (int i = 0; i < ui.tableWidget->rowCount(); i++) {
-      QTableWidgetItem *lastItem = ui.tableWidget->takeItem(i, toColumn);
+      lastItem = ui.tableWidget->takeItem(i, toColumn);
+
       for (int j = toColumn; j > fromColumn; j--) {
          ui.tableWidget->setItem(i, j, ui.tableWidget->takeItem(i, j - 1));
       }
@@ -304,7 +305,8 @@ void TableWidgetEditor::moveColumnsRight(int fromColumn, int toColumn)
    ui.tableWidget->setHorizontalHeaderItem(toColumn, lastItem);
 
    for (int i = 0; i < ui.tableWidget->rowCount(); i++) {
-      QTableWidgetItem *lastItem = ui.tableWidget->takeItem(i, fromColumn);
+      lastItem = ui.tableWidget->takeItem(i, fromColumn);
+
       for (int j = fromColumn; j < toColumn; j++) {
          ui.tableWidget->setItem(i, j, ui.tableWidget->takeItem(i, j + 1));
       }
@@ -326,7 +328,7 @@ void TableWidgetEditor::moveRowsDown(int fromRow, int toRow)
    ui.tableWidget->setVerticalHeaderItem(fromRow, lastItem);
 
    for (int i = 0; i < ui.tableWidget->columnCount(); i++) {
-      QTableWidgetItem *lastItem = ui.tableWidget->takeItem(toRow, i);
+      lastItem = ui.tableWidget->takeItem(toRow, i);
       for (int j = toRow; j > fromRow; j--) {
          ui.tableWidget->setItem(j, i, ui.tableWidget->takeItem(j - 1, i));
       }
@@ -348,7 +350,7 @@ void TableWidgetEditor::moveRowsUp(int fromRow, int toRow)
    ui.tableWidget->setVerticalHeaderItem(toRow, lastItem);
 
    for (int i = 0; i < ui.tableWidget->columnCount(); i++) {
-      QTableWidgetItem *lastItem = ui.tableWidget->takeItem(fromRow, i);
+      lastItem = ui.tableWidget->takeItem(fromRow, i);
       for (int j = fromRow; j < toRow; j++) {
          ui.tableWidget->setItem(j, i, ui.tableWidget->takeItem(j + 1, i));
       }

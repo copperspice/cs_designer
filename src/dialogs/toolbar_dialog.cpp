@@ -281,10 +281,10 @@ bool QtFullToolBarManagerPrivate::restoreState(QDataStream &stream) const
       return false;
    }
 
-   int toolBars;
-   stream >> toolBars;
+   int toolBarCount;
+   stream >> toolBarCount;
 
-   for (int i = 0; i < toolBars; i++) {
+   for (int i = 0; i < toolBarCount; i++) {
       QString objectName;
       stream >> objectName;
       int actionCount;
@@ -322,9 +322,9 @@ bool QtFullToolBarManagerPrivate::restoreState(QDataStream &stream) const
 
    QList<QToolBar *> oldCustomToolBars = customToolBars;
 
-   stream >> toolBars;
+   stream >> toolBarCount;
 
-   for (int i = 0; i < toolBars; i++) {
+   for (int i = 0; i < toolBarCount; i++) {
       QString objectName;
       QString toolBarName;
 
@@ -1092,13 +1092,13 @@ void QtToolBarDialogPrivate::fillNew()
       return;
    }
 
-   QTreeWidgetItem *item = new QTreeWidgetItem(ui.actionTree);
-   item->setText(0, separatorText);
+   QTreeWidgetItem *treeItem = new QTreeWidgetItem(ui.actionTree);
+   treeItem->setText(0, separatorText);
 
-   ui.actionTree->setCurrentItem(item);
-   currentAction = item;
-   actionToItem.insert(nullptr, item);
-   itemToAction.insert(item, nullptr);
+   ui.actionTree->setCurrentItem(treeItem);
+   currentAction = treeItem;
+   actionToItem.insert(nullptr, treeItem);
+   itemToAction.insert(treeItem, nullptr);
 
    QStringList categories = toolBarManager->categories();
    QStringListIterator itCategory(categories);
@@ -1115,18 +1115,20 @@ void QtToolBarDialogPrivate::fillNew()
       while (itAction.hasNext()) {
 
          QAction *action = itAction.next();
-         item = new QTreeWidgetItem(categoryItem);
-         item->setText(0, action->text());
-         item->setIcon(0, action->icon());
-         item->setTextAlignment(0, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic);
-         actionToItem.insert(action, item);
-         itemToAction.insert(item, action);
+         treeItem = new QTreeWidgetItem(categoryItem);
+         treeItem->setText(0, action->text());
+         treeItem->setIcon(0, action->icon());
+         treeItem->setTextAlignment(0, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic);
+
+         actionToItem.insert(action, treeItem);
+         itemToAction.insert(treeItem, action);
 
          if (toolBarManager->isWidgetAction(action)) {
-            item->setData(0, Qt::TextColorRole, QColor(Qt::blue));
+            treeItem->setData(0, Qt::TextColorRole, QColor(Qt::blue));
             widgetActionToToolBar.insert(action, nullptr);
          }
-         item->setFlags(item->flags() | Qt::ItemIsDragEnabled);
+
+         treeItem->setFlags(categoryItem->flags() | Qt::ItemIsDragEnabled);
       }
       ui.actionTree->setItemExpanded(categoryItem, true);
    }
@@ -1140,9 +1142,9 @@ void QtToolBarDialogPrivate::fillNew()
       ToolBarItem *tbItem = createItem(toolBar);
       toolBarItems.insert(toolBar, tbItem);
 
-      QListWidgetItem *item = new QListWidgetItem(toolBar->windowTitle(), ui.toolBarList);
-      toolBarToItem.insert(tbItem, item);
-      itemToToolBar.insert(item, tbItem);
+      QListWidgetItem *listItem = new QListWidgetItem(toolBar->windowTitle(), ui.toolBarList);
+      toolBarToItem.insert(tbItem, listItem);
+      itemToToolBar.insert(listItem, tbItem);
 
       QList<QAction *> actions = it.value();
       QListIterator<QAction *> itAction(actions);
@@ -1159,12 +1161,13 @@ void QtToolBarDialogPrivate::fillNew()
       currentState.insert(tbItem, actions);
 
       if (it == toolBars.constBegin()) {
-         ui.toolBarList->setCurrentItem(item);
+         ui.toolBarList->setCurrentItem(listItem);
       }
+
       if (isDefaultToolBar(tbItem)) {
-         item->setData(Qt::TextColorRole, QColor(Qt::darkGreen));
+         listItem->setData(Qt::TextColorRole, QColor(Qt::darkGreen));
       } else {
-         item->setFlags(item->flags() | Qt::ItemIsEditable);
+         listItem->setFlags(listItem->flags() | Qt::ItemIsEditable);
       }
 
       ++it;

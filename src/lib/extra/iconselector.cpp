@@ -571,7 +571,7 @@ class BlankSuppressingValidator : public QValidator
    {
    }
 
-   virtual State validate(QString &input, int &pos) const {
+   virtual State validate(QString &input, int &pos) const override {
       const int blankPos = input.indexOf(' ');
 
       if (blankPos != -1) {

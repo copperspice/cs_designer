@@ -56,7 +56,8 @@ class DeviceProfileDialog : public QDialog
    CS_SLOT_2(nameChanged)
    CS_SLOT_1(Private, void save())
    CS_SLOT_2(save)
-   CS_SLOT_1(Private, void open())
+
+   CS_SLOT_1(Private, void open() override)
    CS_SLOT_2(open)
 
    void critical(const QString &title, const QString &msg);

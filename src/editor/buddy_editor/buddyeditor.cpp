@@ -180,9 +180,9 @@ void BuddyEditor::updateBackground()
 
    QList<Connection *> toRemove;
 
-   const int c = connectionCount();
+   const int count1 = connectionCount();
 
-   for (int i = 0; i < c; i++) {
+   for (int i = 0; i < count1; i++) {
       Connection *con = connection(i);
       QObject *source = con->object(EndPoint::Source);
       QObject *target = con->object(EndPoint::Target);
@@ -204,8 +204,9 @@ void BuddyEditor::updateBackground()
    if (!toRemove.isEmpty()) {
       DeleteConnectionsCommand command(this, toRemove);
       command.redo();
-      for (Connection *con : toRemove) {
-         delete takeConnection(con);
+
+      for (Connection *item : toRemove) {
+         delete takeConnection(item);
       }
    }
 
@@ -215,9 +216,9 @@ void BuddyEditor::updateBackground()
       Connection *newConn = it.next();
 
       bool found = false;
-      const int c = connectionCount();
+      const int count2 = connectionCount();
 
-      for (int i = 0; i < c; i++) {
+      for (int i = 0; i < count2; i++) {
          Connection *con = connection(i);
          if (con->object(EndPoint::Source) == newConn->object(EndPoint::Source) &&
                con->object(EndPoint::Target) == newConn->object(EndPoint::Target)) {
@@ -292,11 +293,11 @@ void BuddyEditor::endConnection(QWidget *target, const QPoint &pos)
       selectNone();
       addConnectionX(new_con);
 
-      QLabel *source  = dynamic_cast<QLabel *>(new_con->widget(EndPoint::Source));
-      QWidget *target = new_con->widget(EndPoint::Target);
+      QLabel  *newSource = dynamic_cast<QLabel *>(new_con->widget(EndPoint::Source));
+      QWidget *newTarget = new_con->widget(EndPoint::Target);
 
-      if (source) {
-         undoStack()->push(createBuddyCommand(m_formWindow, source, target));
+      if (newSource != nullptr) {
+         undoStack()->push(createBuddyCommand(m_formWindow, newSource, newTarget));
       } else {
          qDebug("BuddyEditor::endConnection(): not a label");
       }

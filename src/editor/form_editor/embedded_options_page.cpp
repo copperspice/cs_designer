@@ -239,8 +239,9 @@ void EmbeddedOptionsControlPrivate::slotEdit()
          m_sortedProfiles[index] = newProfile;
          if (newProfile.name() != oldName) {
             sortAndPopulateProfileCombo();
-            const int index = m_profileCombo->findText(newProfile.name());
-            m_profileCombo->setCurrentIndex(index);
+            const int currentIndex = m_profileCombo->findText(newProfile.name());
+            m_profileCombo->setCurrentIndex(currentIndex);
+
          } else {
             updateDescriptionLabel();
          }

@@ -849,11 +849,11 @@ void ActionEditor::slotContextMenuRequested(QContextMenuEvent *e, QAction *item)
          QMenu *associatedWidgetsSubMenu =  menu.addMenu(tr("Used In"));
 
          for (QWidget *w : associatedWidgets) {
-            QAction *action = associatedWidgetsSubMenu->addAction(w->objectName());
+            QAction *subAction = associatedWidgetsSubMenu->addAction(w->objectName());
 
-            m_selectAssociatedWidgetsMapper->setMapping(action, w);
-            connect(action, &QAction::triggered,
-               m_selectAssociatedWidgetsMapper, cs_mp_cast<>(&QSignalMapper::map));
+            m_selectAssociatedWidgetsMapper->setMapping(subAction, w);
+            connect(subAction, &QAction::triggered,
+                  m_selectAssociatedWidgetsMapper, cs_mp_cast<>(&QSignalMapper::map));
          }
       }
    }

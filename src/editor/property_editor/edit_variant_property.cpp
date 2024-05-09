@@ -1789,9 +1789,9 @@ void QtVariantEditorFactory::connectPropertyManager(QtVariantPropertyManager *ma
    QList<QtColorPropertyManager *> colorPropertyManagers = manager->findChildren<QtColorPropertyManager *>();
    QListIterator<QtColorPropertyManager *> itColor(colorPropertyManagers);
    while (itColor.hasNext()) {
-      QtColorPropertyManager *manager = itColor.next();
-      d_ptr->m_colorEditorFactory->addPropertyManager(manager);
-      d_ptr->m_spinBoxFactory->addPropertyManager(manager->subIntPropertyManager());
+      QtColorPropertyManager *colorManager = itColor.next();
+      d_ptr->m_colorEditorFactory->addPropertyManager(colorManager);
+      d_ptr->m_spinBoxFactory->addPropertyManager(colorManager->subIntPropertyManager());
    }
 
    QList<QtEnumPropertyManager *> enumPropertyManagers = manager->findChildren<QtEnumPropertyManager *>();
@@ -1803,19 +1803,19 @@ void QtVariantEditorFactory::connectPropertyManager(QtVariantPropertyManager *ma
    QList<QtSizePolicyPropertyManager *> sizePolicyPropertyManagers = manager->findChildren<QtSizePolicyPropertyManager *>();
    QListIterator<QtSizePolicyPropertyManager *> itSizePolicy(sizePolicyPropertyManagers);
    while (itSizePolicy.hasNext()) {
-      QtSizePolicyPropertyManager *manager = itSizePolicy.next();
-      d_ptr->m_spinBoxFactory->addPropertyManager(manager->subIntPropertyManager());
-      d_ptr->m_comboBoxFactory->addPropertyManager(manager->subEnumPropertyManager());
+      QtSizePolicyPropertyManager *sizeManager = itSizePolicy.next();
+      d_ptr->m_spinBoxFactory->addPropertyManager(sizeManager->subIntPropertyManager());
+      d_ptr->m_comboBoxFactory->addPropertyManager(sizeManager->subEnumPropertyManager());
    }
 
    QList<QtFontPropertyManager *> fontPropertyManagers = manager->findChildren<QtFontPropertyManager *>();
    QListIterator<QtFontPropertyManager *> itFont(fontPropertyManagers);
    while (itFont.hasNext()) {
-      QtFontPropertyManager *manager = itFont.next();
-      d_ptr->m_fontEditorFactory->addPropertyManager(manager);
-      d_ptr->m_spinBoxFactory->addPropertyManager(manager->subIntPropertyManager());
-      d_ptr->m_comboBoxFactory->addPropertyManager(manager->subEnumPropertyManager());
-      d_ptr->m_checkBoxFactory->addPropertyManager(manager->subBoolPropertyManager());
+      QtFontPropertyManager *fontManager = itFont.next();
+      d_ptr->m_fontEditorFactory->addPropertyManager(fontManager);
+      d_ptr->m_spinBoxFactory->addPropertyManager(fontManager->subIntPropertyManager());
+      d_ptr->m_comboBoxFactory->addPropertyManager(fontManager->subEnumPropertyManager());
+      d_ptr->m_checkBoxFactory->addPropertyManager(fontManager->subBoolPropertyManager());
    }
 
    QList<QtCursorPropertyManager *> cursorPropertyManagers = manager->findChildren<QtCursorPropertyManager *>();
@@ -1946,9 +1946,9 @@ void QtVariantEditorFactory::disconnectPropertyManager(QtVariantPropertyManager 
    QList<QtColorPropertyManager *> colorPropertyManagers = manager->findChildren<QtColorPropertyManager *>();
    QListIterator<QtColorPropertyManager *> itColor(colorPropertyManagers);
    while (itColor.hasNext()) {
-      QtColorPropertyManager *manager = itColor.next();
-      d_ptr->m_colorEditorFactory->removePropertyManager(manager);
-      d_ptr->m_spinBoxFactory->removePropertyManager(manager->subIntPropertyManager());
+      QtColorPropertyManager *colorManager = itColor.next();
+      d_ptr->m_colorEditorFactory->removePropertyManager(colorManager);
+      d_ptr->m_spinBoxFactory->removePropertyManager(colorManager->subIntPropertyManager());
    }
 
    QList<QtEnumPropertyManager *> enumPropertyManagers = manager->findChildren<QtEnumPropertyManager *>();
@@ -1960,19 +1960,19 @@ void QtVariantEditorFactory::disconnectPropertyManager(QtVariantPropertyManager 
    QList<QtSizePolicyPropertyManager *> sizePolicyPropertyManagers = manager->findChildren<QtSizePolicyPropertyManager *>();
    QListIterator<QtSizePolicyPropertyManager *> itSizePolicy(sizePolicyPropertyManagers);
    while (itSizePolicy.hasNext()) {
-      QtSizePolicyPropertyManager *manager = itSizePolicy.next();
-      d_ptr->m_spinBoxFactory->removePropertyManager(manager->subIntPropertyManager());
-      d_ptr->m_comboBoxFactory->removePropertyManager(manager->subEnumPropertyManager());
+      QtSizePolicyPropertyManager *sizeManager = itSizePolicy.next();
+      d_ptr->m_spinBoxFactory->removePropertyManager(sizeManager->subIntPropertyManager());
+      d_ptr->m_comboBoxFactory->removePropertyManager(sizeManager->subEnumPropertyManager());
    }
 
    QList<QtFontPropertyManager *> fontPropertyManagers = manager->findChildren<QtFontPropertyManager *>();
    QListIterator<QtFontPropertyManager *> itFont(fontPropertyManagers);
    while (itFont.hasNext()) {
-      QtFontPropertyManager *manager = itFont.next();
-      d_ptr->m_fontEditorFactory->removePropertyManager(manager);
-      d_ptr->m_spinBoxFactory->removePropertyManager(manager->subIntPropertyManager());
-      d_ptr->m_comboBoxFactory->removePropertyManager(manager->subEnumPropertyManager());
-      d_ptr->m_checkBoxFactory->removePropertyManager(manager->subBoolPropertyManager());
+      QtFontPropertyManager *fontManager = itFont.next();
+      d_ptr->m_fontEditorFactory->removePropertyManager(fontManager);
+      d_ptr->m_spinBoxFactory->removePropertyManager(fontManager->subIntPropertyManager());
+      d_ptr->m_comboBoxFactory->removePropertyManager(fontManager->subEnumPropertyManager());
+      d_ptr->m_checkBoxFactory->removePropertyManager(fontManager->subBoolPropertyManager());
    }
 
    QList<QtCursorPropertyManager *> cursorPropertyManagers = manager->findChildren<QtCursorPropertyManager *>();

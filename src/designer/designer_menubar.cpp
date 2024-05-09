@@ -296,9 +296,9 @@ void QDesignerMenuBar::startDrag(const QPoint &pos)
    QAction *action = safeActionAt(index);
 
    QDesignerFormWindowInterface *fw = formWindow();
-   RemoveActionFromCommand *cmd = new RemoveActionFromCommand(fw);
-   cmd->init(this, action, actions().at(index + 1));
-   fw->commandHistory()->push(cmd);
+   RemoveActionFromCommand *removeCmd = new RemoveActionFromCommand(fw);
+   removeCmd->init(this, action, actions().at(index + 1));
+   fw->commandHistory()->push(removeCmd);
 
    adjustSize();
 
@@ -312,9 +312,9 @@ void QDesignerMenuBar::startDrag(const QPoint &pos)
    m_currentIndex = -1;
 
    if (drag->start(Qt::MoveAction) == Qt::IgnoreAction) {
-      InsertActionIntoCommand *cmd = new InsertActionIntoCommand(fw);
-      cmd->init(this, action, safeActionAt(index));
-      fw->commandHistory()->push(cmd);
+      InsertActionIntoCommand *insertCmd = new InsertActionIntoCommand(fw);
+      insertCmd->init(this, action, safeActionAt(index));
+      fw->commandHistory()->push(insertCmd);
 
       m_currentIndex = old_index;
       adjustSize();

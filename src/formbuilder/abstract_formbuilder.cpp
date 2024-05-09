@@ -677,20 +677,20 @@ QLayout *QAbstractFormBuilder::create(DomLayout *ui_layout, QLayout *parentLayou
 
       const DomPropertyHash properties = propertyMap(ui_layout->elementProperty());
 
-      if (const DomProperty *p = properties.value(strings.leftMarginProperty, nullptr)) {
-         left = p->elementNumber();
+      if (const DomProperty *p1 = properties.value(strings.leftMarginProperty, nullptr)) {
+         left = p1->elementNumber();
       }
 
-      if (const DomProperty *p = properties.value(strings.topMarginProperty, nullptr)) {
-         top = p->elementNumber();
+      if (const DomProperty *p2 = properties.value(strings.topMarginProperty, nullptr)) {
+         top = p2->elementNumber();
       }
 
-      if (const DomProperty *p = properties.value(strings.rightMarginProperty, nullptr)) {
-         right = p->elementNumber();
+      if (const DomProperty *p3 = properties.value(strings.rightMarginProperty, nullptr)) {
+         right = p3->elementNumber();
       }
 
-      if (const DomProperty *p = properties.value(strings.bottomMarginProperty, nullptr)) {
-         bottom = p->elementNumber();
+      if (const DomProperty *p4 = properties.value(strings.bottomMarginProperty, nullptr)) {
+         bottom = p4->elementNumber();
       }
 
       layout->setContentsMargins(left, top, right, bottom);
@@ -704,11 +704,11 @@ QLayout *QAbstractFormBuilder::create(DomLayout *ui_layout, QLayout *parentLayou
          const QFormBuilderStrings &strings = QFormBuilderStrings::instance();
          const DomPropertyHash properties = propertyMap(ui_layout->elementProperty());
 
-         if (const DomProperty *p = properties.value(strings.horizontalSpacingProperty, nullptr)) {
-            grid->setHorizontalSpacing(p->elementNumber());
+         if (const DomProperty *p5= properties.value(strings.horizontalSpacingProperty, nullptr)) {
+            grid->setHorizontalSpacing(p5->elementNumber());
          }
-         if (const DomProperty *p = properties.value(strings.verticalSpacingProperty, nullptr)) {
-            grid->setVerticalSpacing(p->elementNumber());
+         if (const DomProperty *p6 = properties.value(strings.verticalSpacingProperty, nullptr)) {
+            grid->setVerticalSpacing(p6->elementNumber());
          }
       }
    }

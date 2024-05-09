@@ -887,9 +887,9 @@ QWidget *QDesignerResource::create(DomWidget *ui_widget, QWidget *parentWidget)
       } else if (QActionGroup *g = d->m_actionGroups.value(name)) {
          w->addActions(g->actions());
 
-      } else if (QMenu *menu = w->findChild<QMenu *>(name)) {
-         w->addAction(menu->menuAction());
-         addMenuAction(menu->menuAction());
+      } else if (QMenu *childMenu = w->findChild<QMenu *>(name)) {
+         w->addAction(childMenu->menuAction());
+         addMenuAction(childMenu->menuAction());
       }
    }
 
@@ -1728,7 +1728,8 @@ bool QDesignerResource::checkProperty(QObject *obj, const QString &prop) const
 {
    const QDesignerMetaObjectInterface *meta = core()->introspection()->metaObject(obj);
 
-   const int pindex = meta->indexOfProperty(prop);
+   int pindex = meta->indexOfProperty(prop);
+
    if (pindex != -1 && !(meta->property(pindex)->attributes(obj) & QDesignerMetaPropertyInterface::StoredAttribute)) {
       return false;
    }
@@ -1762,7 +1763,7 @@ bool QDesignerResource::checkProperty(QObject *obj, const QString &prop) const
    if (QDesignerPropertySheetExtension *sheet = qt_extension<QDesignerPropertySheetExtension *>(core()->extensionManager(), obj)) {
       QDesignerDynamicPropertySheetExtension *dynamicSheet = qt_extension<QDesignerDynamicPropertySheetExtension *>
          (core()->extensionManager(), obj);
-      const int pindex = sheet->indexOf(prop);
+      pindex = sheet->indexOf(prop);
       if (sheet->isAttribute(pindex)) {
          return false;
       }

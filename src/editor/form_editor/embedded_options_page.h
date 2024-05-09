@@ -72,10 +72,10 @@ class EmbeddedOptionsPage : public QDesignerOptionsPageInterface
  public:
    explicit EmbeddedOptionsPage(QDesignerFormEditorInterface *core);
 
-   QString name() const;
-   QWidget *createPage(QWidget *parent);
-   virtual void finish();
-   virtual void apply();
+   QString name() const  override;
+   QWidget *createPage(QWidget *parent) override;
+   void finish() override;
+   void apply() override;
 
  private:
    EmbeddedOptionsPage(const EmbeddedOptionsPage &) = delete;

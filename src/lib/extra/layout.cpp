@@ -494,8 +494,8 @@ class BoxLayout : public Layout
    BoxLayout(const QWidgetList &wl, QWidget *p, QDesignerFormWindowInterface *fw, QWidget *lb,
       Qt::Orientation orientation);
 
-   virtual void doLayout();
-   virtual void sort();
+   void doLayout() override;
+   void sort() override;
 
  private:
    const Qt::Orientation m_orientation;
@@ -550,8 +550,8 @@ class SplitterLayout : public Layout
    SplitterLayout(const QWidgetList &wl, QWidget *p, QDesignerFormWindowInterface *fw, QWidget *lb,
       Qt::Orientation orientation);
 
-   virtual void doLayout();
-   virtual void sort();
+   void doLayout() override;
+   void sort() override;
 
  private:
    const Qt::Orientation m_orientation;
@@ -1254,9 +1254,9 @@ class GridLayout : public Layout
  public:
    GridLayout(const QWidgetList &wl, QWidget *p, QDesignerFormWindowInterface *fw, QWidget *lb);
 
-   virtual void doLayout();
+   virtual void doLayout() override;
 
-   virtual void sort()                  {
+   virtual void sort() override {
       setWidgets(buildGrid(widgets()));
    }
 

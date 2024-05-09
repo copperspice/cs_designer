@@ -192,27 +192,27 @@ DomUI *QDesignerWidgetBox::xmlToUi(const QString &name, const QString &xml, bool
 
    while (! reader.atEnd()) {
       if (reader.readNext() == QXmlStreamReader::StartElement) {
-         const QString name = reader.name();
+         const QString readerName = reader.name();
 
          if (ui) {
-            reader.raiseError(tr("Unexpected element <%1>").formatArg(name));
+            reader.raiseError(tr("Unexpected element <%1>").formatArg(readerName));
             continue;
          }
 
-         if (name.compare("widget", Qt::CaseInsensitive) == 0) {
+         if (readerName.compare("widget", Qt::CaseInsensitive) == 0) {
             // 4.3 legacy, wrap into DomUI
             ui = new DomUI;
             DomWidget *widget = new DomWidget;
             widget->read(reader);
             ui->setElementWidget(widget);
 
-         } else if (name.compare("ui", Qt::CaseInsensitive) == 0) {
+         } else if (readerName.compare("ui", Qt::CaseInsensitive) == 0) {
             // 4.4
             ui = new DomUI;
             ui->read(reader);
 
          } else {
-            reader.raiseError(tr("Unexpected element <%1>").formatArg(name));
+            reader.raiseError(tr("Unexpected element <%1>").formatArg(readerName));
          }
       }
    }

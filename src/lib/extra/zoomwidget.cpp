@@ -295,12 +295,14 @@ void ZoomWidget::setWidget(QWidget *w, Qt::WindowFlags wFlags)
    if (m_proxy) {
       scene().removeItem(m_proxy);
 
-      if (QWidget *w = m_proxy->widget()) {
+      if (QWidget *proxyWidget = m_proxy->widget()) {
          // remove the event filter
-         if (QObject *evf =  w->findChild<QObject *>(zoomedEventFilterRedirectorNameC)) {
-            w->removeEventFilter(evf);
+
+         if (QObject *evf =  proxyWidget->findChild<QObject *>(zoomedEventFilterRedirectorNameC)) {
+            proxyWidget->removeEventFilter(evf);
          }
       }
+
       m_proxy->deleteLater();
    }
 
@@ -559,4 +561,3 @@ void ZoomWidget::dump() const
 }
 
 } // namespace qdesigner_internal
-

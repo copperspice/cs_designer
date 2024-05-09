@@ -57,7 +57,7 @@ class SignalSlotConnection : public Connection
 
    DomConnection *toUi() const;
 
-   virtual void updateVisibility();
+   virtual void updateVisibility() override;
 
    enum State { Valid, ObjectDeleted, InvalidMethod, NotAncestor };
    State isValid(const QWidget *background) const;

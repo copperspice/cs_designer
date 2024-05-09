@@ -163,11 +163,11 @@ void AbstractItemEditor::propertyChanged(QtProperty *property)
       return;
    }
 
-   QVariant data = prop->value();
+   QVariant data1 = prop->value();
 
-   if ((role == ItemFlagsShadowRole && data.toInt() == (int)QListWidgetItem().flags())
-         || (role == Qt::DecorationPropertyRole && ! data.value<PropertySheetIconValue>().mask())
-         || (role == Qt::FontRole && ! data.value<QFont>().resolve())) {
+   if ((role == ItemFlagsShadowRole && data1.toInt() == (int)QListWidgetItem().flags())
+         || (role == Qt::DecorationPropertyRole && ! data1.value<PropertySheetIconValue>().mask())
+         || (role == Qt::FontRole && ! data1.value<QFont>().resolve())) {
 
       prop->setModified(false);
       setItemData(role, QVariant());
@@ -179,32 +179,32 @@ void AbstractItemEditor::propertyChanged(QtProperty *property)
 
    switch (role) {
       case Qt::DecorationPropertyRole: {
-         QVariant data = prop->value();
-         setItemData(Qt::DecorationRole, QVariant::fromValue(iconCache()->icon(data.value<PropertySheetIconValue>())));
+         QVariant data2 = prop->value();
+         setItemData(Qt::DecorationRole, QVariant::fromValue(iconCache()->icon(data2.value<PropertySheetIconValue>())));
          break;
       }
 
       case Qt::DisplayPropertyRole: {
-         QVariant data = prop->value();
-         setItemData(Qt::EditRole, QVariant::fromValue(data.value<PropertySheetStringValue>().value()));
+         QVariant data3 = prop->value();
+         setItemData(Qt::EditRole, QVariant::fromValue(data3.value<PropertySheetStringValue>().value()));
          break;
       }
 
       case Qt::ToolTipPropertyRole: {
-         QVariant data = prop->value();
-         setItemData(Qt::ToolTipRole, QVariant::fromValue(data.value<PropertySheetStringValue>().value()));
+         QVariant data4 = prop->value();
+         setItemData(Qt::ToolTipRole, QVariant::fromValue(data4.value<PropertySheetStringValue>().value()));
          break;
       }
 
       case Qt::StatusTipPropertyRole: {
-         QVariant data = prop->value();
-         setItemData(Qt::StatusTipRole, QVariant::fromValue(data.value<PropertySheetStringValue>().value()));
+         QVariant data5 = prop->value();
+         setItemData(Qt::StatusTipRole, QVariant::fromValue(data5.value<PropertySheetStringValue>().value()));
          break;
       }
 
       case Qt::WhatsThisPropertyRole: {
-         QVariant data = prop->value();
-         setItemData(Qt::WhatsThisRole, QVariant::fromValue(data.value<PropertySheetStringValue>().value()));
+         QVariant data6 = prop->value();
+         setItemData(Qt::WhatsThisRole, QVariant::fromValue(data6.value<PropertySheetStringValue>().value()));
          break;
       }
 
@@ -443,8 +443,8 @@ void ItemListEditor::listWidget_itemChanged(QListWidgetItem *item)
       return;
    }
 
-   QVariant data = item->data(Qt::DisplayPropertyRole);
-   PropertySheetStringValue val = data.value<PropertySheetStringValue>();
+   QVariant data1 = item->data(Qt::DisplayPropertyRole);
+   PropertySheetStringValue val = data1.value<PropertySheetStringValue>();
 
    val.setValue(item->text());
 

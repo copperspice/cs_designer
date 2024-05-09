@@ -459,8 +459,8 @@ void TreeWidgetEditor::treeWidget_itemChanged(QTreeWidgetItem *item, int column)
       return;
    }
 
-   QVariant data = item->data(column, Qt::DisplayPropertyRole);
-   PropertySheetStringValue val = data.value<PropertySheetStringValue>();
+   QVariant data1 = item->data(column, Qt::DisplayPropertyRole);
+   PropertySheetStringValue val = data1.value<PropertySheetStringValue>();
 
    val.setValue(item->text(column));
    BoolBlocker block(m_updatingBrowser);

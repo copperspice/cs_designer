@@ -237,8 +237,8 @@ class ActionView : public QStackedWidget
    CS_SIGNAL_1(Public, void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected))
    CS_SIGNAL_2(selectionChanged, selected, deselected)
 
-   CS_SIGNAL_1(Public, void resourceImageDropped(const QString &data, QAction *action))
-   CS_SIGNAL_2(resourceImageDropped, data, action)
+   CS_SIGNAL_1(Public, void resourceImageDropped(const QString &imageData, QAction *action))
+   CS_SIGNAL_2(resourceImageDropped, imageData, action)
 
  private:
    CS_SLOT_1(Private, void slotCurrentChanged(QAction *action))

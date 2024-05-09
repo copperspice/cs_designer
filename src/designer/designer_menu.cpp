@@ -522,16 +522,17 @@ void QDesignerMenu::slotAddSeparator()
    fw->beginCommand(tr("Add separator"));
    QAction *sep = createAction(QString(), true);
 
-   InsertActionIntoCommand *cmd = new InsertActionIntoCommand(fw);
-   cmd->init(this, sep, action_before);
-   fw->commandHistory()->push(cmd);
+   InsertActionIntoCommand *insertCmd = new InsertActionIntoCommand(fw);
+   insertCmd->init(this, sep, action_before);
+   fw->commandHistory()->push(insertCmd);
 
    if (parentMenu()) {
       QAction *parent_action = parentMenu()->currentAction();
+
       if (parent_action->menu() == nullptr) {
-         CreateSubmenuCommand *cmd = new CreateSubmenuCommand(fw);
-         cmd->init(parentMenu(), parentMenu()->currentAction());
-         fw->commandHistory()->push(cmd);
+         CreateSubmenuCommand *createCmd = new CreateSubmenuCommand(fw);
+         createCmd->init(parentMenu(), parentMenu()->currentAction());
+         fw->commandHistory()->push(createCmd);
       }
    }
 
@@ -835,9 +836,9 @@ void QDesignerMenu::dropEvent(QDropEvent *event)
       index = qMin(index, actions().count() - 1);
 
       fw->beginCommand(tr("Insert action"));
-      InsertActionIntoCommand *cmd = new InsertActionIntoCommand(fw);
-      cmd->init(this, action, safeActionAt(index));
-      fw->commandHistory()->push(cmd);
+      InsertActionIntoCommand *insertCmd = new InsertActionIntoCommand(fw);
+      insertCmd->init(this, action, safeActionAt(index));
+      fw->commandHistory()->push(insertCmd);
 
       m_currentIndex = index;
 
@@ -845,9 +846,9 @@ void QDesignerMenu::dropEvent(QDropEvent *event)
          QAction *parent_action = parentMenu()->currentAction();
 
          if (parent_action->menu() == nullptr) {
-            CreateSubmenuCommand *cmd = new CreateSubmenuCommand(fw);
-            cmd->init(parentMenu(), parentMenu()->currentAction(), action);
-            fw->commandHistory()->push(cmd);
+            CreateSubmenuCommand *createCmd = new CreateSubmenuCommand(fw);
+            createCmd->init(parentMenu(), parentMenu()->currentAction(), action);
+            fw->commandHistory()->push(createCmd);
          }
       }
       update();
@@ -1217,17 +1218,17 @@ void QDesignerMenu::enterEditMode()
       fw->beginCommand(tr("Add separator"));
       QAction *sep = createAction(QString(), true);
 
-      InsertActionIntoCommand *cmd = new InsertActionIntoCommand(fw);
-      cmd->init(this, sep, safeActionAt(realActionCount()));
-      fw->commandHistory()->push(cmd);
+      InsertActionIntoCommand *insertCmd = new InsertActionIntoCommand(fw);
+      insertCmd->init(this, sep, safeActionAt(realActionCount()));
+      fw->commandHistory()->push(insertCmd);
 
       if (parentMenu()) {
          QAction *parent_action = parentMenu()->currentAction();
 
          if (parent_action->menu() == nullptr) {
-            CreateSubmenuCommand *cmd = new CreateSubmenuCommand(fw);
-            cmd->init(parentMenu(), parentMenu()->currentAction());
-            fw->commandHistory()->push(cmd);
+            CreateSubmenuCommand *createCmd = new CreateSubmenuCommand(fw);
+            createCmd->init(parentMenu(), parentMenu()->currentAction());
+            fw->commandHistory()->push(createCmd);
          }
       }
 
@@ -1256,9 +1257,10 @@ void QDesignerMenu::leaveEditMode(LeaveEditMode mode)
       Q_ASSERT(fw != nullptr);
       fw->beginCommand(QApplication::translate("Command", "Insert action"));
       action = createAction(ActionEditor::actionTextToName(m_editor->text()));
-      InsertActionIntoCommand *cmd = new InsertActionIntoCommand(fw);
-      cmd->init(this, action, currentAction());
-      fw->commandHistory()->push(cmd);
+
+      InsertActionIntoCommand *insertCmd = new InsertActionIntoCommand(fw);
+      insertCmd->init(this, action, currentAction());
+      fw->commandHistory()->push(insertCmd);
    }
 
    SetPropertyCommand *cmd = new SetPropertyCommand(fw);
@@ -1269,9 +1271,9 @@ void QDesignerMenu::leaveEditMode(LeaveEditMode mode)
       QAction *parent_action = parentMenu()->currentAction();
 
       if (parent_action->menu() == nullptr) {
-         CreateSubmenuCommand *cmd = new CreateSubmenuCommand(fw);
-         cmd->init(parentMenu(), parentMenu()->currentAction(), action);
-         fw->commandHistory()->push(cmd);
+         CreateSubmenuCommand *createCmd = new CreateSubmenuCommand(fw);
+         createCmd->init(parentMenu(), parentMenu()->currentAction(), action);
+         fw->commandHistory()->push(createCmd);
       }
    }
 

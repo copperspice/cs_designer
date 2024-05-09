@@ -34,7 +34,7 @@ class PreviewMdiArea: public QMdiArea
  public:
    PreviewMdiArea(QWidget *parent = nullptr) : QMdiArea(parent) {}
  protected:
-   bool viewportEvent ( QEvent *event );
+   bool viewportEvent(QEvent *event) override;
 };
 
 bool PreviewMdiArea::viewportEvent (QEvent *event)

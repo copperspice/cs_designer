@@ -262,8 +262,8 @@ static void recursiveUpdate(QWidget *w)
    const QObjectList &l = w->children();
    const QObjectList::const_iterator cend = l.constEnd();
    for (QObjectList::const_iterator it = l.constBegin(); it != cend; ++it) {
-      if (QWidget *w = dynamic_cast<QWidget *>(*it)) {
-         recursiveUpdate(w);
+      if (QWidget *itemWidget = dynamic_cast<QWidget *>(*it)) {
+         recursiveUpdate(itemWidget);
       }
    }
 }

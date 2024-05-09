@@ -1187,25 +1187,25 @@ void DesignerPropertyManager::slotValueChanged(QtProperty *property, const QVari
 
       variantProperty(flagProperty)->setValue(QVariant::fromValue(newValue));
 
-   } else if (QtProperty *alignProperty = m_alignHToProperty.value(property, nullptr)) {
-      const uint v = m_alignValues.value(alignProperty);
+   } else if (QtProperty *alignProperty_H = m_alignHToProperty.value(property, nullptr)) {
+      const uint v = m_alignValues.value(alignProperty_H);
       const uint newValue = indexHToAlign(value.toInt()) | indexVToAlign(alignToIndexV(v));
 
       if (v == newValue) {
          return;
       }
 
-      variantProperty(alignProperty)->setValue(newValue);
+      variantProperty(alignProperty_H)->setValue(newValue);
 
-   } else if (QtProperty *alignProperty = m_alignVToProperty.value(property, nullptr)) {
-      const uint v = m_alignValues.value(alignProperty);
+   } else if (QtProperty *alignProperty_V = m_alignVToProperty.value(property, nullptr)) {
+      const uint v = m_alignValues.value(alignProperty_V);
       const uint newValue = indexVToAlign(value.toInt()) | indexHToAlign(alignToIndexH(v));
 
       if (v == newValue) {
          return;
       }
 
-      variantProperty(alignProperty)->setValue(newValue);
+      variantProperty(alignProperty_V)->setValue(newValue);
 
    } else if (QtProperty *iProperty = m_iconSubPropertyToProperty.value(property, nullptr)) {
       QtVariantProperty *iconProperty = variantProperty(iProperty);
@@ -1250,12 +1250,12 @@ void DesignerPropertyManager::slotPropertyDestroyed(QtProperty *property)
       propertyList.replace(propertyList.indexOf(property), nullptr);
       m_flagToProperty.remove(property);
 
-   } else if (QtProperty *alignProperty = m_alignHToProperty.value(property, nullptr)) {
-      m_propertyToAlignH.remove(alignProperty);
+   } else if (QtProperty *alignProperty_H = m_alignHToProperty.value(property, nullptr)) {
+      m_propertyToAlignH.remove(alignProperty_H);
       m_alignHToProperty.remove(property);
 
-   } else if (QtProperty *alignProperty = m_alignVToProperty.value(property, nullptr)) {
-      m_propertyToAlignV.remove(alignProperty);
+   } else if (QtProperty *alignProperty_V = m_alignVToProperty.value(property, nullptr)) {
+      m_propertyToAlignV.remove(alignProperty_V);
       m_alignVToProperty.remove(property);
 
    } else if (m_stringManager.destroy(property) || m_stringListManager.destroy(property)
@@ -2055,7 +2055,7 @@ void DesignerPropertyManager::setValue(QtProperty *property, const QVariant &val
       }
 
       for (int i = 0; i < subFlagCount; ++i) {
-         QtVariantProperty *subFlag = variantProperty(subFlags.at(i));
+         QtVariantProperty *subFlag_1 = variantProperty(subFlags.at(i));
 
          const uint tmpValue = valueList.at(i);
          const bool checked  = (tmpValue == 0) ? (newValue == 0) : ((tmpValue & newValue) == tmpValue);
@@ -2073,10 +2073,10 @@ void DesignerPropertyManager::setValue(QtProperty *property, const QVariant &val
             uint currentMask = 0;
 
             for (int j = 0; j < subFlagCount; ++j) {
-               QtVariantProperty *subFlag = variantProperty(subFlags.at(j));
+               QtVariantProperty *subFlag_2 = variantProperty(subFlags.at(j));
 
                if (bitCount(valueList.at(j)) == 1) {
-                  currentMask |= subFlag->value().toBool() ? valueList.at(j) : 0;
+                  currentMask |= subFlag_2->value().toBool() ? valueList.at(j) : 0;
                }
             }
 
@@ -2085,7 +2085,7 @@ void DesignerPropertyManager::setValue(QtProperty *property, const QVariant &val
             }
          }
 
-         subFlag->setEnabled(enabled);
+         subFlag_1->setEnabled(enabled);
       }
 
       data.val    = newValue;
@@ -2943,8 +2943,8 @@ QWidget *DesignerEditorFactory::createEditor(QtVariantPropertyManager *manager,
             ed->setPixmapCache(m_fwb->pixmapCache());
             ed->setIconThemeModeEnabled(true);
 
-            QVariant data = manager->value(property);
-            PropertySheetIconValue value = data.value<PropertySheetIconValue>();
+            QVariant data1 = manager->value(property);
+            PropertySheetIconValue value = data1.value<PropertySheetIconValue>();
 
             ed->setTheme(value.theme());
             ed->setPath(value.pixmap(QIcon::Normal, QIcon::Off).path());
@@ -2952,8 +2952,8 @@ QWidget *DesignerEditorFactory::createEditor(QtVariantPropertyManager *manager,
             QPixmap defaultPixmap;
 
             if (! property->isModified()) {
-               QVariant data = manager->attributeValue(property, defaultResourceAttributeC);
-               defaultPixmap = data.value<QIcon>().pixmap(16, 16);
+               QVariant data2 = manager->attributeValue(property, defaultResourceAttributeC);
+               defaultPixmap = data2.value<QIcon>().pixmap(16, 16);
 
             } else if (m_fwb) {
                defaultPixmap = m_fwb->iconCache()->icon(value).pixmap(16, 16);

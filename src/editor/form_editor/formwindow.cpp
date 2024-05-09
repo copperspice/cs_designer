@@ -2362,9 +2362,9 @@ bool FormWindow::setContents(QIODevice *dev, QString *errorMessageIn)
 bool FormWindow::setContents(const QString &contents)
 {
    QString errorMessage;
-   QByteArray data = contents.toUtf8();
+   QByteArray arrayData = contents.toUtf8();
 
-   QBuffer b(&data);
+   QBuffer b(&arrayData);
    const bool success = b.open(QIODevice::ReadOnly) &&  setContents(&b, &errorMessage);
 
    if (! success && ! errorMessage.isEmpty()) {
@@ -2476,16 +2476,17 @@ QAction *FormWindow::createSelectAncestorSubMenu(QWidget *w)
    const int size = parents.size();
 
    for (int i = 0; i < size; i++) {
-      QWidget *w = parents.at(i);
-      QAction *a = ag->addAction(objectNameOf(w));
-      a->setData(QVariant::fromValue(w));
-      menu->addAction(a);
+      QWidget *widget = parents.at(i);
+
+      QAction *action = ag->addAction(objectNameOf(widget));
+      action->setData(QVariant::fromValue(widget));
+      menu->addAction(action);
    }
 
-   QAction *ma = new QAction(tr("Select Ancestor"), nullptr);
-   ma->setMenu(menu);
+   QAction *menuAction = new QAction(tr("Select Ancestor"), nullptr);
+   menuAction->setMenu(menu);
 
-   return ma;
+   return menuAction;
 }
 
 QMenu *FormWindow::createPopupMenu(QWidget *w)
@@ -2746,25 +2747,25 @@ void FormWindow::highlightWidget(QWidget *widget, const QPoint &pos, HighlightMo
       return;
    }
 
-   if (QDesignerActionProviderExtension *g =
+   if (QDesignerActionProviderExtension *actionExtension =
          qt_extension<QDesignerActionProviderExtension *>(core()->extensionManager(), container)) {
 
       if (mode == Restore) {
-         g->adjustIndicator(QPoint());
+         actionExtension->adjustIndicator(QPoint());
       } else {
          const QPoint pt = widget->mapTo(container, pos);
-         g->adjustIndicator(pt);
+         actionExtension->adjustIndicator(pt);
       }
 
-   } else if (QDesignerLayoutDecorationExtension *g =
+   } else if (QDesignerLayoutDecorationExtension *layoutExtension =
          qt_extension<QDesignerLayoutDecorationExtension *>(core()->extensionManager(), container)) {
 
       if (mode == Restore) {
-         g->adjustIndicator(QPoint(), -1);
+         layoutExtension->adjustIndicator(QPoint(), -1);
       } else {
          const QPoint pt = widget->mapTo(container, pos);
-         const int index = g->findItemAt(pt);
-         g->adjustIndicator(pt, index);
+         const int index = layoutExtension->findItemAt(pt);
+         layoutExtension->adjustIndicator(pt, index);
       }
    }
 

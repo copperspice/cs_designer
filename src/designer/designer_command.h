@@ -449,7 +449,7 @@ class MoveToolBoxPageCommand: public ToolBoxCommand
    void init(QToolBox *toolBox, QWidget *page, int newIndex);
 
    void redo() override;
-   void undo() override;;
+   void undo() override;
 
  private:
    int m_newIndex;

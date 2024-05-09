@@ -166,8 +166,9 @@ class SetMemberCommand : public QUndoCommand, public CETypes
  public:
    SetMemberCommand(SignalSlotConnection *con, EndPoint::Type type,
       const QString &member, SignalSlotEditor *editor);
-   virtual void redo();
-   virtual void undo();
+
+   void redo() override;
+   void undo() override;
 
  private:
    const QString m_old_member;
@@ -224,8 +225,8 @@ class ModifyConnectionCommand : public QDesignerFormWindowCommand
       SignalSlotConnection *conn,
       const QString &newSignal,
       const QString &newSlot);
-   virtual void redo();
-   virtual void undo();
+   void redo() override;
+   void undo() override;
 
  private:
    SignalSlotConnection *m_conn;
@@ -380,9 +381,8 @@ void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent
 
    setBackground(parent);
    clear();
-   const QList<DomConnection *> list = connections->elementConnection();
 
-   for (const DomConnection *dom_con : list) {
+   for (const DomConnection *dom_con : connections->elementConnection()) {
       QObject *source = objectByName(parent, dom_con->elementSender());
 
       if (source == nullptr) {
@@ -403,9 +403,8 @@ void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent
       const DomConnectionHints *dom_hints = dom_con->elementHints();
 
       if (dom_hints != nullptr) {
-         QList<DomConnectionHint *> list = dom_hints->elementHint();
 
-         for (DomConnectionHint *hint : list) {
+         for (DomConnectionHint *hint : dom_hints->elementHint()) {
             QString attr_type = hint->attributeType();
             QPoint p = QPoint(hint->elementX(), hint->elementY());
 

@@ -174,11 +174,11 @@ public:
       const QStringList &oldFakeSlots, const QStringList &oldFakeSignals,
       const QStringList &newFakeSlots, const QStringList &newFakeSignals);
 
-   virtual void undo() {
+   void undo() override {
       fakeMethodsToMetaDataBase(core(), m_object, m_oldFakeSlots, m_oldFakeSignals);
    }
 
-   virtual void redo() {
+   void redo() override {
       fakeMethodsToMetaDataBase(core(), m_object, m_newFakeSlots, m_newFakeSignals);
    }
 

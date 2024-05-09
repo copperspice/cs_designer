@@ -125,7 +125,7 @@ class PaddingSpacerItem : public QSpacerItem
    {
    }
 
-   virtual Qt::Orientations expandingDirections () const {
+   Qt::Orientations expandingDirections () const override {
       return Qt::Vertical | Qt::Horizontal;
    }
 };
@@ -951,46 +951,50 @@ void GridLayoutState::insertColumn(int column)
 // 'AB.C.'           'ABC'
 // 'DDDD.'     ==>   'DDD'
 // 'EF.G.'           'EFG'
-bool GridLayoutState::simplify(const QRect &r, bool testOnly)
+bool GridLayoutState::simplify(const QRect &rect, bool testOnly)
 {
    // figure out free rows/columns.
    QVector<bool> occupiedRows(rowCount, false);
    QVector<bool> occupiedColumns(colCount, false);
 
    // Mark everything outside restriction rectangle as occupied
-   const int restrictionLeftColumn = r.x();
-   const int restrictionRightColumn = restrictionLeftColumn + r.width();
-   const int restrictionTopRow = r.y();
-   const int restrictionBottomRow = restrictionTopRow + r.height();
+   const int restrictionLeftColumn  = rect.x();
+   const int restrictionRightColumn = restrictionLeftColumn + rect.width();
+   const int restrictionTopRow      = rect.y();
+   const int restrictionBottomRow   = restrictionTopRow + rect.height();
 
    if (restrictionLeftColumn > 0 || restrictionRightColumn < colCount ||
          restrictionTopRow     > 0 || restrictionBottomRow   < rowCount) {
 
-      for (int r = 0; r <  rowCount; r++) {
-         if (r < restrictionTopRow || r >= restrictionBottomRow) {
-            occupiedRows[r] = true;
+      for (int row = 0; row < rowCount; row++) {
+         if (row < restrictionTopRow || row >= restrictionBottomRow) {
+            occupiedRows[row] = true;
          }
       }
 
-      for (int c = 0; c < colCount; c++) {
-         if (c < restrictionLeftColumn ||  c >= restrictionRightColumn) {
-            occupiedColumns[c] = true;
+      for (int column = 0; column < colCount; column++) {
+         if (column < restrictionLeftColumn || column >= restrictionRightColumn) {
+            occupiedColumns[column] = true;
          }
       }
    }
 
    // figure out free fields and tick off occupied rows and columns
    const CellStates cs = cellStates(widgetItemMap.values(), rowCount, colCount);
-   for (int r = 0; r < rowCount; r++)
-      for (int c = 0; c < colCount; c++) {
-         const CellState &state = cs[r * colCount  + c];
+
+   for (int row = 0; row < rowCount; row++) {
+      for (int column = 0; column < colCount; column++) {
+         const CellState &state = cs[row * colCount  + column];
+
          if (state.first == Occupied) {
-            occupiedColumns[c] = true;
+            occupiedColumns[column] = true;
          }
+
          if (state.second == Occupied) {
-            occupiedRows[r] = true;
+            occupiedRows[row] = true;
          }
       }
+   }
 
    // Any free rows/columns?
    if (occupiedRows.indexOf(false) ==  -1 && occupiedColumns.indexOf(false) == -1) {
@@ -1002,15 +1006,15 @@ bool GridLayoutState::simplify(const QRect &r, bool testOnly)
    }
 
    // remove rows
-   for (int r = rowCount - 1; r >= 0; r--)
-      if (!occupiedRows[r]) {
-         removeFreeRow(r);
+   for (int row = rowCount - 1; row >= 0; row--)
+      if (! occupiedRows[row]) {
+         removeFreeRow(row);
       }
 
    // remove columns
-   for (int c = colCount - 1; c >= 0; c--)
-      if (!occupiedColumns[c]) {
-         removeFreeColumn(c);
+   for (int column = colCount - 1; column >= 0; column--)
+      if (! occupiedColumns[column]) {
+         removeFreeColumn(column);
       }
    return true;
 }
@@ -2294,12 +2298,12 @@ void QLayoutWidget::paintEvent(QPaintEvent *)
                QMap<int, bool> rows;
                QMap<int, bool> columns;
 
-               for (int i = rowSpan; i > 1; i--) {
-                  rows[row + i - 2] = true;
+               for (int rowCnt = rowSpan; rowCnt > 1; rowCnt--) {
+                  rows[row + rowCnt - 2] = true;
                }
 
-               for (int i = columnSpan; i > 1; i--) {
-                  columns[column + i - 2] = true;
+               for (int colCnt = columnSpan; i > 1; colCnt--) {
+                  columns[column + colCnt - 2] = true;
                }
 
                while (rowSpan > 0) {

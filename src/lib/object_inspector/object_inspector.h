@@ -45,7 +45,7 @@ class ObjectInspector: public QDesignerObjectInspector
 
    void setFormWindow(QDesignerFormWindowInterface *formWindow) override;
 
-   CS_SLOT_1(Public, void mainContainerChanged())
+   CS_SLOT_1(Public, void mainContainerChanged() override)
    CS_SLOT_2(mainContainerChanged)
 
  protected:

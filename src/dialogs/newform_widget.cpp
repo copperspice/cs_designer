@@ -256,9 +256,10 @@ QPixmap NewFormWidget::formPreviewPixmap(const QTreeWidgetItem *item)
 
          const QString className = classNameV.toString();
 
-         QByteArray data = qdesigner_internal::WidgetDataBase::formTemplate(m_core, className, formNameFromClass(className)).toUtf8();
+         QByteArray byteArray = qdesigner_internal::WidgetDataBase::formTemplate(m_core, className,
+               formNameFromClass(className)).toUtf8();
 
-         QBuffer buffer(&data);
+         QBuffer buffer(&byteArray);
          buffer.open(QIODevice::ReadOnly);
          rc = formPreviewPixmap(buffer);
       }

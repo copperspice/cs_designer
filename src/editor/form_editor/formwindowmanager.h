@@ -72,16 +72,16 @@ class FormWindowManager : public QDesignerFormWindowManager
       return m_previewManager;
    }
 
-   CS_SLOT_1(Public, void addFormWindow(QDesignerFormWindowInterface *formWindow)override)
+   CS_SLOT_1(Public, void addFormWindow(QDesignerFormWindowInterface *formWindow) override)
    CS_SLOT_2(addFormWindow)
 
-   CS_SLOT_1(Public, void removeFormWindow(QDesignerFormWindowInterface *formWindow)override)
+   CS_SLOT_1(Public, void removeFormWindow(QDesignerFormWindowInterface *formWindow) override)
    CS_SLOT_2(removeFormWindow)
 
-   CS_SLOT_1(Public, void setActiveFormWindow(QDesignerFormWindowInterface *formWindow)override)
+   CS_SLOT_1(Public, void setActiveFormWindow(QDesignerFormWindowInterface *formWindow) override)
    CS_SLOT_2(setActiveFormWindow)
 
-   CS_SLOT_1(Public, void closeAllPreviews())
+   CS_SLOT_1(Public, void closeAllPreviews() override)
    CS_SLOT_2(closeAllPreviews)
 
    CS_SLOT_1(Public, void deviceProfilesChanged())
@@ -127,7 +127,7 @@ class FormWindowManager : public QDesignerFormWindowManager
    CS_SLOT_1(Private, void slotActionSimplifyLayoutActivated())
    CS_SLOT_2(slotActionSimplifyLayoutActivated)
 
-   CS_SLOT_1(Private, void showPreview())
+   CS_SLOT_1(Private, void showPreview() override)
    CS_SLOT_2(showPreview)
 
    CS_SLOT_1(Private, void slotActionGroupPreviewInStyle(const QString &style, int deviceProfileIndex))

@@ -587,24 +587,28 @@ void QtGradientWidget::paintEvent(QPaintEvent *e)
       d_ptr->paintPoint(&p, d_ptr->m_centralRadial, d_ptr->m_handleSize);
       p.restore();
 
-      const QRectF rect = QRectF(central.x() - d_ptr->m_radiusRadial * size().width(),
+      const QRectF rect1 = QRectF(central.x() - d_ptr->m_radiusRadial * size().width(),
             central.y() - d_ptr->m_radiusRadial * size().height(),
             2 * d_ptr->m_radiusRadial * size().width(),
             2 * d_ptr->m_radiusRadial * size().height());
+
       QRegion region(r1.toRect());
       region += r2.toRect();
       region += r3.toRect();
       p.setClipRegion(region);
 
-      p.drawEllipse(rect);
+      p.drawEllipse(rect1);
+
       if (d_ptr->m_dragHandle == QtGradientWidgetPrivate::RadiusRadialHandle) {
          p.save();
          p.setPen(dragPen);
-         QRectF rect = QRectF(central.x() - d_ptr->m_radiusRadial / d_ptr->m_radiusFactor * size().width(),
+
+         QRectF rect2 = QRectF(central.x() - d_ptr->m_radiusRadial / d_ptr->m_radiusFactor * size().width(),
                central.y() - d_ptr->m_radiusRadial / d_ptr->m_radiusFactor * size().height(),
                2 * d_ptr->m_radiusRadial / d_ptr->m_radiusFactor * size().width(),
                2 * d_ptr->m_radiusRadial / d_ptr->m_radiusFactor * size().height());
-         p.drawEllipse(rect);
+
+         p.drawEllipse(rect2);
 
          p.restore();
       }

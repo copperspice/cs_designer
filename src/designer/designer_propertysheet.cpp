@@ -1462,8 +1462,8 @@ void QDesignerPropertySheet::setProperty(int index, const QVariant &value)
             qdesigner_internal::PropertySheetEnumValue e = data.value<qdesigner_internal::PropertySheetEnumValue>();
 
             if (value.toBool()) {
-               const QDesignerMetaPropertyInterface *p = d->m_meta->property(idx);
-               p->write(d->m_object, Qt::NoFocus);
+               const QDesignerMetaPropertyInterface *propPtr = d->m_meta->property(idx);
+               propPtr->write(d->m_object, Qt::NoFocus);
                e.value = Qt::StrongFocus;
 
                QVariant v;

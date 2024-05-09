@@ -149,7 +149,7 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
    {
    }
 
-   QWidget *createEditor(QtProperty *property, QWidget *parent) {
+   QWidget *createEditor(QtProperty *property, QWidget *parent) override {
       QSetIterator<PropertyManager *> it(m_managers);
       while (it.hasNext()) {
          PropertyManager *manager = it.next();
@@ -202,7 +202,7 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
    virtual QWidget *createEditor(PropertyManager *manager, QtProperty *property, QWidget *parent) = 0;
    virtual void disconnectPropertyManager(PropertyManager *manager) = 0;
 
-   void managerDestroyed(QObject *manager) {
+   void managerDestroyed(QObject *manager) override {
       QSetIterator<PropertyManager *> it(m_managers);
 
       while (it.hasNext()) {
@@ -215,7 +215,7 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
    }
 
  private:
-   void breakConnection(QtAbstractPropertyManager *manager) {
+   void breakConnection(QtAbstractPropertyManager *manager) override {
       QSetIterator<PropertyManager *> it(m_managers);
       while (it.hasNext()) {
          PropertyManager *m = it.next();

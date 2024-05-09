@@ -215,11 +215,11 @@ class CreateButtonGroupCommand : public ButtonGroupCommand
    CreateButtonGroupCommand(QDesignerFormWindowInterface *formWindow);
    bool init(const ButtonList &bl);
 
-   virtual void undo() {
+   void undo() override {
       breakButtonGroup();
    }
 
-   virtual void redo() {
+   void redo() override {
       createButtonGroup();
    }
 };
@@ -250,11 +250,11 @@ class BreakButtonGroupCommand : public ButtonGroupCommand
    BreakButtonGroupCommand(QDesignerFormWindowInterface *formWindow);
    bool init(QButtonGroup *group);
 
-   virtual void undo() {
+   void undo() override {
       createButtonGroup();
    }
 
-   virtual void redo() {
+   void redo() override {
       breakButtonGroup();
    }
 };
@@ -285,11 +285,11 @@ class AddButtonsToGroupCommand : public ButtonGroupCommand
    AddButtonsToGroupCommand(QDesignerFormWindowInterface *formWindow);
    void init(const ButtonList &bl, QButtonGroup *group);
 
-   virtual void undo() {
+   void undo() override {
       removeButtonsFromGroup();
    }
 
-   virtual void redo() {
+   void redo() override {
       addButtonsToGroup();
    }
 };
@@ -312,11 +312,11 @@ class RemoveButtonsFromGroupCommand : public ButtonGroupCommand
    RemoveButtonsFromGroupCommand(QDesignerFormWindowInterface *formWindow);
    bool init(const ButtonList &bl);
 
-   virtual void undo() {
+   void undo() override {
       addButtonsToGroup();
    }
 
-   virtual void redo() {
+   void redo() override {
       removeButtonsFromGroup();
    }
 };
