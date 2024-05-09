@@ -22,13 +22,14 @@
 
 #include <container.h>
 #include <extension.h>
+
 #include <extensionfactory_p.h>
 
+#include <QDockWidget>
+#include <QScrollArea>
 #include <QStackedWidget>
 #include <QTabWidget>
 #include <QToolBox>
-#include <QScrollArea>
-#include <QDockWidget>
 
 namespace qdesigner_internal {
 

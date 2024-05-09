@@ -30,8 +30,8 @@
 #include <layoutdecoration.h>
 #include <widgetfactory.h>
 
-#include <spacer_widget_p.h>
 #include <metadatabase_p.h>
+#include <spacer_widget_p.h>
 
 #include <QApplication>
 #include <QBitmap>
@@ -49,7 +49,6 @@
 #include <QVector>
 #include <QWizard>
 #include <QWizardPage>
-
 #include <algorithm>
 
 constexpr const int COLUMNS_IN_FORM = 2;

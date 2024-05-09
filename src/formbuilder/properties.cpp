@@ -24,14 +24,14 @@
 #include <ui4.h>
 #include <utils.h>
 
+#include <QAbstractScrollArea>
 #include <QDateTime>
-#include <QUrl>
 #include <QDebug>
-#include <QIcon>
-#include <QPixmap>
 #include <QFont>
 #include <QFrame>
-#include <QAbstractScrollArea>
+#include <QIcon>
+#include <QPixmap>
+#include <QUrl>
 
 static inline void fixEnum(QString &s)
 {

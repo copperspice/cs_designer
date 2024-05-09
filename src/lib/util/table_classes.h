@@ -19,40 +19,40 @@
 
 #include <QCalendarWidget>
 #include <QCheckBox>
-#include <QCommandLinkButton>
 #include <QColumnView>
 #include <QComboBox>
-#include <QDialogButtonBox>
-#include <QDial>
+#include <QCommandLinkButton>
 #include <QDateTimeEdit>
-#include <QDoubleSpinBox>
+#include <QDial>
+#include <QDialogButtonBox>
 #include <QDockWidget>
+#include <QDoubleSpinBox>
 #include <QFontComboBox>
 #include <QFormLayout>
-#include <QGroupBox>
 #include <QGraphicsView>
-#include <QLabel>
+#include <QGroupBox>
+#include <QKeySequenceEdit>
 #include <QLCDNumber>
+#include <QLabel>
 #include <QLineEdit>
 #include <QListView>
 #include <QListWidget>
-#include <QKeySequenceEdit>
 #include <QMainWindow>
+#include <QMdiArea>
 #include <QMenu>
 #include <QMenuBar>
-#include <QMdiArea>
 #include <QOpenGLWidget>
 #include <QPlainTextEdit>
 #include <QProgressBar>
 #include <QPushButton>
 #include <QRadioButton>
-#include <QStatusBar>
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QSpinBox>
 #include <QSplitter>
 #include <QStackedLayout>
 #include <QStackedWidget>
+#include <QStatusBar>
 #include <QTabWidget>
 #include <QTableView>
 #include <QTableWidget>
@@ -64,5 +64,3 @@
 #include <QTreeView>
 #include <QTreeWidget>
 #include <QWizard>
-
-

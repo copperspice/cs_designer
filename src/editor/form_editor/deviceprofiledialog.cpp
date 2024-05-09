@@ -24,12 +24,12 @@
 #include <deviceprofile_p.h>
 
 #include <QDialogButtonBox>
-#include <QVBoxLayout>
+#include <QFile>
+#include <QFileInfo>
+#include <QFontDatabase>
 #include <QPushButton>
 #include <QStyleFactory>
-#include <QFontDatabase>
-#include <QFileInfo>
-#include <QFile>
+#include <QVBoxLayout>
 
 static const QString profileExtensionC = "qdp";
 

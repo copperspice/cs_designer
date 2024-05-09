@@ -21,8 +21,8 @@
 
 #include <QAbstractItemView>
 #include <QCheckBox>
-#include <QTreeView>
 #include <QRegularExpression>
+#include <QTreeView>
 
 #include <algorithm>
 

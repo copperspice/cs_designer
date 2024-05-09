@@ -20,13 +20,13 @@
 #include <toolbar_dialog.h>
 #include <ui_designer_toolbar.h>
 
-#include <QSet>
-#include <QEvent>
 #include <QAction>
-#include <QToolBar>
-#include <QMainWindow>
+#include <QEvent>
 #include <QHeaderView>
+#include <QMainWindow>
 #include <QPushButton>
+#include <QSet>
+#include <QToolBar>
 
 class QtFullToolBarManagerPrivate;
 

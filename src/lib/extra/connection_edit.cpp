@@ -20,7 +20,6 @@
 #include <abstract_formwindow.h>
 #include <connection_edit.h>
 
-#include <qalgorithms.h>
 #include <QAction>
 #include <QApplication>
 #include <QContextMenuEvent>
@@ -31,6 +30,8 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <QPixmap>
+
+#include <qalgorithms.h>
 
 constexpr const int BG_ALPHA =              32;
 constexpr const int LINE_PROXIMITY_RADIUS =  3;

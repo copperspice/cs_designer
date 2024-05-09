@@ -20,8 +20,8 @@
 #ifndef ABSTRACT_DIALOGGUI_H
 #define ABSTRACT_DIALOGGUI_H
 
-#include <QMessageBox>
 #include <QFileDialog>
+#include <QMessageBox>
 
 class QWidget;
 

@@ -22,35 +22,35 @@
 
 #include <designer_enums.h>
 
-class QDesignerActions;
-class QDesignerToolWindow;
-class QDesignerFormWindow;
-class DockedMainWindow;
-class QDesignerSettings;
-class QtToolBarManager;
-class ToolBarManager;
-class QDesignerFormEditorInterface;
-class QDesignerFormWindowInterface;
-class QDesignerFormWindowManagerInterface;
-class QDesignerIntegration;
-
 #include <QHash>
 #include <QList>
 #include <QObject>
 #include <QRect>
 #include <QSet>
 
+class DockedMainWindow;
+class QDesignerActions;
+class QDesignerFormEditorInterface;
+class QDesignerFormWindow;
+class QDesignerFormWindowInterface;
+class QDesignerFormWindowManagerInterface;
+class QDesignerIntegration;
+class QDesignerSettings;
+class QDesignerToolWindow;
+class QtToolBarManager;
+class ToolBarManager;
+
 class QAction;
 class QActionGroup;
+class QCloseEvent;
 class QDockWidget;
-class QMenu;
-class QMenuBar;
+class QFont;
 class QMainWindow;
-class QToolBar;
 class QMdiArea;
 class QMdiSubWindow;
-class QCloseEvent;
-class QFont;
+class QMenu;
+class QMenuBar;
+class QToolBar;
 
 class QDesignerWorkbench: public QObject
 {

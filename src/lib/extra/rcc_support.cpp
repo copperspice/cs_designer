@@ -19,7 +19,6 @@
 
 #include <rcc_support.h>
 
-#include <qalgorithms.h>
 #include <QByteArray>
 #include <QDateTime>
 #include <QDebug>
@@ -31,6 +30,8 @@
 #include <QLocale>
 #include <QMultiHash>
 #include <QStack>
+
+#include <qalgorithms.h>
 
 #include <algorithm>
 

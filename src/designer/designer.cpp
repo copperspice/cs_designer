@@ -44,6 +44,7 @@
 #include <QPainter>
 #include <QTextOption>
 #include <QTimer>
+#include <QToolBar>
 #include <QTranslator>
 
 struct Options;

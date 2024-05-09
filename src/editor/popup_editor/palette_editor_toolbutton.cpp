@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <palette_editor_toolbutton.h>
 #include <palette_editor.h>
+#include <palette_editor_toolbutton.h>
 
 #include <QDebug>
 

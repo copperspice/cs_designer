@@ -20,14 +20,14 @@
 #ifndef PROPERTYBROWSER_UTILS_H
 #define PROPERTYBROWSER_UTILS_H
 
-#include <QMap>
 #include <QIcon>
-#include <QWidget>
+#include <QMap>
 #include <QStringList>
+#include <QWidget>
 
-class QMouseEvent;
 class QCheckBox;
 class QLineEdit;
+class QMouseEvent;
 
 class QtCursorDatabase
 {

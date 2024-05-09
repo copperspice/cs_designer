@@ -17,23 +17,23 @@
 *
 ***********************************************************************/
 
-#include <abstract_formbuilder.h>
-#include <abstract_formwindow.h>
-#include <abstract_formeditor.h>
 #include <abstract_actioneditor.h>
+#include <abstract_formbuilder.h>
+#include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
+#include <abstract_formwindowcursor.h>
+#include <abstract_integration.h>
 #include <abstract_propertyeditor.h>
 #include <abstract_widgetfactory.h>
-#include <abstract_integration.h>
-#include <abstract_formwindowcursor.h>
 #include <designer_command.h>
-#include <extension.h>
 #include <designer_command.h>
 #include <designer_menu.h>
 #include <designer_object_inspector.h>
-#include <designer_propertysheet.h>
 #include <designer_property_command.h>
+#include <designer_propertysheet.h>
 #include <designer_utils.h>
 #include <designer_widget.h>
+#include <extension.h>
 #include <layout.h>
 #include <layout_widget.h>
 #include <widgetfactory.h>

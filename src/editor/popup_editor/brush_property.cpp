@@ -23,9 +23,9 @@
 #include <property_view_utils.h>
 
 #include <QCoreApplication>
-#include <QVariant>
-#include <QStringList>
 #include <QString>
+#include <QStringList>
+#include <QVariant>
 
 static const QStringList brushStyles = {
    cs_mark_string_tr("BrushPropertyManager", "No brush"),

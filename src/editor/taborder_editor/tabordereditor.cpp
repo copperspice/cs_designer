@@ -17,13 +17,13 @@
 *
 ***********************************************************************/
 
+#include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
 #include <abstract_formwindowcursor.h>
-#include <abstract_formeditor.h>
 #include <abstract_widgetfactory.h>
 #include <designer_command.h>
-#include <designer_utils.h>
 #include <designer_propertysheet.h>
+#include <designer_utils.h>
 #include <extension.h>
 #include <layout_widget.h>
 #include <order_dialog.h>
@@ -31,9 +31,9 @@
 
 #include <metadatabase_p.h>
 
-#include <QPainter>
 #include <QMenu>
 #include <QMouseEvent>
+#include <QPainter>
 #include <QResizeEvent>
 
 CS_DECLARE_METATYPE(QWidgetList)

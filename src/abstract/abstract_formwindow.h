@@ -20,15 +20,15 @@
 #ifndef ABSTRACTFORMWINDOW_H
 #define ABSTRACTFORMWINDOW_H
 
+#include <QWidget>
+
 class QDesignerFormEditorInterface;
 class QDesignerFormWindowCursorInterface;
 class QDesignerFormWindowToolInterface;
 class QtResourceSet;
 
-#include <QWidget>
-
-class QUndoStack;
 class QDir;
+class QUndoStack;
 
 class QDesignerFormWindowInterface: public QWidget
 {

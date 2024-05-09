@@ -19,8 +19,8 @@
 
 #include <customwidget.h>
 #include <formbuilder.h>
-#include <table_classes.h>
 #include <formbuilderextra.h>
+#include <table_classes.h>
 #include <ui4.h>
 
 QFormBuilder::QFormBuilder()

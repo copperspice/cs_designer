@@ -19,19 +19,19 @@
 
 #include <property_view_tree.h>
 
-class QtPropertyEditorView;
-
-#include <QSet>
-#include <QIcon>
-#include <QTreeWidget>
-#include <QItemDelegate>
-#include <QHBoxLayout>
-#include <QHeaderView>
-#include <QPainter>
 #include <QApplication>
 #include <QFocusEvent>
-#include <QStyle>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QIcon>
+#include <QItemDelegate>
+#include <QPainter>
 #include <QPalette>
+#include <QSet>
+#include <QStyle>
+#include <QTreeWidget>
+
+class QtPropertyEditorView;
 
 class QtTreePropertyBrowserPrivate
 {

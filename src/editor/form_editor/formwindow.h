@@ -24,36 +24,36 @@
 
 #include <formwindowbase_p.h>
 
+#include <QHash>
+#include <QList>
+#include <QMap>
+#include <QPointer>
+#include <QSet>
+
+#include <qalgorithms.h>
+
 class QDesignerDnDItemInterface;
 class QDesignerTaskMenuExtension;
 class DomConnections;
 class DomUI;
 
-#include <QHash>
-#include <QList>
-#include <QMap>
-#include <QSet>
-#include <QPointer>
-
-#include <qalgorithms.h>
-
-class QWidget;
+class QAction;
 class QAction;
 class QLabel;
-class QTimer;
-class QAction;
 class QMenu;
 class QRubberBand;
+class QTimer;
+class QWidget;
 
 namespace qdesigner_internal {
 
 class FormEditor;
 class FormWindowCursor;
-class WidgetEditorTool;
-class FormWindowWidgetStack;
-class FormWindowManager;
 class FormWindowDnDItem;
+class FormWindowManager;
+class FormWindowWidgetStack;
 class SetPropertyCommand;
+class WidgetEditorTool;
 
 class FormWindow: public FormWindowBase
 {

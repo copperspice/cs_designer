@@ -20,8 +20,8 @@
 #ifndef INPLACE_EDITOR_H
 #define INPLACE_EDITOR_H
 
-#include <inplace_widget_helper.h>
 #include <designer_utils.h>
+#include <inplace_widget_helper.h>
 #include <textproperty_editor.h>
 
 #include <shared_enums_p.h>

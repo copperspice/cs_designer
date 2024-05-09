@@ -18,26 +18,26 @@
 ***********************************************************************/
 
 #include <abstract_formwindow.h>
-#include <mainwindow.h>
 #include <designer.h>
 #include <designer_actions.h>
-#include <designer_workbench.h>
 #include <designer_formwindow.h>
-#include <designer_toolwindow.h>
 #include <designer_settings.h>
+#include <designer_toolwindow.h>
+#include <designer_workbench.h>
+#include <mainwindow.h>
 #include <toolbar_dialog.h>
 
 #include <QAction>
 #include <QCloseEvent>
-#include <QToolBar>
-#include <QMdiSubWindow>
-#include <QStatusBar>
-#include <QMenu>
-#include <QLayout>
-#include <QDockWidget>
-#include <QUrl>
 #include <QDebug>
+#include <QDockWidget>
+#include <QLayout>
+#include <QMdiSubWindow>
+#include <QMenu>
 #include <QMimeData>
+#include <QStatusBar>
+#include <QToolBar>
+#include <QUrl>
 
 #include <algorithm>
 

@@ -29,18 +29,17 @@
 class DomCustomWidget;
 class DomCustomWidgets;
 class DomResource;
-
 class QDesignerContainerExtension;
-class QDesignerFormEditorInterface;
 class QDesignerCustomWidgetInterface;
+class QDesignerFormEditorInterface;
 class QDesignerWidgetDataBaseItemInterface;
 
-class QTabWidget;
-class QStackedWidget;
-class QToolBox;
-class QToolBar;
 class QDesignerDockWidget;
 class QLayoutWidget;
+class QStackedWidget;
+class QTabWidget;
+class QToolBar;
+class QToolBox;
 class QWizardPage;
 
 namespace qdesigner_internal {

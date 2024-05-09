@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#include <abstract_optionspage.h>
 #include <abstract_formeditor.h>
-#include <preferences_dialog.h>
+#include <abstract_optionspage.h>
 #include <designer_appearanceoptions.h>
+#include <preferences_dialog.h>
 #include <ui_designer_preferences.h>
 
 #include <QFileDialog>

@@ -20,11 +20,11 @@
 #ifndef CUSTOMWIDGET_H
 #define CUSTOMWIDGET_H
 
-class QDesignerFormEditorInterface;
-
+#include <QIcon>
 #include <QObject>
 #include <QString>
-#include <QIcon>
+
+class QDesignerFormEditorInterface;
 
 class QWidget;
 

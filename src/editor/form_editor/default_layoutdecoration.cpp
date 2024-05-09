@@ -17,12 +17,12 @@
 *
 ***********************************************************************/
 
-#include <default_layoutdecoration.h>
-#include <abstract_metadatabase.h>
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
-#include <layout_widget.h>
+#include <abstract_formwindow.h>
+#include <abstract_metadatabase.h>
+#include <default_layoutdecoration.h>
 #include <layout_info.h>
+#include <layout_widget.h>
 
 namespace qdesigner_internal {
 

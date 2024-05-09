@@ -17,12 +17,12 @@
 *
 ***********************************************************************/
 
-#include <tabordereditor_tool.h>
-#include <tabordereditor.h>
 #include <abstract_formwindow.h>
+#include <tabordereditor.h>
+#include <tabordereditor_tool.h>
 
-#include <QEvent>
 #include <QAction>
+#include <QEvent>
 
 using namespace qdesigner_internal;
 

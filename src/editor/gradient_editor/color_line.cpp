@@ -19,11 +19,10 @@
 
 #include <color_line.h>
 
-#include <qdrawutil.h>
-#include <QPainter>
 #include <QPaintEvent>
-#include <QStyleOption>
+#include <QPainter>
 #include <QRegion>
+#include <QStyleOption>
 
 class QtColorLinePrivate
 {

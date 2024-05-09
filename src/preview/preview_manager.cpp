@@ -17,39 +17,38 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
+#include <designer_formbuilder.h>
 #include <designer_settings.h>
 #include <preview_manager.h>
-
-#include <formwindowbase_p.h>
-#include <designer_formbuilder.h>
-#include <shared_settings_p.h>
-#include <shared_settings_p.h>
-#include <zoomwidget_p.h>
-#include <formwindowbase_p.h>
 #include <widgetfactory.h>
 
 //  #include <deviceskin.h>
 
-#include <QWidget>
-#include <qevent.h>
-#include <QDesktopWidget>
-#include <QMainWindow>
-#include <QDockWidget>
-#include <QApplication>
-#include <QPixmap>
-#include <QVBoxLayout>
-#include <QDialog>
-#include <QMenu>
+#include <formwindowbase_p.h>
+#include <formwindowbase_p.h>
+#include <shared_settings_p.h>
+#include <shared_settings_p.h>
+#include <zoomwidget_p.h>
+
 #include <QAction>
 #include <QActionGroup>
+#include <QApplication>
 #include <QCursor>
-#include <QMatrix>
-
-#include <QMap>
 #include <QDebug>
+#include <QDesktopWidget>
+#include <QDialog>
+#include <QDockWidget>
+#include <QEvent>
+#include <QMainWindow>
+#include <QMap>
+#include <QMatrix>
+#include <QMenu>
+#include <QPixmap>
 #include <QSharedData>
+#include <QVBoxLayout>
+#include <QWidget>
 
 static inline int compare(const qdesigner_internal::PreviewConfiguration &pc1, const qdesigner_internal::PreviewConfiguration &pc2)
 {

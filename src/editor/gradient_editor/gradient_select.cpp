@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <gradient_select.h>
 #include <gradient_manager.h>
+#include <gradient_select.h>
 
 #include <QPushButton>
 

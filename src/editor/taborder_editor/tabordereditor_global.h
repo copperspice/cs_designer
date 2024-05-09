@@ -20,7 +20,7 @@
 #ifndef TABORDEREDITOR_GLOBAL_H
 #define TABORDEREDITOR_GLOBAL_H
 
-#include <qglobal.h>
+#include <QGlobal>
 
 #ifdef Q_OS_WIN
 #ifdef QT_TABORDEREDITOR_LIBRARY

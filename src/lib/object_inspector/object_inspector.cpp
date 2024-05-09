@@ -17,38 +17,38 @@
 *
 ***********************************************************************/
 
-#include <object_inspector.h>
-#include <object_inspector_model.h>
-#include <formwindow.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindowcursor.h>
 #include <abstract_formwindowmanager.h>
 #include <abstract_metadatabase.h>
 #include <abstract_propertyeditor.h>
 #include <container.h>
-#include <itemview_findwidget.h>
-#include <taskmenu.h>
-#include <extension_manager.h>
-#include <textproperty_editor.h>
-#include <designer_utils.h>
-#include <designer_dnditem.h>
 #include <designer_command.h>
+#include <designer_dnditem.h>
+#include <designer_utils.h>
+#include <extension_manager.h>
+#include <formwindow.h>
+#include <itemview_findwidget.h>
+#include <object_inspector.h>
+#include <object_inspector_model.h>
+#include <taskmenu.h>
+#include <textproperty_editor.h>
 
-#include <grid_p.h>
 #include <formwindowbase_p.h>
+#include <grid_p.h>
 
 #include <QApplication>
+#include <QDebug>
+#include <QEvent>
 #include <QHeaderView>
-#include <QScrollBar>
-#include <QPainter>
-#include <QVBoxLayout>
 #include <QItemSelectionModel>
 #include <QMenu>
-#include <QTreeView>
+#include <QPainter>
+#include <QScrollBar>
 #include <QStyledItemDelegate>
-#include <QEvent>
+#include <QTreeView>
+#include <QVBoxLayout>
 #include <QVector>
-#include <QDebug>
 
 namespace {
 

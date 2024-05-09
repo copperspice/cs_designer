@@ -23,8 +23,8 @@
 #include <QPointer>
 #include <QWidget>
 
-class QDesignerWorkbench;
 class QDesignerFormWindowInterface;
+class QDesignerWorkbench;
 
 class QDesignerFormWindow: public QWidget
 {

@@ -23,9 +23,9 @@
 #include <formwindowbase_p.h>
 #include <grid_p.h>
 
-#include <QStyle>
-#include <QRegularExpression>
 #include <QDebug>
+#include <QRegularExpression>
+#include <QStyle>
 
 namespace qdesigner_internal {
 

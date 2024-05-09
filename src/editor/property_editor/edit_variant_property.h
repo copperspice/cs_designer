@@ -22,8 +22,6 @@
 
 #include <property_view.h>
 
-class QtVariantPropertyManager;
-
 #include <QBrush>
 #include <QChar>
 #include <QColor>
@@ -40,6 +38,8 @@ class QtVariantPropertyManager;
 #include <QSizePolicy>
 #include <QStringList>
 #include <QVariant>
+
+class QtVariantPropertyManager;
 
 using QtIconMap = QMap<int, QIcon>;
 

@@ -21,12 +21,13 @@
 #define TREEWIDGET_TASKMENU_H
 
 #include <designer_taskmenu.h>
+
 #include <extensionfactory_p.h>
 
-class QDesignerFormWindowInterface;
-
-#include <QTreeWidget>
 #include <QPointer>
+#include <QTreeWidget>
+
+class QDesignerFormWindowInterface;
 
 class QLineEdit;
 

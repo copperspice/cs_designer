@@ -19,16 +19,15 @@
 
 #include <abstract_findwidget.h>
 
+#include <QCheckBox>
 #include <QEvent>
 #include <QFile>
-#include <QTimer>
-
-#include <QCheckBox>
 #include <QKeyEvent>
 #include <QLabel>
 #include <QLayout>
 #include <QLineEdit>
 #include <QSpacerItem>
+#include <QTimer>
 #include <QToolButton>
 
 static QIcon createIconSet(const QString &name)

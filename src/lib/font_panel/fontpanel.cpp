@@ -20,12 +20,12 @@
 #include <fontpanel.h>
 
 #include <QComboBox>
-#include <QLabel>
-#include <QFormLayout>
-#include <QSpacerItem>
 #include <QFontComboBox>
-#include <QTimer>
+#include <QFormLayout>
+#include <QLabel>
 #include <QLineEdit>
+#include <QSpacerItem>
+#include <QTimer>
 
 FontPanel::FontPanel(QWidget *parentWidget)
    : QGroupBox(parentWidget), m_previewLineEdit(new QLineEdit), m_writingSystemComboBox(new QComboBox),

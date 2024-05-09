@@ -20,13 +20,13 @@
 #ifndef SIGNALSLOTUTILS_P_H
 #define SIGNALSLOTUTILS_P_H
 
-#include <QString>
-#include <QStringList>
 #include <QMap>
 #include <QObject>
+#include <QString>
+#include <QStringList>
 
-class QDesignerFormWindowInterface;
 class QDesignerFormEditorInterface;
+class QDesignerFormWindowInterface;
 
 namespace qdesigner_internal {
 

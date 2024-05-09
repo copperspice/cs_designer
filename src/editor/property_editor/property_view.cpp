@@ -19,9 +19,9 @@
 
 #include <property_view.h>
 
-#include <QSet>
-#include <QMap>
 #include <QIcon>
+#include <QMap>
+#include <QSet>
 
 class QtPropertyPrivate
 {

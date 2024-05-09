@@ -17,15 +17,15 @@
 *
 ***********************************************************************/
 
-#include <formwindow_widgetstack.h>
 #include <abstract_formwindowtool.h>
+#include <formwindow_widgetstack.h>
 
-#include <QWidget>
-#include <qevent.h>
 #include <QAction>
+#include <QDebug>
+#include <QEvent>
 #include <QStackedLayout>
 #include <QVBoxLayout>
-#include <QDebug>
+#include <QWidget>
 
 using namespace qdesigner_internal;
 

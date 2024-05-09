@@ -20,8 +20,6 @@
 #ifndef CONNECTIONEDIT_H
 #define CONNECTIONEDIT_H
 
-class QDesignerFormWindowInterface;
-
 #include <QList>
 #include <QMultiMap>
 #include <QPixmap>
@@ -29,6 +27,8 @@ class QDesignerFormWindowInterface;
 #include <QPolygonF>
 #include <QUndoCommand>
 #include <QWidget>
+
+class QDesignerFormWindowInterface;
 
 class QUndoStack;
 class QMenu;

@@ -22,30 +22,30 @@
 
 #include <designer_property_editor.h>
 
+#include <QMap>
+#include <QPointer>
+#include <QSet>
+#include <QVector>
+
 class DomProperty;
 class QDesignerMetaDataBaseItemInterface;
 class QDesignerPropertySheetExtension;
 class QtAbstractPropertyBrowser;
-class QtButtonPropertyBrowser;
-class QtTreePropertyBrowser;
-class QtProperty;
-class QtVariantProperty;
 class QtBrowserItem;
-
-#include <QPointer>
-#include <QMap>
-#include <QVector>
-#include <QSet>
+class QtButtonPropertyBrowser;
+class QtProperty;
+class QtTreePropertyBrowser;
+class QtVariantProperty;
 
 class QLineEdit;
 class QStackedWidget;
 
 namespace qdesigner_internal {
 
-class StringProperty;
-class DesignerPropertyManager;
 class DesignerEditorFactory;
+class DesignerPropertyManager;
 class ElidingLabel;
+class StringProperty;
 
 class PropertyEditor: public QDesignerPropertyEditor
 {

@@ -22,15 +22,15 @@
 
 #include <designer_widgetbox.h>
 
-class QDesignerFormEditorInterface;
-class QDesignerDnDItemInterface;
-
-#include <QTreeWidget>
+#include <QHash>
 #include <QIcon>
 #include <QList>
-#include <QHash>
+#include <QTreeWidget>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+
+class QDesignerFormEditorInterface;
+class QDesignerDnDItemInterface;
 
 class QTimer;
 

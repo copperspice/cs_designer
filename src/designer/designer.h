@@ -20,14 +20,14 @@
 #ifndef QDESIGNER_H
 #define QDESIGNER_H
 
-class QDesignerWorkbench;
-class QDesignerToolWindow;
-class MainWindowBase;
-class QDesignerServer;
-class QDesignerClient;
-
 #include <QApplication>
 #include <QPointer>
+
+class MainWindowBase;
+class QDesignerClient;
+class QDesignerServer;
+class QDesignerToolWindow;
+class QDesignerWorkbench;
 
 class QCommandLineParser;
 class QErrorMessage;

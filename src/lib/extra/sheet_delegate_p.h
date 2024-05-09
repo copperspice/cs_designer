@@ -23,8 +23,6 @@
 #include <QItemDelegate>
 #include <QTreeView>
 
-class QTreeView;
-
 namespace qdesigner_internal {
 
 class SheetDelegate: public QItemDelegate

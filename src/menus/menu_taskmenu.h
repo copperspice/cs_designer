@@ -20,11 +20,11 @@
 #ifndef MENUTASKMENU_H
 #define MENUTASKMENU_H
 
-#include <taskmenu.h>
-
-#include <designer_taskmenu.h>
 #include <designer_menu.h>
 #include <designer_menubar.h>
+#include <designer_taskmenu.h>
+#include <taskmenu.h>
+
 #include <extensionfactory_p.h>
 
 class QDesignerFormWindowInterface;

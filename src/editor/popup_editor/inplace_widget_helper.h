@@ -20,11 +20,11 @@
 #ifndef INPLACE_WIDGETHELPER_H
 #define INPLACE_WIDGETHELPER_H
 
+#include <QGlobal>
 #include <QObject>
 #include <QPoint>
-#include <QSize>
 #include <QPointer>
-#include <qglobal.h>
+#include <QSize>
 
 class QDesignerFormWindowInterface;
 

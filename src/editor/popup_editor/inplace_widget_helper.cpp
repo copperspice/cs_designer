@@ -20,10 +20,10 @@
 #include <abstract_formwindow.h>
 #include <inplace_widget_helper.h>
 
-#include <QResizeEvent>
 #include <QPushButton>
-#include <QToolButton>
+#include <QResizeEvent>
 #include <QShortcut>
+#include <QToolButton>
 
 namespace qdesigner_internal {
 InPlaceWidgetHelper::InPlaceWidgetHelper(QWidget *editorWidget, QWidget *parentWidget, QDesignerFormWindowInterface *fw)

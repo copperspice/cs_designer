@@ -17,16 +17,15 @@
 *
 ***********************************************************************/
 
-#include <saveform_as_template.h>
+#include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
 #include <designer_settings.h>
+#include <saveform_as_template.h>
 
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPushButton>
-
-#include <abstract_formeditor.h>
-#include <abstract_formwindow.h>
 
 SaveFormAsTemplate::SaveFormAsTemplate(QDesignerFormEditorInterface *core,
       QDesignerFormWindowInterface *formWindow, QWidget *parent)

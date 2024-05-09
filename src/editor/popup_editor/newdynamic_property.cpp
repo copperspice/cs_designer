@@ -18,10 +18,9 @@
 ***********************************************************************/
 
 #include <abstract_dialoggui.h>
+#include <designer_propertysheet.h>
 #include <newdynamic_property.h>
 #include <ui_edit_dynamicproperty.h>
-
-#include <designer_propertysheet.h>
 
 #include <QDateTime>
 #include <QPushButton>

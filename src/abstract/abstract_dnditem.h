@@ -22,8 +22,8 @@
 
 class DomUI;
 
-class QWidget;
 class QPoint;
+class QWidget;
 
 class QDesignerDnDItemInterface
 {

@@ -27,10 +27,10 @@
 
 #include <QAction>
 #include <QDebug>
+#include <QEvent>
 #include <QMenu>
 #include <QStackedWidget>
 #include <QToolButton>
-#include <qevent.h>
 
 static QToolButton *createToolButton(QWidget *parent, Qt::ArrowType at, const QString &name)
 {

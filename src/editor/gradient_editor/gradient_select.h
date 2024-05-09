@@ -22,10 +22,10 @@
 
 #include <ui_gradient_select.h>
 
-class QtGradientManager;
-
-#include <QWidget>
 #include <QMap>
+#include <QWidget>
+
+class QtGradientManager;
 
 class QtGradientSelect : public QDialog
 {

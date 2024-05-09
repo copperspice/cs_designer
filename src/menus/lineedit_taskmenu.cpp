@@ -17,9 +17,9 @@
 *
 ***********************************************************************/
 
-#include <lineedit_taskmenu.h>
 #include <abstract_formwindow.h>
 #include <inplace_editor.h>
+#include <lineedit_taskmenu.h>
 
 #include <QAction>
 #include <QStyle>

@@ -17,45 +17,45 @@
 *
 ***********************************************************************/
 
-#include <action_editor.h>
-#include <action_repository.h>
 #include <abstract_formeditor.h>
 #include <abstract_propertyeditor.h>
+#include <action_editor.h>
+#include <action_repository.h>
+#include <designer_command.h>
+#include <designer_menu.h>
+#include <designer_object_inspector.h>
+#include <designer_property_command.h>
+#include <designer_propertysheet.h>
 #include <designer_settings.h>
+#include <designer_taskmenu.h>
+#include <designer_utils.h>
 #include <extension.h>
 #include <newaction_dialog.h>
-
-#include <iconloader_p.h>
-#include <designer_menu.h>
-#include <designer_command.h>
-#include <designer_property_command.h>
-#include <designer_object_inspector.h>
-#include <designer_utils.h>
 #include <simple_resource.h>
+
 #include <formwindowbase_p.h>
-#include <designer_taskmenu.h>
-#include <designer_propertysheet.h>
+#include <iconloader_p.h>
 #include <metadatabase_p.h>
 
-#include <QMenu>
-#include <QToolBar>
-#include <QSplitter>
 #include <QAction>
 #include <QApplication>
-#include <QClipboard>
-#include <QItemDelegate>
-#include <QPainter>
-#include <QVBoxLayout>
-#include <QLineEdit>
-#include <QLabel>
-#include <QPushButton>
-#include <QToolButton>
-#include <QContextMenuEvent>
-#include <QItemSelection>
-#include <QRegularExpression>
-#include <QDebug>
-#include <QSignalMapper>
 #include <QBuffer>
+#include <QClipboard>
+#include <QContextMenuEvent>
+#include <QDebug>
+#include <QItemDelegate>
+#include <QItemSelection>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMenu>
+#include <QPainter>
+#include <QPushButton>
+#include <QRegularExpression>
+#include <QSignalMapper>
+#include <QSplitter>
+#include <QToolBar>
+#include <QToolButton>
+#include <QVBoxLayout>
 
 CS_DECLARE_METATYPE(QAction *)
 

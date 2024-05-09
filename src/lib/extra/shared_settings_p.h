@@ -25,14 +25,13 @@
 
 #include <deviceprofile_p.h>
 
-#include <qglobal.h>
+#include <QGlobal>
 #include <QList>
 #include <QStringList>
 
 class QSize;
 
 namespace qdesigner_internal {
-
 class Grid;
 class PreviewConfiguration;
 

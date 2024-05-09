@@ -17,28 +17,28 @@
 *
 ***********************************************************************/
 
+#include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
 #include <abstract_formwindowcursor.h>
-#include <abstract_formeditor.h>
 #include <abstract_integration.h>
-#include <designer_settings.h>
 #include <designer_propertysheet.h>
+#include <designer_settings.h>
 #include <designer_utils.h>
 #include <extension.h>
-#include <gradient_select.h>
 #include <gradient_manager.h>
+#include <gradient_select.h>
 #include <gradient_utils.h>
 #include <stylesheet_editor.h>
 
 #include <csshighlighter_p.h>
 #include <iconselector_p.h>
 
-#include <QSignalMapper>
 #include <QAction>
 #include <QColorDialog>
 #include <QFontDialog>
 #include <QMenu>
 #include <QPushButton>
+#include <QSignalMapper>
 #include <QTextDocument>
 #include <QToolBar>
 #include <QVBoxLayout>

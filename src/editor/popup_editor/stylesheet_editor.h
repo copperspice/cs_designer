@@ -22,10 +22,10 @@
 
 #include <ui_edit_stylesheet.h>
 
-class QDesignerFormWindowInterface;
-class QDesignerFormEditorInterface;
-
 #include <QDialog>
+
+class QDesignerFormEditorInterface;
+class QDesignerFormWindowInterface;
 
 class StyleSheetEditorDialog : public QDialog
 {

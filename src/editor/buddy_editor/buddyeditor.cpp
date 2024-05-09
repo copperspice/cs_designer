@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
 #include <buddyeditor.h>
 #include <designer_command.h>
 #include <designer_property_command.h>
@@ -29,11 +29,11 @@
 
 #include <metadatabase_p.h>
 
+#include <QAction>
+#include <QApplication>
 #include <QDebug>
 #include <QLabel>
 #include <QMenu>
-#include <QAction>
-#include <QApplication>
 
 static const QString buddyPropertyC = "buddy";
 

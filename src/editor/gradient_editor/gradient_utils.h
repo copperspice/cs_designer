@@ -20,10 +20,10 @@
 #ifndef GRADIENTUTILS_H
 #define GRADIENTUTILS_H
 
-class QtGradientManager;
-
 #include <QGradient>
 #include <QPainter>
+
+class QtGradientManager;
 
 class QtGradientUtils
 {

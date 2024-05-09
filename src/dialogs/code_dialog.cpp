@@ -17,27 +17,27 @@
 *
 ***********************************************************************/
 
-#include <textedit_findwidget.h>
 #include <code_dialog.h>
-
 #include <designer_utils.h>
+#include <textedit_findwidget.h>
+
 #include <iconloader_p.h>
 
 #include <QAction>
 #include <QApplication>
 #include <QClipboard>
+#include <QDebug>
 #include <QDialogButtonBox>
+#include <QDir>
 #include <QFileDialog>
 #include <QIcon>
 #include <QKeyEvent>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QTemporaryFile>
 #include <QTextEdit>
 #include <QToolBar>
 #include <QVBoxLayout>
-#include <QDebug>
-#include <QDir>
-#include <QTemporaryFile>
 
 namespace qdesigner_internal {
 

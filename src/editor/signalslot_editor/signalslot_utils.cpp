@@ -17,17 +17,17 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
 #include <abstract_language.h>
-#include <membersheet.h>
+#include <designer_membersheet.h>
 #include <extension.h>
 #include <extension_manager.h>
+#include <membersheet.h>
 
-#include <signalslot_utils_p.h>
-#include <designer_membersheet.h>
-#include <widgetdatabase_p.h>
 #include <metadatabase_p.h>
+#include <signalslot_utils_p.h>
+#include <widgetdatabase_p.h>
 
 #include <QPair>
 

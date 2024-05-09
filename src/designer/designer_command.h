@@ -29,9 +29,6 @@
 
 #include <shared_enums_p.h>
 
-class QDesignerMetaDataBaseItemInterface;
-class QDesignerMenu;
-
 #include <QHash>
 #include <QIcon>
 #include <QMap>
@@ -41,31 +38,34 @@ class QDesignerMenu;
 #include <QRect>
 #include <QWidget>
 
+class QDesignerMenu;
+class QDesignerMetaDataBaseItemInterface;
+
+class QComboBox;
+class QDockWidget;
+class QFormLayout;
+class QListWidget;
+class QListWidgetItem;
+class QMainWindow;
 class QMenuBar;
+class QStackedWidget;
 class QStatusBar;
-class QToolBar;
-class QToolBox;
 class QTabWidget;
 class QTableWidget;
 class QTableWidgetItem;
+class QToolBar;
+class QToolBox;
 class QTreeWidget;
 class QTreeWidgetItem;
-class QListWidget;
-class QListWidgetItem;
-class QComboBox;
-class QStackedWidget;
-class QDockWidget;
-class QMainWindow;
-class QFormLayout;
 
 namespace qdesigner_internal {
 
 class BreakLayoutCommand;
+class DesignerIconCache;
 class Layout;
 class LayoutCommand;
 class LayoutHelper;
 class PropertySheetIconValue;
-class DesignerIconCache;
 
 struct LayoutProperties;
 

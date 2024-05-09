@@ -24,11 +24,11 @@
 #include <property_view_utils.h>
 
 #include <QCoreApplication>
-#include <QVariant>
-#include <QString>
 #include <QDebug>
 #include <QFile>
+#include <QString>
 #include <QTextStream>
+#include <QVariant>
 #include <QXmlStreamReader>
 
 namespace qdesigner_internal {

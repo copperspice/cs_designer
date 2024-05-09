@@ -20,13 +20,12 @@
 #include <designer.h>
 #include <designer_server.h>
 
+#include <QEvent>
 #include <QFileInfo>
 #include <QHostAddress>
 #include <QStringList>
 #include <QTcpServer>
 #include <QTcpSocket>
-
-#include <qevent.h>
 
 QDesignerServer::QDesignerServer(QObject *parent)
    : QObject(parent)

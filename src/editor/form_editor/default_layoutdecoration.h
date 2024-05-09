@@ -20,8 +20,8 @@
 #ifndef DEFAULT_LAYOUTDECORATION_H
 #define DEFAULT_LAYOUTDECORATION_H
 
-#include <layout_widget.h>
 #include <default_extensionfactory.h>
+#include <layout_widget.h>
 
 class QDesignerFormWindowInterface;
 

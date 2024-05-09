@@ -20,10 +20,10 @@
 #ifndef PLAINTEXT_EDITOR_H
 #define PLAINTEXT_EDITOR_H
 
-class QDesignerFormEditorInterface;
-
 #include <QDialog>
 #include <QPlainTextEdit>
+
+class QDesignerFormEditorInterface;
 
 namespace qdesigner_internal {
 

@@ -17,15 +17,15 @@
 *
 ***********************************************************************/
 
-#include <abstract_formeditor.h>
 #include <abstract_formbuilder.h>
+#include <abstract_formeditor.h>
 #include <designer_property.h>
 #include <designer_settings.h>
 #include <listwidget_editor.h>
 
 #include <QComboBox>
-#include <QGroupBox>
 #include <QDialogButtonBox>
+#include <QGroupBox>
 
 using namespace qdesigner_internal;
 

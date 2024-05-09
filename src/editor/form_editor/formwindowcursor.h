@@ -20,8 +20,8 @@
 #ifndef FORMWINDOWCURSOR_H
 #define FORMWINDOWCURSOR_H
 
-#include <formwindow.h>
 #include <abstract_formwindowcursor.h>
+#include <formwindow.h>
 
 #include <QObject>
 

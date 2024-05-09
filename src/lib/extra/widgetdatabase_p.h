@@ -28,8 +28,9 @@
 #include <QStringList>
 #include <QVariant>
 
-class QObject;
 class QDesignerCustomWidgetInterface;
+
+class QObject;
 
 namespace qdesigner_internal {
 

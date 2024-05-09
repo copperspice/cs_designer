@@ -20,15 +20,15 @@
 #ifndef ABSTRACTINTEGRATION_H
 #define ABSTRACTINTEGRATION_H
 
-class QDesignerFormWindowInterface;
 class QDesignerFormEditorInterface;
+class QDesignerFormWindowInterface;
 class QDesignerIntegrationInterfacePrivate;
 class QDesignerResourceBrowserInterface;
 
+#include <QFlags>
 #include <QObject>
 #include <QScopedPointer>
 #include <QStringList>
-#include <QFlags>
 
 class QVariant;
 class QWidget;

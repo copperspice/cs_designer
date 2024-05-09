@@ -20,11 +20,11 @@
 #ifndef RESOURCEBUILDER_H
 #define RESOURCEBUILDER_H
 
-class DomProperty;
-class DomResourceIcon;
-
 #include <QList>
 #include <QString>
+
+class DomProperty;
+class DomResourceIcon;
 
 class QDir;
 class QVariant;

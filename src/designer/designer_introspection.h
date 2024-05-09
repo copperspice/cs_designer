@@ -24,9 +24,9 @@
 
 #include <QMap>
 
-struct QMetaObject;
-
 class QWidget;
+
+struct QMetaObject;
 
 namespace qdesigner_internal {
 

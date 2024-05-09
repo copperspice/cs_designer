@@ -17,23 +17,23 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
 #include <designer_formwindow_command.h>
 #include <signalsloteditor.h>
 #include <ui4.h>
 
-#include <signalsloteditor_p.h>
 #include <connectdialog_p.h>
+#include <metadatabase_p.h>
+#include <metadatabase_p.h>
 #include <signalslot_utils_p.h>
-#include <metadatabase_p.h>
-#include <metadatabase_p.h>
+#include <signalsloteditor_p.h>
 
 #include <QApplication>
-#include <QUndoCommand>
-#include <QMenu>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QMenu>
+#include <QUndoCommand>
 
 namespace qdesigner_internal {
 

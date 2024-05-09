@@ -17,28 +17,28 @@
 *
 ***********************************************************************/
 
-#include <membersheet.h>
-#include <extension.h>
+#include <abstract_dialoggui.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
 #include <abstract_widgetfactory.h>
-#include <abstract_dialoggui.h>
+#include <designer_formwindow_command.h>
+#include <extension.h>
+#include <membersheet.h>
 #include <signalslot_dialog.h>
 #include <ui_signal_slot_dialog.h>
 
+#include <iconloader_p.h>
 #include <metadatabase_p.h>
 #include <widgetdatabase_p.h>
-#include <designer_formwindow_command.h>
-#include <iconloader_p.h>
 
-#include <QStandardItemModel>
-#include <QValidator>
+#include <QApplication>
+#include <QDebug>
 #include <QItemDelegate>
 #include <QLineEdit>
-#include <QApplication>
 #include <QMessageBox>
 #include <QRegularExpression>
-#include <QDebug>
+#include <QStandardItemModel>
+#include <QValidator>
 
 #include <qalgorithms.h>
 

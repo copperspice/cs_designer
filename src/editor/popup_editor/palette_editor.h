@@ -22,14 +22,14 @@
 
 #include <ui_edit_palette.h>
 
-class QtColorButton;
-class QDesignerFormEditorInterface;
-
 #include <QItemDelegate>
 #include <QPair>
 
-class QListView;
+class QDesignerFormEditorInterface;
+class QtColorButton;
+
 class QLabel;
+class QListView;
 
 namespace qdesigner_internal {
 

@@ -20,11 +20,12 @@
 #ifndef DEVICEPROFILE_H
 #define DEVICEPROFILE_H
 
-#include <QString>
 #include <QSharedDataPointer>
+#include <QString>
 #include <QWidget>
 
 class QDesignerFormEditorInterface;
+
 class QStyle;
 
 namespace qdesigner_internal {

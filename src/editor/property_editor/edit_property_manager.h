@@ -25,29 +25,29 @@
 #include <QDateTime>
 #include <QLocale>
 
-class QtEnumPropertyManager;
 class QtBoolPropertyManagerPrivate;
-class QtDatePropertyManagerPrivate;
-class QtDoublePropertyManagerPrivate;
-class QtIntPropertyManagerPrivate;
-class QtStringPropertyManagerPrivate;
-class QtLocalePropertyManagerPrivate;
 class QtCharPropertyManagerPrivate;
-class QtKeySequencePropertyManagerPrivate;
-class QtDateTimePropertyManagerPrivate;
-class QtTimePropertyManagerPrivate;
-class QtPointPropertyManagerPrivate;
-class QtRectFPropertyManagerPrivate;
-class QtSizePolicyPropertyManagerPrivate;
-class QtFontPropertyManagerPrivate;
 class QtColorPropertyManagerPrivate;
 class QtCursorPropertyManagerPrivate;
-class QtPointFPropertyManagerPrivate;
-class QtSizePropertyManagerPrivate;
-class QtSizeFPropertyManagerPrivate;
-class QtRectPropertyManagerPrivate;
+class QtDatePropertyManagerPrivate;
+class QtDateTimePropertyManagerPrivate;
+class QtDoublePropertyManagerPrivate;
+class QtEnumPropertyManager;
 class QtEnumPropertyManagerPrivate;
 class QtFlagPropertyManagerPrivate;
+class QtFontPropertyManagerPrivate;
+class QtIntPropertyManagerPrivate;
+class QtKeySequencePropertyManagerPrivate;
+class QtLocalePropertyManagerPrivate;
+class QtPointFPropertyManagerPrivate;
+class QtPointPropertyManagerPrivate;
+class QtRectFPropertyManagerPrivate;
+class QtRectPropertyManagerPrivate;
+class QtSizeFPropertyManagerPrivate;
+class QtSizePolicyPropertyManagerPrivate;
+class QtSizePropertyManagerPrivate;
+class QtStringPropertyManagerPrivate;
+class QtTimePropertyManagerPrivate;
 
 class QtGroupPropertyManager : public QtAbstractPropertyManager
 {

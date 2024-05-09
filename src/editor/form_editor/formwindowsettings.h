@@ -22,11 +22,11 @@
 
 #include <QDialog>
 
+class QDesignerFormWindowInterface;
+
 namespace Ui {
 class FormWindowSettings;
 }
-
-class QDesignerFormWindowInterface;
 
 namespace qdesigner_internal {
 

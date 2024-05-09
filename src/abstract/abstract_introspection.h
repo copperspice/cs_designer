@@ -20,8 +20,8 @@
 #ifndef ABSTRACTMETAOBJECT_H
 #define ABSTRACTMETAOBJECT_H
 
-#include <QVariant>
 #include <QFlags>
+#include <QVariant>
 
 class QDesignerMetaEnumInterface
 {

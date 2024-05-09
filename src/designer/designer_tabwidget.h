@@ -23,15 +23,15 @@
 #include <designer_propertysheet.h>
 #include <designer_utils.h>
 
+#include <QIcon>
+#include <QPointer>
+
 class QDesignerFormWindowInterface;
 
-#include <QPointer>
-#include <QIcon>
-
-class QTabWidget;
-class QTabBar;
-class QMenu;
 class QAction;
+class QMenu;
+class QTabBar;
+class QTabWidget;
 
 namespace qdesigner_internal {
 class PromotionTaskMenu;

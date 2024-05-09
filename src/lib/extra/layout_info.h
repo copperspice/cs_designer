@@ -24,6 +24,7 @@
 
 class QDesignerFormEditorInterface;
 class QFormLayout;
+
 class QLayout;
 class QLayoutItem;
 class QRect;

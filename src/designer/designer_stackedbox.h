@@ -22,11 +22,11 @@
 
 #include <designer_propertysheet.h>
 
-class QStackedWidget;
-class QWidget;
 class QAction;
 class QMenu;
+class QStackedWidget;
 class QToolButton;
+class QWidget;
 
 namespace qdesigner_internal {
 class PromotionTaskMenu;

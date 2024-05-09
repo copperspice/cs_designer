@@ -20,13 +20,13 @@
 #ifndef FONT_PROPERTY_H
 #define FONT_PROPERTY_H
 
-class QtProperty;
-class QtVariantPropertyManager;
-
+#include <QFont>
 #include <QMap>
 #include <QStringList>
-#include <QFont>
 #include <QVariant>
+
+class QtProperty;
+class QtVariantPropertyManager;
 
 namespace qdesigner_internal {
 

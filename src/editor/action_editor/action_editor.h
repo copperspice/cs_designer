@@ -21,18 +21,18 @@
 #define ACTION_EDITOR_H
 
 #include <abstract_actioneditor.h>
-#include <abstract_settings.h>
 #include <abstract_propertyeditor.h>
+#include <abstract_settings.h>
 
 #include <QPointer>
 
-class QMenu;
 class QActionGroup;
-class QSignalMapper;
 class QItemSelection;
-class QListWidget;
-class QPushButton;
 class QLineEdit;
+class QListWidget;
+class QMenu;
+class QPushButton;
+class QSignalMapper;
 class QToolButton;
 
 namespace qdesigner_internal {

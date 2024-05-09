@@ -22,9 +22,10 @@
 
 #include <QString>
 
-class QDesignerFormWindowInterface;
-class QWidget;
 class QVariant;
+class QWidget;
+
+class QDesignerFormWindowInterface;
 
 class QDesignerFormWindowCursorInterface
 {

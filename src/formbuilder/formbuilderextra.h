@@ -20,30 +20,30 @@
 #ifndef ABSTRACTFORMBUILDERPRIVATE_H
 #define ABSTRACTFORMBUILDERPRIVATE_H
 
-class QAbstractFormBuilder;
-class QResourceBuilder;
-class QTextBuilder;
-class QDesignerCustomWidgetInterface;
-class DomButtonGroups;
-class DomButtonGroup;
-class DomCustomWidget;
-
+#include <QDir>
 #include <QHash>
+#include <QMap>
 #include <QPointer>
 #include <QStringList>
-#include <QMap>
-#include <QDir>
+
+class DomButtonGroup;
+class DomButtonGroups;
+class DomCustomWidget;
+class QAbstractFormBuilder;
+class QDesignerCustomWidgetInterface;
+class QResourceBuilder;
+class QTextBuilder;
 
 class QAction;
 class QActionGroup;
+class QBoxLayout;
+class QButtonGroup;
+class QGridLayout;
+class QLabel;
+class QObject;
 class QObject;
 class QVariant;
 class QWidget;
-class QObject;
-class QLabel;
-class QButtonGroup;
-class QBoxLayout;
-class QGridLayout;
 
 class QFormBuilderExtra
 {

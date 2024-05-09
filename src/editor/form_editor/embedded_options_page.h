@@ -20,8 +20,8 @@
 #ifndef EMBEDDEDOPTIONSPAGE_H
 #define EMBEDDEDOPTIONSPAGE_H
 
-#include <abstract_optionspage.h>
 #include <abstract_formeditor.h>
+#include <abstract_optionspage.h>
 
 #include <QPointer>
 #include <QWidget>

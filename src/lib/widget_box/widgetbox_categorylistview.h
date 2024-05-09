@@ -22,13 +22,13 @@
 
 #include <abstract_widgetbox.h>
 
-class QDesignerFormEditorInterface;
-class QDesignerDnDItemInterface;
-class QSortFilterProxyModel;
-
-#include <QListView>
 #include <QList>
+#include <QListView>
 #include <QRegularExpression>
+
+class QDesignerDnDItemInterface;
+class QDesignerFormEditorInterface;
+class QSortFilterProxyModel;
 
 namespace qdesigner_internal {
 

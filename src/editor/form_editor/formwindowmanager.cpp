@@ -18,46 +18,46 @@
 ***********************************************************************/
 
 #include <abstract_dialoggui.h>
-#include <action_editor.h>
-#include <formwindowmanager.h>
-#include <formwindow_dnditem.h>
-#include <formwindow.h>
-#include <formeditor.h>
-#include <widgetselection.h>
-#include <previewactiongroup.h>
-#include <formwindowsettings.h>
-#include <extension.h>
-#include <abstract_language.h>
-#include <container.h>
-#include <abstract_widgetbox.h>
 #include <abstract_integration.h>
-#include <preview_manager.h>
-#include <layout_info.h>
-#include <resource_model.h>
-#include <designer_dnditem.h>
-#include <designer_command.h>
-#include <layout_widget.h>
-#include <designer_object_inspector.h>
+#include <abstract_language.h>
+#include <abstract_widgetbox.h>
+#include <action_editor.h>
 #include <connection_edit.h>
+#include <container.h>
+#include <designer_command.h>
+#include <designer_dnditem.h>
+#include <designer_object_inspector.h>
+#include <extension.h>
+#include <formeditor.h>
+#include <formwindow.h>
+#include <formwindow_dnditem.h>
+#include <formwindowmanager.h>
+#include <formwindowsettings.h>
+#include <layout_info.h>
+#include <layout_widget.h>
+#include <preview_manager.h>
+#include <previewactiongroup.h>
+#include <resource_model.h>
 #include <widgetfactory.h>
+#include <widgetselection.h>
 
-#include <widgetdatabase_p.h>
 #include <iconloader_p.h>
 #include <shared_settings_p.h>
 #include <spacer_widget_p.h>
+#include <widgetdatabase_p.h>
 
-#include <QUndoGroup>
 #include <QAction>
-#include <QSplitter>
-#include <QMouseEvent>
 #include <QApplication>
-#include <QSizeGrip>
 #include <QClipboard>
+#include <QDebug>
+#include <QDesktopWidget>
 #include <QMdiArea>
 #include <QMdiSubWindow>
-#include <QDesktopWidget>
 #include <QMessageBox>
-#include <QDebug>
+#include <QMouseEvent>
+#include <QSizeGrip>
+#include <QSplitter>
+#include <QUndoGroup>
 
 namespace {
 

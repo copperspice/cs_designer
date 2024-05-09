@@ -21,6 +21,7 @@
 #define LABEL_TASKMENU_H
 
 #include <designer_taskmenu.h>
+
 #include <extensionfactory_p.h>
 
 #include <QLabel>

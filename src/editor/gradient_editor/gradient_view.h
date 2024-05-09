@@ -22,13 +22,13 @@
 
 #include <ui_gradient_view.h>
 
+#include <QMap>
+#include <QWidget>
+
 class QtGradientManager;
 
-#include <QWidget>
-#include <QMap>
-
-class QListViewItem;
 class QAction;
+class QListViewItem;
 
 class QtGradientView : public QWidget
 {

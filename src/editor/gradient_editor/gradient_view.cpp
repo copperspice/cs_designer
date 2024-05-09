@@ -17,13 +17,13 @@
 *
 ***********************************************************************/
 
-#include <gradient_view.h>
-#include <gradient_manager.h>
 #include <gradient_dialog.h>
+#include <gradient_manager.h>
 #include <gradient_utils.h>
+#include <gradient_view.h>
 
-#include <QColor>
 #include <QClipboard>
+#include <QColor>
 #include <QMessageBox>
 #include <QPainter>
 

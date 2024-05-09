@@ -22,8 +22,8 @@
 
 #include <QWidget>
 
-class QSpinBox;
 class QComboBox;
+class QSpinBox;
 
 namespace qdesigner_internal {
 

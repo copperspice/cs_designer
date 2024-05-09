@@ -23,23 +23,23 @@
 
 #include <iconloader_p.h>
 
-#include <QTreeView>
-#include <QToolButton>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QFileDialog>
-#include <QStandardItemModel>
-#include <QMessageBox>
-#include <QFontDatabase>
-#include <QDialogButtonBox>
-#include <QSettings>
 #include <QCoreApplication>
-#include <QStringList>
-#include <QFileInfo>
-#include <qalgorithms.h>
-#include <QVector>
 #include <QDebug>
+#include <QDialogButtonBox>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QFontDatabase>
+#include <QHBoxLayout>
+#include <QMessageBox>
+#include <QSettings>
+#include <QSpacerItem>
+#include <QStandardItemModel>
+#include <QStringList>
+#include <QToolButton>
+#include <QTreeView>
+#include <QVBoxLayout>
+#include <QVector>
+#include <qalgorithms.h>
 
 #include <algorithm>
 

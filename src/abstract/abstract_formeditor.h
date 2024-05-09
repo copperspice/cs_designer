@@ -20,29 +20,29 @@
 #ifndef ABSTRACTFORMEDITOR_H
 #define ABSTRACTFORMEDITOR_H
 
-#include <abstract_settings.h>
 #include <abstract_formwindowmanager.h>
+#include <abstract_settings.h>
 #include <extension_manager.h>
 #include <gradient_manager.h>
 #include <resource_model.h>
 
-class QDesignerWidgetBoxInterface;
-class QDesignerPropertyEditorInterface;
-class QDesignerWidgetDataBaseInterface;
-class QDesignerMetaDataBaseInterface;
-class QDesignerWidgetFactoryInterface;
-class QDesignerObjectInspectorInterface;
-class QDesignerPromotionInterface;
-class QDesignerActionEditorInterface;
-class QDesignerIntegrationInterface;
-class QDesignerPluginManager;
-class QDesignerIntrospectionInterface;
-class QDesignerDialogGuiInterface;
-class QDesignerOptionsPageInterface;
-class QDesignerFormEditorInterfacePrivate;
-
 #include <QObject>
 #include <QPointer>
+
+class QDesignerActionEditorInterface;
+class QDesignerDialogGuiInterface;
+class QDesignerFormEditorInterfacePrivate;
+class QDesignerIntegrationInterface;
+class QDesignerIntrospectionInterface;
+class QDesignerMetaDataBaseInterface;
+class QDesignerObjectInspectorInterface;
+class QDesignerOptionsPageInterface;
+class QDesignerPluginManager;
+class QDesignerPromotionInterface;
+class QDesignerPropertyEditorInterface;
+class QDesignerWidgetBoxInterface;
+class QDesignerWidgetDataBaseInterface;
+class QDesignerWidgetFactoryInterface;
 
 class QIcon;
 

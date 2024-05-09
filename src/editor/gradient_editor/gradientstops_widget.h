@@ -22,9 +22,9 @@
 
 #include <gradientstops_model.h>
 
-class QtGradientStopsWidgetPrivate;
-
 #include <QAbstractScrollArea>
+
+class QtGradientStopsWidgetPrivate;
 
 class QtGradientStopsWidget : public QAbstractScrollArea
 {

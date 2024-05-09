@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
+#include <designer_widget.h>
+#include <extension.h>
 #include <formwindow.h>
 #include <spacer_propertysheet.h>
-#include <extension.h>
-#include <designer_widget.h>
 
 #include <spacer_widget_p.h>
 

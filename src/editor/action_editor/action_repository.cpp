@@ -19,25 +19,25 @@
 
 #include <abstract_formeditor.h>
 #include <action_repository.h>
-#include <designer_utils.h>
 #include <designer_propertysheet.h>
+#include <designer_utils.h>
 #include <extension.h>
 #include <resource_view.h>
 
 #include <iconloader_p.h>
 
-#include <QDrag>
-#include <QContextMenuEvent>
-#include <QStandardItemModel>
-#include <QToolButton>
-#include <QPixmap>
 #include <QAction>
-#include <QHeaderView>
-#include <QToolBar>
-#include <QMenu>
-#include <qevent.h>
-#include <QSet>
+#include <QContextMenuEvent>
 #include <QDebug>
+#include <QDrag>
+#include <QEvent>
+#include <QHeaderView>
+#include <QMenu>
+#include <QPixmap>
+#include <QSet>
+#include <QStandardItemModel>
+#include <QToolBar>
+#include <QToolButton>
 
 #include <qalgorithms.h>
 

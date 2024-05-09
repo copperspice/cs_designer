@@ -23,14 +23,14 @@
 #include <formbuilderextra.h>
 #include <utils.h>
 
+#include <QCoreApplication>
+#include <QLocale>
+#include <QMetaProperty>
+#include <QObject>
+#include <QWidget>
+
 class QAbstractFormBuilder;
 class DomProperty;
-
-#include <QObject>
-#include <QMetaProperty>
-#include <QLocale>
-#include <QCoreApplication>
-#include <QWidget>
 
 DomProperty *variantToDomProperty(QAbstractFormBuilder *abstractFormBuilder,
    const QMetaObject &meta, const QString &propertyName, const QVariant &value);

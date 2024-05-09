@@ -20,17 +20,18 @@
 #ifndef QTRESOURCEEDITOR_H
 #define QTRESOURCEEDITOR_H
 
-#include <abstract_formeditor.h>
 #include <abstract_dialoggui.h>
+#include <abstract_formeditor.h>
 #include <resource_model.h>
 
-class QtQrcFile;
-class QtResourcePrefix;
-class QtResourceFile;
-
 #include <QDialog>
+#include <QListWidgetItem>
 #include <QScopedPointer>
 #include <QStandardItem>
+
+class QtQrcFile;
+class QtResourceFile;
+class QtResourcePrefix;
 
 class QtResourceEditorDialog : public QDialog
 {

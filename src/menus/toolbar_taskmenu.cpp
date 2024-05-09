@@ -24,8 +24,8 @@
 #include <toolbar_taskmenu.h>
 
 #include <QAction>
-#include <QUndoStack>
 #include <QDebug>
+#include <QUndoStack>
 
 namespace qdesigner_internal {
 

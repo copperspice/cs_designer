@@ -21,29 +21,29 @@
 #include <abstract_formwindow.h>
 #include <abstract_language.h>
 #include <abstract_widgetdatabase.h>
+#include <designer_formbuilder.h>
 #include <extension.h>
 #include <newform_widget.h>
 #include <ui_new_form_widget.h>
 
-#include <designer_formbuilder.h>
+#include <shared_settings_p.h>
 #include <sheet_delegate_p.h>
 #include <widgetdatabase_p.h>
-#include <shared_settings_p.h>
 
+#include <QApplication>
+#include <QBuffer>
+#include <QByteArray>
+#include <QDebug>
+#include <QDesktopWidget>
+#include <QDir>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
-#include <QDebug>
-#include <QByteArray>
-#include <QBuffer>
-#include <QDir>
-#include <QTextStream>
-#include <QApplication>
-#include <QDesktopWidget>
 #include <QHeaderView>
-#include <QTreeWidgetItem>
 #include <QPainter>
 #include <QPushButton>
+#include <QTextStream>
+#include <QTreeWidgetItem>
 
 constexpr const int INDEX_OFFSET = 1;
 

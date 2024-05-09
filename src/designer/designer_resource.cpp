@@ -47,6 +47,7 @@
 #include <plugin_manager.h>
 #include <qmdiarea_container.h>
 #include <qwizard_container.h>
+
 #include <resource_model.h>
 #include <resourcebuilder.h>
 #include <textbuilder.h>

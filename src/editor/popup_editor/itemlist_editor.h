@@ -23,20 +23,20 @@
 #include <abstract_formwindow.h>
 #include <ui_edit_itemlist.h>
 
-class QtProperty;
-class QtVariantProperty;
-class QtTreePropertyBrowser;
-
 #include <QDialog>
+
+class QtProperty;
+class QtTreePropertyBrowser;
+class QtVariantProperty;
 
 class QSplitter;
 class QVBoxLayout;
 
 namespace qdesigner_internal {
 
+class DesignerEditorFactory;
 class DesignerIconCache;
 class DesignerPropertyManager;
-class DesignerEditorFactory;
 
 // Utility class that ensures a bool is true while in scope.
 // Courtesy of QBoolBlocker in qobject_p.h

@@ -25,11 +25,11 @@
 #include <QObject>
 #include <QPair>
 
-class QPoint;
-class QLayoutItem;
-class QWidget;
-class QRect;
 class QLayout;
+class QLayoutItem;
+class QPoint;
+class QRect;
+class QWidget;
 
 class QDesignerLayoutDecorationExtension
 {

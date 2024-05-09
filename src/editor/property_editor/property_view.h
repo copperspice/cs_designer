@@ -20,15 +20,15 @@
 #ifndef PROPERTY_VIEW_H
 #define PROPERTY_VIEW_H
 
+#include <QSet>
+#include <QWidget>
+
+class QtAbstractPropertyBrowser;
 class QtAbstractPropertyBrowserPrivate;
 class QtAbstractPropertyManager;
-class QtPropertyPrivate;
 class QtAbstractPropertyManagerPrivate;
-class QtAbstractPropertyBrowser;
 class QtBrowserItemPrivate;
-
-#include <QWidget>
-#include <QSet>
+class QtPropertyPrivate;
 
 class QtProperty
 {

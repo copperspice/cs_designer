@@ -20,11 +20,11 @@
 #ifndef FORMLAYOUTMENU
 #define FORMLAYOUTMENU
 
-class QDesignerFormWindowInterface;
-
 #include <QList>
 #include <QObject>
 #include <QPointer>
+
+class QDesignerFormWindowInterface;
 
 class QAction;
 class QWidget;

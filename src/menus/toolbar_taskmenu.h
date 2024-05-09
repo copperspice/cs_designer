@@ -24,8 +24,8 @@
 
 #include <extensionfactory_p.h>
 
-#include <QToolBar>
 #include <QStatusBar>
+#include <QToolBar>
 
 namespace qdesigner_internal {
 class PromotionTaskMenu;

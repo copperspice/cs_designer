@@ -17,17 +17,17 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
-#include <abstract_widgetdatabase.h>
+#include <abstract_formwindow.h>
 #include <abstract_language.h>
+#include <abstract_widgetdatabase.h>
 #include <extension.h>
 #include <extension_manager.h>
 #include <signalslot_dialog.h>
 
 #include <connectdialog_p.h>
-#include <signalslot_utils_p.h>
 #include <metadatabase_p.h>
+#include <signalslot_utils_p.h>
 
 #include <QPushButton>
 

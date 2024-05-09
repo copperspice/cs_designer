@@ -22,8 +22,8 @@
 
 #include <extension.h>
 
-#include <QList>
 #include <QByteArray>
+#include <QList>
 #include <QString>
 
 class QDesignerMemberSheetExtension

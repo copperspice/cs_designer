@@ -22,9 +22,9 @@
 
 #include <ui_signal_connect_dialog.h>
 
-class QDesignerFormWindowInterface;
-
 #include <QDialog>
+
+class QDesignerFormWindowInterface;
 
 class QPushButton;
 

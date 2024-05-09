@@ -20,11 +20,11 @@
 #ifndef TEXTBUILDER_H
 #define TEXTBUILDER_H
 
-class DomProperty;
-class DomString;
-
 #include <QList>
 #include <QString>
+
+class DomProperty;
+class DomString;
 
 class QDir;
 class QVariant;

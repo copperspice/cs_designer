@@ -17,14 +17,14 @@
 *
 ***********************************************************************/
 
-#include <line_propertysheet.h>
-#include <formwindow.h>
 #include <extension.h>
+#include <formwindow.h>
+#include <line_propertysheet.h>
 
+#include <QDebug>
 #include <QLayout>
 #include <QMetaObject>
 #include <QMetaProperty>
-#include <QDebug>
 
 using namespace qdesigner_internal;
 

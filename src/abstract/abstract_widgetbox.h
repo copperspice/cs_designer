@@ -20,9 +20,9 @@
 #ifndef ABSTRACTWIDGETBOX_H
 #define ABSTRACTWIDGETBOX_H
 
+#include <QIcon>
 #include <QSharedDataPointer>
 #include <QWidget>
-#include <QIcon>
 
 class DomUI;
 class QDesignerDnDItemInterface;

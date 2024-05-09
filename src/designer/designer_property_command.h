@@ -28,8 +28,8 @@
 #include <QVariant>
 
 class QDesignerFormWindowInterface;
-class QDesignerPropertySheetExtension;
 class QDesignerIntegration;
+class QDesignerPropertySheetExtension;
 
 namespace qdesigner_internal {
 

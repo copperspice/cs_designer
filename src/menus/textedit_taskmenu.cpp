@@ -17,12 +17,12 @@
 *
 ***********************************************************************/
 
-#include <textedit_taskmenu.h>
 #include <abstract_formwindow.h>
+#include <textedit_taskmenu.h>
 
 #include <QAction>
-#include <QEvent>
 #include <QDebug>
+#include <QEvent>
 
 namespace qdesigner_internal {
 

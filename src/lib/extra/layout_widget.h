@@ -28,10 +28,10 @@
 #include <QVariant>
 #include <QWidget>
 
-class QDesignerFormWindowInterface;
 class QDesignerFormEditorInterface;
-class QGridLayout;
+class QDesignerFormWindowInterface;
 class QFormLayout;
+class QGridLayout;
 
 namespace qdesigner_internal {
 

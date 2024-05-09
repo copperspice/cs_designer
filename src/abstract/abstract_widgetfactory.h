@@ -20,9 +20,9 @@
 #ifndef ABSTRACTWIDGETFACTORY_H
 #define ABSTRACTWIDGETFACTORY_H
 
-class QDesignerFormEditorInterface;
-
 #include <QObject>
+
+class QDesignerFormEditorInterface;
 
 class QWidget;
 class QLayout;

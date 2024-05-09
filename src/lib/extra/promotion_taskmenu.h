@@ -20,17 +20,17 @@
 #ifndef PROMOTIONTASKMENU_H
 #define PROMOTIONTASKMENU_H
 
-class QDesignerFormWindowInterface;
-class QDesignerFormEditorInterface;
-
 #include <QList>
 #include <QObject>
 #include <QPointer>
 
+class QDesignerFormEditorInterface;
+class QDesignerFormWindowInterface;
+
 class QAction;
 class QMenu;
-class QWidget;
 class QSignalMapper;
+class QWidget;
 
 namespace qdesigner_internal {
 

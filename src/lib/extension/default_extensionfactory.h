@@ -22,8 +22,8 @@
 
 #include <extension.h>
 
-#include <QMap>
 #include <QHash>
+#include <QMap>
 #include <QPair>
 
 class QExtensionManager;

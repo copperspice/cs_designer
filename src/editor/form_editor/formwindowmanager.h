@@ -22,16 +22,17 @@
 
 #include <designer_formwindow_manager.h>
 
-#include <QObject>
 #include <QList>
-#include <QPointer>
 #include <QMap>
+#include <QObject>
+#include <QPointer>
+
+class QDesignerFormEditorInterface;
+class QDesignerWidgetBoxInterface;
 
 class QAction;
 class QActionGroup;
 class QUndoGroup;
-class QDesignerFormEditorInterface;
-class QDesignerWidgetBoxInterface;
 
 namespace qdesigner_internal {
 

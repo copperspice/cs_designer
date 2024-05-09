@@ -22,10 +22,10 @@
 
 #include <QCoreApplication>
 #include <QDebug>
-#include <QPainter>
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QPaintEvent>
+#include <QPainter>
 
 namespace qdesigner_internal {
 

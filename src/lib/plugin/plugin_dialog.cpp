@@ -26,11 +26,11 @@
 
 #include <iconloader_p.h>
 
-#include <QStyle>
-#include <QHeaderView>
-#include <QPushButton>
 #include <QFileInfo>
+#include <QHeaderView>
 #include <QPluginLoader>
+#include <QPushButton>
+#include <QStyle>
 
 namespace qdesigner_internal {
 

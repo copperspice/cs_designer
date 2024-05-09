@@ -20,8 +20,8 @@
 #ifndef ABSTRACTPROMOTIONINTERFACE_H
 #define ABSTRACTPROMOTIONINTERFACE_H
 
-#include <QPair>
 #include <QList>
+#include <QPair>
 #include <QSet>
 
 class QDesignerWidgetDataBaseItemInterface;

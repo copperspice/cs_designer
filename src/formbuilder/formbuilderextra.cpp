@@ -18,20 +18,20 @@
 ***********************************************************************/
 
 #include <abstract_formbuilder.h>
-#include <utils.h>
 #include <formbuilderextra.h>
 #include <resourcebuilder.h>
 #include <textbuilder.h>
 #include <ui4.h>
+#include <utils.h>
 
-#include <QLabel>
 #include <QBoxLayout>
-#include <QGridLayout>
-#include <QVariant>
-#include <QDebug>
-#include <QTextStream>
-#include <QStringList>
 #include <QCoreApplication>
+#include <QDebug>
+#include <QGridLayout>
+#include <QLabel>
+#include <QStringList>
+#include <QTextStream>
+#include <QVariant>
 
 #include <limits.h>
 

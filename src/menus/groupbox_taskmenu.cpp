@@ -17,9 +17,9 @@
 *
 ***********************************************************************/
 
+#include <abstract_formwindow.h>
 #include <groupbox_taskmenu.h>
 #include <inplace_editor.h>
-#include <abstract_formwindow.h>
 
 #include <QAction>
 #include <QStyle>

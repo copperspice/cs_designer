@@ -19,25 +19,25 @@
 
 #include <customwidget.h>
 #include <formbuilder.h>
-#include <table_classes.h>
 #include <formbuilderextra.h>
+#include <table_classes.h>
 #include <textbuilder.h>
-#include <ui_loader.h>
 #include <ui4.h>
+#include <ui_loader.h>
 
 #include <ui_loader_p.h>
 
-#include <QDebug>
-#include <QDataStream>
 #include <QAction>
 #include <QActionGroup>
 #include <QApplication>
+#include <QDataStream>
+#include <QDebug>
 #include <QDir>
 #include <QFontComboBox>
-#include <QLibraryInfo>
 #include <QLayout>
-#include <QWidget>
+#include <QLibraryInfo>
 #include <QMap>
+#include <QWidget>
 
 typedef QMap<QString, bool> widget_map;
 Q_GLOBAL_STATIC(widget_map, g_widgets)

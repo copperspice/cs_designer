@@ -21,16 +21,17 @@
 #define BUTTON_TASKMENU_H
 
 #include <designer_taskmenu.h>
+
 #include <extensionfactory_p.h>
+
+#include <QAbstractButton>
+#include <QButtonGroup>
+#include <QCommandLinkButton>
 
 class QDesignerFormWindowCursorInterface;
 
-#include <QAbstractButton>
-#include <QCommandLinkButton>
-#include <QButtonGroup>
-
-class QMenu;
 class QActionGroup;
+class QMenu;
 
 namespace qdesigner_internal {
 

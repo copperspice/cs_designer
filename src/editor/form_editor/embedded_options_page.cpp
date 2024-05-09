@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <abstract_formeditor.h>
 #include <abstract_dialoggui.h>
+#include <abstract_formeditor.h>
 #include <deviceprofiledialog.h>
 #include <embedded_options_page.h>
 #include <formwindowmanager.h>

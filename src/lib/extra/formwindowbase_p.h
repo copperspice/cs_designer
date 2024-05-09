@@ -22,23 +22,23 @@
 
 #include <abstract_formwindow.h>
 
+#include <QList>
+#include <QVariant>
+
 class QDesignerDnDItemInterface;
 class QtResourceSet;
 class QDesignerPropertySheet;
-
-#include <QVariant>
-#include <QList>
 
 class QMenu;
 
 namespace qdesigner_internal {
 
-class QEditorFormBuilder;
-class DeviceProfile;
-class Grid;
-class DesignerPixmapCache;
 class DesignerIconCache;
+class DesignerPixmapCache;
+class DeviceProfile;
 class FormWindowBasePrivate;
+class Grid;
+class QEditorFormBuilder;
 
 class FormWindowBase: public QDesignerFormWindowInterface
 {

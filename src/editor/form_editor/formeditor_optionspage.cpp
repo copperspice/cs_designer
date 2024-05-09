@@ -18,23 +18,23 @@
 ***********************************************************************/
 
 #include <abstract_formeditor.h>
+#include <abstract_formwindowmanager.h>
 #include <formeditor_optionspage.h>
 #include <preview_config_widget.h>
 
 #include <formwindowbase_p.h>
-#include <gridpanel_p.h>
+#include <formwindowbase_p.h>
 #include <grid_p.h>
+#include <gridpanel_p.h>
 #include <shared_settings_p.h>
 #include <zoomwidget_p.h>
-#include <abstract_formwindowmanager.h>
-#include <formwindowbase_p.h>
 
-#include <QString>
-#include <QCoreApplication>
-#include <QGroupBox>
-#include <QVBoxLayout>
-#include <QFormLayout>
 #include <QComboBox>
+#include <QCoreApplication>
+#include <QFormLayout>
+#include <QGroupBox>
+#include <QString>
+#include <QVBoxLayout>
 
 namespace qdesigner_internal {
 

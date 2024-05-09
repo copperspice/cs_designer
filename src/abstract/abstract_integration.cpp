@@ -17,32 +17,32 @@
 *
 ***********************************************************************/
 
-#include <abstract_integration.h>
-#include <abstract_formwindow.h>
-#include <abstract_formwindowmanager.h>
-#include <abstract_formwindowcursor.h>
-#include <abstract_formeditor.h>
 #include <abstract_actioneditor.h>
-#include <abstract_widgetbox.h>
-#include <abstract_resourcebrowser.h>
-#include <propertysheet.h>
+#include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
+#include <abstract_formwindowcursor.h>
+#include <abstract_formwindowmanager.h>
+#include <abstract_integration.h>
 #include <abstract_propertyeditor.h>
+#include <abstract_resourcebrowser.h>
+#include <abstract_widgetbox.h>
+#include <designer_object_inspector.h>
+#include <designer_property_command.h>
+#include <designer_property_editor.h>
+#include <designer_widgetbox.h>
 #include <extension_manager.h>
 #include <gradient_manager.h>
 #include <gradient_utils.h>
-#include <designer_widgetbox.h>
+#include <propertysheet.h>
 #include <resource_model.h>
-#include <designer_property_command.h>
-#include <designer_property_editor.h>
-#include <designer_object_inspector.h>
 #include <widgetfactory.h>
 
 #include <widgetdatabase_p.h>
 
-#include <QVariant>
-#include <QFile>
-#include <QDir>
 #include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QVariant>
 
 class QDesignerIntegrationInterfacePrivate
 {

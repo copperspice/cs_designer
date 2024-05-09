@@ -30,9 +30,10 @@
 #include <QPointer>
 #include <QVariant>
 
-class QLayout;
 class QDesignerFormEditorInterface;
 class QDesignerPropertySheetPrivate;
+
+class QLayout;
 
 namespace qdesigner_internal {
 class DesignerPixmapCache;

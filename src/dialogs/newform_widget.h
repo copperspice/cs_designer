@@ -25,11 +25,11 @@
 
 #include <deviceprofile_p.h>
 
-#include <QWidget>
+#include <QMap>
+#include <QPair>
 #include <QPixmap>
 #include <QStringList>
-#include <QPair>
-#include <QMap>
+#include <QWidget>
 
 class QIODevice;
 class QTreeWidgetItem;

@@ -18,14 +18,14 @@
 ***********************************************************************/
 
 #include <default_actionprovider.h>
+#include <designer_toolbar.h>
 
 #include <invisible_widget_p.h>
-#include <designer_toolbar.h>
 
 #include <QAction>
 #include <QApplication>
-#include <QRect>
 #include <QDebug>
+#include <QRect>
 
 namespace qdesigner_internal {
 

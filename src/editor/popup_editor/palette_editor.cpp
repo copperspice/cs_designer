@@ -21,14 +21,14 @@
 #include <color_button.h>
 #include <palette_editor.h>
 
-#include <iconloader_p.h>
 #include <formwindowbase_p.h>
+#include <iconloader_p.h>
 
+#include <QHeaderView>
+#include <QLabel>
 #include <QMetaProperty>
 #include <QPainter>
 #include <QToolButton>
-#include <QLabel>
-#include <QHeaderView>
 
 namespace qdesigner_internal {
 

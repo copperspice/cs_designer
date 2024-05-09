@@ -21,26 +21,26 @@
 #include <abstract_formwindow.h>
 #include <abstract_widgetdatabase.h>
 #include <container.h>
+#include <designer_property_command.h>
+#include <designer_utils.h>
 #include <extension.h>
 #include <extension_manager.h>
 #include <layout.h>
-#include <object_inspector_model.h>
 #include <layout_widget.h>
-#include <designer_property_command.h>
-#include <designer_utils.h>
+#include <object_inspector_model.h>
 #include <utils.h>
 
-#include <metadatabase_p.h>
 #include <iconloader_p.h>
+#include <metadatabase_p.h>
 
-#include <QLayout>
 #include <QAction>
+#include <QButtonGroup>
+#include <QCoreApplication>
+#include <QDebug>
+#include <QLayout>
 #include <QLayoutItem>
 #include <QMenu>
-#include <QButtonGroup>
 #include <QSet>
-#include <QDebug>
-#include <QCoreApplication>
 
 #include <algorithm>
 

@@ -20,14 +20,14 @@
 #ifndef ABSTRACTMETADATABASE_H
 #define ABSTRACTMETADATABASE_H
 
-#include <QObject>
-#include <QList>
 #include <QHash>
+#include <QList>
+#include <QObject>
+
+class QDesignerFormEditorInterface;
 
 class QCursor;
 class QWidget;
-
-class QDesignerFormEditorInterface;
 
 class QDesignerMetaDataBaseItemInterface
 {

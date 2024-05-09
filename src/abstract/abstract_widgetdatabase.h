@@ -22,12 +22,12 @@
 
 class QDesignerFormEditorInterface;
 
-#include <QObject>
 #include <QList>
+#include <QObject>
 #include <QString>
 
-class QIcon;
 class QDebug;
+class QIcon;
 
 class QDesignerWidgetDataBaseItemInterface
 {

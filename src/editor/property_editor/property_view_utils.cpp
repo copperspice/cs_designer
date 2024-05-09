@@ -20,13 +20,13 @@
 #include <property_view_utils.h>
 
 #include <QApplication>
-#include <QPainter>
-#include <QHBoxLayout>
-#include <QMouseEvent>
 #include <QCheckBox>
+#include <QHBoxLayout>
 #include <QLineEdit>
-#include <QMenu>
 #include <QLocale>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QPainter>
 
 QtCursorDatabase::QtCursorDatabase()
 {

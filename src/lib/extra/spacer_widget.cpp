@@ -19,7 +19,6 @@
 
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
-#include <abstract_formwindow.h>
 #include <designer_propertysheet.h>
 #include <extension.h>
 #include <layout_info.h>

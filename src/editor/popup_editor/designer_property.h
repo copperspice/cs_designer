@@ -21,34 +21,34 @@
 #define DESIGNER_PROPERTY_H
 
 #include <brush_property.h>
-#include <font_property.h>
-#include <edit_variant_property.h>
-
 #include <designer_utils.h>
+#include <edit_variant_property.h>
+#include <font_property.h>
+
 #include <shared_enums_p.h>
 
-#include <QUrl>
-#include <QMap>
 #include <QFont>
 #include <QIcon>
-
 typedef QPair<QString, uint> DesignerIntPair;
 typedef QList<DesignerIntPair> DesignerFlagList;
+#include <QMap>
+#include <QUrl>
 
 class QDesignerFormEditorInterface;
+
+class QKeySequenceEdit;
 class QLineEdit;
 class QUrl;
-class QKeySequenceEdit;
 
 namespace qdesigner_internal {
 
-class ResetWidget;
 
-class TextEditor;
+class FormWindowBase;
 class PaletteEditorButton;
 class PixmapEditor;
+class ResetWidget;
 class StringListEditorButton;
-class FormWindowBase;
+class TextEditor;
 
 class ResetDecorator : public QObject
 {

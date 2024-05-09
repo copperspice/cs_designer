@@ -20,18 +20,18 @@
 #ifndef PREVIEW_MANAGER_H
 #define PREVIEW_MANAGER_H
 
-#include <abstract_settings.h>
 #include <abstract_formwindow.h>
+#include <abstract_settings.h>
 
 #include <QObject>
-#include <QString>
 #include <QSharedDataPointer>
+#include <QString>
 
-class QWidget;
-class QPixmap;
 class QAction;
 class QActionGroup;
 class QMenu;
+class QPixmap;
+class QWidget;
 class QWidget;
 
 namespace qdesigner_internal {

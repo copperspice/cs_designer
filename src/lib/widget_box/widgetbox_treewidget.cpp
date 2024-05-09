@@ -20,28 +20,26 @@
 #include <abstract_formeditor.h>
 #include <abstract_settings.h>
 #include <customwidget.h>
+#include <designer_dnditem.h>
 #include <designer_settings.h>
-#include <widgetbox_treewidget.h>
-#include <widgetbox_categorylistview.h>
-#include <ui4.h>
 #include <designer_utils.h>
 #include <plugin_manager.h>
-#include <designer_dnditem.h>
+#include <ui4.h>
+#include <widgetbox_categorylistview.h>
+#include <widgetbox_treewidget.h>
 
 #include <iconloader_p.h>
 #include <sheet_delegate_p.h>
 
-#include <QHeaderView>
-#include <QApplication>
-#include <QTreeWidgetItem>
-#include <QContextMenuEvent>
 #include <QAction>
 #include <QActionGroup>
-#include <QMenu>
-#include <QFile>
-#include <QTimer>
+#include <QApplication>
+#include <QContextMenuEvent>
 #include <QDebug>
-
+#include <QFile>
+#include <QHeaderView>
+#include <QMenu>
+#include <QTimer>
 static const QString widgetBoxRootElementC = "widgetbox";
 static const QString widgetElementC        = "widget";
 static const QString uiElementC            = "ui";

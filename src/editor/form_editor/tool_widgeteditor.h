@@ -22,7 +22,7 @@
 
 #include <abstract_formwindowtool.h>
 
-#include <qevent.h>
+#include <QEvent>
 #include <QPointer>
 
 class QAction;

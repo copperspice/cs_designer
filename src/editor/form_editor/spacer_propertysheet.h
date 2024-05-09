@@ -21,6 +21,7 @@
 #define SPACER_PROPERTYSHEET_H
 
 #include <designer_propertysheet.h>
+
 #include <extensionfactory_p.h>
 #include <spacer_widget_p.h>
 

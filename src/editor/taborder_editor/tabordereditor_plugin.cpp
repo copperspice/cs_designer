@@ -17,11 +17,11 @@
 *
 ***********************************************************************/
 
-#include <tabordereditor_plugin.h>
-#include <tabordereditor_tool.h>
-#include <abstract_formwindowmanager.h>
 #include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
+#include <abstract_formwindowmanager.h>
+#include <tabordereditor_plugin.h>
+#include <tabordereditor_tool.h>
 
 #include <formwindowbase_p.h>
 

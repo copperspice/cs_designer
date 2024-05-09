@@ -17,21 +17,21 @@
 *
 ***********************************************************************/
 
-#include <treewidget_editor.h>
 #include <abstract_formbuilder.h>
-#include <designer_property.h>
-#include <property_view_tree.h>
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
+#include <designer_command.h>
+#include <designer_property.h>
+#include <designer_utils.h>
+#include <property_view_tree.h>
+#include <treewidget_editor.h>
 
 #include <formwindowbase_p.h>
 #include <iconloader_p.h>
-#include <designer_command.h>
-#include <designer_utils.h>
 
 #include <QDir>
-#include <QQueue>
 #include <QHeaderView>
+#include <QQueue>
 #include <QTreeWidgetItemIterator>
 
 namespace qdesigner_internal {

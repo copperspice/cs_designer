@@ -22,13 +22,13 @@
 
 #include <layout_info.h>
 
-#include <QStandardItemModel>
 #include <QIcon>
-#include <QModelIndex>
-#include <QString>
 #include <QList>
+#include <QModelIndex>
 #include <QMultiMap>
 #include <QPointer>
+#include <QStandardItemModel>
+#include <QString>
 
 class QDesignerFormWindowInterface;
 

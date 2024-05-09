@@ -22,21 +22,21 @@
 
 #include <edit_property_manager.h>
 
-class QtSpinBoxFactoryPrivate;
+class QtCharEditorFactoryPrivate;
+class QtCheckBoxFactoryPrivate;
+class QtColorEditorFactoryPrivate;
+class QtCursorEditorFactoryPrivate;
+class QtDateEditFactoryPrivate;
+class QtDateTimeEditFactoryPrivate;
+class QtDoubleSpinBoxFactoryPrivate;
+class QtEnumEditorFactoryPrivate;
+class QtFontEditorFactoryPrivate;
+class QtKeySequenceEditorFactoryPrivate;
+class QtLineEditFactoryPrivate;
 class QtScrollBarFactoryPrivate;
 class QtSliderFactoryPrivate;
-class QtFontEditorFactoryPrivate;
-class QtColorEditorFactoryPrivate;
-class QtCheckBoxFactoryPrivate;
-class QtCursorEditorFactoryPrivate;
-class QtEnumEditorFactoryPrivate;
-class QtDoubleSpinBoxFactoryPrivate;
-class QtLineEditFactoryPrivate;
-class QtDateEditFactoryPrivate;
+class QtSpinBoxFactoryPrivate;
 class QtTimeEditFactoryPrivate;
-class QtDateTimeEditFactoryPrivate;
-class QtCharEditorFactoryPrivate;
-class QtKeySequenceEditorFactoryPrivate;
 
 class QtSpinBoxFactory : public QtAbstractEditorFactory<QtIntPropertyManager>
 {

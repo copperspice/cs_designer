@@ -22,8 +22,9 @@
 
 #include <QObject>
 
-class QDesignerFormEditorInterface;
 class QAction;
+
+class QDesignerFormEditorInterface;
 
 class QDesignerFormEditorPluginInterface
 {

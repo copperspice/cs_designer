@@ -20,15 +20,15 @@
 #ifndef TOOLBAR_DIALOG_H
 #define TOOLBAR_DIALOG_H
 
-class QtToolBarManagerPrivate;
-class QtToolBarDialogPrivate;
-
 #include <QDialog>
 #include <QListWidgetItem>
 #include <QTreeWidgetItem>
 
-class QMainWindow;
+class QtToolBarManagerPrivate;
+class QtToolBarDialogPrivate;
+
 class QAction;
+class QMainWindow;
 class QToolBar;
 
 class QtToolBarManager : public QObject

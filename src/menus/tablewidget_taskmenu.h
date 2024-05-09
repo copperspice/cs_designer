@@ -21,13 +21,15 @@
 #define TABLEWIDGET_TASKMENU_H
 
 #include <designer_taskmenu.h>
+
 #include <extensionfactory_p.h>
 
 #include <QTableWidget>
 #include <QPointer>
 
-class QLineEdit;
 class QDesignerFormWindowInterface;
+
+class QLineEdit;
 
 namespace qdesigner_internal {
 

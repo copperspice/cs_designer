@@ -17,18 +17,18 @@
 *
 ***********************************************************************/
 
-#include <tablewidget_taskmenu.h>
-#include <tablewidget_editor.h>
 #include <abstract_formwindow.h>
+#include <tablewidget_editor.h>
+#include <tablewidget_taskmenu.h>
 
-#include <QTableWidget>
 #include <QAction>
+#include <QDebug>
+#include <QEvent>
 #include <QLineEdit>
 #include <QStyle>
 #include <QStyleOption>
-#include <QEvent>
+#include <QTableWidget>
 #include <QVariant>
-#include <QDebug>
 
 using namespace qdesigner_internal;
 

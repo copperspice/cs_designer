@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <layout_taskmenu.h>
 #include <abstract_formwindow.h>
+#include <layout_taskmenu.h>
 
 #include <formlayoutmenu_p.h>
 #include <morphmenu_p.h>

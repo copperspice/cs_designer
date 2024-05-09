@@ -17,43 +17,43 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindowcursor.h>
-#include <signalsloteditorwindow.h>
-#include <signalsloteditor.h>
-#include <utils.h>
-#include <abstract_formwindow.h>
+#include <abstract_dialoggui.h>
 #include <abstract_formeditor.h>
-#include <extension.h>
-#include <extension_manager.h>
+#include <abstract_formwindow.h>
+#include <abstract_formwindowcursor.h>
 #include <abstract_integration.h>
 #include <container.h>
+#include <extension.h>
+#include <extension_manager.h>
+#include <signalsloteditor.h>
+#include <signalsloteditorwindow.h>
+#include <utils.h>
 
-#include <signalslot_utils_p.h>
-#include <iconloader_p.h>
-#include <spacer_widget_p.h>
-#include <layout_widget.h>
-#include <signalsloteditor_p.h>
 #include <formwindowbase_p.h>
+#include <iconloader_p.h>
+#include <layout_widget.h>
 #include <metadatabase_p.h>
-#include <abstract_dialoggui.h>
+#include <signalslot_utils_p.h>
+#include <signalsloteditor_p.h>
+#include <spacer_widget_p.h>
 
 #include <QAbstractItemModel>
-#include <QDebug>
 #include <QAction>
+#include <QApplication>
 #include <QButtonGroup>
+#include <QButtonGroup>
+#include <QComboBox>
+#include <QDebug>
+#include <QHeaderView>
+#include <QItemDelegate>
+#include <QItemEditorFactory>
 #include <QMenu>
 #include <QSortFilterProxyModel>
 #include <QStandardItemModel>
-#include <QComboBox>
-#include <QApplication>
-#include <QItemDelegate>
-#include <QItemEditorFactory>
-#include <QTreeView>
-#include <QHeaderView>
-#include <QVBoxLayout>
-#include <QToolButton>
-#include <QButtonGroup>
 #include <QToolBar>
+#include <QToolButton>
+#include <QTreeView>
+#include <QVBoxLayout>
 
 // Add suitable form widgets to a list of objects for the  signal slot
 // editor. Prevent special widgets from showing up there.

@@ -22,9 +22,9 @@
 
 #include <extension.h>
 
+#include <QApplication>
 #include <QPoint>
 #include <QRect>
-#include <QApplication>
 
 class QAction;
 

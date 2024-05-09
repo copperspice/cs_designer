@@ -17,21 +17,21 @@
 *
 ***********************************************************************/
 
-#include <widgetbox.h>
-#include <widgetbox_treewidget.h>
-#include <widgetbox_dnditem.h>
 #include <abstract_formeditor.h>
 #include <designer_utils.h>
-#include <formwindowbase_p.h>
+#include <widgetbox.h>
+#include <widgetbox_dnditem.h>
+#include <widgetbox_treewidget.h>
 
+#include <formwindowbase_p.h>
 #include <iconloader_p.h>
 
-#include <QDropEvent>
-#include <QVBoxLayout>
 #include <QApplication>
-#include <QToolBar>
-#include <QLineEdit>
+#include <QDropEvent>
 #include <QIcon>
+#include <QLineEdit>
+#include <QToolBar>
+#include <QVBoxLayout>
 
 namespace qdesigner_internal {
 

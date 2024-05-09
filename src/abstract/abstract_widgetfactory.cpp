@@ -17,9 +17,9 @@
 *
 ***********************************************************************/
 
-#include <abstract_widgetfactory.h>
 #include <abstract_formeditor.h>
 #include <abstract_widgetdatabase.h>
+#include <abstract_widgetfactory.h>
 
 QDesignerWidgetFactoryInterface::QDesignerWidgetFactoryInterface(QObject *parent)
    : QObject(parent)

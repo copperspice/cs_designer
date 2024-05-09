@@ -19,37 +19,37 @@
 
 #include <abstract_formeditor.h>
 #include <designer_settings.h>
-#include <ui_richtext_addlink.h>
 #include <richtext_editor.h>
+#include <ui_richtext_addlink.h>
 
 #include <htmlhighlighter_p.h>
-#include <iconselector_p.h>
 #include <iconloader_p.h>
+#include <iconselector_p.h>
 
-#include <QList>
-#include <QMap>
-#include <QPointer>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
-#include <QXmlStreamAttributes>
 #include <QAction>
 #include <QColorDialog>
 #include <QComboBox>
+#include <QDialogButtonBox>
 #include <QFontDatabase>
-#include <QTextCursor>
-#include <QPainter>
+#include <QHBoxLayout>
 #include <QIcon>
+#include <QList>
+#include <QMap>
 #include <QMenu>
 #include <QMoveEvent>
+#include <QPainter>
+#include <QPointer>
+#include <QPushButton>
 #include <QTabWidget>
-#include <QTextDocument>
 #include <QTextBlock>
+#include <QTextCursor>
+#include <QTextDocument>
 #include <QToolBar>
 #include <QToolButton>
 #include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QDialogButtonBox>
+#include <QXmlStreamAttributes>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 static const QString RichTextDialogGroupC = "RichTextDialog";
 static const QString GeometryKeyC         = "Geometry";

@@ -20,18 +20,17 @@
 #ifndef ACTION_REPOSITORY_H
 #define ACTION_REPOSITORY_H
 
+#include <QIcon>
+#include <QListView>
 #include <QMimeData>
+#include <QStackedWidget>
 #include <QStandardItemModel>
 #include <QTreeView>
-#include <QListView>
-#include <QStackedWidget>
-#include <QIcon>
-
-class QPixmap;
 
 class QDesignerFormEditorInterface;
 class QDesignerPropertySheetExtension;
 
+class QPixmap;
 namespace qdesigner_internal {
 
 class PropertySheetKeySequenceValue;

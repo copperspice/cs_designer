@@ -22,8 +22,8 @@
 
 #include <QObject>
 
-class QUndoStack;
 class QUndoCommand;
+class QUndoStack;
 
 namespace qdesigner_internal {
 

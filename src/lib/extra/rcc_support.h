@@ -24,10 +24,10 @@
 #include <QString>
 #include <QStringList>
 
+class RCCFileInfo;
+
 class QIODevice;
 class QTextStream;
-
-class RCCFileInfo;
 
 class RCC_Support
 {

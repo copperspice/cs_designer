@@ -19,12 +19,12 @@
 
 #include <gradient_widget.h>
 
-#include <QMap>
 #include <QImage>
-#include <QPainter>
-#include <QScrollBar>
+#include <QMap>
 #include <QMouseEvent>
+#include <QPainter>
 #include <QRegion>
+#include <QScrollBar>
 
 #include <math.h>
 

@@ -20,15 +20,15 @@
 #ifndef QDESIGNER_MENU_H
 #define QDESIGNER_MENU_H
 
-class QDesignerActionProviderExtension;
-class QDesignerFormWindowInterface;
-class QDesignerMenu;
-class QDesignerMenuBar;
-
 #include <QAction>
 #include <QHash>
 #include <QMenu>
 #include <QPixmap>
+
+class QDesignerActionProviderExtension;
+class QDesignerFormWindowInterface;
+class QDesignerMenu;
+class QDesignerMenuBar;
 
 class QLineEdit;
 class QMimeData;

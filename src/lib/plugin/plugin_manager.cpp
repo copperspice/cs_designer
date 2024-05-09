@@ -17,28 +17,28 @@
 *
 ***********************************************************************/
 
+#include <abstract_formeditor.h>
 #include <abstract_language.h>
 #include <customwidget.h>
-#include <abstract_formeditor.h>
+#include <designer_qsettings.h>
+#include <designer_utils.h>
 #include <extension.h>
 #include <plugin_manager.h>
-#include <designer_utils.h>
-#include <designer_qsettings.h>
 
+#include <QCoreApplication>
+#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
-#include <QSet>
-#include <QPluginLoader>
 #include <QLibrary>
 #include <QLibraryInfo>
-#include <QDebug>
 #include <QMap>
+#include <QPluginLoader>
+#include <QSet>
 #include <QSettings>
-#include <QCoreApplication>
-#include <QXmlStreamReader>
-#include <QXmlStreamAttributes>
 #include <QXmlStreamAttribute>
+#include <QXmlStreamAttributes>
+#include <QXmlStreamReader>
 
 static const QString uiElementC              = "ui";
 static const QString languageAttributeC      = "language";

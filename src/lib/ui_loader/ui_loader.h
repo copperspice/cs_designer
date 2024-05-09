@@ -20,18 +20,18 @@
 #ifndef QUILOADER_H
 #define QUILOADER_H
 
-class QUiLoaderPrivate;
-
 #include <QObject>
 #include <QScopedPointer>
 #include <QString>
 
-class QWidget;
-class QLayout;
+class QUiLoaderPrivate;
+
 class QAction;
 class QActionGroup;
-class QIODevice;
 class QDir;
+class QIODevice;
+class QLayout;
+class QWidget;
 
 class QUiLoader : public QObject
 {

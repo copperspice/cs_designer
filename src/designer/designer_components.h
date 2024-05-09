@@ -20,13 +20,13 @@
 #ifndef QDESIGNER_COMPONENTS_H
 #define QDESIGNER_COMPONENTS_H
 
-class QDesignerFormEditorInterface;
-class QDesignerWidgetBoxInterface;
-class QDesignerPropertyEditorInterface;
-class QDesignerObjectInspectorInterface;
-class QDesignerActionEditorInterface;
+#include <QGlobal>
 
-#include <qglobal.h>
+class QDesignerActionEditorInterface;
+class QDesignerFormEditorInterface;
+class QDesignerObjectInspectorInterface;
+class QDesignerPropertyEditorInterface;
+class QDesignerWidgetBoxInterface;
 
 class QObject;
 class QWidget;

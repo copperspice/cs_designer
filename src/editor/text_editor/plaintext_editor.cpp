@@ -17,14 +17,14 @@
 *
 ***********************************************************************/
 
-#include <designer_settings.h>
 #include <abstract_formeditor.h>
 #include <abstract_settings.h>
+#include <designer_settings.h>
 #include <plaintext_editor.h>
 
 #include <QDialogButtonBox>
-#include <QVBoxLayout>
 #include <QPushButton>
+#include <QVBoxLayout>
 
 static const QString PlainTextDialogC = "PlainTextDialog";
 static const QString Geometry = "Geometry";

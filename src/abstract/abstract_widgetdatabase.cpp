@@ -18,6 +18,7 @@
 ***********************************************************************/
 
 #include <abstract_widgetdatabase.h>
+
 #include <QDebug>
 
 #include <qalgorithms.h>

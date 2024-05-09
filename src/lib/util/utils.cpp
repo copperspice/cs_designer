@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <QObject>
 #include <QMessageBox>
+#include <QObject>
 #include <QWidget>
 
 bool compareMetaObject(const QMetaObject &a, const QMetaObject &b)

@@ -30,7 +30,6 @@
 
 #include <invisible_widget_p.h>
 
-#include <qalgorithms.h>
 #include <QApplication>
 #include <QDebug>
 #include <QEvent>
@@ -43,6 +42,8 @@
 #include <QSet>
 #include <QStack>
 #include <QVBoxLayout>
+
+#include <qalgorithms.h>
 
 #include <algorithm>
 

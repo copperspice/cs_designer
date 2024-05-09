@@ -27,7 +27,6 @@
 #include <formeditor.h>
 #include <object_inspector.h>
 #include <property_editor.h>
-#include <qplugin.h>
 #include <resource_view.h>
 #include <signalsloteditor_plugin.h>
 #include <signalsloteditorwindow.h>
@@ -45,6 +44,7 @@
 #include <QTextStream>
 
 /* emerald - unused, plugins
+#include <QPlugin>
 
 void QDesignerComponents::initializePlugins(QDesignerFormEditorInterface *core)
 {

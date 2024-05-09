@@ -17,15 +17,14 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
 #include <abstract_formwindow.h>
 #include <abstract_formwindowcursor.h>
 #include <abstract_language.h>
-#include <inplace_editor.h>
-#include <extension.h>
-
 #include <designer_propertysheet.h>
+#include <extension.h>
+#include <inplace_editor.h>
 
 #include <QVariant>
 

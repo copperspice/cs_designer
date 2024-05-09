@@ -20,39 +20,41 @@
 #ifndef ABSTRACTFORMBUILDER_H
 #define ABSTRACTFORMBUILDER_H
 
+#include <QDir>
+#include <QHash>
+#include <QList>
+#include <QPalette>
+#include <QScopedPointer>
+#include <QSizePolicy>
+
 class DomAction;
 class DomActionGroup;
-class DomButtonGroup;
-class DomButtonGroups;
 class DomActionRef;
 class DomBrush;
+class DomButtonGroup;
+class DomButtonGroups;
 class DomColorGroup;
 class DomConnections;
 class DomCustomWidgets;
 class DomLayout;
 class DomLayoutItem;
 class DomProperty;
+class DomResourcePixmap;
 class DomResources;
 class DomSpacer;
 class DomString;
 class DomTabStops;
 class DomUI;
 class DomWidget;
-class DomResourcePixmap;
+class QFormBuilderExtra;
 class QResourceBuilder;
 class QTextBuilder;
-class QFormBuilderExtra;
 
-#include <QList>
-#include <QHash>
-#include <QDir>
-#include <QScopedPointer>
-#include <QSizePolicy>
-#include <QPalette>
-
+class QAbstractButton;
+class QAbstractItemView;
 class QAction;
-class QButtonGroup;
 class QActionGroup;
+class QButtonGroup;
 class QComboBox;
 class QIODevice;
 class QIcon;
@@ -61,12 +63,10 @@ class QLayoutItem;
 class QListWidget;
 class QObject;
 class QSpacerItem;
-class QTreeWidget;
 class QTableWidget;
+class QTreeWidget;
 class QVariant;
 class QWidget;
-class QAbstractButton;
-class QAbstractItemView;
 
 class QAbstractFormBuilder
 {

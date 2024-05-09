@@ -22,23 +22,23 @@
 
 #include <designer_settings.h>
 
+#include <QObject>
+#include <QPointer>
+#include <QPrinter>
+
 class AppFontDialog;
 class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;
 class QDesignerWorkbench;
 
-#include <QObject>
-#include <QPointer>
-#include <QPrinter>
-
-class QDir;
-class QTimer;
 class QAction;
 class QActionGroup;
-class QRect;
-class QWidget;
-class QPixmap;
+class QDir;
 class QMenu;
+class QPixmap;
+class QRect;
+class QTimer;
+class QWidget;
 
 namespace qdesigner_internal {
 class PreviewConfiguration;

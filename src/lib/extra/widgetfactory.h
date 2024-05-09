@@ -23,8 +23,8 @@
 #include <abstract_widgetfactory.h>
 #include <plugin_manager.h>
 
-class QDesignerFormEditorInterface;
 class QDesignerCustomWidgetInterface;
+class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;
 
 #include <QHash>
@@ -33,9 +33,9 @@ class QDesignerFormWindowInterface;
 #include <QPointer>
 #include <QVariant>
 
-class QWidget;
 class QLayout;
 class QStyle;
+class QWidget;
 
 namespace qdesigner_internal {
 

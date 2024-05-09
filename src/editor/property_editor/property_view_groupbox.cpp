@@ -19,12 +19,12 @@
 
 #include <property_view_groupbox.h>
 
-#include <QSet>
 #include <QGridLayout>
-#include <QLabel>
 #include <QGroupBox>
-#include <QTimer>
+#include <QLabel>
 #include <QMap>
+#include <QSet>
+#include <QTimer>
 
 class QtGroupBoxPropertyBrowserPrivate
 {

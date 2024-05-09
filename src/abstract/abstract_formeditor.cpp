@@ -17,18 +17,18 @@
 *
 ***********************************************************************/
 
-#include <abstract_formeditor.h>
-#include <abstract_optionspage.h>
-#include <abstract_settings.h>
-#include <abstract_promotioninterface.h>
-#include <abstract_propertyeditor.h>
-#include <abstract_formwindowmanager.h>
-#include <abstract_metadatabase.h>
-#include <abstract_objectinspector.h>
-#include <abstract_integration.h>
 #include <abstract_actioneditor.h>
 #include <abstract_dialoggui.h>
+#include <abstract_formeditor.h>
+#include <abstract_formwindowmanager.h>
+#include <abstract_integration.h>
 #include <abstract_introspection.h>
+#include <abstract_metadatabase.h>
+#include <abstract_objectinspector.h>
+#include <abstract_optionspage.h>
+#include <abstract_promotioninterface.h>
+#include <abstract_propertyeditor.h>
+#include <abstract_settings.h>
 #include <designer_widgetbox.h>
 #include <extension_manager.h>
 #include <gradient_manager.h>

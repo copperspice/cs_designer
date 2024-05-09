@@ -24,12 +24,12 @@
 
 #include <deviceprofile_p.h>
 
+#include <QMap>
+#include <QSet>
+
 class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;
 class QtResourceSet;
-
-#include <QMap>
-#include <QSet>
 
 class QPixmap;
 

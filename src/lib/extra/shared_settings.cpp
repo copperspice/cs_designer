@@ -20,9 +20,9 @@
 #include <abstract_formeditor.h>
 #include <designer_settings.h>
 #include <designer_utils.h>
-#include <grid_p.h>
 #include <preview_manager.h>
 
+#include <grid_p.h>
 #include <shared_settings_p.h>
 
 #include <QCoreApplication>

@@ -22,8 +22,9 @@
 
 #include <property_view.h>
 
-class QTreeWidgetItem;
 class QtTreePropertyBrowserPrivate;
+
+class QTreeWidgetItem;
 
 class QtTreePropertyBrowser : public QtAbstractPropertyBrowser
 {

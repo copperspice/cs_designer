@@ -29,6 +29,7 @@
 #include <QMenu>
 #include <QScrollBar>
 #include <QTextStream>
+
 #include <qmath.h>
 
 typedef QList<QAction *> ActionList;

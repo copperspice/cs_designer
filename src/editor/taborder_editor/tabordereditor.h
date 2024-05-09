@@ -20,13 +20,13 @@
 #ifndef TABORDEREDITOR_H
 #define TABORDEREDITOR_H
 
-class QDesignerFormWindowInterface;
-
-#include <QPointer>
-#include <QWidget>
-#include <QRegion>
 #include <QFont>
 #include <QFontMetrics>
+#include <QPointer>
+#include <QRegion>
+#include <QWidget>
+
+class QDesignerFormWindowInterface;
 
 class QUndoStack;
 

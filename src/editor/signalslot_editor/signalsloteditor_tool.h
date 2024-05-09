@@ -20,8 +20,8 @@
 #ifndef SIGNALSLOTEDITOR_TOOL_H
 #define SIGNALSLOTEDITOR_TOOL_H
 
-#include <signalsloteditor.h>
 #include <abstract_formwindowtool.h>
+#include <signalsloteditor.h>
 
 class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;

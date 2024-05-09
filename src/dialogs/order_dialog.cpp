@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#include <extension.h>
-#include <extension_manager.h>
 #include <abstract_formeditor.h>
 #include <container.h>
+#include <extension.h>
+#include <extension_manager.h>
 #include <order_dialog.h>
 #include <ui_edit_pageorder.h>
 

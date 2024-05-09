@@ -22,11 +22,11 @@
 
 #include <extension.h>
 
-class DomWidget;
 class DomUI;
-class QWidget;
-
+class DomWidget;
 class QDesignerFormEditorInterface;
+
+class QWidget;
 
 class QDesignerExtraInfoExtension
 {

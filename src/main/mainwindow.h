@@ -20,22 +20,22 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-class QDesignerActions;
-class QDesignerWorkbench;
-class QDesignerToolWindow;
-class QDesignerFormWindow;
-class QDesignerSettings;
-class QtToolBarManager;
-
 #include <QList>
 #include <QMainWindow>
 #include <QMdiArea>
 
-class QToolBar;
+class QDesignerActions;
+class QDesignerFormWindow;
+class QDesignerSettings;
+class QDesignerToolWindow;
+class QDesignerWorkbench;
+class QtToolBarManager;
+
+class QByteArray;
 class QMdiArea;
 class QMenu;
-class QByteArray;
 class QMimeData;
+class QToolBar;
 
 class MainWindowBase : public QMainWindow
 {

@@ -20,18 +20,18 @@
 #include <edit_property_manager.h>
 #include <property_view_utils.h>
 
+#include <QApplication>
 #include <QDateTime>
+#include <QFontDatabase>
+#include <QIcon>
+#include <QLabel>
 #include <QLocale>
 #include <QMap>
-#include <QTimer>
-#include <QIcon>
 #include <QMetaEnum>
-#include <QFontDatabase>
-#include <QStyleOption>
-#include <QStyle>
-#include <QApplication>
 #include <QPainter>
-#include <QLabel>
+#include <QStyle>
+#include <QStyleOption>
+#include <QTimer>
 
 #include <limits.h>
 #include <float.h>

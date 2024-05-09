@@ -23,9 +23,9 @@
 #include <listwidget_editor.h>
 #include <ui_edit_treewidget.h>
 
-class QDesignerFormWindowInterface;
-
 #include <QDialog>
+
+class QDesignerFormWindowInterface;
 
 class QTreeWidget;
 

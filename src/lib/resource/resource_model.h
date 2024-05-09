@@ -20,11 +20,11 @@
 #ifndef QTRESOURCEMODEL_H
 #define QTRESOURCEMODEL_H
 
-class QtResourceModel;
-
 #include <QMap>
 #include <QObject>
 #include <QScopedPointer>
+
+class QtResourceModel;
 
 class QtResourceSet // one instance per one form
 {

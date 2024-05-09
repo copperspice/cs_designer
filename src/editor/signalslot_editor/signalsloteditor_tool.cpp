@@ -17,10 +17,10 @@
 *
 ***********************************************************************/
 
-#include <signalsloteditor_tool.h>
-#include <signalsloteditor.h>
-#include <ui4.h>
 #include <abstract_formwindow.h>
+#include <signalsloteditor.h>
+#include <signalsloteditor_tool.h>
+#include <ui4.h>
 
 #include <QAction>
 #include <QDebug>

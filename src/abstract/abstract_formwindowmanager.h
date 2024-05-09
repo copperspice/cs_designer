@@ -22,16 +22,16 @@
 
 #include <abstract_formwindow.h>
 
-class QDesignerFormEditorInterface;
-class QDesignerDnDItemInterface;
-
 #include <QObject>
 #include <QScopedPointer>
 
-class QWidget;
-class QPixmap;
+class QDesignerDnDItemInterface;
+class QDesignerFormEditorInterface;
+
 class QAction;
 class QActionGroup;
+class QPixmap;
+class QWidget;
 
 class QDesignerFormWindowManagerInterface: public QObject
 {

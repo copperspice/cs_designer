@@ -17,9 +17,9 @@
 *
 ***********************************************************************/
 
-#include <buddyeditor_tool.h>
-#include <buddyeditor.h>
 #include <abstract_formwindow.h>
+#include <buddyeditor.h>
+#include <buddyeditor_tool.h>
 
 #include <QAction>
 

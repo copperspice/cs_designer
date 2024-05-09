@@ -41,7 +41,6 @@
 #include <widgetfactory.h>
 
 #include <formwindowbase_p.h>
-#include <formwindowbase_p.h>
 #include <metadatabase_p.h>
 #include <spacer_widget_p.h>
 #include <widgetdatabase_p.h>

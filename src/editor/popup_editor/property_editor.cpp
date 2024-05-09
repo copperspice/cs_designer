@@ -17,15 +17,15 @@
 *
 ***********************************************************************/
 
-#include <abstract_settings.h>
 #include <abstract_formeditor.h>
+#include <abstract_settings.h>
 #include <abstract_widgetdatabase.h>
-#include <designer_propertysheet.h>
 #include <designer_property.h>
-#include <designer_settings.h>
-#include <designer_propertysheet.h>
-#include <designer_utils.h>
 #include <designer_property_command.h>
+#include <designer_propertysheet.h>
+#include <designer_propertysheet.h>
+#include <designer_settings.h>
+#include <designer_utils.h>
 #include <dynamicpropertysheet.h>
 #include <edit_variant_property.h>
 #include <extension.h>
@@ -41,19 +41,20 @@
 #include <shared_enums_p.h>
 
 #include <QAction>
+#include <QActionGroup>
+#include <QApplication>
+#include <QDebug>
+#include <QLabel>
 #include <QLineEdit>
 #include <QMenu>
-#include <QApplication>
-#include <QVBoxLayout>
+#include <QPainter>
 #include <QScrollArea>
 #include <QStackedWidget>
+#include <QTextStream>
 #include <QToolBar>
 #include <QToolButton>
-#include <QActionGroup>
-#include <QLabel>
-#include <QPainter>
-#include <QDebug>
-#include <QTextStream>
+#include <QVBoxLayout>
+
 #include <qalgorithms.h>
 
 static const QString SettingsGroupC       = "PropertyEditor";

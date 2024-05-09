@@ -20,9 +20,9 @@
 #ifndef QDESIGNER_DOCKWIDGET_H
 #define QDESIGNER_DOCKWIDGET_H
 
-class QDesignerFormWindowInterface;
-
 #include <QDockWidget>
+
+class QDesignerFormWindowInterface;
 
 class QDesignerDockWidget: public QDockWidget
 {

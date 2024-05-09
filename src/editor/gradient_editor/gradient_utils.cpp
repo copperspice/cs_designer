@@ -17,14 +17,14 @@
 *
 ***********************************************************************/
 
-#include <gradient_utils.h>
 #include <gradient_manager.h>
+#include <gradient_utils.h>
 
+#include <QConicalGradient>
+#include <QDebug>
+#include <QDomDocument>
 #include <QLinearGradient>
 #include <QRadialGradient>
-#include <QConicalGradient>
-#include <QDomDocument>
-#include <QDebug>
 
 static QString gradientTypeToString(QGradient::Type type)
 {

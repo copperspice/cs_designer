@@ -17,25 +17,25 @@
 *
 ***********************************************************************/
 
-#include <designer_settings.h>
+#include <abstract_dialoggui.h>
 #include <abstract_formeditor.h>
+#include <designer_settings.h>
+#include <resource_editor.h>
 #include <resource_model.h>
 #include <ui_resource_editor.h>
-#include <resource_editor.h>
 
 #include <iconloader_p.h>
-#include <abstract_dialoggui.h>
 
-#include <QFileInfo>
-#include <QDir>
 #include <QCoreApplication>
-#include <QtXml/QDomDocument>
-#include <QMenu>
+#include <QDir>
+#include <QFileInfo>
 #include <QHeaderView>
 #include <QInputDialog>
+#include <QMenu>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QStandardItemModel>
+#include <QtXml/QDomDocument>
 
 static const QString rccRootTag         = "RCC";
 static const QString rccTag             = "qresource";

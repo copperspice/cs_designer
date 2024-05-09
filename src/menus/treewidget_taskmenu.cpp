@@ -17,17 +17,17 @@
 *
 ***********************************************************************/
 
-#include <treewidget_taskmenu.h>
-#include <treewidget_editor.h>
 #include <abstract_formwindow.h>
+#include <treewidget_editor.h>
+#include <treewidget_taskmenu.h>
 
 #include <QAction>
-#include <QStyle>
-#include <QLineEdit>
-#include <QStyleOption>
-#include <QEvent>
-#include <QVariant>
 #include <QDebug>
+#include <QEvent>
+#include <QLineEdit>
+#include <QStyle>
+#include <QStyleOption>
+#include <QVariant>
 
 using namespace qdesigner_internal;
 

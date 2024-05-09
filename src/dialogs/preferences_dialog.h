@@ -22,9 +22,10 @@
 
 #include <QDialog>
 
-class QPushButton;
 class QDesignerFormEditorInterface;
 class QDesignerOptionsPageInterface;
+
+class QPushButton;
 
 namespace Ui {
 class PreferencesDialog;

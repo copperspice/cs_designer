@@ -18,9 +18,9 @@
 ***********************************************************************/
 
 #include <abstract_formeditor.h>
-#include <formwindow_dnditem.h>
-#include <formwindow.h>
 #include <designer_resource.h>
+#include <formwindow.h>
+#include <formwindow_dnditem.h>
 #include <resource_model.h>
 #include <ui4.h>
 

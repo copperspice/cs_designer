@@ -37,13 +37,13 @@
 #include <QApplication>
 #include <QDebug>
 #include <QDrag>
+#include <QEvent>
 #include <QLineEdit>
 #include <QPainter>
 #include <QRubberBand>
 #include <QTimer>
 #include <QToolBar>
 #include <QToolTip>
-#include <qevent.h>
 
 CS_DECLARE_METATYPE(QAction *)
 

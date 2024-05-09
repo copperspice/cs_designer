@@ -22,11 +22,11 @@
 
 #include <abstract_settings.h>
 
-class AppFontModel;
-
-#include <QGroupBox>
 #include <QDialog>
+#include <QGroupBox>
 #include <QItemSelection>
+
+class AppFontModel;
 
 class QTreeView;
 class QToolButton;

@@ -20,16 +20,15 @@
 #ifndef LISTWIDGETEDITOR_H
 #define LISTWIDGETEDITOR_H
 
-#include <itemlist_editor.h>
-
 #include <designer_command.h>
-
-class QDesignerFormWindowInterface;
+#include <itemlist_editor.h>
 
 #include <QWidget>
 
-class QListWidget;
+class QDesignerFormWindowInterface;
+
 class QComboBox;
+class QListWidget;
 
 namespace qdesigner_internal {
 

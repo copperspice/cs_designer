@@ -36,10 +36,10 @@
 #include <QApplication>
 #include <QDebug>
 #include <QDrag>
+#include <QEvent>
 #include <QLineEdit>
 #include <QMimeData>
 #include <QPainter>
-#include <qevent.h>
 
 CS_DECLARE_METATYPE(QAction *)
 

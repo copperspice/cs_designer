@@ -19,12 +19,12 @@
 
 #include <color_button.h>
 
-#include <QColorDialog>
-#include <QPainter>
-#include <QMimeData>
-#include <QDragEnterEvent>
-#include <QDrag>
 #include <QApplication>
+#include <QColorDialog>
+#include <QDrag>
+#include <QDragEnterEvent>
+#include <QMimeData>
+#include <QPainter>
 
 class QtColorButtonPrivate
 {

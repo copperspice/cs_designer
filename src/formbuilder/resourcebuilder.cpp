@@ -20,11 +20,11 @@
 #include <resourcebuilder.h>
 #include <ui4.h>
 
-#include <QFileInfo>
-#include <QDir>
 #include <QDebug>
-#include <QPixmap>
+#include <QDir>
+#include <QFileInfo>
 #include <QIcon>
+#include <QPixmap>
 #include <QVariant>
 
 constexpr const int DEBUG_THEME = 0;

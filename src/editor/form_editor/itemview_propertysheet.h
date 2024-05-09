@@ -21,10 +21,11 @@
 #define ITEMVIEW_PROPERTYSHEET_H
 
 #include <designer_propertysheet.h>
+
 #include <extensionfactory_p.h>
 
-#include <QTreeView>
 #include <QTableView>
+#include <QTreeView>
 
 namespace qdesigner_internal {
 

@@ -29,15 +29,15 @@
 #include <widgetdatabase_p.h>
 
 #include <QAction>
+#include <QDebug>
 #include <QMainWindow>
-#include <QToolBox>
+#include <QMdiArea>
+#include <QMenu>
+#include <QScrollArea>
 #include <QStackedWidget>
 #include <QTabWidget>
-#include <QScrollArea>
-#include <QMdiArea>
+#include <QToolBox>
 #include <QWizard>
-#include <QMenu>
-#include <QDebug>
 
 namespace qdesigner_internal {
 

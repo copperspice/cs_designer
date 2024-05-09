@@ -22,14 +22,14 @@
 
 #include <designer_taskmenu.h>
 
-#include <shared_enums_p.h>
 #include <extensionfactory_p.h>
-
-class QDesignerFormWindowInterface;
-class QDesignerFormEditorInterface;
-class QDesignerContainerExtension;
+#include <shared_enums_p.h>
 
 #include <QPointer>
+
+class QDesignerContainerExtension;
+class QDesignerFormEditorInterface;
+class QDesignerFormWindowInterface;
 
 class QAction;
 class QMdiArea;

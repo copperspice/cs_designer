@@ -20,19 +20,20 @@
 #ifndef QDESIGNER_TASKMENU_H
 #define QDESIGNER_TASKMENU_H
 
-#include <extensionfactory_p.h>
 #include <taskmenu.h>
 
-class QDesignerFormWindowInterface;
-class QDesignerFormEditorInterface;
+#include <extensionfactory_p.h>
 
 #include <QAction>
 #include <QList>
 #include <QObject>
 #include <QPointer>
 
-class QWidget;
+class QDesignerFormEditorInterface;
+class QDesignerFormWindowInterface;
+
 class QSignalMapper;
+class QWidget;
 
 namespace qdesigner_internal {
 

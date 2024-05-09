@@ -22,11 +22,12 @@
 
 #include <extension.h>
 
+class QDesignerFormEditorInterface;
+class QDesignerFormWindowInterface;
+class QDesignerResourceBrowserInterface;
+
 class QDialog;
 class QWidget;
-class QDesignerFormWindowInterface;
-class QDesignerFormEditorInterface;
-class QDesignerResourceBrowserInterface;
 
 class QDesignerLanguageExtension
 {

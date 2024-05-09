@@ -21,15 +21,15 @@
 #include <resource_model.h>
 #include <widgetfactory.h>
 
-#include <QTabBar>
-#include <QSizeGrip>
 #include <QAbstractButton>
-#include <QToolBox>
-#include <QMenuBar>
-#include <QMainWindow>
-#include <QDockWidget>
-#include <QToolBar>
 #include <QDebug>
+#include <QDockWidget>
+#include <QMainWindow>
+#include <QMenuBar>
+#include <QSizeGrip>
+#include <QTabBar>
+#include <QToolBar>
+#include <QToolBox>
 
 QDesignerFormWindowInterface::QDesignerFormWindowInterface(QWidget *parent, Qt::WindowFlags flags)
    : QWidget(parent, flags)

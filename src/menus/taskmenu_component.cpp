@@ -17,22 +17,22 @@
 *
 ***********************************************************************/
 
-#include <taskmenu_component.h>
+#include <abstract_formeditor.h>
 #include <button_taskmenu.h>
+#include <combobox_taskmenu.h>
+#include <containerwidget_taskmenu.h>
+#include <extension.h>
 #include <groupbox_taskmenu.h>
 #include <label_taskmenu.h>
+#include <layout_taskmenu.h>
 #include <lineedit_taskmenu.h>
 #include <listwidget_taskmenu.h>
-#include <treewidget_taskmenu.h>
-#include <tablewidget_taskmenu.h>
-#include <containerwidget_taskmenu.h>
-#include <combobox_taskmenu.h>
-#include <textedit_taskmenu.h>
 #include <menu_taskmenu.h>
+#include <tablewidget_taskmenu.h>
+#include <taskmenu_component.h>
+#include <textedit_taskmenu.h>
 #include <toolbar_taskmenu.h>
-#include <layout_taskmenu.h>
-#include <abstract_formeditor.h>
-#include <extension.h>
+#include <treewidget_taskmenu.h>
 
 using namespace qdesigner_internal;
 

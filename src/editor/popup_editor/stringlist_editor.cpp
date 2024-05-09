@@ -21,8 +21,8 @@
 
 #include <iconloader_p.h>
 
-#include <QStringListModel>
 #include <QPushButton>
+#include <QStringListModel>
 
 using namespace qdesigner_internal;
 

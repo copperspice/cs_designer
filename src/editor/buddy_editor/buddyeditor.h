@@ -22,10 +22,10 @@
 
 #include <connection_edit.h>
 
-class QDesignerFormWindowInterface;
-
 #include <QPointer>
 #include <QSet>
+
+class QDesignerFormWindowInterface;
 
 class QLabel;
 

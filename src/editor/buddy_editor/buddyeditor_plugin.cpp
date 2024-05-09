@@ -17,12 +17,13 @@
 *
 ***********************************************************************/
 
+#include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
+#include <abstract_formwindowmanager.h>
 #include <buddyeditor_plugin.h>
 #include <buddyeditor_tool.h>
-#include <abstract_formwindow.h>
+
 #include <formwindowbase_p.h>
-#include <abstract_formeditor.h>
-#include <abstract_formwindowmanager.h>
 
 #include <QAction>
 

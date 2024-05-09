@@ -19,34 +19,34 @@
 
 #include <abstract_formeditor.h>
 #include <designer_settings.h>
+#include <resource_editor.h>
 #include <resource_model.h>
 #include <resource_view.h>
-#include <resource_editor.h>
 
 #include <iconloader_p.h>
 
-#include <QToolBar>
 #include <QAction>
-#include <QSplitter>
-#include <QTreeWidget>
-#include <QListWidget>
-#include <QHeaderView>
-#include <QVBoxLayout>
-#include <QPainter>
-#include <QFileInfo>
-#include <QDir>
-#include <QQueue>
-#include <QPainter>
-#include <QDialogButtonBox>
-#include <QPushButton>
-#include <QMessageBox>
 #include <QApplication>
 #include <QClipboard>
-#include <QMenu>
-#include <QLineEdit>
-#include <QDrag>
-#include <QMimeData>
+#include <QDialogButtonBox>
+#include <QDir>
 #include <QDomDocument>
+#include <QDrag>
+#include <QFileInfo>
+#include <QHeaderView>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QMenu>
+#include <QMessageBox>
+#include <QMimeData>
+#include <QPainter>
+#include <QPainter>
+#include <QPushButton>
+#include <QQueue>
+#include <QSplitter>
+#include <QToolBar>
+#include <QTreeWidget>
+#include <QVBoxLayout>
 
 static const QString elementResourceData = "resource";
 static const QString typeAttribute       = "type";

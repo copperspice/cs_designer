@@ -22,15 +22,15 @@
 
 #include <propertylineedit_p.h>
 
-#include <QLineEdit>
-#include <QValidator>
-#include <QResizeEvent>
-#include <QCompleter>
 #include <QAbstractItemView>
-#include <QRegularExpression>
-#include <QUrl>
-#include <QFile>
+#include <QCompleter>
 #include <QDebug>
+#include <QFile>
+#include <QLineEdit>
+#include <QRegularExpression>
+#include <QResizeEvent>
+#include <QUrl>
+#include <QValidator>
 
 namespace {
 const QChar NewLineChar('\n');

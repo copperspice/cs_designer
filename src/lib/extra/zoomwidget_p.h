@@ -20,14 +20,15 @@
 #ifndef ZOOMWIDGET_H
 #define ZOOMWIDGET_H
 
-#include <QGraphicsView>
 #include <QGraphicsProxyWidget>
+#include <QGraphicsView>
+
 #include <QList>
 
-class QGraphicsScene;
-class QMenu;
 class QAction;
 class QActionGroup;
+class QGraphicsScene;
+class QMenu;
 
 namespace qdesigner_internal {
 

@@ -22,10 +22,11 @@
 
 #include <abstract_formeditorplugin.h>
 
-#include <QPointer>
 #include <QHash>
+#include <QPointer>
 
 class QDesignerFormWindowInterface;
+
 class QAction;
 
 namespace qdesigner_internal {

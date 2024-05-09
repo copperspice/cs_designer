@@ -17,17 +17,17 @@
 *
 ***********************************************************************/
 
-#include <designer_property.h>
-#include <abstract_formwindow.h>
-#include <property_view_tree.h>
-#include <itemlist_editor.h>
 #include <abstract_formbuilder.h>
+#include <abstract_formwindow.h>
+#include <designer_property.h>
+#include <itemlist_editor.h>
+#include <property_view_tree.h>
 
-#include <iconloader_p.h>
 #include <formwindowbase_p.h>
+#include <iconloader_p.h>
 
-#include <QSplitter>
 #include <QCoreApplication>
+#include <QSplitter>
 
 namespace qdesigner_internal {
 

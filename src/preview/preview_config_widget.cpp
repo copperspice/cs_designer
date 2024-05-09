@@ -18,23 +18,23 @@
 ***********************************************************************/
 
 #include <designer_settings.h>
-#include <stylesheet_editor.h>
 #include <preview_config_widget.h>
 #include <preview_manager.h>
+#include <stylesheet_editor.h>
 #include <ui_preview_configuration.h>
 
 #include <iconloader_p.h>
 #include <shared_settings_p.h>
 
+#include <QDebug>
 #include <QFileDialog>
-#include <QStyleFactory>
 #include <QFileDialog>
+#include <QFileInfo>
+#include <QList>
 #include <QMessageBox>
 #include <QPair>
-#include <QList>
-#include <QDebug>
-#include <QFileInfo>
 #include <QSharedData>
+#include <QStyleFactory>
 
 namespace qdesigner_internal {
 

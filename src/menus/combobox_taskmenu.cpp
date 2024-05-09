@@ -19,18 +19,18 @@
 
 #include <abstract_formwindow.h>
 #include <combobox_taskmenu.h>
-#include <listwidget_editor.h>
-#include <designer_utils.h>
 #include <designer_command.h>
+#include <designer_utils.h>
+#include <listwidget_editor.h>
 
 #include <QAction>
-#include <QStyle>
-#include <QLineEdit>
-#include <QFontComboBox>
-#include <QStyleOption>
-#include <QEvent>
-#include <QVariant>
 #include <QDebug>
+#include <QEvent>
+#include <QFontComboBox>
+#include <QLineEdit>
+#include <QStyle>
+#include <QStyleOption>
+#include <QVariant>
 
 using namespace qdesigner_internal;
 

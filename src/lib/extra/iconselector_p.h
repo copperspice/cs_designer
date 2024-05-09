@@ -22,14 +22,14 @@
 
 #include <designer_utils.h>
 
-class QtResourceModel;
-class QDesignerFormEditorInterface;
-class QDesignerDialogGuiInterface;
-class QDesignerResourceBrowserInterface;
-
-#include <QWidget>
 #include <QDialog>
 #include <QScopedPointer>
+#include <QWidget>
+
+class QDesignerDialogGuiInterface;
+class QDesignerFormEditorInterface;
+class QDesignerResourceBrowserInterface;
+class QtResourceModel;
 
 namespace qdesigner_internal {
 

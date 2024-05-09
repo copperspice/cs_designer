@@ -23,18 +23,19 @@
 #include <QPointer>
 #include <QWidget>
 
-class QDesignerFormWindowInterface;
 class QDesignerFormEditorInterface;
+class QDesignerFormWindowInterface;
+
 class QModelIndex;
 class QSortFilterProxyModel;
-class QTreeView;
 class QToolButton;
+class QTreeView;
 
 namespace qdesigner_internal {
 
-class SignalSlotEditor;
-class ConnectionModel;
 class Connection;
+class ConnectionModel;
+class SignalSlotEditor;
 
 class SignalSlotEditorWindow : public QWidget
 {

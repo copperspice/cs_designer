@@ -18,26 +18,26 @@
 ***********************************************************************/
 
 #include <abstract_formeditor.h>
-#include <newform.h>
-#include <designer_workbench.h>
 #include <designer_actions.h>
 #include <designer_formwindow.h>
 #include <designer_settings.h>
+#include <designer_workbench.h>
+#include <newform.h>
 #include <newform_widget.h>
 
+#include <QApplication>
+#include <QCheckBox>
+#include <QDebug>
+#include <QDialogButtonBox>
+#include <QDir>
 #include <QDir>
 #include <QFileInfo>
-#include <QDebug>
-#include <QDir>
-#include <QTemporaryFile>
-#include <QApplication>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QDialogButtonBox>
-#include <QMenu>
-#include <QCheckBox>
 #include <QFrame>
+#include <QMenu>
 #include <QMessageBox>
+#include <QPushButton>
+#include <QTemporaryFile>
+#include <QVBoxLayout>
 
 NewForm::NewForm(QDesignerWorkbench *workbench, QWidget *parentWidget, const QString &fileName)
    : QDialog(parentWidget, Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint),

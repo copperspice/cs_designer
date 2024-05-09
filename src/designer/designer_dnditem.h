@@ -22,13 +22,13 @@
 
 #include <abstract_dnditem.h>
 
-#include <QPoint>
 #include <QList>
 #include <QMimeData>
+#include <QPoint>
 
 class QDrag;
-class QImage;
 class QDropEvent;
+class QImage;
 
 namespace qdesigner_internal {
 

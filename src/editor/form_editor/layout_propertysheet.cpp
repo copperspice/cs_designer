@@ -17,19 +17,19 @@
 *
 ***********************************************************************/
 
-#include <layout_propertysheet.h>
-#include <extension.h>
 #include <abstract_formeditor.h>
-#include <ui4.h>
+#include <extension.h>
 #include <formbuilderextra.h>
+#include <layout_propertysheet.h>
 #include <layout_widget.h>
+#include <ui4.h>
 
+#include <QByteArray>
+#include <QDebug>
 #include <QFormLayout>
 #include <QHash>
-#include <QDebug>
-#include <QTextStream>
-#include <QByteArray>
 #include <QRegularExpression>       // Remove once there is an editor for lists
+#include <QTextStream>
 
 #define USE_LAYOUT_SIZE_CONSTRAINT
 

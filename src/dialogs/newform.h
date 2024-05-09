@@ -30,12 +30,12 @@ class QDesignerFormEditorInterface;
 class QDesignerNewFormWidgetInterface;
 class QDesignerWorkbench;
 
-class QCheckBox;
 class QAbstractButton;
-class QPushButton;
+class QCheckBox;
 class QDialogButtonBox;
-class QImage;
 class QIODevice;
+class QImage;
+class QPushButton;
 
 class NewForm: public QDialog
 {

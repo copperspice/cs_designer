@@ -20,14 +20,14 @@
 #ifndef QTRESOURCEVIEW_H
 #define QTRESOURCEVIEW_H
 
+#include <QDialog>
+#include <QListWidgetItem>
+#include <QTreeWidgetItem>
+#include <QWidget>
+
+class QDesignerFormEditorInterface;
 class QtResourceModel;
 class QtResourceSet;
-class QDesignerFormEditorInterface;
-
-#include <QWidget>
-#include <QDialog>
-#include <QTreeWidgetItem>
-#include <QListWidgetItem>
 
 class QMimeData;
 

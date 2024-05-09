@@ -20,23 +20,24 @@
 #include <edit_property.h>
 #include <property_view_utils.h>
 
-#include <QSpinBox>
-#include <QScrollBar>
-#include <QComboBox>
 #include <QAbstractItemView>
-#include <QLineEdit>
-#include <QDateTimeEdit>
-#include <QHBoxLayout>
-#include <QMenu>
-#include <QKeyEvent>
 #include <QApplication>
-#include <QLabel>
-#include <QToolButton>
 #include <QColorDialog>
+#include <QComboBox>
+#include <QDateTimeEdit>
 #include <QFontDialog>
-#include <QSpacerItem>
+#include <QHBoxLayout>
+#include <QKeyEvent>
 #include <QKeySequenceEdit>
+#include <QLabel>
+#include <QLineEdit>
 #include <QMap>
+#include <QMenu>
+#include <QScrollBar>
+#include <QSpacerItem>
+#include <QSpinBox>
+#include <QToolButton>
+
 #include <qalgorithms.h>
 
 // Set a hard coded left margin to account for the indentation

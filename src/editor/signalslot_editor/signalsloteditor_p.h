@@ -22,15 +22,15 @@
 
 #include <connection_edit.h>
 
-class QDesignerFormWindowInterface;
-class QDesignerFormEditorInterface;
-class DomConnection;
-
-#include <QString>
-#include <QStringList>
+#include <QAbstractItemModel>
 #include <QList>
 #include <QPointer>
-#include <QAbstractItemModel>
+#include <QString>
+#include <QStringList>
+
+class DomConnection;
+class QDesignerFormEditorInterface;
+class QDesignerFormWindowInterface;
 
 namespace qdesigner_internal {
 

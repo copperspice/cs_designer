@@ -17,18 +17,18 @@
 *
 ***********************************************************************/
 
-#include <resource_model.h>
 #include <rcc_support.h>
+#include <resource_model.h>
 
-#include <QStringList>
+#include <QBuffer>
+#include <QDebug>
+#include <QDir>
+#include <QFileInfo>
+#include <QFileSystemWatcher>
+#include <QIODevice>
 #include <QMap>
 #include <QResource>
-#include <QFileInfo>
-#include <QIODevice>
-#include <QDir>
-#include <QDebug>
-#include <QBuffer>
-#include <QFileSystemWatcher>
+#include <QStringList>
 
 constexpr const int DEBUG_RESOURCE = 0;
 

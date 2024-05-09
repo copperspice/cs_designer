@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#include <abstract_formwindow.h>
 #include <abstract_formeditor.h>
+#include <abstract_formwindow.h>
 #include <action_editor.h>
 #include <designer_utils.h>
 #include <newaction_dialog.h>

@@ -18,8 +18,8 @@
 ***********************************************************************/
 
 #include <abstract_formeditor.h>
-#include <abstract_widgetfactory.h>
 #include <abstract_widgetbox.h>
+#include <abstract_widgetfactory.h>
 #include <designer_dnditem.h>
 #include <designer_resource.h>
 #include <formwindow.h>
@@ -27,9 +27,9 @@
 #include <tool_widgeteditor.h>
 
 #include <QAction>
-#include <QEvent>
 #include <QCursor>
 #include <QDebug>
+#include <QEvent>
 #include <QMainWindow>
 
 using namespace qdesigner_internal;

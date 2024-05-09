@@ -20,12 +20,13 @@
 #ifndef TABORDEREDITOR_TOOL_H
 #define TABORDEREDITOR_TOOL_H
 
-#include <QPointer>
-
 #include <abstract_formwindowtool.h>
+
+#include <QPointer>
 
 class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;
+
 class QAction;
 
 namespace qdesigner_internal {

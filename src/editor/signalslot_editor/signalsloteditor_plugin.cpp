@@ -17,9 +17,10 @@
 *
 ***********************************************************************/
 
+#include <abstract_formeditor.h>
 #include <signalsloteditor_plugin.h>
 #include <signalsloteditor_tool.h>
-#include <abstract_formeditor.h>
+
 #include <formwindowbase_p.h>
 
 #include <QAction>

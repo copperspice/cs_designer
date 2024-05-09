@@ -19,22 +19,22 @@
 
 #include <abstract_formeditor.h>
 #include <abstract_language.h>
+#include <customwidget.h>
 #include <extension.h>
 #include <extension_manager.h>
 #include <extrainfo.h>
-#include <customwidget.h>
 #include <properties.h>
-#include <ui4.h>
 #include <simple_resource.h>
+#include <ui4.h>
 #include <widgetfactory.h>
 
 #include <widgetdatabase_p.h>
 
+#include <QAction>
+#include <QCoreApplication>
+#include <QDebug>
 #include <QIcon>
 #include <QWidget>
-#include <QAction>
-#include <QDebug>
-#include <QCoreApplication>
 
 namespace {
 

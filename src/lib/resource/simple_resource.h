@@ -22,13 +22,13 @@
 
 #include <abstract_formbuilder.h>
 
-class QDesignerFormEditorInterface;
-class DomScript;
-class DomCustomWidgets;
-class DomCustomWidget;
-class DomSlots;
-
 #include <QStringList>
+
+class DomCustomWidget;
+class DomCustomWidgets;
+class DomScript;
+class DomSlots;
+class QDesignerFormEditorInterface;
 
 namespace qdesigner_internal {
 

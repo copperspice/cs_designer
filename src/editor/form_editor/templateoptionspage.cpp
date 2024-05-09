@@ -17,13 +17,13 @@
 *
 ***********************************************************************/
 
-#include <abstract_formeditor.h>
 #include <abstract_dialoggui.h>
+#include <abstract_formeditor.h>
 #include <templateoptionspage.h>
 #include <ui_template_options.h>
 
-#include <shared_settings_p.h>
 #include <iconloader_p.h>
+#include <shared_settings_p.h>
 
 namespace qdesigner_internal {
 

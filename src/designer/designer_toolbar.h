@@ -26,9 +26,10 @@
 #include <QToolButton>
 
 class QDesignerFormWindowInterface;
-class QToolBar;
-class QRect;
+
 class QAction;
+class QRect;
+class QToolBar;
 
 namespace qdesigner_internal {
 

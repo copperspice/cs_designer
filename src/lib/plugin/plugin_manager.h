@@ -22,16 +22,16 @@
 
 #include <shared_enums_p.h>
 
-#include <QSharedDataPointer>
 #include <QMap>
-#include <QPair>
 #include <QObject>
+#include <QPair>
+#include <QSharedDataPointer>
 #include <QStringList>
 
-class QDesignerFormEditorInterface;
 class QDesignerCustomWidgetInterface;
-class QDesignerPluginManagerPrivate;
 class QDesignerCustomWidgetSharedData;
+class QDesignerFormEditorInterface;
+class QDesignerPluginManagerPrivate;
 
 /* Information contained in the Dom XML of a custom widget. */
 class QDesignerCustomWidgetData

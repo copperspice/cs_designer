@@ -20,8 +20,8 @@
 #ifndef RICHTEXT_EDITOR_H
 #define RICHTEXT_EDITOR_H
 
-#include <QTextEdit>
 #include <QDialog>
+#include <QTextEdit>
 
 class QTabWidget;
 class QToolBar;

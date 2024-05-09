@@ -19,8 +19,8 @@
 
 #include <gradient_manager.h>
 
-#include <QPixmap>
 #include <QMetaEnum>
+#include <QPixmap>
 
 QtGradientManager::QtGradientManager(QObject *parent)
    : QObject(parent)

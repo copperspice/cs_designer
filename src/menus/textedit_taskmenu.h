@@ -21,10 +21,11 @@
 #define TEXTEDIT_TASKMENU_H
 
 #include <designer_taskmenu.h>
+
 #include <extensionfactory_p.h>
 
-#include <QTextEdit>
 #include <QPlainTextEdit>
+#include <QTextEdit>
 
 class QDesignerFormWindowInterface;
 

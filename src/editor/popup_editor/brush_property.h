@@ -20,14 +20,14 @@
 #ifndef BRUSH_PROPERTY_H
 #define BRUSH_PROPERTY_H
 
-class QtProperty;
-class QtVariantPropertyManager;
-
-#include <QMap>
 #include <QBrush>
 #include <QIcon>
+#include <QMap>
 #include <QString>
 #include <QVariant>
+
+class QtProperty;
+class QtVariantPropertyManager;
 
 namespace qdesigner_internal {
 

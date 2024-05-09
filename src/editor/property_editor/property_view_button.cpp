@@ -19,13 +19,13 @@
 
 #include <property_view_button.h>
 
-#include <QSet>
 #include <QGridLayout>
 #include <QLabel>
-#include <QTimer>
 #include <QMap>
-#include <QToolButton>
+#include <QSet>
 #include <QStyle>
+#include <QTimer>
+#include <QToolButton>
 
 class QtButtonPropertyBrowserPrivate
 {

@@ -20,17 +20,18 @@
 #ifndef _SIGNALSLOTDIALOG_H
 #define _SIGNALSLOTDIALOG_H
 
-#include <QStringList>
 #include <QDialog>
 #include <QStandardItemModel>
+#include <QStringList>
 
+class QDesignerDialogGuiInterface;
 class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;
-class QDesignerDialogGuiInterface;
 class QDesignerMemberSheet;
+
+class QItemSelection;
 class QListView;
 class QToolButton;
-class QItemSelection;
 
 namespace Ui {
 class SignalSlotDialogClass;

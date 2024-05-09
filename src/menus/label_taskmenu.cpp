@@ -17,9 +17,9 @@
 *
 ***********************************************************************/
 
-#include <label_taskmenu.h>
-#include <inplace_editor.h>
 #include <abstract_formwindow.h>
+#include <inplace_editor.h>
+#include <label_taskmenu.h>
 
 #include <QAction>
 #include <QStyle>

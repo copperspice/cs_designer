@@ -20,14 +20,14 @@
 #ifndef ABSTRACT_FORMWINDOWTOOL_H
 #define ABSTRACT_FORMWINDOWTOOL_H
 
-class QDesignerFormEditorInterface;
-class QDesignerFormWindowInterface;
-class DomUI;
-
 #include <QObject>
 
-class QWidget;
+class DomUI;
+class QDesignerFormEditorInterface;
+class QDesignerFormWindowInterface;
+
 class QAction;
+class QWidget;
 
 class QDesignerFormWindowToolInterface: public QObject
 {

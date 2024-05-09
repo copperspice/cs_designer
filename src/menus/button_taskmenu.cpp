@@ -17,27 +17,27 @@
 *
 ***********************************************************************/
 
-#include <button_taskmenu.h>
-#include <inplace_editor.h>
+#include <abstract_formeditor.h>
 #include <abstract_formwindow.h>
 #include <abstract_formwindowcursor.h>
-#include <abstract_formeditor.h>
+#include <abstract_propertyeditor.h>
+#include <button_taskmenu.h>
 #include <designer_formwindow_command.h>
 #include <designer_object_inspector.h>
-#include <abstract_propertyeditor.h>
+#include <inplace_editor.h>
 
 #include <formwindowbase_p.h>
 #include <metadatabase_p.h>
 
+#include <QAbstractButton>
 #include <QAction>
 #include <QActionGroup>
+#include <QApplication>
+#include <QButtonGroup>
+#include <QDebug>
 #include <QMenu>
 #include <QStyle>
 #include <QStyleOption>
-#include <QAbstractButton>
-#include <QButtonGroup>
-#include <QApplication>
-#include <QDebug>
 
 CS_DECLARE_METATYPE(QButtonGroup *)
 

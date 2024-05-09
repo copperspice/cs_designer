@@ -21,14 +21,15 @@
 #define FORMEDITOR_OPTIONSPAGE_H
 
 #include <abstract_optionspage.h>
+
 #include <QPointer>
 
 class QDesignerFormEditorInterface;
 
 namespace qdesigner_internal {
 
-class PreviewConfigurationWidget;
 class GridPanel;
+class PreviewConfigurationWidget;
 class ZoomSettingsWidget;
 
 class FormEditorOptionsPage : public QDesignerOptionsPageInterface

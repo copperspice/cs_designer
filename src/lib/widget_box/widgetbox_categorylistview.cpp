@@ -17,20 +17,20 @@
 *
 ***********************************************************************/
 
-#include <widgetbox_categorylistview.h>
 #include <abstract_formeditor.h>
 #include <abstract_widgetdatabase.h>
+#include <widgetbox_categorylistview.h>
 
+#include <QAbstractListModel>
 #include <QDomDocument>
 #include <QIcon>
-#include <QListView>
-#include <QLineEdit>
 #include <QItemDelegate>
-#include <QSortFilterProxyModel>
-#include <QAbstractListModel>
+#include <QLineEdit>
 #include <QList>
-#include <QTextStream>
+#include <QListView>
 #include <QRegularExpression>
+#include <QSortFilterProxyModel>
+#include <QTextStream>
 
 static const QString widgetElementC = "widget";
 static const QString nameAttributeC = "name";

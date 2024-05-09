@@ -20,14 +20,14 @@
 #ifndef FONTPANEL_H
 #define FONTPANEL_H
 
-#include <QGroupBox>
 #include <QFont>
 #include <QFontDatabase>
+#include <QGroupBox>
 
 class QComboBox;
 class QFontComboBox;
-class QTimer;
 class QLineEdit;
+class QTimer;
 
 class FontPanel: public QGroupBox
 {
