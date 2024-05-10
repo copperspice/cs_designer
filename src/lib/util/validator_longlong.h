@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef QLONGLONG_VALIDATOR_H
-#define QLONGLONG_VALIDATOR_H
+#ifndef VALIDATOR_LONGLONG_H
+#define VALIDATOR_LONGLONG_H
 
 #include <QValidator>
 

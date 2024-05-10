@@ -62,9 +62,9 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/ui_loader.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/ui_loader_p.h
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/qlonglong_validator.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/table_classes.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/utils.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/validator_longlong.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox.h
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox_categorylistview.h
@@ -125,8 +125,8 @@ list(APPEND DESIGNER_SOURCES
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui_loader/ui_loader.cpp
 
-   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/qlonglong_validator.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/utils.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/lib/util/validator_longlong.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/lib/widget_box/widgetbox_categorylistview.cpp

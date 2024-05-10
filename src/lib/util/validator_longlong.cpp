@@ -17,11 +17,10 @@
 *
 ***********************************************************************/
 
-#include <qlonglong_validator.h>
+#include <validator_longlong.h>
 
 using namespace qdesigner_internal;
 
-//
 QLongLongValidator::QLongLongValidator(QObject *parent)
    : QValidator(parent), b(Q_UINT64_C(0x8000000000000000)), t(Q_UINT64_C(0x7FFFFFFFFFFFFFFF))
 {

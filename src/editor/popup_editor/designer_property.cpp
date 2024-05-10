@@ -27,13 +27,13 @@
 #include <palette_editor_toolbutton.h>
 #include <plaintext_editor.h>
 #include <property_view_utils.h>
-#include <qlonglong_validator.h>
 #include <propertysheet.h>
 #include <resource_view.h>
 #include <richtext_editor.h>
 #include <stringlist_editor_toolbutton.h>
 #include <stylesheet_editor.h>
 #include <textproperty_editor.h>
+#include <validator_longlong.h>
 
 #include <formwindowbase_p.h>
 #include <iconloader_p.h>
