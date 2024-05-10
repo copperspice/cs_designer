@@ -36,16 +36,16 @@
 #include <formwindowmanager.h>
 #include <itemview_propertysheet.h>
 #include <layout_propertysheet.h>
+#include <layoutwidget_propertysheet.h>
 #include <line_propertysheet.h>
+#include <mainwindow_container.h>
+#include <mdi_area_container.h>
 #include <plugin_manager.h>
-#include <qlayoutwidget_propertysheet.h>
-#include <qmainwindow_container.h>
-#include <qmdiarea_container.h>
-#include <qwizard_container.h>
 #include <resource_model.h>
 #include <spacer_propertysheet.h>
 #include <templateoptionspage.h>
 #include <widgetfactory.h>
+#include <wizard_container.h>
 
 #include <dialoggui_p.h>
 #include <metadatabase_p.h>

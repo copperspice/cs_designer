@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qwizard_container.h>
+#include <wizard_container.h>
 #include <extension.h>
 #include <abstract_formeditor.h>
 

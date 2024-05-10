@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef QMDIAREA_CONTAINER_H
-#define QMDIAREA_CONTAINER_H
+#ifndef MDI_AREA_CONTAINER_H
+#define MDI_AREA_CONTAINER_H
 
 #include <container.h>
 

@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef QWIZARD_CONTAINER_H
-#define QWIZARD_CONTAINER_H
+#ifndef WIZARD_CONTAINER_H
+#define WIZARD_CONTAINER_H
 
 #include <container.h>
 

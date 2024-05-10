@@ -19,7 +19,7 @@
 
 #include <abstract_formeditor.h>
 #include <extension.h>
-#include <qmdiarea_container.h>
+#include <mdi_area_container.h>
 
 #include <QMdiArea>
 #include <QMdiSubWindow>

@@ -23,17 +23,17 @@ list(APPEND DESIGNER_INCLUDES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindowsettings.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/itemview_propertysheet.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/layout_propertysheet.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/layoutwidget_propertysheet.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/line_propertysheet.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/mainwindow_container.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/mdi_area_container.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/previewactiongroup.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qlayoutwidget_propertysheet.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qmainwindow_container.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qmdiarea_container.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qwizard_container.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/spacer_propertysheet.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/templateoptionspage.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/tool_widgeteditor.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/undostack.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/widgetselection.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/wizard_container.h
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/color_button.h
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/color_line.h
@@ -116,17 +116,17 @@ list(APPEND DESIGNER_SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/formwindowsettings.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/itemview_propertysheet.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/layout_propertysheet.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/layoutwidget_propertysheet.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/line_propertysheet.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/mainwindow_container.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/mdi_area_container.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/previewactiongroup.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qlayoutwidget_propertysheet.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qmainwindow_container.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qmdiarea_container.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/qwizard_container.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/spacer_propertysheet.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/templateoptionspage.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/tool_widgeteditor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/undostack.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/widgetselection.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/editor/form_editor/wizard_container.cpp
 
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/color_button.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/editor/gradient_editor/color_line.cpp

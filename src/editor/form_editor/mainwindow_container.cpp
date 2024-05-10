@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qmainwindow_container.h>
+#include <mainwindow_container.h>
 #include <designer_toolbar.h>
 #include <formwindow.h>
 

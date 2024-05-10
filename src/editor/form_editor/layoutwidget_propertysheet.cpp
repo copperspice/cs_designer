@@ -17,7 +17,7 @@
 *
 ***********************************************************************/
 
-#include <qlayoutwidget_propertysheet.h>
+#include <layoutwidget_propertysheet.h>
 #include <formwindow.h>
 #include <formeditor.h>
 #include <extension.h>

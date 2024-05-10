@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef QMAINWINDOW_CONTAINER_H
-#define QMAINWINDOW_CONTAINER_H
+#ifndef MAINWINDOW_CONTAINER_H
+#define MAINWINDOW_CONTAINER_H
 
 #include <container.h>
 

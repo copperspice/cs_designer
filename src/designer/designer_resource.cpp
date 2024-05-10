@@ -44,9 +44,9 @@
 #include <layout_info.h>
 #include <layout_propertysheet.h>
 #include <layout_widget.h>
+#include <mdi_area_container.h>
 #include <plugin_manager.h>
-#include <qmdiarea_container.h>
-#include <qwizard_container.h>
+#include <wizard_container.h>
 
 #include <resource_model.h>
 #include <resourcebuilder.h>

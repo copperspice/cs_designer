@@ -17,8 +17,8 @@
 *
 ***********************************************************************/
 
-#ifndef QLAYOUTWIDGET_PROPERTYSHEET_H
-#define QLAYOUTWIDGET_PROPERTYSHEET_H
+#ifndef LAYOUTWIDGET_PROPERTYSHEET_H
+#define LAYOUTWIDGET_PROPERTYSHEET_H
 
 #include <designer_propertysheet.h>
 #include <extensionfactory_p.h>
