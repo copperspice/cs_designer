@@ -162,10 +162,10 @@ bool QTabWidgetEventFilter::eventFilter(QObject *o, QEvent *e)
          break;
       case QEvent::MouseButtonPress: {
          QMouseEvent *mev = static_cast<QMouseEvent *>(e);
-         if (QDesignerFormWindowInterface *fw = formWindow()) {
-            fw->clearSelection();
-            fw->selectWidget(m_tabWidget, true);
-         }
+
+         fw->clearSelection();
+         fw->selectWidget(m_tabWidget, true);
+
          if (mev->button() & Qt::LeftButton) {
             m_mousePressed = true;
             m_pressPoint = mev->pos();

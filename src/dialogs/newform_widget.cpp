@@ -91,8 +91,6 @@ NewFormWidget::NewFormWidget(QDesignerFormEditorInterface *core, QWidget *parent
    : QDesignerNewFormWidgetInterface(parentWidget), m_core(core),
      m_ui(new Ui::NewFormWidget), m_currentItem(nullptr), m_acceptedItem(nullptr)
 {
-   using DeviceProfileList = QList<qdesigner_internal::DeviceProfile>;
-
    m_ui->setupUi(this);
    m_ui->treeWidget->setItemDelegate(new qdesigner_internal::SheetDelegate(m_ui->treeWidget, this));
    m_ui->treeWidget->header()->hide();
@@ -162,11 +160,12 @@ NewFormWidget::NewFormWidget(QDesignerFormEditorInterface *core, QWidget *parent
       m_ui->profileComboBox->setEnabled(false);
 
    } else {
-      const DeviceProfileList::const_iterator dcend = m_deviceProfiles.constEnd();
-      for (DeviceProfileList::const_iterator it = m_deviceProfiles.constBegin(); it != dcend; ++it) {
-         m_ui->profileComboBox->addItem(it->name());
+      for (auto iter = m_deviceProfiles.constBegin(); iter != m_deviceProfiles.constEnd(); ++iter) {
+         m_ui->profileComboBox->addItem(iter->name());
       }
+
       const int ci = settings.currentDeviceProfileIndex();
+
       if (ci >= 0) {
          m_ui->profileComboBox->setCurrentIndex(ci + INDEX_OFFSET);
       }

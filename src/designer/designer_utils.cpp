@@ -491,9 +491,9 @@ QIcon DesignerIconCache::icon(const PropertySheetIconValue &value) const
    const PropertySheetIconValue::ModeStateToPixmapMap &paths = value.paths();
    const ModeStateToPixmapMapConstIt cend = paths.constEnd();
 
-   for (ModeStateToPixmapMapConstIt it = paths.constBegin(); it != cend; ++it) {
-      const QPair<QIcon::Mode, QIcon::State> pair = it.key();
-      icon.addFile(it.value().path(), QSize(), pair.first, pair.second);
+   for (auto iter = paths.constBegin(); iter != cend; ++iter) {
+      const QPair<QIcon::Mode, QIcon::State> pair = iter.key();
+      icon.addFile(iter.value().path(), QSize(), pair.first, pair.second);
    }
 
    m_cache.insert(value, icon);

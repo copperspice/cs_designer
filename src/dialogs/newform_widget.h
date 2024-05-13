@@ -48,8 +48,6 @@ class NewFormWidget : public QDesignerNewFormWidgetInterface
    Q_DISABLE_COPY(NewFormWidget)
 
  public:
-   typedef QList<qdesigner_internal::DeviceProfile> DeviceProfileList;
-
    explicit NewFormWidget(QDesignerFormEditorInterface *core, QWidget *parentWidget);
    virtual ~NewFormWidget();
 
@@ -96,7 +94,8 @@ class NewFormWidget : public QDesignerNewFormWidgetInterface
    Ui::NewFormWidget *m_ui;
    QTreeWidgetItem *m_currentItem;
    QTreeWidgetItem *m_acceptedItem;
-   DeviceProfileList m_deviceProfiles;
+
+   QList<qdesigner_internal::DeviceProfile> m_deviceProfiles;
 };
 
 }

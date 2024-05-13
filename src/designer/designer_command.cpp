@@ -152,9 +152,9 @@ static void recursiveUpdate(QWidget *w)
    const QObjectList &l = w->children();
    const QObjectList::const_iterator cend = l.end();
 
-   for ( QObjectList::const_iterator it = l.begin(); it != cend; ++it) {
-      if (QWidget *w = dynamic_cast<QWidget *>(*it)) {
-         recursiveUpdate(w);
+   for (QObjectList::const_iterator iter = l.begin(); iter != cend; ++iter) {
+      if (QWidget *item_widget = dynamic_cast<QWidget *>(*iter)) {
+         recursiveUpdate(item_widget);
       }
    }
 }
@@ -3202,10 +3202,11 @@ bool MorphLayoutCommand::init(QWidget *w, int newType)
    const QLayout *layout = LayoutInfo::managedLayout(fw->core(), w);
    const int count = layout->count();
    for (int i = 0; i < count ; i++) {
-      if (QWidget *w = layout->itemAt(i)->widget())
-         if (fw->isManaged(w)) {
-            m_widgets.push_back(w);
+      if (QWidget *item_widget = layout->itemAt(i)->widget()) {
+         if (fw->isManaged(item_widget)) {
+            m_widgets.push_back(item_widget);
          }
+      }
    }
    const bool reparentLayoutWidget = false; // leave QLayoutWidget intact
    m_breakLayoutCommand->init(m_widgets, m_layoutBase, reparentLayoutWidget);

@@ -2004,7 +2004,6 @@ QDesignerAbstractPropertySheetFactory::~QDesignerAbstractPropertySheetFactory()
 
 QObject *QDesignerAbstractPropertySheetFactory::extension(QObject *object, const QString &iid) const
 {
-   typedef PropertySheetFactoryPrivate::ExtensionMap ExtensionMap;
    if (!object) {
       return nullptr;
    }
@@ -2013,7 +2012,8 @@ QObject *QDesignerAbstractPropertySheetFactory::extension(QObject *object, const
       return nullptr;
    }
 
-   ExtensionMap::iterator it = m_impl->m_extensions.find(object);
+   auto it = m_impl->m_extensions.find(object);
+
    if (it == m_impl->m_extensions.end()) {
       if (QObject *ext = createPropertySheet(object, const_cast<QDesignerAbstractPropertySheetFactory *>(this))) {
          connect(ext, &QObject::destroyed, this, &QDesignerAbstractPropertySheetFactory::objectDestroyed);

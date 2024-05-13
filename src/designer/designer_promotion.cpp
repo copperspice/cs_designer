@@ -268,11 +268,12 @@ QSet<QString> QDesignerPromotion::referencedPromotedClassNames()  const
       if (!scratchPadClasses.empty()) {
          // Check whether these are actually promoted
          QDesignerWidgetDataBaseInterface *widgetDataBase = m_core->widgetDataBase();
-         QStringList::const_iterator cend = scratchPadClasses.constEnd();
-         for (QStringList::const_iterator it = scratchPadClasses.constBegin(); it != cend; ++it ) {
-            const int index = widgetDataBase->indexOfClassName(*it);
+
+         for (const QString &str : scratchPadClasses ) {
+            const int index = widgetDataBase->indexOfClassName(str);
+
             if (index != -1 && widgetDataBase->item(index)->isPromoted()) {
-               rc += *it;
+               rc += str;
             }
          }
       }

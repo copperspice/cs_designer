@@ -2172,17 +2172,18 @@ void FormWindow::breakLayout(QWidget *w)
    }
    // Find the first-order managed child widgets
    QWidgetList widgets;
-
-   const QObjectList children = w->children();
-   const QObjectList::const_iterator cend = children.constEnd();
    const QDesignerMetaDataBaseInterface *mdb = core()->metaDataBase();
-   for (QObjectList::const_iterator it =  children.constBegin(); it != cend; ++it)
-      if ( (*it)->isWidgetType())  {
-         QWidget *w = static_cast<QWidget *>(*it);
-         if (mdb->item(w)) {
-            widgets.push_back(w);
+
+   for (const auto item : w->children()) {
+
+      if (item->isWidgetType())  {
+         QWidget *widget = static_cast<QWidget *>(item);
+
+         if (mdb->item(widget)) {
+            widgets.push_back(widget);
          }
       }
+   }
 
    BreakLayoutCommand *cmd = new BreakLayoutCommand(this);
    cmd->init(widgets, w);

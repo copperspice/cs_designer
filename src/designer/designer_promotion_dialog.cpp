@@ -301,16 +301,13 @@ void QDesignerPromotionDialog::delayedUpdateFromWidgetDatabase()
 
 const QStringList &QDesignerPromotionDialog::baseClassNames(const QDesignerPromotionInterface *promotion)
 {
-   typedef QList<QDesignerWidgetDataBaseItemInterface *> WidgetDataBaseItemList;
    static QStringList rc;
 
    if (rc.empty()) {
-      // Convert the item list into a string list.
-      const WidgetDataBaseItemList dbItems =  promotion->promotionBaseClasses();
-      auto cend =  dbItems.constEnd();
+      // Convert the item list into a string list
 
-      for (WidgetDataBaseItemList::const_iterator it = dbItems.constBegin() ; it != cend; ++it) {
-         rc.push_back( (*it)->name());
+      for (auto item : promotion->promotionBaseClasses()) {
+         rc.push_back(item->name());
       }
    }
 

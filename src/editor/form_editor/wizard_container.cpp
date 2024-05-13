@@ -118,8 +118,8 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
       return;
    }
 
-   const IdList idList = m_wizard->pageIds();
-   const int pageCount = idList.size();
+   const IdList pageIdList = m_wizard->pageIds();
+   const int pageCount     = pageIdList.size();
 
    if (index >= pageCount) {
       addWidget(widget);
@@ -127,12 +127,10 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
    }
 
    // Insert before, reshuffle ids if required
-   const int idBefore = idList.at(index);
-   const int newId = idBefore - 1;
+   int oldId = pageIdList.at(index);
+   int newId = oldId - 1;
 
-   const bool needsShuffle =
-      (index == 0 && newId < 0)                        // At start: QWizard refuses to insert id -1
-      || (index > 0 && idList.at(index - 1) == newId); // In-between
+   const bool needsShuffle = (index == 0 && newId < 0) || (index > 0 && pageIdList.at(index - 1) == newId);
 
    if (needsShuffle) {
       // Create a gap by shuffling pages
@@ -140,11 +138,11 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
       pageList.push_back(newPage);
 
       for (int i = index; i < pageCount; i++) {
-         pageList.push_back(m_wizard->page(idList.at(i)));
-         m_wizard->removePage(idList.at(i));
+         pageList.push_back(m_wizard->page(pageIdList.at(i)));
+         m_wizard->removePage(pageIdList.at(i));
       }
 
-      int newId = idBefore + DELTA;
+      newId = oldId + DELTA;
       auto wcend = pageList.constEnd();
 
       for (auto it = pageList.constBegin(); it != wcend; ++it) {
