@@ -17,13 +17,13 @@
 *
 ***********************************************************************/
 
-#include <wizard_container.h>
-#include <extension.h>
 #include <abstract_formeditor.h>
+#include <extension.h>
+#include <wizard_container.h>
 
+#include <QDebug>
 #include <QWizard>
 #include <QWizardPage>
-#include <QDebug>
 
 typedef QList<int> IdList;
 typedef QList<QWizardPage *> WizardPageList;

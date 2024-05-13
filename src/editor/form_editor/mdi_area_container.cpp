@@ -21,11 +21,11 @@
 #include <extension.h>
 #include <mdi_area_container.h>
 
-#include <QMdiArea>
-#include <QMdiSubWindow>
 #include <QApplication>
 #include <QDebug>
 #include <QHash>
+#include <QMdiArea>
+#include <QMdiSubWindow>
 
 namespace qdesigner_internal {
 

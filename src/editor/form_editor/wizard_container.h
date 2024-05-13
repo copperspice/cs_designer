@@ -21,14 +21,12 @@
 #define WIZARD_CONTAINER_H
 
 #include <container.h>
-
 #include <designer_propertysheet.h>
+
 #include <extensionfactory_p.h>
 
 #include <QWizard>
 #include <QWizardPage>
-
-class QWizardPage;
 
 namespace qdesigner_internal {
 

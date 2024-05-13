@@ -17,12 +17,11 @@
 *
 ***********************************************************************/
 
-#include <layoutwidget_propertysheet.h>
-#include <formwindow.h>
-#include <formeditor.h>
 #include <extension.h>
-
+#include <formeditor.h>
+#include <formwindow.h>
 #include <layout_widget.h>
+#include <layoutwidget_propertysheet.h>
 
 #include <QLayout>
 

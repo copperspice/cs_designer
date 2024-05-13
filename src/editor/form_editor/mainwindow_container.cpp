@@ -17,16 +17,16 @@
 *
 ***********************************************************************/
 
-#include <mainwindow_container.h>
 #include <designer_toolbar.h>
 #include <formwindow.h>
+#include <mainwindow_container.h>
 
 #include <QDebug>
+#include <QDockWidget>
 #include <QLayout>
 #include <QMenuBar>
-#include <QToolBar>
 #include <QStatusBar>
-#include <QDockWidget>
+#include <QToolBar>
 
 using namespace qdesigner_internal;
 

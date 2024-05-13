@@ -21,8 +21,9 @@
 #define LAYOUTWIDGET_PROPERTYSHEET_H
 
 #include <designer_propertysheet.h>
-#include <extensionfactory_p.h>
 #include <layout_widget.h>
+
+#include <extensionfactory_p.h>
 
 namespace qdesigner_internal {
 
