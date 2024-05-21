@@ -1586,7 +1586,7 @@ void QtToolBarDialogPrivate::currentActionChanged(QTreeWidgetItem *current)
    if (itemToAction.contains(current)) {
       currentAction = current;
    } else {
-      currentAction = NULL;
+      currentAction = nullptr;
    }
 
    setButtons();

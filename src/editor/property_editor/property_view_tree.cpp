@@ -349,9 +349,11 @@ void QtPropertyEditorDelegate::paint(QPainter *painter, const QStyleOptionViewIt
    const QModelIndex &index) const
 {
    bool hasValue = true;
-   if (m_editorPrivate) {
+
+   if (m_editorPrivate != nullptr) {
       QtProperty *property = m_editorPrivate->indexToProperty(index);
-      if (property) {
+
+      if (property != nullptr) {
          hasValue = property->hasValue();
       }
    }
@@ -506,8 +508,8 @@ QtProperty *QtTreePropertyBrowserPrivate::indexToProperty(const QModelIndex &ind
 {
    QTreeWidgetItem *item = m_treeWidget->indexToItem(index);
    QtBrowserItem *idx = m_itemToIndex.value(item);
+   if (idx != nullptr) {
 
-   if (idx) {
       return idx->property();
    }
 

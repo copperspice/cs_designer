@@ -84,7 +84,6 @@ class ActionModel: public QStandardItemModel
    static PropertySheetKeySequenceValue actionShortCut(QDesignerFormEditorInterface *core, QAction *action);
    static PropertySheetKeySequenceValue actionShortCut(const QDesignerPropertySheetExtension *ps);
 
- public:
    CS_SIGNAL_1(Public, void resourceImageDropped(const QString &path, QAction *action))
    CS_SIGNAL_2(resourceImageDropped, path, action)
 

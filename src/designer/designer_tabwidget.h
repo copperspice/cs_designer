@@ -65,7 +65,6 @@ class QTabWidgetEventFilter : public QObject
    CS_SLOT_1(Private, void addPageAfter())
    CS_SLOT_2(addPageAfter)
 
- private:
    int pageFromPosition(const QPoint &pos, QRect &rect) const;
    QTabBar *tabBar() const;
 

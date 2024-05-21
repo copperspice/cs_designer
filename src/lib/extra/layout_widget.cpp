@@ -2203,14 +2203,14 @@ void QLayoutWidget::paintEvent(QPaintEvent *)
    QLayout *lt = layout();
    QGridLayout *grid = dynamic_cast<QGridLayout *>(lt);
 
-   if (lt) {
+   if (lt != nullptr) {
       if (const int count = lt->count()) {
          p.setPen(QPen(QColor(255, 0, 0, 35), 1));
 
          for (int i = 0; i < count; i++) {
             QLayoutItem *item = lt->itemAt(i);
 
-            if (grid) {
+            if (grid != nullptr) {
                int row, column, rowSpan, columnSpan;
                grid->getItemPosition(i, &row, &column, &rowSpan, &columnSpan);
 
@@ -2221,7 +2221,7 @@ void QLayoutWidget::paintEvent(QPaintEvent *)
                   rows[row + rowCnt - 2] = true;
                }
 
-               for (int colCnt = columnSpan; i > 1; colCnt--) {
+               for (int colCnt = columnSpan; colCnt > 1; colCnt--) {
                   columns[column + colCnt - 2] = true;
                }
 

@@ -226,7 +226,6 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
       }
    }
 
- private:
    QSet<PropertyManager *> m_managers;
    friend class QtAbstractPropertyEditor;
 };

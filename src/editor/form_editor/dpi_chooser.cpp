@@ -54,7 +54,7 @@ const struct DPI_Entry dpiEntries[] = {
 
 }   // end namespace qdesigner_internal
 
-CS_DECLARE_METATYPE(const struct qdesigner_internal::DPI_Entry *);
+CS_DECLARE_METATYPE(const struct qdesigner_internal::DPI_Entry *)
 
 namespace qdesigner_internal {
 

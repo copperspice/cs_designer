@@ -44,7 +44,6 @@ class QDesignerServer: public QObject
    CS_SLOT_1(Private, void socketClosed())
    CS_SLOT_2(socketClosed)
 
- private:
    QTcpServer *m_server;
    QTcpSocket *m_socket;
 };
@@ -60,7 +59,6 @@ class QDesignerClient: public QObject
    CS_SLOT_1(Private, void readFromSocket())
    CS_SLOT_2(readFromSocket)
 
- private:
    QTcpSocket *m_socket;
 };
 

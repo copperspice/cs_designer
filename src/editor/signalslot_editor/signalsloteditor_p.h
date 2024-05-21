@@ -103,7 +103,6 @@ class ConnectionModel : public QAbstractItemModel
    CS_SLOT_1(Private, void connectionChanged(Connection *con))
    CS_SLOT_2(connectionChanged)
 
- private:
    QPointer<SignalSlotEditor> m_editor;
 };
 

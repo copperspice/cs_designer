@@ -27,7 +27,6 @@
 #include <shared_settings_p.h>
 
 #include <QFileDialog>
-#include <QFileDialog>
 #include <QFileInfo>
 #include <QList>
 #include <QMessageBox>

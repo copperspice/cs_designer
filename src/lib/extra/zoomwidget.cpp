@@ -437,7 +437,7 @@ QSize ZoomWidget::sizeHint() const
    return rc;
 }
 
-bool ZoomWidget::zoomedEventFilter(QObject * /*watched*/, QEvent *event)
+bool ZoomWidget::zoomedEventFilter(QObject *, QEvent *event)
 {
    switch (event->type()) {
       case QEvent::KeyPress:

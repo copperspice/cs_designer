@@ -54,7 +54,6 @@ class FormLayoutMenu : public QObject
    CS_SLOT_1(Private, void slotAddRow())
    CS_SLOT_2(slotAddRow)
 
- private:
    QAction *m_separator1;
    QAction *m_populateFormAction;
    QAction *m_separator2;
