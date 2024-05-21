@@ -282,7 +282,7 @@ void IconSelectorPrivate::slotSetActivated()
 QString IconSelector::choosePixmapResource(QDesignerFormEditorInterface *core, QtResourceModel *resourceModel,
    const QString &oldPath, QWidget *parent)
 {
-   Q_UNUSED(resourceModel)
+   (void) resourceModel;
    QString rc;
 
    if (LanguageResourceDialog *ldlg = LanguageResourceDialog::create(core, parent)) {

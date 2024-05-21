@@ -592,19 +592,18 @@ QtGroupPropertyManager::~QtGroupPropertyManager()
 
 bool QtGroupPropertyManager::hasValue(const QtProperty *property) const
 {
-   Q_UNUSED(property)
+   (void) property;
    return false;
 }
 
-
 void QtGroupPropertyManager::initializeProperty(QtProperty *property)
 {
-   Q_UNUSED(property)
+   (void) property;
 }
 
 void QtGroupPropertyManager::uninitializeProperty(QtProperty *property)
 {
-   Q_UNUSED(property)
+   (void) property;
 }
 
 class QtIntPropertyManagerPrivate

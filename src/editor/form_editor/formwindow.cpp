@@ -594,6 +594,8 @@ void FormWindow::selectSingleWidget(QWidget *w)
 
 bool FormWindow::handleMousePressEvent(QWidget *widget, QWidget *managedWidget, QMouseEvent *e)
 {
+   (void) widget;
+
    m_mouseState = NoMouseState;
    m_startPos = QPoint();
    e->accept();
@@ -765,6 +767,8 @@ bool FormWindow::handleMouseMoveEvent(QWidget *, QWidget *, QMouseEvent *e)
 
 bool FormWindow::handleMouseReleaseEvent(QWidget *w, QWidget *mw, QMouseEvent *e)
 {
+   (void) w;
+
    const MouseState oldState = m_mouseState;
    m_mouseState = NoMouseState;
 
@@ -2211,6 +2215,7 @@ void FormWindow::lowerWidgets()
 
 bool FormWindow::handleMouseButtonDblClickEvent(QWidget *w, QWidget *managedWidget, QMouseEvent *e)
 {
+   (void) w;
 
    e->accept();
 

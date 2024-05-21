@@ -399,6 +399,9 @@ void ZoomWidget::resizeEvent(QResizeEvent *event)
     * the size passed in the event is not to be trusted. This might be due
     * to some QScrollArea event fiddling. Have QScrollArea resize first
     * and the use the size ZoomView::resizeEvent(event); */
+
+   (void) event;
+
    if (m_proxy && !m_viewResizeBlocked) {
       const QSizeF newViewPortSize = size() - viewPortMargin();
       const QSizeF widgetSizeF = newViewPortSize / zoomFactor() - widgetDecorationSizeF();

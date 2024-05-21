@@ -72,9 +72,9 @@ void QExtensionFactory::objectDestroyed(QObject *object)
 
 QObject *QExtensionFactory::createExtension(QObject *object, const QString &iid, QObject *parent) const
 {
-   Q_UNUSED(object);
-   Q_UNUSED(iid);
-   Q_UNUSED(parent);
+   (void) object;
+   (void) iid;
+   (void) parent;
 
    return nullptr;
 }

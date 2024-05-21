@@ -272,12 +272,12 @@ QWidget *QAbstractFormBuilder::create(DomWidget *ui_widget, QWidget *parentWidge
 
    for (DomAction *ui_action : ui_widget->elementAction()) {
       QAction *child_action = create(ui_action, w);
-      Q_UNUSED( child_action );
+      (void) child_action;
    }
 
    for (DomActionGroup *ui_action_group : ui_widget->elementActionGroup()) {
       QActionGroup *child_action_group = create(ui_action_group, w);
-      Q_UNUSED( child_action_group );
+      (void) child_action_group;
    }
 
    QWidgetList children;
@@ -377,12 +377,12 @@ QActionGroup *QAbstractFormBuilder::create(DomActionGroup *ui_action_group, QObj
 
    for (DomAction *ui_action : ui_action_group->elementAction()) {
       QAction *child_action = create(ui_action, a);
-      Q_UNUSED( child_action );
+      (void) child_action;
    }
 
    for (DomActionGroup *g : ui_action_group->elementActionGroup()) {
       QActionGroup *child_action_group = create(g, parent);
-      Q_UNUSED( child_action_group );
+      (void) child_action_group;
    }
 
    return a;
@@ -567,7 +567,8 @@ bool QAbstractFormBuilder::addItem(DomWidget *ui_widget, QWidget *widget, QWidge
 
 void QAbstractFormBuilder::layoutInfo(DomLayout *ui_layout, QObject *parent, int *margin, int *spacing)
 {
-   Q_UNUSED(parent)
+   (void) parent;
+
    const QFormBuilderStrings &strings = QFormBuilderStrings::instance();
    const DomPropertyHash properties = propertyMap(ui_layout->elementProperty());
 
@@ -1215,17 +1216,18 @@ DomBrush *QAbstractFormBuilder::saveBrush(const QBrush &br)
 
 QWidget *QAbstractFormBuilder::createWidget(const QString &widgetName, QWidget *parentWidget, const QString &name)
 {
-   Q_UNUSED(widgetName);
-   Q_UNUSED(parentWidget);
-   Q_UNUSED(name);
+   (void) widgetName;
+   (void) parentWidget;
+   (void) name;
+
    return nullptr;
 }
 
 QLayout *QAbstractFormBuilder::createLayout(const QString &layoutName, QObject *parent, const QString &name)
 {
-   Q_UNUSED(layoutName);
-   Q_UNUSED(parent);
-   Q_UNUSED(name);
+   (void) layoutName;
+   (void) parent;
+   (void) name;
 
    return nullptr;
 }
@@ -1541,7 +1543,7 @@ static QList<FormBuilderSaveLayoutEntry> saveFormLayoutEntries(const QFormLayout
 
 DomLayout *QAbstractFormBuilder::createDom(QLayout *layout, DomLayout *ui_layout, DomWidget *ui_parentWidget)
 {
-   Q_UNUSED(ui_layout)
+   (void) ui_layout;
 
    DomLayout *lay = new DomLayout();
    lay->setAttributeClass(layout->metaObject()->className());
@@ -1609,8 +1611,8 @@ DomLayoutItem *QAbstractFormBuilder::createDom(QLayoutItem *item, DomLayout *ui_
 
 DomSpacer *QAbstractFormBuilder::createDom(QSpacerItem *spacer, DomLayout *ui_layout, DomWidget *ui_parentWidget)
 {
-   Q_UNUSED(ui_layout);
-   Q_UNUSED(ui_parentWidget);
+   (void) ui_layout;
+   (void) ui_parentWidget;
 
    DomSpacer *ui_spacer = new DomSpacer();
    QList<DomProperty *> properties;
@@ -1723,8 +1725,8 @@ QAbstractFormBuilder::DomPropertyHash QAbstractFormBuilder::propertyMap(const QL
 
 bool QAbstractFormBuilder::checkProperty(QObject *obj, const QString &prop) const
 {
-   Q_UNUSED(obj);
-   Q_UNUSED(prop);
+   (void) obj;
+   (void) prop;
 
    return true;
 }
@@ -1922,7 +1924,7 @@ static void loadItemPropsNFlags(QAbstractFormBuilder *abstractFormBuilder, T *it
 
 void QAbstractFormBuilder::saveTreeWidgetExtraInfo(QTreeWidget *treeWidget, DomWidget *ui_widget, DomWidget *ui_parentWidget)
 {
-   Q_UNUSED(ui_parentWidget);
+   (void) ui_parentWidget;
 
    QList<DomColumn *> columns;
    DomProperty *p;
@@ -2022,7 +2024,7 @@ void QAbstractFormBuilder::saveTreeWidgetExtraInfo(QTreeWidget *treeWidget, DomW
 
 void QAbstractFormBuilder::saveTableWidgetExtraInfo(QTableWidget *tableWidget, DomWidget *ui_widget, DomWidget *ui_parentWidget)
 {
-   Q_UNUSED(ui_parentWidget);
+   (void) ui_parentWidget;
 
    // save the horizontal header
    QList<DomColumn *> columns;
@@ -2076,7 +2078,7 @@ void QAbstractFormBuilder::saveTableWidgetExtraInfo(QTableWidget *tableWidget, D
 
 void QAbstractFormBuilder::saveListWidgetExtraInfo(QListWidget *listWidget, DomWidget *ui_widget, DomWidget *ui_parentWidget)
 {
-   Q_UNUSED(ui_parentWidget);
+   (void) ui_parentWidget;
 
    QList<DomItem *> ui_items = ui_widget->elementItem();
    for (int i = 0; i < listWidget->count(); ++i) {
@@ -2093,7 +2095,7 @@ void QAbstractFormBuilder::saveListWidgetExtraInfo(QListWidget *listWidget, DomW
 
 void QAbstractFormBuilder::saveComboBoxExtraInfo(QComboBox *comboBox, DomWidget *ui_widget, DomWidget *ui_parentWidget)
 {
-   Q_UNUSED(ui_parentWidget);
+   (void) ui_parentWidget;
    QList<DomItem *> ui_items = ui_widget->elementItem();
 
    const int count = comboBox->count();
@@ -2244,7 +2246,8 @@ void QAbstractFormBuilder::saveExtraInfo(QWidget *widget, DomWidget *ui_widget,
 
 void QAbstractFormBuilder::loadListWidgetExtraInfo(DomWidget *ui_widget, QListWidget *listWidget, QWidget *parentWidget)
 {
-   Q_UNUSED(parentWidget);
+   (void) parentWidget;
+
    const QFormBuilderStrings &strings = QFormBuilderStrings::instance();
 
    for (DomItem *ui_item : ui_widget->elementItem()) {
@@ -2261,7 +2264,7 @@ void QAbstractFormBuilder::loadListWidgetExtraInfo(DomWidget *ui_widget, QListWi
 
 void QAbstractFormBuilder::loadTreeWidgetExtraInfo(DomWidget *ui_widget, QTreeWidget *treeWidget, QWidget *parentWidget)
 {
-   Q_UNUSED(parentWidget);
+   (void) parentWidget;
 
    const QFormBuilderStrings &strings = QFormBuilderStrings::instance();
    const QMetaEnum itemFlags_enum     = metaEnum<QAbstractFormBuilderGadget>("itemFlags");
@@ -2381,7 +2384,7 @@ void QAbstractFormBuilder::loadTreeWidgetExtraInfo(DomWidget *ui_widget, QTreeWi
 
 void QAbstractFormBuilder::loadTableWidgetExtraInfo(DomWidget *ui_widget, QTableWidget *tableWidget, QWidget *parentWidget)
 {
-   Q_UNUSED(parentWidget);
+   (void) parentWidget;
 
    const QList<DomColumn *> columns = ui_widget->elementColumn();
    if (columns.count() > 0) {
@@ -2427,7 +2430,8 @@ void QAbstractFormBuilder::loadTableWidgetExtraInfo(DomWidget *ui_widget, QTable
 
 void QAbstractFormBuilder::loadComboBoxExtraInfo(DomWidget *ui_widget, QComboBox *comboBox, QWidget *parentWidget)
 {
-   Q_UNUSED(parentWidget);
+   (void) parentWidget;
+
    const QFormBuilderStrings &strings = QFormBuilderStrings::instance();
 
    for (DomItem *ui_item : ui_widget->elementItem()) {
@@ -2682,7 +2686,7 @@ DomActionGroup *QAbstractFormBuilder::createDom(QActionGroup *actionGroup)
 
 void QAbstractFormBuilder::addMenuAction(QAction *action)
 {
-   Q_UNUSED(action);
+   (void) action;
 }
 
 void QAbstractFormBuilder::reset()
@@ -2701,14 +2705,16 @@ QMetaEnum QAbstractFormBuilder::toolBarAreaMetaEnum()
 
 QAbstractFormBuilder::IconPaths QAbstractFormBuilder::iconPaths(const QIcon &icon) const
 {
-   Q_UNUSED(icon);
+   (void) icon;
+
    qWarning() << "QAbstractFormBuilder::iconPaths() is obsoleted";
    return IconPaths();
 }
 
 QAbstractFormBuilder::IconPaths QAbstractFormBuilder::pixmapPaths(const QPixmap &pixmap) const
 {
-   Q_UNUSED(pixmap);
+   (void) pixmap;
+
    qWarning() << "QAbstractFormBuilder::pixmapPaths() is obsoleted";
    return IconPaths();
 }
@@ -2742,7 +2748,8 @@ void QAbstractFormBuilder::setPixmapProperty(DomProperty &p, const IconPaths &ip
 
 DomProperty *QAbstractFormBuilder::iconToDomProperty(const QIcon &icon) const
 {
-   Q_UNUSED(icon);
+   (void) icon;
+
    qWarning() << "QAbstractFormBuilder::iconToDomProperty() is obsoleted";
 
    return nullptr;
@@ -2793,28 +2800,32 @@ const DomResourcePixmap *QAbstractFormBuilder::domPixmap(const DomProperty *p)
 
 QIcon QAbstractFormBuilder::domPropertyToIcon(const DomResourcePixmap *icon)
 {
-   Q_UNUSED(icon);
+   (void) icon;
+
    qWarning() << "QAbstractFormBuilder::domPropertyToIcon() is obsoleted";
    return QIcon();
 }
 
 QIcon QAbstractFormBuilder::domPropertyToIcon(const DomProperty *p)
 {
-   Q_UNUSED(p);
+   (void) p;
+
    qWarning() << "QAbstractFormBuilder::domPropertyToIcon() is obsoleted";
    return QIcon();
 }
 
 QPixmap QAbstractFormBuilder::domPropertyToPixmap(const DomResourcePixmap *pixmap)
 {
-   Q_UNUSED(pixmap);
+   (void) pixmap;
+
    qWarning() << "QAbstractFormBuilder::domPropertyToPixmap() is obsoleted";
    return QPixmap();
 }
 
 QPixmap QAbstractFormBuilder::domPropertyToPixmap(const DomProperty *p)
 {
-   Q_UNUSED(p);
+   (void) p;
+
    qWarning() << "QAbstractFormBuilder::domPropertyToPixmap() is obsoleted";
    return QPixmap();
 }

@@ -34,7 +34,7 @@ namespace qdesigner_internal {
 
 LayoutInfo::Type LayoutInfo::layoutType(const QDesignerFormEditorInterface *core, const QLayout *layout)
 {
-   Q_UNUSED(core)
+   (void) core;
 
    if (!layout) {
       return NoLayout;
@@ -107,7 +107,7 @@ LayoutInfo::Type LayoutInfo::managedLayoutType(const QDesignerFormEditorInterfac
 
 QWidget *LayoutInfo::layoutParent(const QDesignerFormEditorInterface *core, QLayout *layout)
 {
-   Q_UNUSED(core)
+   (void) core;
 
    QObject *o = layout;
 

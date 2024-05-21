@@ -323,7 +323,7 @@ Qt::WindowFlags QDesignerWorkbench::magicalWindowFlags(const QWidget *widgetForF
             return Qt::Tool;
          }
 #else
-         Q_UNUSED(widgetForFlags);
+         (void) widgetForFlags;
 #endif
          return Qt::Window;
       }

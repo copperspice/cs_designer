@@ -155,16 +155,18 @@ bool QDesignerFormBuilder::addItem(DomLayoutItem *ui_item, QLayoutItem *item, QL
 
 QIcon QDesignerFormBuilder::nameToIcon(const QString &filePath, const QString &qrcPath)
 {
-   Q_UNUSED(filePath)
-   Q_UNUSED(qrcPath)
+   (void) filePath;
+   (void) qrcPath;
+
    qWarning() << "QDesignerFormBuilder::nameToIcon() is obsoleted";
    return QIcon();
 }
 
 QPixmap QDesignerFormBuilder::nameToPixmap(const QString &filePath, const QString &qrcPath)
 {
-   Q_UNUSED(filePath)
-   Q_UNUSED(qrcPath)
+   (void) filePath;
+   (void) qrcPath;
+
    qWarning() << "QDesignerFormBuilder::nameToPixmap() is obsoleted";
    return QPixmap();
 }

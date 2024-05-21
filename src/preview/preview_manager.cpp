@@ -607,7 +607,8 @@ Qt::WindowFlags PreviewManager::previewWindowFlags(const QWidget *widget) const
       Qt::Window | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint :
       Qt::WindowFlags(Qt::Dialog);
 #else
-   Q_UNUSED(widget)
+   (void) widget;
+
    // Only Dialogs have close buttons on Mac.
    // On Linux, we don't want an additional task bar item and we don't want a minimize button;
    // we want the preview to be on top.

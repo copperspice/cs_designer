@@ -239,35 +239,39 @@ void QtGradientStopsWidgetPrivate::slotStopRemoved(QtGradientStop *stop)
 
 void QtGradientStopsWidgetPrivate::slotStopMoved(QtGradientStop *stop, qreal newPos)
 {
-   Q_UNUSED(stop)
-   Q_UNUSED(newPos)
+   (void) stop;
+   (void) newPos;
+
    q_ptr->viewport()->update();
 }
 
 void QtGradientStopsWidgetPrivate::slotStopsSwapped(QtGradientStop *stop1, QtGradientStop *stop2)
 {
-   Q_UNUSED(stop1)
-   Q_UNUSED(stop2)
+   (void) stop1;
+   (void) stop2;
+
    q_ptr->viewport()->update();
 }
 
 void QtGradientStopsWidgetPrivate::slotStopChanged(QtGradientStop *stop, const QColor &newColor)
 {
-   Q_UNUSED(stop)
-   Q_UNUSED(newColor)
+   (void) stop;
+   (void) newColor;
+
    q_ptr->viewport()->update();
 }
 
 void QtGradientStopsWidgetPrivate::slotStopSelected(QtGradientStop *stop, bool selected)
 {
-   Q_UNUSED(stop)
-   Q_UNUSED(selected)
+   (void) stop;
+   (void) selected;
+
    q_ptr->viewport()->update();
 }
 
 void QtGradientStopsWidgetPrivate::slotCurrentStopChanged(QtGradientStop *stop)
 {
-   Q_UNUSED(stop)
+   (void) stop;
 
    if (!m_model) {
       return;
@@ -1010,13 +1014,15 @@ void QtGradientStopsWidget::paintEvent(QPaintEvent *e)
 
 void QtGradientStopsWidget::focusInEvent(QFocusEvent *e)
 {
-   Q_UNUSED(e)
+   (void) e;
+
    viewport()->update();
 }
 
 void QtGradientStopsWidget::focusOutEvent(QFocusEvent *e)
 {
-   Q_UNUSED(e)
+   (void) e;
+
    viewport()->update();
 }
 

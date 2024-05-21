@@ -115,7 +115,7 @@ UrlValidator::UrlValidator(QCompleter *completer, QObject *parent) :
 
 QValidator::State UrlValidator::validate(QString &input, int &pos) const
 {
-   Q_UNUSED(pos);
+   (void) pos;
 
    if (input.isEmpty()) {
       return Acceptable;

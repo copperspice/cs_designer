@@ -77,7 +77,7 @@ void QDesignerToolWindow::showMe(bool enable)
 
 void QDesignerToolWindow::showEvent(QShowEvent *e)
 {
-   Q_UNUSED(e);
+   (void) e;
 
    bool blocked = m_action->blockSignals(true);
    m_action->setChecked(true);
@@ -86,7 +86,7 @@ void QDesignerToolWindow::showEvent(QShowEvent *e)
 
 void QDesignerToolWindow::hideEvent(QHideEvent *e)
 {
-   Q_UNUSED(e);
+   (void) e;
 
    bool blocked = m_action->blockSignals(true);
    m_action->setChecked(false);

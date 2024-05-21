@@ -56,7 +56,7 @@ int QMainWindowContainer::currentIndex() const
 
 void QMainWindowContainer::setCurrentIndex(int index)
 {
-   Q_UNUSED(index);
+   (void) index;
 }
 
 
@@ -158,7 +158,7 @@ void QMainWindowContainer::addWidget(QWidget *widget)
 
 void QMainWindowContainer::insertWidget(int index, QWidget *widget)
 {
-   Q_UNUSED(index);
+   (void) index;
 
    addWidget(widget);
 }

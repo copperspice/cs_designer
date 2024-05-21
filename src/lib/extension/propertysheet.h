@@ -55,7 +55,7 @@ class QDesignerPropertySheetExtension
    virtual bool isEnabled(int index) const
    // ### Qt6 remove body, provided in Qt5 for source compatibility to Qt4.
    {
-      Q_UNUSED(index);
+      (void) index;
       return true;
    }
 };

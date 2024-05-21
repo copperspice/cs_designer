@@ -48,8 +48,8 @@ QDesignerFormWindowInterface *TabOrderEditorTool::formWindow() const
 
 bool TabOrderEditorTool::handleEvent(QWidget *widget, QWidget *managedWidget, QEvent *event)
 {
-   Q_UNUSED(widget);
-   Q_UNUSED(managedWidget);
+   (void) widget;
+   (void) managedWidget;
 
    if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
       return true;

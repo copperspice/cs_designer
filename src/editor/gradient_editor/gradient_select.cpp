@@ -65,6 +65,6 @@ void QtGradientSelect::slotGradientSelected(const QString &id)
 
 void QtGradientSelect::slotGradientActivated(const QString &id)
 {
-   Q_UNUSED(id)
+   (void) id;
    accept();
 }

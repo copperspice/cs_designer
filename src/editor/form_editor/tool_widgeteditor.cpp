@@ -200,9 +200,9 @@ bool WidgetEditorTool::handleKeyReleaseEvent(QWidget *widget, QWidget *managedWi
 
 bool WidgetEditorTool::handlePaintEvent(QWidget *widget, QWidget *managedWidget, QPaintEvent *e)
 {
-   Q_UNUSED(widget);
-   Q_UNUSED(managedWidget);
-   Q_UNUSED(e);
+   (void) widget;
+   (void) managedWidget;
+   (void) e;
 
    return false;
 }

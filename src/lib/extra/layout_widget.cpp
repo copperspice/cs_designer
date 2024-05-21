@@ -1855,6 +1855,7 @@ QBoxLayoutSupport::QBoxLayoutSupport(QDesignerFormWindowInterface *formWindow, Q
 
 void QBoxLayoutSupport::setCurrentCellFromIndicatorOnEmptyCell(int index)
 {
+   (void) index;
    setCurrentCell(qMakePair(0, 0));
 }
 

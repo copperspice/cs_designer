@@ -47,6 +47,6 @@ QVariant QTextBuilder::toNativeValue(const QVariant &value) const
 
 DomProperty *QTextBuilder::saveText(const QVariant &value) const
 {
-   Q_UNUSED(value)
+   (void) value;
    return nullptr;
 }

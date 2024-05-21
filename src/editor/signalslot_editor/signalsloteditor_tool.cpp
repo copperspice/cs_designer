@@ -48,9 +48,9 @@ QDesignerFormWindowInterface *SignalSlotEditorTool::formWindow() const
 
 bool SignalSlotEditorTool::handleEvent(QWidget *widget, QWidget *managedWidget, QEvent *event)
 {
-   Q_UNUSED(widget);
-   Q_UNUSED(managedWidget);
-   Q_UNUSED(event);
+   (void) widget;
+   (void) managedWidget;
+   (void) event;
 
    return false;
 }
@@ -96,4 +96,3 @@ void SignalSlotEditorTool::loadFromDom(DomUI *ui, QWidget *mainContainer)
 {
    m_editor->fromUi(ui->elementConnections(), mainContainer);
 }
-

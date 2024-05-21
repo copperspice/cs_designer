@@ -388,7 +388,8 @@ void QtGradientWidget::mousePressEvent(QMouseEvent *e)
 
 void QtGradientWidget::mouseReleaseEvent(QMouseEvent *e)
 {
-   Q_UNUSED(e)
+   (void) e;
+
    d_ptr->m_dragHandle = QtGradientWidgetPrivate::NoHandle;
    update();
 }
@@ -494,7 +495,7 @@ void QtGradientWidget::mouseDoubleClickEvent(QMouseEvent *e)
 
 void QtGradientWidget::paintEvent(QPaintEvent *e)
 {
-   Q_UNUSED(e)
+   (void) e;
 
    QPainter p(this);
 

@@ -47,8 +47,9 @@ class QDesignerCustomWidgetInterface
    virtual bool isInitialized() const {
       return false;
    }
+
    virtual void initialize(QDesignerFormEditorInterface *core) {
-      Q_UNUSED(core);
+      (void) core;
    }
 
    virtual QString domXml() const {

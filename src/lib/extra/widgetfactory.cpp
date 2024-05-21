@@ -738,7 +738,7 @@ void WidgetFactory::initialize(QObject *object) const
    }
    if (QWizard *wz = dynamic_cast<QWizard *>(widget)) {
       WizardPageChangeWatcher *pw = new WizardPageChangeWatcher(wz);
-      Q_UNUSED(pw);
+      (void) pw;
    }
 }
 
