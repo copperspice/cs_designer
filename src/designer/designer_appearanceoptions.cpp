@@ -23,7 +23,6 @@
 #include <designer_toolwindow.h>
 #include <ui_designer_options.h>
 
-#include <QDebug>
 #include <QTimer>
 
 AppearanceOptions::AppearanceOptions()

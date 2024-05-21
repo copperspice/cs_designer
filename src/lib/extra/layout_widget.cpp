@@ -31,7 +31,6 @@
 #include <invisible_widget_p.h>
 
 #include <QApplication>
-#include <QDebug>
 #include <QEvent>
 #include <QFormLayout>
 #include <QGridLayout>
@@ -46,8 +45,6 @@
 #include <qalgorithms.h>
 
 #include <algorithm>
-
-constexpr const int DEBUG_LAYOUT    = 0;
 
 constexpr const int MIN_MARGIN      = 1;
 constexpr const int COLUMNS_IN_FORM = 2;
@@ -140,30 +137,6 @@ static inline QSpacerItem *createGridSpacer()
 static inline QSpacerItem *createFormSpacer()
 {
    return new qdesigner_internal::PaddingSpacerItem;
-}
-
-// QGridLayout/QFormLayout Helpers: Debug items of GridLikeLayout
-template <class GridLikeLayout>
-static QDebug debugGridLikeLayout(QDebug str, const GridLikeLayout &gl)
-{
-   const int count = gl.count();
-
-   str << "Grid: " << gl.objectName() <<   gridRowCount(&gl) << " rows x " <<  gridColumnCount(&gl)
-      << " cols " << count << " items\n";
-
-   for (int i = 0; i < count; ++i) {
-      QLayoutItem *item = gl.itemAt(i);
-
-      str << "Item " << i << item << item->widget() << gridItemInfo(const_cast<GridLikeLayout *>(&gl),
-            i) << " empty=" << qdesigner_internal::LayoutInfo::isEmptyItem(item) << "\n";
-   }
-
-   return str;
-}
-
-static inline QDebug operator<<(QDebug str, const QGridLayout &gl)
-{
-   return debugGridLikeLayout(str, gl);
 }
 
 static inline bool isEmptyFormLayoutRow(const QFormLayout *fl, int row)
@@ -760,18 +733,6 @@ static inline bool needsSpacerItem(const GridLayoutState::CellState &cs)
    return cs.first == GridLayoutState::Free && cs.second == GridLayoutState::Free;
 }
 
-static inline QDebug operator<<(QDebug str, const GridLayoutState &gs)
-{
-   str << "GridLayoutState: " <<  gs.rowCount << " rows x " <<  gs.colCount
-      << " cols " << gs.widgetItemMap.size() << " items\n";
-
-   const GridLayoutState::WidgetItemMap::const_iterator wcend = gs.widgetItemMap.constEnd();
-   for (GridLayoutState::WidgetItemMap::const_iterator it = gs.widgetItemMap.constBegin(); it != wcend; ++it) {
-      str << "Item " << it.key() << it.value() << '\n';
-   }
-   return str;
-}
-
 GridLayoutState::GridLayoutState()
    : rowCount(0), colCount(0)
 {
@@ -817,16 +778,6 @@ GridLayoutState::CellStates GridLayoutState::cellStates(const QList<QRect> &rect
       }
    }
 
-   if (DEBUG_LAYOUT) {
-      qDebug() << "GridLayoutState::cellStates: " << numRows << " x " << numColumns;
-
-      for (int r = 0; r < numRows; r++) {
-         for (int c = 0; c < numColumns; c++) {
-            qDebug() << "  Row: " << r << " column: " << c <<  rc[r * numColumns + c];
-         }
-      }
-   }
-
    return rc;
 }
 
@@ -854,9 +805,6 @@ void GridLayoutState::applyToLayout(const QDesignerFormEditorInterface *core, QW
    QGridLayout *grid = dynamic_cast<QGridLayout *>(LayoutInfo::managedLayout(core, w));
    Q_ASSERT(grid);
 
-   if (DEBUG_LAYOUT) {
-      qDebug() << ">GridLayoutState::applyToLayout" <<  *this << *grid;
-   }
    const bool shrink = grid->rowCount() > rowCount || grid->columnCount() > colCount;
 
    // Build a map of existing items to rectangles via widget map, delete spacers
@@ -905,9 +853,6 @@ void GridLayoutState::applyToLayout(const QDesignerFormEditorInterface *core, QW
          }
    grid->activate();
 
-   if (DEBUG_LAYOUT) {
-      qDebug() << "<GridLayoutState::applyToLayout" <<  *grid;
-   }
 }
 
 void GridLayoutState::insertRow(int row)
@@ -1226,18 +1171,11 @@ void GridLayoutHelper::simplify(const QDesignerFormEditorInterface *core, QWidge
 {
    QGridLayout *gridLayout = dynamic_cast<QGridLayout *>(LayoutInfo::managedLayout(core, widgetWithManagedLayout));
    Q_ASSERT(gridLayout);
-   if (DEBUG_LAYOUT) {
-      qDebug() << ">GridLayoutHelper::simplify" <<  *gridLayout;
-   }
 
    GridLayoutState gs;
    gs.fromLayout(gridLayout);
    if (gs.simplify(restrictionArea, false)) {
       gs.applyToLayout(core, widgetWithManagedLayout);
-   }
-
-   if (DEBUG_LAYOUT) {
-      qDebug() << "<GridLayoutHelper::simplify" <<  *gridLayout;
    }
 }
 
@@ -1283,10 +1221,6 @@ QRect FormLayoutHelper::itemInfo(QLayout *lt, int index) const
 
 void FormLayoutHelper::insertWidget(QLayout *lt, const QRect &info, QWidget *w)
 {
-   if (DEBUG_LAYOUT) {
-      qDebug() << "FormLayoutHelper::insertWidget:" << w << info;
-   }
-
    QDesignerWidgetItemInstaller wii; // Make sure we use QDesignerWidgetItem.
    QFormLayout *formLayout = dynamic_cast<QFormLayout *>(lt);
 
@@ -1313,10 +1247,6 @@ void FormLayoutHelper::removeWidget(QLayout *lt, QWidget *widget)
    // delete old item and pad with  by spacer items
    int row, column, colspan;
    getFormLayoutItemPosition(formLayout, index, &row, &column, nullptr, &colspan);
-
-   if (DEBUG_LAYOUT) {
-      qDebug() << "FormLayoutHelper::removeWidget: #" << index << widget << " at " << row << column <<  colspan;
-   }
 
    delete formLayout->takeAt(index);
 
@@ -1389,13 +1319,6 @@ FormLayoutHelper::FormLayoutState FormLayoutHelper::state(const QFormLayout *lt)
       }
    }
 
-   if (DEBUG_LAYOUT) {
-      qDebug() << "FormLayoutHelper::state: " << rowCount;
-
-      for (int r = 0; r < rowCount; r++) {
-         qDebug() << "  Row: " << r << rc[r].first << rc[r].second;
-      }
-   }
    return rc;
 }
 
@@ -1463,9 +1386,6 @@ void FormLayoutHelper::simplify(const QDesignerFormEditorInterface *core, QWidge
 
    QFormLayout *formLayout = dynamic_cast<QFormLayout *>(LayoutInfo::managedLayout(core, widgetWithManagedLayout));
    Q_ASSERT(formLayout);
-   if (DEBUG_LAYOUT) {
-      qDebug() << "FormLayoutHelper::simplify";
-   }
 
    // Transform into vector of item pairs
    const int rowCount = formLayout->rowCount();
@@ -1935,8 +1855,6 @@ QBoxLayoutSupport::QBoxLayoutSupport(QDesignerFormWindowInterface *formWindow, Q
 
 void QBoxLayoutSupport::setCurrentCellFromIndicatorOnEmptyCell(int index)
 {
-   qDebug() << "QBoxLayoutSupport::setCurrentCellFromIndicatorOnEmptyCell(): Warning: found a fake spacer inside a vbox layout at " <<
-      index;
    setCurrentCell(qMakePair(0, 0));
 }
 

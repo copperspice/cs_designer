@@ -35,7 +35,6 @@
 
 #include <QAction>
 #include <QApplication>
-#include <QDebug>
 #include <QDrag>
 #include <QEvent>
 #include <QLineEdit>

@@ -30,10 +30,7 @@
 
 #include <QAction>
 #include <QCloseEvent>
-#include <QDebug>
 #include <QEvent>
-
-constexpr const int DEBUG_TOOL_WINDOW = 0;
 
 ToolWindowFontSettings::ToolWindowFontSettings()
    : m_writingSystem(QFontDatabase::Any), m_useFont(false)
@@ -172,10 +169,6 @@ QRect PropertyEditorToolWindow::geometryHint() const
          (g.top() + margin + g.height() * 1 / 6) + spacing,
          sz.width(), sz.height());
 
-   if (DEBUG_TOOL_WINDOW) {
-      qDebug() << Q_FUNC_INFO << rc;
-   }
-
    return rc;
 }
 
@@ -223,10 +216,6 @@ QRect ActionEditorToolWindow::geometryHint() const
 
    const QRect rc = QRect((g.right() + 1 - sz.width() - margin), g.top() + margin, sz.width(), sz.height());
 
-   if (DEBUG_TOOL_WINDOW) {
-      qDebug() << Q_FUNC_INFO << rc;
-   }
-
    return rc;
 }
 
@@ -266,10 +255,6 @@ QRect ObjectInspectorToolWindow::geometryHint() const
 
    const QRect rc = QRect((g.right() + 1 - sz.width() - margin), g.top() + margin, sz.width(), sz.height());
 
-   if (DEBUG_TOOL_WINDOW) {
-      qDebug() << Q_FUNC_INFO << rc;
-   }
-
    return rc;
 }
 
@@ -299,10 +284,6 @@ QRect ResourceEditorToolWindow::geometryHint() const
    r.moveCenter(g.center());
    r.moveBottom(g.bottom() - margin);
 
-   if (DEBUG_TOOL_WINDOW) {
-      qDebug() << Q_FUNC_INFO << r;
-   }
-
    return r;
 }
 
@@ -331,10 +312,6 @@ QRect SignalSlotEditorToolWindow::geometryHint() const
    QRect r(QPoint(0, 0), sz);
    r.moveCenter(g.center());
    r.moveTop(margin + g.top());
-
-   if (DEBUG_TOOL_WINDOW) {
-      qDebug() << Q_FUNC_INFO << r;
-   }
 
    return r;
 }
@@ -368,10 +345,6 @@ QRect WidgetBoxToolWindow::geometryHint() const
    const QRect g = availableToolWindowGeometry();
    const int margin = workbench()->marginHint();
    const  QRect rc = QRect(g.left() + margin, g.top() + margin, g.width() * 1 / 4, g.height() * 5 / 6);
-
-   if (DEBUG_TOOL_WINDOW) {
-      qDebug() << Q_FUNC_INFO << rc;
-   }
 
    return rc;
 }

@@ -19,8 +19,6 @@
 
 #include <default_container.h>
 
-#include <QDebug>
-
 template <class Container>
 static inline void setCurrentContainerIndex(int index, Container *container)
 {

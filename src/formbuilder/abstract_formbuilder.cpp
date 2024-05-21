@@ -28,8 +28,6 @@
 #include <QBoxLayout>
 #include <QButtonGroup>
 #include <QCoreApplication>
-#include <QDebug>
-#include <QDebug>
 #include <QDir>
 #include <QDockWidget>
 #include <QFileInfo>
@@ -2782,7 +2780,6 @@ const DomResourcePixmap *QAbstractFormBuilder::domPixmap(const DomProperty *p)
 {
    switch (p->kind()) {
       case DomProperty::IconSet:
-         qDebug() << "** WARNING QAbstractFormBuilder::domPixmap() called for icon set!";
          break;
 
       case DomProperty::Pixmap:

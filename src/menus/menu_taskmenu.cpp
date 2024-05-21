@@ -21,7 +21,6 @@
 #include <promotion_taskmenu.h>
 
 #include <QAction>
-#include <QDebug>
 
 namespace qdesigner_internal {
 

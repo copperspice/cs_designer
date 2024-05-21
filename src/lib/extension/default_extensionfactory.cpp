@@ -20,7 +20,6 @@
 #include <default_extensionfactory.h>
 #include <extension_manager.h>
 
-#include <QDebug>
 #include <QPointer>
 
 QExtensionFactory::QExtensionFactory(QExtensionManager *parent)

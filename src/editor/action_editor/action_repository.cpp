@@ -28,7 +28,6 @@
 
 #include <QAction>
 #include <QContextMenuEvent>
-#include <QDebug>
 #include <QDrag>
 #include <QEvent>
 #include <QHeaderView>

@@ -22,14 +22,9 @@
 #include <metadatabase_p.h>
 #include <widgetdatabase_p.h>
 
-#include <QDebug>
 #include <QWidget>
 
 #include <qalgorithms.h>
-
-namespace {
-const bool debugMetaDatabase = false;
-}
 
 namespace qdesigner_internal {
 
@@ -134,20 +129,12 @@ void MetaDataBase::add(QObject *object)
 
    if (item != nullptr) {
       item->setEnabled(true);
-
-      if (debugMetaDatabase) {
-         qDebug() << "MetaDataBase::add: Existing item for " << object->metaObject()->className() << item->name();
-      }
-
       return;
    }
 
    item = new MetaDataBaseItem(object);
    m_items.insert(object, item);
 
-   if (debugMetaDatabase) {
-      qDebug() << "MetaDataBase::add: New item " << object->metaObject()->className() << item->name();
-   }
    connect(object, &QObject::destroyed, this, &MetaDataBase::slotDestroyed);
 
    emit changed();
@@ -207,14 +194,7 @@ bool promoteWidget(QDesignerFormEditorInterface *core, QWidget *widget, const QS
    }
    // Recursive promotion occurs if there is a plugin missing.
    const QString oldCustomClassName = item->customClassName();
-   if (!oldCustomClassName.isEmpty()) {
-      qDebug() << "WARNING: Recursive promotion of " << oldCustomClassName << " to " << customClassName
-         << ". A plugin is missing.";
-   }
    item->setCustomClassName(customClassName);
-   if (debugMetaDatabase) {
-      qDebug() << "Promoting " << widget->metaObject()->className() << " to " << customClassName;
-   }
    return true;
 }
 
@@ -226,9 +206,6 @@ void demoteWidget(QDesignerFormEditorInterface *core, QWidget *widget)
    }
    MetaDataBaseItem *item = db->metaDataBaseItem(widget);
    item->setCustomClassName(QString());
-   if (debugMetaDatabase) {
-      qDebug() << "Demoting " << widget;
-   }
 }
 
 bool isPromoted(QDesignerFormEditorInterface *core, QWidget *widget)

@@ -24,7 +24,6 @@
 
 #include <QAbstractItemView>
 #include <QCompleter>
-#include <QDebug>
 #include <QFile>
 #include <QLineEdit>
 #include <QRegularExpression>

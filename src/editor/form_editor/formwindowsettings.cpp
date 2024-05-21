@@ -23,7 +23,6 @@
 #include <formwindowbase_p.h>
 #include <grid_p.h>
 
-#include <QDebug>
 #include <QRegularExpression>
 #include <QStyle>
 
@@ -63,16 +62,6 @@ inline bool operator==(const FormWindowData &fd1, const FormWindowData &fd2)
 inline bool operator!=(const FormWindowData &fd1, const FormWindowData &fd2)
 {
    return !fd1.equals(fd2);
-}
-
-QDebug operator<<(QDebug str, const  FormWindowData &d)
-{
-   str.nospace() << "LayoutDefault=" << d.layoutDefaultEnabled        << ',' << d.defaultMargin
-      <<  ',' << d.defaultSpacing << " LayoutFunctions=" << d.layoutFunctionsEnabled << ','
-      << d.marginFunction << ',' << d.spacingFunction << " PixFunction="
-      << d.pixFunction << " Author=" << d.author << " Hints=" << d.includeHints
-      << " Grid=" << d.hasFormGrid << d.grid.deltaX() << d.grid.deltaY() << '\n';
-   return str;
 }
 
 FormWindowData::FormWindowData() :

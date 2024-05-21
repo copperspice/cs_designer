@@ -31,7 +31,6 @@
 
 #include <QApplication>
 #include <QComboBox>
-#include <QDebug>
 #include <QDir>
 #include <QIcon>
 #include <QLibraryInfo>

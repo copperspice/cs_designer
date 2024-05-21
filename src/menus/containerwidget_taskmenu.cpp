@@ -29,7 +29,6 @@
 #include <widgetdatabase_p.h>
 
 #include <QAction>
-#include <QDebug>
 #include <QMainWindow>
 #include <QMdiArea>
 #include <QMenu>

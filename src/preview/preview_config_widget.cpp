@@ -26,7 +26,6 @@
 #include <iconloader_p.h>
 #include <shared_settings_p.h>
 
-#include <QDebug>
 #include <QFileDialog>
 #include <QFileDialog>
 #include <QFileInfo>

@@ -36,7 +36,6 @@
 #include <QAction>
 #include <QButtonGroup>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QLayout>
 #include <QLayoutItem>
 #include <QMenu>

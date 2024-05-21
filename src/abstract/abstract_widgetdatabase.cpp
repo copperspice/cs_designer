@@ -19,11 +19,7 @@
 
 #include <abstract_widgetdatabase.h>
 
-#include <QDebug>
-
 #include <qalgorithms.h>
-
-constexpr const int DEBUG_WIDGET = 0;
 
 QDesignerWidgetDataBaseInterface::QDesignerWidgetDataBaseInterface(QObject *parent)
    : QObject(parent)
@@ -52,19 +48,11 @@ int QDesignerWidgetDataBaseInterface::indexOf(QDesignerWidgetDataBaseItemInterfa
 
 void QDesignerWidgetDataBaseInterface::insert(int index, QDesignerWidgetDataBaseItemInterface *item)
 {
-   if (DEBUG_WIDGET) {
-      qDebug() << "insert at " << index << ' ' << item->name() << " derived from " << item->extends();
-   }
-
    m_items.insert(index, item);
 }
 
 void QDesignerWidgetDataBaseInterface::append(QDesignerWidgetDataBaseItemInterface *item)
 {
-   if (DEBUG_WIDGET) {
-      qDebug() << "append " << item->name() << " derived from " << item->extends();
-   }
-
    m_items.append(item);
 }
 

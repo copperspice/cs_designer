@@ -21,7 +21,6 @@
 #include <formwindow.h>
 #include <line_propertysheet.h>
 
-#include <QDebug>
 #include <QLayout>
 #include <QMetaObject>
 #include <QMetaProperty>

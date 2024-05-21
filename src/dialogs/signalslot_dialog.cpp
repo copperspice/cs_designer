@@ -32,7 +32,6 @@
 #include <widgetdatabase_p.h>
 
 #include <QApplication>
-#include <QDebug>
 #include <QItemDelegate>
 #include <QLineEdit>
 #include <QMessageBox>

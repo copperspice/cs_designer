@@ -21,7 +21,6 @@
 #include <formwindow_widgetstack.h>
 
 #include <QAction>
-#include <QDebug>
 #include <QEvent>
 #include <QStackedLayout>
 #include <QVBoxLayout>
@@ -69,7 +68,6 @@ void FormWindowWidgetStack::setCurrentTool(int index)
 {
    const int cnt = count();
    if (index < 0 || index >= cnt) {
-      qDebug("FormWindowWidgetStack::setCurrentTool(): invalid index: %d", index);
       return;
    }
 
@@ -101,7 +99,6 @@ void FormWindowWidgetStack::setSenderAsCurrentTool()
    QAction *action = dynamic_cast<QAction *>(sender());
 
    if (action == nullptr) {
-      qDebug("FormWindowWidgetStack::setSenderAsCurrentTool(): sender is not a QAction");
       return;
    }
 
@@ -113,7 +110,6 @@ void FormWindowWidgetStack::setSenderAsCurrentTool()
    }
 
    if (tool == nullptr) {
-      qDebug("FormWindowWidgetStack::setSenderAsCurrentTool(): unknown tool");
       return;
    }
 
@@ -129,7 +125,6 @@ void FormWindowWidgetStack::setCurrentTool(QDesignerFormWindowToolInterface *too
 {
    int index = indexOf(tool);
    if (index == -1) {
-      qDebug("FormWindowWidgetStack::setCurrentTool(): unknown tool");
       return;
    }
 

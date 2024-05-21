@@ -20,8 +20,6 @@
 #include <palette_editor.h>
 #include <palette_editor_toolbutton.h>
 
-#include <QDebug>
-
 using namespace qdesigner_internal;
 
 PaletteEditorButton::PaletteEditorButton(QDesignerFormEditorInterface *core, const QPalette &palette, QWidget *parent)

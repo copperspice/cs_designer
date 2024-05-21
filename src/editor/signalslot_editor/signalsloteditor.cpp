@@ -386,16 +386,17 @@ void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent
       QObject *source = objectByName(parent, dom_con->elementSender());
 
       if (source == nullptr) {
-         qDebug("SignalSlotEditor::fromUi(): no source widget called \"%s\"",
-            dom_con->elementSender().toUtf8().constData());
+         qWarning("SignalSlotEditor::fromUi() No source widget called %s",
+               csPrintable(dom_con->elementSender()));
+
          continue;
       }
 
       QObject *destination = objectByName(parent, dom_con->elementReceiver());
 
       if (destination == nullptr) {
-         qDebug("SignalSlotEditor::fromUi(): no destination widget called \"%s\"",
-            dom_con->elementReceiver().toUtf8().constData());
+         qWarning("SignalSlotEditor::fromUi() No destination widget called %s",
+               csPrintable(dom_con->elementReceiver()));
          continue;
       }
 

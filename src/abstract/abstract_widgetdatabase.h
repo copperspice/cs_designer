@@ -26,7 +26,6 @@ class QDesignerFormEditorInterface;
 #include <QObject>
 #include <QString>
 
-class QDebug;
 class QIcon;
 
 class QDesignerWidgetDataBaseItemInterface

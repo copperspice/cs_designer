@@ -29,7 +29,6 @@
 #include <QCloseEvent>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
-#include <QDebug>
 #include <QErrorMessage>
 #include <QFile>
 #include <QFileInfo>

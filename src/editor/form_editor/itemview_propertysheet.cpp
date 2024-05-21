@@ -21,7 +21,6 @@
 #include <itemview_propertysheet.h>
 
 #include <QAbstractItemView>
-#include <QDebug>
 #include <QHeaderView>
 
 namespace qdesigner_internal {

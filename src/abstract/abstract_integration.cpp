@@ -39,7 +39,6 @@
 
 #include <widgetdatabase_p.h>
 
-#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QVariant>
@@ -218,7 +217,6 @@ void QDesignerIntegrationPrivate::updateProperty(const QString &name, const QVar
 
    } else {
       delete cmd;
-      qDebug() << "Unable to set property " << name << '.';
 
    }
 }
@@ -242,7 +240,6 @@ void QDesignerIntegrationPrivate::resetProperty(const QString &name)
       formWindow->commandHistory()->push(cmd);
    } else {
       delete cmd;
-      qDebug() << "** WARNING Unable to reset property " << name << '.';
    }
 }
 
@@ -264,7 +261,6 @@ void QDesignerIntegrationPrivate::addDynamicProperty(const QString &name, const 
       formWindow->commandHistory()->push(cmd);
    } else {
       delete cmd;
-      qDebug() <<  "** WARNING Unable to add dynamic property " << name << '.';
    }
 }
 
@@ -286,7 +282,6 @@ void QDesignerIntegrationPrivate::removeDynamicProperty(const QString &name)
       formWindow->commandHistory()->push(cmd);
    } else {
       delete cmd;
-      qDebug() << "** WARNING Unable to remove dynamic property " << name << '.';
    }
 
 }

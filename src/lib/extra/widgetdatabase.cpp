@@ -29,21 +29,17 @@
 #include <table_classes.h>
 #include <ui4.h>
 #include <widgetfactory.h>
+#include <utils.h>
 
 #include <spacer_widget_p.h>
 #include <widgetdatabase_p.h>
 
 #include <QCoreApplication>
-#include <QDebug>
 #include <QMetaProperty>
 #include <QRegularExpression>
 #include <QScopedPointer>
 #include <QTextStream>
 #include <QXmlStreamWriter>
-
-namespace {
-constexpr const int DEBUG_WIDGET = 0;
-}
 
 namespace qdesigner_internal {
 
@@ -410,10 +406,6 @@ void WidgetDataBase::loadPlugins()
          }
       }
    }
-   if (DEBUG_WIDGET) {
-      qDebug() << "WidgetDataBase::loadPlugins(): " << addedPlugins << " added, " << replacedPlugins << " replaced, " << removedPlugins <<
-         "deleted.";
-   }
 }
 
 void WidgetDataBase::remove(int index)
@@ -434,7 +426,6 @@ QList<QVariant> WidgetDataBase::defaultPropertyValues(const QString &name)
    }
 
    if (!object) {
-      qDebug() << "** WARNING Factory failed to create " << name;
       return QList<QVariant>();
    }
 
@@ -809,14 +800,9 @@ QString buildIncludeFile(QString includeFile, IncludeType includeType)
 QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInterface *db, const QString &className,
       const QString &group, const QString &baseClassName, const QString &includeFile, bool promoted, bool custom)
 {
-   if (DEBUG_WIDGET) {
-      qDebug() << "appendDerived " << className << " derived from " << baseClassName;
-   }
-
    // Check
    if (className.isEmpty() || baseClassName.isEmpty()) {
-      qWarning(" WARNING %s called with an empty class name: '%s' extends '%s'.",
-         Q_FUNC_INFO, csPrintable(className), csPrintable(baseClassName));
+      csWarning("appendDerived() Called with an empty class name " + className + ", base class " + baseClassName);
 
       return nullptr;
    }
@@ -851,9 +837,6 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
    // Create this item, inheriting its base properties
    const int baseIndex = db->indexOfClassName(baseClassName);
    if (baseIndex == -1) {
-      if (DEBUG_WIDGET) {
-         qDebug() << "appendDerived failed due to missing base class";
-      }
       return nullptr;
    }
 

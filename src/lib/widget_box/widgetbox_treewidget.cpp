@@ -35,7 +35,6 @@
 #include <QActionGroup>
 #include <QApplication>
 #include <QContextMenuEvent>
-#include <QDebug>
 #include <QFile>
 #include <QHeaderView>
 #include <QMenu>

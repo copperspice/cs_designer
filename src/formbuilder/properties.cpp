@@ -26,7 +26,6 @@
 
 #include <QAbstractScrollArea>
 #include <QDateTime>
-#include <QDebug>
 #include <QFont>
 #include <QFrame>
 #include <QIcon>

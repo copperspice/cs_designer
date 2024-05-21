@@ -24,7 +24,6 @@
 
 #include <metadatabase_p.h>
 
-#include <QDebug>
 #include <QFormLayout>
 #include <QHBoxLayout>
 #include <QHash>
@@ -139,8 +138,6 @@ void LayoutInfo::deleteLayout(const QDesignerFormEditorInterface *core, QWidget 
       widget->updateGeometry();
       return;
    }
-
-   qDebug() << "trying to delete an unmanaged layout:" << "widget:" << widget << "layout:" << layout;
 }
 
 LayoutInfo::Type LayoutInfo::laidoutWidgetType(const QDesignerFormEditorInterface *core,
@@ -253,7 +250,6 @@ QLayout *LayoutInfo::managedLayout(const QDesignerFormEditorInterface *formEdito
 bool LayoutInfo::isEmptyItem(QLayoutItem *item)
 {
    if (item == nullptr) {
-      qDebug() << "** WARNING Zero-item passed on to isEmptyItem(). This indicates a layout inconsistency.";
       return true;
    }
 

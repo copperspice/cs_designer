@@ -63,7 +63,6 @@
 #include <QApplication>
 #include <QBuffer>
 #include <QButtonGroup>
-#include <QDebug>
 #include <QDir>
 #include <QFileDialog>
 #include <QFormLayout>

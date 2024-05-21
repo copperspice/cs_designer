@@ -24,7 +24,6 @@
 #include <morphmenu_p.h>
 
 #include <QAction>
-#include <QDebug>
 
 LayoutWidgetTaskMenu::LayoutWidgetTaskMenu(QLayoutWidget *lw, QObject *parent)
    : QObject(parent), m_widget(lw), m_morphMenu(new qdesigner_internal::MorphMenu(this)),

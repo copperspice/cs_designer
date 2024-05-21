@@ -29,7 +29,6 @@
 #include <widgetdatabase_p.h>
 
 #include <QCoreApplication>
-#include <QDebug>
 #include <QMap>
 
 namespace {

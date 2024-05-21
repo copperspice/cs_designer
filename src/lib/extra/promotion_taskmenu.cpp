@@ -35,7 +35,6 @@
 #include <widgetdatabase_p.h>
 
 #include <QAction>
-#include <QDebug>
 #include <QMenu>
 #include <QSignalMapper>
 #include <QWidget>

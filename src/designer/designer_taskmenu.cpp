@@ -51,7 +51,6 @@
 #include <QAction>
 #include <QActionGroup>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QLabel>
 #include <QMainWindow>
@@ -608,7 +607,7 @@ void QDesignerTaskMenu::changeTextProperty(const QString &propertyName, const QS
    const int index = sheet->indexOf(propertyName);
 
    if (index == -1) {
-      qDebug() << "Invalid property" << propertyName << " passed to changeTextProperty!";
+      // "Invalid property" << propertyName
       return;
    }
 
@@ -949,7 +948,6 @@ void QDesignerTaskMenu::setProperty(QDesignerFormWindowInterface *fw,  PropertyM
       fw->commandHistory()->push(setPropertyCommand);
    } else {
       delete setPropertyCommand;
-      qDebug() << "Unable to set property " << name << '.';
    }
 }
 

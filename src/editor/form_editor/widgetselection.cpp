@@ -32,7 +32,6 @@
 #include <grid_p.h>
 
 #include <QApplication>
-#include <QDebug>
 #include <QFormLayout>
 #include <QGridLayout>
 #include <QMenu>

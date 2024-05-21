@@ -21,7 +21,6 @@
 #include <formwindow.h>
 #include <mainwindow_container.h>
 
-#include <QDebug>
 #include <QDockWidget>
 #include <QLayout>
 #include <QMenuBar>

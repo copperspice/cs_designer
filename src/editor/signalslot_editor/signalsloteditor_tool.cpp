@@ -23,7 +23,6 @@
 #include <ui4.h>
 
 #include <QAction>
-#include <QDebug>
 
 using namespace qdesigner_internal;
 

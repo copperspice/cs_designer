@@ -35,8 +35,6 @@
 
 #include <QApplication>
 #include <QBitmap>
-#include <QDebug>
-#include <QDebug>
 #include <QFormLayout>
 #include <QGridLayout>
 #include <QKeyEvent>
@@ -629,9 +627,6 @@ class Grid
    void simplify();
    bool locateWidget(QWidget *w, int &row, int &col, int &rowspan, int &colspan) const;
 
-   // not used
-   // QDebug debug(QDebug str) const;
-
  private:
    void setCell(int row, int col, QWidget *w) {
       m_cells[ row * m_ncols + col] = w;
@@ -686,39 +681,6 @@ void Grid::resize(int nrows, int ncols)
       std::fill(m_cells, m_cells + allocSize, nullptr);
    }
 }
-
-/*
-QDebug Grid::debug(QDebug str) const
-{
-   str << m_nrows << 'x' << m_ncols << '\n';
-
-   QSet<QWidget *> widgets;
-   const int cellCount = m_nrows * m_ncols;
-
-   int row      = 0;
-   int col      = 0;
-   int rowspan  = 0;
-   int colspan  = 0;
-
-   for (int c = 0; c < cellCount; c++) {
-
-      if (QWidget *w = m_cells[c])
-         if (! widgets.contains(w)) {
-            widgets.insert(w);
-            locateWidget(w, row, col, rowspan, colspan);
-            str << w << " at " << row <<  col << rowspan << 'x' << colspan << '\n';
-         }
-   }
-
-   for (int r = 0; r < m_nrows; ++r) {
-      for (int c = 0; c < m_ncols; ++c) {
-         str << "At " << r << c << cell(r, c) << '\n';
-      }
-   }
-
-   return str;
-}
-*/
 
 void Grid::setCells(const QRect &c, QWidget *w)
 {
@@ -1095,10 +1057,6 @@ bool Grid::shrinkFormLayoutSpans()
       int rowspan  = 0;
       int colspan  = 0;
 
-      if (! locateWidget(w, row, col, rowspan, colspan)) {
-         qDebug("Widget '%s' does not fit in the layout", csPrintable(w->objectName()));
-      }
-
       const int maxColSpan = col == 0 ? 2 : 1;
       const int newColSpan = qMin(colspan, maxColSpan);
       const int newRowSpan = qMin(rowspan, maxRowSpan);
@@ -1312,9 +1270,6 @@ void GridLayout<GridLikeLayout, LayoutType, GridMode>::doLayout()
          addWidgetToGrid(layout, w, row, col, rowspan, colspan, alignment);
 
          w->show();
-
-      } else {
-         qDebug("Widget '%s' does not fit in layout", csPrintable(w->objectName()));
       }
    }
 

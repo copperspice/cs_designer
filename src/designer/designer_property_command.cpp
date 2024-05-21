@@ -48,7 +48,7 @@
 
 namespace  {
 
-constexpr const int DEBUG_COMMANDS = 0;
+/* currently not used
 
 // Debug resolve mask of font
 QString fontMask(unsigned m)
@@ -110,6 +110,9 @@ QString fontString(const QFont &f)
    }
    return rc;
 }
+
+*/
+
 QSize checkSize(const QSize &size)
 {
    return size.boundedTo(QSize(0xFFFFFF, 0xFFFFFF));
@@ -304,10 +307,6 @@ unsigned compareSubProperties(const QFont &f1, const QFont &f2)
    compareFontSubProperty(f1, f2, &QFont::strikeOut,     QFont::StrikeOutResolved, rc);
    compareFontSubProperty(f1, f2, &QFont::kerning,       QFont::KerningResolved, rc);
    compareFontSubProperty(f1, f2, &QFont::styleStrategy, QFont::StyleStrategyResolved, rc);
-
-   if (DEBUG_COMMANDS) {
-      qDebug() << "compareSubProperties " <<  fontString(f1) << fontString(f2) << "\n\treturns " << fontMask(rc);
-   }
 
    return rc;
 }
@@ -521,11 +520,9 @@ inline void setFontSubProperty(unsigned mask, const QFont &newValue, unsigned ma
       }
 
       value.resolve(r);
-      if (DEBUG_COMMANDS) {
-         qDebug() << "setFontSubProperty " <<  fontMask(maskBit) << " resolve=" << origFlag;
-      }
    }
 }
+
 // apply changed subproperties to a QFont
 QFont applyFontSubProperty(const QFont &oldValue, const QFont &newValue, unsigned mask)
 {
@@ -538,11 +535,6 @@ QFont applyFontSubProperty(const QFont &oldValue, const QFont &newValue, unsigne
    setFontSubProperty(mask, newValue, QFont::StrikeOutResolved,     &QFont::strikeOut,     &QFont::setStrikeOut, rc);
    setFontSubProperty(mask, newValue, QFont::KerningResolved,       &QFont::kerning,       &QFont::setKerning, rc);
    setFontSubProperty(mask, newValue, QFont::StyleStrategyResolved, &QFont::styleStrategy, &QFont::setStyleStrategy, rc);
-
-   if (DEBUG_COMMANDS) {
-      qDebug() << "applyFontSubProperty old " <<  fontMask(oldValue.resolve()) << " new "
-         << fontMask(newValue.resolve()) << " return: " << fontMask(rc.resolve());
-   }
 
    return rc;
 }
@@ -768,10 +760,6 @@ PropertyHelper::PropertyHelper(QObject *object, SpecialProperty specialProperty,
          m_objectType = action->associatedWidgets().empty() ? OT_FreeAction : OT_AssociatedAction;
       }
    }
-
-   if (DEBUG_COMMANDS) {
-      qDebug() << "PropertyHelper on " << m_object->objectName() << " index= " << m_index << " type = " << m_objectType;
-   }
 }
 
 QDesignerIntegration *PropertyHelper::integration(QDesignerFormWindowInterface *fw) const
@@ -881,11 +869,6 @@ void PropertyHelper::triggerActionChanged(QAction *a)
 // Update the object to reflect the changes
 void PropertyHelper::updateObject(QDesignerFormWindowInterface *fw, const QVariant &oldValue, const QVariant &newValue)
 {
-   if (DEBUG_COMMANDS) {
-      qDebug() << "PropertyHelper::updateObject(" << m_object->objectName() << ") "
-         << oldValue.toString() << " -> " << newValue.toString();
-   }
-
    switch (m_objectType) {
       case OT_Widget: {
          switch (m_specialProperty) {
@@ -984,11 +967,6 @@ PropertyHelper::Value PropertyHelper::setValue(QDesignerFormWindowInterface *fw,
 // Apply the value and update. Returns corrected value
 PropertyHelper::Value PropertyHelper::applyValue(QDesignerFormWindowInterface *fw, const QVariant &oldValue, Value newValue)
 {
-   if (DEBUG_COMMANDS) {
-      qDebug() << "PropertyHelper::applyValue(" << m_object << ") "
-         << oldValue.toString() << " -> " << newValue.first.toString() << " changed=" << newValue.second;
-   }
-
    if (m_objectType ==  OT_Widget) {
       checkApplyWidgetValue(fw, dynamic_cast<QWidget *>(m_object.data()), m_specialProperty, newValue.first);
    }
@@ -1090,11 +1068,6 @@ PropertyListCommand::PropertyDescription::PropertyDescription(const QString &pro
 PropertyListCommand::PropertyDescription::PropertyDescription()
    : m_propertyType(QVariant::Invalid), m_specialProperty(SP_None)
 {
-}
-
-void PropertyListCommand::PropertyDescription::debug() const
-{
-   qDebug() << m_propertyName << m_propertyGroup << m_propertyType << m_specialProperty;
 }
 
 bool PropertyListCommand::PropertyDescription::equals(const PropertyDescription &p) const
@@ -1286,11 +1259,6 @@ unsigned changePropertyList(QDesignerFormEditorInterface *core, const QString &p
 // set a new value, return update mask
 unsigned PropertyListCommand::setValue(QVariant value, bool changed, unsigned subPropertyMask)
 {
-   if (DEBUG_COMMANDS) {
-      qDebug() << "PropertyListCommand::setValue(" << value.toString()
-         << changed << subPropertyMask << ')';
-   }
-
    return changePropertyList(formWindow()->core(),
          m_propertyDescription.m_propertyName,
          m_propertyHelperList.begin(), m_propertyHelperList.end(),
@@ -1300,10 +1268,6 @@ unsigned PropertyListCommand::setValue(QVariant value, bool changed, unsigned su
 // restore old value,return update mask
 unsigned PropertyListCommand::restoreOldValue()
 {
-   if (DEBUG_COMMANDS) {
-      qDebug() << "PropertyListCommand::restoreOldValue()";
-   }
-
    return changePropertyList(formWindow()->core(),
          m_propertyDescription.m_propertyName, m_propertyHelperList.begin(), m_propertyHelperList.end(),
          UndoSetValueFunction(formWindow()));
@@ -1312,10 +1276,6 @@ unsigned PropertyListCommand::restoreOldValue()
 // set default value and return update mask
 unsigned PropertyListCommand::restoreDefaultValue()
 {
-   if (DEBUG_COMMANDS) {
-      qDebug() << "PropertyListCommand::restoreDefaultValue()";
-   }
-
    return changePropertyList(formWindow()->core(),
          m_propertyDescription.m_propertyName, m_propertyHelperList.begin(), m_propertyHelperList.end(),
          RestoreDefaultFunction(formWindow()));
@@ -1323,10 +1283,6 @@ unsigned PropertyListCommand::restoreDefaultValue()
 
 void PropertyListCommand::update(unsigned updateMask)
 {
-   if (DEBUG_COMMANDS) {
-      qDebug() << "PropertyListCommand::update(" << updateMask << ')';
-   }
-
    if (updateMask & PropertyHelper::UpdateObjectInspector) {
       if (QDesignerObjectInspectorInterface *oi = formWindow()->core()->objectInspector()) {
          oi->setFormWindow(formWindow());
@@ -1397,11 +1353,6 @@ bool SetPropertyCommand::init(const ObjectList &list, const QString &apropertyNa
    }
 
    m_newValue = newValue;
-
-   if (DEBUG_COMMANDS) {
-      qDebug() << "SetPropertyCommand::init()" << propertyHelperList().size() << '/'
-               << list.size() << " reference " << referenceObject;
-   }
 
    setDescription();
 
@@ -1493,10 +1444,6 @@ bool SetPropertyCommand::mergeWith(const QUndoCommand *other)
    m_newValue = newValue;
    m_subPropertyMask |= cmd->m_subPropertyMask;
 
-   if (DEBUG_COMMANDS) {
-      qDebug() << "SetPropertyCommand::mergeWith() succeeded " << propertyName();
-   }
-
    return true;
 }
 
@@ -1544,10 +1491,6 @@ bool ResetPropertyCommand::init(const ObjectList &list, const QString &aproperty
 
    if (modifiedList.isEmpty() || !initList(modifiedList, apropertyName, referenceObject)) {
       return false;
-   }
-
-   if (DEBUG_COMMANDS) {
-      qDebug() << "ResetPropertyCommand::init()" << propertyHelperList().size() << '/' << list.size();
    }
 
    setDescription();

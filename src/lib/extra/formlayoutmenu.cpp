@@ -34,7 +34,6 @@
 
 #include <QAction>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QDialog>
 #include <QFormLayout>
 #include <QMultiHash>

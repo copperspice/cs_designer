@@ -27,7 +27,6 @@
 #include <widgetfactory.h>
 
 #include <QApplication>
-#include <QDebug>
 #include <QFormLayout>
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -35,7 +34,6 @@
 #include <QTextStream>
 #include <QVBoxLayout>
 
-constexpr const int DEBUG_WIDGET_ITEM = 0;
 constexpr const int MIN_LENGTH = 10;
 
 // Widget item creation function to be registered as factory method with QLayoutPrivate
@@ -45,34 +43,10 @@ static QWidgetItem *createDesignerWidgetItem(const QLayout *layout, QWidget *wid
    Qt::Orientations orientations;
 
    if (qdesigner_internal::QDesignerWidgetItem::check(layout, widget, &orientations)) {
-      if (DEBUG_WIDGET_ITEM) {
-         qDebug() << "QDesignerWidgetItem: Creating on " << layout << widget << orientations;
-      }
-
       return new qdesigner_internal::QDesignerWidgetItem(layout, widget, orientations);
    }
 
-   if (DEBUG_WIDGET_ITEM) {
-      qDebug() << "QDesignerWidgetItem: Noncontainer: " << layout << widget;
-   }
-
    return nullptr;
-}
-
-static QString sizePolicyToString(const QSizePolicy &p)
-{
-   QString rc;
-   {
-      QTextStream str(&rc);
-      str << "Control="    << p.controlType() << " expdirs=" << p.expandingDirections()
-         << " hasHeightForWidth=" << p.hasHeightForWidth()
-         << " H: Policy=" << p.horizontalPolicy()
-         << " stretch="   << p.horizontalStretch()
-         << " V: Policy=" << p.verticalPolicy()
-         << " stretch="   << p.verticalStretch();
-   }
-
-   return rc;
 }
 
 // Find the layout the item is contained in, recursing over child layouts
@@ -115,10 +89,6 @@ QDesignerWidgetItem::QDesignerWidgetItem(const QLayout *containingLayout, QWidge
    w->installEventFilter(this);
 
    connect(containingLayout, &QObject::destroyed, this, &QDesignerWidgetItem::layoutChanged);
-
-   if (DEBUG_WIDGET_ITEM ) {
-      qDebug() << "QDesignerWidgetItem"  << w <<  sizePolicyToString(w->sizePolicy()) << m_nonLaidOutMinSize << m_nonLaidOutSizeHint;
-   }
 }
 
 void QDesignerWidgetItem::expand(QSize *s) const
@@ -143,9 +113,7 @@ QSize QDesignerWidgetItem::minimumSize() const
    }
    // Nonlaid out: Maintain last laid-out size
    const QSize rc = baseMinSize.expandedTo(m_nonLaidOutMinSize);
-   if (DEBUG_WIDGET_ITEM > 1) {
-      qDebug() << "minimumSize" << constWidget() <<  baseMinSize << rc;
-   }
+
    return rc;
 }
 
@@ -162,10 +130,6 @@ QSize QDesignerWidgetItem::sizeHint()    const
 
    // Nonlaid out: Maintain last laid-out size
    const QSize rc = baseSizeHint.expandedTo(m_nonLaidOutSizeHint);
-
-   if (DEBUG_WIDGET_ITEM > 1) {
-      qDebug() << "sizeHint" << constWidget() << baseSizeHint << rc;
-   }
 
    return rc;
 }
@@ -271,9 +235,6 @@ QSize QDesignerWidgetItem::nonLaidOutMinSize() const
 
 void QDesignerWidgetItem::setNonLaidOutMinSize(const QSize &s)
 {
-   if (DEBUG_WIDGET_ITEM > 1) {
-      qDebug() << "setNonLaidOutMinSize" << constWidget() << s;
-   }
    m_nonLaidOutMinSize = s;
 }
 
@@ -284,10 +245,6 @@ QSize QDesignerWidgetItem::nonLaidOutSizeHint() const
 
 void QDesignerWidgetItem::setNonLaidOutSizeHint(const QSize &s)
 {
-   if (DEBUG_WIDGET_ITEM > 1) {
-      qDebug() << "setNonLaidOutSizeHint" << constWidget() << s;
-   }
-
    m_nonLaidOutSizeHint = s;
 }
 
@@ -312,19 +269,12 @@ const QLayout *QDesignerWidgetItem::containingLayout() const
                   this, &QDesignerWidgetItem::layoutChanged);
             }
          }
-      if (DEBUG_WIDGET_ITEM) {
-         qDebug() << Q_FUNC_INFO << " found " << m_cachedContainingLayout << " after reparenting " << constWidget();
-      }
    }
    return m_cachedContainingLayout;
 }
 
 void QDesignerWidgetItem::layoutChanged()
 {
-   if (DEBUG_WIDGET_ITEM) {
-      qDebug() << Q_FUNC_INFO;
-   }
-
    m_cachedContainingLayout = nullptr;
 }
 
@@ -340,10 +290,6 @@ bool QDesignerWidgetItem::eventFilter(QObject *, QEvent *event)
 QDesignerWidgetItemInstaller::QDesignerWidgetItemInstaller()
 {
    if (m_instanceCount == 0) {
-      if (DEBUG_WIDGET_ITEM) {
-         qDebug() << "QDesignerWidgetItemInstaller: installing";
-      }
-
       QDesignerWidgetItem::install();
    }
 
@@ -353,10 +299,6 @@ QDesignerWidgetItemInstaller::QDesignerWidgetItemInstaller()
 QDesignerWidgetItemInstaller::~QDesignerWidgetItemInstaller()
 {
    if (m_instanceCount == 0) {
-      if (DEBUG_WIDGET_ITEM) {
-         qDebug() << "QDesignerWidgetItemInstaller: deinstalling";
-      }
-
       QDesignerWidgetItem::deinstall();
    }
 

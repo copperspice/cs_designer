@@ -26,7 +26,6 @@
 
 #include <QBoxLayout>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QGridLayout>
 #include <QLabel>
 #include <QStringList>

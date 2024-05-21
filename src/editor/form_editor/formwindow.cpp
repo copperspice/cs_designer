@@ -83,8 +83,6 @@ CS_DECLARE_METATYPE(QWidget *)
 
 namespace {
 
-constexpr const int DEBUG_FORM_WINDOW = 0;
-
 class BlockSelection
 {
  public:
@@ -561,9 +559,6 @@ void FormWindow::handleClickSelection(QWidget *managedWidget, unsigned mouseMode
    m_lastClickedWidget = managedWidget;
 
    const bool selected = isWidgetSelected(managedWidget);
-   if (DEBUG_FORM_WINDOW) {
-      qDebug() << "handleClickSelection" << managedWidget << " same=" << sameWidget << " mouse= " << mouseMode << " selected=" << selected;
-   }
 
    // // toggle selection state of widget
    if (mouseMode & ToggleSelectionModifier) {
@@ -616,10 +611,6 @@ bool FormWindow::handleMousePressEvent(QWidget *widget, QWidget *managedWidget, 
    }
 
    m_startPos = mapFromGlobal(e->globalPos());
-
-   if (DEBUG_FORM_WINDOW) {
-      qDebug() << "handleMousePressEvent:" <<  widget << ',' << managedWidget;
-   }
 
    if (buttons == Qt::MiddleButton || isMainContainer(managedWidget) == true) { // press was on the formwindow
       clearObjectInspectorSelection(m_core);  // We might have a toolbar or non-widget selected in the object inspector.
@@ -777,10 +768,6 @@ bool FormWindow::handleMouseReleaseEvent(QWidget *w, QWidget *mw, QMouseEvent *e
    const MouseState oldState = m_mouseState;
    m_mouseState = NoMouseState;
 
-   if (DEBUG_FORM_WINDOW) {
-      qDebug() << "handleMouseeleaseEvent:" << w << ',' << mw << "state=" << oldState;
-   }
-
    if (oldState == MouseDoubleClicked) {
       return true;
    }
@@ -887,9 +874,6 @@ QWidget *FormWindow::currentWidget() const
 
 bool FormWindow::setCurrentWidget(QWidget *currentWidget)
 {
-   if (DEBUG_FORM_WINDOW) {
-      qDebug() << "setCurrentWidget:" <<  m_currentWidget << " --> " << currentWidget;
-   }
    if (currentWidget == m_currentWidget) {
       return false;
    }
@@ -915,9 +899,6 @@ void FormWindow::selectWidget(QWidget *w, bool select)
 // Selects a widget and determines the new current one. Returns true if a change occurs.
 bool FormWindow::trySelectWidget(QWidget *w, bool select)
 {
-   if (DEBUG_FORM_WINDOW) {
-      qDebug() << "trySelectWidget:" << w << select;
-   }
    if (!isManaged(w) && !isCentralWidget(w)) {
       return false;
    }
@@ -950,9 +931,6 @@ bool FormWindow::trySelectWidget(QWidget *w, bool select)
 
 void FormWindow::clearSelection(bool changePropertyDisplay)
 {
-   if (DEBUG_FORM_WINDOW) {
-      qDebug() << "clearSelection(" <<  changePropertyDisplay << ')';
-   }
    // At all events, we need a current widget.
    m_selection->clear();
    setCurrentWidget(mainContainer());
@@ -1545,12 +1523,7 @@ QRect ArrowKeyOperation::apply(const QRect &rect) const
       }
    }
    return r;
-}
 
-QDebug operator<<(QDebug in, const ArrowKeyOperation &op)
-{
-   in.nospace() << "Resize=" << op.resize << " dist=" << op.distance << " Key=" << op.arrowKey << ' ';
-   return in;
 }
 
 // ArrowKeyPropertyHelper: Applies a struct ArrowKeyOperation
@@ -1723,7 +1696,7 @@ void FormWindow::morphLayout(QWidget *container, int newType)
    if (cmd->init(container, newType)) {
       commandHistory()->push(cmd);
    } else {
-      qDebug() << "** WARNING Unable to morph layout.";
+      csWarning("Unable to morph layout");
       delete cmd;
    }
 }
@@ -1861,9 +1834,6 @@ QWidget *FormWindow::containerForPaste() const
       return nullptr;
    }
 
-   if (DEBUG_FORM_WINDOW) {
-      qDebug() << "containerForPaste() " <<  w;
-   }
    return w;
 }
 
@@ -2241,9 +2211,6 @@ void FormWindow::lowerWidgets()
 
 bool FormWindow::handleMouseButtonDblClickEvent(QWidget *w, QWidget *managedWidget, QMouseEvent *e)
 {
-   if (DEBUG_FORM_WINDOW) {
-      qDebug() << "handleMouseButtonDblClickEvent:" << w << ',' << managedWidget << "state=" << m_mouseState;
-   }
 
    e->accept();
 

@@ -36,7 +36,6 @@
 #include <QActionGroup>
 #include <QApplication>
 #include <QCursor>
-#include <QDebug>
 #include <QDesktopWidget>
 #include <QDialog>
 #include <QDockWidget>

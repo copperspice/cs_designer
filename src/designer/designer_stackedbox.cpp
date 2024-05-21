@@ -26,7 +26,6 @@
 #include <widgetfactory.h>
 
 #include <QAction>
-#include <QDebug>
 #include <QEvent>
 #include <QMenu>
 #include <QStackedWidget>

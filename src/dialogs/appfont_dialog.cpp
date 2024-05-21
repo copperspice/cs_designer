@@ -24,7 +24,6 @@
 #include <iconloader_p.h>
 
 #include <QCoreApplication>
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -45,8 +44,6 @@
 
 constexpr const int FileNameRole = Qt::UserRole + 1;
 constexpr const int IdRole       = Qt::UserRole + 2;
-
-constexpr const int DEBUG_FONT_WIDGET = 0;
 
 static const char fontFileKeyC[] = "fontFiles";
 
@@ -104,20 +101,12 @@ void AppFontManager::save(QDesignerSettingsInterface *s, const QString &prefix) 
    s->beginGroup(prefix);
    s->setValue(fontFileKeyC,  fontFiles);
    s->endGroup();
-
-   if (DEBUG_FONT_WIDGET) {
-      qDebug() << "AppFontManager::saved" << fontFiles.size() << "fonts under " << prefix;
-   }
 }
 
 void AppFontManager::restore(const QDesignerSettingsInterface *s, const QString &prefix)
 {
    QString key = prefix + '/' + fontFileKeyC;
    const QStringList fontFiles = s->value(key, QStringList()).toStringList();
-
-   if (DEBUG_FONT_WIDGET) {
-      qDebug() << "AppFontManager::restoring" << fontFiles.size() << "fonts from " << prefix;
-   }
 
    if (!fontFiles.empty()) {
       QString errorMessage;
@@ -162,9 +151,6 @@ int AppFontManager::add(const QString &fontFile, QString *errorMessage)
       return -1;
    }
 
-   if (DEBUG_FONT_WIDGET) {
-      qDebug() << "AppFontManager::add" << fontFile << id;
-   }
    m_fonts.push_back(FileNameFontIdPair(fullPath, id));
    return id;
 }
@@ -202,10 +188,6 @@ bool AppFontManager::removeAt(int index, QString *errorMessage)
 
    const QString fontFile = m_fonts[index].first;
    const int id = m_fonts[index].second;
-
-   if (DEBUG_FONT_WIDGET) {
-      qDebug() << "AppFontManager::removeAt" << index << '(' <<  fontFile << id << ')';
-   }
 
    if (!QFontDatabase::removeApplicationFont(id)) {
       *errorMessage = QCoreApplication::translate("AppFontManager",

@@ -21,7 +21,6 @@
 #include <gradient_utils.h>
 
 #include <QConicalGradient>
-#include <QDebug>
 #include <QDomDocument>
 #include <QLinearGradient>
 #include <QRadialGradient>

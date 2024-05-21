@@ -20,7 +20,6 @@
 #include <designer_qsettings.h>
 
 #include <QCoreApplication>
-#include <QDebug>
 #include <QSettings>
 #include <QString>
 #include <QTextStream>

@@ -21,7 +21,6 @@
 
 #include <QByteArray>
 #include <QDateTime>
-#include <QDebug>
 #include <QDir>
 #include <QDirIterator>
 #include <QDomDocument>

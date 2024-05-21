@@ -26,7 +26,6 @@
 #include <QAction>
 #include <QApplication>
 #include <QClipboard>
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QDir>
 #include <QFileDialog>

@@ -20,8 +20,6 @@
 #include <stringlist_editor.h>
 #include <stringlist_editor_toolbutton.h>
 
-#include <QDebug>
-
 using namespace qdesigner_internal;
 
 StringListEditorButton::StringListEditorButton(const QStringList &stringList, QWidget *parent)

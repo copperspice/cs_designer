@@ -49,7 +49,6 @@
 #include <QAction>
 #include <QApplication>
 #include <QClipboard>
-#include <QDebug>
 #include <QDesktopWidget>
 #include <QMdiArea>
 #include <QMdiSubWindow>
@@ -58,12 +57,6 @@
 #include <QSizeGrip>
 #include <QSplitter>
 #include <QUndoGroup>
-
-namespace {
-
-constexpr const int DEBUG_WINDOW_MANAGER = 0;
-
-}
 
 static inline QString whatsThisFrom(const QString &str)   /// ### implement me!
 {
@@ -596,13 +589,6 @@ void FormWindowManager::slotActionBreakLayoutActivated()
       return;
    }
 
-   if (DEBUG_WINDOW_MANAGER) {
-      qDebug() << "slotActionBreakLayoutActivated: " << layouts.size();
-      for (QWidget *w : layouts) {
-         qDebug() << w;
-      }
-   }
-
    m_activeFormWindow->beginCommand(tr("Break Layout"));
    for (QWidget *layout : layouts) {
       m_activeFormWindow->breakLayout(layout);
@@ -689,10 +675,6 @@ QWidgetList FormWindowManager::layoutsToBeBroken(QWidget *w) const
       return QList<QWidget *>();
    }
 
-   if (DEBUG_WINDOW_MANAGER) {
-      qDebug() << "layoutsToBeBroken: " << w;
-   }
-
    QWidget *parent = w->parentWidget();
    if (m_activeFormWindow->isMainContainer(w)) {
       parent = nullptr;
@@ -705,18 +687,12 @@ QWidgetList FormWindowManager::layoutsToBeBroken(QWidget *w) const
    const QDesignerWidgetDataBaseItemInterface *item = db->item(db->indexOfObject(widget));
 
    if (! item) {
-      if (DEBUG_WINDOW_MANAGER) {
-         qDebug() << "layoutsToBeBroken: Do not have an item, recursing for parent";
-      }
       return layoutsToBeBroken(parent);
    }
 
    const bool layoutContainer = (item->isContainer() || m_activeFormWindow->isMainContainer(widget));
 
    if (! layoutContainer) {
-      if (DEBUG_WINDOW_MANAGER) {
-         qDebug() << "layoutsToBeBroken: Not a container, recursing for parent";
-      }
       return layoutsToBeBroken(parent);
    }
 
@@ -725,17 +701,10 @@ QWidgetList FormWindowManager::layoutsToBeBroken(QWidget *w) const
 
    if (! managedLayout) {
       if (dynamic_cast<const QSplitter *>(widget)) {
-         if (DEBUG_WINDOW_MANAGER) {
-            qDebug() << "layoutsToBeBroken: Splitter special";
-         }
-
          QList<QWidget *> list = layoutsToBeBroken(parent);
          list.append(widget);
          return list;
-      }
 
-      if (DEBUG_WINDOW_MANAGER) {
-         qDebug() << "layoutsToBeBroken: Is a container but doesn't have a managed layout (has an internal layout), returning 0";
       }
 
       return QList<QWidget *>();
@@ -744,23 +713,12 @@ QWidgetList FormWindowManager::layoutsToBeBroken(QWidget *w) const
    if (managedLayout) {
       QList<QWidget *> list;
 
-      if (DEBUG_WINDOW_MANAGER) {
-         qDebug() << "layoutsToBeBroken: Is a container and has a layout";
-      }
-
       if (dynamic_cast<const QLayoutWidget *>(widget)) {
-         if (DEBUG_WINDOW_MANAGER) {
-            qDebug() << "layoutsToBeBroken: red layout special case";
-         }
          list = layoutsToBeBroken(parent);
       }
 
       list.append(widget);
       return list;
-   }
-
-   if (DEBUG_WINDOW_MANAGER) {
-      qDebug() << "layoutsToBeBroken: Is a container but does not have a layout, returning 0";
    }
 
    return QList<QWidget *>();

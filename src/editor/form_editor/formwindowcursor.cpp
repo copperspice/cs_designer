@@ -23,8 +23,6 @@
 #include <formwindowcursor.h>
 #include <propertysheet.h>
 
-#include <QDebug>
-
 namespace qdesigner_internal {
 
 FormWindowCursor::FormWindowCursor(FormWindow *fw, QObject *parent)
@@ -162,7 +160,6 @@ void FormWindowCursor::setProperty(const QString &name, const QVariant &value)
       m_formWindow->commandHistory()->push(setPropertyCommand);
    } else {
       delete setPropertyCommand;
-      qDebug() << "Unable to set property " << name << '.';
    }
 }
 
@@ -173,7 +170,6 @@ void FormWindowCursor::setWidgetProperty(QWidget *widget, const QString &name, c
       m_formWindow->commandHistory()->push(cmd);
    } else {
       delete cmd;
-      qDebug() << "Unable to set property " << name << '.';
    }
 }
 
@@ -184,7 +180,6 @@ void FormWindowCursor::resetWidgetProperty(QWidget *widget, const QString &name)
       m_formWindow->commandHistory()->push(cmd);
    } else {
       delete cmd;
-      qDebug() << "Unable to reset property " << name << '.';
    }
 }
 

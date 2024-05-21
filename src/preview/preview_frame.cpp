@@ -21,7 +21,6 @@
 #include <preview_widget.h>
 
 #include <QCoreApplication>
-#include <QDebug>
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QPaintEvent>

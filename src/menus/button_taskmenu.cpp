@@ -34,7 +34,6 @@
 #include <QActionGroup>
 #include <QApplication>
 #include <QButtonGroup>
-#include <QDebug>
 #include <QMenu>
 #include <QStyle>
 #include <QStyleOption>
@@ -42,8 +41,6 @@
 CS_DECLARE_METATYPE(QButtonGroup *)
 
 namespace qdesigner_internal {
-
-constexpr const int DEBUG_BUTTON_MENU = 0;
 
 typedef QList<QAbstractButton *> ButtonList;
 typedef QList<QButtonGroup *> ButtonGroupList;
@@ -98,10 +95,6 @@ void ButtonGroupCommand::initialize(const ButtonList &bl, QButtonGroup *buttonGr
 
 void ButtonGroupCommand::addButtonsToGroup()
 {
-   if (DEBUG_BUTTON_MENU) {
-      qDebug() << "Adding " << m_buttonList << " to " << m_buttonGroup;
-   }
-
    for (auto item : m_buttonList) {
       m_buttonGroup->addButton(item);
    }
@@ -109,10 +102,6 @@ void ButtonGroupCommand::addButtonsToGroup()
 
 void ButtonGroupCommand::removeButtonsFromGroup()
 {
-   if (DEBUG_BUTTON_MENU) {
-      qDebug() << "Removing " << m_buttonList << " from " << m_buttonGroup;
-   }
-
    for (auto item : m_buttonList) {
       m_buttonGroup->removeButton(item);
    }
@@ -120,10 +109,6 @@ void ButtonGroupCommand::removeButtonsFromGroup()
 
 void ButtonGroupCommand::createButtonGroup()
 {
-   if (DEBUG_BUTTON_MENU) {
-      qDebug() << "Creating " <<  m_buttonGroup << " from " <<  m_buttonList;
-   }
-
    QDesignerFormWindowInterface *fw   = formWindow();
    QDesignerFormEditorInterface *core = fw->core();
    core->metaDataBase()->add(m_buttonGroup);
@@ -135,10 +120,6 @@ void ButtonGroupCommand::createButtonGroup()
 
 void ButtonGroupCommand::breakButtonGroup()
 {
-   if (DEBUG_BUTTON_MENU) {
-      qDebug() << "Removing " <<  m_buttonGroup << " consisting of " <<  m_buttonList;
-   }
-
    QDesignerFormWindowInterface *fw = formWindow();
    QDesignerFormEditorInterface *core = fw->core();
 
@@ -404,8 +385,6 @@ void ButtonGroupMenu::breakGroup()
       history->endMacro();
 
    } else {
-
-      qWarning("** WARNING Failed to initialize BreakButtonGroupCommand!");
       delete cmd;
    }
 }
@@ -642,7 +621,6 @@ static QUndoCommand *createRemoveButtonsCommand(QDesignerFormWindowInterface *fw
       BreakButtonGroupCommand *breakCmd = new BreakButtonGroupCommand(fw);
 
       if (! breakCmd->init(bg)) {
-         qWarning("** WARNING Failed to initialize BreakButtonGroupCommand!");
          delete breakCmd;
 
          return nullptr;
@@ -654,7 +632,6 @@ static QUndoCommand *createRemoveButtonsCommand(QDesignerFormWindowInterface *fw
    RemoveButtonsFromGroupCommand *removeCmd  = new RemoveButtonsFromGroupCommand(fw);
 
    if (! removeCmd->init(bl)) {
-      qWarning("** WARNING Failed to initialize RemoveButtonsFromGroupCommand!");
       delete removeCmd;
       return nullptr;
    }
@@ -681,7 +658,6 @@ void ButtonTaskMenu::createGroup()
    CreateButtonGroupCommand *addCmd = new CreateButtonGroupCommand(fw);
 
    if (!addCmd->init(bl)) {
-      qWarning("** WARNING Failed to initialize CreateButtonGroupCommand!");
       delete addCmd;
       return;
    }

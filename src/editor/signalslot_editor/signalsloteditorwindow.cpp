@@ -43,7 +43,6 @@
 #include <QButtonGroup>
 #include <QButtonGroup>
 #include <QComboBox>
-#include <QDebug>
 #include <QHeaderView>
 #include <QItemDelegate>
 #include <QItemEditorFactory>

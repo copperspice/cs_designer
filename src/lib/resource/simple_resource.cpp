@@ -32,7 +32,6 @@
 
 #include <QAction>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QIcon>
 #include <QWidget>
 
@@ -280,8 +279,8 @@ void QSimpleResource::handleDomCustomWidgets(const QDesignerFormEditorInterface 
       const QString customClassName = custom_widget->elementClass();
       const QString base_class = custom_widget->elementExtends();
 
-      qDebug() << "** WARNING The base class " << base_class << " of the custom widget class " << customClassName
-         << " could not be found. Defaulting to " << fallBackBaseClass << '.';
+      qWarning("Base class %s of the custom widget class %s could not be found, defaulting to %s",
+         csPrintable(base_class), csPrintable(customClassName), csPrintable(fallBackBaseClass));
 
       custom_widget->setElementExtends(fallBackBaseClass);
    }

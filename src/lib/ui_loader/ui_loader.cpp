@@ -31,7 +31,6 @@
 #include <QActionGroup>
 #include <QApplication>
 #include <QDataStream>
-#include <QDebug>
 #include <QDir>
 #include <QFontComboBox>
 #include <QLayout>

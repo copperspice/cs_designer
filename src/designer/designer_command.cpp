@@ -43,7 +43,6 @@
 
 #include <QApplication>
 #include <QComboBox>
-#include <QDebug>
 #include <QDockWidget>
 #include <QFormLayout>
 #include <QLayout>

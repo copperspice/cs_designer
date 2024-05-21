@@ -22,7 +22,6 @@
 #include <widgetfactory.h>
 
 #include <QAbstractButton>
-#include <QDebug>
 #include <QDockWidget>
 #include <QMainWindow>
 #include <QMenuBar>

@@ -43,7 +43,6 @@
 #include <QAction>
 #include <QActionGroup>
 #include <QApplication>
-#include <QDebug>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMenu>
@@ -840,7 +839,6 @@ bool PropertyEditor::isReadOnly() const
 
 void PropertyEditor::setReadOnly(bool)
 {
-   qDebug() << "PropertyEditor::setReadOnly() request";
 }
 
 void PropertyEditor::setPropertyValue(const QString &name, const QVariant &value, bool changed)

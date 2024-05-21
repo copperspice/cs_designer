@@ -21,7 +21,6 @@
 #include <designer_widgetbox.h>
 #include <ui4.h>
 
-#include <QDebug>
 #include <QRegularExpression>
 #include <QSharedData>
 #include <QXmlStreamReader>

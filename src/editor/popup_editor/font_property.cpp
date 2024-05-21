@@ -24,7 +24,6 @@
 #include <property_view_utils.h>
 
 #include <QCoreApplication>
-#include <QDebug>
 #include <QFile>
 #include <QString>
 #include <QTextStream>

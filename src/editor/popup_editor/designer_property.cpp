@@ -43,7 +43,6 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QContextMenuEvent>
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QFileInfo>

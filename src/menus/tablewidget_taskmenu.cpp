@@ -22,7 +22,6 @@
 #include <tablewidget_taskmenu.h>
 
 #include <QAction>
-#include <QDebug>
 #include <QEvent>
 #include <QLineEdit>
 #include <QStyle>

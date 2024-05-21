@@ -25,6 +25,7 @@
 #include <extension.h>
 #include <newform_widget.h>
 #include <ui_new_form_widget.h>
+#include <utils.h>
 
 #include <shared_settings_p.h>
 #include <sheet_delegate_p.h>
@@ -33,7 +34,7 @@
 #include <QApplication>
 #include <QBuffer>
 #include <QByteArray>
-#include <QDebug>
+
 #include <QDesktopWidget>
 #include <QDir>
 #include <QDir>
@@ -613,13 +614,13 @@ QString NewFormWidget::currentTemplate(QString *ptrToErrorMessage)
       return currentTemplateI(ptrToErrorMessage);
    }
 
-   // Do not loose the error
    QString errorMessage;
    const QString contents = currentTemplateI(&errorMessage);
 
    if (! errorMessage.isEmpty()) {
-      qWarning("%s", csPrintable(errorMessage));
+      csWarning(errorMessage);
    }
+
    return contents;
 }
 

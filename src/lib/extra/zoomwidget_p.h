@@ -191,10 +191,6 @@ class ZoomWidget : public ZoomView
 
    bool zoomedEventFilter(QObject *watched, QEvent *event);
 
-   // debug state
-   CS_SLOT_1(Public, void dump() const)
-   CS_SLOT_2(dump)
-
  protected:
    void resizeEvent(QResizeEvent *event) override;
 

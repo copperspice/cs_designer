@@ -57,7 +57,6 @@
 #include <QBuffer>
 #include <QCloseEvent>
 #include <QCursor>
-#include <QDebug>
 #include <QDesktopServices>
 #include <QDesktopWidget>
 #include <QDomDocument>

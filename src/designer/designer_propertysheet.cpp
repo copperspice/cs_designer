@@ -30,7 +30,6 @@
 #include <widgetdatabase_p.h>
 
 #include <QApplication>
-#include <QDebug>
 #include <QDialog>
 #include <QDockWidget>
 #include <QGroupBox>

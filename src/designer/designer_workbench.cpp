@@ -40,7 +40,6 @@
 
 #include <QActionGroup>
 #include <QCloseEvent>
-#include <QDebug>
 #include <QDesktopWidget>
 #include <QDir>
 #include <QDockWidget>

@@ -42,7 +42,6 @@
 #include <QApplication>
 #include <QBuffer>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>

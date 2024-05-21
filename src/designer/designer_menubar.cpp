@@ -34,7 +34,6 @@
 #include <promotion_taskmenu.h>
 
 #include <QApplication>
-#include <QDebug>
 #include <QDrag>
 #include <QEvent>
 #include <QLineEdit>

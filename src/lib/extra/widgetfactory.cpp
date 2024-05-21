@@ -48,7 +48,6 @@
 #include <QAbstractSpinBox>
 #include <QApplication>
 #include <QButtonGroup>
-#include <QDebug>
 #include <QMdiSubWindow>
 #include <QMetaObject>
 #include <QSizeGrip>
@@ -207,7 +206,6 @@ void WidgetFactory::loadPlugins()
 QObject *WidgetFactory::createObject(const QString &className, QObject *parent) const
 {
    if (className.isEmpty()) {
-      qWarning("** WARNING %s called with an empty class name", Q_FUNC_INFO);
       return nullptr;
    }
    if (className == m_strings.m_qAction) {
@@ -245,7 +243,7 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
    // shouldn't happen
    if (!rc) {
       *creationError = true;
-      csWarning(tr("The custom widget factory registered for widgets of class %1 returned 0.").formatArg(className));
+      csWarning(tr("Custom widget factory registered for widgets of class %1 returned nullptr").formatArg(className));
       return nullptr;
    }
 
@@ -287,7 +285,7 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
 
    // Check for mismatched class names which is hard to track.
    if (! classNameMatches(rc, className)) {
-      csWarning(tr("A class name mismatch occurred when creating a widget using the custom widget factory "
+      csWarning(tr("Class name mismatch occurred when creating a widget using the custom widget factory "
          "registered for widgets of class %1, returned a widget of class %2.")
          .formatArgs(className, rc->metaObject()->className()));
    }

@@ -25,7 +25,6 @@
 
 #include <spacer_widget_p.h>
 
-#include <QDebug>
 #include <QEvent>
 #include <QLayout>
 #include <QPainter>

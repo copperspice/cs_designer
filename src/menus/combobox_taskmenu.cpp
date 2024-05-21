@@ -24,7 +24,6 @@
 #include <listwidget_editor.h>
 
 #include <QAction>
-#include <QDebug>
 #include <QEvent>
 #include <QFontComboBox>
 #include <QLineEdit>

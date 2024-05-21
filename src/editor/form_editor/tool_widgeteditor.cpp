@@ -28,7 +28,6 @@
 
 #include <QAction>
 #include <QCursor>
-#include <QDebug>
 #include <QEvent>
 #include <QMainWindow>
 

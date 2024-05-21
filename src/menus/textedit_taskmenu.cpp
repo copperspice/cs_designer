@@ -21,7 +21,6 @@
 #include <textedit_taskmenu.h>
 
 #include <QAction>
-#include <QDebug>
 #include <QEvent>
 
 namespace qdesigner_internal {

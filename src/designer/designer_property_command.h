@@ -181,7 +181,6 @@ class PropertyListCommand : public QDesignerFormWindowCommand
       PropertyDescription();
       PropertyDescription(const QString &propertyName, QDesignerPropertySheetExtension *propertySheet, int index);
       bool equals(const PropertyDescription &p) const;
-      void debug() const;
 
       QString m_propertyName;
       QString m_propertyGroup;

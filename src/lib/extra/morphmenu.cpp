@@ -40,7 +40,6 @@
 #include <QAbstractSpinBox>
 #include <QAction>
 #include <QApplication>
-#include <QDebug>
 #include <QFrame>
 #include <QGroupBox>
 #include <QLabel>
@@ -318,7 +317,7 @@ bool MorphWidgetCommand::addMorphMacro(QDesignerFormWindowInterface *fw, QWidget
 {
    MorphWidgetCommand *morphCmd = new MorphWidgetCommand(fw);
    if (!morphCmd->init(w, newClass)) {
-      qWarning("*** Unable to create a MorphWidgetCommand");
+      csWarning("Unable to create a MorphWidgetCommand");
       delete morphCmd;
       return false;
    }

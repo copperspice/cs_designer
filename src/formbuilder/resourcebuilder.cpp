@@ -20,14 +20,11 @@
 #include <resourcebuilder.h>
 #include <ui4.h>
 
-#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QIcon>
 #include <QPixmap>
 #include <QVariant>
-
-constexpr const int DEBUG_THEME = 0;
 
 QResourceBuilder::QResourceBuilder()
 {
@@ -85,10 +82,6 @@ QVariant QResourceBuilder::loadResource(const QDir &workingDirectory, const DomP
          if (!dpi->attributeTheme().isEmpty()) {
             const QString theme = dpi->attributeTheme();
             const bool known = QIcon::hasThemeIcon(theme);
-
-            if (DEBUG_THEME) {
-               qDebug("Theme %s known %d", csPrintable(theme), known);
-            }
 
             if (known) {
                return QVariant::fromValue(QIcon::fromTheme(dpi->attributeTheme()));

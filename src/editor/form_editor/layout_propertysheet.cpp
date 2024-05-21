@@ -25,7 +25,6 @@
 #include <ui4.h>
 
 #include <QByteArray>
-#include <QDebug>
 #include <QFormLayout>
 #include <QHash>
 #include <QRegularExpression>       // Remove once there is an editor for lists

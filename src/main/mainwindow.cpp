@@ -29,7 +29,6 @@
 
 #include <QAction>
 #include <QCloseEvent>
-#include <QDebug>
 #include <QDockWidget>
 #include <QLayout>
 #include <QMdiSubWindow>

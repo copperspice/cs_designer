@@ -38,7 +38,6 @@
 #include <grid_p.h>
 
 #include <QApplication>
-#include <QDebug>
 #include <QEvent>
 #include <QHeaderView>
 #include <QItemSelectionModel>

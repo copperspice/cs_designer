@@ -31,7 +31,6 @@
 
 #include <QAction>
 #include <QApplication>
-#include <QDebug>
 #include <QLabel>
 #include <QMenu>
 
@@ -298,8 +297,6 @@ void BuddyEditor::endConnection(QWidget *target, const QPoint &pos)
 
       if (newSource != nullptr) {
          undoStack()->push(createBuddyCommand(m_formWindow, newSource, newTarget));
-      } else {
-         qDebug("BuddyEditor::endConnection(): not a label");
       }
 
       setSelected(new_con, true);
@@ -334,9 +331,7 @@ void BuddyEditor::widgetRemoved(QWidget *widget)
          con->update();
          QWidget *source = con->widget(EndPoint::Source);
 
-         if (dynamic_cast<QLabel *>(source) == nullptr) {
-            qDebug("BuddyConnection::widgetRemoved(): not a label");
-         } else {
+         if (dynamic_cast<QLabel *>(source) != nullptr) {
             ResetPropertyCommand *command = new ResetPropertyCommand(formWindow());
             command->init(source, buddyPropertyC);
             undoStack()->push(command);
@@ -362,9 +357,7 @@ void BuddyEditor::deleteSelected()
 
       QWidget *source = con->widget(EndPoint::Source);
 
-      if (dynamic_cast<QLabel *>(source) == nullptr) {
-         qDebug("BuddyConnection::deleteSelected(): not a label");
-      } else {
+      if (dynamic_cast<QLabel *>(source) != nullptr) {
          ResetPropertyCommand *command = new ResetPropertyCommand(formWindow());
          command->init(source, buddyPropertyC);
          undoStack()->push(command);

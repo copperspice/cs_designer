@@ -21,7 +21,6 @@
 #include <extension.h>
 #include <wizard_container.h>
 
-#include <QDebug>
 #include <QWizard>
 #include <QWizardPage>
 

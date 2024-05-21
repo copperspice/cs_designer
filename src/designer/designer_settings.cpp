@@ -27,14 +27,11 @@
 
 #include <designer_utils.h>
 
-#include <QDebug>
 #include <QDesktopWidget>
 #include <QDir>
 #include <QListView>
 #include <QStyle>
 #include <QVariant>
-
-constexpr const int DEBUG_SETTINGS = 0;
 
 static const QString newFormShowKey     = "newFormDialog/ShowOnStartup";
 static const QString mainWindowStateKey = "MainWindowState45";
@@ -82,10 +79,6 @@ void QDesignerSettings::saveGeometryFor(const QWidget *w)
    QDesignerSettingsInterface *s = settings();
 
    const bool visible = w->isVisible();
-
-   if (DEBUG_SETTINGS) {
-      qDebug() << "saveGeometryFor() " << w << "visible = " << visible;
-   }
 
    s->beginGroup(w->objectName());
    s->setValue("visible", visible);

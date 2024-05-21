@@ -22,7 +22,6 @@
 #include <mdi_area_container.h>
 
 #include <QApplication>
-#include <QDebug>
 #include <QHash>
 #include <QMdiArea>
 #include <QMdiSubWindow>
@@ -58,7 +57,6 @@ int QMdiAreaContainer::currentIndex() const
 void QMdiAreaContainer::setCurrentIndex(int index)
 {
    if (index < 0) {
-      qDebug() << "** WARNING Attempt to QMdiAreaContainer::setCurrentIndex(-1)";
       return;
    }
    QMdiSubWindow *frame = m_mdiArea->subWindowList(QMdiArea::CreationOrder).at(index);

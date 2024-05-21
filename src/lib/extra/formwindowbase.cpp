@@ -38,7 +38,6 @@
 
 #include <QAction>
 #include <QComboBox>
-#include <QDebug>
 #include <QLabel>
 #include <QList>
 #include <QListWidget>

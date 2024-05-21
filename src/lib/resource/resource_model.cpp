@@ -19,9 +19,9 @@
 
 #include <rcc_support.h>
 #include <resource_model.h>
+#include <utils.h>
 
 #include <QBuffer>
-#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QFileSystemWatcher>
@@ -29,8 +29,6 @@
 #include <QMap>
 #include <QResource>
 #include <QStringList>
-
-constexpr const int DEBUG_RESOURCE = 0;
 
 class QtResourceSetPrivate
 {
@@ -177,8 +175,8 @@ const QByteArray *QtResourceModelPrivate::createResource(const QString &path, QS
       rc = new QByteArray(buffer.data());
    }
 
-   if (DEBUG_RESOURCE) {
-      qDebug() << "createResource" << path << "returns data=" << rc << " hasWarnings=" << *errorCount;
+   if (*errorCount != 0) {
+      csWarning("createResource() " + path);
    }
 
    return rc;
@@ -187,9 +185,6 @@ const QByteArray *QtResourceModelPrivate::createResource(const QString &path, QS
 void QtResourceModelPrivate::deleteResource(const QByteArray *data) const
 {
    if (data) {
-      if (DEBUG_RESOURCE) {
-         qDebug() << "deleteResource";
-      }
       delete data;
    }
 }
@@ -206,17 +201,13 @@ void QtResourceModelPrivate::registerResourceSet(QtResourceSet *resourceSet)
 
    while (itRegister.hasNext()) {
       const QString path = itRegister.next();
-      if (DEBUG_RESOURCE) {
-         qDebug() << "registerResourceSet " << path;
-      }
-
       const PathDataMap::const_iterator itRcc = m_pathToData.constFind(path);
       if (itRcc != m_pathToData.constEnd()) { // otherwise data was not created yet
          const QByteArray *data = itRcc.value();
 
          if (data) {
             if (!QResource::registerResource(reinterpret_cast<const uchar *>(data->constData()))) {
-               qWarning() << "** WARNING: Failed to register " << path << " (QResource failure).";
+               csWarning("QResource failed to register " + path);
 
             } else {
                QStringList contents = m_pathToContents.value(path);
@@ -247,18 +238,13 @@ void QtResourceModelPrivate::unregisterResourceSet(QtResourceSet *resourceSet)
    QStringListIterator itUnregister(toUnregister);
    while (itUnregister.hasNext()) {
       const QString path = itUnregister.next();
-
-      if (DEBUG_RESOURCE) {
-         qDebug() << "unregisterResourceSet " << path;
-      }
-
       const PathDataMap::const_iterator itRcc = m_pathToData.constFind(path);
 
       if (itRcc != m_pathToData.constEnd()) { // otherwise data was not created yet
          const QByteArray *data = itRcc.value();
          if (data) {
             if (!QResource::unregisterResource(reinterpret_cast<const uchar *>(itRcc.value()->constData()))) {
-               qWarning() << "** WARNING: Failed to unregister " << path << " (QResource failure).";
+               csWarning("QResource failed to unregister " + path);
             }
          }
       }
@@ -269,10 +255,6 @@ void QtResourceModelPrivate::unregisterResourceSet(QtResourceSet *resourceSet)
 void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringList &newPaths,
       int *errorCountPtr, QString *errorMessages)
 {
-   if (DEBUG_RESOURCE) {
-      qDebug() << "activate " << resourceSet;
-   }
-
    if (errorCountPtr) {
       *errorCountPtr = 0;
    }
@@ -354,9 +336,7 @@ void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringL
       }
       errorStream.close();
       const QString stderrOutput = QString::fromUtf8(errorStream.data());
-      if (DEBUG_RESOURCE) {
-         qDebug() << "Output: (" << errorCount << ")\n" << stderrOutput;
-      }
+
       if (errorMessages) {
          *errorMessages = stderrOutput;
       }
