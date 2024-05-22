@@ -1096,7 +1096,8 @@ void QDesignerActions::updateRecentFileActions()
 
          continue;
       }
-      const QString text = fi.fileName();
+
+      const QString text = fi.absoluteFilePath();
       recentFilesActs[i]->setText(text);
       recentFilesActs[i]->setIconText(files[i]);
       recentFilesActs[i]->setVisible(true);
