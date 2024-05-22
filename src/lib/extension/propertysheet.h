@@ -52,12 +52,7 @@ class QDesignerPropertySheetExtension
    virtual bool isChanged(int index) const = 0;
    virtual void setChanged(int index, bool changed) = 0;
 
-   virtual bool isEnabled(int index) const
-   // ### Qt6 remove body, provided in Qt5 for source compatibility to Qt4.
-   {
-      (void) index;
-      return true;
-   }
+   virtual bool isEnabled(int index) const = 0;
 };
 
 CS_DECLARE_EXTENSION_INTERFACE(QDesignerPropertySheetExtension, "copperspice.com.CS.Designer.PropertySheet")
