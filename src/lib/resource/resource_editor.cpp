@@ -37,15 +37,15 @@
 #include <QStandardItemModel>
 #include <QtXml/QDomDocument>
 
-static const QString rccRootTag         = "RCC";
-static const QString rccTag             = "qresource";
-static const QString rccFileTag         = "file";
-static const QString rccAliasAttribute  = "alias";
-static const QString rccPrefixAttribute = "prefix";
-static const QString rccLangAttribute   = "lang";
-static const QString SplitterPosition   = "SplitterPosition";
 static const QString Geometry           = "Geometry";
 static const QString QrcDialogC         = "QrcDialog";
+static const QString SplitterPosition   = "SplitterPosition";
+static const QString rccAliasAttribute  = "alias";
+static const QString rccFileTag         = "file";
+static const QString rccLangAttribute   = "lang";
+static const QString rccPrefixAttribute = "prefix";
+static const QString rccRootTag         = "RCC";
+static const QString rccTag             = "qresource";
 
 static QString msgOverwrite(const QString &fname)
 {

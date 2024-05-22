@@ -32,22 +32,22 @@
 
 #define USE_LAYOUT_SIZE_CONSTRAINT
 
-static const QString leftMargin   = "leftMargin";
-static const QString topMargin    = "topMargin";
-static const QString rightMargin  = "rightMargin";
-static const QString bottomMargin = "bottomMargin";
+static const QString bottomMargin      = "bottomMargin";
+static const QString leftMargin        = "leftMargin";
+static const QString rightMargin       = "rightMargin";
+static const QString topMargin         = "topMargin";
 
 static const QString horizontalSpacing = "horizontalSpacing";
-static const QString verticalSpacing   = "verticalSpacing";
-static const QString spacing           = "spacing";
 static const QString margin            = "margin";
+static const QString spacing           = "spacing";
+static const QString verticalSpacing   = "verticalSpacing";
 
-static const QString sizeConstraint                  = "sizeConstraint";
 static const QString boxStretchPropertyC             = "stretch";
-static const QString gridRowStretchPropertyC         = "rowStretch";
+static const QString gridColumnMinimumWidthPropertyC = "columnMinimumWidth";
 static const QString gridColumnStretchPropertyC      = "columnStretch";
 static const QString gridRowMinimumHeightPropertyC   = "rowMinimumHeight";
-static const QString gridColumnMinimumWidthPropertyC = "columnMinimumWidth";
+static const QString gridRowStretchPropertyC         = "rowStretch";
+static const QString sizeConstraint                  = "sizeConstraint";
 
 namespace {
 enum LayoutPropertyType {

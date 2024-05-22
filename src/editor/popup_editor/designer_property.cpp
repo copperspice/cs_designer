@@ -55,13 +55,13 @@
 #include <QToolButton>
 #include <QUrl>
 
-static const QString resettableAttributeC      = "resettable";
-static const QString flagsAttributeC           = "flags";
-static const QString validationModesAttributeC = "validationMode";
-static const QString superPaletteAttributeC    = "superPalette";
 static const QString defaultResourceAttributeC = "defaultResource";
+static const QString flagsAttributeC           = "flags";
 static const QString fontAttributeC            = "font";
+static const QString resettableAttributeC      = "resettable";
+static const QString superPaletteAttributeC    = "superPalette";
 static const QString themeAttributeC           = "theme";
+static const QString validationModesAttributeC = "validationMode";
 
 class DesignerFlagPropertyType
 {

@@ -48,15 +48,15 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 
-static const QString elementResourceData = "resource";
-static const QString typeAttribute       = "type";
-static const QString typeImage           = "image";
-static const QString typeStyleSheet      = "stylesheet";
-static const QString typeOther           = "other";
-static const QString fileAttribute       = "file";
-static const QString SplitterPosition    = "SplitterPosition";
 static const QString Geometry            = "Geometry";
 static const QString ResourceViewDialogC = "ResourceDialog";
+static const QString SplitterPosition    = "SplitterPosition";
+static const QString elementResourceData = "resource";
+static const QString fileAttribute       = "file";
+static const QString typeAttribute       = "type";
+static const QString typeImage           = "image";
+static const QString typeOther           = "other";
+static const QString typeStyleSheet      = "stylesheet";
 
 class ResourceListWidget : public QListWidget
 {

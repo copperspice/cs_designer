@@ -56,12 +56,12 @@
 
 #include <qalgorithms.h>
 
-static const QString SettingsGroupC       = "PropertyEditor";
-static const QString ViewKeyC             = "View";
 static const QString ColorKeyC            = "Colored";
-static const QString SortedKeyC           = "Sorted";
 static const QString ExpansionKeyC        = "ExpandedItems";
+static const QString SettingsGroupC       = "PropertyEditor";
+static const QString SortedKeyC           = "Sorted";
 static const QString SplitterPositionKeyC = "SplitterPosition";
+static const QString ViewKeyC             = "View";
 
 enum SettingsView {
    TreeView,

@@ -39,23 +39,22 @@
 #include <QHeaderView>
 #include <QMenu>
 #include <QTimer>
-static const QString widgetBoxRootElementC = "widgetbox";
-static const QString widgetElementC        = "widget";
-static const QString uiElementC            = "ui";
-static const QString categoryElementC      = "category";
-static const QString categoryEntryElementC = "categoryentry";
-static const QString nameAttributeC        = "name";
-static const QString typeAttributeC        = "type";
-static const QString iconAttributeC        = "icon";
-static const QString defaultTypeValueC     = "default";
-static const QString customValueC          = "custom";
-static const QString iconPrefixC           = "__qt_icon__";
-static const QString scratchPadValueC      = "scratchpad";
-static const QString invisibleNameC        = "[invisible]";
-
-static const QString widgetBoxSettingsGroupC = "WidgetBox";
+static const QString categoryElementC        = "category";
+static const QString categoryEntryElementC   = "categoryentry";
+static const QString customValueC            = "custom";
+static const QString defaultTypeValueC       = "default";
+static const QString iconAttributeC          = "icon";
+static const QString iconPrefixC             = "__qt_icon__";
+static const QString invisibleNameC          = "[invisible]";
+static const QString nameAttributeC          = "name";
+static const QString scratchPadValueC        = "scratchpad";
+static const QString typeAttributeC          = "type";
+static const QString uiElementC              = "ui";
 static const QString widgetBoxExpandedKeyC   = "Closed categories";
+static const QString widgetBoxRootElementC   = "widgetbox";
+static const QString widgetBoxSettingsGroupC = "WidgetBox";
 static const QString widgetBoxViewModeKeyC   = "View mode";
+static const QString widgetElementC          = "widget";
 
 enum TopLevelRole  {
    NORMAL_ITEM,

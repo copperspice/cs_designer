@@ -39,22 +39,21 @@
 #include <QXmlStreamAttributes>
 #include <QXmlStreamReader>
 
-static const QString uiElementC              = "ui";
-static const QString languageAttributeC      = "language";
-static const QString widgetElementC          = "widget";
-static const QString displayNameAttributeC   = "displayname";
+static const QString addPageMethodC          = "addpagemethod";
 static const QString classAttributeC         = "class";
 static const QString customwidgetElementC    = "customwidget";
+static const QString displayNameAttributeC   = "displayname";
 static const QString extendsElementC         = "extends";
-static const QString addPageMethodC          = "addpagemethod";
+static const QString languageAttributeC      = "language";
 static const QString propertySpecsC          = "propertyspecifications";
 static const QString stringPropertySpecC     = "stringpropertyspecification";
+static const QString uiElementC              = "ui";
+static const QString widgetElementC          = "widget";
 
 static const QString propertyToolTipC        = "tooltip";
 static const QString stringPropertyNameAttrC = "name";
-static const QString stringPropertyTypeAttrC = "type";
 static const QString stringPropertyNoTrAttrC = "notr";
-
+static const QString stringPropertyTypeAttrC = "type";
 
 /* Custom widgets: Loading custom widgets is a 2-step process: PluginManager
  * scans for its plugins in the constructor. At this point, it might not be safe

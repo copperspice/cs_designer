@@ -66,28 +66,28 @@ static const QDesignerMetaObjectInterface *propertyBelongsTo(const QDesignerMeta
 
 // 'layoutObjectName' is the name of the actual layout
 
-static const QString layoutObjectNameC        = "layoutName";
-static const QString layoutLeftMarginC        = "layoutLeftMargin";
-static const QString layoutTopMarginC         = "layoutTopMargin";
-static const QString layoutRightMarginC       = "layoutRightMargin";
 static const QString layoutBottomMarginC      = "layoutBottomMargin";
-static const QString layoutSpacingC           = "layoutSpacing";
 static const QString layoutHorizontalSpacingC = "layoutHorizontalSpacing";
-static const QString layoutVerticalSpacingC   = "layoutVerticalSpacing";
+static const QString layoutLeftMarginC        = "layoutLeftMargin";
+static const QString layoutObjectNameC        = "layoutName";
+static const QString layoutRightMarginC       = "layoutRightMargin";
 static const QString layoutSizeConstraintC    = "layoutSizeConstraint";
+static const QString layoutSpacingC           = "layoutSpacing";
+static const QString layoutTopMarginC         = "layoutTopMargin";
+static const QString layoutVerticalSpacingC   = "layoutVerticalSpacing";
 
 // form layout
 static const QString layoutFieldGrowthPolicyC = "layoutFieldGrowthPolicy";
-static const QString layoutRowWrapPolicyC     = "layoutRowWrapPolicy";
-static const QString layoutLabelAlignmentC    = "layoutLabelAlignment";
 static const QString layoutFormAlignmentC     = "layoutFormAlignment";
+static const QString layoutLabelAlignmentC    = "layoutLabelAlignment";
+static const QString layoutRowWrapPolicyC     = "layoutRowWrapPolicy";
 
 // stretches
-static const QString layoutboxStretchPropertyC        = "layoutStretch";
-static const QString layoutGridRowStretchPropertyC    = "layoutRowStretch";
+static const QString layoutGridColumnMinimumWidthC    = "layoutColumnMinimumWidth";
 static const QString layoutGridColumnStretchPropertyC = "layoutColumnStretch";
 static const QString layoutGridRowMinimumHeightC      = "layoutRowMinimumHeight";
-static const QString layoutGridColumnMinimumWidthC    = "layoutColumnMinimumWidth";
+static const QString layoutGridRowStretchPropertyC    = "layoutRowStretch";
+static const QString layoutboxStretchPropertyC        = "layoutStretch";
 
 // Find the form editor in the hierarchy. We know the parent of the sheet is the
 // extension manager whose parent is the core.

@@ -34,18 +34,18 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
-static const QString dpiXPropertyC = "_q_customDpiX";
-static const QString dpiYPropertyC = "_q_customDpiY";
+static const QString dpiXPropertyC         = "_q_customDpiX";
+static const QString dpiYPropertyC         = "_q_customDpiY";
 
 // XML serialization
-static const QString xmlVersionC           = "1.0";
-static const QString rootElementC          = "deviceprofile";
-static const QString nameElementC          = "name";
-static const QString fontFamilyElementC    = "fontfamily";
-static const QString fontPointSizeElementC = "fontpointsize";
 static const QString dPIXElementC          = "dpix";
 static const QString dPIYElementC          = "dpiy";
+static const QString fontFamilyElementC    = "fontfamily";
+static const QString fontPointSizeElementC = "fontpointsize";
+static const QString nameElementC          = "name";
+static const QString rootElementC          = "deviceprofile";
 static const QString styleElementC         = "style";
+static const QString xmlVersionC           = "1.0";
 
 /* DeviceProfile:
  * For preview purposes (preview, widget box, new form dialog), the

@@ -396,9 +396,9 @@ QMenu *QTabWidgetEventFilter::addContextMenuActions(QMenu *popup)
 
 // ----------- QTabWidgetPropertySheet
 
-static const QString currentTabTextKey      = "currentTabText";
-static const QString currentTabNameKey      = "currentTabName";
 static const QString currentTabIconKey      = "currentTabIcon";
+static const QString currentTabNameKey      = "currentTabName";
+static const QString currentTabTextKey      = "currentTabText";
 static const QString currentTabToolTipKey   = "currentTabToolTip";
 static const QString currentTabWhatsThisKey = "currentTabWhatsThis";
 static const QString tabMovableKey          = "movable";

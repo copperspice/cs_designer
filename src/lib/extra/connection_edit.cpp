@@ -34,12 +34,12 @@
 #include <qalgorithms.h>
 
 constexpr const int BG_ALPHA =              32;
+constexpr const int GROUND_H =              25;
+constexpr const int GROUND_W =              20;
+constexpr const int HLABEL_MARGIN =          3;
 constexpr const int LINE_PROXIMITY_RADIUS =  3;
 constexpr const int LOOP_MARGIN  =          20;
 constexpr const int VLABEL_MARGIN =          1;
-constexpr const int HLABEL_MARGIN =          3;
-constexpr const int GROUND_W =              20;
-constexpr const int GROUND_H =              25;
 
 static QRect fixRect(const QRect &r)
 {

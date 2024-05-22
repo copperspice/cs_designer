@@ -31,17 +31,17 @@
 #include <QStringList>
 #include <QVariant>
 
-static const QString designerPath          = "/.designer";
 static const QString defaultGridKey        = "defaultGrid";
-static const QString previewKey            = "Preview";
-static const QString enabledKey            = "Enabled";
-static const QString zoomKey               = "zoom";
-static const QString zoomEnabledKey        = "zoomEnabled";
+static const QString designerPath          = "/.designer";
 static const QString deviceProfileIndexKey = "DeviceProfileIndex";
 static const QString deviceProfilesKey     = "DeviceProfiles";
-static const QString formTemplatePathsKey  = "FormTemplatePaths";
+static const QString enabledKey            = "Enabled";
 static const QString formTemplateKey       = "FormTemplate";
+static const QString formTemplatePathsKey  = "FormTemplatePaths";
 static const QString newFormSizeKey        = "NewFormSize";
+static const QString previewKey            = "Preview";
+static const QString zoomEnabledKey        = "zoomEnabled";
+static const QString zoomKey               = "zoom";
 
 //   static const char *userDeviceSkinsKey= "UserDeviceSkins"
 

@@ -26,8 +26,8 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
+static const QString Geometry         = "Geometry";
 static const QString PlainTextDialogC = "PlainTextDialog";
-static const QString Geometry = "Geometry";
 
 namespace qdesigner_internal {
 

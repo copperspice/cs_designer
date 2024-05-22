@@ -445,9 +445,9 @@ void ZoomablePreviewDeviceSkin::fitWidget(const QSize &size)
 
 // ------------- PreviewConfiguration
 
-static const QString styleKey         = "Style";
 static const QString appStyleSheetKey = "AppStyleSheet";
 static const QString skinKey          = "Skin";
+static const QString styleKey         = "Style";
 
 PreviewConfiguration::PreviewConfiguration() :
    m_d(new PreviewConfigurationData)

@@ -59,19 +59,19 @@ void HtmlHighlighter::setFormatFor(Construct construct, const QTextCharFormat &f
 
 void HtmlHighlighter::highlightBlock(const QString &text)
 {
-   static const QChar tab       = QChar('\t');
-   static const QChar space     = QChar(' ');
    static const QChar amp       = QChar('&');
-   static const QChar startTag  = QChar('<');
-   static const QChar endTag    = QChar('>');
-   static const QChar quot      = QChar('"');
    static const QChar apos      = QChar('\'');
-   static const QChar semicolon = QChar(';');
+   static const QChar endTag    = QChar('>');
    static const QChar equals    = QChar('=');
+   static const QChar quot      = QChar('"');
+   static const QChar semicolon = QChar(';');
+   static const QChar space     = QChar(' ');
+   static const QChar startTag  = QChar('<');
+   static const QChar tab       = QChar('\t');
 
-   static const QString startComment("<!--");
    static const QString endComment("-->");
    static const QString endElement("/>");
+   static const QString startComment("<!--");
 
    int state = previousBlockState();
    int len   = text.length();

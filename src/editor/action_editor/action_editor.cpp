@@ -61,12 +61,12 @@ CS_DECLARE_METATYPE(QAction *)
 
 static const QString actionEditorViewModeKey = "ActionEditorViewMode";
 
-static const QString iconPropertyC       = "icon";
-static const QString shortcutPropertyC   = "shortcut";
-static const QString toolTipPropertyC    = "toolTip";
 static const QString checkablePropertyC  = "checkable";
+static const QString iconPropertyC       = "icon";
 static const QString objectNamePropertyC = "objectName";
+static const QString shortcutPropertyC   = "shortcut";
 static const QString textPropertyC       = "text";
+static const QString toolTipPropertyC    = "toolTip";
 
 namespace qdesigner_internal {
 

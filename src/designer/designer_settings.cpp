@@ -33,12 +33,12 @@
 #include <QStyle>
 #include <QVariant>
 
-static const QString newFormShowKey     = "newFormDialog/ShowOnStartup";
-static const QString mainWindowStateKey = "MainWindowState45";
-static const QString toolBarsStateKey   = "ToolBarsState45";
-static const QString backupOrgListKey   = "backup/fileListOrg";
 static const QString backupBakListKey   = "backup/fileListBak";
+static const QString backupOrgListKey   = "backup/fileListOrg";
+static const QString mainWindowStateKey = "MainWindowState45";
+static const QString newFormShowKey     = "newFormDialog/ShowOnStartup";
 static const QString recentFilesListKey = "recentFilesList";
+static const QString toolBarsStateKey   = "ToolBarsState45";
 
 QDesignerSettings::QDesignerSettings(QDesignerFormEditorInterface *core)
    : qdesigner_internal::QDesignerSharedSettings(core)

@@ -61,13 +61,13 @@ struct ItemViewPropertySheetPrivate {
 static const QString headerGroup = "Header";
 
 // Name of the real properties
-static const QString visibleProperty                 = "visible";
 static const QString cascadingSectionResizesProperty = "cascadingSectionResizes";
 static const QString defaultSectionSizeProperty      = "defaultSectionSize";
 static const QString highlightSectionsProperty       = "highlightSections";
 static const QString minimumSectionSizeProperty      = "minimumSectionSize";
 static const QString showSortIndicatorProperty       = "showSortIndicator";
 static const QString stretchLastSectionProperty      = "stretchLastSection";
+static const QString visibleProperty                 = "visible";
 
 } // namespace qdesigner_internal
 

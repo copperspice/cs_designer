@@ -32,10 +32,10 @@
 #include <QSortFilterProxyModel>
 #include <QTextStream>
 
-static const QString widgetElementC = "widget";
 static const QString nameAttributeC = "name";
-static const QString uiOpeningTagC  = "<ui>";
 static const QString uiClosingTagC  = "</ui>";
+static const QString uiOpeningTagC  = "<ui>";
+static const QString widgetElementC = "widget";
 
 constexpr const auto FilterRole = Qt::UserRole + 11;
 

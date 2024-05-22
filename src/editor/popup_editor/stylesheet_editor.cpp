@@ -43,9 +43,9 @@
 #include <QToolBar>
 #include <QVBoxLayout>
 
-static const QString styleSheetProperty = "styleSheet";
-static const QString StyleSheetDialog   = "StyleSheet_Dialog";
 static const QString Geometry           = "Geometry";
+static const QString StyleSheetDialog   = "StyleSheet_Dialog";
+static const QString styleSheetProperty = "styleSheet";
 
 using namespace qdesigner_internal;
 
