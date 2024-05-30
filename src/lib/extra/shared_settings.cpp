@@ -286,34 +286,37 @@ QStringList QDesignerSharedSettings::deviceProfileXml() const
 
 QDesignerSharedSettings::DeviceProfileList QDesignerSharedSettings::deviceProfiles() const
 {
-   DeviceProfileList rc;
+   QList<DeviceProfile> retval;
+
    const QStringList xmls = deviceProfileXml();
+
    if (xmls.empty()) {
-      return rc;
+      return retval;
    }
+
    // De-serialize
    QString errorMessage;
    DeviceProfile dp;
-   const QStringList::const_iterator scend = xmls.constEnd();
-   for (QStringList::const_iterator it = xmls.constBegin(); it != scend; ++it) {
-      if (dp.fromXml(*it, &errorMessage)) {
-         rc.push_back(dp);
+
+   for (QStringList::const_iterator iter = xmls.constBegin(); iter != xmls.constEnd(); ++iter) {
+      if (dp.fromXml(*iter, &errorMessage)) {
+         retval.push_back(dp);
       } else {
          csWarning(msgWarnDeviceProfileXml(errorMessage));
       }
    }
-   return rc;
+
+   return retval;
 }
 
 void QDesignerSharedSettings::setDeviceProfiles(const DeviceProfileList &dp)
 {
-   QStringList l;
-   const DeviceProfileList::const_iterator dcend = dp.constEnd();
+   QStringList list;
 
-   for (DeviceProfileList::const_iterator it = dp.constBegin(); it != dcend; ++it) {
-      l.push_back(it->toXml());
+   for (auto iter = dp.constBegin(); iter != dp.constEnd(); ++iter) {
+      list.push_back(iter->toXml());
    }
 
-   m_settings->setValue(deviceProfilesKey, l);
+   m_settings->setValue(deviceProfilesKey, list);
 }
 }

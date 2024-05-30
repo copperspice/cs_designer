@@ -152,12 +152,11 @@ PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDe
    QMenu *candidatesMenu = new QMenu();
 
    // Create a sub menu
-   const WidgetDataBaseItemList::const_iterator cend = candidates.constEnd();
 
    // Set up actions and map class names
-   for (WidgetDataBaseItemList::const_iterator it = candidates.constBegin(); it != cend; ++it) {
-      const QString customClassName = (*it)->name();
-      QAction *action = new QAction((*it)->name(), this);
+   for (const auto item : candidates) {
+      const QString customClassName = item->name();
+      QAction *action = new QAction(customClassName, this);
 
       connect(action, &QAction::triggered,
             m_promotionMapper, cs_mp_cast<>(&QSignalMapper::map));

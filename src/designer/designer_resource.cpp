@@ -909,21 +909,22 @@ QWidget *QDesignerResource::create(DomWidget *ui_widget, QWidget *parentWidget)
 
 QLayout *QDesignerResource::create(DomLayout *ui_layout, QLayout *layout, QWidget *parentWidget)
 {
-   QLayout *l = QAbstractFormBuilder::create(ui_layout, layout, parentWidget);
+   QLayout *newLayout = QAbstractFormBuilder::create(ui_layout, layout, parentWidget);
 
-   if (QGridLayout *gridLayout = dynamic_cast<QGridLayout *>(l)) {
+   if (QGridLayout *gridLayout = dynamic_cast<QGridLayout *>(newLayout)) {
       QLayoutSupport::createEmptyCells(gridLayout);
+
    } else {
-      if (QFormLayout *formLayout = dynamic_cast<QFormLayout *>(l)) {
+      if (QFormLayout *formLayout = dynamic_cast<QFormLayout *>(newLayout)) {
          QLayoutSupport::createEmptyCells(formLayout);
       }
    }
 
    // While the actual values are applied by the form builder, we still need
    // to mark them as 'changed'.
-   LayoutPropertySheet::markChangedStretchProperties(core(), l, ui_layout);
+   LayoutPropertySheet::markChangedStretchProperties(core(), newLayout, ui_layout);
 
-   return l;
+   return newLayout;
 }
 
 QLayoutItem *QDesignerResource::create(DomLayoutItem *ui_layoutItem, QLayout *layout, QWidget *parentWidget)
@@ -1348,14 +1349,14 @@ DomLayout *QDesignerResource::createDom(QLayout *layout, DomLayout *ui_parentLay
 
    m_chain.push(layout);
 
-   DomLayout *l = QAbstractFormBuilder::createDom(layout, ui_parentLayout, ui_parentWidget);
-   Q_ASSERT(l != nullptr);
+   DomLayout *domLayout = QAbstractFormBuilder::createDom(layout, ui_parentLayout, ui_parentWidget);
+   Q_ASSERT(domLayout != nullptr);
 
-   LayoutPropertySheet::stretchAttributesToDom(core(), layout, l);
+   LayoutPropertySheet::stretchAttributesToDom(core(), layout, domLayout);
 
    m_chain.pop();
 
-   return l;
+   return domLayout;
 }
 
 DomLayoutItem *QDesignerResource::createDom(QLayoutItem *item, DomLayout *ui_layout, DomWidget *ui_parentWidget)
@@ -1382,9 +1383,10 @@ DomLayoutItem *QDesignerResource::createDom(QLayoutItem *item, DomLayout *ui_lay
    } else if (QLayoutWidget *layoutWidget = dynamic_cast<QLayoutWidget *>(item->widget())) {
       // Do not save a QLayoutWidget if it is within a layout (else it is saved as "QWidget"
       Q_ASSERT(layoutWidget->layout());
-      DomLayout *l = createDom(layoutWidget->layout(), ui_layout, ui_parentWidget);
+
+      DomLayout *domLayout = createDom(layoutWidget->layout(), ui_layout, ui_parentWidget);
       ui_item = new DomLayoutItem();
-      ui_item->setElementLayout(l);
+      ui_item->setElementLayout(domLayout);
       d->m_laidout.insert(item->widget(), true);
    } else if (!item->spacerItem()) { // we use spacer as fake item in the Designer
       ui_item = QAbstractFormBuilder::createDom(item, ui_layout, ui_parentWidget);

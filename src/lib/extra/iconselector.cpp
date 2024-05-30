@@ -456,13 +456,14 @@ IconSelector::IconSelector(QWidget *parent) :
 
    d_ptr->m_stateComboBox = new QComboBox(this);
 
-   QHBoxLayout *l = new QHBoxLayout(this);
+   QHBoxLayout *list = new QHBoxLayout(this);
    d_ptr->m_iconButton = new QToolButton(this);
    d_ptr->m_iconButton->setText(tr("..."));
    d_ptr->m_iconButton->setPopupMode(QToolButton::MenuButtonPopup);
-   l->addWidget(d_ptr->m_stateComboBox);
-   l->addWidget(d_ptr->m_iconButton);
-   l->setMargin(0);
+
+   list->addWidget(d_ptr->m_stateComboBox);
+   list->addWidget(d_ptr->m_iconButton);
+   list->setMargin(0);
 
    d_ptr->m_stateToName << qMakePair(qMakePair(QIcon::Normal,   QIcon::Off), tr("Normal Off")   );
    d_ptr->m_stateToName << qMakePair(qMakePair(QIcon::Normal,   QIcon::On),  tr("Normal On")    );

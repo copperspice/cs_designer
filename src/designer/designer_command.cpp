@@ -245,8 +245,9 @@ void InsertWidgetCommand::refreshBuddyLabels()
    const QByteArray objectNameU8 = m_widget->objectName().toUtf8();
    // Re-set the buddy (The sheet locates the object by name and sets it)
    const LabelList::const_iterator cend = label_list.constEnd();
-   for (LabelList::const_iterator it = label_list.constBegin(); it != cend; ++it ) {
-      if (QDesignerPropertySheetExtension *sheet = propertySheet(*it)) {
+
+   for (LabelList::const_iterator iter = label_list.constBegin(); iter != cend; ++iter ) {
+      if (QDesignerPropertySheetExtension *sheet = propertySheet(*iter)) {
          const int idx = sheet->indexOf(buddyProperty);
          if (idx != -1) {
             const QVariant value = sheet->property(idx);
@@ -368,9 +369,9 @@ void ManageWidgetCommandHelper::init(const QDesignerFormWindowInterface *fw, QWi
    m_managedChildren.reserve(children.size());
    const QWidgetList::const_iterator lcend = children.constEnd();
 
-   for (QWidgetList::const_iterator it = children.constBegin(); it != lcend; ++it)
-      if (fw->isManaged(*it)) {
-         m_managedChildren.push_back(*it);
+   for (QWidgetList::const_iterator iter = children.constBegin(); iter != lcend; ++iter)
+      if (fw->isManaged(*iter)) {
+         m_managedChildren.push_back(*iter);
       }
 }
 
@@ -738,11 +739,14 @@ void CursorSelectionState::restore(QDesignerFormWindowInterface *formWindow) con
       // Select current as last
       formWindow->clearSelection(false);
       const WidgetPointerList::const_iterator cend = m_selection.constEnd();
-      for (WidgetPointerList::const_iterator it = m_selection.constBegin(); it != cend; ++it)
-         if (QWidget *w = *it)
+
+      for (WidgetPointerList::const_iterator iter = m_selection.constBegin(); iter != cend; ++iter)
+         if (QWidget *w = *iter) {
             if (w != m_current) {
-               formWindow->selectWidget(*it, true);
+               formWindow->selectWidget(*iter, true);
             }
+         }
+
       if (m_current) {
          formWindow->selectWidget(m_current, true);
       }
@@ -2391,41 +2395,41 @@ ItemData::ItemData(const QTreeWidgetItem *item, int column)
 
 void ItemData::fillTreeItemColumn(QTreeWidgetItem *item, int column, DesignerIconCache *iconCache) const
 {
-   auto it  = m_properties.constBegin();
-   auto end = m_properties.constEnd();
+   auto iter = m_properties.constBegin();
+   auto end  = m_properties.constEnd();
 
-   for (; it != end; ++it) {
-      if (it.value().isValid()) {
-         item->setData(column, it.key(), it.value());
+   for (; iter != end; ++iter) {
+      if (iter.value().isValid()) {
+         item->setData(column, iter.key(), iter.value());
 
-         switch (it.key()) {
+         switch (iter.key()) {
             case Qt::DecorationPropertyRole:
                if (iconCache) {
-                  QVariant data = it.value();
+                  QVariant data = iter.value();
                   item->setIcon(column, iconCache->icon(data.value<PropertySheetIconValue>()));
                }
                break;
 
             case Qt::DisplayPropertyRole:  {
-               QVariant data = it.value();
+               QVariant data = iter.value();
                item->setText(column, data.value<PropertySheetStringValue>().value());
                break;
             }
 
             case Qt::ToolTipPropertyRole:  {
-               QVariant data = it.value();
+               QVariant data = iter.value();
                item->setToolTip(column, data.value<PropertySheetStringValue>().value());
                break;
             }
 
             case Qt::StatusTipPropertyRole: {
-               QVariant data = it.value();
+               QVariant data = iter.value();
                item->setStatusTip(column, data.value<PropertySheetStringValue>().value());
                break;
             }
 
             case Qt::WhatsThisPropertyRole: {
-               QVariant data = it.value();
+               QVariant data = iter.value();
                item->setWhatsThis(column, data.value<PropertySheetStringValue>().value());
                break;
             }

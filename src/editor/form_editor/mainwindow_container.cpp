@@ -64,33 +64,33 @@ namespace {
 // Pair of <area,break_before>
 typedef QPair<Qt::ToolBarArea, bool> ToolBarData;
 
-ToolBarData toolBarData(QToolBar *me)
+ToolBarData toolBarData(QToolBar *toolBar)
 {
-   const QMainWindow *mw = dynamic_cast<const QMainWindow *>(me->parentWidget());
+   const QMainWindow *mainWindow = dynamic_cast<const QMainWindow *>(toolBar->parentWidget());
 
-   if (! mw || ! mw->layout() || mw->layout()->indexOf(me) == -1) {
+   if (! mainWindow || ! mainWindow->layout() || mainWindow->layout()->indexOf(toolBar) == -1) {
       return ToolBarData(Qt::TopToolBarArea, false);
    }
 
-   return ToolBarData(mw->toolBarArea(me), mw->toolBarBreak(me));
+   return ToolBarData(mainWindow->toolBarArea(toolBar), mainWindow->toolBarBreak(toolBar));
 }
 
-Qt::DockWidgetArea dockWidgetArea(QDockWidget *me)
+Qt::DockWidgetArea dockWidgetArea(QDockWidget *dockWidget)
 {
-   if (const QMainWindow *mw = dynamic_cast<const QMainWindow *>(me->parentWidget())) {
-      // Make sure that the varaiable me is actually managed by mw, otherwise
+   if (const QMainWindow *mainWindow = dynamic_cast<const QMainWindow *>(dockWidget->parentWidget())) {
+      // Make sure the variable dockWidget is managed by mainWindow, otherwise
       // QMainWindow::dockWidgetArea() will not work
 
       QList<QLayout *> candidates;
 
-      if (mw->layout()) {
-         candidates.append(mw->layout());
-         candidates += mw->layout()->findChildren<QLayout *>();
+      if (mainWindow->layout()) {
+         candidates.append(mainWindow->layout());
+         candidates += mainWindow->layout()->findChildren<QLayout *>();
       }
 
-      for (QLayout *l : candidates) {
-         if (l->indexOf(me) != -1) {
-            return mw->dockWidgetArea(me);
+      for (QLayout *layout : candidates) {
+         if (layout->indexOf(dockWidget) != -1) {
+            return mainWindow->dockWidgetArea(dockWidget);
          }
       }
    }

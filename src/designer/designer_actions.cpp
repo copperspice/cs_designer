@@ -519,34 +519,35 @@ QString QDesignerActions::uiExtension() const
 QAction *QDesignerActions::createRecentFilesMenu()
 {
    QMenu *menu = new QMenu;
-   QAction *act;
+   QAction *action;
 
    // Need to insert this into the QAction
    for (int i = 0; i < MAX_RECENT_FILES; ++i) {
-      act = new QAction(this);
-      act->setVisible(false);
+      action = new QAction(this);
+      action->setVisible(false);
 
-      connect(act, &QAction::triggered, this, &QDesignerActions::openRecentForm);
+      connect(action, &QAction::triggered, this, &QDesignerActions::openRecentForm);
 
-      m_recentFilesActions->addAction(act);
-      menu->addAction(act);
+      m_recentFilesActions->addAction(action);
+      menu->addAction(action);
    }
 
    updateRecentFileActions();
    menu->addSeparator();
 
-   act = new QAction(QIcon::fromTheme("edit-clear"), tr("Clear &Menu"), this);
-   act->setObjectName("__qt_action_clear_menu_");
+   action = new QAction(QIcon::fromTheme("edit-clear"), tr("Clear &Menu"), this);
+   action->setObjectName("__qt_action_clear_menu_");
 
-   connect(act, &QAction::triggered, this, &QDesignerActions::clearRecentFiles);
+   connect(action, &QAction::triggered, this, &QDesignerActions::clearRecentFiles);
 
-   m_recentFilesActions->addAction(act);
-   menu->addAction(act);
+   m_recentFilesActions->addAction(action);
+   menu->addAction(action);
 
-   act = new QAction(QIcon::fromTheme("document-open-recent"), tr("&Recent Forms"), this);
-   act->setMenu(menu);
+   //
+   action = new QAction(QIcon::fromTheme("document-open-recent"), tr("&Recent Forms"), this);
+   action->setMenu(menu);
 
-   return act;
+   return action;
 }
 
 QActionGroup *QDesignerActions::toolActions() const

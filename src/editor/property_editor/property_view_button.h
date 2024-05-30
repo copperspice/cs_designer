@@ -32,8 +32,8 @@ class QtButtonPropertyBrowser : public QtAbstractPropertyBrowser
    QtButtonPropertyBrowser(QWidget *parent = nullptr);
    ~QtButtonPropertyBrowser();
 
-   void setExpanded(QtBrowserItem *item, bool expanded);
-   bool isExpanded(QtBrowserItem *item) const;
+   void setExpanded(QtBrowserItem *browserItem, bool expanded);
+   bool isExpanded(QtBrowserItem *browserItem) const;
 
    CS_SIGNAL_1(Public, void collapsed(QtBrowserItem *item))
    CS_SIGNAL_2(collapsed, item)

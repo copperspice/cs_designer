@@ -58,7 +58,7 @@ class ZoomMenu : public QObject
    CS_SLOT_1(Private, void slotZoomMenu(QAction *un_named_arg1))
    CS_SLOT_2(slotZoomMenu)
 
-   static int zoomOf(const QAction *a);
+   static int zoomOf(const QAction *action);
 
    QActionGroup *m_menuActions;
 };

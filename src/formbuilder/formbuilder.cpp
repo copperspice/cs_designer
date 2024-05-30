@@ -72,7 +72,7 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
       return nullptr;
    }
 
-   QWidget *w = nullptr;
+   QWidget *formWidget = nullptr;
 
    if (dynamic_cast<QTabWidget *>(parentWidget)) {
       parentWidget = nullptr;
@@ -89,19 +89,19 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
    // ### special-casing for Line (QFrame), fix for 4.2
    do {
       if (widgetName == QFormBuilderStrings::instance().lineClass) {
-         w = new QFrame(parentWidget);
-         static_cast<QFrame *>(w)->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+         formWidget = new QFrame(parentWidget);
+         static_cast<QFrame *>(formWidget)->setFrameStyle(QFrame::HLine | QFrame::Sunken);
          break;
       }
 
-      if (w) {
+      if (formWidget != nullptr) {
          // symmetry for macro
       }
 
 #define DECLARE_LAYOUT(L, C)
 #define DECLARE_COMPAT_WIDGET(W, C)
-#define DECLARE_WIDGET(W, C)   else if (widgetName == #W) { Q_ASSERT(w == nullptr); w = new W(parentWidget); }
-#define DECLARE_WIDGET_1(W, C) else if (widgetName == #W) { Q_ASSERT(w == nullptr); w = new W(nullptr, parentWidget); }
+#define DECLARE_WIDGET(W, C)   else if (widgetName == #W) { Q_ASSERT(formWidget == nullptr); formWidget = new W(parentWidget); }
+#define DECLARE_WIDGET_1(W, C) else if (widgetName == #W) { Q_ASSERT(formWidget == nullptr); formWidget = new W(nullptr, parentWidget); }
 
 #include "widgets.table"
 
@@ -110,7 +110,7 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
 #undef DECLARE_WIDGET
 #undef DECLARE_WIDGET_1
 
-      if (w) {
+      if (formWidget != nullptr) {
          break;
       }
 
@@ -118,11 +118,12 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
       QDesignerCustomWidgetInterface *factory = d->m_customWidgets.value(widgetName);
 
       if (factory != nullptr) {
-         w = factory->createWidget(parentWidget);
+         formWidget = factory->createWidget(parentWidget);
       }
+
    } while (false);
 
-   if (w == nullptr) {
+   if (formWidget == nullptr) {
       // Attempt to instantiate base class of promoted/custom widgets
       const QString baseClassName = d->customWidgetBaseClass(widgetName);
 
@@ -134,7 +135,7 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
       }
    }
 
-   if (w == nullptr) {
+   if (formWidget == nullptr) {
       // nothing to do
       qWarning() << QCoreApplication::translate("QFormBuilder",
             "QFormBuilder was unable to create a widget of the class '%1'.").formatArg(widgetName);
@@ -142,18 +143,18 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
       return nullptr;
    }
 
-   w->setObjectName(name);
+   formWidget ->setObjectName(name);
 
-   if (dynamic_cast<QDialog *>(w)) {
-      w->setParent(parentWidget);
+   if (dynamic_cast<QDialog *>(formWidget)) {
+      formWidget ->setParent(parentWidget);
    }
 
-   return w;
+   return formWidget;
 }
 
 QLayout *QFormBuilder::createLayout(const QString &layoutName, QObject *parent, const QString &name)
 {
-   QLayout *l = nullptr;
+   QLayout *retval = nullptr;
 
    QWidget *parentWidget = dynamic_cast<QWidget *>(parent);
    QLayout *parentLayout = dynamic_cast<QLayout *>(parent);
@@ -165,10 +166,8 @@ QLayout *QFormBuilder::createLayout(const QString &layoutName, QObject *parent, 
 
 #define DECLARE_LAYOUT(L, C) \
     if (layoutName == #L) { \
-        Q_ASSERT(l == nullptr); \
-        l = parentLayout \
-            ? new L() \
-            : new L(parentWidget); \
+        Q_ASSERT(retval == nullptr); \
+        retval = parentLayout ? new L() : new L(parentWidget); \
     }
 
 #include "widgets.table"
@@ -177,13 +176,13 @@ QLayout *QFormBuilder::createLayout(const QString &layoutName, QObject *parent, 
 #undef DECLARE_COMPAT_WIDGET
 #undef DECLARE_WIDGET
 
-   if (l) {
-      l->setObjectName(name);
+   if (retval == nullptr) {
+      qWarning("QFormBuilder::createLayout() Layout type %s is not supported", csPrintable(layoutName));
    } else {
-      qWarning() << QCoreApplication::translate("QFormBuilder", "The layout type `%1' is not supported.").formatArg(layoutName);
+     retval->setObjectName(name);
    }
 
-   return l;
+   return retval;
 }
 
 bool QFormBuilder::addItem(DomLayoutItem *ui_item, QLayoutItem *item, QLayout *layout)
@@ -252,7 +251,8 @@ QLayout *QFormBuilder::create(DomLayout *ui_layout, QLayout *layout, QWidget *pa
    // Is this a temporary layout widget used to represent QLayout hierarchies in Designer?
    // Set its margins to 0.
    bool layoutWidget = d->processingLayoutWidget();
-   QLayout *l = QAbstractFormBuilder::create(ui_layout, layout, parentWidget);
+   QLayout *retval = QAbstractFormBuilder::create(ui_layout, layout, parentWidget);
+
    if (layoutWidget) {
       const QFormBuilderStrings &strings = QFormBuilderStrings::instance();
       int left, top, right, bottom;
@@ -275,10 +275,11 @@ QLayout *QFormBuilder::create(DomLayout *ui_layout, QLayout *layout, QWidget *pa
          bottom = prop->elementNumber();
       }
 
-      l->setContentsMargins(left, top, right, bottom);
+      retval->setContentsMargins(left, top, right, bottom);
       d->setProcessingLayoutWidget(false);
    }
-   return l;
+
+   return retval;
 }
 
 QLayoutItem *QFormBuilder::create(DomLayoutItem *ui_layoutItem, QLayout *layout, QWidget *parentWidget)

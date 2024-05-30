@@ -655,8 +655,9 @@ WidgetBoxTreeWidget::CategoryList WidgetBoxTreeWidget::loadCustomCategoryList() 
       }
 
       const QString pluginName = c->name();
-      const QDesignerCustomWidgetData data = pm->customWidgetData(c);
-      QString displayName = data.xmlDisplayName();
+      const QDesignerCustomWidgetData widgetData = pm->customWidgetData(c);
+      QString displayName = widgetData.xmlDisplayName();
+
       if (displayName.isEmpty()) {
          displayName = pluginName;
       }

@@ -56,9 +56,9 @@ QDesignerFormWindow::QDesignerFormWindow(QDesignerFormWindowInterface *editor, Q
       m_editor = core->formWindowManager()->createFormWindow(this);
    }
 
-   QVBoxLayout *l = new QVBoxLayout(this);
-   l->setMargin(0);
-   l->addWidget(m_editor);
+   QVBoxLayout *boxLayout = new QVBoxLayout(this);
+   boxLayout->setMargin(0);
+   boxLayout->addWidget(m_editor);
 
    m_action->setCheckable(true);
 

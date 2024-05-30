@@ -50,8 +50,8 @@ template <class Layout>
 static inline Layout *managedLayoutOf(const QDesignerFormEditorInterface *core, QWidget *w, const Layout * = nullptr)
 {
    if (QWidget *p = w->parentWidget()) {
-      if (QLayout *l = LayoutInfo::managedLayout(core, p)) {
-         return dynamic_cast<Layout *>(l);
+      if (QLayout *newLayout = LayoutInfo::managedLayout(core, p)) {
+         return dynamic_cast<Layout *>(newLayout);
       }
    }
 

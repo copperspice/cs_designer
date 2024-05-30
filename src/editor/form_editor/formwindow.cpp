@@ -1512,22 +1512,24 @@ namespace qdesigner_internal {
 
 QRect ArrowKeyOperation::apply(const QRect &rect) const
 {
-   QRect r = rect;
+   QRect retval = rect;
+
    if (resize) {
       if (arrowKey == Qt::Key_Left || arrowKey == Qt::Key_Right) {
-         r.setWidth(r.width() + distance);
+         retval.setWidth(retval.width() + distance);
       } else {
-         r.setHeight(r.height() + distance);
+         retval.setHeight(retval.height() + distance);
       }
+
    } else {
       if (arrowKey == Qt::Key_Left || arrowKey == Qt::Key_Right) {
-         r.moveLeft(r.x() + distance);
+         retval.moveLeft(retval.x() + distance);
       } else {
-         r.moveTop(r.y() + distance);
+         retval.moveTop(retval.y() + distance);
       }
    }
-   return r;
 
+   return retval;
 }
 
 // ArrowKeyPropertyHelper: Applies a struct ArrowKeyOperation

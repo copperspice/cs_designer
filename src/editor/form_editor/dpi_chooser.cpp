@@ -140,9 +140,11 @@ void DPI_Chooser::setDPI(int dpiX, int dpiY)
    int predefinedIndex = -1;
 
    for (int i = 0; i < count; i++) {
-      const QVariant data = m_predefinedCombo->itemData(i);
-      if (data.type() != QVariant::Invalid) {
-         const struct DPI_Entry *entry = data.value<const struct DPI_Entry *>();
+      const QVariant data1 = m_predefinedCombo->itemData(i);
+
+      if (data1.type() != QVariant::Invalid) {
+         const struct DPI_Entry *entry = data1.value<const struct DPI_Entry *>();
+
          if (entry->dpiX == dpiX && entry->dpiY == dpiY) {
             predefinedIndex = i;
             break;

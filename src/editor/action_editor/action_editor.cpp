@@ -110,14 +110,14 @@ ActionEditor::ActionEditor(QDesignerFormEditorInterface *core, QWidget *parent, 
    m_actionView->setSelectionMode(QAbstractItemView::ExtendedSelection);
    setWindowTitle(tr("Actions"));
 
-   QVBoxLayout *l = new QVBoxLayout(this);
-   l->setMargin(0);
-   l->setSpacing(0);
+   QVBoxLayout *boxLayout = new QVBoxLayout(this);
+   boxLayout->setMargin(0);
+   boxLayout->setSpacing(0);
 
    QToolBar *toolbar = new QToolBar;
    toolbar->setIconSize(QSize(22, 22));
    toolbar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-   l->addWidget(toolbar);
+   boxLayout->addWidget(toolbar);
 
    // edit actions
    QIcon documentNewIcon = QIcon::fromTheme(QString("document-new"), createIconSet(QString("filenew.png")));
@@ -193,7 +193,7 @@ ActionEditor::ActionEditor(QDesignerFormEditorInterface *core, QWidget *parent, 
    splitter->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
    splitter->addWidget(m_actionView);
-   l->addWidget(splitter);
+   boxLayout->addWidget(splitter);
 
 #if 0 // ### implement me
    m_actionGroups = new QListWidget(splitter);

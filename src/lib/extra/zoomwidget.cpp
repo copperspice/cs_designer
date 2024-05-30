@@ -60,9 +60,9 @@ ZoomMenu::ZoomMenu(QObject *parent)
    }
 }
 
-int ZoomMenu::zoomOf(const QAction *a)
+int ZoomMenu::zoomOf(const QAction *action)
 {
-   return a->data().toInt();
+   return action->data().toInt();
 }
 
 void ZoomMenu::addActions(QMenu *m)

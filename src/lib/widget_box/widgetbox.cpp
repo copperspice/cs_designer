@@ -84,10 +84,10 @@ void WidgetBoxFilterLineEdit::focusInEvent(QFocusEvent *e)
 WidgetBox::WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
    : QDesignerWidgetBox(parent, flags), m_core(core), m_view(new WidgetBoxTreeWidget(m_core))
 {
+   QVBoxLayout *list = new QVBoxLayout(this);
 
-   QVBoxLayout *l = new QVBoxLayout(this);
-   l->setMargin(0);
-   l->setSpacing(0);
+   list->setMargin(0);
+   list->setSpacing(0);
 
    // Prevent the filter from grabbing focus since Our view has Qt::NoFocus
    QToolBar *toolBar = new QToolBar(this);
@@ -98,11 +98,11 @@ WidgetBox::WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent, Qt::Wi
 
    connect(filterWidget, &QLineEdit::textChanged, m_view, &WidgetBoxTreeWidget::filter);
    toolBar->addWidget(filterWidget);
-   l->addWidget(toolBar);
+   list->addWidget(toolBar);
 
    // View
    connect(m_view, &WidgetBoxTreeWidget::pressed, this, &WidgetBox::handleMousePress);
-   l->addWidget(m_view);
+   list->addWidget(m_view);
 
    setAcceptDrops (true);
 }

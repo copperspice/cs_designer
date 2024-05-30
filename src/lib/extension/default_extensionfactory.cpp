@@ -33,13 +33,14 @@ QObject *QExtensionFactory::extension(QObject *object, const QString &iid) const
       return nullptr;
    }
 
-   const IdObjectKey key = qMakePair(iid, object);
+   const QPair<QString, QObject *> key = qMakePair(iid, object);
 
-   ExtensionMap::iterator it = m_extensions.find(key);
-   if (it == m_extensions.end()) {
+   auto iter = m_extensions.find(key);
+
+   if (iter == m_extensions.end()) {
       if (QObject *ext = createExtension(object, iid, const_cast<QExtensionFactory *>(this))) {
          connect(ext, &QObject::destroyed, this, &QExtensionFactory::objectDestroyed);
-         it = m_extensions.insert(key, ext);
+         iter = m_extensions.insert(key, ext);
       }
    }
 
@@ -48,22 +49,24 @@ QObject *QExtensionFactory::extension(QObject *object, const QString &iid) const
       m_extended.insert(object, true);
    }
 
-   if (it == m_extensions.end()) {
+   if (iter == m_extensions.end()) {
       return nullptr;
    }
 
-   return it.value();
+   return iter.value();
 }
 
 void QExtensionFactory::objectDestroyed(QObject *object)
 {
-   QMutableMapIterator< IdObjectKey, QObject *> it(m_extensions);
-   while (it.hasNext()) {
-      it.next();
+   QMutableMapIterator< QPair<QString, QObject *>, QObject *> iter(m_extensions);
 
-      QObject *o = it.key().second;
-      if (o == object || object == it.value()) {
-         it.remove();
+   while (iter.hasNext()) {
+      iter.next();
+
+      QObject *obj = iter.key().second;
+
+      if (obj == object || object == iter.value()) {
+         iter.remove();
       }
    }
 

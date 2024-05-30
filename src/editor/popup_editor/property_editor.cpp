@@ -893,8 +893,8 @@ void PropertyEditor::updateToolBarLabel()
    QString className;
 
    if (m_object) {
-      if (QLayout *l = layoutOfQLayoutWidget(m_object)) {
-         objectName = l->objectName();
+      if (QLayout *newLayout = layoutOfQLayoutWidget(m_object)) {
+         objectName = newLayout->objectName();
       } else {
          objectName = m_object->objectName();
       }
