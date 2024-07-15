@@ -30,12 +30,15 @@ static QString gradientTypeToString(QGradient::Type type)
    if (type == QGradient::LinearGradient) {
       return QLatin1String("LinearGradient");
    }
+
    if (type == QGradient::RadialGradient) {
       return QLatin1String("RadialGradient");
    }
+
    if (type == QGradient::ConicalGradient) {
       return QLatin1String("ConicalGradient");
    }
+
    return QLatin1String("NoGradient");
 }
 

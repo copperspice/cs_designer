@@ -1231,7 +1231,7 @@ void PropertyEditor::setObject(QObject *object)
          }
 
          if (property == nullptr) {
-               csWarning(msgUnsupportedType(propertyName, type));
+            csWarning(msgUnsupportedType(propertyName, type));
 
          } else {
 

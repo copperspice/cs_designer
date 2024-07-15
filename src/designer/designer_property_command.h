@@ -35,7 +35,8 @@ namespace qdesigner_internal {
 
 enum SpecialProperty {
    SP_None, SP_ObjectName, SP_LayoutName, SP_SpacerName, SP_WindowTitle,
-   SP_MinimumSize, SP_MaximumSize, SP_Geometry, SP_Icon, SP_CurrentTabName, SP_CurrentItemName, SP_CurrentPageName,
+   SP_MinimumSize, SP_MaximumSize, SP_Geometry, SP_Icon, SP_CurrentTabName,
+   SP_CurrentItemName, SP_CurrentPageName,
    SP_AutoDefault, SP_Alignment, SP_Shortcut, SP_Orientation
 };
 
@@ -155,6 +156,7 @@ class PropertyListCommand : public QDesignerFormWindowCommand
 
    // restore old value,  return update mask
    unsigned  restoreOldValue();
+
    // set default value,  return update mask
    unsigned  restoreDefaultValue();
 
@@ -187,6 +189,7 @@ class PropertyListCommand : public QDesignerFormWindowCommand
       QVariant::Type m_propertyType;
       SpecialProperty m_specialProperty;
    };
+
    const PropertyDescription &propertyDescription() const {
       return  m_propertyDescription;
    }

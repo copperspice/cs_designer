@@ -66,6 +66,7 @@ class QtTreePropertyBrowserPrivate
    QtPropertyEditorView *treeWidget() const {
       return m_treeWidget;
    }
+
    bool markPropertiesWithoutValue() const {
       return m_markPropertiesWithoutValue;
    }
@@ -139,19 +140,25 @@ void QtPropertyEditorView::drawRow(QPainter *painter, const QStyleOptionViewItem
          hasValue = property->hasValue();
       }
    }
-   if (!hasValue && m_editorPrivate->markPropertiesWithoutValue()) {
+
+   if (! hasValue && m_editorPrivate->markPropertiesWithoutValue()) {
       const QColor c = option.palette.color(QPalette::Dark);
+
       painter->fillRect(option.rect, c);
       opt.palette.setColor(QPalette::AlternateBase, c);
+
    } else {
       const QColor c = m_editorPrivate->calculatedBackgroundColor(m_editorPrivate->indexToBrowserItem(index));
+
       if (c.isValid()) {
          painter->fillRect(option.rect, c);
          opt.palette.setColor(QPalette::AlternateBase, c.lighter(112));
       }
    }
+
    QTreeWidget::drawRow(painter, opt, index);
    QColor color = static_cast<QRgb>(QApplication::style()->styleHint(QStyle::SH_Table_GridLineColor, &opt));
+
    painter->save();
    painter->setPen(QPen(color));
    painter->drawLine(opt.rect.x(), opt.rect.bottom(), opt.rect.right(), opt.rect.bottom());
@@ -167,14 +174,17 @@ void QtPropertyEditorView::keyPressEvent(QKeyEvent *event)
          if (!m_editorPrivate->editedItem())
             if (const QTreeWidgetItem *item = currentItem())
                if (item->columnCount() >= 2 &&
-                  ((item->flags() & (Qt::ItemIsEditable | Qt::ItemIsEnabled)) == (Qt::ItemIsEditable | Qt::ItemIsEnabled))) {
+                     ((item->flags() & (Qt::ItemIsEditable | Qt::ItemIsEnabled)) == (Qt::ItemIsEditable | Qt::ItemIsEnabled))) {
                   event->accept();
+
                   // If the current position is at column 0, move to 1.
                   QModelIndex index = currentIndex();
+
                   if (index.column() == 0) {
                      index = index.sibling(index.row(), 1);
                      setCurrentIndex(index);
                   }
+
                   edit(index);
                   return;
                }
@@ -194,8 +204,8 @@ void QtPropertyEditorView::mousePressEvent(QMouseEvent *event)
 
    if (item) {
       if ((item != m_editorPrivate->editedItem()) && (event->button() == Qt::LeftButton)
-         && (header()->logicalIndexAt(event->pos().x()) == 1)
-         && ((item->flags() & (Qt::ItemIsEditable | Qt::ItemIsEnabled)) == (Qt::ItemIsEditable | Qt::ItemIsEnabled))) {
+            && (header()->logicalIndexAt(event->pos().x()) == 1)
+            && ((item->flags() & (Qt::ItemIsEditable | Qt::ItemIsEnabled)) == (Qt::ItemIsEditable | Qt::ItemIsEnabled))) {
          editItem(item, 1);
 
       } else if (!m_editorPrivate->hasValue(item) && m_editorPrivate->markPropertiesWithoutValue() && !rootIsDecorated()) {
@@ -256,7 +266,9 @@ class QtPropertyEditorDelegate : public QItemDelegate
 
    typedef QMap<QtProperty *, QWidget *> PropertyToEditorMap;
    mutable PropertyToEditorMap m_propertyToEditor;
+
    QtTreePropertyBrowserPrivate *m_editorPrivate;
+
    mutable QTreeWidgetItem *m_editedItem;
    mutable QWidget *m_editedWidget;
 };
@@ -339,14 +351,14 @@ QWidget *QtPropertyEditorDelegate::createEditor(QWidget *parent,
 }
 
 void QtPropertyEditorDelegate::updateEditorGeometry(QWidget *editor,
-   const QStyleOptionViewItem &option, const QModelIndex &index) const
+      const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
    (void) index;
    editor->setGeometry(option.rect.adjusted(0, 0, 0, -1));
 }
 
 void QtPropertyEditorDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
-   const QModelIndex &index) const
+      const QModelIndex &index) const
 {
    bool hasValue = true;
 
@@ -391,11 +403,11 @@ void QtPropertyEditorDelegate::paint(QPainter *painter, const QStyleOptionViewIt
       int right = (option.direction == Qt::LeftToRight) ? option.rect.right() : option.rect.left();
       painter->drawLine(right, option.rect.y(), right, option.rect.bottom());
    }
+
    painter->restore();
 }
 
-QSize QtPropertyEditorDelegate::sizeHint(const QStyleOptionViewItem &option,
-   const QModelIndex &index) const
+QSize QtPropertyEditorDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
    return QItemDelegate::sizeHint(option, index) + QSize(3, 4);
 }
@@ -404,16 +416,18 @@ bool QtPropertyEditorDelegate::eventFilter(QObject *object, QEvent *event)
 {
    if (event->type() == QEvent::FocusOut) {
       QFocusEvent *fe = static_cast<QFocusEvent *>(event);
+
       if (fe->reason() == Qt::ActiveWindowFocusReason) {
          return false;
       }
    }
+
    return QItemDelegate::eventFilter(object, event);
 }
 
 QtTreePropertyBrowserPrivate::QtTreePropertyBrowserPrivate()
-   : m_treeWidget(nullptr), m_headerVisible(true), m_resizeMode(QtTreePropertyBrowser::Stretch),
-     m_delegate(nullptr), m_markPropertiesWithoutValue(false), m_browserChangedBlocked(false)
+   : m_treeWidget(nullptr), m_delegate(nullptr), m_resizeMode(QtTreePropertyBrowser::Stretch),
+     m_headerVisible(true), m_markPropertiesWithoutValue(false), m_browserChangedBlocked(false)
 {
 }
 
@@ -422,6 +436,7 @@ static QIcon drawIndicatorIcon(const QPalette &palette, QStyle *style)
 {
    QPixmap pix(14, 14);
    pix.fill(Qt::transparent);
+
    QStyleOption branchOption;
    QRect r(QPoint(0, 0), pix.size());
    branchOption.rect = QRect(2, 2, 9, 9); // ### hardcoded in qcommonstyle.cpp
@@ -429,12 +444,15 @@ static QIcon drawIndicatorIcon(const QPalette &palette, QStyle *style)
    branchOption.state = QStyle::State_Children;
 
    QPainter p;
+
    // Draw closed state
    p.begin(&pix);
    style->drawPrimitive(QStyle::PE_IndicatorBranch, &branchOption, &p);
    p.end();
+
    QIcon rc = pix;
    rc.addPixmap(pix, QIcon::Selected, QIcon::Off);
+
    // Draw opened state
    branchOption.state |= QStyle::State_Open;
    pix.fill(Qt::transparent);
@@ -444,6 +462,7 @@ static QIcon drawIndicatorIcon(const QPalette &palette, QStyle *style)
 
    rc.addPixmap(pix, QIcon::Normal, QIcon::On);
    rc.addPixmap(pix, QIcon::Selected, QIcon::On);
+
    return rc;
 }
 
@@ -469,6 +488,7 @@ void QtTreePropertyBrowserPrivate::init(QWidget *parent)
 
    m_delegate = new QtPropertyEditorDelegate(parent);
    m_delegate->setEditorPrivate(this);
+
    m_treeWidget->setItemDelegate(m_delegate);
    m_treeWidget->header()->setSectionsMovable(false);
    m_treeWidget->header()->setSectionResizeMode(QHeaderView::Stretch);
@@ -485,6 +505,7 @@ QtBrowserItem *QtTreePropertyBrowserPrivate::currentItem() const
    if (QTreeWidgetItem *treeItem = m_treeWidget->currentItem()) {
       return m_itemToIndex.value(treeItem);
    }
+
    return nullptr;
 }
 
@@ -507,7 +528,8 @@ void QtTreePropertyBrowserPrivate::setCurrentItem(QtBrowserItem *browserItem, bo
 QtProperty *QtTreePropertyBrowserPrivate::indexToProperty(const QModelIndex &index) const
 {
    QTreeWidgetItem *item = m_treeWidget->indexToItem(index);
-   QtBrowserItem *idx = m_itemToIndex.value(item);
+   QtBrowserItem *idx    = m_itemToIndex.value(item);
+
    if (idx != nullptr) {
 
       return idx->property();
@@ -712,6 +734,7 @@ void QtTreePropertyBrowserPrivate::slotCollapsed(const QModelIndex &index)
 {
    QTreeWidgetItem *item = indexToItem(index);
    QtBrowserItem *idx = m_itemToIndex.value(item);
+
    if (item) {
       emit q_ptr->collapsed(idx);
    }
@@ -997,4 +1020,3 @@ void QtTreePropertyBrowser::slotCurrentTreeItemChanged(QTreeWidgetItem *un_named
    Q_D(QtTreePropertyBrowser);
    d->slotCurrentTreeItemChanged(un_named_arg1, un_named_arg2);
 }
-

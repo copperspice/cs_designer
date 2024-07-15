@@ -60,7 +60,7 @@ bool TabOrderEditorTool::handleEvent(QWidget *widget, QWidget *managedWidget, QE
 
 QWidget *TabOrderEditorTool::editor() const
 {
-   if (!m_editor) {
+   if (! m_editor) {
       Q_ASSERT(formWindow() != nullptr);
       m_editor = new TabOrderEditor(formWindow(), nullptr);
 

@@ -158,8 +158,7 @@ PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDe
       const QString customClassName = item->name();
       QAction *action = new QAction(customClassName, this);
 
-      connect(action, &QAction::triggered,
-            m_promotionMapper, cs_mp_cast<>(&QSignalMapper::map));
+      connect(action, &QAction::triggered, m_promotionMapper, cs_mp_cast<>(&QSignalMapper::map));
 
       m_promotionMapper->setMapping(action, customClassName);
       candidatesMenu->addAction(action);
@@ -365,6 +364,7 @@ void PromotionTaskMenu::editPromotedWidgets(QDesignerFormEditorInterface *core, 
    if (!promotionEditor) {
       promotionEditor = new QDesignerPromotionDialog(core, parent);
    }
+
    promotionEditor->exec();
    delete promotionEditor;
 }
@@ -381,5 +381,3 @@ void PromotionTaskMenu::slotEditSignalsSlots()
 }
 
 }   // end namespace qdesigner_internal
-
-

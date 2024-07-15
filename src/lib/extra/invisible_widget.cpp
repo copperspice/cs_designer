@@ -29,5 +29,3 @@ InvisibleWidget::InvisibleWidget(QWidget *parent)
 }
 
 }   // end namespace qdesigner_internal
-
-

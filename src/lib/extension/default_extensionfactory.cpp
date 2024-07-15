@@ -29,7 +29,7 @@ QExtensionFactory::QExtensionFactory(QExtensionManager *parent)
 
 QObject *QExtensionFactory::extension(QObject *object, const QString &iid) const
 {
-   if (!object) {
+   if (! object) {
       return nullptr;
    }
 
@@ -44,7 +44,7 @@ QObject *QExtensionFactory::extension(QObject *object, const QString &iid) const
       }
    }
 
-   if (!m_extended.contains(object)) {
+   if (! m_extended.contains(object)) {
       connect(object, &QObject::destroyed, this, &QExtensionFactory::objectDestroyed);
       m_extended.insert(object, true);
    }
@@ -86,4 +86,3 @@ QExtensionManager *QExtensionFactory::extensionManager() const
 {
    return static_cast<QExtensionManager *>(parent());
 }
-

@@ -24,10 +24,8 @@
 
 namespace qdesigner_internal {
 
-QDesignerUndoStack::QDesignerUndoStack(QObject *parent) :
-   QObject(parent),
-   m_undoStack(new QUndoStack),
-   m_fakeDirty(false)
+QDesignerUndoStack::QDesignerUndoStack(QObject *parent)
+   : QObject(parent), m_undoStack(new QUndoStack), m_fakeDirty(false)
 {
    connect(m_undoStack, &QUndoStack::indexChanged, this, &QDesignerUndoStack::changed);
 }
@@ -39,7 +37,7 @@ QDesignerUndoStack::~QDesignerUndoStack()
 
 void QDesignerUndoStack::clear()
 {
-   m_fakeDirty  = false;
+   m_fakeDirty = false;
    m_undoStack->clear();
 }
 

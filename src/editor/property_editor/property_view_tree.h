@@ -54,7 +54,6 @@ class QtTreePropertyBrowser : public QtAbstractPropertyBrowser
    CS_PROPERTY_WRITE(propertiesWithoutValueMarked, setPropertiesWithoutValueMarked)
 
  public:
-
    enum ResizeMode {
       Interactive,
       Stretch,
@@ -129,4 +128,3 @@ class QtTreePropertyBrowser : public QtAbstractPropertyBrowser
 };
 
 #endif
-

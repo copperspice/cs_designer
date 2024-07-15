@@ -28,10 +28,9 @@
 namespace qdesigner_internal {
 
 // ----------------- TemplateOptionsWidget
-TemplateOptionsWidget::TemplateOptionsWidget(QDesignerFormEditorInterface *core, QWidget *parent) :
-   QWidget(parent),
-   m_core(core),
-   m_ui(new Ui::TemplateOptionsWidget)
+
+TemplateOptionsWidget::TemplateOptionsWidget(QDesignerFormEditorInterface *core, QWidget *parent)
+   : QWidget(parent), m_core(core), m_ui(new Ui::TemplateOptionsWidget)
 {
    m_ui->setupUi(this);
 
@@ -57,9 +56,11 @@ QStringList TemplateOptionsWidget::templatePaths() const
 {
    QStringList rc;
    const int count = m_ui->m_templatePathListWidget->count();
+
    for (int i = 0; i < count; i++) {
       rc += m_ui->m_templatePathListWidget->item(i)->text();
    }
+
    return rc;
 }
 
@@ -67,6 +68,7 @@ void TemplateOptionsWidget::setTemplatePaths(const QStringList &l)
 {
    // add paths and select 0
    m_ui->m_templatePathListWidget->clear();
+
    if (l.empty()) {
       // disable button
       templatePathSelectionChanged();

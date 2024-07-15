@@ -7732,10 +7732,11 @@ void DomProperty::read(QXmlStreamReader &reader)
       reader.raiseError(QLatin1String("Unexpected attribute ") + name);
    }
 
-   for (bool finished = false; !finished && !reader.hasError();) {
+   for (bool finished = false; ! finished && !reader.hasError();) {
       switch (reader.readNext()) {
          case QXmlStreamReader::StartElement : {
             const QString tag = reader.name().toString().toLower();
+
             if (tag == QLatin1String("bool")) {
                setElementBool(reader.readElementText());
                continue;

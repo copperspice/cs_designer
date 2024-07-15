@@ -179,8 +179,7 @@ bool QDesignerWidgetBox::findWidget(const QDesignerWidgetBoxInterface *wbox,
 }
 
 // Convenience to create a Dom Widget from widget box xml code.
-DomUI *QDesignerWidgetBox::xmlToUi(const QString &name, const QString &xml, bool insertFakeTopLevel,
-   QString *errorMessage)
+DomUI *QDesignerWidgetBox::xmlToUi(const QString &name, const QString &xml,  bool insertFakeTopLevel, QString *errorMessage)
 {
    QXmlStreamReader reader(xml);
    DomUI *ui = nullptr;

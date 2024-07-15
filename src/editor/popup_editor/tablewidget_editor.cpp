@@ -275,10 +275,12 @@ void TableWidgetEditor::moveColumnsLeft(int fromColumn, int toColumn)
    }
 
    QTableWidgetItem *lastItem = ui.tableWidget->takeHorizontalHeaderItem(toColumn);
+
    for (int i = toColumn; i > fromColumn; i--) {
       ui.tableWidget->setHorizontalHeaderItem(i,
          ui.tableWidget->takeHorizontalHeaderItem(i - 1));
    }
+
    ui.tableWidget->setHorizontalHeaderItem(fromColumn, lastItem);
 
    for (int i = 0; i < ui.tableWidget->rowCount(); i++) {
@@ -287,6 +289,7 @@ void TableWidgetEditor::moveColumnsLeft(int fromColumn, int toColumn)
       for (int j = toColumn; j > fromColumn; j--) {
          ui.tableWidget->setItem(i, j, ui.tableWidget->takeItem(i, j - 1));
       }
+
       ui.tableWidget->setItem(i, fromColumn, lastItem);
    }
 }
@@ -298,6 +301,7 @@ void TableWidgetEditor::moveColumnsRight(int fromColumn, int toColumn)
    }
 
    QTableWidgetItem *lastItem = ui.tableWidget->takeHorizontalHeaderItem(fromColumn);
+
    for (int i = fromColumn; i < toColumn; i++) {
       ui.tableWidget->setHorizontalHeaderItem(i,
          ui.tableWidget->takeHorizontalHeaderItem(i + 1));

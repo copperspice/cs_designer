@@ -533,6 +533,7 @@ QAction *QDesignerActions::createRecentFilesMenu()
    }
 
    updateRecentFileActions();
+
    menu->addSeparator();
 
    action = new QAction(QIcon::fromTheme("edit-clear"), tr("Clear &Menu"), this);
@@ -967,17 +968,16 @@ bool QDesignerActions::writeOutForm(QDesignerFormWindowInterface *fw, const QStr
    m_workbench->updateBackup(fw);
 
    QFile f(saveFile);
-   while (!f.open(QFile::WriteOnly)) {
+
+   while (! f.open(QFile::WriteOnly)) {
       QMessageBox box(QMessageBox::Warning,
-         tr("Save Form?"),
-         tr("Could not open file"),
-         QMessageBox::NoButton, fw);
+         tr("Save Form?"), tr("Could not open file"), QMessageBox::NoButton, fw);
 
       box.setWindowModality(Qt::WindowModal);
       box.setInformativeText(tr("The file %1 could not be opened."
             "\nReason: %2"
             "\nWould you like to retry or select a different file?")
-         .formatArg(f.fileName()).formatArg(f.errorString()));
+            .formatArg(f.fileName()).formatArg(f.errorString()));
 
       QPushButton *retryButton = box.addButton(QMessageBox::Retry);
       retryButton->setDefault(true);
@@ -988,23 +988,27 @@ bool QDesignerActions::writeOutForm(QDesignerFormWindowInterface *fw, const QStr
       if (box.clickedButton() == cancelButton) {
          removeBackup(backupFile);
          return false;
+
       } else if (box.clickedButton() == switchButton) {
          QString extension = uiExtension();
          const QString fileName = QFileDialog::getSaveFileName(fw, tr("Save Form As"),
-               QDir::current().absolutePath(),
-               QString("*.") + extension);
+               QDir::current().absolutePath(), QString("*.") + extension);
+
          if (fileName.isEmpty()) {
             removeBackup(backupFile);
             return false;
          }
+
          if (f.fileName() != fileName) {
             removeBackup(backupFile);
             fi.setFile(fileName);
             backupFile.clear();
+
             if (fi.exists()) {
                backupFile = createBackup(fileName);
             }
          }
+
          f.setFileName(fileName);
          fw->setFileName(fileName);
       }
@@ -1014,12 +1018,12 @@ bool QDesignerActions::writeOutForm(QDesignerFormWindowInterface *fw, const QStr
    while (f.write(utf8Array) != utf8Array.size()) {
 
       QMessageBox box(QMessageBox::Warning, tr("Save Form?"),
-         tr("Could not write file"), QMessageBox::Retry | QMessageBox::Cancel, fw);
+            tr("Could not write file"), QMessageBox::Retry | QMessageBox::Cancel, fw);
 
       box.setWindowModality(Qt::WindowModal);
       box.setInformativeText(tr("Unable to write the entire file %1 to disk."
             "\nReason:%2\nWould you like to retry?")
-         .formatArg(f.fileName()).formatArg(f.errorString()));
+            .formatArg(f.fileName()).formatArg(f.errorString()));
 
       box.setDefaultButton(QMessageBox::Retry);
 
@@ -1032,6 +1036,7 @@ bool QDesignerActions::writeOutForm(QDesignerFormWindowInterface *fw, const QStr
             return false;
       }
    }
+
    f.close();
    removeBackup(backupFile);
    addRecentFile(saveFile);
@@ -1039,6 +1044,7 @@ bool QDesignerActions::writeOutForm(QDesignerFormWindowInterface *fw, const QStr
 
    fw->setDirty(false);
    fw->parentWidget()->setWindowModified(false);
+
    return true;
 }
 
@@ -1084,6 +1090,7 @@ void QDesignerActions::updateRecentFileActions()
 {
    QStringList files = m_settings.recentFilesList();
    const int originalSize = files.size();
+
    int numRecentFiles = qMin(files.size(), int(MAX_RECENT_FILES));
    const QList<QAction *> recentFilesActs = m_recentFilesActions->actions();
 
@@ -1093,6 +1100,7 @@ void QDesignerActions::updateRecentFileActions()
       if (! fi.exists()) {
          files.removeAt(i);
          --i;
+
          numRecentFiles = qMin(files.size(), int(MAX_RECENT_FILES));
 
          continue;
@@ -1553,14 +1561,16 @@ void QDesignerActions::printPreviewImage()
    core()->topLevel()->setCursor(Qt::WaitCursor);
 
    // Estimate of required scaling to make form look the same on screen and printer.
-   const double suggestedScaling = static_cast<double>(m_printer->physicalDpiX()) /  static_cast<double>(fw->physicalDpiX());
+   const double suggestedScaling = static_cast<double>(m_printer->physicalDpiX()) / static_cast<double>(fw->physicalDpiX());
 
    QPainter painter(m_printer);
    painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
    // Clamp to page
    const QRectF page =  painter.viewport();
-   const double maxScaling = qMin(page.size().width() / pixmapSize.width(), page.size().height() / pixmapSize.height());
+   const double maxScaling = qMin(page.size().width() / pixmapSize.width(),
+         page.size().height() / pixmapSize.height());
+
    const double scaling = qMin(suggestedScaling, maxScaling);
 
    const double xOffset = page.left() + qMax(0.0, (page.size().width()  - scaling * pixmapSize.width())  / 2.0);
@@ -1574,4 +1584,3 @@ void QDesignerActions::printPreviewImage()
 
    showStatusBarMessage(tr("Printed %1.").formatArg(QFileInfo(fw->fileName()).fileName()));
 }
-

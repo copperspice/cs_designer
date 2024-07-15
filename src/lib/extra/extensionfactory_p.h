@@ -61,8 +61,8 @@ Object *ExtensionFactory<ExtensionInterface, Object, Extension>::checkObject(QOb
 }
 
 template <class ExtensionInterface, class Object, class Extension>
-QObject *ExtensionFactory<ExtensionInterface, Object, Extension>::createExtension(QObject *qObject, const QString &iid,
-   QObject *parent) const
+QObject *ExtensionFactory<ExtensionInterface, Object, Extension>::createExtension(QObject *qObject,
+      const QString &iid, QObject *parent) const
 {
    if (iid != m_iid) {
       return nullptr;

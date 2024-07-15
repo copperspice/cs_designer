@@ -69,6 +69,7 @@ class QWizardContainer: public QObject, public QDesignerContainerExtension
 class QWizardPagePropertySheet: public QDesignerPropertySheet
 {
    CS_OBJECT(QWizardPagePropertySheet)
+
  public:
    explicit QWizardPagePropertySheet(QWizardPage *object, QObject *parent = nullptr);
 

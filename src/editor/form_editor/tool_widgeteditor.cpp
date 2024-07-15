@@ -34,10 +34,8 @@
 using namespace qdesigner_internal;
 
 WidgetEditorTool::WidgetEditorTool(FormWindow *formWindow)
-   : QDesignerFormWindowToolInterface(formWindow),
-     m_formWindow(formWindow),
-     m_action(new QAction(tr("Edit Widgets"), this)),
-     m_specialDockDrag(false)
+   : QDesignerFormWindowToolInterface(formWindow), m_formWindow(formWindow),
+     m_action(new QAction(tr("Edit Widgets"), this)), m_specialDockDrag(false)
 {
 }
 

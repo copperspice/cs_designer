@@ -40,7 +40,7 @@
 #include <QWindowStateChangeEvent>
 
 QDesignerFormWindow::QDesignerFormWindow(QDesignerFormWindowInterface *editor, QDesignerWorkbench *workbench,
-   QWidget *parent, Qt::WindowFlags flags)
+      QWidget *parent, Qt::WindowFlags flags)
    : QWidget(parent, flags), m_editor(editor), m_workbench(workbench), m_action(new QAction(this)),
      m_initialized(false), m_windowTitleInitialized(false)
 {
@@ -244,6 +244,7 @@ void QDesignerFormWindow::closeEvent(QCloseEvent *ev)
             m_editor->setDirty(!ok);
             break;
          }
+
          case QMessageBox::Discard:
             m_editor->setDirty(false); // Not really necessary, but stops problems if we get close again.
             ev->accept();

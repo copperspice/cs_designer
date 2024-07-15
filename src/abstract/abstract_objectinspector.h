@@ -39,6 +39,4 @@ class QDesignerObjectInspectorInterface: public QWidget
    CS_SLOT_2(setFormWindow)
 };
 
-
-
 #endif // ABSTRACTOBJECTINSPECTOR_H

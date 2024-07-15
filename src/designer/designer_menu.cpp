@@ -828,6 +828,7 @@ void QDesignerMenu::dropEvent(QDropEvent *event)
       event->ignore();
       return;
    }
+
    QAction *action = d->actionList().first();
    if (action && checkAction(action) == AcceptActionDrag) {
       event->acceptProposedAction();
@@ -850,6 +851,7 @@ void QDesignerMenu::dropEvent(QDropEvent *event)
             fw->commandHistory()->push(createCmd);
          }
       }
+
       update();
       fw->endCommand();
 
@@ -1324,6 +1326,7 @@ QAction *QDesignerMenu::createAction(const QString &objectName, bool separator)
 {
    QDesignerFormWindowInterface *fw = formWindow();
    Q_ASSERT(fw);
+
    return ToolBarEventFilter::createAction(fw, objectName, separator);
 }
 

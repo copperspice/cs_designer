@@ -72,6 +72,7 @@ static inline Iterator findFirstChildOf(Iterator it, Iterator end, const QWidget
          return  it;
       }
    }
+
    return it;
 }
 
@@ -562,10 +563,13 @@ static inline QWidget *findLayoutContainer(const FormWindow *fw)
 void FormWindowManager::createLayout()
 {
    QAction *a = dynamic_cast<QAction *>(sender());
-   if (!a) {
+
+   if (! a) {
       return;
    }
+
    const int type = a->data().toInt();
+
    switch (m_createLayoutContext) {
       case LayoutContainer:
          // Cannot create a splitter on a container
@@ -573,9 +577,11 @@ void FormWindowManager::createLayout()
             m_activeFormWindow->createLayout(type, findLayoutContainer(m_activeFormWindow));
          }
          break;
+
       case LayoutSelection:
          m_activeFormWindow->createLayout(type);
          break;
+
       case MorphLayout:
          m_activeFormWindow->morphLayout(m_morphLayoutContainer, type);
          break;
@@ -590,9 +596,11 @@ void FormWindowManager::slotActionBreakLayoutActivated()
    }
 
    m_activeFormWindow->beginCommand(tr("Break Layout"));
+
    for (QWidget *layout : layouts) {
       m_activeFormWindow->breakLayout(layout);
    }
+
    m_activeFormWindow->endCommand();
 }
 
@@ -703,8 +711,8 @@ QWidgetList FormWindowManager::layoutsToBeBroken(QWidget *w) const
       if (dynamic_cast<const QSplitter *>(widget)) {
          QList<QWidget *> list = layoutsToBeBroken(parent);
          list.append(widget);
-         return list;
 
+         return list;
       }
 
       return QList<QWidget *>();
@@ -949,14 +957,18 @@ QDesignerFormWindowInterface *FormWindowManager::createFormWindow(QWidget *paren
 QPixmap FormWindowManager::createPreviewPixmap() const
 {
    const QDesignerFormWindowInterface *fw = activeFormWindow();
+
    if (!fw) {
       return QPixmap();
    }
+
    QString errorMessage;
    const QPixmap pix = m_previewManager->createPreviewPixmap(fw, QString(), &errorMessage);
+
    if (pix.isNull() && !errorMessage.isEmpty()) {
       qWarning("FormWindowManager::createPreviewPixmap() Preview pixmap creation failed: %s", csPrintable(errorMessage));
    }
+
    return pix;
 }
 
@@ -1087,14 +1099,17 @@ QActionGroup *FormWindowManager::actionGroup(ActionGroup actionGroup) const
 {
    switch (actionGroup) {
       case QDesignerFormWindowManagerInterface::StyledPreviewActionGroup:
+
          if (m_actionGroupPreviewInStyle == nullptr) {
             // Wish we could make the 'this' pointer mutable ;-)
             QObject *parent = const_cast<FormWindowManager *>(this);
 
             m_actionGroupPreviewInStyle = new PreviewActionGroup(m_core, parent);
+
             connect(m_actionGroupPreviewInStyle, &PreviewActionGroup::preview,
                this, &FormWindowManager::slotActionGroupPreviewInStyle);
          }
+
          return m_actionGroupPreviewInStyle;
    }
 

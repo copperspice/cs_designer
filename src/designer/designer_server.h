@@ -28,6 +28,7 @@ class QTcpSocket;
 class QDesignerServer: public QObject
 {
    CS_OBJECT(QDesignerServer)
+
  public:
    explicit QDesignerServer(QObject *parent = nullptr);
    virtual ~QDesignerServer();
@@ -51,6 +52,7 @@ class QDesignerServer: public QObject
 class QDesignerClient: public QObject
 {
    CS_OBJECT(QDesignerClient)
+
  public:
    explicit QDesignerClient(quint16 port, QObject *parent = nullptr);
    virtual ~QDesignerClient();

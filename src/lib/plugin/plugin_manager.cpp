@@ -353,7 +353,7 @@ static bool parsePropertySpecs(QXmlStreamReader &sr,
 QDesignerCustomWidgetData::ParseResult QDesignerCustomWidgetData::parseXml(const QString &xml,
    const QString &name, QString *errorMessage)
 {
-   QDesignerCustomWidgetSharedData &data =  *m_d;
+   QDesignerCustomWidgetSharedData &data = *m_d;
    data.clearXML();
 
    QXmlStreamReader sr(xml);
@@ -512,9 +512,11 @@ bool QDesignerPluginManagerPrivate::addCustomWidget(QDesignerCustomWidgetInterfa
    if (!c->isInitialized()) {
       c->initialize(m_core);
    }
+
    // Parse the XML even if the plugin is initialized as Jambi might play tricks here
    QDesignerCustomWidgetData data(pluginPath);
    const QString domXml = c->domXml();
+
    if (!domXml.isEmpty()) { // Legacy: Empty XML means: Do not show up in widget box.
       QString errorMessage;
       const QDesignerCustomWidgetData::ParseResult pr = data.parseXml(domXml, c->name(), &errorMessage);
@@ -587,6 +589,7 @@ QDesignerFormEditorInterface *QDesignerPluginManager::core() const
 QStringList QDesignerPluginManager::findPlugins(const QString &path)
 {
    const QDir dir(path);
+
    if (!dir.exists()) {
       return QStringList();
    }
@@ -600,6 +603,7 @@ QStringList QDesignerPluginManager::findPlugins(const QString &path)
    // to fall for something like 'libplugin.so.1 -> libplugin.so'
    QStringList result;
    const QFileInfoList::const_iterator icend = infoList.constEnd();
+
    for (QFileInfoList::const_iterator it = infoList.constBegin(); it != icend; ++it) {
       QString fileName;
       if (it->isSymLink()) {
@@ -676,6 +680,7 @@ void QDesignerPluginManager::updateRegisteredPlugins()
 bool QDesignerPluginManager::registerNewPlugins()
 {
    const int before = m_d->m_registeredPlugins.size();
+
    for (const QString &path : m_d->m_pluginPaths) {
       registerPath(path);
    }

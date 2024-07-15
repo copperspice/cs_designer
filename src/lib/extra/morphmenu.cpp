@@ -287,7 +287,6 @@ class MorphWidgetCommand : public QDesignerFormWindowCommand
    Q_DISABLE_COPY(MorphWidgetCommand)
 
  public:
-
    explicit MorphWidgetCommand(QDesignerFormWindowInterface *formWindow);
    ~MorphWidgetCommand();
 
@@ -316,15 +315,19 @@ class MorphWidgetCommand : public QDesignerFormWindowCommand
 bool MorphWidgetCommand::addMorphMacro(QDesignerFormWindowInterface *fw, QWidget *w, const QString &newClass)
 {
    MorphWidgetCommand *morphCmd = new MorphWidgetCommand(fw);
-   if (!morphCmd->init(w, newClass)) {
+
+   if (! morphCmd->init(w, newClass)) {
       csWarning("Unable to create a MorphWidgetCommand");
       delete morphCmd;
       return false;
    }
+
    QLabel *buddyLabel = buddyLabelOf(fw, w);
+
    // Need a macro since it adds further commands
    QUndoStack *us = fw->commandHistory();
    us->beginMacro(morphCmd->text());
+
    // Have the signal slot/buddy editors add their commands to delete widget
    if (FormWindowBase *fwb = dynamic_cast<FormWindowBase *>(fw)) {
       fwb->emitWidgetRemoved(w);
@@ -700,4 +703,3 @@ bool MorphMenu::populateMenu(QWidget *w, QDesignerFormWindowInterface *fw)
 }
 
 }   // end namespace qdesigner_internal
-

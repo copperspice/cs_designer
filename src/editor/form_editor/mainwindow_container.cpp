@@ -30,8 +30,7 @@
 using namespace qdesigner_internal;
 
 QMainWindowContainer::QMainWindowContainer(QMainWindow *widget, QObject *parent)
-   : QObject(parent),
-     m_mainWindow(widget)
+   : QObject(parent), m_mainWindow(widget)
 {
 }
 
@@ -58,7 +57,6 @@ void QMainWindowContainer::setCurrentIndex(int index)
 {
    (void) index;
 }
-
 
 namespace {
 // Pair of <area,break_before>
@@ -94,6 +92,7 @@ Qt::DockWidgetArea dockWidgetArea(QDockWidget *dockWidget)
          }
       }
    }
+
    return Qt::LeftDockWidgetArea;
 }
 }
@@ -108,9 +107,11 @@ void QMainWindowContainer::addWidget(QWidget *widget)
       m_widgets.append(widget);
       const ToolBarData data = toolBarData(toolBar);
       m_mainWindow->addToolBar(data.first, toolBar);
+
       if (data.second) {
          m_mainWindow->insertToolBarBreak(toolBar);
       }
+
       toolBar->show();
    }
 
@@ -186,5 +187,3 @@ void QMainWindowContainer::remove(int index)
 
    m_widgets.removeAt(index);
 }
-
-

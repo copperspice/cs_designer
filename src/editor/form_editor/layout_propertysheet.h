@@ -56,5 +56,4 @@ typedef QDesignerPropertySheetFactory<QLayout, LayoutPropertySheet>  LayoutPrope
 
 }   // end namespace qdesigner_internal
 
-
 #endif

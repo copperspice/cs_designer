@@ -598,6 +598,7 @@ bool FormWindow::handleMousePressEvent(QWidget *widget, QWidget *managedWidget, 
 
    m_mouseState = NoMouseState;
    m_startPos = QPoint();
+
    e->accept();
 
    BlockSelection blocker(this);
@@ -656,14 +657,17 @@ static bool canDragWidgetInLayout(const QDesignerFormEditorInterface *core, QWid
    if (!managed) {
       return false;
    }
+
    switch (type) {
       case LayoutInfo::NoLayout:
       case LayoutInfo::HSplitter:
       case LayoutInfo::VSplitter:
          return false;
+
       default:
          break;
    }
+
    return true;
 }
 
@@ -746,6 +750,7 @@ bool FormWindow::handleMouseMoveEvent(QWidget *, QWidget *, QMouseEvent *e)
 
    for (QWidget *widget : sel) {
       item_list.append(new FormWindowDnDItem(dropType,  this, widget, globalPos));
+
       if (dropType == QDesignerDnDItemInterface::MoveDrop) {
          m_selection->hide(widget);
          widget->hide();
@@ -754,11 +759,15 @@ bool FormWindow::handleMouseMoveEvent(QWidget *, QWidget *, QMouseEvent *e)
 
    blockSelectionChanged(blocked);
 
-   if (!sel.empty()) // reshow selection?
-      if (QDesignerMimeData::execDrag(item_list, core()->topLevel()) == Qt::IgnoreAction && dropType == QDesignerDnDItemInterface::MoveDrop)
+   if (! sel.empty()) {
+      // reshow selection?
+
+      if (QDesignerMimeData::execDrag(item_list, core()->topLevel()) == Qt::IgnoreAction && dropType == QDesignerDnDItemInterface::MoveDrop) {
          for (QWidget *widget : sel) {
             m_selection->show(widget);
          }
+      }
+   }
 
    m_startPos = QPoint();
 
@@ -786,10 +795,12 @@ bool FormWindow::handleMouseReleaseEvent(QWidget *w, QWidget *mw, QMouseEvent *e
          blockSelectionChanged(blocked);
       }
       break;
+
       // Deferred select: Select the child here unless the parent was moved.
       case MouseDeferredSelection:
          handleClickSelection(mw, mouseFlags(e->modifiers()));
          break;
+
       default:
          break;
    }
@@ -881,10 +892,12 @@ bool FormWindow::setCurrentWidget(QWidget *currentWidget)
    if (currentWidget == m_currentWidget) {
       return false;
    }
+
    // repaint the old widget unless it is the main window
    if (m_currentWidget && m_currentWidget != mainContainer()) {
       m_selection->repaintSelection(m_currentWidget);
    }
+
    // set new and repaint
    m_currentWidget = currentWidget;
    if (m_currentWidget && m_currentWidget != mainContainer()) {
@@ -1543,9 +1556,8 @@ QRect ArrowKeyOperation::apply(const QRect &rect) const
 class ArrowKeyPropertyHelper : public PropertyHelper
 {
  public:
-   ArrowKeyPropertyHelper(QObject *o, SpecialProperty sp,
-      QDesignerPropertySheetExtension *s, int i) :
-      PropertyHelper(o, sp, s, i) {}
+   ArrowKeyPropertyHelper(QObject *o, SpecialProperty sp, QDesignerPropertySheetExtension *s, int i)
+      : PropertyHelper(o, sp, s, i) {}
 
    Value setValue(QDesignerFormWindowInterface *fw, const QVariant &value, bool changed, unsigned subPropertyMask) override;
 };
@@ -1620,7 +1632,7 @@ QVariant ArrowKeyPropertyCommand::mergeValue(const QVariant &newMergeValue)
 void FormWindow::handleArrowKeyEvent(int key, Qt::KeyboardModifiers modifiers)
 {
    const QDesignerFormWindowCursorInterface *c = cursor();
-   if (!c->hasSelection()) {
+   if (! c->hasSelection()) {
       return;
    }
 
@@ -1630,6 +1642,7 @@ void FormWindow::handleArrowKeyEvent(int key, Qt::KeyboardModifiers modifiers)
    const int count = c->selectedWidgetCount();
    for (int index = 0; index < count; ++index) {
       QWidget *w = c->selectedWidget(index);
+
       if (!LayoutInfo::isWidgetLaidout(m_core, w)) {
          selection.append(w);
       }
@@ -1680,6 +1693,7 @@ void FormWindow::selectAll()
          selectionChanged = true;
       }
    }
+
    if (selectionChanged) {
       emitSelectionChanged();
    }
@@ -1699,6 +1713,7 @@ void FormWindow::createLayout(int type, QWidget *container)
 void FormWindow::morphLayout(QWidget *container, int newType)
 {
    MorphLayoutCommand *cmd = new MorphLayoutCommand(this);
+
    if (cmd->init(container, newType)) {
       commandHistory()->push(cmd);
    } else {
@@ -2065,10 +2080,12 @@ bool FormWindow::eventFilter(QObject *watched, QEvent *event)
    }
 
    Q_ASSERT(watched->isWidgetType());
+
    QWidget *w = static_cast<QWidget *>(watched);
    QPaintEvent *pe = static_cast<QPaintEvent *>(event);
    const QRect widgetRect = w->rect();
    const QRect paintRect =  pe->rect();
+
    // Does the paint rectangle touch the borders of the widget rectangle
    if (paintRect.x()     > widgetRect.x()     && paintRect.y()      > widgetRect.y() &&
       paintRect.right() < widgetRect.right() && paintRect.bottom() < widgetRect.bottom()) {
@@ -2146,6 +2163,7 @@ void FormWindow::breakLayout(QWidget *w)
    if (w == this) {
       w = mainContainer();
    }
+
    // Find the first-order managed child widgets
    QWidgetList widgets;
    const QDesignerMetaDataBaseInterface *mdb = core()->metaDataBase();
@@ -2228,6 +2246,7 @@ bool FormWindow::handleMouseButtonDblClickEvent(QWidget *w, QWidget *managedWidg
    }
 
    m_mouseState = MouseDoubleClicked;
+
    return true;
 }
 
@@ -2745,6 +2764,7 @@ void FormWindow::highlightWidget(QWidget *widget, const QPoint &pos, HighlightMo
    }
 
    QMainWindow *mw = dynamic_cast<QMainWindow *> (container);
+
    if (container == mainContainer() || (mw && mw->centralWidget() && mw->centralWidget() == container)) {
       return;
    }
@@ -2761,7 +2781,7 @@ void FormWindow::highlightWidget(QWidget *widget, const QPoint &pos, HighlightMo
    } else {
       QPalette p = container->palette();
 
-      if (!m_palettesBeforeHighlight.contains(container)) {
+      if (! m_palettesBeforeHighlight.contains(container)) {
          PaletteAndFill paletteAndFill;
 
          if (container->testAttribute(Qt::WA_SetPalette)) {

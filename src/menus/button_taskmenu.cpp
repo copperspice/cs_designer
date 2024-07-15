@@ -89,7 +89,7 @@ ButtonGroupCommand::ButtonGroupCommand(const QString &description, QDesignerForm
 
 void ButtonGroupCommand::initialize(const ButtonList &bl, QButtonGroup *buttonGroup)
 {
-   m_buttonList = bl;
+   m_buttonList  = bl;
    m_buttonGroup = buttonGroup;
 }
 
@@ -177,7 +177,7 @@ ButtonGroupList ButtonGroupCommand::managedButtonGroups(const QDesignerFormWindo
 
    for (auto it =  children.constBegin(); it != cend; ++it) {
 
-      if (!(*it)->isWidgetType()) {
+      if (! (*it)->isWidgetType()) {
          if (QButtonGroup *bg = dynamic_cast<QButtonGroup *>(*it))
             if (mdb->item(bg)) {
                bl.push_back(bg);
@@ -205,8 +205,8 @@ class CreateButtonGroupCommand : public ButtonGroupCommand
    }
 };
 
-CreateButtonGroupCommand::CreateButtonGroupCommand(QDesignerFormWindowInterface *formWindow) :
-   ButtonGroupCommand(QApplication::translate("Command", "Create button group"), formWindow)
+CreateButtonGroupCommand::CreateButtonGroupCommand(QDesignerFormWindowInterface *formWindow)
+   : ButtonGroupCommand(QApplication::translate("Command", "Create button group"), formWindow)
 {
 }
 
@@ -315,7 +315,7 @@ bool RemoveButtonsFromGroupCommand::init(const ButtonList &bl)
 
    QButtonGroup *group = bl.front()->group();
 
-   if (!group) {
+   if (! group) {
       return false;
    }
 
@@ -333,8 +333,7 @@ bool RemoveButtonsFromGroupCommand::init(const ButtonList &bl)
 
 // --------  ButtonGroupMenu
 ButtonGroupMenu::ButtonGroupMenu(QObject *parent)
-   : QObject(parent),
-     m_selectGroupAction(new QAction(tr("Select members"), this)),
+   : QObject(parent), m_selectGroupAction(new QAction(tr("Select members"), this)),
      m_breakGroupAction(new QAction(tr("Break"), this)),
      m_formWindow(nullptr), m_buttonGroup(nullptr), m_currentButton(nullptr)
 {
@@ -622,9 +621,9 @@ static QUndoCommand *createRemoveButtonsCommand(QDesignerFormWindowInterface *fw
 
       if (! breakCmd->init(bg)) {
          delete breakCmd;
-
          return nullptr;
       }
+
       return breakCmd;
    }
 
@@ -657,7 +656,7 @@ void ButtonTaskMenu::createGroup()
    // Add cmd
    CreateButtonGroupCommand *addCmd = new CreateButtonGroupCommand(fw);
 
-   if (!addCmd->init(bl)) {
+   if (! addCmd->init(bl)) {
       delete addCmd;
       return;
    }

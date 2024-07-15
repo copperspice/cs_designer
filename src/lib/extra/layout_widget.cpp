@@ -84,6 +84,7 @@ inline int gridRowCount(const QFormLayout *formLayout)
 {
    return  formLayout->rowCount();
 }
+
 inline int gridColumnCount(const QFormLayout *)
 {
    return COLUMNS_IN_FORM;
@@ -118,7 +119,8 @@ namespace qdesigner_internal {
 class PaddingSpacerItem : public QSpacerItem
 {
  public:
-   PaddingSpacerItem() : QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding)
+   PaddingSpacerItem()
+      : QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding)
    {
    }
 
@@ -605,6 +607,7 @@ void BoxLayoutHelper::replaceWidget(QLayout *lt, QWidget *before, QWidget *after
          ok = true;
       }
    }
+
    if (!ok) {
       qWarning() << "BoxLayoutHelper::replaceWidget() Unable to replace " << before << " with " << after
             << " in the current layout " << lt;
@@ -804,6 +807,7 @@ void GridLayoutState::applyToLayout(const QDesignerFormEditorInterface *core, QW
 {
    typedef QMap<QLayoutItem *, QRect> LayoutItemRectMap;
    QGridLayout *grid = dynamic_cast<QGridLayout *>(LayoutInfo::managedLayout(core, w));
+
    Q_ASSERT(grid);
 
    const bool shrink = grid->rowCount() > rowCount || grid->columnCount() > colCount;
@@ -814,7 +818,7 @@ void GridLayoutState::applyToLayout(const QDesignerFormEditorInterface *core, QW
    while (grid->count()) {
       QLayoutItem *item = grid->takeAt(0);
 
-      if (!LayoutInfo::isEmptyItem(item)) {
+      if (! LayoutInfo::isEmptyItem(item)) {
          QWidget *itemWidget = item->widget();
          const WidgetItemMap::const_iterator it = widgetItemMap.constFind(itemWidget);
 
@@ -829,7 +833,9 @@ void GridLayoutState::applyToLayout(const QDesignerFormEditorInterface *core, QW
          delete item;
       }
    }
+
    Q_ASSERT(itemMap.size() == widgetItemMap.size());
+
    // recreate if shrink
    if (shrink) {
       grid = static_cast<QGridLayout *>(recreateManagedLayout(core, w, grid));
@@ -848,13 +854,15 @@ void GridLayoutState::applyToLayout(const QDesignerFormEditorInterface *core, QW
    // create spacers
    const CellStates cs = cellStates(itemMap.values(), rowCount, colCount);
 
-   for (int r = 0; r < rowCount; r++)
-      for (int c = 0; c < colCount; c++)
+   for (int r = 0; r < rowCount; r++) {
+      for (int c = 0; c < colCount; c++) {
          if (needsSpacerItem(cs[r * colCount  + c])) {
             grid->addItem(createGridSpacer(), r, c);
          }
-   grid->activate();
+      }
+   }
 
+   grid->activate();
 }
 
 void GridLayoutState::insertRow(int row)
@@ -911,7 +919,7 @@ bool GridLayoutState::simplify(const QRect &rect, bool testOnly)
    const int restrictionBottomRow   = restrictionTopRow + rect.height();
 
    if (restrictionLeftColumn > 0 || restrictionRightColumn < colCount ||
-         restrictionTopRow     > 0 || restrictionBottomRow   < rowCount) {
+         restrictionTopRow   > 0 || restrictionBottomRow   < rowCount) {
 
       for (int row = 0; row < rowCount; row++) {
          if (row < restrictionTopRow || row >= restrictionBottomRow) {
@@ -1166,6 +1174,7 @@ bool GridLayoutHelper::canSimplify(const QDesignerFormEditorInterface *core, con
    Q_ASSERT(gridLayout);
    GridLayoutState gs;
    gs.fromLayout(gridLayout);
+
    return gs.simplify(restrictionArea, true);
 }
 
@@ -1177,11 +1186,11 @@ void GridLayoutHelper::simplify(const QDesignerFormEditorInterface *core, QWidge
 
    GridLayoutState gs;
    gs.fromLayout(gridLayout);
+
    if (gs.simplify(restrictionArea, false)) {
       gs.applyToLayout(core, widgetWithManagedLayout);
    }
 }
-
 
 class FormLayoutHelper : public  LayoutHelper
 {
@@ -1189,7 +1198,8 @@ class FormLayoutHelper : public  LayoutHelper
    typedef QPair<QWidget *, QWidget *> WidgetPair;
    typedef QVector<WidgetPair> FormLayoutState;
 
-   FormLayoutHelper() {}
+   FormLayoutHelper()
+   { }
 
    QRect itemInfo(QLayout *lt, int index) const override;
    void insertWidget(QLayout *lt, const QRect &info, QWidget *w) override;
@@ -1389,6 +1399,7 @@ void FormLayoutHelper::simplify(const QDesignerFormEditorInterface *core, QWidge
    typedef QVector<LayoutItemPair> LayoutItemPairs;
 
    QFormLayout *formLayout = dynamic_cast<QFormLayout *>(LayoutInfo::managedLayout(core, widgetWithManagedLayout));
+
    Q_ASSERT(formLayout);
 
    // Transform into vector of item pairs
@@ -2198,7 +2209,6 @@ void QLayoutWidget::paintEvent(QPaintEvent *)
    }
 
    // only draw red borders when editing widgets
-
    QPainter p(this);
 
    QMap<int, QMap<int, bool>> excludedRowsForColumn;
@@ -2233,6 +2243,7 @@ void QLayoutWidget::paintEvent(QPaintEvent *)
                   excludedColumnsForRow[row + rowSpan - 1].unite(columns);
                   rowSpan--;
                }
+
                while (columnSpan > 0) {
                   excludedRowsForColumn[column + columnSpan - 1].unite(rows);
                   columnSpan--;
@@ -2241,7 +2252,8 @@ void QLayoutWidget::paintEvent(QPaintEvent *)
 
             if (item->spacerItem()) {
                const QRect geometry = item->geometry();
-               if (!geometry.isNull()) {
+
+               if (! geometry.isNull()) {
                   p.drawRect(geometry.adjusted(1, 1, -2, -2));
                }
             }

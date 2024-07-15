@@ -37,6 +37,7 @@ class PreviewConfigurationWidget : public QGroupBox
  public:
    explicit PreviewConfigurationWidget(QDesignerFormEditorInterface *core,
       QWidget *parent = nullptr);
+
    virtual ~PreviewConfigurationWidget();
    void saveState();
 

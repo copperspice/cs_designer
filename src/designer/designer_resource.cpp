@@ -836,7 +836,8 @@ QWidget *QDesignerResource::create(DomWidget *ui_widget, QWidget *parentWidget)
    const QString className = ui_widget->attributeClass();
 
    if (! m_isMainWidget && className == "QWidget" && ui_widget->elementLayout().size() &&
-      ! ui_widget->hasAttributeNative()) {
+         ! ui_widget->hasAttributeNative()) {
+
       // ### check if elementLayout.size() == 1
 
       QDesignerContainerExtension *container = qt_extension<QDesignerContainerExtension *>(core()->extensionManager(), parentWidget);
@@ -861,7 +862,7 @@ QWidget *QDesignerResource::create(DomWidget *ui_widget, QWidget *parentWidget)
    }
 
    // ### generalize using the extension manager
-   QDesignerMenu *menu = dynamic_cast<QDesignerMenu *>(w);
+   QDesignerMenu *menu       = dynamic_cast<QDesignerMenu *>(w);
    QDesignerMenuBar *menuBar = dynamic_cast<QDesignerMenuBar *>(w);
 
    if (menu) {
@@ -1370,16 +1371,20 @@ DomLayoutItem *QDesignerResource::createDom(QLayoutItem *item, DomLayout *ui_lay
 
       DomSpacer *spacer = new DomSpacer();
       const QString objectName = s->objectName();
+
       if (!objectName.isEmpty()) {
          spacer->setAttributeName(objectName);
       }
+
       const QList<DomProperty *> properties = computeProperties(item->widget());
+
       // ### filter the properties
       spacer->setElementProperty(properties);
 
       ui_item = new DomLayoutItem();
       ui_item->setElementSpacer(spacer);
       d->m_laidout.insert(item->widget(), true);
+
    } else if (QLayoutWidget *layoutWidget = dynamic_cast<QLayoutWidget *>(item->widget())) {
       // Do not save a QLayoutWidget if it is within a layout (else it is saved as "QWidget"
       Q_ASSERT(layoutWidget->layout());
@@ -1388,11 +1393,15 @@ DomLayoutItem *QDesignerResource::createDom(QLayoutItem *item, DomLayout *ui_lay
       ui_item = new DomLayoutItem();
       ui_item->setElementLayout(domLayout);
       d->m_laidout.insert(item->widget(), true);
-   } else if (!item->spacerItem()) { // we use spacer as fake item in the Designer
+
+   } else if (! item->spacerItem()) {
+      // we use spacer as fake item in the Designer
       ui_item = QAbstractFormBuilder::createDom(item, ui_layout, ui_parentWidget);
+
    } else {
       return nullptr;
    }
+
    return ui_item;
 }
 
@@ -1750,6 +1759,7 @@ bool QDesignerResource::checkProperty(QObject *obj, const QString &prop) const
       if (check_widget == m_formWindow->mainContainer()) {
          return true;   // Save although maincontainer is technically laid-out by embedding container
       }
+
       if (m_selected && m_selected == check_widget) {
          return true;
       }
@@ -1762,19 +1772,24 @@ bool QDesignerResource::checkProperty(QObject *obj, const QString &prop) const
    }
 
    if (QDesignerPropertySheetExtension *sheet = qt_extension<QDesignerPropertySheetExtension *>(core()->extensionManager(), obj)) {
-      QDesignerDynamicPropertySheetExtension *dynamicSheet = qt_extension<QDesignerDynamicPropertySheetExtension *>
-         (core()->extensionManager(), obj);
+
+      QDesignerDynamicPropertySheetExtension *dynamicSheet =
+            qt_extension<QDesignerDynamicPropertySheetExtension *>(core()->extensionManager(), obj);
+
       pindex = sheet->indexOf(prop);
+
       if (sheet->isAttribute(pindex)) {
          return false;
       }
 
-      if (!dynamicSheet || !dynamicSheet->isDynamicProperty(pindex)) {
+      if (! dynamicSheet || ! dynamicSheet->isDynamicProperty(pindex)) {
          return sheet->isChanged(pindex);
       }
-      if (!sheet->isVisible(pindex)) {
+
+      if (! sheet->isVisible(pindex)) {
          return false;
       }
+
       return true;
    }
 
@@ -2205,9 +2220,11 @@ static inline bool hasSetter(QDesignerFormEditorInterface *core, QObject *object
 {
    const QDesignerMetaObjectInterface *meta = core->introspection()->metaObject(object);
    const int pindex = meta->indexOfProperty(propertyName);
+
    if (pindex == -1) {
       return true;
    }
+
    return  meta->property(pindex)->hasSetter();
 }
 

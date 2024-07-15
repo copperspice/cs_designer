@@ -32,8 +32,11 @@ class WidgetBoxTreeWidget;
 class WidgetBox : public QDesignerWidgetBox
 {
    CS_OBJECT(WidgetBox)
+
  public:
-   explicit WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::EmptyFlag);
+   explicit WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent = nullptr,
+         Qt::WindowFlags flags = Qt::EmptyFlag);
+
    virtual ~WidgetBox();
 
    QDesignerFormEditorInterface *core() const;

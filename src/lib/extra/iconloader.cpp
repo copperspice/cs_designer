@@ -79,5 +79,3 @@ QIcon csLogoIcon()
 
 }   // end namespace - qdesigner_internal
 
-
-

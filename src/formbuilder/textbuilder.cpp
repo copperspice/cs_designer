@@ -24,12 +24,10 @@
 
 QTextBuilder::QTextBuilder()
 {
-
 }
 
 QTextBuilder::~QTextBuilder()
 {
-
 }
 
 QVariant QTextBuilder::loadText(const DomProperty *property) const

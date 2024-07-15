@@ -222,9 +222,8 @@ class ModifyConnectionCommand : public QDesignerFormWindowCommand
 {
  public:
    explicit ModifyConnectionCommand(QDesignerFormWindowInterface *form,
-      SignalSlotConnection *conn,
-      const QString &newSignal,
-      const QString &newSlot);
+      SignalSlotConnection *conn, const QString &newSignal, const QString &newSlot);
+
    void redo() override;
    void undo() override;
 
@@ -237,15 +236,9 @@ class ModifyConnectionCommand : public QDesignerFormWindowCommand
 };
 
 ModifyConnectionCommand::ModifyConnectionCommand(QDesignerFormWindowInterface *form,
-   SignalSlotConnection *conn,
-   const QString &newSignal,
-   const QString &newSlot) :
-   QDesignerFormWindowCommand(QCoreApplication::translate("Command", "Change signal-slot connection"), form),
-   m_conn(conn),
-   m_oldSignal(conn->signal()),
-   m_oldSlot(conn->slot()),
-   m_newSignal(newSignal),
-   m_newSlot(newSlot)
+      SignalSlotConnection *conn, const QString &newSignal, const QString &newSlot)
+   : QDesignerFormWindowCommand(QCoreApplication::translate("Command", "Change signal-slot connection"), form),
+     m_conn(conn), m_oldSignal(conn->signal()), m_oldSlot(conn->slot()), m_newSignal(newSignal), m_newSlot(newSlot)
 {
 }
 
@@ -286,6 +279,7 @@ void SignalSlotEditor::modifyConnection(Connection *con)
    if (dialog.exec() == QDialog::Accepted) {
       const QString newSignal = dialog.signal();
       const QString newSlot = dialog.slot();
+
       if (sigslot_con->signal() != newSignal || sigslot_con->slot() != newSlot) {
          ModifyConnectionCommand *cmd = new ModifyConnectionCommand(m_form_window, sigslot_con, newSignal, newSlot);
          m_form_window->commandHistory()->push(cmd);
@@ -423,6 +417,7 @@ void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent
       con->setEndPoint(EndPoint::Target, destination, tp);
       con->setSignal(dom_con->elementSignal());
       con->setSlot(dom_con->elementSlot());
+
       addConnectionX(con);
    }
 }
@@ -483,9 +478,11 @@ void SignalSlotEditor::setSignal(SignalSlotConnection *con, const QString &membe
 
    m_form_window->beginCommand(QApplication::translate("Command", "Change signal"));
    undoStack()->push(new SetMemberCommand(con, EndPoint::Source, member, this));
+
    if (!signalMatchesSlot(m_form_window->core(), member, con->slot())) {
       undoStack()->push(new SetMemberCommand(con, EndPoint::Target, QString(), this));
    }
+
    m_form_window->endCommand();
 }
 

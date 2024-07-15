@@ -64,6 +64,7 @@ static void fakeMethodsFromMetaDataBase(QDesignerFormEditorInterface *core, QObj
 {
    slotList.clear();
    signalList.clear();
+
    if (qdesigner_internal::MetaDataBase *metaDataBase = dynamic_cast<qdesigner_internal::MetaDataBase *>(core->metaDataBase()))
       if (const qdesigner_internal::MetaDataBaseItem *item = metaDataBase->metaDataBaseItem(o)) {
          slotList = item->fakeSlots();
@@ -165,8 +166,7 @@ void SignatureDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 // ------ FakeMethodMetaDBCommand: Undo Command to change fake methods in the meta DB.
 class FakeMethodMetaDBCommand : public qdesigner_internal::QDesignerFormWindowCommand
 {
-
-public:
+ public:
    explicit FakeMethodMetaDBCommand(QDesignerFormWindowInterface *formWindow);
 
    void init(QObject *o,

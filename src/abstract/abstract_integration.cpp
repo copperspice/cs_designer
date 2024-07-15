@@ -230,11 +230,13 @@ void QDesignerIntegrationPrivate::resetProperty(const QString &name)
 
    Selection selection;
    getSelection(selection);
+
    if (selection.empty()) {
       return;
    }
 
    ResetPropertyCommand *cmd = new ResetPropertyCommand(formWindow);
+
    // find a reference object to find the right group
    if (cmd->init(selection.selection(), name, propertyEditorObject())) {
       formWindow->commandHistory()->push(cmd);
@@ -246,12 +248,13 @@ void QDesignerIntegrationPrivate::resetProperty(const QString &name)
 void QDesignerIntegrationPrivate::addDynamicProperty(const QString &name, const QVariant &value)
 {
    QDesignerFormWindowInterface *formWindow = q->core()->formWindowManager()->activeFormWindow();
-   if (!formWindow) {
+   if (! formWindow) {
       return;
    }
 
    Selection selection;
    getSelection(selection);
+
    if (selection.empty()) {
       return;
    }
@@ -267,12 +270,13 @@ void QDesignerIntegrationPrivate::addDynamicProperty(const QString &name, const 
 void QDesignerIntegrationPrivate::removeDynamicProperty(const QString &name)
 {
    QDesignerFormWindowInterface *formWindow = q->core()->formWindowManager()->activeFormWindow();
-   if (!formWindow) {
+   if (! formWindow) {
       return;
    }
 
    Selection selection;
    getSelection(selection);
+
    if (selection.empty()) {
       return;
    }
@@ -283,7 +287,6 @@ void QDesignerIntegrationPrivate::removeDynamicProperty(const QString &name)
    } else {
       delete cmd;
    }
-
 }
 
 void QDesignerIntegrationPrivate::setupFormWindow(QDesignerFormWindowInterface *formWindow)

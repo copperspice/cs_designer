@@ -596,7 +596,7 @@ void QDesignerTaskMenu::changeTextProperty(const QString &propertyName, const QS
    Qt::TextFormat desiredFormat)
 {
    QDesignerFormWindowInterface *fw = formWindow();
-   if (!fw) {
+   if (! fw) {
       return;
    }
 

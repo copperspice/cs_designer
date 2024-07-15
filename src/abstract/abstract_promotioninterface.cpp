@@ -22,4 +22,3 @@
 QDesignerPromotionInterface::~QDesignerPromotionInterface()
 {
 }
-

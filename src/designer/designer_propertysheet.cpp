@@ -1279,6 +1279,7 @@ QVariant QDesignerPropertySheet::metaProperty(int index) const
       case QDesignerMetaPropertyInterface::OtherKind:
          break;
    }
+
    return v;
 }
 
@@ -1471,6 +1472,7 @@ void QDesignerPropertySheet::setProperty(int index, const QVariant &value)
 
             } else {
                e.value = Qt::NoFocus;
+
                QVariant v;
                v.setValue(e);
                setFakeProperty(idx, v);
@@ -2003,7 +2005,7 @@ QDesignerAbstractPropertySheetFactory::~QDesignerAbstractPropertySheetFactory()
 
 QObject *QDesignerAbstractPropertySheetFactory::extension(QObject *object, const QString &iid) const
 {
-   if (!object) {
+   if (! object) {
       return nullptr;
    }
 

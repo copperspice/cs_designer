@@ -31,7 +31,10 @@ namespace qdesigner_internal {
 class PreviewMdiArea: public QMdiArea
 {
  public:
-   PreviewMdiArea(QWidget *parent = nullptr) : QMdiArea(parent) {}
+   PreviewMdiArea(QWidget *parent = nullptr)
+      : QMdiArea(parent)
+   { }
+
  protected:
    bool viewportEvent(QEvent *event) override;
 };
@@ -41,8 +44,10 @@ bool PreviewMdiArea::viewportEvent (QEvent *event)
    if (event->type() != QEvent::Paint) {
       return QMdiArea::viewportEvent (event);
    }
+
    QWidget *paintWidget = viewport();
    QPainter p(paintWidget);
+
    p.fillRect(rect(), paintWidget->palette().color(backgroundRole()).dark());
    p.setPen(QPen(Qt::white));
    //: Palette editor background
@@ -51,9 +56,8 @@ bool PreviewMdiArea::viewportEvent (QEvent *event)
    return true;
 }
 
-PreviewFrame::PreviewFrame(QWidget *parent) :
-   QFrame(parent),
-   m_mdiArea(new PreviewMdiArea(this))
+PreviewFrame::PreviewFrame(QWidget *parent)
+   : QFrame(parent), m_mdiArea(new PreviewMdiArea(this))
 {
    m_mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
    m_mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -79,15 +83,18 @@ void PreviewFrame::setSubWindowActive(bool active)
 
 QMdiSubWindow *PreviewFrame::ensureMdiSubWindow()
 {
-   if (!m_mdiSubWindow) {
+   if (! m_mdiSubWindow) {
       PreviewWidget *previewWidget = new PreviewWidget(m_mdiArea);
+
       m_mdiSubWindow = m_mdiArea->addSubWindow(previewWidget,
             Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
+
       m_mdiSubWindow->move(10, 10);
       m_mdiSubWindow->showMaximized();
    }
 
    const Qt::WindowStates state = m_mdiSubWindow->windowState();
+
    if (state & Qt::WindowMinimized) {
       m_mdiSubWindow->setWindowState(state & ~Qt::WindowMinimized);
    }

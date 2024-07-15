@@ -47,10 +47,13 @@ QDesignerDialog::QDesignerDialog(QDesignerFormWindowInterface *fw, QWidget *pare
 void QDesignerDialog::paintEvent(QPaintEvent *e)
 {
    QPainter p(this);
+
    QStyleOption opt;
    opt.initFrom(this);
+
    p.fillRect(e->rect(), palette().brush(backgroundRole()));
    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+
    if (m_formWindow && m_formWindow->gridVisible()) {
       m_formWindow->designerGrid().paint(p, this, e);
    }
@@ -74,12 +77,14 @@ QDesignerFormWindowInterface *QDesignerWidget::formWindow() const
 void QDesignerWidget::paintEvent(QPaintEvent *e)
 {
    QPainter p(this);
+
    QStyleOption opt;
    opt.initFrom(this);
+
    p.fillRect(e->rect(), palette().brush(backgroundRole()));
    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+
    if (m_formWindow && m_formWindow->gridVisible()) {
       m_formWindow->designerGrid().paint(p, this, e);
    }
 }
-

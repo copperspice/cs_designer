@@ -25,8 +25,8 @@
 
 namespace qdesigner_internal {
 
-PropertyLineEdit::PropertyLineEdit(QWidget *parent) :
-   QLineEdit(parent), m_wantNewLine(false)
+PropertyLineEdit::PropertyLineEdit(QWidget *parent)
+   : QLineEdit(parent), m_wantNewLine(false)
 {
 }
 

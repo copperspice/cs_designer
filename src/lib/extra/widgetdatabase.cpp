@@ -45,12 +45,7 @@ namespace qdesigner_internal {
 
 // ----------------------------------------------------------
 WidgetDataBaseItem::WidgetDataBaseItem(const QString &name, const QString &group)
-   : m_name(name),
-     m_group(group),
-     m_compat(0),
-     m_container(0),
-     m_custom(0),
-     m_promoted(0)
+   : m_name(name), m_group(group), m_compat(0), m_container(0), m_custom(0), m_promoted(0)
 {
 }
 
@@ -342,6 +337,7 @@ void WidgetDataBase::loadPlugins()
    typedef QMap<QString, int> NameIndexMap;
    typedef QList<QDesignerWidgetDataBaseItemInterface *> ItemList;
    typedef QSet<QString> NameSet;
+
    // 1) create a map of existing custom classes
    NameIndexMap existingCustomClasses;
    NameSet nonCustomClasses;
@@ -354,6 +350,7 @@ void WidgetDataBase::loadPlugins()
          nonCustomClasses.insert(item->name());
       }
    }
+
    // 2) create a list plugins
    ItemList pluginList;
    const QDesignerPluginManager *pm = m_core->pluginManager();
@@ -395,6 +392,7 @@ void WidgetDataBase::loadPlugins()
          }
       }
    }
+
    // 4) remove classes that have not been matched. The stored indexes become invalid while deleting.
    if (!existingCustomClasses.empty()) {
       NameIndexMap::const_iterator cend = existingCustomClasses.constEnd();
@@ -786,9 +784,9 @@ QString buildIncludeFile(QString includeFile, IncludeType includeType)
       includeFile.append('>');
       includeFile.insert(0, '<');
    }
+
    return includeFile;
 }
-
 
 /* Appends a derived class to the database inheriting the data of the base class. Used
    for custom and promoted widgets.
@@ -796,7 +794,6 @@ QString buildIncludeFile(QString includeFile, IncludeType includeType)
    Depending on whether an entry exists, the existing or a newly created entry is
    returned. A return value of 0 indicates that the base class could not be found.
 */
-
 QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInterface *db, const QString &className,
       const QString &group, const QString &baseClassName, const QString &includeFile, bool promoted, bool custom)
 {
@@ -810,9 +807,11 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
    // Check whether item already exists.
    QDesignerWidgetDataBaseItemInterface *derivedItem = nullptr;
    const int existingIndex = db->indexOfClassName(className);
+
    if ( existingIndex != -1) {
       derivedItem =  db->item(existingIndex);
    }
+
    if (derivedItem) {
       // Check the existing item for base class mismatch. This will likely
       // happen when loading a file written by an instance with missing plugins.
@@ -836,6 +835,7 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
 
    // Create this item, inheriting its base properties
    const int baseIndex = db->indexOfClassName(baseClassName);
+
    if (baseIndex == -1) {
       return nullptr;
    }
@@ -850,6 +850,7 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
    if (baseItem->name() == qWidgetName) {
       derivedItem->setContainer(false);
    }
+
    // set new props
    derivedItem->setName(className);
    derivedItem->setGroup(group);
@@ -858,6 +859,7 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
    derivedItem->setExtends(baseClassName);
    derivedItem->setIncludeFile(includeFile);
    db->append(derivedItem);
+
    return derivedItem;
 }
 
@@ -869,6 +871,7 @@ WidgetDataBaseItemList promotionCandidates(const QDesignerWidgetDataBaseInterfac
    WidgetDataBaseItemList rc;
    // find existing promoted widgets deriving from base.
    const int count = db->count();
+
    for (int i = 0; i < count; ++i) {
       QDesignerWidgetDataBaseItemInterface *item = db->item(i);
       if (item->isPromoted() && item->extends() == baseClassName) {

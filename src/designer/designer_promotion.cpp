@@ -247,24 +247,29 @@ QDesignerPromotion::PromotedClasses QDesignerPromotion::promotedClasses()  const
 QSet<QString> QDesignerPromotion::referencedPromotedClassNames()  const
 {
    QSet<QString> rc;
+
    const MetaDataBase *metaDataBase = dynamic_cast<const MetaDataBase *>(m_core->metaDataBase());
-   if (!metaDataBase) {
+
+   if (! metaDataBase) {
       return rc;
    }
 
    const QList<QObject *> objs = metaDataBase->objects();
    const QList<QObject *>::const_iterator cend = objs.constEnd();
+
    for ( QList<QObject *>::const_iterator it = objs.constBegin(); it != cend; ++it) {
       const QString customClass = metaDataBase->metaDataBaseItem(*it)->customClassName();
+
       if (!customClass.isEmpty()) {
          rc.insert(customClass);
       }
-
    }
+
    // check the scratchpad of the widget box
    if (QDesignerWidgetBoxInterface *widgetBox = m_core->widgetBox()) {
       const QStringList scratchPadClasses = getScratchPadClasses(widgetBox);
-      if (!scratchPadClasses.empty()) {
+
+      if (! scratchPadClasses.empty()) {
          // Check whether these are actually promoted
          QDesignerWidgetDataBaseInterface *widgetDataBase = m_core->widgetDataBase();
 
@@ -277,6 +282,7 @@ QSet<QString> QDesignerPromotion::referencedPromotedClassNames()  const
          }
       }
    }
+
    return rc;
 }
 

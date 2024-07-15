@@ -191,7 +191,7 @@ void QtResourceModelPrivate::deleteResource(const QByteArray *data) const
 
 void QtResourceModelPrivate::registerResourceSet(QtResourceSet *resourceSet)
 {
-   if (!resourceSet) {
+   if (! resourceSet) {
       return;
    }
 
@@ -202,11 +202,12 @@ void QtResourceModelPrivate::registerResourceSet(QtResourceSet *resourceSet)
    while (itRegister.hasNext()) {
       const QString path = itRegister.next();
       const PathDataMap::const_iterator itRcc = m_pathToData.constFind(path);
+
       if (itRcc != m_pathToData.constEnd()) { // otherwise data was not created yet
          const QByteArray *data = itRcc.value();
 
          if (data) {
-            if (!QResource::registerResource(reinterpret_cast<const uchar *>(data->constData()))) {
+            if (! QResource::registerResource(reinterpret_cast<const uchar *>(data->constData()))) {
                csWarning("QResource failed to register " + path);
 
             } else {
@@ -229,13 +230,14 @@ void QtResourceModelPrivate::registerResourceSet(QtResourceSet *resourceSet)
 
 void QtResourceModelPrivate::unregisterResourceSet(QtResourceSet *resourceSet)
 {
-   if (!resourceSet) {
+   if (! resourceSet) {
       return;
    }
 
    // unregister old paths (all because the order of registration is importans), later it can be optimized a bit
    QStringList toUnregister = resourceSet->activeResourceFilePaths();
    QStringListIterator itUnregister(toUnregister);
+
    while (itUnregister.hasNext()) {
       const QString path = itUnregister.next();
       const PathDataMap::const_iterator itRcc = m_pathToData.constFind(path);
@@ -243,12 +245,13 @@ void QtResourceModelPrivate::unregisterResourceSet(QtResourceSet *resourceSet)
       if (itRcc != m_pathToData.constEnd()) { // otherwise data was not created yet
          const QByteArray *data = itRcc.value();
          if (data) {
-            if (!QResource::unregisterResource(reinterpret_cast<const uchar *>(itRcc.value()->constData()))) {
+            if (! QResource::unregisterResource(reinterpret_cast<const uchar *>(itRcc.value()->constData()))) {
                csWarning("QResource failed to unregister " + path);
             }
          }
       }
    }
+
    m_fileToQrc.clear();
 }
 
@@ -322,6 +325,7 @@ void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringL
 
    QList<const QByteArray *> toDelete;
    QListIterator<const QByteArray *> itOld(oldData);
+
    if (itOld.hasNext()) {
       const QByteArray *array = itOld.next();
       if (array && !newData.contains(array)) {
@@ -334,6 +338,7 @@ void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringL
       if (errorCountPtr) {
          *errorCountPtr = errorCount;
       }
+
       errorStream.close();
       const QString stderrOutput = QString::fromUtf8(errorStream.data());
 
@@ -341,6 +346,7 @@ void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringL
          *errorMessages = stderrOutput;
       }
    }
+
    // register
    const QMap<QtResourceSet *, bool>::iterator itReload = m_resourceSetToReload.find(resourceSet);
    if (itReload != m_resourceSetToReload.end()) {

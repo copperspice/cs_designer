@@ -621,6 +621,7 @@ void QtGradientWidget::paintEvent(QPaintEvent *e)
       }
       d_ptr->paintPoint(&p, d_ptr->m_focalRadial, 2 * d_ptr->m_handleSize / 3);
       p.restore();
+
    } else if (d_ptr->m_gradientType == QGradient::ConicalGradient) {
       double radius = size().width();
       if (size().height() < radius) {
@@ -642,6 +643,7 @@ void QtGradientWidget::paintEvent(QPaintEvent *e)
       p.save();
       p.setBrush(Qt::NoBrush);
       int pointCount = 2;
+
       for (int i = 0; i < pointCount; i++) {
          QPointF ang(cos(M_PI * (i * 180.0 / pointCount + d_ptr->m_angleConical) / 180) * size().width() / 2,
             -sin(M_PI * (i * 180.0 / pointCount + d_ptr->m_angleConical) / 180) * size().height() / 2);

@@ -543,6 +543,3 @@ QAction *FormLayoutMenu::preferredEditAction(QWidget *w, QDesignerFormWindowInte
 }
 
 }   // end namesapce
-
-
-

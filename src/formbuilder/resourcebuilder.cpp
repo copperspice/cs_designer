@@ -90,6 +90,7 @@ QVariant QResourceBuilder::loadResource(const QDir &workingDirectory, const DomP
          } // non-empty theme
          if (const int flags = iconStateFlags(dpi)) { // new, post 4.4 format
             QIcon icon;
+
             if (flags & NormalOff) {
                icon.addFile(QFileInfo(workingDirectory, dpi->elementNormalOff()->text()).absoluteFilePath(), QSize(), QIcon::Normal, QIcon::Off);
             }
@@ -146,9 +147,11 @@ bool QResourceBuilder::isResourceProperty(const DomProperty *p) const
       case DomProperty::Pixmap:
       case DomProperty::IconSet:
          return true;
+
       default:
          break;
    }
+
    return false;
 }
 
@@ -158,9 +161,11 @@ bool QResourceBuilder::isResourceType(const QVariant &value) const
       case QVariant::Pixmap:
       case QVariant::Icon:
          return true;
+
       default:
          break;
    }
+
    return false;
 }
 

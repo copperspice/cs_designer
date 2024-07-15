@@ -59,17 +59,14 @@ inline bool operator==(const FormWindowData &fd1, const FormWindowData &fd2)
 {
    return fd1.equals(fd2);
 }
+
 inline bool operator!=(const FormWindowData &fd1, const FormWindowData &fd2)
 {
    return !fd1.equals(fd2);
 }
 
-FormWindowData::FormWindowData() :
-   layoutDefaultEnabled(false),
-   defaultMargin(0),
-   defaultSpacing(0),
-   layoutFunctionsEnabled(false),
-   hasFormGrid(false)
+FormWindowData::FormWindowData()
+   : layoutDefaultEnabled(false), defaultMargin(0), defaultSpacing(0), layoutFunctionsEnabled(false), hasFormGrid(false)
 {
 }
 

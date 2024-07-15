@@ -28,6 +28,7 @@ namespace qdesigner_internal {
 class SheetDelegate: public QItemDelegate
 {
    CS_OBJECT(SheetDelegate)
+
  public:
    SheetDelegate(QTreeView *view, QWidget *parent);
 

@@ -37,8 +37,7 @@ namespace qdesigner_internal {
 class WidgetDataBaseItem: public QDesignerWidgetDataBaseItemInterface
 {
  public:
-   explicit WidgetDataBaseItem(const QString &name = QString(),
-      const QString &group = QString());
+   explicit WidgetDataBaseItem(const QString &name = QString(), const QString &group = QString());
 
    QString name() const override;
    void setName(const QString &name) override;

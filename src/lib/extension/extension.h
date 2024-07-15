@@ -26,8 +26,8 @@
 class QAbstractExtensionFactory
 {
  public:
-   virtual ~QAbstractExtensionFactory() {
-   }
+   virtual ~QAbstractExtensionFactory()
+   { }
 
    virtual QObject *extension(QObject *object, const QString &iid) const = 0;
 };

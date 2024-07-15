@@ -134,6 +134,7 @@ void InsertWidgetCommand::init(QWidget *widget, bool already_in_form, int layout
    QDesignerLayoutDecorationExtension *deco = qt_extension<QDesignerLayoutDecorationExtension *>(core->extensionManager(), parentWidget);
 
    m_insertMode = deco ? deco->currentInsertMode() : QDesignerLayoutDecorationExtension::InsertWidgetMode;
+
    if (layoutRow >= 0 && layoutColumn >= 0) {
       m_cell.first = layoutRow;
       m_cell.second = layoutColumn;
@@ -167,7 +168,8 @@ void InsertWidgetCommand::redo()
    addToWidgetListDynamicProperty(parentWidget, m_widget, zOrderPropertyC);
 
    QDesignerFormEditorInterface *core = formWindow()->core();
-   QDesignerLayoutDecorationExtension *deco = qt_extension<QDesignerLayoutDecorationExtension *>(core->extensionManager(), parentWidget);
+   QDesignerLayoutDecorationExtension *deco =
+         qt_extension<QDesignerLayoutDecorationExtension *>(core->extensionManager(), parentWidget);
 
    if (deco != nullptr) {
       const LayoutInfo::Type type = LayoutInfo::layoutType(core, LayoutInfo::managedLayout(core, parentWidget));
@@ -243,12 +245,14 @@ void InsertWidgetCommand::refreshBuddyLabels()
 
    const QString buddyProperty = QString("buddy");
    const QByteArray objectNameU8 = m_widget->objectName().toUtf8();
+
    // Re-set the buddy (The sheet locates the object by name and sets it)
    const LabelList::const_iterator cend = label_list.constEnd();
 
    for (LabelList::const_iterator iter = label_list.constBegin(); iter != cend; ++iter ) {
       if (QDesignerPropertySheetExtension *sheet = propertySheet(*iter)) {
          const int idx = sheet->indexOf(buddyProperty);
+
          if (idx != -1) {
             const QVariant value = sheet->property(idx);
             if (value.toByteArray() == objectNameU8) {
@@ -735,6 +739,7 @@ void CursorSelectionState::restore(QDesignerFormWindowInterface *formWindow) con
 {
    if (m_selection.empty()) {
       formWindow->clearSelection(true);
+
    } else {
       // Select current as last
       formWindow->clearSelection(false);
@@ -2038,7 +2043,7 @@ void ChangeLayoutItemGeometry::changeItemPosition(const QRect &g)
    QLayoutItem *item = grid->takeAt(itemIndex);
    delete item;
 
-   if (!QLayoutSupport::removeEmptyCells(grid, g)) {
+   if (! QLayoutSupport::removeEmptyCells(grid, g)) {
       qWarning() << "ChangeLayoutItemGeometry::changeItemPosition() Unable to remove cell at location " << g
              << ", contents was not empty";
    }
@@ -3196,15 +3201,20 @@ bool MorphLayoutCommand::init(QWidget *w, int newType)
 {
    int oldType;
    QDesignerFormWindowInterface *fw = formWindow();
-   if (!canMorph(fw, w, &oldType) || oldType == newType) {
+
+   if (! canMorph(fw, w, &oldType) || oldType == newType) {
       return false;
    }
+
    m_layoutBase = w;
    m_newType = newType;
    // Find all managed widgets
+
    m_widgets.clear();
+
    const QLayout *layout = LayoutInfo::managedLayout(fw->core(), w);
    const int count = layout->count();
+
    for (int i = 0; i < count ; i++) {
       if (QWidget *item_widget = layout->itemAt(i)->widget()) {
          if (fw->isManaged(item_widget)) {
@@ -3212,10 +3222,12 @@ bool MorphLayoutCommand::init(QWidget *w, int newType)
          }
       }
    }
+
    const bool reparentLayoutWidget = false; // leave QLayoutWidget intact
    m_breakLayoutCommand->init(m_widgets, m_layoutBase, reparentLayoutWidget);
    m_layoutCommand->init(m_layoutBase, m_widgets, static_cast<LayoutInfo::Type>(m_newType), m_layoutBase, reparentLayoutWidget);
    setText(formatDescription(core(), m_layoutBase, oldType, newType));
+
    return true;
 }
 

@@ -32,4 +32,3 @@ QDesignerFormEditorInterface *QDesignerPropertyEditorInterface::core() const
 {
    return nullptr;
 }
-

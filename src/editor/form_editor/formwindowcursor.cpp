@@ -156,6 +156,7 @@ void FormWindowCursor::setProperty(const QString &name, const QVariant &value)
    }
 
    SetPropertyCommand *setPropertyCommand = new SetPropertyCommand(m_formWindow);
+
    if (setPropertyCommand->init(selection, name, value, current())) {
       m_formWindow->commandHistory()->push(setPropertyCommand);
    } else {
@@ -166,6 +167,7 @@ void FormWindowCursor::setProperty(const QString &name, const QVariant &value)
 void FormWindowCursor::setWidgetProperty(QWidget *widget, const QString &name, const QVariant &value)
 {
    SetPropertyCommand *cmd = new SetPropertyCommand(m_formWindow);
+
    if (cmd->init(widget, name, value)) {
       m_formWindow->commandHistory()->push(cmd);
    } else {
@@ -176,6 +178,7 @@ void FormWindowCursor::setWidgetProperty(QWidget *widget, const QString &name, c
 void FormWindowCursor::resetWidgetProperty(QWidget *widget, const QString &name)
 {
    ResetPropertyCommand *cmd = new ResetPropertyCommand(m_formWindow);
+
    if (cmd->init(widget, name)) {
       m_formWindow->commandHistory()->push(cmd);
    } else {

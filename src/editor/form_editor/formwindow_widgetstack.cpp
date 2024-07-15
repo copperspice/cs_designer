@@ -28,11 +28,9 @@
 
 using namespace qdesigner_internal;
 
-FormWindowWidgetStack::FormWindowWidgetStack(QObject *parent) :
-   QObject(parent),
-   m_formContainer(new QWidget),
-   m_formContainerLayout(new QStackedLayout),
-   m_layout(new QStackedLayout)
+FormWindowWidgetStack::FormWindowWidgetStack(QObject *parent)
+   : QObject(parent), m_formContainer(new QWidget),
+     m_formContainerLayout(new QStackedLayout), m_layout(new QStackedLayout)
 {
    m_layout->setMargin(0);
    m_layout->setSpacing(0);
@@ -45,6 +43,7 @@ FormWindowWidgetStack::FormWindowWidgetStack(QObject *parent) :
    m_formContainer->setObjectName(QString("formContainer"));
    m_formContainer->setLayout(m_formContainerLayout);
    m_formContainerLayout->setStackingMode(QStackedLayout::StackAll);
+
    // System settings might have different background colors, autofill them
    // (affects for example mainwindow status bars)
    m_formContainer->setAutoFillBackground(true);
@@ -67,11 +66,13 @@ QDesignerFormWindowToolInterface *FormWindowWidgetStack::currentTool() const
 void FormWindowWidgetStack::setCurrentTool(int index)
 {
    const int cnt = count();
+
    if (index < 0 || index >= cnt) {
       return;
    }
 
    const int cur = currentIndex();
+
    if (index == cur) {
       return;
    }

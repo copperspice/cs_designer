@@ -26,6 +26,4 @@ QDesignerResourceBrowserInterface::QDesignerResourceBrowserInterface(QWidget *pa
 
 QDesignerResourceBrowserInterface::~QDesignerResourceBrowserInterface()
 {
-
 }
-

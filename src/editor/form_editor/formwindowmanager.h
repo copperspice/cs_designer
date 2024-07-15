@@ -84,7 +84,7 @@ class FormWindowManager : public QDesignerFormWindowManager
    CS_SLOT_1(Public, void closeAllPreviews() override)
    CS_SLOT_2(closeAllPreviews)
 
-   CS_SLOT_1(Public, void deviceProfilesChanged())
+   CS_SLOT_1(Public, void deviceProfilesChanged() )
    CS_SLOT_2(deviceProfilesChanged)
 
  private:

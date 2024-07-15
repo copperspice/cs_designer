@@ -42,6 +42,7 @@ class Grid
    inline bool visible() const   {
       return m_visible;
    }
+
    void setVisible(bool visible) {
       m_visible = visible;
    }
@@ -49,6 +50,7 @@ class Grid
    inline bool snapX() const     {
       return m_snapX;
    }
+
    void setSnapX(bool snap)      {
       m_snapX = snap;
    }
@@ -70,6 +72,7 @@ class Grid
    inline int deltaY() const     {
       return m_deltaY;
    }
+
    void setDeltaY(int dy)        {
       m_deltaY = dy;
    }
@@ -99,7 +102,6 @@ class Grid
    int m_deltaY;
 };
 } // namespace qdesigner_internal
-
 
 
 #endif // QDESIGNER_GRID_H

@@ -24,7 +24,6 @@ QDesignerWidgetBoxInterface::QDesignerWidgetBoxInterface(QWidget *parent, Qt::Wi
 {
 }
 
-
 QDesignerWidgetBoxInterface::~QDesignerWidgetBoxInterface()
 {
 }
@@ -42,4 +41,3 @@ int QDesignerWidgetBoxInterface::findOrInsertCategory(const QString &categoryNam
    addCategory(Category(categoryName));
    return count;
 }
-

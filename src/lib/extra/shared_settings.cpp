@@ -319,4 +319,5 @@ void QDesignerSharedSettings::setDeviceProfiles(const DeviceProfileList &dp)
 
    m_settings->setValue(deviceProfilesKey, list);
 }
+
 }

@@ -36,6 +36,7 @@ class QDesignerMimeData;
 class WidgetEditorTool: public QDesignerFormWindowToolInterface
 {
    CS_OBJECT(WidgetEditorTool)
+
  public:
    explicit WidgetEditorTool(FormWindow *formWindow);
    virtual ~WidgetEditorTool();

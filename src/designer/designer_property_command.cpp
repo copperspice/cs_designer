@@ -57,27 +57,34 @@ QString fontMask(unsigned m)
    if (m & QFont::FamilyResolved) {
       rc += QString("Family");
    }
+
    if (m & QFont::SizeResolved) {
       rc += QString("Size ");
    }
+
    if (m & QFont::WeightResolved) {
       rc += QString("Bold ");
    }
+
    if (m & QFont::StyleResolved) {
       rc += QString("Style ");
    }
    if (m & QFont::UnderlineResolved) {
       rc += QString("Underline ");
    }
+
    if (m & QFont::StrikeOutResolved) {
       rc += QString("StrikeOut ");
    }
+
    if (m & QFont::KerningResolved) {
       rc += QString("Kerning ");
    }
+
    if (m & QFont::StyleStrategyResolved) {
       rc += QString("StyleStrategy");
    }
+
    return rc;
 }
 
@@ -88,8 +95,9 @@ QString fontString(const QFont &f)
    {
       const QChar comma = QLatin1Char(',');
       QTextStream str(&rc);
-      str << QString("QFont(\"") <<  f.family() << comma <<
-         f.pointSize();
+
+      str << QString("QFont(\"") <<  f.family() << comma << f.pointSize();
+
       if (f.bold()) {
          str << comma <<  QString("bold");
       }
@@ -105,9 +113,11 @@ QString fontString(const QFont &f)
       if (f.kerning()) {
          str << comma << QString("kerning");
       }
+
       str <<  comma << f.styleStrategy() << QString(" resolve: ")
          << fontMask(f.resolve()) << QLatin1Char(')');
    }
+
    return rc;
 }
 
@@ -295,6 +305,7 @@ void compareFontSubProperty(const QFont &f1, const QFont &f2, Property (QFont::*
       }
    }
 }
+
 // find changed subproperties of a QFont
 unsigned compareSubProperties(const QFont &f1, const QFont &f2)
 {
@@ -463,8 +474,9 @@ QSizePolicy applySizePolicySubProperty(const QSizePolicy &oldValue, const QSizeP
 }
 
 // apply changed subproperties to a qdesigner_internal::PropertySheetStringValue
-qdesigner_internal::PropertySheetStringValue applyStringSubProperty(const qdesigner_internal::PropertySheetStringValue &oldValue,
-   const qdesigner_internal::PropertySheetStringValue &newValue, unsigned mask)
+qdesigner_internal::PropertySheetStringValue applyStringSubProperty(
+      const qdesigner_internal::PropertySheetStringValue &oldValue,
+      const qdesigner_internal::PropertySheetStringValue &newValue, unsigned mask)
 {
    qdesigner_internal::PropertySheetStringValue rc = oldValue;
    SET_SUBPROPERTY(rc, newValue, value, setValue, mask, SubPropertyStringValue)
@@ -476,9 +488,9 @@ qdesigner_internal::PropertySheetStringValue applyStringSubProperty(const qdesig
 }
 
 // apply changed subproperties to a qdesigner_internal::PropertySheetStringListValue
-qdesigner_internal::PropertySheetStringListValue applyStringListSubProperty(const qdesigner_internal::PropertySheetStringListValue
-   &oldValue,
-   const qdesigner_internal::PropertySheetStringListValue &newValue, unsigned mask)
+qdesigner_internal::PropertySheetStringListValue applyStringListSubProperty(
+      const qdesigner_internal::PropertySheetStringListValue &oldValue,
+      const qdesigner_internal::PropertySheetStringListValue &newValue, unsigned mask)
 {
    qdesigner_internal::PropertySheetStringListValue rc = oldValue;
    SET_SUBPROPERTY(rc, newValue, value, setValue, mask, SubPropertyStringListValue)
@@ -489,9 +501,9 @@ qdesigner_internal::PropertySheetStringListValue applyStringListSubProperty(cons
 }
 
 // apply changed subproperties to a qdesigner_internal::PropertySheetKeySequenceValue
-qdesigner_internal::PropertySheetKeySequenceValue applyKeySequenceSubProperty(const qdesigner_internal::PropertySheetKeySequenceValue
-   &oldValue,
-   const qdesigner_internal::PropertySheetKeySequenceValue &newValue, unsigned mask)
+qdesigner_internal::PropertySheetKeySequenceValue applyKeySequenceSubProperty(
+      const qdesigner_internal::PropertySheetKeySequenceValue &oldValue,
+      const qdesigner_internal::PropertySheetKeySequenceValue &newValue, unsigned mask)
 {
    qdesigner_internal::PropertySheetKeySequenceValue rc = oldValue;
    SET_SUBPROPERTY(rc, newValue, value, setValue, mask, SubPropertyKeySequenceValue)
@@ -862,7 +874,7 @@ bool PropertyHelper::canMerge(const PropertyHelper &other) const
 
 void PropertyHelper::triggerActionChanged(QAction *a)
 {
-   a->setData(QVariant(true)); // this triggers signal "changed" in QAction
+   a->setData(QVariant(true));    // triggers signal "changed" in QAction
    a->setData(QVariant(false));
 }
 
@@ -1075,7 +1087,6 @@ bool PropertyListCommand::PropertyDescription::equals(const PropertyDescription 
    return m_propertyType == p.m_propertyType && m_specialProperty == p.m_specialProperty &&
       m_propertyName == p.m_propertyName && m_propertyGroup   == p.m_propertyGroup;
 }
-
 
 PropertyListCommand::PropertyListCommand(QDesignerFormWindowInterface *formWindow, QUndoCommand *parent)
    : QDesignerFormWindowCommand(QString(), formWindow, parent)
@@ -1458,7 +1469,7 @@ bool ResetPropertyCommand::init(QObject *object, const QString &apropertyName)
 
    propertyHelperList().clear();
 
- if (! add(object, apropertyName)) {
+   if (! add(object, apropertyName)) {
       return false;
    }
 
@@ -1494,6 +1505,7 @@ bool ResetPropertyCommand::init(const ObjectList &list, const QString &aproperty
    }
 
    setDescription();
+
    return true;
 }
 

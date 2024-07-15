@@ -35,7 +35,6 @@ namespace qdesigner_internal {
 class DeviceProfile;
 
 /* DeviceProfileDialog: Widget to edit system settings for embedded design */
-
 class DeviceProfileDialog : public QDialog
 {
    CS_OBJECT(DeviceProfileDialog)
@@ -52,8 +51,10 @@ class DeviceProfileDialog : public QDialog
  private:
    CS_SLOT_1(Private, void setOkButtonEnabled(bool un_named_arg1))
    CS_SLOT_2(setOkButtonEnabled)
+
    CS_SLOT_1(Private, void nameChanged(const QString &name))
    CS_SLOT_2(nameChanged)
+
    CS_SLOT_1(Private, void save())
    CS_SLOT_2(save)
 

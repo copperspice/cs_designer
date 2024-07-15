@@ -97,6 +97,4 @@ typedef QDesignerPropertySheetFactory<QMdiArea, QMdiAreaPropertySheet> QMdiAreaP
 
 }  // namespace qdesigner_internal
 
-
-
 #endif // QMDIAREA_CONTAINER_H

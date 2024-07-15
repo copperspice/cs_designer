@@ -574,6 +574,7 @@ void QtMetaEnumProvider::localeToIndex(QLocale::Language language, QLocale::Coun
    if (languageIndex) {
       *languageIndex = l;
    }
+
    if (countryIndex) {
       *countryIndex = c;
    }

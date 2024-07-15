@@ -42,11 +42,12 @@ QList<QAction *> LayoutWidgetTaskMenu::taskActions() const
    QDesignerFormWindowInterface *fw = m_widget->formWindow();
    m_morphMenu->populate(m_widget, fw, rc);
    m_formLayoutMenu->populate(m_widget, fw, rc);
+
    return rc;
 }
 
-SpacerTaskMenu::SpacerTaskMenu(Spacer *, QObject *parent) :
-   QObject(parent)
+SpacerTaskMenu::SpacerTaskMenu(Spacer *, QObject *parent)
+   : QObject(parent)
 {
 }
 

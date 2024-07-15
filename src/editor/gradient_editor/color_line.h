@@ -28,16 +28,22 @@ class QtColorLine : public QWidget
 
    CS_PROPERTY_READ(color, color)
    CS_PROPERTY_WRITE(color, setColor)
+
    CS_PROPERTY_READ(indicatorSpace, indicatorSpace)
    CS_PROPERTY_WRITE(indicatorSpace, setIndicatorSpace)
+
    CS_PROPERTY_READ(indicatorSize, indicatorSize)
    CS_PROPERTY_WRITE(indicatorSize, setIndicatorSize)
+
    CS_PROPERTY_READ(flip, flip)
    CS_PROPERTY_WRITE(flip, setFlip)
+
    CS_PROPERTY_READ(backgroundCheckered, isBackgroundCheckered)
    CS_PROPERTY_WRITE(backgroundCheckered, setBackgroundCheckered)
+
    CS_PROPERTY_READ(colorComponent, colorComponent)
    CS_PROPERTY_WRITE(colorComponent, setColorComponent)
+
    CS_PROPERTY_READ(orientation, orientation)
    CS_PROPERTY_WRITE(orientation, setOrientation)
 

@@ -68,8 +68,8 @@ DPI_Chooser::DPI_Chooser(QWidget *parent)
    const struct DPI_Entry *systemEntry = m_systemEntry;
 
    // System resolution
-   m_predefinedCombo->addItem(tr("System (%1 x %2)").formatArg(m_systemEntry->dpiX).formatArg(m_systemEntry->dpiY),
-      QVariant::fromValue(systemEntry));
+   m_predefinedCombo->addItem(tr("System (%1 x %2)").formatArg(m_systemEntry->dpiX)
+         .formatArg(m_systemEntry->dpiY), QVariant::fromValue(systemEntry));
 
    // Devices. Exclude the system values as not to duplicate the entries
    const int predefinedCount = sizeof(dpiEntries) / sizeof(DPI_Entry);
@@ -151,6 +151,7 @@ void DPI_Chooser::setDPI(int dpiX, int dpiY)
          }
       }
    }
+
    if (predefinedIndex != -1) {
       m_predefinedCombo->setCurrentIndex(predefinedIndex); // triggers syncSpinBoxes()
    } else {
@@ -172,7 +173,7 @@ void DPI_Chooser::setUserDefinedValues(int dpiX, int dpiY)
 
 void DPI_Chooser::syncSpinBoxes()
 {
-   const int predefIdx = m_predefinedCombo->currentIndex();
+   const int predefIdx  = m_predefinedCombo->currentIndex();
    const QVariant data1 = m_predefinedCombo->itemData(predefIdx);
 
    // Predefined mode in which spin boxes are disabled or user defined?
@@ -180,7 +181,7 @@ void DPI_Chooser::syncSpinBoxes()
    m_dpiXSpinBox->setEnabled(userSetting);
    m_dpiYSpinBox->setEnabled(userSetting);
 
-   if (!userSetting) {
+   if (! userSetting) {
       const struct DPI_Entry *entry = data1.value<const struct DPI_Entry *>();
       m_dpiXSpinBox->setValue(entry->dpiX);
       m_dpiYSpinBox->setValue(entry->dpiY);

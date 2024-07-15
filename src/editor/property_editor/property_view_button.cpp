@@ -107,6 +107,7 @@ QToolButton *QtButtonPropertyBrowserPrivate::createButton(QWidget *parent) const
 int QtButtonPropertyBrowserPrivate::gridRow(WidgetItem *item) const
 {
    QList<WidgetItem *> siblings;
+
    if (item->parent) {
       siblings = item->parent->children;
    } else {
@@ -121,6 +122,7 @@ int QtButtonPropertyBrowserPrivate::gridRow(WidgetItem *item) const
       if (sibling == item) {
          return row;
       }
+
       row += gridSpan(sibling);
    }
 
@@ -148,7 +150,7 @@ void QtButtonPropertyBrowserPrivate::init(QWidget *parent)
 void QtButtonPropertyBrowserPrivate::slotEditorDestroyed()
 {
    QWidget *editor = dynamic_cast<QWidget *>(q_ptr->sender());
-   if (!editor) {
+   if (! editor) {
       return;
    }
 
@@ -183,7 +185,7 @@ void QtButtonPropertyBrowserPrivate::slotUpdate()
       }
 
       int span = 1;
-      if (!item->widget && !item->widgetLabel) {
+      if (! item->widget && ! item->widgetLabel) {
          span = 2;
       }
 
@@ -193,6 +195,7 @@ void QtButtonPropertyBrowserPrivate::slotUpdate()
 
       updateItem(item);
    }
+
    m_recreateQueue.clear();
 }
 
@@ -202,12 +205,13 @@ void QtButtonPropertyBrowserPrivate::setExpanded(WidgetItem *item, bool expanded
       return;
    }
 
-   if (!item->container) {
+   if (! item->container) {
       return;
    }
 
    item->expanded = expanded;
-   const int row = gridRow(item);
+   const int row  = gridRow(item);
+
    WidgetItem *parent = item->parent;
    QGridLayout *gridLayout = nullptr;
 
@@ -235,7 +239,7 @@ void QtButtonPropertyBrowserPrivate::slotToggled(bool checked)
 {
    WidgetItem *item = m_buttonToItem.value(q_ptr->sender());
 
-   if (!item) {
+   if (! item) {
       return;
    }
 
@@ -255,18 +259,20 @@ void QtButtonPropertyBrowserPrivate::updateLater()
 
 void QtButtonPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, QtBrowserItem *afterIndex)
 {
-   WidgetItem *afterItem = m_indexToItem.value(afterIndex);
+   WidgetItem *afterItem  = m_indexToItem.value(afterIndex);
    WidgetItem *parentItem = m_indexToItem.value(index->parent());
 
    WidgetItem *newItem = new WidgetItem();
    newItem->parent = parentItem;
 
    QGridLayout *topLayout = nullptr;
-   QWidget *parentWidget = nullptr;
+   QWidget *parentWidget  = nullptr;
+
    int row = -1;
 
-   if (!afterItem) {
+   if (! afterItem) {
       row = 0;
+
       if (parentItem) {
          parentItem->children.insert(0, newItem);
       } else {
@@ -275,6 +281,7 @@ void QtButtonPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, QtBr
 
    } else {
       row = gridRow(afterItem) + gridSpan(afterItem);
+
       if (parentItem) {
          parentItem->children.insert(parentItem->children.indexOf(afterItem) + 1, newItem);
       } else {
@@ -282,7 +289,7 @@ void QtButtonPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, QtBr
       }
    }
 
-   if (!parentItem) {
+   if (! parentItem) {
       topLayout    = m_mainLayout;
       parentWidget = q_ptr;
 
@@ -294,7 +301,7 @@ void QtButtonPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, QtBr
          QGridLayout *gridLayout = nullptr;
          const int oldRow = gridRow(parentItem);
 
-         if (grandParent) {
+         if (grandParent != nullptr) {
             gridLayout = grandParent->layout;
          } else {
             gridLayout = m_mainLayout;
@@ -320,7 +327,7 @@ void QtButtonPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, QtBr
          }
 
          int span = 1;
-         if (!parentItem->widget && !parentItem->widgetLabel) {
+         if (! parentItem->widget && ! parentItem->widgetLabel) {
             span = 2;
          }
 
@@ -358,12 +365,13 @@ void QtButtonPropertyBrowserPrivate::propertyInserted(QtBrowserItem *index, QtBr
 
    } else {
       span = 2;
+
    }
 
    topLayout->addWidget(newItem->label, row, 0, span, 1);
 
    m_itemToIndex[newItem] = index;
-   m_indexToItem[index] = newItem;
+   m_indexToItem[index]   = newItem;
 
    updateItem(newItem);
 }
@@ -392,20 +400,24 @@ void QtButtonPropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
    if (item->widget) {
       delete item->widget;
    }
+
    if (item->label) {
       delete item->label;
    }
+
    if (item->widgetLabel) {
       delete item->widgetLabel;
    }
+
    if (item->button) {
       delete item->button;
    }
+
    if (item->container) {
       delete item->container;
    }
 
-   if (!parentItem) {
+   if (! parentItem) {
       removeRow(m_mainLayout, row);
 
       if (colSpan > 1) {
@@ -442,15 +454,17 @@ void QtButtonPropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
       parentItem->container = nullptr;
       parentItem->layout    = nullptr;
 
-      if (!m_recreateQueue.contains(parentItem)) {
+      if (! m_recreateQueue.contains(parentItem)) {
          m_recreateQueue.append(parentItem);
       }
+
       if (parentSpan > 1) {
          removeRow(gridLayout, parentRow + 1);
       }
 
       updateLater();
    }
+
    m_recreateQueue.removeAll(item);
 
    delete item;
@@ -507,7 +521,6 @@ void QtButtonPropertyBrowserPrivate::removeRow(QGridLayout *layout, int row) con
 void QtButtonPropertyBrowserPrivate::propertyChanged(QtBrowserItem *index)
 {
    WidgetItem *item = m_indexToItem.value(index);
-
    updateItem(item);
 }
 
@@ -525,6 +538,7 @@ void QtButtonPropertyBrowserPrivate::updateItem(WidgetItem *item)
       item->button->setWhatsThis(property->whatsThis());
       item->button->setEnabled(property->isEnabled());
    }
+
    if (item->label) {
       QFont font = item->label->font();
       font.setUnderline(property->isModified());
@@ -535,6 +549,7 @@ void QtButtonPropertyBrowserPrivate::updateItem(WidgetItem *item)
       item->label->setWhatsThis(property->whatsThis());
       item->label->setEnabled(property->isEnabled());
    }
+
    if (item->widgetLabel) {
       QFont font = item->widgetLabel->font();
       font.setUnderline(false);
@@ -543,6 +558,7 @@ void QtButtonPropertyBrowserPrivate::updateItem(WidgetItem *item)
       item->widgetLabel->setToolTip(property->valueText());
       item->widgetLabel->setEnabled(property->isEnabled());
    }
+
    if (item->widget) {
       QFont font = item->widget->font();
       font.setUnderline(false);

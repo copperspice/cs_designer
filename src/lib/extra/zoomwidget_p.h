@@ -64,7 +64,6 @@ class ZoomMenu : public QObject
 };
 
 /* Zoom view: A QGraphicsView with a zoom menu */
-
 class ZoomView : public QGraphicsView
 {
    CS_OBJECT(ZoomView)
@@ -95,6 +94,7 @@ class ZoomView : public QGraphicsView
    QGraphicsScene &scene() {
       return *m_scene;
    }
+
    const QGraphicsScene &scene() const {
       return *m_scene;
    }

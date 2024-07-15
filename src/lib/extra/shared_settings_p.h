@@ -34,7 +34,6 @@ class QSize;
 namespace qdesigner_internal {
 class Grid;
 class PreviewConfiguration;
-
 }
 
 namespace qdesigner_internal {

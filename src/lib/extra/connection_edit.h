@@ -206,21 +206,28 @@ class ConnectionEdit : public QWidget, public CETypes
 
    CS_SLOT_1(Public, void selectNone())
    CS_SLOT_2(selectNone)
+
    CS_SLOT_1(Public, void selectAll())
    CS_SLOT_2(selectAll)
+
    CS_SLOT_1(Public, virtual void deleteSelected())
    CS_SLOT_2(deleteSelected)
+
    CS_SLOT_1(Public, virtual void setBackground(QWidget *background))
    CS_SLOT_2(setBackground)
+
    CS_SLOT_1(Public, virtual void updateBackground())
    CS_SLOT_2(updateBackground)
+
    CS_SLOT_1(Public, virtual void widgetRemoved(QWidget *w))
    CS_SLOT_2(widgetRemoved)
+
    CS_SLOT_1(Public, virtual void objectRemoved(QObject *o))
    CS_SLOT_2(objectRemoved)
 
    CS_SLOT_1(Public, void updateLines())
    CS_SLOT_2(updateLines)
+
    CS_SLOT_1(Public, void enableUpdateBackground(bool enable))
    CS_SLOT_2(enableUpdateBackground)
 

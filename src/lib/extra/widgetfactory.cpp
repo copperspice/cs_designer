@@ -208,12 +208,15 @@ QObject *WidgetFactory::createObject(const QString &className, QObject *parent) 
    if (className.isEmpty()) {
       return nullptr;
    }
+
    if (className == m_strings.m_qAction) {
       return new QAction(parent);
    }
+
    if (className == m_strings.m_qButtonGroup) {
       return new QButtonGroup(parent);
    }
+
    return nullptr;
 }
 
@@ -241,7 +244,7 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
    QWidget *rc = factory->createWidget(parentWidget);
 
    // shouldn't happen
-   if (!rc) {
+   if (! rc) {
       *creationError = true;
       csWarning(tr("Custom widget factory registered for widgets of class %1 returned nullptr").formatArg(className));
       return nullptr;
@@ -249,6 +252,7 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
 
    // Figure out the base class unless it is known
    static QSet<QString> knownCustomClasses;
+
    if (!knownCustomClasses.contains(className)) {
       QDesignerWidgetDataBaseInterface *wdb = m_core->widgetDataBase();
       const int widgetInfoIndex = wdb->indexOfObject(rc, false);
@@ -261,6 +265,7 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
             if (mo && mo->className() == className) {
                mo = mo->superClass();
             }
+
             while (mo != nullptr) {
                if (core()->widgetDataBase()->indexOfClassName(mo->className()) != -1) {
                   wdb->item(widgetInfoIndex)->setExtends(mo->className());

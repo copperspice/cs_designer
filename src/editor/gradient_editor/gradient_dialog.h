@@ -28,10 +28,13 @@ class QtGradientDialog : public QDialog
 
    CS_PROPERTY_READ(gradient, gradient)
    CS_PROPERTY_WRITE(gradient, setGradient)
+
    CS_PROPERTY_READ(backgroundCheckered, isBackgroundCheckered)
    CS_PROPERTY_WRITE(backgroundCheckered, setBackgroundCheckered)
+
    CS_PROPERTY_READ(detailsVisible, detailsVisible)
    CS_PROPERTY_WRITE(detailsVisible, setDetailsVisible)
+
    CS_PROPERTY_READ(detailsButtonVisible, isDetailsButtonVisible)
    CS_PROPERTY_WRITE(detailsButtonVisible, setDetailsButtonVisible)
 

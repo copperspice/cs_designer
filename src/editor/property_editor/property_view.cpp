@@ -418,7 +418,6 @@ QtAbstractPropertyManager::QtAbstractPropertyManager(QObject *parent)
    : QObject(parent), d_ptr(new QtAbstractPropertyManagerPrivate)
 {
    d_ptr->q_ptr = this;
-
 }
 
 QtAbstractPropertyManager::~QtAbstractPropertyManager()

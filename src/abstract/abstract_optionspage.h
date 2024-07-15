@@ -34,5 +34,4 @@ class QDesignerOptionsPageInterface
    virtual void finish() = 0;
 };
 
-
 #endif

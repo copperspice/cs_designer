@@ -29,8 +29,7 @@
 namespace qdesigner_internal {
 
 MetaDataBaseItem::MetaDataBaseItem(QObject *object)
-   : m_object(object),
-     m_enabled(true)
+   : m_object(object), m_enabled(true)
 {
 }
 
@@ -182,19 +181,22 @@ void MetaDataBase::slotDestroyed(QObject *object)
 // promotion convenience
 bool promoteWidget(QDesignerFormEditorInterface *core, QWidget *widget, const QString &customClassName)
 {
-
    MetaDataBase *db = dynamic_cast<MetaDataBase *>(core->metaDataBase());
-   if (!db) {
+   if (! db) {
       return false;
    }
+
    MetaDataBaseItem *item = db->metaDataBaseItem(widget);
-   if (!item) {
+   if (! item) {
       db ->add(widget);
       item = db->metaDataBaseItem(widget);
    }
+
    // Recursive promotion occurs if there is a plugin missing.
    const QString oldCustomClassName = item->customClassName();
+
    item->setCustomClassName(customClassName);
+
    return true;
 }
 
@@ -204,6 +206,7 @@ void demoteWidget(QDesignerFormEditorInterface *core, QWidget *widget)
    if (!db) {
       return;
    }
+
    MetaDataBaseItem *item = db->metaDataBaseItem(widget);
    item->setCustomClassName(QString());
 }

@@ -26,8 +26,7 @@
 using namespace qdesigner_internal;
 
 BuddyEditorTool::BuddyEditorTool(QDesignerFormWindowInterface *formWindow, QObject *parent)
-   : QDesignerFormWindowToolInterface(parent),
-     m_formWindow(formWindow),
+   : QDesignerFormWindowToolInterface(parent), m_formWindow(formWindow),
      m_action(new QAction(tr("Edit Buddies"), this))
 {
 }
@@ -57,7 +56,7 @@ bool BuddyEditorTool::handleEvent(QWidget *widget, QWidget *managedWidget, QEven
 
 QWidget *BuddyEditorTool::editor() const
 {
-   if (!m_editor) {
+   if (! m_editor) {
       Q_ASSERT(formWindow() != nullptr);
       m_editor = new BuddyEditor(formWindow(), nullptr);
 
@@ -85,4 +84,3 @@ QAction *BuddyEditorTool::action() const
 {
    return m_action;
 }
-

@@ -477,7 +477,7 @@ QIcon DesignerIconCache::icon(const PropertySheetIconValue &value) const
    }
 
    // Match on the theme first if it is available.
-   if (!value.theme().isEmpty()) {
+   if (! value.theme().isEmpty()) {
       const QString theme = value.theme();
       if (QIcon::hasThemeIcon(theme)) {
          const QIcon themeIcon = QIcon::fromTheme(theme);

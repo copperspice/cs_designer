@@ -27,6 +27,7 @@
 
 static const bool defaultSnap    = true;
 static const bool defaultVisible = true;
+
 static const int DEFAULT_GRID    = 10;
 
 static const QString KEY_VISIBLE  = "gridVisible";
@@ -72,19 +73,24 @@ Grid::Grid() :
 bool Grid::fromVariantMap(const QVariantMap &vm)
 {
    Grid grid;
+
    bool anyData = valueFromVariantMap(vm, QLatin1String(KEY_VISIBLE), grid.m_visible);
    anyData |= valueFromVariantMap(vm, QLatin1String(KEY_SNAPX), grid.m_snapX);
    anyData |= valueFromVariantMap(vm, QLatin1String(KEY_SNAPY), grid.m_snapY);
    anyData |= valueFromVariantMap(vm, QLatin1String(KEY_DELTAX), grid.m_deltaX);
    anyData |= valueFromVariantMap(vm, QLatin1String(KEY_DELTAY), grid.m_deltaY);
+
    if (!anyData) {
       return false;
    }
+
    if (grid.m_deltaX == 0 || grid.m_deltaY == 0) {
       qWarning("Grid::fromVariantMap() Attempt to set invalid grid with a spacing of 0");
       return false;
    }
+
    *this = grid;
+
    return true;
 }
 
@@ -145,9 +151,11 @@ int Grid::snapValue(int value, int grid) const
    if (2 * absRest > grid) {
       offset = 1;
    }
+
    if (rest < 0) {
       offset *= -1;
    }
+
    return (value / grid + offset) * grid;
 }
 
@@ -176,6 +184,5 @@ bool Grid::equals(const Grid &rhs) const
       m_deltaX  == rhs.m_deltaX &&
       m_deltaY  == rhs.m_deltaY;
 }
+
 }
-
-

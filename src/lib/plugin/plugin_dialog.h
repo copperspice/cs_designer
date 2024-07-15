@@ -34,7 +34,6 @@ class PluginDialog : public QDialog
    explicit PluginDialog(QDesignerFormEditorInterface *core, QWidget *parent = nullptr);
 
  private:
-
    /* emerald - temporary hold
        CS_SLOT_1(Private, void updateCustomWidgetPlugins())
        CS_SLOT_2(updateCustomWidgetPlugins)
@@ -43,7 +42,8 @@ class PluginDialog : public QDialog
    void populateTreeWidget();
    QTreeWidgetItem *setTopLevelItem(const QString &itemName);
    QTreeWidgetItem *setPluginItem(QTreeWidgetItem *topLevelItem, const QString &itemName, const QFont &font);
-   void setItem(QTreeWidgetItem *pluginItem, const QString &name, const QString &toolTip, const QString &whatsThis, const QIcon &icon);
+   void setItem(QTreeWidgetItem *pluginItem, const QString &name, const QString &toolTip,
+         const QString &whatsThis, const QIcon &icon);
 
    QDesignerFormEditorInterface *m_core;
    Ui::PluginDialog ui;

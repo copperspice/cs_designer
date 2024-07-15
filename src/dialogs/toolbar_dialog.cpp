@@ -229,9 +229,11 @@ void QtFullToolBarManagerPrivate::saveState(QDataStream &stream) const
                   "%s, using value for text", csPrintable(action->text()));
 
                stream << action->text();
+
             } else {
                stream << action->objectName();
             }
+
          } else {
             stream << QString();
          }
@@ -261,14 +263,17 @@ void QtFullToolBarManagerPrivate::saveState(QDataStream &stream) const
                         "%s, using value for text", csPrintable(action->text()));
 
                   stream << action->text();
+
                } else {
                   stream << action->objectName();
                }
+
             } else {
                stream << QString();
             }
          }
       }
+
       ++itToolBar;
    }
 }
@@ -288,6 +293,7 @@ bool QtFullToolBarManagerPrivate::restoreState(QDataStream &stream) const
    for (int i = 0; i < toolBarCount; i++) {
       QString objectName;
       stream >> objectName;
+
       int actionCount;
       stream >> actionCount;
 
@@ -352,21 +358,26 @@ bool QtFullToolBarManagerPrivate::restoreState(QDataStream &stream) const
       }
 
       QToolBar *toolBar = toolBarByName(objectName);
+
       if (toolBar) {
          toolBar->setWindowTitle(toolBarName);
          oldCustomToolBars.removeAll(toolBar);
       } else {
          toolBar = q_ptr->createToolBar(toolBarName);
       }
+
       if (toolBar) {
          toolBar->setObjectName(objectName);
          q_ptr->setToolBar(toolBar, actions);
       }
    }
+
    QListIterator<QToolBar *> itToolBar(oldCustomToolBars);
+
    while (itToolBar.hasNext()) {
       q_ptr->deleteToolBar(itToolBar.next());
    }
+
    return true;
 }
 
@@ -387,6 +398,7 @@ QToolBar *QtFullToolBarManagerPrivate::findDefaultToolBar(const QString &objectN
       "%s, trying to match using the value for windowTitle", csPrintable(objectName));
 
    itToolBar = defaultToolBars.constBegin();
+
    while (itToolBar != defaultToolBars.constEnd()) {
       QToolBar *tb = itToolBar.key();
       if (tb->windowTitle() == objectName) {
@@ -842,9 +854,11 @@ bool QtFullToolBarManager::restoreState(const QByteArray &state, int version)
    int marker, v;
    stream >> marker;
    stream >> v;
+
    if (marker != QtFullToolBarManagerPrivate::MarkerType::VersionMarker || v != version) {
       return false;
    }
+
    return d_ptr->restoreState(stream);
 }
 
@@ -1092,7 +1106,7 @@ void QtToolBarDialogPrivate::clearOld()
 
 void QtToolBarDialogPrivate::fillNew()
 {
-   if (!toolBarManager) {
+   if (! toolBarManager) {
       return;
    }
 
@@ -1134,15 +1148,17 @@ void QtToolBarDialogPrivate::fillNew()
 
          treeItem->setFlags(categoryItem->flags() | Qt::ItemIsDragEnabled);
       }
+
       ui.actionTree->setItemExpanded(categoryItem, true);
    }
    //ui.actionTree->sortItems(0, Qt::AscendingOrder);
+
 
    auto toolBars = toolBarManager->toolBarsActions();
    auto it       = toolBars.constBegin();
 
    while (it != toolBars.constEnd()) {
-      QToolBar *toolBar = it.key();
+      QToolBar *toolBar   = it.key();
       ToolBarItem *tbItem = createItem(toolBar);
       toolBarItems.insert(toolBar, tbItem);
 
@@ -1176,42 +1192,48 @@ void QtToolBarDialogPrivate::fillNew()
 
       ++it;
    }
+
    ui.toolBarList->sortItems();
    setButtons();
 }
 
 bool QtToolBarDialogPrivate::isDefaultToolBar(ToolBarItem *item) const
 {
-   if (!item) {
+   if (! item) {
       return false;
    }
-   if (!item->toolBar()) {
+
+   if (! item->toolBar()) {
       return false;
    }
+
    return toolBarManager->isDefaultToolBar(item->toolBar());
 }
 
 void QtToolBarDialogPrivate::setButtons()
 {
-   bool newEnabled = false;
+   bool newEnabled    = false;
    bool removeEnabled = false;
    bool renameEnabled = false;
-   bool upEnabled = false;
-   bool downEnabled = false;
-   bool leftEnabled = false;
-   bool rightEnabled = false;
+   bool upEnabled     = false;
+   bool downEnabled   = false;
+   bool leftEnabled   = false;
+   bool rightEnabled  = false;
 
    if (toolBarManager) {
-      newEnabled = true;
-      removeEnabled = !isDefaultToolBar(currentToolBar);
+      newEnabled    = true;
+      removeEnabled = ! isDefaultToolBar(currentToolBar);
       renameEnabled = removeEnabled;
+
       QListWidgetItem *currentToolBarAction = ui.currentToolBarList->currentItem();
+
       if (currentToolBarAction) {
          int row = ui.currentToolBarList->row(currentToolBarAction);
          upEnabled = row > 0;
          downEnabled = row < ui.currentToolBarList->count() - 1;
          leftEnabled = true;
       }
+
       if (currentAction && currentToolBar) {
          rightEnabled = true;
       }
@@ -1545,6 +1567,7 @@ void QtToolBarDialogPrivate::rightClicked()
             toolBarToWidgetActions[currentToolBar].insert(action);
          }
       }
+
    } else {
       item = new QListWidgetItem(separatorText);
       currentItemToAction.insert(item, nullptr);
@@ -1554,6 +1577,7 @@ void QtToolBarDialogPrivate::rightClicked()
    if (currentToolBarAction) {
       row = ui.currentToolBarList->row(currentToolBarAction) + 1;
    }
+
    ui.currentToolBarList->insertItem(row, item);
    currentState[currentToolBar].insert(row, action);
    ui.currentToolBarList->setCurrentItem(item);
@@ -1563,7 +1587,7 @@ void QtToolBarDialogPrivate::rightClicked()
 
 void QtToolBarDialogPrivate::renameClicked()
 {
-   if (!currentToolBar) {
+   if (! currentToolBar) {
       return;
    }
 
@@ -1573,16 +1597,18 @@ void QtToolBarDialogPrivate::renameClicked()
 
 void QtToolBarDialogPrivate::toolBarRenamed(QListWidgetItem *item)
 {
-   if (!currentToolBar) {
+   if (! currentToolBar) {
       return;
    }
 
    ToolBarItem *tbItem = itemToToolBar.value(item);
-   if (!tbItem) {
+   if (! tbItem) {
       return;
    }
+
    tbItem->setToolBarName(item->text());
    //ui.toolBarList->sortItems();
+
 }
 
 void QtToolBarDialogPrivate::currentActionChanged(QTreeWidgetItem *current)

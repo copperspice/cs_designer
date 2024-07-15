@@ -260,6 +260,7 @@ static void recursiveUpdate(QWidget *w)
 
    const QObjectList &l = w->children();
    const QObjectList::const_iterator cend = l.constEnd();
+
    for (QObjectList::const_iterator it = l.constBegin(); it != cend; ++it) {
       if (QWidget *itemWidget = dynamic_cast<QWidget *>(*it)) {
          recursiveUpdate(itemWidget);
@@ -270,10 +271,12 @@ static void recursiveUpdate(QWidget *w)
 void FormWindowBase::setFeatures(Feature f)
 {
    m_d->m_feature = f;
+
    const bool enableGrid = f & GridFeature;
    m_d->m_grid.setVisible(enableGrid);
    m_d->m_grid.setSnapX(enableGrid);
    m_d->m_grid.setSnapY(enableGrid);
+
    emit featureChanged(f);
    recursiveUpdate(this);
 }
@@ -507,4 +510,3 @@ QStringList FormWindowBase::checkContents() const
 }
 
 } // end namespace qdesigner_internal
-

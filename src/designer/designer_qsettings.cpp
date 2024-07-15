@@ -24,8 +24,8 @@
 #include <QString>
 #include <QTextStream>
 
-QDesignerQSettings::QDesignerQSettings() :
-   m_settings(qApp->organizationName(), settingsApplicationName())
+QDesignerQSettings::QDesignerQSettings()
+   : m_settings(qApp->organizationName(), settingsApplicationName())
 {
 }
 

@@ -54,7 +54,7 @@ QWidget *QFormBuilder::create(DomWidget *ui_widget, QWidget *parentWidget)
 
       const QString parentClassName = parentWidget->metaObject()->className();
 
-      if (!d->isCustomWidgetContainer(parentClassName)) {
+      if (! d->isCustomWidgetContainer(parentClassName)) {
          d->setProcessingLayoutWidget(true);
       }
    }
@@ -126,7 +126,7 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
       // Attempt to instantiate base class of promoted/custom widgets
       const QString baseClassName = d->customWidgetBaseClass(widgetName);
 
-      if (!baseClassName.isEmpty()) {
+      if (! baseClassName.isEmpty()) {
          qWarning("QFormBuilder::createWidget() Unable to create a custom widget of the class %s, defaulting to base class",
                csPrintable(baseClassName));
 

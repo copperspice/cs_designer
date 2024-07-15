@@ -31,6 +31,7 @@ class QDesignerFormEditorInterface;
 class QDesignerPropertySheetExtension;
 
 class QPixmap;
+
 namespace qdesigner_internal {
 
 class PropertySheetKeySequenceValue;
@@ -114,8 +115,10 @@ class  ActionTreeView: public QTreeView
 
    CS_SIGNAL_1(Public, void actionContextMenuRequested(QContextMenuEvent *event, QAction *un_named_arg2))
    CS_SIGNAL_2(actionContextMenuRequested, event, un_named_arg2)
+
    CS_SIGNAL_1(Public, void currentActionChanged(QAction *action))
    CS_SIGNAL_2(currentActionChanged, action)
+
    CS_SIGNAL_1(Public, void actionActivated(QAction *action))
    CS_SIGNAL_2(actionActivated, action)
 

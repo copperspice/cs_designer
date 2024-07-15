@@ -711,8 +711,8 @@ void ColorDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt, co
       painter->fillRect(option.rect, br);
       painter->restore();
    }
-   QItemDelegate::paint(painter, option, index);
 
+   QItemDelegate::paint(painter, option, index);
 
    const QColor color = static_cast<QRgb>(QApplication::style()->styleHint(QStyle::SH_Table_GridLineColor, &option));
    const QPen oldPen = painter->pen();
@@ -720,8 +720,10 @@ void ColorDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt, co
 
    painter->drawLine(option.rect.right(), option.rect.y(),
       option.rect.right(), option.rect.bottom());
+
    painter->drawLine(option.rect.x(), option.rect.bottom(),
       option.rect.right(), option.rect.bottom());
+
    painter->setPen(oldPen);
 }
 
@@ -730,5 +732,3 @@ QSize ColorDelegate::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex
    return QItemDelegate::sizeHint(opt, index) + QSize(4, 4);
 }
 }
-
-

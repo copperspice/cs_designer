@@ -62,10 +62,9 @@ namespace qdesigner_internal {
 
 struct WidgetBoxCategoryEntry {
    WidgetBoxCategoryEntry();
+
    explicit WidgetBoxCategoryEntry(const QDesignerWidgetBoxInterface::Widget &widget,
-      const QString &filter,
-      const QIcon &icon,
-      bool editable);
+      const QString &filter, const QIcon &icon, bool editable);
 
    QDesignerWidgetBoxInterface::Widget widget;
    QString toolTip;
@@ -75,8 +74,8 @@ struct WidgetBoxCategoryEntry {
    bool editable;
 };
 
-WidgetBoxCategoryEntry::WidgetBoxCategoryEntry() :
-   editable(false)
+WidgetBoxCategoryEntry::WidgetBoxCategoryEntry()
+   : editable(false)
 {
 }
 
@@ -142,10 +141,13 @@ void WidgetBoxCategoryModel::setViewMode(QListView::ViewMode vm)
    if (m_viewMode == vm) {
       return;
    }
+
    const bool empty = m_items.isEmpty();
+
    if (!empty) {
       beginResetModel();
    }
+
    m_viewMode = vm;
    if (!empty) {
       endResetModel();
@@ -155,10 +157,13 @@ void WidgetBoxCategoryModel::setViewMode(QListView::ViewMode vm)
 int WidgetBoxCategoryModel::indexOfWidget(const QString &name)
 {
    const int count = m_items.size();
-   for (int  i = 0; i < count; i++)
+
+   for (int  i = 0; i < count; i++) {
       if (m_items.at(i).widget.name() == name) {
          return i;
       }
+   }
+
    return -1;
 }
 
@@ -166,9 +171,11 @@ QDesignerWidgetBoxInterface::Category WidgetBoxCategoryModel::category() const
 {
    QDesignerWidgetBoxInterface::Category rc;
    const WidgetBoxCategoryEntrys::const_iterator cend = m_items.constEnd();
+
    for (WidgetBoxCategoryEntrys::const_iterator it = m_items.constBegin(); it != cend; ++it) {
       rc.addWidget(it->widget);
    }
+
    return rc;
 }
 
@@ -177,16 +184,21 @@ bool WidgetBoxCategoryModel::removeCustomWidgets()
    // Typically, we are a whole category of custom widgets, so, remove all
    // and do reset.
    bool changed = false;
-   for (WidgetBoxCategoryEntrys::iterator it = m_items.begin(); it != m_items.end(); )
+
+   for (WidgetBoxCategoryEntrys::iterator it = m_items.begin(); it != m_items.end();) {
       if (it->widget.type() == QDesignerWidgetBoxInterface::Widget::Custom) {
-         if (!changed) {
+         if (! changed) {
             beginResetModel();
          }
+
          it = m_items.erase(it);
          changed = true;
+
       } else {
          ++it;
       }
+   }
+
    if (changed) {
       endResetModel();
    }
@@ -194,7 +206,8 @@ bool WidgetBoxCategoryModel::removeCustomWidgets()
    return changed;
 }
 
-void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget &widget, const QIcon &icon, bool editable)
+void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget &widget,
+      const QIcon &icon, bool editable)
 {
    // build item, Filter on name + class name if it is different and not a layout
    QString filter = widget.name();
@@ -248,28 +261,36 @@ QVariant WidgetBoxCategoryModel::data(const QModelIndex &index, int role) const
       case Qt::DisplayRole:
          // No text in icon mode
          return QVariant(m_viewMode == QListView::ListMode ? item.widget.name() : QString());
+
       case Qt::DecorationRole:
          return QVariant(item.icon);
+
       case Qt::EditRole:
          return QVariant(item.widget.name());
+
       case Qt::ToolTipRole: {
          if (m_viewMode == QListView::ListMode) {
             return QVariant(item.toolTip);
          }
+
          // Icon mode tooltip should contain the  class name
          QString tt =  item.widget.name();
+
          if (!item.toolTip.isEmpty()) {
             tt += QLatin1Char('\n');
             tt += item.toolTip;
          }
-         return QVariant(tt);
 
+         return QVariant(tt);
       }
+
       case Qt::WhatsThisRole:
          return QVariant(item.whatsThis);
+
       case FilterRole:
          return item.filter;
    }
+
    return QVariant();
 }
 
@@ -319,16 +340,22 @@ bool WidgetBoxCategoryModel::removeRows(int row, int count, const QModelIndex &p
    if (row < 0 || count < 1) {
       return false;
    }
+
    const int size = m_items.size();
    const int last =  row + count - 1;
+
    if (row >= size || last >= size) {
       return false;
    }
+
    beginRemoveRows(parent, row, last);
+
    for (int r = last; r >= row; r--) {
       m_items.removeAt(r);
    }
+
    endRemoveRows();
+
    return true;
 }
 
@@ -342,22 +369,23 @@ QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryModel::widgetAt(int row) co
    if (row < 0 || row >=  m_items.size()) {
       return QDesignerWidgetBoxInterface::Widget();
    }
+
    return m_items.at(row).widget;
 }
-
 
 class WidgetBoxCategoryEntryDelegate : public QItemDelegate
 {
  public:
-   explicit WidgetBoxCategoryEntryDelegate(QWidget *parent = nullptr) : QItemDelegate(parent) {}
+   explicit WidgetBoxCategoryEntryDelegate(QWidget *parent = nullptr)
+      : QItemDelegate(parent)
+   {}
 
    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
          const QModelIndex &index) const override;
 };
 
 QWidget *WidgetBoxCategoryEntryDelegate::createEditor(QWidget *parent,
-   const QStyleOptionViewItem &option,
-   const QModelIndex &index) const
+      const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
    QWidget *result = QItemDelegate::createEditor(parent, option, index);
 
@@ -372,11 +400,9 @@ QWidget *WidgetBoxCategoryEntryDelegate::createEditor(QWidget *parent,
 }
 
 // ----------------------  WidgetBoxCategoryListView
-
-WidgetBoxCategoryListView::WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget *parent) :
-   QListView(parent),
-   m_proxyModel(new QSortFilterProxyModel(this)),
-   m_model(new WidgetBoxCategoryModel(core, this))
+WidgetBoxCategoryListView::WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget *parent)
+   : QListView(parent), m_proxyModel(new QSortFilterProxyModel(this)),
+     m_model(new WidgetBoxCategoryModel(core, this))
 {
    setFocusPolicy(Qt::NoFocus);
    setFrameShape(QFrame::NoFrame);

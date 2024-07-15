@@ -298,8 +298,7 @@ class SignalSlotEditorToolWindow: public QDesignerToolWindow
 SignalSlotEditorToolWindow::SignalSlotEditorToolWindow(QDesignerWorkbench *workbench)
    : QDesignerToolWindow(workbench, QDesignerComponents::createSignalSlotEditor(workbench->core(), nullptr),
         QString("qt_designer_signalsloteditor"), QDesignerToolWindow::tr("Signal/Slot Editor"),
-        QString("__qt_signal_slot_editor_tool_action"),
-     Qt::RightDockWidgetArea)
+        QString("__qt_signal_slot_editor_tool_action"), Qt::RightDockWidgetArea)
 {
 }
 
@@ -315,6 +314,7 @@ QRect SignalSlotEditorToolWindow::geometryHint() const
 
    return r;
 }
+
 static inline QWidget *createWidgetBox(QDesignerFormEditorInterface *core, QWidget *parent = nullptr)
 {
    QDesignerWidgetBoxInterface *widget = QDesignerComponents::createWidgetBox(core, parent);
@@ -330,13 +330,10 @@ class WidgetBoxToolWindow: public QDesignerToolWindow
    QRect geometryHint() const override;
 };
 
-WidgetBoxToolWindow::WidgetBoxToolWindow(QDesignerWorkbench *workbench) :
-   QDesignerToolWindow(workbench,
-      createWidgetBox(workbench->core()),
-      QString("qt_designer_widgetbox"),
-      QDesignerToolWindow::tr("Widget Box"),
-      QString("__qt_widget_box_tool_action"),
-      Qt::LeftDockWidgetArea)
+WidgetBoxToolWindow::WidgetBoxToolWindow(QDesignerWorkbench *workbench)
+   : QDesignerToolWindow(workbench, createWidgetBox(workbench->core()),
+     QString("qt_designer_widgetbox"), QDesignerToolWindow::tr("Widget Box"),
+     QString("__qt_widget_box_tool_action"), Qt::LeftDockWidgetArea)
 {
 }
 

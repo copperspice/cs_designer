@@ -151,14 +151,17 @@ bool QTabWidgetEventFilter::eventFilter(QObject *o, QEvent *e)
    }
 
    QDesignerFormWindowInterface *fw = formWindow();
-   if (!fw) {
+
+   if (! fw) {
       return false;
    }
 
    bool handled = true;
+
    switch (type) {
       case QEvent::MouseButtonDblClick:
          break;
+
       case QEvent::MouseButtonPress: {
          QMouseEvent *mev = static_cast<QMouseEvent *>(e);
 
@@ -167,10 +170,11 @@ bool QTabWidgetEventFilter::eventFilter(QObject *o, QEvent *e)
 
          if (mev->button() & Qt::LeftButton) {
             m_mousePressed = true;
-            m_pressPoint = mev->pos();
+            m_pressPoint   = mev->pos();
 
             QTabBar *tabbar = tabBar();
             const int count = tabbar->count();
+
             for (int i = 0; i < count; ++i) {
                if (tabbar->tabRect(i).contains(m_pressPoint)) {
                   if (i != tabbar->currentIndex()) {
@@ -191,6 +195,7 @@ bool QTabWidgetEventFilter::eventFilter(QObject *o, QEvent *e)
 
       case QEvent::MouseMove: {
          QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(e);
+
          if (m_mousePressed && canMove(m_pressPoint, mouseEvent)) {
             const int index = m_tabWidget->currentIndex();
             if (index == -1) {
@@ -205,6 +210,7 @@ bool QTabWidgetEventFilter::eventFilter(QObject *o, QEvent *e)
             m_dragPage  = m_tabWidget->currentWidget();
             m_dragLabel = m_tabWidget->tabText(index);
             m_dragIcon  = m_tabWidget->tabIcon(index);
+
             if (m_dragIcon.isNull()) {
                QLabel *label = new QLabel(m_dragLabel);
                label->adjustSize();

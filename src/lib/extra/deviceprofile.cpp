@@ -57,7 +57,6 @@ static const QString xmlVersionC           = "1.0";
  * In addition, the widgetfactory maintains the system settings style
  * and applies it when creating widgets. */
 
-
 namespace qdesigner_internal {
 
 // ---------------- DeviceProfileData
@@ -459,6 +458,7 @@ bool DeviceProfile::fromXml(const QString &xml, QString *errorMessage)
                break;
          }
       }
+
    } while (tt != QXmlStreamReader::Invalid && tt != QXmlStreamReader::EndDocument);
 
    if (reader.hasError()) {
@@ -468,4 +468,5 @@ bool DeviceProfile::fromXml(const QString &xml, QString *errorMessage)
 
    return true;
 }
+
 }

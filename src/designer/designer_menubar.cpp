@@ -57,7 +57,6 @@ SpecialMenuAction::~SpecialMenuAction()
 {
 }
 
-
 } // namespace qdesigner_internal
 
 
@@ -130,7 +129,7 @@ void QDesignerMenuBar::paintEvent(QPaintEvent *event)
 
 bool QDesignerMenuBar::handleEvent(QWidget *widget, QEvent *event)
 {
-   if (!formWindow()) {
+   if (! formWindow()) {
       return false;
    }
 
@@ -144,16 +143,22 @@ bool QDesignerMenuBar::handleEvent(QWidget *widget, QEvent *event)
 
       case QEvent::MouseButtonDblClick:
          return handleMouseDoubleClickEvent(widget, static_cast<QMouseEvent *>(event));
+
       case QEvent::MouseButtonPress:
          return handleMousePressEvent(widget, static_cast<QMouseEvent *>(event));
+
       case QEvent::MouseButtonRelease:
          return handleMouseReleaseEvent(widget, static_cast<QMouseEvent *>(event));
+
       case QEvent::MouseMove:
          return handleMouseMoveEvent(widget, static_cast<QMouseEvent *>(event));
+
       case QEvent::ContextMenu:
          return handleContextMenuEvent(widget, static_cast<QContextMenuEvent *>(event));
+
       case QEvent::KeyPress:
          return handleKeyPressEvent(widget, static_cast<QKeyEvent *>(event));
+
       case QEvent::FocusIn:
       case QEvent::FocusOut:
          return widget != m_editor;
@@ -288,6 +293,7 @@ bool QDesignerMenuBar::handleKeyPressEvent(QWidget *, QKeyEvent *e)
 void QDesignerMenuBar::startDrag(const QPoint &pos)
 {
    const int index = findAction(pos);
+
    if (m_currentIndex == -1 || index >= realActionCount()) {
       return;
    }

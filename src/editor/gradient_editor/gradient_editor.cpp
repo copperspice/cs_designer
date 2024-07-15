@@ -25,8 +25,8 @@ class QtGradientEditorPrivate
 {
  public:
    QtGradientEditorPrivate()
-      : m_gradient(QLinearGradient()) {
-   }
+      : m_gradient(QLinearGradient())
+   { }
 
    void slotGradientStopsChanged(const QVector<QPair<qreal, QColor>> &stops);
    void slotTypeChanged(int type);

@@ -151,6 +151,7 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
 
    QWidget *createEditor(QtProperty *property, QWidget *parent) override {
       QSetIterator<PropertyManager *> it(m_managers);
+
       while (it.hasNext()) {
          PropertyManager *manager = it.next();
          if (manager == property->propertyManager()) {
@@ -172,7 +173,7 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
    }
 
    void removePropertyManager(PropertyManager *manager) {
-      if (!m_managers.contains(manager)) {
+      if (! m_managers.contains(manager)) {
          return;
       }
       disconnect(manager, SIGNAL(destroyed(QObject *)),
@@ -217,8 +218,10 @@ class QtAbstractEditorFactory : public QtAbstractEditorFactoryBase
  private:
    void breakConnection(QtAbstractPropertyManager *manager) override {
       QSetIterator<PropertyManager *> it(m_managers);
+
       while (it.hasNext()) {
          PropertyManager *m = it.next();
+
          if (m == manager) {
             removePropertyManager(m);
             return;
@@ -241,6 +244,7 @@ class QtBrowserItem
  private:
    explicit QtBrowserItem(QtAbstractPropertyBrowser *browser, QtProperty *property, QtBrowserItem *parent);
    ~QtBrowserItem();
+
    QScopedPointer<QtBrowserItemPrivate> d_ptr;
 
    friend class QtAbstractPropertyBrowserPrivate;
@@ -318,6 +322,3 @@ class QtAbstractPropertyBrowser : public QWidget
 };
 
 #endif
-
-
-

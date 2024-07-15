@@ -250,7 +250,6 @@ void QSimpleResource::addCustomWidgetsToWidgetDatabase(const QDesignerFormEditor
          ++i;
       }
    }
-
 }
 
 void QSimpleResource::handleDomCustomWidgets(const QDesignerFormEditorInterface *core,
@@ -259,12 +258,15 @@ void QSimpleResource::handleDomCustomWidgets(const QDesignerFormEditorInterface 
    if (dom_custom_widgets == nullptr) {
       return;
    }
+
    QList<DomCustomWidget *> custom_widget_list = dom_custom_widgets->elementCustomWidget();
+
    // Attempt to insert each item derived from its base class.
    // This should at most require two iterations in the event that the classes are out of order
    // (derived first, max depth: promoted custom plugin = 2)
    for (int iteration = 0;  iteration < 2;  iteration++) {
       addCustomWidgetsToWidgetDatabase(core, custom_widget_list);
+
       if (custom_widget_list.empty()) {
          return;
       }
@@ -301,5 +303,4 @@ bool FormBuilderClipboard::empty() const
    return m_widgets.empty() && m_actions.empty();
 }
 }
-
 

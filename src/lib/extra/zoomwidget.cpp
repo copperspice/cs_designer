@@ -87,6 +87,7 @@ void ZoomMenu::setZoom(int percent)
 {
    const ActionList za = m_menuActions->actions();
    const ActionList::const_iterator cend = za.constEnd();
+
    for (ActionList::const_iterator it =  za.constBegin(); it != cend; ++it)
       if (zoomOf(*it) == percent) {
          (*it)->setChecked(true);
@@ -128,6 +129,7 @@ void ZoomView::scrollToOrigin()
 {
    const QPoint origin(0, 0);
    const QPoint current = scrollPosition();
+
    if (current != origin) {
       setScrollPosition(origin);
    }
@@ -222,6 +224,7 @@ QVariant ZoomProxyWidget::itemChange(GraphicsItemChange change, const QVariant &
 
          return desiredPos;
       }
+
       default:
          break;
    }
@@ -359,6 +362,7 @@ void ZoomWidget::resizeToWidgetSize()
    }
 
    m_viewResizeBlocked = true;
+
    // Convert size, apply transformed min/max size if applicable
    const QSize wsize = widgetSize();
    const QSize viewSize = widgetSizeToViewSize(wsize);
@@ -405,8 +409,10 @@ void ZoomWidget::resizeEvent(QResizeEvent *event)
    if (m_proxy && !m_viewResizeBlocked) {
       const QSizeF newViewPortSize = size() - viewPortMargin();
       const QSizeF widgetSizeF = newViewPortSize / zoomFactor() - widgetDecorationSizeF();
+
       m_widgetResizeBlocked = true;
       m_proxy->widget()->resize(widgetSizeF.toSize());
+
       setSceneRect(QRectF(QPointF(0, 0), widgetSizeF));
       scrollToOrigin();
       m_widgetResizeBlocked = false;
@@ -415,7 +421,7 @@ void ZoomWidget::resizeEvent(QResizeEvent *event)
 
 QSize ZoomWidget::minimumSizeHint() const
 {
-   if (!m_proxy) {
+   if (! m_proxy) {
       return QGraphicsView::minimumSizeHint();
    }
 
@@ -427,7 +433,7 @@ QSize ZoomWidget::minimumSizeHint() const
 
 QSize ZoomWidget::sizeHint() const
 {
-   if (!m_proxy) {
+   if (! m_proxy) {
       return QGraphicsView::sizeHint();
    }
 
@@ -444,7 +450,7 @@ bool ZoomWidget::zoomedEventFilter(QObject *, QEvent *event)
          break;
 
       case QEvent::Resize:
-         if (!m_widgetResizeBlocked) {
+         if (! m_widgetResizeBlocked) {
             resizeToWidgetSize();
          }
 
@@ -458,6 +464,7 @@ bool ZoomWidget::zoomedEventFilter(QObject *, QEvent *event)
             const QPointF pos = QPointF(origin + (QPointF(ce->pos()) * zoomFactor()));
             showContextMenu(pos.toPoint());
             ce->accept();
+
             return true;
          }
          break;

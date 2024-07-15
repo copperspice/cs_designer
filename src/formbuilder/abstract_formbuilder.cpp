@@ -637,7 +637,8 @@ QLayout *QAbstractFormBuilder::create(DomLayout *ui_layout, QLayout *parentLayou
       p = parentWidget->layout();
    }
 
-   QLayout *layout = createLayout(ui_layout->attributeClass(), p, ui_layout->hasAttributeName() ? ui_layout->attributeName() : QString());
+   QLayout *layout = createLayout(ui_layout->attributeClass(), p, ui_layout->hasAttributeName()
+         ? ui_layout->attributeName() : QString());
 
    if (layout == nullptr) {
       return nullptr;
@@ -654,7 +655,7 @@ QLayout *QAbstractFormBuilder::create(DomLayout *ui_layout, QLayout *parentLayou
          const QString msg = QCoreApplication::translate("QAbstractFormBuilder",
                "Attempt to add a layout to a widget '%1' (%2) which already has a layout of non-box type %3.\n"
                "This indicates an inconsistency in the ui-file.")
-            .formatArgs(parentWidget->objectName(), widgetClass, layoutClass);
+               .formatArgs(parentWidget->objectName(), widgetClass, layoutClass);
 
          csWarning(msg);
          return nullptr;
@@ -697,6 +698,7 @@ QLayout *QAbstractFormBuilder::create(DomLayout *ui_layout, QLayout *parentLayou
 
    if (spacing != INT_MIN) {
       layout->setSpacing(spacing);
+
    } else {
       QGridLayout *grid = dynamic_cast<QGridLayout *>(layout);
       if (grid) {
@@ -1109,6 +1111,7 @@ QBrush QAbstractFormBuilder::setupBrush(DomBrush *brush)
 
       const QList<DomGradientStop *> stops = gradient->elementGradientStop();
       QListIterator<DomGradientStop *> it(stops);
+
       while (it.hasNext()) {
          const DomGradientStop *stop = it.next();
          const DomColor *color = stop->elementColor();
@@ -1122,6 +1125,7 @@ QBrush QAbstractFormBuilder::setupBrush(DomBrush *brush)
 
    } else if (style == Qt::TexturePattern) {
       const DomProperty *texture = brush->elementTexture();
+
       if (texture && texture->kind() == DomProperty::Pixmap) {
          br.setTexture(QPixmap());
       }
@@ -1131,6 +1135,7 @@ QBrush QAbstractFormBuilder::setupBrush(DomBrush *brush)
       br.setColor(QColor::fromRgb(color->elementRed(), color->elementGreen(), color->elementBlue(), color->attributeAlpha()));
       br.setStyle((Qt::BrushStyle)style);
    }
+
    return br;
 }
 
@@ -1197,11 +1202,13 @@ DomBrush *QAbstractFormBuilder::saveBrush(const QBrush &br)
       brush->setElementGradient(gradient);
    } else if (style == Qt::TexturePattern) {
       const QPixmap pixmap = br.texture();
+
       if (!pixmap.isNull()) {
          DomProperty *p = new DomProperty;
          setPixmapProperty(*p, IconPaths());
          brush->setElementTexture(p);
       }
+
    } else {
       QColor c = br.color();
       DomColor *color = new DomColor();
@@ -1693,6 +1700,7 @@ QList<DomProperty *> QAbstractFormBuilder::computeProperties(QObject *obj)
             if (e.size()) {
                dom_prop->setElementEnum(scope + e);
             }
+
          } else {
             dom_prop->setElementNumber(v.toInt());
          }
@@ -2028,6 +2036,7 @@ void QAbstractFormBuilder::saveTableWidgetExtraInfo(QTableWidget *tableWidget, D
 
    // save the horizontal header
    QList<DomColumn *> columns;
+
    for (int c = 0; c < tableWidget->columnCount(); c++) {
       QList<DomProperty *> properties;
       QTableWidgetItem *item = tableWidget->horizontalHeaderItem(c);
@@ -2099,6 +2108,7 @@ void QAbstractFormBuilder::saveComboBoxExtraInfo(QComboBox *comboBox, DomWidget 
    QList<DomItem *> ui_items = ui_widget->elementItem();
 
    const int count = comboBox->count();
+
    for (int i = 0; i < count; ++i) {
       // We might encounter items for which both builders return 0 in Designer
       // (indicating a custom combo adding items in the constructor). Ignore those.
@@ -2387,6 +2397,7 @@ void QAbstractFormBuilder::loadTableWidgetExtraInfo(DomWidget *ui_widget, QTable
    (void) parentWidget;
 
    const QList<DomColumn *> columns = ui_widget->elementColumn();
+
    if (columns.count() > 0) {
       tableWidget->setColumnCount(columns.count());
    }

@@ -55,10 +55,7 @@ bool deviceProfileLessThan(const DeviceProfile &d1, const DeviceProfile  &d2)
    return d1.name().toLower() < d2.name().toLower();
 }
 
-static bool ask(QWidget *parent,
-   QDesignerDialogGuiInterface *dlgui,
-   const QString &title,
-   const QString &what)
+static bool ask(QWidget *parent, QDesignerDialogGuiInterface *dlgui, const QString &title, const QString &what)
 {
    return dlgui->message(parent, QDesignerDialogGuiInterface::OtherMessage,
          QMessageBox::Question, title, what,
@@ -225,18 +222,23 @@ void EmbeddedOptionsControlPrivate::slotEdit()
    // excluding current one. re-insert if changed,
    // re-sort if name changed.
    const DeviceProfile oldProfile = m_sortedProfiles.at(index);
+
    const QString oldName = oldProfile.name();
+
    QStringList names = existingProfileNames();
    names.removeAll(oldName);
 
    DeviceProfileDialog dlg(m_core->dialogGui(), m_q);
    dlg.setWindowTitle(EmbeddedOptionsControl::tr("Edit Profile"));
    dlg.setDeviceProfile(oldProfile);
+
    if (dlg.showDialog(names)) {
       const DeviceProfile newProfile = dlg.deviceProfile();
+
       if (newProfile != oldProfile) {
          m_dirty = true;
          m_sortedProfiles[index] = newProfile;
+
          if (newProfile.name() != oldName) {
             sortAndPopulateProfileCombo();
             const int currentIndex = m_profileCombo->findText(newProfile.name());

@@ -27,4 +27,3 @@ QDesignerMetaDataBaseInterface::QDesignerMetaDataBaseInterface(QObject *parent)
 QDesignerMetaDataBaseInterface::~QDesignerMetaDataBaseInterface()
 {
 }
-

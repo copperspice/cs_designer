@@ -108,7 +108,7 @@ void AppFontManager::restore(const QDesignerSettingsInterface *s, const QString 
    QString key = prefix + '/' + fontFileKeyC;
    const QStringList fontFiles = s->value(key, QStringList()).toStringList();
 
-   if (!fontFiles.empty()) {
+   if (! fontFiles.empty()) {
       QString errorMessage;
       const QStringList::const_iterator cend = fontFiles.constEnd();
 
@@ -134,7 +134,9 @@ int AppFontManager::add(const QString &fontFile, QString *errorMessage)
             "The font file '%1' does not have read permissions.").formatArg(fontFile);
       return -1;
    }
+
    const QString fullPath = inf.absoluteFilePath();
+
    // Check if already loaded
    const FileNameFontIdPairs::const_iterator cend = m_fonts.constEnd();
 
@@ -152,6 +154,7 @@ int AppFontManager::add(const QString &fontFile, QString *errorMessage)
    }
 
    m_fonts.push_back(FileNameFontIdPair(fullPath, id));
+
    return id;
 }
 
@@ -171,10 +174,11 @@ bool AppFontManager::remove(const QString &fontFile, QString *errorMessage)
 {
    const int count = m_fonts.size();
 
-   for (int i = 0; i < count; i++)
+   for (int i = 0; i < count; i++) {
       if (m_fonts[i].first == fontFile) {
          return removeAt(i, errorMessage);
       }
+   }
 
    *errorMessage = QCoreApplication::translate("AppFontManager",
          "There is no loaded font matching the id '%1'.").formatArg(fontFile);
@@ -194,7 +198,9 @@ bool AppFontManager::removeAt(int index, QString *errorMessage)
             "The font '%1' (%2) could not be unloaded.").formatArg(fontFile).formatArg(id);
       return false;
    }
+
    m_fonts.removeAt(index);
+
    return true;
 }
 

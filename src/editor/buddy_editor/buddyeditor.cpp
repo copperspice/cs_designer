@@ -137,6 +137,7 @@ void BuddyEditor::updateBackground()
    if (m_updating || background() == nullptr) {
       return;
    }
+
    ConnectionEdit::updateBackground();
 
    m_updating = true;
@@ -196,11 +197,13 @@ void BuddyEditor::updateBackground()
             break;
          }
       }
+
       if (found == false) {
          toRemove.append(con);
       }
    }
-   if (!toRemove.isEmpty()) {
+
+   if (! toRemove.isEmpty()) {
       DeleteConnectionsCommand command(this, toRemove);
       command.redo();
 
@@ -219,6 +222,7 @@ void BuddyEditor::updateBackground()
 
       for (int i = 0; i < count2; i++) {
          Connection *con = connection(i);
+
          if (con->object(EndPoint::Source) == newConn->object(EndPoint::Source) &&
                con->object(EndPoint::Target) == newConn->object(EndPoint::Target)) {
             found = true;
@@ -278,6 +282,7 @@ void BuddyEditor::endConnection(QWidget *target, const QPoint &pos)
    tmp_con->setEndPoint(EndPoint::Target, target, pos);
 
    QWidget *source = tmp_con->widget(EndPoint::Source);
+
    Q_ASSERT(source != nullptr);
    Q_ASSERT(target != nullptr);
 
@@ -336,6 +341,7 @@ void BuddyEditor::widgetRemoved(QWidget *widget)
             command->init(source, buddyPropertyC);
             undoStack()->push(command);
          }
+
          delete takeConnection(con);
       }
 
@@ -362,6 +368,7 @@ void BuddyEditor::deleteSelected()
          command->init(source, buddyPropertyC);
          undoStack()->push(command);
       }
+
       delete takeConnection(con);
    }
 

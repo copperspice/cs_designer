@@ -80,7 +80,7 @@ QDesignerWidgetItem::QDesignerWidgetItem(const QLayout *containingLayout, QWidge
    // from being slammed to zero
    const QSize minimumSize = w->minimumSize();
 
-   if (!minimumSize.isEmpty()) {
+   if (! minimumSize.isEmpty()) {
       m_nonLaidOutMinSize = minimumSize;
    }
 
@@ -97,6 +97,7 @@ void QDesignerWidgetItem::expand(QSize *s) const
    if (m_orientations & Qt::Horizontal && s->width() <= 0) {
       s->setWidth(MIN_LENGTH);
    }
+
    if (m_orientations & Qt::Vertical && s->height() <= 0) {
       s->setHeight(MIN_LENGTH);
    }
@@ -107,10 +108,12 @@ QSize QDesignerWidgetItem::minimumSize() const
    // Just track the size in case we are laid-out or stretched.
    const QSize baseMinSize = QWidgetItemV2::minimumSize();
    QWidget *w = constWidget();
+
    if (w->layout() || subjectToStretch(containingLayout(), w)) {
       m_nonLaidOutMinSize = baseMinSize;
       return baseMinSize;
    }
+
    // Nonlaid out: Maintain last laid-out size
    const QSize rc = baseMinSize.expandedTo(m_nonLaidOutMinSize);
 
@@ -260,16 +263,20 @@ void QDesignerWidgetItem::deinstall()
 
 const QLayout *QDesignerWidgetItem::containingLayout() const
 {
-   if (!m_cachedContainingLayout) {
-      if (QWidget *parentWidget = constWidget()->parentWidget())
+   if (! m_cachedContainingLayout) {
+
+      if (QWidget *parentWidget = constWidget()->parentWidget()) {
          if (QLayout *parentLayout = parentWidget->layout()) {
             m_cachedContainingLayout = findLayoutOfItem(parentLayout, this);
+
             if (m_cachedContainingLayout) {
                connect(m_cachedContainingLayout, &QObject::destroyed,
                   this, &QDesignerWidgetItem::layoutChanged);
             }
          }
+      }
    }
+
    return m_cachedContainingLayout;
 }
 

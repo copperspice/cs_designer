@@ -69,6 +69,7 @@ class LanguageResourceDialogPrivate
    void setOkButtonEnabled(bool v)         {
       m_dialogButtonBox->button(QDialogButtonBox::Ok)->setEnabled(v);
    }
+
    static bool checkPath(const QString &p);
 
    QDesignerResourceBrowserInterface *m_browser;

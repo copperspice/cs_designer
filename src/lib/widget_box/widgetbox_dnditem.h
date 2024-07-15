@@ -37,6 +37,4 @@ class WidgetBoxDnDItem : public QDesignerDnDItem
 
 }  // namespace qdesigner_internal
 
-
-
 #endif // WIDGETBOX_DNDITEM_H

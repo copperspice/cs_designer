@@ -26,7 +26,8 @@
 #include <QToolButton>
 
 namespace qdesigner_internal {
-InPlaceWidgetHelper::InPlaceWidgetHelper(QWidget *editorWidget, QWidget *parentWidget, QDesignerFormWindowInterface *fw)
+InPlaceWidgetHelper::InPlaceWidgetHelper(QWidget *editorWidget, QWidget *parentWidget,
+      QDesignerFormWindowInterface *fw)
    : QObject(nullptr), m_editorWidget(editorWidget), m_parentWidget(parentWidget),
      m_noChildEvent(m_parentWidget->testAttribute(Qt::WA_NoChildEventsForParent))
 {
@@ -36,6 +37,7 @@ InPlaceWidgetHelper::InPlaceWidgetHelper(QWidget *editorWidget, QWidget *parentW
    m_editorWidget->setParent(m_parentWidget->window());
    m_parentWidget->installEventFilter(this);
    m_editorWidget->installEventFilter(this);
+
    connect(m_editorWidget, &QObject::destroyed,
       fw->mainContainer(), static_cast<QWidgetVoidSlot>(&QWidget::setFocus));
 }
@@ -62,7 +64,6 @@ Qt::Alignment InPlaceWidgetHelper::alignment() const
 
    return Qt::AlignJustify;
 }
-
 
 bool InPlaceWidgetHelper::eventFilter(QObject *object, QEvent *e)
 {

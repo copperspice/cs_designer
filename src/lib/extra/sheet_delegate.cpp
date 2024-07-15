@@ -27,8 +27,7 @@
 namespace qdesigner_internal {
 
 SheetDelegate::SheetDelegate(QTreeView *view, QWidget *parent)
-   : QItemDelegate(parent),
-     m_view(view)
+   : QItemDelegate(parent), m_view(view)
 {
 }
 

@@ -2043,27 +2043,34 @@ void QtFontEditWidget::buttonClicked()
 {
    bool ok = false;
    QFont newFont = QFontDialog::getFont(&ok, m_font, this, tr("Select Font"));
+
    if (ok && newFont != m_font) {
       QFont f = m_font;
       // prevent mask for unchanged attributes, don't change other attributes (like kerning, etc...)
       if (m_font.family() != newFont.family()) {
          f.setFamily(newFont.family());
       }
+
       if (m_font.pointSize() != newFont.pointSize()) {
          f.setPointSize(newFont.pointSize());
       }
+
       if (m_font.bold() != newFont.bold()) {
          f.setBold(newFont.bold());
       }
+
       if (m_font.italic() != newFont.italic()) {
          f.setItalic(newFont.italic());
       }
+
       if (m_font.underline() != newFont.underline()) {
          f.setUnderline(newFont.underline());
       }
+
       if (m_font.strikeOut() != newFont.strikeOut()) {
          f.setStrikeOut(newFont.strikeOut());
       }
+
       setValue(f);
       emit valueChanged(m_font);
    }

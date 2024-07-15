@@ -43,6 +43,7 @@ QWidget *QMdiAreaContainer::widget(int index) const
    if (index < 0) {
       return nullptr;
    }
+
    return m_mdiArea->subWindowList(QMdiArea::CreationOrder).at(index)->widget();
 }
 
@@ -51,6 +52,7 @@ int QMdiAreaContainer::currentIndex() const
    if (QMdiSubWindow *sub = m_mdiArea->activeSubWindow()) {
       return m_mdiArea->subWindowList(QMdiArea::CreationOrder).indexOf(sub);
    }
+
    return -1;
 }
 
@@ -59,6 +61,7 @@ void QMdiAreaContainer::setCurrentIndex(int index)
    if (index < 0) {
       return;
    }
+
    QMdiSubWindow *frame = m_mdiArea->subWindowList(QMdiArea::CreationOrder).at(index);
    m_mdiArea->setActiveSubWindow(frame);
 }
@@ -122,11 +125,10 @@ void QMdiAreaContainer::remove(int index)
 // 2) title (windowTitle of child).
 
 static const QString subWindowTitleC = "activeSubWindowTitle";
-static const QString subWindowNameC = "activeSubWindowName";
+static const QString subWindowNameC  = "activeSubWindowName";
 
 QMdiAreaPropertySheet::QMdiAreaPropertySheet(QWidget *mdiArea, QObject *parent)
-   : QDesignerPropertySheet(mdiArea, parent),
-     m_windowTitleProperty(QString("windowTitle"))
+   : QDesignerPropertySheet(mdiArea, parent), m_windowTitleProperty("windowTitle")
 {
    createFakeProperty(subWindowNameC,  QString());
    createFakeProperty(subWindowTitleC, QString());
@@ -225,6 +227,7 @@ bool QMdiAreaPropertySheet::isEnabled(int index) const
       case MdiAreaNone:
          break;
    }
+
    return QDesignerPropertySheet::isEnabled(index);
 }
 

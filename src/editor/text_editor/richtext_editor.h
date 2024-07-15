@@ -35,6 +35,7 @@ class RichTextEditor;
 class RichTextEditorDialog : public QDialog
 {
    CS_OBJECT(RichTextEditorDialog)
+
  public:
    explicit RichTextEditorDialog(QDesignerFormEditorInterface *core, QWidget *parent = nullptr);
    ~RichTextEditorDialog();

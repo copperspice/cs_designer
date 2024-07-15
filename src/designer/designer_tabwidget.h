@@ -40,6 +40,7 @@ class PromotionTaskMenu;
 class QTabWidgetEventFilter : public QObject
 {
    CS_OBJECT(QTabWidgetEventFilter)
+
  public:
    explicit QTabWidgetEventFilter(QTabWidget *parent);
    ~QTabWidgetEventFilter();
@@ -48,6 +49,7 @@ class QTabWidgetEventFilter : public QObject
    static void install(QTabWidget *tabWidget);
    static QTabWidgetEventFilter *eventFilterOf(const QTabWidget *tabWidget);
    // Convenience to add a menu on a tackedWidget
+
    static QMenu *addTabWidgetContextMenuActions(const QTabWidget *tabWidget, QMenu *popup);
 
    // Add context menu and return page submenu or 0.
@@ -60,8 +62,10 @@ class QTabWidgetEventFilter : public QObject
  private:
    CS_SLOT_1(Private, void removeCurrentPage())
    CS_SLOT_2(removeCurrentPage)
+
    CS_SLOT_1(Private, void addPage())
    CS_SLOT_2(addPage)
+
    CS_SLOT_1(Private, void addPageAfter())
    CS_SLOT_2(addPageAfter)
 

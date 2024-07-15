@@ -481,6 +481,7 @@ class PositionSortPredicate
    bool operator()(const QWidget *w1, const QWidget *w2) {
       return m_orientation == Qt::Horizontal ? w1->x() < w2->x() : w1->y() < w2->y();
    }
+
  private:
    const Qt::Orientation m_orientation;
 };
@@ -546,7 +547,7 @@ class SplitterLayout : public Layout
 {
  public:
    SplitterLayout(const QWidgetList &wl, QWidget *p, QDesignerFormWindowInterface *fw, QWidget *lb,
-      Qt::Orientation orientation);
+         Qt::Orientation orientation);
 
    void doLayout() override;
    void sort() override;
@@ -556,9 +557,9 @@ class SplitterLayout : public Layout
 };
 
 SplitterLayout::SplitterLayout(const QWidgetList &wl, QWidget *p, QDesignerFormWindowInterface *fw, QWidget *lb,
-   Qt::Orientation orientation) :
-   Layout(wl, p, fw, lb, orientation == Qt::Horizontal ? LayoutInfo::HSplitter : LayoutInfo::VSplitter),
-   m_orientation(orientation)
+      Qt::Orientation orientation)
+   : Layout(wl, p, fw, lb, orientation == Qt::Horizontal ? LayoutInfo::HSplitter : LayoutInfo::VSplitter),
+     m_orientation(orientation)
 {
 }
 
@@ -1070,11 +1071,13 @@ bool Grid::shrinkFormLayoutSpans()
          // 0  W2
 
          for (int i = row; i < row + rowspan - 1; i++) {
-            for (int j = col; j < col + colspan - 1; j++)
-               if (i > row + newColSpan - 1 || j > col + newRowSpan - 1)
+            for (int j = col; j < col + colspan - 1; j++) {
+               if (i > row + newColSpan - 1 || j > col + newRowSpan - 1) {
                   if (cell(i, j) == w) {
                      setCell(i, j, nullptr);
                   }
+               }
+            }
          }
 
          shrunk = true;
@@ -1224,9 +1227,8 @@ class GridLayout : public Layout
 };
 
 template <class GridLikeLayout, int LayoutType, int GridMode> GridLayout<GridLikeLayout, LayoutType, GridMode>::GridLayout(
-   const QWidgetList &wl, QWidget *p, QDesignerFormWindowInterface *fw, QWidget *lb) :
-   Layout(wl, p, fw, lb, LayoutInfo::Grid),
-   m_grid(static_cast<Grid::Mode>(GridMode))
+      const QWidgetList &wl, QWidget *p, QDesignerFormWindowInterface *fw, QWidget *lb)
+   : Layout(wl, p, fw, lb, LayoutInfo::Grid), m_grid(static_cast<Grid::Mode>(GridMode))
 {
 }
 
@@ -1427,4 +1429,3 @@ Layout *Layout::createLayout(const QWidgetList &widgets,  QWidget *parentWidget,
 }
 
 }   // end namespace qdesigner_internal
-
