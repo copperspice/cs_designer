@@ -1678,7 +1678,7 @@ QList<DomProperty *> QAbstractFormBuilder::computeProperties(QObject *obj)
          dom_prop = new DomProperty();
 
          if (prop.isFlagType()) {
-            csWarning(QCoreApplication::translate("QAbstractFormBuilder", "Flags property are not supported yet."));
+            csWarning(QCoreApplication::translate("QAbstractFormBuilder", "Flags property are not supported"));
          }
 
          if (prop.isEnumType()) {

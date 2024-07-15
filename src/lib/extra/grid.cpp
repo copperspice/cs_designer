@@ -81,7 +81,7 @@ bool Grid::fromVariantMap(const QVariantMap &vm)
       return false;
    }
    if (grid.m_deltaX == 0 || grid.m_deltaY == 0) {
-      qWarning("Attempt to set invalid grid with a spacing of 0.");
+      qWarning("Grid::fromVariantMap() Attempt to set invalid grid with a spacing of 0");
       return false;
    }
    *this = grid;

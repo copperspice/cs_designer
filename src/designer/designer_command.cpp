@@ -2039,7 +2039,8 @@ void ChangeLayoutItemGeometry::changeItemPosition(const QRect &g)
    delete item;
 
    if (!QLayoutSupport::removeEmptyCells(grid, g)) {
-      qWarning() << "ChangeLayoutItemGeometry::changeItemPosition: Nonempty cell at " <<  g << '.';
+      qWarning() << "ChangeLayoutItemGeometry::changeItemPosition() Unable to remove cell at location " << g
+             << ", contents was not empty";
    }
 
    grid->addWidget(m_widget, g.top(), g.left(), g.height(), g.width());

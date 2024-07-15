@@ -288,7 +288,7 @@ QPixmap NewFormWidget::formPreviewPixmap(const QString &fileName) const
       return rc;
    }
 
-   qWarning() << "The file " << fileName << " could not be opened: " << f.errorString();
+   qWarning() << "Unable to open " << fileName << ", " << f.errorString();
 
    return QPixmap();
 }

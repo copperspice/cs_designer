@@ -822,8 +822,8 @@ QWidget *QDesignerResource::create(DomUI *ui, QWidget *parentWidget)
          if (item->isPromoted() && !item->isContainer()) {
             item->setContainer(true);
 
-            qWarning("The main container is an unknown custom widget '%s'."
-               " Defaulting to a promoted instance of '%s', assuming container.",
+            qWarning("Main container is an unknown custom widget %s."
+               " Defaulting to a promoted instance of %s",
                csPrintable(item->name()), csPrintable(item->extends()));
          }
       }

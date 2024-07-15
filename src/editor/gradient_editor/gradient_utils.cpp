@@ -333,7 +333,7 @@ static QString styleSheetFillName(const QGradient &gradient)
          result += QLatin1String("qconicalgradient");
          break;
       default:
-         qWarning() << "QtGradientUtils::styleSheetFillName(): gradient type" << gradient.type() << "not supported!";
+         qWarning() << "QtGradientUtils::styleSheetFillName() Gradient type" << gradient.type() << "not supported";
          break;
    }
 
@@ -357,7 +357,7 @@ static QStringList styleSheetParameters(const QGradient &gradient)
             spread = QLatin1String("repeat");
             break;
          default:
-            qWarning() << "QtGradientUtils::styleSheetParameters(): gradient spread" << gradient.spread() << "not supported!";
+            qWarning() << "QtGradientUtils::styleSheetParameters() Gradient spread" << gradient.spread() << "not supported";
             break;
       }
       result << QLatin1String("spread:") + spread;
@@ -389,7 +389,7 @@ static QStringList styleSheetParameters(const QGradient &gradient)
          break;
       }
       default:
-         qWarning() << "QtGradientUtils::styleSheetParameters(): gradient type" << gradient.type() << "not supported!";
+         qWarning() << "QtGradientUtils::styleSheetParameters() Gradient type" << gradient.type() << "not supported";
          break;
    }
 

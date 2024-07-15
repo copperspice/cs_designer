@@ -955,7 +955,7 @@ QPixmap FormWindowManager::createPreviewPixmap() const
    QString errorMessage;
    const QPixmap pix = m_previewManager->createPreviewPixmap(fw, QString(), &errorMessage);
    if (pix.isNull() && !errorMessage.isEmpty()) {
-      qWarning("Preview pixmap creation failed: %s", csPrintable(errorMessage));
+      qWarning("FormWindowManager::createPreviewPixmap() Preview pixmap creation failed: %s", csPrintable(errorMessage));
    }
    return pix;
 }
@@ -1078,7 +1078,7 @@ QAction *FormWindowManager::action(Action action) const
          return m_actionShowFormWindowSettingsDialog;
    }
 
-   csWarning(QString("FormWindowManager::action: Unhandled enumeration value %1").formatArg(action));
+   qWarning("FormWindowManager::action() Unhandled enumeration value %d", action);
 
    return nullptr;
 }
@@ -1098,7 +1098,8 @@ QActionGroup *FormWindowManager::actionGroup(ActionGroup actionGroup) const
          return m_actionGroupPreviewInStyle;
    }
 
-   qWarning("FormWindowManager::actionGroup: Unhanlded enumeration value %d", actionGroup);
+   qWarning("FormWindowManager::actionGroup() Unhandled enumeration value %d", actionGroup);
+
    return nullptr;
 }
 

@@ -1642,13 +1642,13 @@ QString QtLocalePropertyManager::valueText(const QtProperty *property) const
    me->localeToIndex(loc.language(), loc.country(), &langIdx, &countryIdx);
 
    if (langIdx < 0) {
-      qWarning("QtLocalePropertyManager::valueText: Unknown language %d", loc.language());
+      qWarning("QtLocalePropertyManager::valueText() Unknown language %d", loc.language());
       return tr("<Invalid>");
    }
 
    const QString languageName = me->languageEnumNames().at(langIdx);
    if (countryIdx < 0) {
-      qWarning("QtLocalePropertyManager::valueText: Unknown country %d for %s", loc.country(), csPrintable(languageName));
+      qWarning("QtLocalePropertyManager::valueText() Unknown country %d for %s", loc.country(), csPrintable(languageName));
       return languageName;
    }
 

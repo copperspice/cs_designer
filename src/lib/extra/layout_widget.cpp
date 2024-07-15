@@ -397,7 +397,7 @@ static bool intValueToSheet(QDesignerPropertySheetExtension *sheet, const QStrin
    const int sheetIndex = sheet->indexOf(name);
 
    if (sheetIndex == -1) {
-      qWarning() << " LayoutProperties: Attempt to set property " << name << " that does not exist for the layout.";
+      qWarning() << "intValueToSheet() Unable to set property " << name << ", does not exist in the current layout";
       return false;
    }
 
@@ -523,7 +523,7 @@ QRect LayoutHelper::itemInfo(QLayout *lt, const QWidget *widget) const
    const int index = indexOf(lt, widget);
 
    if (index == -1) {
-      qWarning() << "LayoutHelper::itemInfo: " << widget << " not in layout " << lt;
+      qWarning() << "LayoutHelper::itemInfo() Widget " << widget << " does not exist in the current layout " << lt;
       return QRect(0, 0, 1, 1);
    }
 
@@ -606,7 +606,8 @@ void BoxLayoutHelper::replaceWidget(QLayout *lt, QWidget *before, QWidget *after
       }
    }
    if (!ok) {
-      qWarning() << "BoxLayoutHelper::replaceWidget : Unable to replace " << before << " by " << after << " in " << lt;
+      qWarning() << "BoxLayoutHelper::replaceWidget() Unable to replace " << before << " with " << after
+            << " in the current layout " << lt;
    }
 }
 
@@ -818,8 +819,9 @@ void GridLayoutState::applyToLayout(const QDesignerFormEditorInterface *core, QW
          const WidgetItemMap::const_iterator it = widgetItemMap.constFind(itemWidget);
 
          if (it == widgetItemMap.constEnd())
-            qFatal("GridLayoutState::applyToLayout: Attempt to apply to a layout that has a widget '%s'/'%s' added after saving the state.",
-               csPrintable(itemWidget->metaObject()->className()), csPrintable(itemWidget->objectName()) );
+            qFatal("GridLayoutState::applyToLayout() Unable to apply a layout which has a new widget "
+                  "added after saving the state  %s %s",
+                  csPrintable(itemWidget->metaObject()->className()), csPrintable(itemWidget->objectName()) );
 
          itemMap.insert(item, it.value());
 
@@ -1095,7 +1097,7 @@ void GridLayoutHelper::removeWidget(QLayout *lt, QWidget *widget)
    const int index = gridLayout->indexOf(widget);
 
   if (index == -1) {
-      qWarning() << "GridLayoutHelper::removeWidget : Attempt to remove " << widget <<  " which is not in the layout.";
+      qWarning() << "GridLayoutHelper::removeWidget() Unable to remove " << widget <<  ", not in the current layout";
       return;
    }
 
@@ -1136,7 +1138,8 @@ void GridLayoutHelper::replaceWidget(QLayout *lt, QWidget *before, QWidget *afte
    }
 
    if (!ok) {
-      qWarning() << "GridLayoutHelper::replaceWidget : Unable to replace " << before << " by " << after << " in " << lt;
+      qWarning() << "GridLayoutHelper::replaceWidget() Unable to replace " << before << " with " << after
+         << " in the current layout " << lt;
    }
 }
 
@@ -1240,7 +1243,7 @@ void FormLayoutHelper::removeWidget(QLayout *lt, QWidget *widget)
    const int index = formLayout->indexOf(widget);
 
    if (index == -1) {
-      qWarning() << "FormLayoutHelper::removeWidget : Attempt to remove " << widget <<  " which is not in the layout.";
+      qWarning() << "FormLayoutHelper::removeWidget() Unable to remove " << widget <<  ", not in the current layout";
       return;
    }
 
@@ -1285,7 +1288,8 @@ void FormLayoutHelper::replaceWidget(QLayout *lt, QWidget *before, QWidget *afte
       }
    }
    if (!ok) {
-      qWarning() << "FormLayoutHelper::replaceWidget : Unable to replace " << before << " by " << after << " in " << lt;
+      qWarning() << "FormLayoutHelper::replaceWidget() Unable to replace " << before << " with " << after
+            << " in the current layout " << lt;
    }
 }
 

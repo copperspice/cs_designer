@@ -66,8 +66,7 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
 {
    if (widgetName.isEmpty()) {
       //: Empty class name passed to widget factory method
-      qWarning() << QCoreApplication::translate("QFormBuilder",
-            "An empty class name was passed on to %1 (object name: '%2').").formatArgs(QString::fromUtf8(Q_FUNC_INFO), name);
+      qWarning("QFormBuilder::createWidget() Widget class name was empty for object: %s", csPrintable(name));
 
       return nullptr;
    }
@@ -128,17 +127,16 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
       const QString baseClassName = d->customWidgetBaseClass(widgetName);
 
       if (!baseClassName.isEmpty()) {
-         qWarning() << QCoreApplication::translate("QFormBuilder",
-               "QFormBuilder was unable to create a custom widget of the class '%1'; defaulting to base class '%2'.").formatArgs(widgetName,
-               baseClassName);
+         qWarning("QFormBuilder::createWidget() Unable to create a custom widget of the class %s, defaulting to base class",
+               csPrintable(baseClassName));
+
          return createWidget(baseClassName, parentWidget, name);
       }
    }
 
    if (formWidget == nullptr) {
       // nothing to do
-      qWarning() << QCoreApplication::translate("QFormBuilder",
-            "QFormBuilder was unable to create a widget of the class '%1'.").formatArg(widgetName);
+      qWarning("QFormBuilder::createWidget() Unable to create a widget of class %s", csPrintable(widgetName));
 
       return nullptr;
    }

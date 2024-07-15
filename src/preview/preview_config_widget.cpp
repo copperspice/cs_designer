@@ -144,7 +144,7 @@ void PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::addUserSkins
         if (fi.isDir() && fi.isReadable()) {
             m_ui.m_skinCombo->insertItem(m_browseSkinIndex++, fi.baseName(), QVariant(*it));
         } else {
-            qWarning() << "Unable to access the skin directory '" << *it << "'.";
+            qWarning() << "Unable to access the skin directory " << *it;
         }
     }
 }
@@ -188,7 +188,7 @@ void PreviewConfigurationWidget::PreviewConfigurationWidgetPrivate::setPreviewCo
        const QString deviceSkin = pc.deviceSkin();
        int skinIndex = deviceSkin.isEmpty() ? 0 : m_ui.m_skinCombo->findData(QVariant(deviceSkin));
        if (skinIndex == -1) {
-           qWarning() << "Unable to find skin '" << deviceSkin << "'.";
+           qWarning() << "Unable to find skin " << deviceSkin;
            skinIndex = 0;
        }
        m_ui.m_skinCombo->setCurrentIndex(skinIndex);

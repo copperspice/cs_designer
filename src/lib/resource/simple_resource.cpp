@@ -279,7 +279,7 @@ void QSimpleResource::handleDomCustomWidgets(const QDesignerFormEditorInterface 
       const QString customClassName = custom_widget->elementClass();
       const QString base_class = custom_widget->elementExtends();
 
-      qWarning("Base class %s of the custom widget class %s could not be found, defaulting to %s",
+      qWarning("QSimpleResource::handleDomCustomWidgets() Base class %s of the custom widget class %s could not be found, defaulting to %s",
          csPrintable(base_class), csPrintable(customClassName), csPrintable(fallBackBaseClass));
 
       custom_widget->setElementExtends(fallBackBaseClass);

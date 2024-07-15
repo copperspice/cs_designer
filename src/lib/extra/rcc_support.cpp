@@ -573,8 +573,10 @@ bool RCC_Support::addFile(const QString &alias, const RCCFileInfo &file)
    s->m_parent = parent;
 
    if (parent->m_children.contains(filename)) {
-      for (const QString &fileName : m_fileNames) {
-         qWarning("%s: Warning: potential duplicate alias detected: '%s'", csPrintable(fileName), csPrintable(filename));
+
+      for (const QString &item : m_fileNames) {
+         qWarning("RCC_Support::addFile() Potential duplicate alias detected between %s and %s",
+               csPrintable(item), csPrintable(filename));
       }
    }
 

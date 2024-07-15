@@ -210,8 +210,8 @@ void QtFullToolBarManagerPrivate::saveState(QDataStream &stream) const
       QToolBar *tb = itToolBar.key();
 
       if (tb->objectName().isEmpty()) {
-         qWarning("QtToolBarManager::saveState(): 'objectName' not set for QToolBar "
-            "%p '%s', using 'windowTitle' instead", tb, csPrintable(tb->windowTitle()));
+         qWarning("QtToolBarManager::saveState() No objectName was set for QToolBar "
+               "%s, using value for windowTitle", csPrintable(tb->windowTitle()));
 
          stream << tb->windowTitle();
       } else {
@@ -225,8 +225,8 @@ void QtFullToolBarManagerPrivate::saveState(QDataStream &stream) const
 
          if (action) {
             if (action->objectName().isEmpty()) {
-               qWarning("QtToolBarManager::saveState(): 'objectName' not set for QAction "
-                  "%p '%s', using 'text' instead", action, csPrintable(action->text()));
+               qWarning("QtToolBarManager::saveState() No objectName was set for QAction "
+                  "%s, using value for text", csPrintable(action->text()));
 
                stream << action->text();
             } else {
@@ -257,8 +257,9 @@ void QtFullToolBarManagerPrivate::saveState(QDataStream &stream) const
 
             if (action) {
                if (action->objectName().isEmpty()) {
-                  qWarning("QtToolBarManager::saveState(): 'objectName' not set for QAction "
-                     "%p '%s', using 'text' instead", action, csPrintable(action->text()));
+                  qWarning("QtToolBarManager::saveState() No objectName was set for QAction "
+                        "%s, using value for text", csPrintable(action->text()));
+
                   stream << action->text();
                } else {
                   stream << action->objectName();
@@ -382,8 +383,8 @@ QToolBar *QtFullToolBarManagerPrivate::findDefaultToolBar(const QString &objectN
       ++itToolBar;
    }
 
-   qWarning("QtToolBarManager::restoreState(): Unable to find a QToolBar named "
-      "'%s', trying to match using 'windowTitle' instead.", csPrintable(objectName));
+   qWarning("QtToolBarManager::findDefaultToolBar() Unable to find a QToolBar named "
+      "%s, trying to match using the value for windowTitle", csPrintable(objectName));
 
    itToolBar = defaultToolBars.constBegin();
    while (itToolBar != defaultToolBars.constEnd()) {
@@ -394,8 +395,9 @@ QToolBar *QtFullToolBarManagerPrivate::findDefaultToolBar(const QString &objectN
 
       ++itToolBar;
    }
-   qWarning("QtToolBarManager::restoreState(): Unable to find a QToolBar with "
-      "matching 'windowTitle' (looking for '%s').", csPrintable(objectName));
+
+   qWarning("QtToolBarManager::findDefaultToolBar() Unable to find a QToolBar which "
+         "matches the value for windowTitle, using %s", csPrintable(objectName));
 
    return nullptr;
 }
@@ -410,8 +412,9 @@ QAction *QtFullToolBarManagerPrivate::findAction(const QString &actionName) cons
          return action;
       }
    }
-   qWarning("QtToolBarManager::restoreState(): Unable to find a QAction named "
-      "'%s', trying to match using 'text' instead.", csPrintable(actionName));
+
+   qWarning("QtToolBarManager::findAction() Unable to find a QAction named "
+      "%s, trying to match using the value for text", csPrintable(actionName));
 
    itAction.toFront();
    while (itAction.hasNext()) {
@@ -421,8 +424,9 @@ QAction *QtFullToolBarManagerPrivate::findAction(const QString &actionName) cons
          return action;
       }
    }
-   qWarning("QtToolBarManager::restoreState(): Unable to find a QAction with "
-      "matching 'text' (looking for '%s').", csPrintable(actionName));
+
+   qWarning("QtToolBarManager::findAction() Unable to find a QAction with "
+         "matches the value for text, using %s", csPrintable(actionName));
 
    return nullptr;
 }

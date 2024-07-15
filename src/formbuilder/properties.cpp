@@ -86,7 +86,7 @@ QVariant domPropertyToVariant(QAbstractFormBuilder *afb, const QMetaObject &meta
 
          if (index == -1) {
             csWarning(QCoreApplication::translate("QFormBuilder",
-                  "Flag Property %1 could not be read.").formatArg(pname));
+                  "Flag Property %1 could not be read").formatArg(pname));
 
             return QVariant();
          }
