@@ -153,24 +153,6 @@ bool QDesignerFormBuilder::addItem(DomLayoutItem *ui_item, QLayoutItem *item, QL
    return QFormBuilder::addItem(ui_item, item, layout);
 }
 
-QIcon QDesignerFormBuilder::nameToIcon(const QString &filePath, const QString &qrcPath)
-{
-   (void) filePath;
-   (void) qrcPath;
-
-   qWarning() << "QDesignerFormBuilder::nameToIcon() is obsoleted";
-   return QIcon();
-}
-
-QPixmap QDesignerFormBuilder::nameToPixmap(const QString &filePath, const QString &qrcPath)
-{
-   (void) filePath;
-   (void) qrcPath;
-
-   qWarning() << "QDesignerFormBuilder::nameToPixmap() is obsoleted";
-   return QPixmap();
-}
-
 static bool readDomEnumerationValue(const DomProperty *p,
       const QDesignerPropertySheetExtension *sheet, QVariant &v)
 {

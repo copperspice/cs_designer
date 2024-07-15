@@ -179,7 +179,7 @@ class QAbstractFormBuilder
    typedef QPair<QString, QString> IconPaths;
 
    IconPaths iconPaths(const QIcon &) const;
-   IconPaths pixmapPaths(const QPixmap &) const;
+
    void setIconProperty(DomProperty &, const IconPaths &) const;
    void setPixmapProperty(DomProperty &, const IconPaths &) const;
    DomProperty *iconToDomProperty(const QIcon &) const;
@@ -187,8 +187,6 @@ class QAbstractFormBuilder
    static const DomResourcePixmap *domPixmap(const DomProperty *p);
    QIcon domPropertyToIcon(const DomResourcePixmap *);
    QIcon domPropertyToIcon(const DomProperty *p);
-   QPixmap domPropertyToPixmap(const DomResourcePixmap *p);
-   QPixmap domPropertyToPixmap(const DomProperty *p);
 
  private:
    static Qt::ToolBarArea toolbarAreaFromDOMAttributes(const DomPropertyHash &attributeMap);

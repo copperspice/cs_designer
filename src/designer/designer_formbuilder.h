@@ -89,11 +89,7 @@ class QDesignerFormBuilder: public QFormBuilder
    bool addItem(DomWidget *ui_widget, QWidget *widget, QWidget *parentWidget) override;
    bool addItem(DomLayoutItem *ui_item, QLayoutItem *item, QLayout *layout) override;
 
-   virtual QIcon nameToIcon(const QString &filePath, const QString &qrcPath);
-   virtual QPixmap nameToPixmap(const QString &filePath, const QString &qrcPath);
-
    void applyProperties(QObject *o, const QList<DomProperty *> &properties) override;
-
    void loadExtraInfo(DomWidget *ui_widget, QWidget *widget, QWidget *parentWidget) override;
 
    QtResourceSet *internalResourceSet() const {

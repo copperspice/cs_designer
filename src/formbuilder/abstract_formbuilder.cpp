@@ -1123,7 +1123,7 @@ QBrush QAbstractFormBuilder::setupBrush(DomBrush *brush)
    } else if (style == Qt::TexturePattern) {
       const DomProperty *texture = brush->elementTexture();
       if (texture && texture->kind() == DomProperty::Pixmap) {
-         br.setTexture(domPropertyToPixmap(texture));
+         br.setTexture(QPixmap());
       }
 
    } else {
@@ -1199,7 +1199,7 @@ DomBrush *QAbstractFormBuilder::saveBrush(const QBrush &br)
       const QPixmap pixmap = br.texture();
       if (!pixmap.isNull()) {
          DomProperty *p = new DomProperty;
-         setPixmapProperty(*p,  pixmapPaths(pixmap));
+         setPixmapProperty(*p, IconPaths());
          brush->setElementTexture(p);
       }
    } else {
@@ -2703,22 +2703,6 @@ QMetaEnum QAbstractFormBuilder::toolBarAreaMetaEnum()
    return metaEnum<QAbstractFormBuilderGadget>("toolBarArea");
 }
 
-QAbstractFormBuilder::IconPaths QAbstractFormBuilder::iconPaths(const QIcon &icon) const
-{
-   (void) icon;
-
-   qWarning() << "QAbstractFormBuilder::iconPaths() is obsoleted";
-   return IconPaths();
-}
-
-QAbstractFormBuilder::IconPaths QAbstractFormBuilder::pixmapPaths(const QPixmap &pixmap) const
-{
-   (void) pixmap;
-
-   qWarning() << "QAbstractFormBuilder::pixmapPaths() is obsoleted";
-   return IconPaths();
-}
-
 void QAbstractFormBuilder::setIconProperty(DomProperty &p, const IconPaths &ip) const
 {
    DomResourceIcon *dpi = new DomResourceIcon;
@@ -2744,15 +2728,6 @@ void QAbstractFormBuilder::setPixmapProperty(DomProperty &p, const IconPaths &ip
 
    p.setAttributeName(QFormBuilderStrings::instance().pixmapAttribute);
    p.setElementPixmap(pix);
-}
-
-DomProperty *QAbstractFormBuilder::iconToDomProperty(const QIcon &icon) const
-{
-   (void) icon;
-
-   qWarning() << "QAbstractFormBuilder::iconToDomProperty() is obsoleted";
-
-   return nullptr;
 }
 
 DomProperty *QAbstractFormBuilder::saveResource(const QVariant &v) const
@@ -2795,39 +2770,8 @@ const DomResourcePixmap *QAbstractFormBuilder::domPixmap(const DomProperty *p)
       default:
          break;
    }
+
    return nullptr;
-}
-
-QIcon QAbstractFormBuilder::domPropertyToIcon(const DomResourcePixmap *icon)
-{
-   (void) icon;
-
-   qWarning() << "QAbstractFormBuilder::domPropertyToIcon() is obsoleted";
-   return QIcon();
-}
-
-QIcon QAbstractFormBuilder::domPropertyToIcon(const DomProperty *p)
-{
-   (void) p;
-
-   qWarning() << "QAbstractFormBuilder::domPropertyToIcon() is obsoleted";
-   return QIcon();
-}
-
-QPixmap QAbstractFormBuilder::domPropertyToPixmap(const DomResourcePixmap *pixmap)
-{
-   (void) pixmap;
-
-   qWarning() << "QAbstractFormBuilder::domPropertyToPixmap() is obsoleted";
-   return QPixmap();
-}
-
-QPixmap QAbstractFormBuilder::domPropertyToPixmap(const DomProperty *p)
-{
-   (void) p;
-
-   qWarning() << "QAbstractFormBuilder::domPropertyToPixmap() is obsoleted";
-   return QPixmap();
 }
 
 QString QAbstractFormBuilder::errorString() const
