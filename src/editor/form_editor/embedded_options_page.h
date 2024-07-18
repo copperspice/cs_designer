@@ -85,6 +85,6 @@ class EmbeddedOptionsPage : public QDesignerOptionsPageInterface
    QPointer<EmbeddedOptionsControl> m_embeddedOptionsControl;
 };
 
-}   // end namespace - qdesigner_internal
+}   // end namespace
 
 #endif

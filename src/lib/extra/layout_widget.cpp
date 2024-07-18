@@ -874,8 +874,11 @@ void GridLayoutState::insertRow(int row)
       const int topRow = it.value().y();
       if (topRow >= row) {
          it.value().translate(0, 1);
-      } else {  //Over  it: Does it span it -> widen?
+
+      } else {
+         // Over  it: Does it span it -> widen?
          const int rowSpan = it.value().height();
+
          if (rowSpan > 1 && topRow + rowSpan > row) {
             it.value().setHeight(rowSpan + 1);
          }
@@ -908,7 +911,7 @@ void GridLayoutState::insertColumn(int column)
 // 'EF.G.'           'EFG'
 bool GridLayoutState::simplify(const QRect &rect, bool testOnly)
 {
-   // figure out free rows/columns.
+   // figure out free rows/columns
    QVector<bool> occupiedRows(rowCount, false);
    QVector<bool> occupiedColumns(colCount, false);
 
@@ -1234,7 +1237,7 @@ QRect FormLayoutHelper::itemInfo(QLayout *lt, int index) const
 
 void FormLayoutHelper::insertWidget(QLayout *lt, const QRect &info, QWidget *w)
 {
-   QDesignerWidgetItemInstaller wii; // Make sure we use QDesignerWidgetItem.
+   QDesignerWidgetItemInstaller wii;
    QFormLayout *formLayout = dynamic_cast<QFormLayout *>(lt);
 
    Q_ASSERT(formLayout);

@@ -90,13 +90,12 @@ class MetaDataBase: public QDesignerMetaDataBaseInterface
    QHash<QObject *, MetaDataBaseItem *> m_items;
 };
 
-// promotion convenience
 bool promoteWidget(QDesignerFormEditorInterface *core, QWidget *widget, const QString &customClassName);
 void demoteWidget(QDesignerFormEditorInterface *core, QWidget *widget);
 bool isPromoted(QDesignerFormEditorInterface *core, QWidget *w);
 QString promotedCustomClassName(QDesignerFormEditorInterface *core, QWidget *w);
 QString promotedExtends(QDesignerFormEditorInterface *core, QWidget *w);
 
-} // end namespace qdesigner_internal
+}  // end namespace qdesigner_internal
 
 #endif

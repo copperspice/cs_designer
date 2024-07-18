@@ -101,4 +101,4 @@ class QDesignerSharedSettings
 
 } // namespace qdesigner_internal
 
-#endif // SHARED_SETTINGS_H
+#endif

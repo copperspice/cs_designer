@@ -67,7 +67,6 @@ class FormWindow: public FormWindowBase
 
    QDesignerFormWindowCursorInterface *cursor() const override;
 
-   // Overwritten: FormWindowBase
    QWidget *formContainer() const override;
 
    int toolCount() const override;

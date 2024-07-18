@@ -254,10 +254,6 @@ void ModifyConnectionCommand::undo()
    m_conn->setSlot(m_oldSlot);
 }
 
-/*******************************************************************************
-** SignalSlotEditor
-*/
-
 SignalSlotEditor::SignalSlotEditor(QDesignerFormWindowInterface *form_window, QWidget *parent) :
    ConnectionEdit(parent, form_window),
    m_form_window(form_window),

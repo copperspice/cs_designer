@@ -1395,7 +1395,7 @@ QWidgetList GridLayout<GridLikeLayout, LayoutType, GridMode>::buildGrid(const QW
    return ordered;
 }
 
-} // end namespace anonymous
+}  // end namespace anonymous
 
 Layout *Layout::createLayout(const QWidgetList &widgets,  QWidget *parentWidget,
       QDesignerFormWindowInterface *fw, QWidget *layoutBase, LayoutInfo::Type layoutType)

@@ -29,7 +29,7 @@ namespace qdesigner_internal {
 
 struct DPI_Entry;
 
-/* Let the user choose a DPI settings */
+// Let the user choose a DPI settings
 class DPI_Chooser : public QWidget
 {
    Q_DISABLE_COPY(DPI_Chooser)

@@ -144,7 +144,6 @@ QVariant domPropertyToVariant(QAbstractFormBuilder *afb, const QMetaObject &meta
 // Convert simple DOM types
 QVariant domPropertyToVariant(const DomProperty *p)
 {
-   // requires non-const virtual nameToIcon, etc.
    switch (p->kind()) {
       case DomProperty::Bool:
          return QVariant(p->elementBool() == QFormBuilderStrings::instance().trueValue);

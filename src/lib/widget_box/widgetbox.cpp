@@ -89,7 +89,7 @@ WidgetBox::WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent, Qt::Wi
    list->setMargin(0);
    list->setSpacing(0);
 
-   // Prevent the filter from grabbing focus since Our view has Qt::NoFocus
+   // Prevent the filter from grabbing focus since our view has Qt::NoFocus
    QToolBar *toolBar = new QToolBar(this);
 
    QLineEdit *filterWidget = new WidgetBoxFilterLineEdit(toolBar);

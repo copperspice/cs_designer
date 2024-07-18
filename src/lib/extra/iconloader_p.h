@@ -30,6 +30,6 @@ QIcon createIconSet(const QString &name);
 QIcon emptyIcon();
 QIcon csLogoIcon();
 
-} //   end namespace - qdesigner_internal
+}   // end namespace - qdesigner_internal
 
 #endif

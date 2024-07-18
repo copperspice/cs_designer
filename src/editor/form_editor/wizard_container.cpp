@@ -132,7 +132,7 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
    const bool needsShuffle = (index == 0 && newId < 0) || (index > 0 && pageIdList.at(index - 1) == newId);
 
    if (needsShuffle) {
-      // Create a gap by shuffling pages
+      // create a gap by shuffling pages
       WizardPageList pageList;
       pageList.push_back(newPage);
 
@@ -150,10 +150,11 @@ void QWizardContainer::insertWidget(int index, QWidget *widget)
       }
 
    } else {
-      // Gap found, just insert
+      // gap found, just insert
       m_wizard->setPage(newId, newPage);
    }
-   // Might be at -1 after adding the first page
+
+   // might be at -1 after adding the first page
    setCurrentIndex(index);
 }
 

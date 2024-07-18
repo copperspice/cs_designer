@@ -449,7 +449,7 @@ class PropertySheetKeySequenceValue : public PropertySheetTranslatableData
    QKeySequence::StandardKey m_standardKey;
 };
 
-} // end namespace qdesigner_internal
+}  // end namespace qdesigner_internal
 
 
 CS_DECLARE_METATYPE(qdesigner_internal::PropertySheetEnumValue)

@@ -87,8 +87,10 @@ QVariant QResourceBuilder::loadResource(const QDir &workingDirectory, const DomP
                return QVariant::fromValue(QIcon::fromTheme(dpi->attributeTheme()));
             }
 
-         } // non-empty theme
-         if (const int flags = iconStateFlags(dpi)) { // new, post 4.4 format
+         }
+
+         // non-empty theme
+         if (const int flags = iconStateFlags(dpi)) {
             QIcon icon;
 
             if (flags & NormalOff) {

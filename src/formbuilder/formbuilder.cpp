@@ -65,7 +65,7 @@ QWidget *QFormBuilder::create(DomWidget *ui_widget, QWidget *parentWidget)
 QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWidget, const QString &name)
 {
    if (widgetName.isEmpty()) {
-      //: Empty class name passed to widget factory method
+      // empty class name passed to widget factory method
       qWarning("QFormBuilder::createWidget() Widget class name was empty for object: %s", csPrintable(name));
 
       return nullptr;
@@ -85,7 +85,7 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
       parentWidget = nullptr;
    }
 
-   // ### special-casing for Line (QFrame), fix for 4.2
+   // special-casing for Line (QFrame)
    do {
       if (widgetName == QFormBuilderStrings::instance().lineClass) {
          formWidget = new QFrame(parentWidget);

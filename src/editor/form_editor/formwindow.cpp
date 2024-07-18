@@ -560,7 +560,7 @@ void FormWindow::handleClickSelection(QWidget *managedWidget, unsigned mouseMode
 
    const bool selected = isWidgetSelected(managedWidget);
 
-   // // toggle selection state of widget
+   // toggle selection state of widget
    if (mouseMode & ToggleSelectionModifier) {
       selectWidget(managedWidget, ! selected);
       return;
@@ -1545,13 +1545,11 @@ QRect ArrowKeyOperation::apply(const QRect &rect) const
    return retval;
 }
 
-// ArrowKeyPropertyHelper: Applies a struct ArrowKeyOperation
-// (stored as new value) to a list of widgets using to calculate the
-// changed geometry of the widget in setValue(). Thus, the 'newValue'
-// of the property command is the relative move distance, which is the same
-// for all widgets (although resulting in different geometries for the widgets).
-// The command merging can then work as it would when applying the same text
-// to all QLabels.
+// ArrowKeyPropertyHelper: Applies a struct ArrowKeyOperation (stored as new value) to a list of
+// widgets using to calculate the changed geometry of the widget in setValue(). Thus, the 'newValue'
+// of the property command is the relative move distance, which is the same for all widgets
+// (although resulting in different geometries for the widgets). The command merging can then work
+// as it would when applying the same text to all QLabels.
 
 class ArrowKeyPropertyHelper : public PropertyHelper
 {
@@ -1575,8 +1573,7 @@ PropertyHelper::Value ArrowKeyPropertyHelper::setValue(QDesignerFormWindowInterf
 }
 
 // ArrowKeyPropertyCommand: Helper factory overwritten to create
-// ArrowKeyPropertyHelper and a merge operation that merges values of
-// the same direction.
+// ArrowKeyPropertyHelper and a merge operation that merges values of the same direction.
 class ArrowKeyPropertyCommand: public SetPropertyCommand
 {
  public:

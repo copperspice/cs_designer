@@ -560,10 +560,7 @@ void QDesignerPluginManagerPrivate::addCustomWidgets(QObject *o,
    }
 }
 
-
-// ---------------- QDesignerPluginManager
-// As of 4.4, the header will be distributed with the Eclipse plugin.
-
+// header will be distributed with the Eclipse plugin.
 QDesignerPluginManager::QDesignerPluginManager(QDesignerFormEditorInterface *core) :
    QObject(core), m_d(new QDesignerPluginManagerPrivate(core))
 {

@@ -62,7 +62,6 @@ static bool ask(QWidget *parent, QDesignerDialogGuiInterface *dlgui, const QStri
          QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes;
 }
 
-// ------------ EmbeddedOptionsControlPrivate
 class EmbeddedOptionsControlPrivate
 {
  public:
@@ -219,8 +218,7 @@ void EmbeddedOptionsControlPrivate::slotEdit()
    }
 
    // Edit the profile, compile a list of existing names
-   // excluding current one. re-insert if changed,
-   // re-sort if name changed.
+   // excluding current one. re-insert if changed, re-sort if name changed.
    const DeviceProfile oldProfile = m_sortedProfiles.at(index);
 
    const QString oldName = oldProfile.name();

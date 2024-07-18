@@ -50,7 +50,8 @@ bool PreviewMdiArea::viewportEvent (QEvent *event)
 
    p.fillRect(rect(), paintWidget->palette().color(backgroundRole()).dark());
    p.setPen(QPen(Qt::white));
-   //: Palette editor background
+
+   // Palette editor background
    p.drawText(0, height() / 2,  width(), height(), Qt::AlignHCenter,
       QCoreApplication::translate("qdesigner_internal::PreviewMdiArea", "The moose in the noose\nate the goose who was loose."));
    return true;
@@ -103,5 +104,3 @@ QMdiSubWindow *PreviewFrame::ensureMdiSubWindow()
 }
 
 }   // end namespace
-
-

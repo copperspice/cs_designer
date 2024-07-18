@@ -243,7 +243,7 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
    QDesignerCustomWidgetInterface *factory = it.value();
    QWidget *rc = factory->createWidget(parentWidget);
 
-   // shouldn't happen
+   // should not happen
    if (! rc) {
       *creationError = true;
       csWarning(tr("Custom widget factory registered for widgets of class %1 returned nullptr").formatArg(className));
@@ -260,8 +260,7 @@ QWidget  *WidgetFactory::createCustomWidget(const QString &className, QWidget *p
       if (widgetInfoIndex != -1) {
          if (wdb->item(widgetInfoIndex)->extends().isEmpty()) {
             const QDesignerMetaObjectInterface *mo = core()->introspection()->metaObject(rc)->superClass();
-            // If we hit on a 'Q3DesignerXXWidget' that claims to be a 'Q3XXWidget', step
-            // over.
+            // If we hit on a 'Q3DesignerXXWidget' that claims to be a 'Q3XXWidget', step over.
             if (mo && mo->className() == className) {
                mo = mo->superClass();
             }

@@ -861,7 +861,7 @@ QWidget *QDesignerResource::create(DomWidget *ui_widget, QWidget *parentWidget)
       return nullptr;
    }
 
-   // ### generalize using the extension manager
+   // generalize using the extension manager
    QDesignerMenu *menu       = dynamic_cast<QDesignerMenu *>(w);
    QDesignerMenuBar *menuBar = dynamic_cast<QDesignerMenuBar *>(w);
 

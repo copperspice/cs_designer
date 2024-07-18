@@ -43,7 +43,6 @@
 
 namespace qdesigner_internal {
 
-// ----------------------------------------------------------
 WidgetDataBaseItem::WidgetDataBaseItem(const QString &name, const QString &group)
    : m_name(name), m_group(group), m_compat(0), m_container(0), m_custom(0), m_promoted(0)
 {
@@ -797,7 +796,6 @@ QString buildIncludeFile(QString includeFile, IncludeType includeType)
 QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInterface *db, const QString &className,
       const QString &group, const QString &baseClassName, const QString &includeFile, bool promoted, bool custom)
 {
-   // Check
    if (className.isEmpty() || baseClassName.isEmpty()) {
       csWarning("appendDerived() Called with an empty class name " + className + ", base class " + baseClassName);
 
@@ -869,7 +867,8 @@ WidgetDataBaseItemList promotionCandidates(const QDesignerWidgetDataBaseInterfac
    const QString &baseClassName)
 {
    WidgetDataBaseItemList rc;
-   // find existing promoted widgets deriving from base.
+
+   // find existing promoted widgets deriving from base
    const int count = db->count();
 
    for (int i = 0; i < count; ++i) {
@@ -880,6 +879,5 @@ WidgetDataBaseItemList promotionCandidates(const QDesignerWidgetDataBaseInterfac
    }
    return rc;
 }
+
 } // namespace qdesigner_internal
-
-

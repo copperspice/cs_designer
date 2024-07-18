@@ -35,7 +35,6 @@ namespace Ui {
 class AppearanceOptionsWidget;
 }
 
-/* AppearanceOptions data */
 struct AppearanceOptions {
    AppearanceOptions();
    bool equals(const AppearanceOptions &) const;

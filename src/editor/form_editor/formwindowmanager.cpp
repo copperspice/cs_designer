@@ -58,7 +58,7 @@
 #include <QSplitter>
 #include <QUndoGroup>
 
-static inline QString whatsThisFrom(const QString &str)   /// ### implement me!
+static inline QString whatsThisFrom(const QString &str)   /// ### implement me
 {
    return str;
 }
@@ -1101,7 +1101,6 @@ QActionGroup *FormWindowManager::actionGroup(ActionGroup actionGroup) const
       case QDesignerFormWindowManagerInterface::StyledPreviewActionGroup:
 
          if (m_actionGroupPreviewInStyle == nullptr) {
-            // Wish we could make the 'this' pointer mutable ;-)
             QObject *parent = const_cast<FormWindowManager *>(this);
 
             m_actionGroupPreviewInStyle = new PreviewActionGroup(m_core, parent);

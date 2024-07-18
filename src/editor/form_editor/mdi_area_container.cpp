@@ -156,7 +156,9 @@ void QMdiAreaPropertySheet::setProperty(int index, const QVariant &value)
          }
          break;
 
-      case MdiAreaSubWindowTitle:        // Forward to window title of subwindow
+      case MdiAreaSubWindowTitle:
+         // Forward to window title of subwindow
+
          if (QDesignerPropertySheetExtension *cws = currentWindowSheet()) {
             const int titleIndex = cws->indexOf(m_windowTitleProperty);
             cws->setProperty(titleIndex, value);
@@ -180,7 +182,9 @@ bool QMdiAreaPropertySheet::reset(int index)
          setChanged(index, false);
          break;
 
-      case MdiAreaSubWindowTitle:        // Forward to window title of subwindow
+      case MdiAreaSubWindowTitle:
+         // Forward to window title of subwindow
+
          if (QDesignerPropertySheetExtension *cws = currentWindowSheet()) {
             const int titleIndex = cws->indexOf(m_windowTitleProperty);
             rc = cws->reset(titleIndex);

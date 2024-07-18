@@ -26,8 +26,7 @@ class QDesignerFormEditorInterface;
 
 namespace qdesigner_internal {
 
-/* PreviewActionGroup: To be used as a submenu for 'Preview in...'
- * Offers a menu of styles and device profiles. */
+// used as a submenu for 'Preview in...', offers a menu of styles and device profiles.
 
 class PreviewActionGroup : public QActionGroup
 {

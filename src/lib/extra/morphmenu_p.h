@@ -28,7 +28,7 @@ class QMenu;
 
 namespace qdesigner_internal {
 
-/* Conveniene morph menu that acts on a single widget. */
+//  morph menu that acts on a single widget.
 class MorphMenu : public QObject
 {
    Q_DISABLE_COPY(MorphMenu)

@@ -521,7 +521,7 @@ QAction *QDesignerActions::createRecentFilesMenu()
    QMenu *menu = new QMenu;
    QAction *action;
 
-   // Need to insert this into the QAction
+   // insert each file as a QAction
    for (int i = 0; i < MAX_RECENT_FILES; ++i) {
       action = new QAction(this);
       action->setVisible(false);
@@ -534,6 +534,7 @@ QAction *QDesignerActions::createRecentFilesMenu()
 
    updateRecentFileActions();
 
+   // add clear
    menu->addSeparator();
 
    action = new QAction(QIcon::fromTheme("edit-clear"), tr("Clear &Menu"), this);
@@ -1116,7 +1117,6 @@ void QDesignerActions::updateRecentFileActions()
       recentFilesActs[j]->setVisible(false);
    }
 
-   // If there's been a change, right it back
    if (originalSize != files.size()) {
       m_settings.setRecentFilesList(files);
    }

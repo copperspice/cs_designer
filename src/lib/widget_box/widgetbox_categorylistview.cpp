@@ -181,8 +181,7 @@ QDesignerWidgetBoxInterface::Category WidgetBoxCategoryModel::category() const
 
 bool WidgetBoxCategoryModel::removeCustomWidgets()
 {
-   // Typically, we are a whole category of custom widgets, so, remove all
-   // and do reset.
+   // Typically, we are a whole category of custom widgets, so, remove all and do reset.
    bool changed = false;
 
    for (WidgetBoxCategoryEntrys::iterator it = m_items.begin(); it != m_items.end();) {
@@ -399,7 +398,6 @@ QWidget *WidgetBoxCategoryEntryDelegate::createEditor(QWidget *parent,
    return result;
 }
 
-// ----------------------  WidgetBoxCategoryListView
 WidgetBoxCategoryListView::WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget *parent)
    : QListView(parent), m_proxyModel(new QSortFilterProxyModel(this)),
      m_model(new WidgetBoxCategoryModel(core, this))
@@ -541,5 +539,5 @@ bool WidgetBoxCategoryListView::removeCustomWidgets()
 {
    return m_model->removeCustomWidgets();
 }
-}  // namespace qdesigner_internal
 
+}  // namespace qdesigner_internal

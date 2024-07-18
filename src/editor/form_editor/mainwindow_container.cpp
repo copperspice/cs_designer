@@ -59,7 +59,6 @@ void QMainWindowContainer::setCurrentIndex(int index)
 }
 
 namespace {
-// Pair of <area,break_before>
 typedef QPair<Qt::ToolBarArea, bool> ToolBarData;
 
 ToolBarData toolBarData(QToolBar *toolBar)
@@ -95,14 +94,14 @@ Qt::DockWidgetArea dockWidgetArea(QDockWidget *dockWidget)
 
    return Qt::LeftDockWidgetArea;
 }
-}
+
+}   // end namespace
 
 void QMainWindowContainer::addWidget(QWidget *widget)
 {
    // remove all the occurrences of widget
    m_widgets.removeAll(widget);
 
-   // the
    if (QToolBar *toolBar = dynamic_cast<QToolBar *>(widget)) {
       m_widgets.append(widget);
       const ToolBarData data = toolBarData(toolBar);

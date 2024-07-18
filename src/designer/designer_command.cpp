@@ -3208,8 +3208,8 @@ bool MorphLayoutCommand::init(QWidget *w, int newType)
 
    m_layoutBase = w;
    m_newType = newType;
-   // Find all managed widgets
 
+   // find all managed widgets
    m_widgets.clear();
 
    const QLayout *layout = LayoutInfo::managedLayout(fw->core(), w);

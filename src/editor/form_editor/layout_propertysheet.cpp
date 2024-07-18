@@ -52,7 +52,7 @@ static const QString sizeConstraint                  = "sizeConstraint";
 namespace {
 enum LayoutPropertyType {
    LayoutPropertyNone,
-   LayoutPropertyMargin, // Deprecated
+   LayoutPropertyMargin,          // Deprecated
    LayoutPropertyLeftMargin,
    LayoutPropertyTopMargin,
    LayoutPropertyRightMargin,

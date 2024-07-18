@@ -1151,8 +1151,8 @@ void QtToolBarDialogPrivate::fillNew()
 
       ui.actionTree->setItemExpanded(categoryItem, true);
    }
-   //ui.actionTree->sortItems(0, Qt::AscendingOrder);
 
+   // ui.actionTree->sortItems(0, Qt::AscendingOrder);
 
    auto toolBars = toolBarManager->toolBarsActions();
    auto it       = toolBars.constBegin();
@@ -1607,8 +1607,8 @@ void QtToolBarDialogPrivate::toolBarRenamed(QListWidgetItem *item)
    }
 
    tbItem->setToolBarName(item->text());
-   //ui.toolBarList->sortItems();
 
+   // ui.toolBarList->sortItems();
 }
 
 void QtToolBarDialogPrivate::currentActionChanged(QTreeWidgetItem *current)

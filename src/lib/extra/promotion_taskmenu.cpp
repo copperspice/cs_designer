@@ -151,9 +151,8 @@ PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDe
 
    QMenu *candidatesMenu = new QMenu();
 
-   // Create a sub menu
+   // Create a sub menu, set up actions and map class names
 
-   // Set up actions and map class names
    for (const auto item : candidates) {
       const QString customClassName = item->name();
       QAction *action = new QAction(customClassName, this);

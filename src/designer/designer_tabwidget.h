@@ -48,8 +48,8 @@ class QTabWidgetEventFilter : public QObject
    // Install helper on QTabWidget
    static void install(QTabWidget *tabWidget);
    static QTabWidgetEventFilter *eventFilterOf(const QTabWidget *tabWidget);
-   // Convenience to add a menu on a tackedWidget
 
+   // add a menu on a tackedWidget
    static QMenu *addTabWidgetContextMenuActions(const QTabWidget *tabWidget, QMenu *popup);
 
    // Add context menu and return page submenu or 0.

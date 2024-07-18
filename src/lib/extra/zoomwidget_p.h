@@ -32,7 +32,7 @@ class QMenu;
 
 namespace qdesigner_internal {
 
-// A checkable zoom menu action group. Operates in percent.
+// checkable zoom menu action group. Operates in percent.
 
 class ZoomMenu : public QObject
 {
@@ -82,12 +82,11 @@ class ZoomView : public QGraphicsView
  public:
    ZoomView(QWidget *parent = nullptr);
 
-   /*  Zoom in percent (for easily implementing menus) and qreal zoomFactor
-    * in sync */
+   // Zoom in percent (for easily implementing menus) and qreal zoomFactor in sync
    int zoom() const; // in percent
    qreal zoomFactor() const;
 
-   // Zoom Menu on QGraphicsView.
+   // Zoom Menu on QGraphicsView
    bool isZoomContextMenuEnabled() const;
    void setZoomContextMenuEnabled(bool e);
 
@@ -178,8 +177,7 @@ class ZoomWidget : public ZoomView
       return m_proxy;
    }
 
-   /* Enable the zoom Menu on the Widget (as opposed ZoomView's menu which
-    * is on the canvas). */
+   // Enable the zoom Menu on the Widget (as opposed ZoomView's menu which is on the canvas)
    bool isWidgetZoomContextMenuEnabled() const;
    void setWidgetZoomContextMenuEnabled(bool e);
 
@@ -196,7 +194,8 @@ class ZoomWidget : public ZoomView
 
    // Overwritten from ZoomView
    void applyZoom() override;
-   // Overwrite to actually perform a resize. This is required if we are in a layout. Default does resize().
+
+   // Overwrite to perform a resize, required if we are in a layout. Default does resize().
    virtual void doResize(const QSize &s);
 
  private:

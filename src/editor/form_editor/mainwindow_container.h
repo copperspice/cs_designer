@@ -59,7 +59,7 @@ class QMainWindowContainer: public QObject, public QDesignerContainerExtension
 };
 
 typedef ExtensionFactory<QDesignerContainerExtension, QMainWindow, QMainWindowContainer> QMainWindowContainerFactory;
-}  // namespace qdesigner_internal
 
+}  // namespace qdesigner_internal
 
 #endif

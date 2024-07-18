@@ -146,7 +146,8 @@ void ZoomView::setZoom(int percent)
    m_zoomFactor = static_cast<qreal>(m_zoom) / hundred;
 
    applyZoom();
-   if (m_zoomMenu) { // Do not force them into existence
+   if (m_zoomMenu) {
+      // Do not force them into existence
       m_zoomMenu->setZoom(m_zoom);
    }
 
@@ -382,7 +383,7 @@ void ZoomWidget::resizeToWidgetSize()
    if (hasMaximumSize) {
       setMaximumSize(viewMaximumSize);
    }
-   // now resize
+
    doResize(viewSize);
    m_viewResizeBlocked = false;
 }

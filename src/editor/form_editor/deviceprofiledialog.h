@@ -34,7 +34,7 @@ namespace qdesigner_internal {
 
 class DeviceProfile;
 
-/* DeviceProfileDialog: Widget to edit system settings for embedded design */
+// widget to edit system settings for embedded design
 class DeviceProfileDialog : public QDialog
 {
    CS_OBJECT(DeviceProfileDialog)

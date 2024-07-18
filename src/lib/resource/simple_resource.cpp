@@ -271,7 +271,8 @@ void QSimpleResource::handleDomCustomWidgets(const QDesignerFormEditorInterface 
          return;
       }
    }
-   // Oops, there are classes left whose base class could not be found.
+
+   // There are classes left whose base class could not be found
    // Default them to QWidget with warnings.
    const QString fallBackBaseClass = "QWidget";
 
@@ -287,11 +288,9 @@ void QSimpleResource::handleDomCustomWidgets(const QDesignerFormEditorInterface 
       custom_widget->setElementExtends(fallBackBaseClass);
    }
 
-   // One more pass.
+   // One more pass
    addCustomWidgetsToWidgetDatabase(core, custom_widget_list);
 }
-
-// ------------ FormBuilderClipboard
 
 FormBuilderClipboard::FormBuilderClipboard(QWidget *w)
 {
