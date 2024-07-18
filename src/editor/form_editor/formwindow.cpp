@@ -64,7 +64,6 @@
 #include <QBuffer>
 #include <QButtonGroup>
 #include <QClipboard>
-#include <QDebug>
 #include <QDockWidget>
 #include <QGroupBox>
 #include <QMenu>

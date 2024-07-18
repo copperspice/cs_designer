@@ -31,7 +31,6 @@
 
 #include <QApplication>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QMenu>
 #include <QUndoCommand>
 

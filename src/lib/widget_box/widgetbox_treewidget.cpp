@@ -39,6 +39,8 @@
 #include <QHeaderView>
 #include <QMenu>
 #include <QTimer>
+#include <QTreeWidgetItem>
+
 static const QString categoryElementC        = "category";
 static const QString categoryEntryElementC   = "categoryentry";
 static const QString customValueC            = "custom";

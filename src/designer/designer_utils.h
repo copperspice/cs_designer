@@ -23,14 +23,13 @@
 #include <abstract_formwindow.h>
 #include <utils.h>
 
+#include <QDebug>
 #include <QIcon>
 #include <QMainWindow>
 #include <QMap>
 #include <QPixmap>
 #include <QSharedDataPointer>
 #include <QVariant>
-
-class QDebug;
 
 namespace qdesigner_internal {
 

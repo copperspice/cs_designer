@@ -38,7 +38,6 @@
 
 #include <QAction>
 #include <QApplication>
-#include <QDebug>
 #include <QDialog>
 #include <QLayout>
 #include <QPushButton>
