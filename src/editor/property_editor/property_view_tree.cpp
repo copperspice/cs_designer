@@ -89,12 +89,14 @@ class QtTreePropertyBrowserPrivate
    QMap<QtBrowserItem *, QColor> m_indexToBackgroundColor;
 
    QtPropertyEditorView *m_treeWidget;
+   class QtPropertyEditorDelegate *m_delegate;
+
+   QtTreePropertyBrowser::ResizeMode m_resizeMode;
 
    bool m_headerVisible;
-   QtTreePropertyBrowser::ResizeMode m_resizeMode;
-   class QtPropertyEditorDelegate *m_delegate;
    bool m_markPropertiesWithoutValue;
    bool m_browserChangedBlocked;
+
    QIcon m_expandIcon;
 };
 
