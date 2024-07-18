@@ -59,10 +59,10 @@ class QDesignerFormBuilder: public QFormBuilder
 
    // Create a preview widget (for integrations) or return 0. The widget has to be embedded into a main window.
    // Experimental, depending on script support.
-   static QWidget *createPreview(const QDesignerFormWindowInterface *fw, const QString &styleName /* ="" */,
-      const QString &appStyleSheet  /* ="" */,
-      const DeviceProfile &deviceProfile,
-      QString *errorMessage);
+
+   static QWidget *createPreview(const QDesignerFormWindowInterface *fw, const QString &styleName,
+      const QString &appStyleSheet, const DeviceProfile &deviceProfile, QString *errorMessage);
+
    // Convenience that pops up message boxes in case of failures.
    static QWidget *createPreview(const QDesignerFormWindowInterface *fw, const QString &styleName = QString());
 

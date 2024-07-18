@@ -129,13 +129,15 @@ class FormWindow: public FormWindowBase
    void raiseChildSelections(QWidget *w);
    void raiseSelection(QWidget *w);
 
-   inline const QList<QWidget *> &widgets() const {
+   const QList<QWidget *> &widgets() const {
       return m_widgets;
    }
-   inline int widgetCount() const {
+
+   int widgetCount() const {
       return m_widgets.count();
    }
-   inline QWidget *widgetAt(int index) const {
+
+   QWidget *widgetAt(int index) const {
       return m_widgets.at(index);
    }
 

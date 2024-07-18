@@ -257,7 +257,7 @@ class QLayoutWidget: public QWidget
    int layoutBottomMargin() const;
    void setLayoutBottomMargin(int layoutMargin);
 
-   inline QDesignerFormWindowInterface *formWindow() const    {
+   QDesignerFormWindowInterface *formWindow() const    {
       return m_formWindow;
    }
 

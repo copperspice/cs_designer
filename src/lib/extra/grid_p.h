@@ -39,7 +39,7 @@ class Grid
    void addToVariantMap(QVariantMap &vm, bool forceKeys = false) const;
    QVariantMap toVariantMap(bool forceKeys = false) const;
 
-   inline bool visible() const   {
+   bool visible() const   {
       return m_visible;
    }
 
@@ -47,7 +47,7 @@ class Grid
       m_visible = visible;
    }
 
-   inline bool snapX() const     {
+   bool snapX() const     {
       return m_snapX;
    }
 
@@ -55,21 +55,23 @@ class Grid
       m_snapX = snap;
    }
 
-   inline bool snapY() const     {
+   bool snapY() const     {
       return m_snapY;
    }
+
    void setSnapY(bool snap)      {
       m_snapY = snap;
    }
 
-   inline int deltaX() const     {
+   int deltaX() const     {
       return m_deltaX;
    }
+
    void setDeltaX(int dx)        {
       m_deltaX = dx;
    }
 
-   inline int deltaY() const     {
+   int deltaY() const     {
       return m_deltaY;
    }
 
@@ -85,10 +87,11 @@ class Grid
    int widgetHandleAdjustX(int x) const;
    int widgetHandleAdjustY(int y) const;
 
-   inline bool operator==(const Grid &rhs) const {
+   bool operator==(const Grid &rhs) const {
       return equals(rhs);
    }
-   inline bool operator!=(const Grid &rhs) const {
+
+   bool operator!=(const Grid &rhs) const {
       return !equals(rhs);
    }
 
