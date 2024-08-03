@@ -232,7 +232,7 @@ void QDesignerFormWindow::closeEvent(QCloseEvent *ev)
          tr("Do you want to save the changes to this document before closing?"),
          QMessageBox::Discard | QMessageBox::Cancel | QMessageBox::Save, m_editor);
 
-      box.setInformativeText(tr("If you don't save, your changes will be lost."));
+      box.setInformativeText(tr("If you do not save your changes will be lost."));
       box.setWindowModality(Qt::WindowModal);
 
       static_cast<QPushButton *>(box.button(QMessageBox::Save))->setDefault(true);

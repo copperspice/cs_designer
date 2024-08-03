@@ -247,7 +247,7 @@ void showHelp(QCommandLineParser &parser, const QString &errorMessage)
 QDesigner::ParseArgumentsResult parseDesignerCommandLineArguments(
    QCommandLineParser &parser, Options *options, QString *errorMessage)
 {
-   parser.setApplicationDescription(QString("CS Designer ") + CS_VERSION_STR + "\n\nUI designer for CopperSpice applications.");
+   parser.setApplicationDescription(QString("CS Designer ") + CS_VERSION_STR + "\n\nUI designer for CopperSpice applications");
 
    const QCommandLineOption helpOption = parser.addHelpOption();
 
@@ -266,7 +266,7 @@ QDesigner::ParseArgumentsResult parseDesignerCommandLineArguments(
 
    parser.addOption(internalDynamicPropertyOption);
 
-   parser.addPositionalArgument(QString("files"), QString("The UI files to open."));
+   parser.addPositionalArgument(QString("files"), QString("List of UI files to open at startup"));
 
    if (!parser.parse(QCoreApplication::arguments())) {
       *errorMessage = parser.errorText();

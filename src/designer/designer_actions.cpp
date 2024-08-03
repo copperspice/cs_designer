@@ -975,7 +975,7 @@ bool QDesignerActions::writeOutForm(QDesignerFormWindowInterface *fw, const QStr
          tr("Save Form?"), tr("Could not open file"), QMessageBox::NoButton, fw);
 
       box.setWindowModality(Qt::WindowModal);
-      box.setInformativeText(tr("The file %1 could not be opened."
+      box.setInformativeText(tr("File %1 could not be opened."
             "\nReason: %2"
             "\nWould you like to retry or select a different file?")
             .formatArg(f.fileName()).formatArg(f.errorString()));
