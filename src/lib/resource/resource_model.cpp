@@ -244,7 +244,8 @@ void QtResourceModelPrivate::unregisterResourceSet(QtResourceSet *resourceSet)
 
       if (itRcc != m_pathToData.constEnd()) { // otherwise data was not created yet
          const QByteArray *data = itRcc.value();
-         if (data) {
+
+         if (data != nullptr) {
             if (! QResource::unregisterResource(reinterpret_cast<const uchar *>(itRcc.value()->constData()))) {
                csWarning("QResource failed to unregister " + path);
             }

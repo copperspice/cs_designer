@@ -435,7 +435,7 @@ void QtButtonPropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
       const WidgetItem *grandParent = parentItem->parent;
       QGridLayout *gridLayout = nullptr;
 
-      if (grandParent) {
+      if (grandParent != nullptr) {
          gridLayout = grandParent->layout;
       } else {
          gridLayout = m_mainLayout;

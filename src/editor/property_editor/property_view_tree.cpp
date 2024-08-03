@@ -204,7 +204,7 @@ void QtPropertyEditorView::mousePressEvent(QMouseEvent *event)
    QTreeWidget::mousePressEvent(event);
    QTreeWidgetItem *item = itemAt(event->pos());
 
-   if (item) {
+   if (item != nullptr) {
       if ((item != m_editorPrivate->editedItem()) && (event->button() == Qt::LeftButton)
             && (header()->logicalIndexAt(event->pos().x()) == 1)
             && ((item->flags() & (Qt::ItemIsEditable | Qt::ItemIsEnabled)) == (Qt::ItemIsEditable | Qt::ItemIsEnabled))) {

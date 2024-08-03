@@ -509,7 +509,7 @@ QString QDesignerActions::uiExtension() const
 {
    QDesignerLanguageExtension *lang = qt_extension<QDesignerLanguageExtension *>(m_core->extensionManager(), m_core);
 
-   if (lang) {
+   if (lang != nullptr) {
       return lang->uiExtension();
    }
 
