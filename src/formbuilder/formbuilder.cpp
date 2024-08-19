@@ -253,8 +253,12 @@ QLayout *QFormBuilder::create(DomLayout *ui_layout, QLayout *layout, QWidget *pa
 
    if (layoutWidget) {
       const QFormBuilderStrings &strings = QFormBuilderStrings::instance();
-      int left, top, right, bottom;
-      left = top = right = bottom = 0;
+
+      int left   = 0;
+      int top    = 0;
+      int right  = 0;
+      int bottom = 0;;
+
       const DomPropertyHash properties = propertyMap(ui_layout->elementProperty());
 
       if (DomProperty *prop = properties.value(strings.leftMarginProperty)) {

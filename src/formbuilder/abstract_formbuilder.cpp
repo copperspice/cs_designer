@@ -671,7 +671,11 @@ QLayout *QAbstractFormBuilder::create(DomLayout *ui_layout, QLayout *parentLayou
       layout->setMargin(margin);
    } else {
       const QFormBuilderStrings &strings = QFormBuilderStrings::instance();
-      int left, top, right, bottom;
+      int left;
+      int top;
+      int right;
+      int bottom;
+
       left = top = right = bottom = -1;
       layout->getContentsMargins(&left, &top, &right, &bottom);
 

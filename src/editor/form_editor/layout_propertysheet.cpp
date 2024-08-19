@@ -118,7 +118,11 @@ static LayoutPropertyType  layoutPropertyType(const QString &name)
 // return the layout margin if it is  margin
 static int getLayoutMargin(const QLayout *l, LayoutPropertyType type)
 {
-   int left, top, right, bottom;
+   int left;
+   int top;
+   int right;
+   int bottom;
+
    l->getContentsMargins(&left, &top, &right, &bottom);
 
    switch (type) {
@@ -145,7 +149,11 @@ static int getLayoutMargin(const QLayout *l, LayoutPropertyType type)
 // return the layout margin if it is  margin
 static void setLayoutMargin(QLayout *l, LayoutPropertyType type, int layoutMargin)
 {
-   int left, top, right, bottom;
+   int left;
+   int top;
+   int right;
+   int bottom;
+
    l->getContentsMargins(&left, &top, &right, &bottom);
 
    switch (type) {
@@ -457,7 +465,11 @@ QVariant LayoutPropertySheet::property(int index) const
 
 bool LayoutPropertySheet::reset(int index)
 {
-   int left, top, right, bottom;
+   int left;
+   int top;
+   int right;
+   int bottom;
+
    m_layout->getContentsMargins(&left, &top, &right, &bottom);
    const LayoutPropertyType type = layoutPropertyType(propertyName(index));
    bool rc = true;

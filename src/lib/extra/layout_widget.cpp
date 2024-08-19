@@ -2350,7 +2350,11 @@ void QLayoutWidget::setLayoutLeftMargin(int layoutMargin)
          newMargin = MIN_MARGIN;
       }
 
-      int left, top, right, bottom;
+      int left;
+      int top;
+      int right;
+      int bottom;
+
       layout()->getContentsMargins(&left, &top, &right, &bottom);
       layout()->setContentsMargins(newMargin, top, right, bottom);
    }
@@ -2377,7 +2381,11 @@ void QLayoutWidget::setLayoutTopMargin(int layoutMargin)
          newMargin = MIN_MARGIN;
       }
 
-      int left, top, right, bottom;
+      int left;
+      int top;
+      int right;
+      int bottom;
+
       layout()->getContentsMargins(&left, &top, &right, &bottom);
       layout()->setContentsMargins(left, newMargin, right, bottom);
    }
@@ -2404,7 +2412,11 @@ void QLayoutWidget::setLayoutRightMargin(int layoutMargin)
          newMargin = MIN_MARGIN;
       }
 
-      int left, top, right, bottom;
+      int left;
+      int top;
+      int right;
+      int bottom;
+
       layout()->getContentsMargins(&left, &top, &right, &bottom);
       layout()->setContentsMargins(left, top, newMargin, bottom);
    }
@@ -2432,7 +2444,11 @@ void QLayoutWidget::setLayoutBottomMargin(int layoutMargin)
          newMargin = MIN_MARGIN;
       }
 
-      int left, top, right, bottom;
+      int left;
+      int top;
+      int right;
+      int bottom;
+
       layout()->getContentsMargins(&left, &top, &right, &bottom);
       layout()->setContentsMargins(left, top, right, newMargin);
    }
