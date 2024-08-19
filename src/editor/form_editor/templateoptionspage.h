@@ -38,7 +38,6 @@ class TemplateOptionsWidget;
 class TemplateOptionsWidget : public QWidget
 {
    CS_OBJECT(TemplateOptionsWidget)
-   Q_DISABLE_COPY(TemplateOptionsWidget)
 
  public:
    explicit TemplateOptionsWidget(QDesignerFormEditorInterface *core, QWidget *parent = nullptr);
@@ -50,6 +49,8 @@ class TemplateOptionsWidget : public QWidget
    static QString chooseTemplatePath(QDesignerFormEditorInterface *core, QWidget *parent);
 
  private:
+   Q_DISABLE_COPY(TemplateOptionsWidget)
+
    CS_SLOT_1(Private, void addTemplatePath())
    CS_SLOT_2(addTemplatePath)
 
@@ -65,7 +66,6 @@ class TemplateOptionsWidget : public QWidget
 
 class TemplateOptionsPage : public QDesignerOptionsPageInterface
 {
-   Q_DISABLE_COPY(TemplateOptionsPage)
  public:
    explicit TemplateOptionsPage(QDesignerFormEditorInterface *core);
 
@@ -75,6 +75,8 @@ class TemplateOptionsPage : public QDesignerOptionsPageInterface
    void finish() override;
 
  private:
+   Q_DISABLE_COPY(TemplateOptionsPage)
+
    QDesignerFormEditorInterface *m_core;
    QStringList m_initialTemplatePaths;
    QPointer<TemplateOptionsWidget> m_widget;

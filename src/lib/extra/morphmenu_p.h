@@ -31,7 +31,6 @@ namespace qdesigner_internal {
 //  morph menu that acts on a single widget.
 class MorphMenu : public QObject
 {
-   Q_DISABLE_COPY(MorphMenu)
    CS_OBJECT(MorphMenu)
 
  public:
@@ -43,6 +42,8 @@ class MorphMenu : public QObject
    void populate(QWidget *w, QDesignerFormWindowInterface *fw, QMenu &m);
 
  private:
+   Q_DISABLE_COPY(MorphMenu)
+
    CS_SLOT_1(Private, void slotMorph(const QString &newClassName))
    CS_SLOT_2(slotMorph)
 

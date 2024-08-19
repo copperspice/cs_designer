@@ -32,7 +32,6 @@ struct DPI_Entry;
 // Let the user choose a DPI settings
 class DPI_Chooser : public QWidget
 {
-   Q_DISABLE_COPY(DPI_Chooser)
    CS_OBJECT(DPI_Chooser)
 
  public:
@@ -43,6 +42,8 @@ class DPI_Chooser : public QWidget
    void setDPI(int dpiX, int dpiY);
 
  private:
+   Q_DISABLE_COPY(DPI_Chooser)
+
    CS_SLOT_1(Private, void syncSpinBoxes())
    CS_SLOT_2(syncSpinBoxes)
 

@@ -35,7 +35,6 @@ namespace qdesigner_internal {
 // pops up a dialog in which the user can specify label name, text and buddy.
 class FormLayoutMenu : public QObject
 {
-   Q_DISABLE_COPY(FormLayoutMenu)
    CS_OBJECT(FormLayoutMenu)
 
  public:
@@ -51,6 +50,8 @@ class FormLayoutMenu : public QObject
    QAction *preferredEditAction(QWidget *w, QDesignerFormWindowInterface *fw);
 
  private:
+   Q_DISABLE_COPY(FormLayoutMenu)
+
    CS_SLOT_1(Private, void slotAddRow())
    CS_SLOT_2(slotAddRow)
 

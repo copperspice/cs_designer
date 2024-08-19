@@ -37,7 +37,6 @@ namespace qdesigner_internal {
 class ZoomMenu : public QObject
 {
    CS_OBJECT(ZoomMenu)
-   Q_DISABLE_COPY(ZoomMenu)
 
  public:
    ZoomMenu(QObject *parent = nullptr);
@@ -55,6 +54,8 @@ class ZoomMenu : public QObject
    CS_SIGNAL_2(zoomChanged, un_named_arg1)
 
  private:
+   Q_DISABLE_COPY(ZoomMenu)
+
    CS_SLOT_1(Private, void slotZoomMenu(QAction *un_named_arg1))
    CS_SLOT_2(slotZoomMenu)
 
@@ -76,8 +77,6 @@ class ZoomView : public QGraphicsView
    CS_PROPERTY_WRITE(zoomContextMenuEnabled, setZoomContextMenuEnabled)
    CS_PROPERTY_DESIGNABLE(zoomContextMenuEnabled, true)
    CS_PROPERTY_SCRIPTABLE(zoomContextMenuEnabled, true)
-
-   Q_DISABLE_COPY(ZoomView)
 
  public:
    ZoomView(QWidget *parent = nullptr);
@@ -118,6 +117,8 @@ class ZoomView : public QGraphicsView
    virtual void applyZoom();
 
  private:
+   Q_DISABLE_COPY(ZoomView)
+
    QGraphicsScene *m_scene;
    int m_zoom;
    qreal m_zoomFactor;
@@ -132,13 +133,14 @@ class ZoomView : public QGraphicsView
 
 class  ZoomProxyWidget : public QGraphicsProxyWidget
 {
-   Q_DISABLE_COPY(ZoomProxyWidget)
-
  public:
    explicit ZoomProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = Qt::EmptyFlag);
 
  protected:
    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+
+ private:
+   Q_DISABLE_COPY(ZoomProxyWidget)
 };
 
 /* Zoom widget: A QGraphicsView-based container for a widget that allows for
@@ -163,8 +165,6 @@ class ZoomWidget : public ZoomView
    CS_PROPERTY_WRITE(itemAcceptDrops, setItemAcceptDrops)
    CS_PROPERTY_DESIGNABLE(itemAcceptDrops, true)
    CS_PROPERTY_SCRIPTABLE(itemAcceptDrops, true)
-
-   Q_DISABLE_COPY(ZoomWidget)
 
  public:
    ZoomWidget(QWidget *parent = nullptr);
@@ -199,6 +199,8 @@ class ZoomWidget : public ZoomView
    virtual void doResize(const QSize &s);
 
  private:
+   Q_DISABLE_COPY(ZoomWidget)
+
    // Factory function for QGraphicsProxyWidgets which can be overwritten. Default creates a ZoomProxyWidget
    virtual QGraphicsProxyWidget *createProxyWidget(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = Qt::EmptyFlag) const;
    QSize widgetSizeToViewSize(const QSize &s, bool *ptrToValid = nullptr) const;

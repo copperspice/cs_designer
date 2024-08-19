@@ -29,7 +29,6 @@
 class QtGroupBoxPropertyBrowserPrivate
 {
    QtGroupBoxPropertyBrowser *q_ptr;
-   Q_DECLARE_PUBLIC(QtGroupBoxPropertyBrowser)
 
  public:
    void init(QWidget *parent);
@@ -63,6 +62,8 @@ class QtGroupBoxPropertyBrowserPrivate
    };
 
  private:
+   Q_DECLARE_PUBLIC(QtGroupBoxPropertyBrowser)
+
    void updateLater();
    void updateItem(WidgetItem *item);
    void insertRow(QGridLayout *layout, int row) const;

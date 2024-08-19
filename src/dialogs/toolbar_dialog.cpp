@@ -78,17 +78,17 @@ class QtFullToolBarManager : public QObject
    QByteArray saveState(int version = 0) const;
    bool restoreState(const QByteArray &state, int version = 0);
 
-   CS_SLOT_1(Public, void resetToolBar(QToolBar *toolBar))
-   CS_SLOT_2(resetToolBar)
-
-   CS_SLOT_1(Public, void resetAllToolBars())
-   CS_SLOT_2(resetAllToolBars)
-
    CS_SIGNAL_1(Public, void toolBarCreated(QToolBar *toolBar))
    CS_SIGNAL_2(toolBarCreated, toolBar)
 
    CS_SIGNAL_1(Public, void toolBarRemoved(QToolBar *toolBar))
    CS_SIGNAL_2(toolBarRemoved, toolBar)
+
+   CS_SLOT_1(Public, void resetToolBar(QToolBar *toolBar))
+   CS_SLOT_2(resetToolBar)
+
+   CS_SLOT_1(Public, void resetAllToolBars())
+   CS_SLOT_2(resetAllToolBars)
 
    /*
    If QToolBarWidgetAction was in another tool bar and is inserted into
@@ -101,25 +101,23 @@ class QtFullToolBarManager : public QObject
    CS_SIGNAL_2(toolBarChanged, toolBar, actions)
 
  private:
-   QScopedPointer<QtFullToolBarManagerPrivate> d_ptr;
    Q_DECLARE_PRIVATE(QtFullToolBarManager)
    Q_DISABLE_COPY(QtFullToolBarManager)
+
+   QScopedPointer<QtFullToolBarManagerPrivate> d_ptr;
 };
 
 class QtFullToolBarManagerPrivate
 {
-   class QtFullToolBarManager *q_ptr;
-   Q_DECLARE_PUBLIC(QtFullToolBarManager)
-
  public:
-   QToolBar *toolBarWidgetAction(QAction *action) const;
-   void removeWidgetActions(const QMap<QToolBar *, QList<QAction *>> &actions);
-
    enum MarkerType {
       VersionMarker       = 0xff,
       ToolBarMarker       = 0xfe,
       CustomToolBarMarker = 0xfd,
    };
+
+   QToolBar *toolBarWidgetAction(QAction *action) const;
+   void removeWidgetActions(const QMap<QToolBar *, QList<QAction *>> &actions);
 
    void saveState(QDataStream &stream) const;
    bool restoreState(QDataStream &stream) const;
@@ -144,6 +142,11 @@ class QtFullToolBarManagerPrivate
    QList<QToolBar *> customToolBars;
 
    QMainWindow *theMainWindow;
+
+ private:
+   Q_DECLARE_PUBLIC(QtFullToolBarManager)
+
+   QtFullToolBarManager *q_ptr;
 };
 
 QtFullToolBarManagerPrivate::QtFullToolBarManagerPrivate()
@@ -864,11 +867,13 @@ bool QtFullToolBarManager::restoreState(const QByteArray &state, int version)
 
 class QtToolBarManagerPrivate
 {
-   class QtToolBarManager *q_ptr;
-   Q_DECLARE_PUBLIC(QtToolBarManager)
-
  public:
    QtFullToolBarManager *manager;
+
+ private:
+   Q_DECLARE_PUBLIC(QtToolBarManager)
+
+   QtToolBarManager *q_ptr;
 };
 
 QtToolBarManager::QtToolBarManager(QObject *parent)
@@ -974,9 +979,6 @@ class ToolBarItem
 
 class QtToolBarDialogPrivate
 {
-   QtToolBarDialog *q_ptr;
-   Q_DECLARE_PUBLIC(QtToolBarDialog)
-
  public:
    QtToolBarDialogPrivate()
       : toolBarManager(nullptr), currentAction(nullptr), currentToolBar(nullptr)
@@ -1035,6 +1037,11 @@ class QtToolBarDialogPrivate
 
    QString separatorText;
    Ui::QtToolBarDialog ui;
+
+ private:
+   Q_DECLARE_PUBLIC(QtToolBarDialog)
+
+   QtToolBarDialog *q_ptr;
 };
 
 ToolBarItem *QtToolBarDialogPrivate::createItem(QToolBar *toolBar)

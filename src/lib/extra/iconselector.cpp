@@ -53,7 +53,6 @@ namespace qdesigner_internal {
 class LanguageResourceDialogPrivate
 {
    LanguageResourceDialog *q_ptr;
-   Q_DECLARE_PUBLIC(LanguageResourceDialog)
 
  public:
    LanguageResourceDialogPrivate(QDesignerResourceBrowserInterface *rb);
@@ -66,7 +65,9 @@ class LanguageResourceDialogPrivate
    void slotPathChanged(const QString &path);
 
  private:
-   void setOkButtonEnabled(bool v)         {
+ Q_DECLARE_PUBLIC(LanguageResourceDialog)
+
+   void setOkButtonEnabled(bool v) {
       m_dialogButtonBox->button(QDialogButtonBox::Ok)->setEnabled(v);
    }
 

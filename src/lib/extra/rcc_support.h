@@ -31,9 +31,6 @@ class QTextStream;
 
 class RCC_Support
 {
-   RCC_Support(const RCC_Support &);
-   RCC_Support &operator=(const RCC_Support &);
-
  public:
    using ResourceFile = QHash<QString, QString>;
 
@@ -127,7 +124,8 @@ class RCC_Support
       const QString ATTRIBUTE_COMPRESS;
    };
 
-   friend class RCCFileInfo;
+   RCC_Support(const RCC_Support &);
+   RCC_Support &operator=(const RCC_Support &);
 
    void reset();
    bool addFile(const QString &alias, const RCCFileInfo &file);
@@ -172,6 +170,8 @@ class RCC_Support
    QStringList m_failedResources;
    QIODevice *m_errorDevice;
    QByteArray m_out;
+
+   friend class RCCFileInfo;
 };
 
 #endif
