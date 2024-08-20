@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>QtGradientSelect</class>
  <widget class="QDialog" name="QtGradientSelect">
+  <property name="windowTitle">
+   <string>Select Gradient</string>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,9 +12,6 @@
     <width>607</width>
     <height>315</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Select Gradient</string>
   </property>
   <layout class="QVBoxLayout">
    <item>
@@ -26,11 +26,11 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>

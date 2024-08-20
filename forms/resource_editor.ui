@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>QtResourceEditorDialog</class>
  <widget class="QDialog" name="QtResourceEditorDialog">
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,9 +12,6 @@
     <width>469</width>
     <height>317</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Dialog</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -36,29 +36,26 @@
        </item>
        <item row="1" column="0">
         <widget class="QToolButton" name="newQrcButton">
-         <property name="toolTip">
-          <string>New Resource File</string>
-         </property>
          <property name="text">
           <string>N</string>
+         </property>
+         <property name="toolTip">
+          <string>New Resource File</string>
          </property>
         </widget>
        </item>
        <item row="1" column="2">
         <widget class="QToolButton" name="removeQrcButton">
-         <property name="toolTip">
-          <string>Remove Resource File</string>
-         </property>
          <property name="text">
           <string>R</string>
+         </property>
+         <property name="toolTip">
+          <string>Remove Resource File</string>
          </property>
         </widget>
        </item>
        <item row="1" column="3">
         <spacer>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
          <property name="sizeType">
           <enum>QSizePolicy::Ignored</enum>
          </property>
@@ -67,6 +64,9 @@
            <width>21</width>
            <height>20</height>
           </size>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </spacer>
        </item>
@@ -86,11 +86,11 @@
        </item>
        <item row="1" column="0">
         <widget class="QToolButton" name="newResourceButton">
-         <property name="toolTip">
-          <string>New Resource</string>
-         </property>
          <property name="text">
           <string>N</string>
+         </property>
+         <property name="toolTip">
+          <string>New Resource</string>
          </property>
         </widget>
        </item>
@@ -103,24 +103,24 @@
        </item>
        <item row="1" column="2">
         <widget class="QToolButton" name="removeResourceButton">
-         <property name="toolTip">
-          <string>Remove Resource</string>
-         </property>
          <property name="text">
           <string>R</string>
+         </property>
+         <property name="toolTip">
+          <string>Remove Resource</string>
          </property>
         </widget>
        </item>
        <item row="1" column="3">
         <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
            <height>20</height>
           </size>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </spacer>
        </item>
@@ -130,11 +130,11 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>

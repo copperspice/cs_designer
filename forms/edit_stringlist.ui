@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>qdesigner_internal::Dialog</class>
  <widget class="QDialog" name="qdesigner_internal::Dialog">
+  <property name="windowTitle">
+   <string>StringList Editor</string>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,9 +12,6 @@
     <width>400</width>
     <height>300</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>StringList Editor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -62,60 +62,60 @@
        </property>
        <item>
         <widget class="QToolButton" name="newButton">
-         <property name="toolTip">
-          <string>New String</string>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
          </property>
          <property name="text">
           <string>&amp;New</string>
          </property>
-         <property name="toolButtonStyle">
-          <enum>Qt::ToolButtonIconOnly</enum>
+         <property name="toolTip">
+          <string>New String</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QToolButton" name="deleteButton">
-         <property name="toolTip">
-          <string>Delete String</string>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
          </property>
          <property name="text">
           <string>&amp;Delete</string>
          </property>
-         <property name="toolButtonStyle">
-          <enum>Qt::ToolButtonIconOnly</enum>
+         <property name="toolTip">
+          <string>Delete String</string>
          </property>
         </widget>
        </item>
        <item>
         <spacer>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
            <height>20</height>
           </size>
          </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
         </spacer>
        </item>
        <item>
         <widget class="QToolButton" name="upButton">
-         <property name="toolTip">
-          <string>Move String Up</string>
-         </property>
          <property name="text">
           <string>Up</string>
+         </property>
+         <property name="toolTip">
+          <string>Move String Up</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QToolButton" name="downButton">
-         <property name="toolTip">
-          <string>Move String Down</string>
-         </property>
          <property name="text">
           <string>Down</string>
+         </property>
+         <property name="toolTip">
+          <string>Move String Down</string>
          </property>
         </widget>
        </item>
@@ -123,9 +123,6 @@
      </item>
      <item>
       <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
        <property name="sizeType">
         <enum>QSizePolicy::Fixed</enum>
        </property>
@@ -134,6 +131,9 @@
          <width>20</width>
          <height>4</height>
         </size>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
        </property>
       </spacer>
      </item>
@@ -180,11 +180,11 @@
    </item>
    <item row="3" column="0">
     <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>

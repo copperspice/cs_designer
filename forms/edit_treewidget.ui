@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>qdesigner_internal::TreeWidgetEditor</class>
- <widget class="QDialog" name="qdesigner_internal::TreeWidgetEditor" >
-  <property name="geometry" >
+ <widget class="QDialog" name="qdesigner_internal::TreeWidgetEditor">
+  <property name="windowTitle">
+   <string>Edit Tree Widget</string>
+  </property>
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -10,152 +13,158 @@
     <height>360</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>Edit Tree Widget</string>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTabWidget" name="tabWidget" >
-     <property name="currentIndex" >
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="itemsTab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="itemsTab">
+      <attribute name="title">
        <string>&amp;Items</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3" >
-       <property name="leftMargin" >
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="leftMargin">
         <number>9</number>
        </property>
-       <property name="topMargin" >
+       <property name="topMargin">
         <number>9</number>
        </property>
-       <property name="rightMargin" >
+       <property name="rightMargin">
         <number>9</number>
        </property>
        <item>
-        <widget class="QWidget" native="1" name="widget" >
-         <layout class="QVBoxLayout" name="verticalLayout_2" >
-          <property name="margin" >
+        <widget class="QWidget" name="widget" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
            <number>0</number>
           </property>
           <item>
-           <widget class="QTreeWidget" name="treeWidget" >
-            <property name="focusPolicy" >
-             <enum>Qt::WheelFocus</enum>
-            </property>
-            <property name="toolTip" >
+           <widget class="QTreeWidget" name="treeWidget">
+            <property name="toolTip">
              <string>Tree Items</string>
             </property>
+            <property name="focusPolicy">
+             <enum>Qt::WheelFocus</enum>
+            </property>
             <column>
-             <property name="text" >
+             <property name="text">
               <string>1</string>
              </property>
             </column>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="buttonsLayout" >
+           <layout class="QHBoxLayout" name="buttonsLayout">
             <item>
-             <widget class="QToolButton" name="newItemButton" >
-              <property name="toolTip" >
-               <string>New Item</string>
-              </property>
-              <property name="text" >
+             <widget class="QToolButton" name="newItemButton">
+              <property name="text">
                <string>&amp;New</string>
               </property>
+              <property name="toolTip">
+               <string>New Item</string>
+              </property>
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="newSubItemButton" >
-              <property name="toolTip" >
-               <string>New Subitem</string>
-              </property>
-              <property name="text" >
+             <widget class="QToolButton" name="newSubItemButton">
+              <property name="text">
                <string>New &amp;Subitem</string>
               </property>
+              <property name="toolTip">
+               <string>New Subitem</string>
+              </property>
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="deleteItemButton" >
-              <property name="toolTip" >
-               <string>Delete Item</string>
-              </property>
-              <property name="text" >
+             <widget class="QToolButton" name="deleteItemButton">
+              <property name="text">
                <string>&amp;Delete</string>
+              </property>
+              <property name="toolTip">
+               <string>Delete Item</string>
               </property>
              </widget>
             </item>
             <item>
              <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
+              <property name="sizeHint" stdset="0">
                <size>
                 <width>28</width>
                 <height>23</height>
                </size>
               </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
              </spacer>
             </item>
             <item>
-             <widget class="QToolButton" name="moveItemLeftButton" >
-              <property name="toolTip" >
-               <string>Move Item Left (before Parent Item)</string>
-              </property>
-              <property name="text" >
+             <widget class="QToolButton" name="moveItemLeftButton">
+              <property name="text">
                <string>L</string>
               </property>
+              <property name="toolTip">
+               <string>Move Item Left (before Parent Item)</string>
+              </property>
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="moveItemRightButton" >
-              <property name="toolTip" >
-               <string>Move Item Right (as a First Subitem of the Next Sibling Item)</string>
-              </property>
-              <property name="text" >
+             <widget class="QToolButton" name="moveItemRightButton">
+              <property name="text">
                <string>R</string>
               </property>
+              <property name="toolTip">
+               <string>Move Item Right (as a First Subitem of the Next Sibling Item)</string>
+              </property>
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="moveItemUpButton" >
-              <property name="toolTip" >
-               <string>Move Item Up</string>
-              </property>
-              <property name="text" >
+             <widget class="QToolButton" name="moveItemUpButton">
+              <property name="text">
                <string>U</string>
               </property>
+              <property name="toolTip">
+               <string>Move Item Up</string>
+              </property>
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="moveItemDownButton" >
-              <property name="toolTip" >
-               <string>Move Item Down</string>
-              </property>
-              <property name="text" >
+             <widget class="QToolButton" name="moveItemDownButton">
+              <property name="text">
                <string>D</string>
               </property>
+              <property name="toolTip">
+               <string>Move Item Down</string>
+              </property>
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer" >
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
+             <spacer name="horizontalSpacer">
+              <property name="sizeHint" stdset="0">
                <size>
                 <width>40</width>
                 <height>20</height>
                </size>
               </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="showPropertiesButton" >
-              <property name="text" >
-               <string>Properties &amp;>></string>
+             <widget class="QPushButton" name="showPropertiesButton">
+              <property name="text">
+               <string>Properties &amp;&gt;&gt;</string>
               </property>
              </widget>
             </item>
@@ -169,12 +178,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons" >
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
@@ -188,11 +197,11 @@
    <receiver>qdesigner_internal::TreeWidgetEditor</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>440</x>
      <y>335</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>373</x>
      <y>362</y>
     </hint>
@@ -204,11 +213,11 @@
    <receiver>qdesigner_internal::TreeWidgetEditor</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>556</x>
      <y>335</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>562</x>
      <y>362</y>
     </hint>

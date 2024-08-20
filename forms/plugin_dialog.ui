@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>PluginDialog</class>
  <widget class="QDialog" name="PluginDialog">
+  <property name="windowTitle">
+   <string>Plugin Information</string>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,23 +13,29 @@
     <height>331</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Plugin Information</string>
-  </property>
   <layout class="QVBoxLayout">
    <property name="spacing">
     <number>6</number>
    </property>
-   <property name="margin">
+   <property name="leftMargin">
+    <number>8</number>
+   </property>
+   <property name="topMargin">
+    <number>8</number>
+   </property>
+   <property name="rightMargin">
+    <number>8</number>
+   </property>
+   <property name="bottomMargin">
     <number>8</number>
    </property>
    <item>
     <widget class="QLabel" name="label">
-     <property name="text">
-      <string notr="true">TextLabel</string>
-     </property>
      <property name="wordWrap">
       <bool>true</bool>
+     </property>
+     <property name="text">
+      <string notr="true">TextLabel</string>
      </property>
     </widget>
    </item>
@@ -44,11 +53,11 @@
    </item>
    <item>
     <widget class="QLabel" name="message">
-     <property name="text">
-      <string notr="true">TextLabel</string>
-     </property>
      <property name="wordWrap">
       <bool>true</bool>
+     </property>
+     <property name="text">
+      <string notr="true">TextLabel</string>
      </property>
     </widget>
    </item>
@@ -57,18 +66,27 @@
      <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
     </layout>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Close</set>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>

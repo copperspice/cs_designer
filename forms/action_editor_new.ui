@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>qdesigner_internal::NewActionDialog</class>
  <widget class="QDialog" name="qdesigner_internal::NewActionDialog">
+  <property name="windowTitle">
+   <string>New Action...</string>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,9 +12,6 @@
     <width>366</width>
     <height>270</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>New Action...</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -113,14 +113,14 @@
        </item>
        <item>
         <spacer>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
            <height>20</height>
           </size>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </spacer>
        </item>
@@ -156,7 +156,7 @@
      <item row="6" column="1">
       <layout class="QHBoxLayout" name="keysequenceLayout">
        <item>
-        <widget class="QKeySequenceEdit" name="keySequenceEdit" native="true">
+        <widget class="QKeySequenceEdit" name="keySequenceEdit">
          <property name="sizePolicy">
           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -178,14 +178,14 @@
    </item>
    <item>
     <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
      <property name="sizeHint" stdset="0">
       <size>
        <width>0</width>
        <height>0</height>
       </size>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
     </spacer>
    </item>
@@ -198,11 +198,11 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
