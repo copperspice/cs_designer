@@ -136,6 +136,7 @@ QDesigner::ParseArgumentsResult QDesigner::initSystem()
    QSizePolicy::staticMetaObject();
    QTabWidget::staticMetaObject();
    QTextOption::staticMetaObject();
+   QToolBar::staticMetaObject();
 
    // work bench will set up the menu bar
    m_workbench = new QDesignerWorkbench();
