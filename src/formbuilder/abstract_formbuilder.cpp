@@ -595,18 +595,20 @@ void QAbstractFormBuilder::layoutInfo(DomLayout *ui_layout, QObject *parent, int
       }
 
       if (mar == INT_MIN || spac == INT_MIN) {
-         QList<DomProperty *> properties = ui_layout->elementProperty();
-         QMutableListIterator<DomProperty *> it(properties);
+         QList<DomProperty *> propertyList = ui_layout->elementProperty();
+         QMutableListIterator<DomProperty *> it(propertyList);
 
          while (it.hasNext()) {
             DomProperty *prop = it.next();
+
             if ((mar == INT_MIN && prop->attributeName() == strings.marginProperty) ||
                (spac == INT_MIN && prop->attributeName() == strings.spacingProperty)) {
                it.remove();
                delete prop;
             }
          }
-         ui_layout->setElementProperty(properties);
+
+         ui_layout->setElementProperty(propertyList);
       }
    }
 #endif
