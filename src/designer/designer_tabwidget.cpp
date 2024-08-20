@@ -361,7 +361,7 @@ int QTabWidgetEventFilter::pageFromPosition(const QPoint &pos, QRect &rect) cons
       QRect rect2 = rect;
       rect2.setLeft(rect2.left() + rect2.width() / 2);
       if (rect2.contains(pos)) {
-         index++;
+         ++index;
       }
    }
    return index;

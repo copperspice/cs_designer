@@ -482,7 +482,7 @@ void QtButtonPropertyBrowserPrivate::insertRow(QGridLayout *layout, int row) con
       if (r >= row) {
          itemToPos[layout->takeAt(idx)] = QRect(r + 1, c, rs, cs);
       } else {
-         idx++;
+         ++idx;
       }
    }
 

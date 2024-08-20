@@ -587,7 +587,7 @@ int PropertyEditor::applyPropertiesFilter(const QList<QtBrowserItem *> &items)
 
       setItemVisible(propertyItem, showProperty);
       if (showProperty) {
-         showCount++;
+         ++showCount;
       }
    }
 

@@ -3544,7 +3544,8 @@ void QtFlagPropertyManagerPrivate::slotBoolChanged(QtProperty *property, bool va
          q_ptr->setValue(prop, v);
          return;
       }
-      level++;
+
+      ++level;
    }
 }
 

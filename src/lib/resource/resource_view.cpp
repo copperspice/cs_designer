@@ -475,7 +475,7 @@ void QtResourceViewPrivate::filterOutResources()
                break;
             }
 
-            itContents++;
+            ++itContents;
          }
       }
 

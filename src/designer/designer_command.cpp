@@ -1159,7 +1159,7 @@ void AddToolBoxPageCommand::init(QToolBox *toolBox, InsertionMode mode)
 
    m_index = m_toolBox->currentIndex();
    if (mode == InsertAfter) {
-      m_index++;
+      ++m_index;
    }
    m_widget = new QDesignerWidget(formWindow(), m_toolBox);
    m_itemText = QApplication::translate("Command", "Page");
@@ -1284,7 +1284,7 @@ void AddTabPageCommand::init(QTabWidget *tabWidget, InsertionMode mode)
 
    m_index = m_tabWidget->currentIndex();
    if (mode == InsertAfter) {
-      m_index++;
+      ++m_index;
    }
    m_widget = new QDesignerWidget(formWindow(), m_tabWidget);
    m_itemText = QApplication::translate("Command", "Page");
@@ -1473,7 +1473,7 @@ void AddStackedWidgetPageCommand::init(QStackedWidget *stackedWidget, InsertionM
 
    m_index = m_stackedWidget->currentIndex();
    if (mode == InsertAfter) {
-      m_index++;
+      ++m_index;
    }
    m_widget = new QDesignerWidget(formWindow(), m_stackedWidget);
    m_widget->setObjectName(QString("page"));
@@ -2180,7 +2180,7 @@ void AddContainerWidgetPageCommand::init(QWidget *containerWidget, ContainerType
 
       m_index = c->currentIndex();
       if (m_index >= 0 && mode == InsertAfter) {
-         m_index++;
+         ++m_index;
       }
 
       m_widget = nullptr;

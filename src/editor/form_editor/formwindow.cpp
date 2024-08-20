@@ -348,7 +348,7 @@ int FormWindow::widgetDepth(const QWidget *w)
 {
    int d = -1;
    while (w && !w->isWindow()) {
-      d++;
+      ++d;
       w = w->parentWidget();
    }
 
@@ -1242,7 +1242,7 @@ bool FormWindow::unify(QObject *w, QString &s, bool changeIt)
    // Position index past '_'.
    const QChar underscore = QLatin1Char('_');
    if (idx >= 0 && s.at(idx) == underscore) {
-      idx++;
+      ++idx;
    }  else {
       num = 1;
       s += underscore;
@@ -1396,7 +1396,7 @@ QWidget *FormWindow::containerAt(const QPoint &pos, QWidget *notParentOf)
       if (wd == depth && container) {
          if (wit->parentWidget()->children().indexOf(wit) >
             container->parentWidget()->children().indexOf(container)) {
-            wd++;
+            ++wd;
          }
       }
       if (wd > depth && !isChildOf(wit, notParentOf)) {

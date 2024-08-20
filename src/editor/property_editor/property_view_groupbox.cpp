@@ -406,7 +406,7 @@ void QtGroupBoxPropertyBrowserPrivate::insertRow(QGridLayout *layout, int row) c
       if (r >= row) {
          itemToPos[layout->takeAt(idx)] = QRect(r + 1, c, rs, cs);
       } else {
-         idx++;
+         ++idx;
       }
    }
 
@@ -430,7 +430,7 @@ void QtGroupBoxPropertyBrowserPrivate::removeRow(QGridLayout *layout, int row) c
       if (r > row) {
          itemToPos[layout->takeAt(idx)] = QRect(r - 1, c, rs, cs);
       } else {
-         idx++;
+         ++idx;
       }
    }
 

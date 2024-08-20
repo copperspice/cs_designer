@@ -67,17 +67,20 @@ static bool indexLessThan(const QModelIndex &a, const QModelIndex &b)
       if (aa.parent() == b) {
          return true;
       }
+
       aa = aa.parent();
-      aDepth++;
+      ++aDepth;
    }
+
    QModelIndex ba = b;
    int bDepth = 0;
    while (ba.parent() != QModelIndex()) {
       if (ba.parent() == a) {
          return false;
       }
+
       ba = ba.parent();
-      bDepth++;
+      ++bDepth;
    }
    // Now find indices at comparable depth.
    for (aa = a; aDepth > bDepth; aDepth--) {
@@ -227,7 +230,8 @@ static inline bool skipBackward(const QAbstractItemModel *model, QModelIndex &pa
             }
          }
       }
-      column--;
+
+      --column;
    }
 
    return true;

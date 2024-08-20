@@ -379,7 +379,8 @@ void QtProperty::removeSubProperty(QtProperty *property)
 
          return;
       }
-      pos++;
+
+      ++pos;
    }
 }
 

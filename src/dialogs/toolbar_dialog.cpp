@@ -566,7 +566,7 @@ void QtFullToolBarManager::removeAction(QAction *action)
          d_ptr->defaultToolBars[itDefault.key()].removeAll(action);
       }
 
-      itDefault++;
+      ++itDefault;
    }
 
    d_ptr->allActions.remove(action);
@@ -1322,7 +1322,7 @@ void QtToolBarDialogPrivate::removeToolBar(ToolBarItem *item)
    }
    if (wasCurrent) {
       if (row == ui.toolBarList->count()) {
-         row--;
+         --row;
       }
       if (row < 0)
          ;
@@ -1521,7 +1521,7 @@ void QtToolBarDialogPrivate::leftClicked()
    delete currentToolBarAction;
 
    if (row == ui.currentToolBarList->count()) {
-      row--;
+      --row;
    }
    if (row >= 0) {
       QListWidgetItem *item = ui.currentToolBarList->item(row);

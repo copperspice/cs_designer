@@ -377,7 +377,7 @@ void WidgetDataBase::loadPlugins()
                      .formatArg(pluginName));
             } else {
                append(pluginItem);
-               addedPlugins++;
+               ++addedPlugins;
             }
 
          } else {
@@ -386,8 +386,8 @@ void WidgetDataBase::loadPlugins()
             delete m_items[existingIndex];
             m_items[existingIndex] = pluginItem;
             existingCustomClasses.erase(existingIt);
-            replacedPlugins++;
 
+            ++replacedPlugins;
          }
       }
    }
@@ -399,7 +399,7 @@ void WidgetDataBase::loadPlugins()
          const int index = indexOfClassName(it.key());
          if (index != -1) {
             remove(index);
-            removedPlugins++;
+            ++removedPlugins;
          }
       }
    }

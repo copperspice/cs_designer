@@ -709,7 +709,7 @@ int Grid::countRow(int r, int c) const
    int i = c + 1;
 
    while (i < m_ncols && cell(r, i) == w) {
-      i++;
+      ++i;
    }
 
    return i - c;
@@ -721,7 +721,7 @@ int Grid::countCol(int r, int c) const
    int i = r + 1;
 
    while (i < m_nrows && cell(i, c) == w) {
-      i++;
+      ++i;
    }
 
    return i - r;
@@ -1019,7 +1019,8 @@ void Grid::shrink()
                if (QWidget *w = cell(r, c)) {
                   *simplifiedPtr = w;
                }
-               simplifiedPtr++;
+
+               ++simplifiedPtr;
             }
    }
 
@@ -1135,7 +1136,7 @@ void Grid::reallocFormLayout()
          // Any protruding widgets left on that row?
          for (int c = COLUMNS_IN_FORM; c < m_ncols; c++)
             if (cell(r, c)) {
-               pastRightWidgetCount++;
+               ++pastRightWidgetCount;
             }
       }
    }

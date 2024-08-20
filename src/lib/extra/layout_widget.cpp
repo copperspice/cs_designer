@@ -867,7 +867,7 @@ void GridLayoutState::applyToLayout(const QDesignerFormEditorInterface *core, QW
 
 void GridLayoutState::insertRow(int row)
 {
-   rowCount++;
+   ++rowCount;
    const WidgetItemMap::iterator iend = widgetItemMap.end();
 
    for (WidgetItemMap::iterator it = widgetItemMap.begin(); it != iend; ++it) {
@@ -888,7 +888,7 @@ void GridLayoutState::insertRow(int row)
 
 void GridLayoutState::insertColumn(int column)
 {
-   colCount++;
+   ++colCount;
    const WidgetItemMap::iterator iend = widgetItemMap.end();
 
    for (WidgetItemMap::iterator it = widgetItemMap.begin(); it != iend; ++it) {
@@ -997,7 +997,8 @@ void GridLayoutState::removeFreeRow(int removeRow)
          it.value().translate(0, -1);
       }
    }
-   rowCount--;
+
+   --rowCount;
 }
 
 void GridLayoutState::removeFreeColumn(int removeColumn)
@@ -1021,7 +1022,7 @@ void GridLayoutState::removeFreeColumn(int removeColumn)
       }
    }
 
-   colCount--;
+   --colCount;
 }
 
 class GridLayoutHelper : public  LayoutHelper
@@ -1848,14 +1849,14 @@ void QBoxLayoutSupport::removeWidget(QWidget *widget)
    switch (m_orientation) {
       case Qt::Horizontal:
          if (currCell.second > 0 && index < currCell.second ) {
-            currCell.second--;
+            --currCell.second;
             setCurrentCell(currCell);
          }
          break;
 
       case Qt::Vertical:
          if (currCell.first > 0 && index < currCell.first) {
-            currCell.first--;
+            --currCell.first;
             setCurrentCell(currCell);
          }
          break;
@@ -2244,12 +2245,12 @@ void QLayoutWidget::paintEvent(QPaintEvent *)
 
                while (rowSpan > 0) {
                   excludedColumnsForRow[row + rowSpan - 1].unite(columns);
-                  rowSpan--;
+                  --rowSpan;
                }
 
                while (columnSpan > 0) {
                   excludedRowsForColumn[column + columnSpan - 1].unite(rows);
-                  columnSpan--;
+                  --columnSpan;
                }
             }
 
