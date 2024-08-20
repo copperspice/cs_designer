@@ -203,7 +203,6 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "(Linux|OpenBSD|FreeBSD|NetBSD|DragonFly)")
    # installs the platform Gui plugin
    cs_copy_plugins(CsGui)
    cs_copy_plugins(CsPrinterDriver)
-   cs_copy_plugins(CsOpenGL)
 
    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/designer.png DESTINATION .)
 
