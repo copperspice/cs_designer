@@ -29,8 +29,6 @@
 
 #include <QFont>
 #include <QIcon>
-typedef QPair<QString, uint> DesignerIntPair;
-typedef QList<DesignerIntPair> DesignerFlagList;
 #include <QMap>
 #include <QUrl>
 
@@ -40,8 +38,10 @@ class QKeySequenceEdit;
 class QLineEdit;
 class QUrl;
 
-namespace qdesigner_internal {
+using DesignerIntPair  = QPair<QString, uint>;
+using DesignerFlagList = QList<DesignerIntPair>;
 
+namespace qdesigner_internal {
 
 class FormWindowBase;
 class PaletteEditorButton;

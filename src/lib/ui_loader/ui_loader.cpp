@@ -38,11 +38,11 @@
 #include <QMap>
 #include <QWidget>
 
-typedef QMap<QString, bool> widget_map;
-Q_GLOBAL_STATIC(widget_map, g_widgets)
-
 class QUiLoader;
 class QUiLoaderPrivate;
+
+typedef QMap<QString, bool> widget_map;
+Q_GLOBAL_STATIC(widget_map, g_widgets)
 
 QDataStream &operator<<(QDataStream &out, const QUiTranslatableStringValue &s)
 {

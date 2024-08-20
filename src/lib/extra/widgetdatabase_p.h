@@ -153,9 +153,8 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
       const QString &className, const QString &group, const QString &baseClassName,
       const QString &includeFile, bool promoted, bool custom);
 
-typedef  QList<QDesignerWidgetDataBaseItemInterface *> WidgetDataBaseItemList;
-
-WidgetDataBaseItemList promotionCandidates(const QDesignerWidgetDataBaseInterface *db, const QString &baseClassName);
+QList<QDesignerWidgetDataBaseItemInterface *> promotionCandidates(const QDesignerWidgetDataBaseInterface *db,
+      const QString &baseClassName);
 
 }   // end namespace qdesigner_internal
 

@@ -34,7 +34,7 @@ class MorphMenu : public QObject
    CS_OBJECT(MorphMenu)
 
  public:
-   typedef QList<QAction *> ActionList;
+   using ActionList = QList<QAction *>;
 
    explicit MorphMenu(QObject *parent = nullptr);
 

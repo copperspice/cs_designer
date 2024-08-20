@@ -1979,11 +1979,8 @@ struct QDesignerAbstractPropertySheetFactory::PropertySheetFactoryPrivate {
    const QString m_propertySheetId;
    const QString m_dynamicPropertySheetId;
 
-   typedef QMap<QObject *, QObject *> ExtensionMap;
-   ExtensionMap m_extensions;
-
-   typedef QHash<QObject *, bool> ExtendedSet;
-   ExtendedSet m_extended;
+   QMap<QObject *, QObject *> m_extensions;
+   QHash<QObject *, bool> m_extended;
 };
 
 QDesignerAbstractPropertySheetFactory::PropertySheetFactoryPrivate::PropertySheetFactoryPrivate() :

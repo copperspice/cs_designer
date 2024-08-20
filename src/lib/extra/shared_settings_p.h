@@ -41,8 +41,6 @@ namespace qdesigner_internal {
 class QDesignerSharedSettings
 {
  public:
-   typedef QList<DeviceProfile> DeviceProfileList;
-
    explicit QDesignerSharedSettings(QDesignerFormEditorInterface *core);
 
    Grid defaultGrid() const;
@@ -84,8 +82,8 @@ class QDesignerSharedSettings
    int currentDeviceProfileIndex() const;
 
    DeviceProfile deviceProfileAt(int idx) const;
-   DeviceProfileList deviceProfiles() const;
-   void setDeviceProfiles(const DeviceProfileList &dp);
+   QList<DeviceProfile> deviceProfiles() const;
+   void setDeviceProfiles(const QList<DeviceProfile> &dp);
 
    static const QStringList &defaultFormTemplatePaths();
 

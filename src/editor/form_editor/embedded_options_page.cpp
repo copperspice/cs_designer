@@ -45,8 +45,6 @@
 
 namespace qdesigner_internal {
 
-typedef QList<DeviceProfile> DeviceProfileList;
-
 constexpr const int INDEX_OFFSET = 1;
 
 // Sort by name. Used by template, do not make it static!
@@ -95,7 +93,8 @@ class EmbeddedOptionsControlPrivate
    QToolButton *m_deleteButton;
    QLabel *m_descriptionLabel;
 
-   DeviceProfileList m_sortedProfiles;
+   QList<DeviceProfile> m_sortedProfiles;
+
    EmbeddedOptionsControl *m_q;
    bool m_dirty;
    QSet<QString> m_usedProfiles;

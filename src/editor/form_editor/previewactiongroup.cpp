@@ -81,12 +81,9 @@ PreviewActionGroup::PreviewActionGroup(QDesignerFormEditorInterface *core, QObje
 
 void PreviewActionGroup::updateDeviceProfiles()
 {
-   typedef QList<DeviceProfile> DeviceProfileList;
-   typedef QList<QAction *> ActionList;
-
    const QDesignerSharedSettings settings(m_core);
-   const DeviceProfileList profiles = settings.deviceProfiles();
-   const ActionList al = actions();
+   const QList<DeviceProfile> profiles = settings.deviceProfiles();
+   const QList<QAction *> al = actions();
 
    // Separator?
    const bool hasProfiles = !profiles.empty();

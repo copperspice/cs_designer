@@ -136,15 +136,14 @@ QMdiAreaPropertySheet::QMdiAreaPropertySheet(QWidget *mdiArea, QObject *parent)
 
 QMdiAreaPropertySheet::MdiAreaProperty QMdiAreaPropertySheet::mdiAreaProperty(const QString &name)
 {
-   typedef QHash<QString, MdiAreaProperty> MdiAreaPropertyHash;
-   static MdiAreaPropertyHash mdiAreaPropertyHash;
+   static QHash<QString, MdiAreaProperty> mdiHash;
 
-   if (mdiAreaPropertyHash.empty()) {
-      mdiAreaPropertyHash.insert(subWindowNameC, MdiAreaSubWindowName);
-      mdiAreaPropertyHash.insert(subWindowTitleC, MdiAreaSubWindowTitle);
+   if (mdiHash.empty()) {
+      mdiHash.insert(subWindowNameC, MdiAreaSubWindowName);
+      mdiHash.insert(subWindowTitleC, MdiAreaSubWindowTitle);
    }
 
-   return mdiAreaPropertyHash.value(name, MdiAreaNone);
+   return mdiHash.value(name, MdiAreaNone);
 }
 
 void QMdiAreaPropertySheet::setProperty(int index, const QVariant &value)

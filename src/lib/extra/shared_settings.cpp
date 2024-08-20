@@ -284,7 +284,7 @@ QStringList QDesignerSharedSettings::deviceProfileXml() const
    return m_settings->value(deviceProfilesKey, QStringList()).toStringList();
 }
 
-QDesignerSharedSettings::DeviceProfileList QDesignerSharedSettings::deviceProfiles() const
+QList<DeviceProfile> QDesignerSharedSettings::deviceProfiles() const
 {
    QList<DeviceProfile> retval;
 
@@ -309,7 +309,7 @@ QDesignerSharedSettings::DeviceProfileList QDesignerSharedSettings::deviceProfil
    return retval;
 }
 
-void QDesignerSharedSettings::setDeviceProfiles(const DeviceProfileList &dp)
+void QDesignerSharedSettings::setDeviceProfiles(const QList<DeviceProfile> &dp)
 {
    QStringList list;
 

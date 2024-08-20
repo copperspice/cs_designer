@@ -46,11 +46,8 @@ class QExtensionFactory : public QObject, public QAbstractExtensionFactory
    CS_SLOT_1(Private, void objectDestroyed(QObject *object))
    CS_SLOT_2(objectDestroyed)
 
-   typedef QPair<QString, QObject *> IdObjectKey;
-   typedef QMap< IdObjectKey, QObject *> ExtensionMap;
-   mutable ExtensionMap m_extensions;
-   typedef QHash<QObject *, bool> ExtendedSet;
-   mutable ExtendedSet m_extended;
+   mutable QMap< QPair<QString, QObject *>, QObject *> m_extensions;
+   mutable QHash<QObject *, bool> m_extended;
 };
 
 

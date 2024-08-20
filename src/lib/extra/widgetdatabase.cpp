@@ -862,11 +862,10 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
 }
 
 /* Return a list of database items to which a class can be promoted to. */
-
-WidgetDataBaseItemList promotionCandidates(const QDesignerWidgetDataBaseInterface *db,
-   const QString &baseClassName)
+QList<QDesignerWidgetDataBaseItemInterface *> promotionCandidates(const QDesignerWidgetDataBaseInterface *db,
+      const QString &baseClassName)
 {
-   WidgetDataBaseItemList rc;
+   QList<QDesignerWidgetDataBaseItemInterface *> rc;
 
    // find existing promoted widgets deriving from base
    const int count = db->count();

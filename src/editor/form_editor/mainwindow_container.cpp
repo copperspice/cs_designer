@@ -59,7 +59,8 @@ void QMainWindowContainer::setCurrentIndex(int index)
 }
 
 namespace {
-typedef QPair<Qt::ToolBarArea, bool> ToolBarData;
+
+using ToolBarData = QPair<Qt::ToolBarArea, bool>;
 
 ToolBarData toolBarData(QToolBar *toolBar)
 {

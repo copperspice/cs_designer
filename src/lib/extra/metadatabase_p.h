@@ -31,13 +31,14 @@ namespace qdesigner_internal {
 class MetaDataBaseItem: public QDesignerMetaDataBaseItemInterface
 {
  public:
+   using TabOrder = QList<QWidget *>;
+
    explicit MetaDataBaseItem(QObject *object);
    virtual ~MetaDataBaseItem();
 
    QString name() const override;
    void setName(const QString &name) override;
 
-   typedef QList<QWidget *> TabOrder;
    TabOrder tabOrder() const override;
    void setTabOrder(const TabOrder &tabOrder) override;
 

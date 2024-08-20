@@ -134,7 +134,7 @@ PromotionTaskMenu::PromotionState  PromotionTaskMenu::createPromotionActions(QDe
 
    // figure out candidates
    const QString baseClassName = WidgetFactory::classNameOf(core, m_widget);
-   const WidgetDataBaseItemList candidates = promotionCandidates(core->widgetDataBase(), baseClassName);
+   const QList<QDesignerWidgetDataBaseItemInterface *> candidates = promotionCandidates(core->widgetDataBase(), baseClassName);
 
    if (candidates.empty()) {
       // Is this thing promotable at all?
