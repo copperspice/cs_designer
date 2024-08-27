@@ -466,17 +466,18 @@ void WidgetDataBase::grabStandardWidgetBoxIcons()
    // the widget box. They will show up in the object inspector.
 
    if (const QDesignerWidgetBox *wb = dynamic_cast<const QDesignerWidgetBox *>(m_core->widgetBox())) {
-      const QString qWidgetClass = QString("QWidget");
+      const QString qWidgetClass = "QWidget";
       const int itemCount = count();
+
       for (int i = 0; i < itemCount; ++i) {
          QDesignerWidgetDataBaseItemInterface *dbItem = item(i);
 
-         if (!dbItem->isCustom() && dbItem->icon().isNull()) {
+         if (! dbItem->isCustom() && dbItem->icon().isNull()) {
             // Careful not to catch the layout icons when looking for QWidget
             const QString name = dbItem->name();
 
             if (name == qWidgetClass) {
-               dbItem->setIcon(wb->iconForWidget(name, QString("Containers")));
+               dbItem->setIcon(wb->iconForWidget(name, "Containers"));
             } else {
                dbItem->setIcon(wb->iconForWidget(name));
             }
@@ -492,7 +493,7 @@ enum { NewFormWidth = 400, NewFormHeight = 300 };
 // Check if class is suitable to generate a form from
 static inline bool isExistingTemplate(const QString &className)
 {
-   return className == QString("QWidget") || className == QString("QDialog") || className == QString("QMainWindow");
+   return className == "QWidget" || className == "QDialog" || className == "QMainWindow";
 }
 
 // Check if class is suitable to generate a form from
@@ -501,10 +502,10 @@ static inline bool suitableForNewForm(const QString &className)
    if (className.isEmpty()) { // Missing custom widget information
       return false;
    }
-   if (className == QString("QSplitter")) {
+   if (className == "QSplitter") {
       return false;
    }
-   if (className.startsWith(QString("QDesigner")) ||  className.startsWith(QString("QLayout"))) {
+   if (className.startsWith("QDesigner") || className.startsWith("QLayout")) {
       return false;
    }
    return true;
@@ -566,7 +567,7 @@ static QString xmlFromWidgetBox(const QDesignerFormEditorInterface *core, const 
       return QString();
    }
 
-   domUI->setAttributeVersion(QString("4.0"));
+   domUI->setAttributeVersion("4.0");
    DomWidget *domWidget = domUI->elementWidget();
 
    if (!domWidget) {
@@ -575,8 +576,9 @@ static QString xmlFromWidgetBox(const QDesignerFormEditorInterface *core, const 
 
    // Properties: Remove the "objectName" property in favour of the name attribute and check geometry.
    domWidget->setAttributeName(objectName);
-   const QString geometryProperty = QString("geometry");
-   const QString objectNameProperty  = QString("objectName");
+
+   const QString geometryProperty   = "geometry";
+   const QString objectNameProperty = "objectName";
    PropertyList properties = domWidget->elementProperty();
 
    for (PropertyList::iterator it = properties.begin(); it != properties.end(); ) {
@@ -603,7 +605,7 @@ static QString xmlFromWidgetBox(const QDesignerFormEditorInterface *core, const 
    DomString *windowTitleString = new DomString;
    windowTitleString->setText(objectName);
    DomProperty *windowTitleProperty = new DomProperty;
-   windowTitleProperty->setAttributeName(QString("windowTitle"));
+   windowTitleProperty->setAttributeName("windowTitle");
    windowTitleProperty->setElementString(windowTitleString);
    properties.push_back(windowTitleProperty);
 
@@ -664,7 +666,7 @@ QString WidgetDataBase::formTemplate(const QDesignerFormEditorInterface *core, c
    //    be left over. Generate something that is similar to the default templates. Find a similar class.
    const QDesignerWidgetDataBaseInterface *wdb = core->widgetDataBase();
 
-   QString similarClass = QString("QWidget");
+   QString similarClass = "QWidget";
    const int index = wdb->indexOfClassName(className);
 
    if (index != -1) {
@@ -694,9 +696,9 @@ QString WidgetDataBase::scaleFormTemplate(const QString &xml, const QSize &size,
    }
 
    // Properties: Find/Ensure the geometry, minimum and maximum sizes properties
-   const QString geometryPropertyName    = QString("geometry");
-   const QString minimumSizePropertyName = QString("minimumSize");
-   const QString maximumSizePropertyName = QString("maximumSize");
+   const QString geometryPropertyName    = "geometry";
+   const QString minimumSizePropertyName = "minimumSize";
+   const QString maximumSizePropertyName = "maximumSize";
 
    DomProperty *geomProperty        = nullptr;
    DomProperty *minimumSizeProperty = nullptr;
@@ -860,7 +862,7 @@ QDesignerWidgetDataBaseItemInterface *appendDerived(QDesignerWidgetDataBaseInter
    // If base class is QWidget, we most likely
    // do not want to inherit the container attribute.
 
-   static const QString qWidgetName = QString("QWidget");
+   static const QString qWidgetName = "QWidget";
    if (baseItem->name() == qWidgetName) {
       derivedItem->setContainer(false);
    }

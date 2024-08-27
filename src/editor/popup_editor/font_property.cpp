@@ -98,7 +98,7 @@ void FontPropertyManager::postInitializeProperty(QtVariantPropertyManager *vm,
    QVariant data = vm->variantProperty(property)->value();
    const QFont font = data.value<QFont>();
 
-   antialiasing->setAttribute(QString("enumNames"), m_aliasingEnumNames);
+   antialiasing->setAttribute("enumNames", m_aliasingEnumNames);
    antialiasing->setValue(antialiasingToIndex(font.styleStrategy()));
    property->addSubProperty(antialiasing);
 
@@ -108,8 +108,9 @@ void FontPropertyManager::postInitializeProperty(QtVariantPropertyManager *vm,
    // Fiddle family names
    if (! m_familyMappings.empty()) {
       const PropertyToSubPropertiesMap::iterator it = m_propertyToFontSubProperties.find(m_createdFontProperty);
+
       QtVariantProperty *familyProperty = vm->variantProperty(it.value().front());
-      const QString enumNamesAttribute = QString("enumNames");
+      const QString enumNamesAttribute = "enumNames";
       QStringList plainFamilyNames = familyProperty->attributeValue(enumNamesAttribute).toStringList();
 
       // Did someone load fonts or something?

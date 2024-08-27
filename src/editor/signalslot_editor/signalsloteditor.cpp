@@ -398,7 +398,8 @@ void SignalSlotEditor::fromUi(const DomConnections *connections, QWidget *parent
 
             if (attr_type == "sourcelabel") {
                sp = p;
-            } else if (attr_type == QString("destinationlabel")) {
+
+            } else if (attr_type == "destinationlabel") {
                tp = p;
             }
          }
