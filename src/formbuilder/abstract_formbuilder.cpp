@@ -2111,8 +2111,8 @@ void QAbstractFormBuilder::saveListWidgetExtraInfo(QListWidget *listWidget, DomW
 void QAbstractFormBuilder::saveComboBoxExtraInfo(QComboBox *comboBox, DomWidget *ui_widget, DomWidget *ui_parentWidget)
 {
    (void) ui_parentWidget;
-   QList<DomItem *> ui_items = ui_widget->elementItem();
 
+   QList<DomItem *> ui_items = ui_widget->elementItem();
    const int count = comboBox->count();
 
    for (int i = 0; i < count; ++i) {

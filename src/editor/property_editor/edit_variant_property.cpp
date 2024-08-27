@@ -976,6 +976,7 @@ QtVariantProperty *QtVariantPropertyManager::addProperty(uint propertyType, cons
    bool wasCreating = d_ptr->m_creatingProperty;
    d_ptr->m_creatingProperty = true;
    d_ptr->m_propertyType = propertyType;
+
    QtProperty *property = QtAbstractPropertyManager::addProperty(name);
    d_ptr->m_creatingProperty = wasCreating;
    d_ptr->m_propertyType = 0;
@@ -1210,11 +1211,11 @@ QVariant QtVariantPropertyManager::attributeValue(const QtProperty *property, co
 
       /*  broom - put back when QVariant operator= resolved
 
-              if (attribute == d_ptr->m_enumIconsAttribute) {
-                  QVariant v;
-                  v.setValue(enumManager->enumIcons(internProp));
-                  return v;
-              }
+           if (attribute == d_ptr->m_enumIconsAttribute) {
+               QVariant v;
+               v.setValue(enumManager->enumIcons(internProp));
+               return v;
+           }
       */
 
       return QVariant();

@@ -353,8 +353,10 @@ void QDesignerIntegrationPrivate::getSelection(Selection &s)
    } else {
       // Just in case someone plugs in an old-style object inspector: Emulate selection
       s.clear();
+
       QDesignerFormWindowInterface *formWindow = core->formWindowManager()->activeFormWindow();
-      if (!formWindow) {
+
+      if (! formWindow) {
          return;
       }
 
@@ -431,12 +433,15 @@ static QString fixHelpClassName(const QString &className)
    if (className == QString("Line")) {
       return QString("QFrame");
    }
+
    if (className == QString("Spacer")) {
       return QString("QSpacerItem");
    }
+
    if (className == QString("QLayoutWidget")) {
       return QString("QLayout");
    }
+
    return className;
 }
 
@@ -445,10 +450,12 @@ static QString classForProperty(QDesignerFormEditorInterface *core, QObject *obj
 {
    if (const QDesignerPropertySheetExtension *ps = qt_extension<QDesignerPropertySheetExtension *>(core->extensionManager(), object)) {
       const int index = ps->indexOf(property);
+
       if (index >= 0) {
          return ps->propertyGroup(index);
       }
    }
+
    return QString();
 }
 
@@ -456,24 +463,30 @@ QString QDesignerIntegrationPrivate::contextHelpId() const
 {
    QDesignerFormEditorInterface *core = q->core();
    QObject *currentObject = core->propertyEditor()->object();
+
    if (!currentObject) {
       return QString();
    }
+
    // Return a help index id consisting of "class::property"
    QString className;
    QString currentPropertyName = core->propertyEditor()->currentPropertyName();
+
    if (!currentPropertyName.isEmpty()) {
       className = classForProperty(core, currentObject, currentPropertyName);
    }
+
    if (className.isEmpty()) {
       currentPropertyName.clear(); // We hit on some fake property.
       className = qdesigner_internal::WidgetFactory::classNameOf(core, currentObject);
    }
+
    QString helpId = fixHelpClassName(className);
    if (!currentPropertyName.isEmpty()) {
       helpId += QString("::");
       helpId += currentPropertyName;
    }
+
    return helpId;
 }
 
@@ -489,6 +502,7 @@ QDesignerIntegration::QDesignerIntegration(QDesignerFormEditorInterface *core, Q
 QDesignerIntegration::~QDesignerIntegration()
 {
    QFile f(d->m_gradientsPath);
+
    if (f.open(QIODevice::WriteOnly)) {
       f.write(QtGradientUtils::saveState(d->m_gradientManager).toUtf8());
       f.close();
@@ -611,4 +625,3 @@ QString QDesignerIntegration::contextHelpId() const
 {
    return d->contextHelpId();
 }
-

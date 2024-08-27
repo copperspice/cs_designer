@@ -1187,7 +1187,6 @@ void PropertyEditor::setObject(QObject *object)
          }
 
          const QVariant value = m_propertySheet->property(i);
-
          const uint type = toBrowserType(value, propertyName);
 
          QtVariantProperty *property = m_nameToProperty.value(propertyName, nullptr);
@@ -1212,12 +1211,13 @@ void PropertyEditor::setObject(QObject *object)
                   m_updatingBrowser = false;
 
                } else if (type == DesignerPropertyManager::designerFlagTypeId()) {
-                  if (value.canConvert<PropertySheetFlagValue>()) {
-                     const PropertySheetFlagValue f = value.value<PropertySheetFlagValue>();
 
+                  if (value.canConvert<PropertySheetFlagValue>()) {
+
+                     const PropertySheetFlagValue f = value.value<PropertySheetFlagValue>();
                      QList<QPair<QString, uint>> flags;
 
-                     for (const QString &name : f.metaFlags.keys() ) {
+                     for (const QString &name : f.metaFlags.keys()) {
                         const uint val = f.metaFlags.keyToValue(name);
                         flags.append(std::make_pair(name, val));
                      }
@@ -1322,7 +1322,6 @@ void PropertyEditor::setObject(QObject *object)
 
             if (lastGroup != groupProperty) {
                lastGroup = groupProperty;
-
                const QList<QtProperty *> subProperties = lastGroup->subProperties();
                lastGroup = groupProperty;
             }
@@ -1491,7 +1490,7 @@ void PropertyEditor::slotResetProperty(QtProperty *property)
       return;
    }
 
-   if (!m_propertyToGroup.contains(property)) {
+   if (! m_propertyToGroup.contains(property)) {
       return;
    }
 

@@ -159,8 +159,8 @@ QLayout *QFormBuilder::createLayout(const QString &layoutName, QObject *parent, 
 
    Q_ASSERT(parentWidget || parentLayout);
 
-#define DECLARE_WIDGET(W, C)
 #define DECLARE_COMPAT_WIDGET(W, C)
+#define DECLARE_WIDGET(W, C)
 
 #define DECLARE_LAYOUT(L, C) \
     if (layoutName == #L) { \
@@ -170,9 +170,9 @@ QLayout *QFormBuilder::createLayout(const QString &layoutName, QObject *parent, 
 
 #include "widgets.table"
 
-#undef DECLARE_LAYOUT
 #undef DECLARE_COMPAT_WIDGET
 #undef DECLARE_WIDGET
+#undef DECLARE_LAYOUT
 
    if (retval == nullptr) {
       qWarning("QFormBuilder::createLayout() Layout type %s is not supported", csPrintable(layoutName));
@@ -248,6 +248,7 @@ QLayout *QFormBuilder::create(DomLayout *ui_layout, QLayout *layout, QWidget *pa
 {
    // Is this a temporary layout widget used to represent QLayout hierarchies in Designer?
    // Set its margins to 0.
+
    bool layoutWidget = d->processingLayoutWidget();
    QLayout *retval = QAbstractFormBuilder::create(ui_layout, layout, parentWidget);
 
@@ -407,7 +408,7 @@ void QFormBuilder::applyProperties(QObject *o, const QList<DomProperty *> &prope
 
       } else if (isWidget && "QFrame" == o->metaObject()->className() && attributeName == strings.orientationProperty) {
          // ### special-casing for Line (QFrame) -- try to fix me
-         o->setProperty("frameShape", v); // v is of QFrame::Shape enum
+         o->setProperty("frameShape", v);          // v is of QFrame::Shape enum
 
       } else {
          o->setProperty(attributeName.toUtf8(), v);

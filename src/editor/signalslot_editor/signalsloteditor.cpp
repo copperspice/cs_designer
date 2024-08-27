@@ -263,10 +263,8 @@ SignalSlotEditor::SignalSlotEditor(QDesignerFormWindowInterface *form_window, QW
 void SignalSlotEditor::modifyConnection(Connection *con)
 {
    SignalSlotConnection *sigslot_con = static_cast<SignalSlotConnection *>(con);
-   ConnectDialog dialog(m_form_window,
-      sigslot_con->widget(EndPoint::Source),
-      sigslot_con->widget(EndPoint::Target),
-      m_form_window->core()->topLevel());
+   ConnectDialog dialog(m_form_window, sigslot_con->widget(EndPoint::Source),
+         sigslot_con->widget(EndPoint::Target), m_form_window->core()->topLevel());
 
    dialog.setSignalSlot(sigslot_con->signal(), sigslot_con->slot());
    dialog.setShowAllSignalsSlots(m_showAllSignalsSlots);

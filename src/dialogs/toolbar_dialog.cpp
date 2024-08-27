@@ -1320,16 +1320,19 @@ void QtToolBarDialogPrivate::removeToolBar(ToolBarItem *item)
    } else {
       deleteItem(item);
    }
+
    if (wasCurrent) {
       if (row == ui.toolBarList->count()) {
          --row;
       }
-      if (row < 0)
-         ;
-      else {
+
+      if (row < 0) {
+         // do nothing
+      } else {
          ui.toolBarList->setCurrentRow(row);
       }
    }
+
    setButtons();
 }
 
@@ -1523,6 +1526,7 @@ void QtToolBarDialogPrivate::leftClicked()
    if (row == ui.currentToolBarList->count()) {
       --row;
    }
+
    if (row >= 0) {
       QListWidgetItem *item = ui.currentToolBarList->item(row);
       ui.currentToolBarList->setCurrentItem(item);

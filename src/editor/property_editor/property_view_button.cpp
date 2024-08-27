@@ -441,7 +441,7 @@ void QtButtonPropertyBrowserPrivate::propertyRemoved(QtBrowserItem *index)
          gridLayout = m_mainLayout;
       }
 
-      const int parentRow = gridRow(parentItem);
+      const int parentRow  = gridRow(parentItem);
       const int parentSpan = gridSpan(parentItem);
 
       gridLayout->removeWidget(parentItem->button);

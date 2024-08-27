@@ -336,6 +336,7 @@ void QDesignerPropertySheetPrivate::setResourceProperty(int index, const QVarian
    Q_ASSERT(isResourceProperty(index));
 
    QVariant &v = m_resourceProperties[index];
+
    if ((value.canConvert<qdesigner_internal::PropertySheetPixmapValue>() && v.canConvert<qdesigner_internal::PropertySheetPixmapValue>())
       || (value.canConvert<qdesigner_internal::PropertySheetIconValue>() && v.canConvert<qdesigner_internal::PropertySheetIconValue>())) {
       v = value;
@@ -793,6 +794,7 @@ QDesignerPropertySheet::~QDesignerPropertySheet()
    if (d->m_fwb) {
       d->m_fwb->removeReloadablePropertySheet(this);
    }
+
    delete d;
 }
 
@@ -1196,15 +1198,18 @@ QVariant QDesignerPropertySheet::property(int index) const
          if (d->layout(&layoutPropertySheet) && layoutPropertySheet) {
             const QString newPropName = d->transformLayoutPropertyName(index);
 
-            if (!newPropName.isEmpty()) {
+            if (! newPropName.isEmpty()) {
                const int newIndex = layoutPropertySheet->indexOf(newPropName);
+
                if (newIndex != -1) {
                   return layoutPropertySheet->property(newIndex);
                }
+
                return QVariant();
             }
          }
       }
+
       return d->m_addProperties.value(index);
    }
 
@@ -1219,10 +1224,12 @@ QVariant QDesignerPropertySheet::property(int index) const
    if (d->isStringProperty(index)) {
       QString strValue = metaProperty(index).toString();
       qdesigner_internal::PropertySheetStringValue value = d->stringProperty(index);
+
       if (strValue != value.value()) {
          value.setValue(strValue);
          d->setStringProperty(index, value); // cache it
       }
+
       return QVariant::fromValue(value);
    }
 
@@ -1234,6 +1241,7 @@ QVariant QDesignerPropertySheet::property(int index) const
          value.setValue(listValue);
          d->setStringListProperty(index, value); // cache it
       }
+
       return QVariant::fromValue(value);
    }
 
@@ -1263,15 +1271,17 @@ QVariant QDesignerPropertySheet::metaProperty(int index) const
 
    switch (p->kind()) {
       case QDesignerMetaPropertyInterface::FlagKind: {
-         qdesigner_internal::PropertySheetFlagValue psflags = qdesigner_internal::PropertySheetFlagValue(v.toInt(),
-               designerMetaFlagsFor(p->enumerator()));
+         qdesigner_internal::PropertySheetFlagValue psflags = qdesigner_internal::PropertySheetFlagValue(
+               v.toInt(), designerMetaFlagsFor(p->enumerator()));
+
          v.setValue(psflags);
       }
       break;
 
       case QDesignerMetaPropertyInterface::EnumKind: {
-         qdesigner_internal::PropertySheetEnumValue pse = qdesigner_internal::PropertySheetEnumValue(v.toInt(),
-               designerMetaEnumFor(p->enumerator()));
+         qdesigner_internal::PropertySheetEnumValue pse = qdesigner_internal::PropertySheetEnumValue(
+               v.toInt(), designerMetaEnumFor(p->enumerator()));
+
          v.setValue(pse);
       }
       break;
@@ -1512,15 +1522,18 @@ bool QDesignerPropertySheet::reset(int index)
             value.setValue(classNameDefaultV.toString());
          }
 
-      } else if (!isAdditionalProperty(index)) {
+      } else if (! isAdditionalProperty(index)) {
          const QDesignerMetaPropertyInterface *property = d->m_meta->property(index);
+
          if ((property->accessFlags() & QDesignerMetaPropertyInterface::ResetAccess) && property->reset(d->m_object)) {
             value.setValue(property->read(d->m_object).toString());
          } else {
             return false;
          }
       }
+
       setProperty(index, QVariant::fromValue(value));
+
       return true;
    }
 
@@ -1537,7 +1550,7 @@ bool QDesignerPropertySheet::reset(int index)
       return true;
 
    } else if (isDynamic(index)) {
-      const QString propName = propertyName(index);
+      const QString propName  = propertyName(index);
       const QVariant oldValue = d->m_addProperties.value(index);
       const QVariant defaultValue = d->m_info.value(index).defaultValue;
 
@@ -1578,6 +1591,7 @@ bool QDesignerPropertySheet::reset(int index)
 
       if (isFakeLayoutProperty(index)) {
          // special properties
+
          switch (pType) {
             case PropertyLayoutObjectName:
                setProperty(index, QString());
@@ -1597,6 +1611,7 @@ bool QDesignerPropertySheet::reset(int index)
             case PropertyLayoutLabelAlignment:
             case PropertyLayoutFormAlignment: {
                QDesignerPropertySheetExtension *layoutPropertySheet;
+
                if (d->layout(&layoutPropertySheet) && layoutPropertySheet) {
                   return layoutPropertySheet->reset(layoutPropertySheet->indexOf(d->transformLayoutPropertyName(index)));
                }
@@ -1609,21 +1624,23 @@ bool QDesignerPropertySheet::reset(int index)
 
          // special margins
          int value = -1;
+
          switch (d->m_objectType) {
             case ObjectLayoutWidget:
-               if (pType == PropertyLayoutLeftMargin ||
-                  pType == PropertyLayoutTopMargin ||
-                  pType == PropertyLayoutRightMargin ||
-                  pType == PropertyLayoutBottomMargin) {
+               if (pType == PropertyLayoutLeftMargin || pType == PropertyLayoutTopMargin ||
+                     pType == PropertyLayoutRightMargin || pType == PropertyLayoutBottomMargin) {
                   value = 0;
                }
                break;
+
             default:
                break;
          }
+
          setProperty(index, value);
          return true;
       }
+
       return false;
 
    } else if (isFakeProperty(index)) {
@@ -1663,6 +1680,7 @@ bool QDesignerPropertySheet::isChanged(int index) const
    if (d->invalidIndex("QDesignerPropertySheet::isChanged()", index)) {
       return false;
    }
+
    if (isAdditionalProperty(index)) {
       if (isFakeLayoutProperty(index)) {
          QDesignerPropertySheetExtension *layoutPropertySheet;
@@ -1670,11 +1688,12 @@ bool QDesignerPropertySheet::isChanged(int index) const
          if (d->layout(&layoutPropertySheet) && layoutPropertySheet) {
             const QString newPropName = d->transformLayoutPropertyName(index);
 
-            if (!newPropName.isEmpty()) {
+            if (! newPropName.isEmpty()) {
                const int newIndex = layoutPropertySheet->indexOf(newPropName);
                if (newIndex != -1) {
                   return layoutPropertySheet->isChanged(newIndex);
                }
+
                return false;
             }
          }
@@ -1696,8 +1715,10 @@ void QDesignerPropertySheet::setChanged(int index, bool changed)
 
          if (d->layout(&layoutPropertySheet) && layoutPropertySheet) {
             const QString newPropName = d->transformLayoutPropertyName(index);
-            if (!newPropName.isEmpty()) {
+
+            if (! newPropName.isEmpty()) {
                const int newIndex = layoutPropertySheet->indexOf(newPropName);
+
                if (newIndex != -1) {
                   layoutPropertySheet->setChanged(newIndex, changed);
                }

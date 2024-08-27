@@ -2344,7 +2344,6 @@ void DesignerPropertyManager::initializeProperty(QtProperty *property)
    m_resetMap[property] = false;
 
    const uint type = propertyType(property);
-
    m_fontManager.preInitializeProperty(property, type, m_resetMap);
 
    switch (type) {
@@ -2412,6 +2411,7 @@ void DesignerPropertyManager::initializeProperty(QtProperty *property)
          } else if (type == designerPixmapTypeId()) {
             m_pixmapValues[property] = PropertySheetPixmapValue();
             m_defaultPixmaps[property] = QPixmap();
+
          } else if (type == designerIconTypeId()) {
             m_iconValues[property] = PropertySheetIconValue();
             m_defaultIcons[property] = QIcon();
@@ -2431,13 +2431,16 @@ void DesignerPropertyManager::initializeProperty(QtProperty *property)
             createIconSubProperty(property, QIcon::Active, QIcon::On, tr("Active On"));
             createIconSubProperty(property, QIcon::Selected, QIcon::Off, tr("Selected Off"));
             createIconSubProperty(property, QIcon::Selected, QIcon::On, tr("Selected On"));
+
          } else if (type == designerStringTypeId()) {
             m_stringManager.initialize(this, property, PropertySheetStringValue());
             m_stringAttributes.insert(property, ValidationMultiLine);
             m_stringFontAttributes.insert(property, QApplication::font());
             m_stringThemeAttributes.insert(property, false);
+
          } else if (type == designerStringListTypeId()) {
             m_stringListManager.initialize(this, property, PropertySheetStringListValue());
+
          } else if (type == designerKeySequenceTypeId()) {
             m_keySequenceManager.initialize(this, property, PropertySheetKeySequenceValue());
          }
@@ -2445,6 +2448,7 @@ void DesignerPropertyManager::initializeProperty(QtProperty *property)
 
    QtVariantPropertyManager::initializeProperty(property);
    m_fontManager.postInitializeProperty(this, property, type, DesignerPropertyManager::enumTypeId());
+
    if (type == QVariant::Double) {
       setAttribute(property, QString("decimals"), 6);
    }
@@ -2565,12 +2569,9 @@ bool DesignerPropertyManager::resetIconSubProperty(QtProperty *property)
 }
 
 // -------- DesignerEditorFactory
-DesignerEditorFactory::DesignerEditorFactory(QDesignerFormEditorInterface *core, QObject *parent) :
-   QtVariantEditorFactory(parent),
-   m_resetDecorator(new ResetDecorator(core, this)),
-   m_changingPropertyValue(false),
-   m_core(core),
-   m_spacing(-1)
+DesignerEditorFactory::DesignerEditorFactory(QDesignerFormEditorInterface *core, QObject *parent)
+   : QtVariantEditorFactory(parent), m_resetDecorator(new ResetDecorator(core, this)),
+     m_changingPropertyValue(false), m_core(core), m_spacing(-1)
 {
    connect(m_resetDecorator, &ResetDecorator::resetProperty,
       this, &DesignerEditorFactory::resetProperty);

@@ -974,8 +974,8 @@ int PreviewManager::previewCount() const
    return  d->m_previews.size();
 }
 
-QPixmap PreviewManager::createPreviewPixmap(const QDesignerFormWindowInterface *fw, const QString &style, int deviceProfileIndex,
-   QString *errorMessage)
+QPixmap PreviewManager::createPreviewPixmap(const QDesignerFormWindowInterface *fw, const QString &style,
+      int deviceProfileIndex, QString *errorMessage)
 {
    return createPreviewPixmap(fw, configurationFromSettings(fw->core(), style), deviceProfileIndex, errorMessage);
 }
@@ -986,14 +986,14 @@ QPixmap PreviewManager::createPreviewPixmap(const QDesignerFormWindowInterface *
 }
 
 QPixmap PreviewManager::createPreviewPixmap(const QDesignerFormWindowInterface *fw,
-   const PreviewConfiguration &pc,
-   int deviceProfileIndex,
-   QString *errorMessage)
+      const PreviewConfiguration &pc, int deviceProfileIndex, QString *errorMessage)
 {
    QWidget *widget = createPreview(fw, pc, deviceProfileIndex, errorMessage);
-   if (!widget) {
+
+   if (! widget) {
       return QPixmap();
    }
+
    const QPixmap rc = widget->grab(QRect(0, 0, -1, -1));
    widget->deleteLater();
    return rc;
@@ -1001,7 +1001,9 @@ QPixmap PreviewManager::createPreviewPixmap(const QDesignerFormWindowInterface *
 
 void PreviewManager::slotZoomChanged(int z)
 {
-   if (d->m_core) { // Save the last zoom chosen by the user.
+   if (d->m_core) {
+      // Save the last zoom chosen by the user
+
       QDesignerSharedSettings settings(d->m_core);
       settings.setZoom(z);
    }

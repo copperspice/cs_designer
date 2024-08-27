@@ -48,9 +48,7 @@ FontPropertyManager::FontPropertyManager()
    }
 }
 
-void FontPropertyManager::preInitializeProperty(QtProperty *property,
-   int type,
-   ResetMap &resetMap)
+void FontPropertyManager::preInitializeProperty(QtProperty *property, int type, ResetMap &resetMap)
 {
    if (m_createdFontProperty) {
       PropertyToSubPropertiesMap::iterator it = m_propertyToFontSubProperties.find(m_createdFontProperty);
@@ -118,6 +116,7 @@ void FontPropertyManager::postInitializeProperty(QtVariantPropertyManager *vm,
       if (m_designerFamilyNames.size() != plainFamilyNames.size()) {
          m_designerFamilyNames = designerFamilyNames(plainFamilyNames, m_familyMappings);
       }
+
       familyProperty->setAttribute(enumNamesAttribute, m_designerFamilyNames);
    }
 
@@ -183,6 +182,7 @@ bool FontPropertyManager::resetFontSubProperty(QtVariantPropertyManager *vm, QtP
    font.resolve(mask);
    v.setValue(font);
    fontProperty->setValue(v);
+
    return true;
 }
 
@@ -210,11 +210,14 @@ QFont::StyleStrategy FontPropertyManager::indexToAntialiasing(int idx)
    switch (idx) {
       case 0:
          return QFont::PreferDefault;
+
       case 1:
          return QFont::NoAntialias;
+
       case 2:
          return QFont::PreferAntialias;
    }
+
    return QFont::PreferDefault;
 }
 
@@ -223,18 +226,25 @@ unsigned FontPropertyManager::fontFlag(int idx)
    switch (idx) {
       case 0:
          return QFont::FamilyResolved;
+
       case 1:
          return QFont::SizeResolved;
+
       case 2:
          return QFont::WeightResolved;
+
       case 3:
          return QFont::StyleResolved;
+
       case 4:
          return QFont::UnderlineResolved;
+
       case 5:
          return QFont::StrikeOutResolved;
+
       case 6:
          return QFont::KerningResolved;
+
       case 7:
          return QFont::StyleStrategyResolved;
    }
@@ -266,6 +276,7 @@ int FontPropertyManager::valueChanged(QtVariantPropertyManager *vm, QtProperty *
 
    font.setStyleStrategy(newValue);
    fontProperty->setValue(QVariant::fromValue(font));
+
    return DesignerPropertyManager::Changed;
 }
 
@@ -279,9 +290,10 @@ void FontPropertyManager::updateModifiedState(QtProperty *property, const QVaria
    const PropertyList &subProperties = it.value();
 
    QFont font = value.value<QFont>();
-   const unsigned mask = font.resolve();
 
-   const int count = subProperties.size();
+   const unsigned mask = font.resolve();
+   const int count     = subProperties.size();
+
    for (int index = 0; index < count; index++) {
       const unsigned flag = fontFlag(index);
       subProperties.at(index)->setModified(mask & flag);

@@ -291,7 +291,8 @@ void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringL
 
       const QMap<QString, bool>::iterator itMod = m_pathToModified.find(path);
 
-      if (itMod == m_pathToModified.end() || itMod.value()) { // new path or path is already created, but needs to be recreated
+      if (itMod == m_pathToModified.end() || itMod.value()) {
+         // new path or path is already created, but needs to be recreated
          QStringList contents;
          int qrcErrorCount;
          ++generatedCount;
@@ -299,7 +300,8 @@ void QtResourceModelPrivate::activate(QtResourceSet *resourceSet, const QStringL
          const QByteArray *data = createResource(path, &contents, &qrcErrorCount, errorStream);
 
          newPathToData.insert(path, data);
-         if (qrcErrorCount) { // Count single failed files as sort of 1/2 error
+         if (qrcErrorCount) {
+            // Count single failed files as sort of 1/2 error
             ++errorCount;
          }
          addWatcher(path);

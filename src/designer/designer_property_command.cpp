@@ -1022,6 +1022,7 @@ QVariant PropertyHelper::findDefaultValue(QDesignerFormWindowInterface *fw) cons
 
    const QDesignerWidgetDataBaseItemInterface *item = fw->core()->widgetDataBase()->item(item_idx);
    const QList<QVariant> default_prop_values = item->defaultPropertyValues();
+
    if (m_index < default_prop_values.size()) {
       return default_prop_values.at(m_index);
    }
@@ -1041,6 +1042,7 @@ PropertyHelper::Value PropertyHelper::restoreDefaultValue(QDesignerFormWindowInt
    // try to reset sheet, else try to find default
    if (m_propertySheet->reset(m_index)) {
       defaultValue.first = m_propertySheet->property(m_index);
+
    } else {
       defaultValue.first = findDefaultValue(fw);
       m_propertySheet->setProperty(m_index, defaultValue.first);
@@ -1065,6 +1067,7 @@ PropertyHelper::Value PropertyHelper::restoreDefaultValue(QDesignerFormWindowInt
    }
 
    updateObject(fw, currentValue, defaultValue.first);
+
    return defaultValue;
 }
 
@@ -1222,10 +1225,14 @@ class UndoSetValueFunction
 class RestoreDefaultFunction
 {
  public:
-   RestoreDefaultFunction(QDesignerFormWindowInterface *formWindow) : m_formWindow(formWindow) {}
+   RestoreDefaultFunction(QDesignerFormWindowInterface *formWindow)
+      : m_formWindow(formWindow)
+   { }
+
    PropertyHelper::Value operator()(PropertyHelper &ph) {
       return ph.restoreDefaultValue(m_formWindow);
    }
+
  private:
    QDesignerFormWindowInterface *m_formWindow;
 };
@@ -1248,7 +1255,7 @@ unsigned changePropertyList(QDesignerFormEditorInterface *core, const QString &p
 
       if (QObject *object = ph->object()) {
          // Might have been deleted in the meantime
-         const PropertyHelper::Value newValue = function( *ph );
+         const PropertyHelper::Value newValue = function(*ph);
          updateMask |= ph->updateMask();
 
          // Update property editor if it is the current object

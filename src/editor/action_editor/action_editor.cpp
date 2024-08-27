@@ -537,7 +537,7 @@ static inline QString textPropertyValue(const QDesignerPropertySheetExtension *s
 
 void ActionEditor::editAction(QAction *action)
 {
-   if (!action) {
+   if (! action) {
       return;
    }
 
@@ -554,7 +554,7 @@ void ActionEditor::editAction(QAction *action)
    oldActionData.icon = data.value<PropertySheetIconValue>();
 
    oldActionData.keysequence = ActionModel::actionShortCut(sheet);
-   oldActionData.checkable =  action->isCheckable();
+   oldActionData.checkable   = action->isCheckable();
    dlg.setActionData(oldActionData);
 
    if (! dlg.exec()) {
@@ -846,7 +846,7 @@ void ActionEditor::slotContextMenuRequested(QContextMenuEvent *e, QAction *item)
       const QWidgetList associatedWidgets = ActionModel::associatedWidgets(action);
 
       if (! associatedWidgets.empty()) {
-         QMenu *associatedWidgetsSubMenu =  menu.addMenu(tr("Used In"));
+         QMenu *associatedWidgetsSubMenu = menu.addMenu(tr("Used In"));
 
          for (QWidget *w : associatedWidgets) {
             QAction *subAction = associatedWidgetsSubMenu->addAction(w->objectName());

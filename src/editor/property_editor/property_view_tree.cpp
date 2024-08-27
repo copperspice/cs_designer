@@ -173,8 +173,10 @@ void QtPropertyEditorView::keyPressEvent(QKeyEvent *event)
       case Qt::Key_Return:
       case Qt::Key_Enter:
       case Qt::Key_Space: // Trigger Edit
-         if (!m_editorPrivate->editedItem())
-            if (const QTreeWidgetItem *item = currentItem())
+
+         if (! m_editorPrivate->editedItem()) {
+
+            if (const QTreeWidgetItem *item = currentItem()) {
                if (item->columnCount() >= 2 &&
                      ((item->flags() & (Qt::ItemIsEditable | Qt::ItemIsEnabled)) == (Qt::ItemIsEditable | Qt::ItemIsEnabled))) {
                   event->accept();
@@ -190,6 +192,9 @@ void QtPropertyEditorView::keyPressEvent(QKeyEvent *event)
                   edit(index);
                   return;
                }
+            }
+
+         }
          break;
 
       default:
@@ -242,12 +247,12 @@ class QtPropertyEditorDelegate : public QItemDelegate
 
    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-   void setModelData(QWidget *, QAbstractItemModel *, const QModelIndex &) const override
-   {
+   void setModelData(QWidget *, QAbstractItemModel *, const QModelIndex &) const override {
+      // do nothing
    }
 
-   void setEditorData(QWidget *, const QModelIndex &) const override
-   {
+   void setEditorData(QWidget *, const QModelIndex &) const override {
+      // do nothing
    }
 
    bool eventFilter(QObject *object, QEvent *event) override;
@@ -441,7 +446,7 @@ static QIcon drawIndicatorIcon(const QPalette &palette, QStyle *style)
 
    QStyleOption branchOption;
    QRect r(QPoint(0, 0), pix.size());
-   branchOption.rect = QRect(2, 2, 9, 9); // ### hardcoded in qcommonstyle.cpp
+   branchOption.rect = QRect(2, 2, 9, 9);          // ### hardcoded in qcommonstyle.cpp
    branchOption.palette = palette;
    branchOption.state = QStyle::State_Children;
 
@@ -533,7 +538,6 @@ QtProperty *QtTreePropertyBrowserPrivate::indexToProperty(const QModelIndex &ind
    QtBrowserItem *idx    = m_itemToIndex.value(item);
 
    if (idx != nullptr) {
-
       return idx->property();
    }
 

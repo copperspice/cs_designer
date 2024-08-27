@@ -223,7 +223,9 @@ WidgetDataBaseItem *WidgetDataBaseItem::clone(const QDesignerWidgetDataBaseItemI
    rc->setPromoted(item->isPromoted());
    rc->setExtends(item->extends());
    rc->setDefaultPropertyValues(item->defaultPropertyValues());
+
    // container page method, fake slots and signals ignored here.y
+
    return rc;
 }
 
@@ -393,10 +395,12 @@ void WidgetDataBase::loadPlugins()
    }
 
    // 4) remove classes that have not been matched. The stored indexes become invalid while deleting.
-   if (!existingCustomClasses.empty()) {
+   if (! existingCustomClasses.empty()) {
       NameIndexMap::const_iterator cend = existingCustomClasses.constEnd();
+
       for (NameIndexMap::const_iterator it = existingCustomClasses.constBegin(); it != cend; ++it )  {
          const int index = indexOfClassName(it.key());
+
          if (index != -1) {
             remove(index);
             ++removedPlugins;
@@ -458,6 +462,7 @@ void WidgetDataBase::grabStandardWidgetBoxIcons()
 {
    // At this point, grab the default icons for the non-custom widgets from
    // the widget box. They will show up in the object inspector.
+
    if (const QDesignerWidgetBox *wb = dynamic_cast<const QDesignerWidgetBox *>(m_core->widgetBox())) {
       const QString qWidgetClass = QString("QWidget");
       const int itemCount = count();
@@ -467,6 +472,7 @@ void WidgetDataBase::grabStandardWidgetBoxIcons()
             // Careful not to catch the layout icons when looking for
             // QWidget
             const QString name = dbItem->name();
+
             if (name == qWidgetClass) {
                dbItem->setIcon(wb->iconForWidget(name, QString("Containers")));
             } else {
@@ -552,25 +558,31 @@ static QString xmlFromWidgetBox(const QDesignerFormEditorInterface *core, const 
    if (!found) {
       return QString();
    }
+
    QScopedPointer<DomUI> domUI(QDesignerWidgetBox::xmlToUi(className, widget.domXml(), false));
    if (domUI.isNull()) {
       return QString();
    }
+
    domUI->setAttributeVersion(QString("4.0"));
    DomWidget *domWidget = domUI->elementWidget();
+
    if (!domWidget) {
       return QString();
    }
+
    // Properties: Remove the "objectName" property in favour of the name attribute and check geometry.
    domWidget->setAttributeName(objectName);
    const QString geometryProperty = QString("geometry");
    const QString objectNameProperty  = QString("objectName");
    PropertyList properties = domWidget->elementProperty();
+
    for (PropertyList::iterator it = properties.begin(); it != properties.end(); ) {
       DomProperty *property = *it;
       if (property->attributeName() == objectNameProperty) { // remove  "objectName"
          it = properties.erase(it);
          delete property;
+
       } else {
          if (property->attributeName() == geometryProperty) { // Make sure form is at least 400, 300
             if (DomRect *geom = property->elementRect()) {
@@ -592,8 +604,10 @@ static QString xmlFromWidgetBox(const QDesignerFormEditorInterface *core, const 
    windowTitleProperty->setAttributeName(QString("windowTitle"));
    windowTitleProperty->setElementString(windowTitleString);
    properties.push_back(windowTitleProperty);
+
    // ------
    domWidget->setElementProperty(properties);
+
    // Embed in in DomUI and get string. Omit the version number.
    domUI->setElementClass(objectName);
 

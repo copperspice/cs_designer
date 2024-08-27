@@ -872,6 +872,7 @@ void GridLayoutState::insertRow(int row)
 
    for (WidgetItemMap::iterator it = widgetItemMap.begin(); it != iend; ++it) {
       const int topRow = it.value().y();
+
       if (topRow >= row) {
          it.value().translate(0, 1);
 
@@ -893,10 +894,14 @@ void GridLayoutState::insertColumn(int column)
 
    for (WidgetItemMap::iterator it = widgetItemMap.begin(); it != iend; ++it) {
       const int leftColumn = it.value().x();
+
       if (leftColumn >= column) {
          it.value().translate(1, 0);
-      } else { // Left of it: Does it span it -> widen?
+
+      } else {
+         // Left of it: Does it span it -> widen?
          const int colSpan = it.value().width();
+
          if (colSpan  > 1 &&  leftColumn + colSpan > column) {
             it.value().setWidth(colSpan + 1);
          }

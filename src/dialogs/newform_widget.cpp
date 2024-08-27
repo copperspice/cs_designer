@@ -625,4 +625,3 @@ QString NewFormWidget::currentTemplate(QString *ptrToErrorMessage)
 }
 
 }
-

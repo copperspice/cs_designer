@@ -169,7 +169,7 @@ void PluginDialog::setItem(QTreeWidgetItem *pluginItem, const QString &name,
 
 /* emerald - temporary hold
 
-void  PluginDialog::updateCustomWidgetPlugins()
+void PluginDialog::updateCustomWidgetPlugins()
 {
     const int before = m_core->widgetDataBase()->count();
     m_core->integration()->updateCustomWidgetPlugins();
