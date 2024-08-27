@@ -981,7 +981,7 @@ QtVariantProperty *QtVariantPropertyManager::addProperty(uint propertyType, cons
    d_ptr->m_creatingProperty = wasCreating;
    d_ptr->m_propertyType = 0;
 
-   if (! property) {
+   if (property == nullptr) {
       return nullptr;
    }
 

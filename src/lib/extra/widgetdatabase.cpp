@@ -422,19 +422,21 @@ QList<QVariant> WidgetDataBase::defaultPropertyValues(const QString &name)
 
    QObject *object = factory->createObject(name, nullptr);
 
-   if (! object) {
+   if (object == nullptr) {
       object = factory->createWidget(name, nullptr);
    }
 
-   if (!object) {
+   if (object == nullptr) {
       return QList<QVariant>();
    }
 
    // Get properties from sheet
    QList<QVariant> result;
 
-   if (const QDesignerPropertySheetExtension *sheet =
-         qt_extension<QDesignerPropertySheetExtension *>(m_core->extensionManager(), object)) {
+   const QDesignerPropertySheetExtension *sheet =
+         qt_extension<QDesignerPropertySheetExtension *>(m_core->extensionManager(), object);
+
+   if (sheet != nullptr) {
       const int propertyCount = sheet->count();
 
       for (int i = 0; i < propertyCount; ++i) {

@@ -50,7 +50,7 @@ FontPropertyManager::FontPropertyManager()
 
 void FontPropertyManager::preInitializeProperty(QtProperty *property, int type, ResetMap &resetMap)
 {
-   if (m_createdFontProperty) {
+   if (m_createdFontProperty != nullptr) {
       PropertyToSubPropertiesMap::iterator it = m_propertyToFontSubProperties.find(m_createdFontProperty);
       if (it == m_propertyToFontSubProperties.end()) {
          it = m_propertyToFontSubProperties.insert(m_createdFontProperty, PropertyList());

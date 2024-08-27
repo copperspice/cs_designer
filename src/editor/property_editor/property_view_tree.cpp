@@ -135,10 +135,10 @@ void QtPropertyEditorView::drawRow(QPainter *painter, const QStyleOptionViewItem
    QStyleOptionViewItem opt = option;
    bool hasValue = true;
 
-   if (m_editorPrivate) {
+   if (m_editorPrivate != nullptr) {
       QtProperty *property = m_editorPrivate->indexToProperty(index);
 
-      if (property) {
+      if (property != nullptr) {
          hasValue = property->hasValue();
       }
    }
@@ -331,11 +331,11 @@ void QtPropertyEditorDelegate::closeEditor(QtProperty *property)
 QWidget *QtPropertyEditorDelegate::createEditor(QWidget *parent,
    const QStyleOptionViewItem &, const QModelIndex &index) const
 {
-   if (index.column() == 1 && m_editorPrivate) {
+   if (index.column() == 1 && m_editorPrivate != nullptr) {
       QtProperty *property  = m_editorPrivate->indexToProperty(index);
       QTreeWidgetItem *item = m_editorPrivate->indexToItem(index);
 
-      if (property && item && (item->flags() & Qt::ItemIsEnabled)) {
+      if (property != nullptr && item && (item->flags() & Qt::ItemIsEnabled)) {
          QWidget *editor = m_editorPrivate->createEditor(property, parent);
 
          if (editor) {
