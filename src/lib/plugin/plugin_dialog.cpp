@@ -66,7 +66,7 @@ PluginDialog::PluginDialog(QDesignerFormEditorInterface *core, QWidget *parent)
    updateButton->setToolTip(tooltip);
    updateButton->setWhatsThis(tooltip);
 
-   // emerald - temporary hold
+   // emerald - hold custom plugins
    // connect(updateButton, &QAbstractButton::clicked, this, &PluginDialog::updateCustomWidgetPlugins);
 
    ui.buttonBox->addButton(updateButton, QDialogButtonBox::ActionRole);
@@ -167,7 +167,7 @@ void PluginDialog::setItem(QTreeWidgetItem *pluginItem, const QString &name,
    }
 }
 
-/* emerald - temporary hold
+/* emerald - hold custom plugins
 
 void PluginDialog::updateCustomWidgetPlugins()
 {

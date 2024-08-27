@@ -34,7 +34,7 @@ class PluginDialog : public QDialog
    explicit PluginDialog(QDesignerFormEditorInterface *core, QWidget *parent = nullptr);
 
  private:
-   /* emerald - temporary hold
+   /* emerald - hold custom plugins
        CS_SLOT_1(Private, void updateCustomWidgetPlugins())
        CS_SLOT_2(updateCustomWidgetPlugins)
    */

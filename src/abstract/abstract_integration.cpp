@@ -101,8 +101,6 @@ class QDesignerIntegrationPrivate
 
    QWidget *containerWindow(QWidget *widget) const;
 
-   // Load plugins into widget database and factory
-
    // emerald - temporary hold, plugins
    // static void initializePlugins(QDesignerFormEditorInterface *formEditor);
 
@@ -142,7 +140,7 @@ QDesignerIntegrationPrivate::QDesignerIntegrationPrivate(QDesignerIntegration *q
 
 void QDesignerIntegrationPrivate::initialize()
 {
-   // integrate the `Form Editor component'
+   // integrate the Form Editor component
 
    // Extensions
    QDesignerFormEditorInterface *core = q->core();
@@ -341,10 +339,12 @@ void QDesignerIntegrationPrivate::getSelection(Selection &s)
 {
    QDesignerFormEditorInterface *core = q->core();
    // Get multiselection from object inspector
+
    if (QDesignerObjectInspector *designerObjectInspector = qobject_cast<QDesignerObjectInspector *>(core->objectInspector())) {
       designerObjectInspector->getSelection(s);
-      // Action editor puts actions that are not on the form yet
-      // into the property editor only.
+
+      // Action editor puts actions that are not on the form yet into the property editor only.
+
       if (s.empty())
          if (QObject *object = core->propertyEditor()->object()) {
             s.objects.push_back(object);
@@ -389,7 +389,6 @@ QObject *QDesignerIntegrationPrivate::propertyEditorObject()
 
 /* emerald - temporary hold, plugins
 
-// Load plugins into widget database and factory.
 void QDesignerIntegrationPrivate::initializePlugins(QDesignerFormEditorInterface *formEditor)
 {
     // load the plugins
@@ -416,7 +415,8 @@ void QDesignerIntegrationPrivate::updateCustomWidgetPlugins()
     initializePlugins(formEditor);
 
     // Do not just reload the last file as the WidgetBox merges the compiled-in resources
-    // and $HOME/.designer/widgetbox.xml. This would also double the scratchpad.
+    // and $HOME/.designer/widgetbox.xml. This would also double the scratchpad
+
     if (QDesignerWidgetBox *wb = qobject_cast<QDesignerWidgetBox*>(formEditor->widgetBox())) {
         const QDesignerWidgetBox::LoadMode oldLoadMode = wb->loadMode();
         wb->setLoadMode(QDesignerWidgetBox::LoadCustomWidgetsOnly);
@@ -429,7 +429,7 @@ void QDesignerIntegrationPrivate::updateCustomWidgetPlugins()
 
 static QString fixHelpClassName(const QString &className)
 {
-   // ### generalize using the Widget Data Base
+   // generalize using the Widget DataBase
    if (className == QString("Line")) {
       return QString("QFrame");
    }
@@ -603,7 +603,6 @@ QWidget *QDesignerIntegration::containerWindow(QWidget *widget) const
 
 /* emerald - temporary hold, plugins
 
-// Load plugins into widget database and factory
 void QDesignerIntegration::initializePlugins(QDesignerFormEditorInterface *formEditor)
 {
     qdesigner_internal::QDesignerIntegrationPrivate::initializePlugins(formEditor);

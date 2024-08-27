@@ -323,7 +323,8 @@ void QFormBuilder::setPluginPath(const QStringList &pluginPaths)
    updateCustomWidgets();
 }
 
-/*
+/* emerald - hold custom plugins
+
 static void insertPlugins(QObject *o, QMap<QString, QDesignerCustomWidgetInterface *> *customWidgets)
 {
    // step 1) try with a normal plugin
@@ -339,11 +340,12 @@ static void insertPlugins(QObject *o, QMap<QString, QDesignerCustomWidgetInterfa
       }
    }
 }
+
 */
 
 void QFormBuilder::updateCustomWidgets()
 {
-   /* emerald - reconsider custom widgets
+   /* emerald - hold custom plugins
 
        d->m_customWidgets.clear();
 
@@ -407,7 +409,7 @@ void QFormBuilder::applyProperties(QObject *o, const QList<DomProperty *> &prope
       } else if (d->applyPropertyInternally(o, attributeName, v)) {
 
       } else if (isWidget && "QFrame" == o->metaObject()->className() && attributeName == strings.orientationProperty) {
-         // ### special-casing for Line (QFrame) -- try to fix me
+         // special casing for Line (QFrame) -- try to fix
          o->setProperty("frameShape", v);          // v is of QFrame::Shape enum
 
       } else {

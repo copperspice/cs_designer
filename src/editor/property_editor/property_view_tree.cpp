@@ -323,7 +323,7 @@ void QtPropertyEditorDelegate::closeEditor(QtProperty *property)
    if (QWidget *w = m_propertyToEditor.value(property, nullptr)) {
       (void) w;
 
-      // temporarily removed
+      // broom - temporarily removed
       // w->deleteLater()
    }
 }
@@ -564,7 +564,7 @@ void QtTreePropertyBrowserPrivate::disableItem(QTreeWidgetItem *item) const
 {
    (void) item;
 
-/* temporarily removed, concern with closeEditor()
+/* (broom) temporarily removed, issue with closeEditor()
 
    Qt::ItemFlags flags = item->flags();
 

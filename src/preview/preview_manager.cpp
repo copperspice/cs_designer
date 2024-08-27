@@ -141,7 +141,7 @@ QGraphicsProxyWidget *DesignerZoomWidget::createProxyWidget(QGraphicsItem *paren
 // provides context menu with rotation options. Derived class
 // can apply additional transformations to the skin.
 
-/*   emerald, skins
+/*  emerald - hold skins
 
 class PreviewDeviceSkin : public DeviceSkin
 {
@@ -330,7 +330,7 @@ PreviewConfigurationData::PreviewConfigurationData(const QString &style, const Q
 {
 }
 
-/*
+/* emerald - hold skins
 
 class ZoomablePreviewDeviceSkin : public PreviewDeviceSkin
 {
@@ -730,7 +730,7 @@ QWidget *PreviewManager::createPreview(const QDesignerFormWindowInterface *fw,
       return formWidget;
    }
 
-   /*  emerald, skins
+   /*  emerald - hold skins
 
        // Embed into skin. find config in cache
        PreviewManagerPrivate::DeviceSkinConfigCache::iterator it = d->m_deviceSkinConfigCache.find(deviceSkin);
@@ -748,7 +748,7 @@ QWidget *PreviewManager::createPreview(const QDesignerFormWindowInterface *fw,
 
    QWidget *skinContainer = createDeviceSkinContainer(fw);
 
-   /*   emerald, skins
+   /*  emerald - hold skins
 
        PreviewDeviceSkin *skin = 0;
 
@@ -1009,4 +1009,3 @@ void PreviewManager::slotZoomChanged(int z)
    }
 }
 }
-

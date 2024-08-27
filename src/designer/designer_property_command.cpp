@@ -975,7 +975,7 @@ PropertyHelper::Value PropertyHelper::setValue(QDesignerFormWindowInterface *fw,
    return applyValue(fw, m_oldValue.first, maskedNewValue);
 }
 
-// Apply the value and update. Returns corrected value
+// Apply the value and update, returns corrected value
 PropertyHelper::Value PropertyHelper::applyValue(QDesignerFormWindowInterface *fw, const QVariant &oldValue, Value newValue)
 {
    if (m_objectType ==  OT_Widget) {
@@ -1017,7 +1017,7 @@ QVariant PropertyHelper::findDefaultValue(QDesignerFormWindowInterface *fw) cons
 
    const int item_idx = fw->core()->widgetDataBase()->indexOfObject(m_object);
    if (item_idx == -1) {
-      return  m_oldValue.first;   // We simply don't know the value in this case
+      return  m_oldValue.first;   // simply do not know the value
    }
 
    const QDesignerWidgetDataBaseItemInterface *item = fw->core()->widgetDataBase()->item(item_idx);
@@ -1031,7 +1031,7 @@ QVariant PropertyHelper::findDefaultValue(QDesignerFormWindowInterface *fw) cons
       return QColor();
    }
 
-   return m_oldValue.first; // Again, we just don't know
+   return m_oldValue.first; // Again, we just do not know
 }
 
 PropertyHelper::Value PropertyHelper::restoreDefaultValue(QDesignerFormWindowInterface *fw)
@@ -1282,7 +1282,7 @@ unsigned PropertyListCommand::setValue(QVariant value, bool changed, unsigned su
          SetValueFunction(formWindow(), PropertyHelper::Value(value, changed), subPropertyMask));
 }
 
-// restore old value,return update mask
+// restore old value, return update mask
 unsigned PropertyListCommand::restoreOldValue()
 {
    return changePropertyList(formWindow()->core(),

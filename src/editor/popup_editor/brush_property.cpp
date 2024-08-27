@@ -218,8 +218,8 @@ void BrushPropertyManager::initializeProperty(QtVariantPropertyManager *vm, QtPr
 
    styleSubProperty->setAttribute("enumNames", styles);
 
-   //   broom - put back when QVariant operator= resolved
-   //   styleSubProperty->setAttribute("enumIcons", QVariant::fromValue(brushStyleIcons()));
+//   broom - put back when QVariant operator= resolved
+//   styleSubProperty->setAttribute("enumIcons", QVariant::fromValue(brushStyleIcons()));
 
    m_brushPropertyToStyleSubProperty.insert(property, styleSubProperty);
    m_brushStyleSubPropertyToProperty.insert(styleSubProperty, property);

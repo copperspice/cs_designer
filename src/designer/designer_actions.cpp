@@ -371,7 +371,7 @@ QDesignerActions::QDesignerActions(QDesignerWorkbench *workbench)
    connect(formWindowManager, &QDesignerFormWindowManager::activeFormWindowChanged,
          this, &QDesignerActions::activeFormWindowChanged);
 
-/* emerald - review if required ( builtin plugins )
+/* emerald - hold builtin plugins
 
    QList<QObject *> builtinPlugins = QPluginLoader::staticInstances();
    builtinPlugins += m_core->pluginManager()->instances();

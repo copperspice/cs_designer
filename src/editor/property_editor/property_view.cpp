@@ -264,7 +264,7 @@ void QtProperty::insertSubProperty(QtProperty *property, QtProperty *afterProper
    };
 
    if (unSorted.contains(this->propertyName())) {
-      // set order
+      // set order based on lambda
 
       const static QHash<QString, int> groupOrder = {
          {"X", 0}, {"Y", 1}, {"Width", 2}, {"Height", 3},
@@ -340,6 +340,7 @@ void QtProperty::insertSubProperty(QtProperty *property, QtProperty *afterProper
       }
 
    } else {
+      // call will indicate sort order
 
       for (int pos = 0; pos < pendingList.count(); ++pos) {
          QtProperty *item = pendingList.at(pos);

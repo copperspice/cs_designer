@@ -419,7 +419,7 @@ QList<QVariant> WidgetDataBase::defaultPropertyValues(const QString &name)
 {
    WidgetFactory *factory = dynamic_cast<WidgetFactory *>(m_core->widgetFactory());
    Q_ASSERT(factory);
-   // Create non-widgets, widgets in order
+
    QObject *object = factory->createObject(name, nullptr);
 
    if (! object) {
@@ -430,7 +430,7 @@ QList<QVariant> WidgetDataBase::defaultPropertyValues(const QString &name)
       return QList<QVariant>();
    }
 
-   // Get properties from sheet.
+   // Get properties from sheet
    QList<QVariant> result;
 
    if (const QDesignerPropertySheetExtension *sheet =
@@ -468,9 +468,9 @@ void WidgetDataBase::grabStandardWidgetBoxIcons()
       const int itemCount = count();
       for (int i = 0; i < itemCount; ++i) {
          QDesignerWidgetDataBaseItemInterface *dbItem = item(i);
+
          if (!dbItem->isCustom() && dbItem->icon().isNull()) {
-            // Careful not to catch the layout icons when looking for
-            // QWidget
+            // Careful not to catch the layout icons when looking for QWidget
             const QString name = dbItem->name();
 
             if (name == qWidgetClass) {

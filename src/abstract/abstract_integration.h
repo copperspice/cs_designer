@@ -163,8 +163,6 @@ class QDesignerIntegration: public QDesignerIntegrationInterface
 
    QWidget *containerWindow(QWidget *widget) const override;
 
-   // Load plugins into widget database and factory
-
    // emerald - temporary hold, plugins
    // static void initializePlugins(QDesignerFormEditorInterface *formEditor);
 

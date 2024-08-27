@@ -1209,7 +1209,7 @@ QVariant QtVariantPropertyManager::attributeValue(const QtProperty *property, co
          return enumManager->enumNames(internProp);
       }
 
-      /*  broom - put back when QVariant operator= resolved
+      /*    broom - put back when QVariant operator= resolved
 
            if (attribute == d_ptr->m_enumIconsAttribute) {
                QVariant v;

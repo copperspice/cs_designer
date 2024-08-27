@@ -52,7 +52,7 @@ void QDesignerComponents::initializePlugins(QDesignerFormEditorInterface *core)
 
 */
 
-// create all the panes from here down
+// ** create all the panes from here down
 
 QDesignerFormEditorInterface *QDesignerComponents::createFormEditor(QObject *parent)
 {

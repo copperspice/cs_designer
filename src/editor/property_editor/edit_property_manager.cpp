@@ -1336,17 +1336,11 @@ void QtTimePropertyManager::setValue(QtProperty *property, const QTime &val)
       property, val);
 }
 
-/*!
-    \reimp
-*/
 void QtTimePropertyManager::initializeProperty(QtProperty *property)
 {
    d_ptr->m_values[property] = QTime::currentTime();
 }
 
-/*!
-    \reimp
-*/
 void QtTimePropertyManager::uninitializeProperty(QtProperty *property)
 {
    d_ptr->m_values.remove(property);
