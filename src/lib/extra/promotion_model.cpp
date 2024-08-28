@@ -115,7 +115,7 @@ void PromotionModel::initializeHeaders()
 
 void PromotionModel::updateFromWidgetDatabase()
 {
-   typedef QDesignerPromotionInterface::PromotedClasses PromotedClasses;
+   using PromotedClasses = QDesignerPromotionInterface::PromotedClasses;
 
    clear();
    initializeHeaders();

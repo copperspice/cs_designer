@@ -229,7 +229,7 @@ AppFontModel::AppFontModel(QObject *parent) :
 
 void AppFontModel::init(const AppFontManager &mgr)
 {
-   typedef AppFontManager::FileNameFontIdPairs FileNameFontIdPairs;
+   using FileNameFontIdPairs = AppFontManager::FileNameFontIdPairs;
 
    const FileNameFontIdPairs &fonts = mgr.fonts();
    const FileNameFontIdPairs::const_iterator cend = fonts.constEnd();

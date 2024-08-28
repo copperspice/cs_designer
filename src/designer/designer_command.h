@@ -312,7 +312,7 @@ class PromoteToCustomWidgetCommand : public QDesignerFormWindowCommand
 class DemoteFromCustomWidgetCommand : public QDesignerFormWindowCommand
 {
  public:
-   typedef PromoteToCustomWidgetCommand::WidgetList WidgetList;
+   using WidgetList = PromoteToCustomWidgetCommand::WidgetList;
 
    explicit DemoteFromCustomWidgetCommand(QDesignerFormWindowInterface *formWindow);
 

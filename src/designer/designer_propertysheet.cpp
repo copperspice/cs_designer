@@ -185,8 +185,8 @@ static const qdesigner_internal::DesignerMetaFlags &designerMetaFlagsFor(const Q
 class QDesignerPropertySheetPrivate
 {
  public:
-   typedef QDesignerPropertySheet::PropertyType PropertyType;
-   typedef QDesignerPropertySheet::ObjectType ObjectType;
+   using PropertyType = QDesignerPropertySheet::PropertyType;
+   using ObjectType   = QDesignerPropertySheet::ObjectType;
 
    explicit QDesignerPropertySheetPrivate(QDesignerPropertySheet *sheetPublic, QObject *object, QObject *sheetParent);
 
@@ -618,7 +618,8 @@ QDesignerPropertySheet::PropertyType QDesignerPropertySheet::propertyTypeFromNam
 QDesignerPropertySheet::QDesignerPropertySheet(QObject *object, QObject *parent)
    : QObject(parent), d(new QDesignerPropertySheetPrivate(this, object, parent))
 {
-   typedef QDesignerPropertySheetPrivate::Info Info;
+   using Info = QDesignerPropertySheetPrivate::Info;
+
    const QDesignerMetaObjectInterface *baseMeta = d->m_meta;
 
    while (baseMeta && baseMeta->className().startsWith("QDesigner")) {
@@ -838,7 +839,7 @@ bool QDesignerPropertySheet::canAddDynamicProperty(const QString &propName) cons
 
 int QDesignerPropertySheet::addDynamicProperty(const QString &propName, const QVariant &value)
 {
-   typedef QDesignerPropertySheetPrivate::Info Info;
+   using Info = QDesignerPropertySheetPrivate::Info;
 
    if (! value.isValid()) {
       return -1;   // property has invalid type

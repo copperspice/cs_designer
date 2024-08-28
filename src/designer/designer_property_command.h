@@ -142,8 +142,8 @@ class PropertyListCommand : public QDesignerFormWindowCommand
    void undo() override;
 
  protected:
-   typedef QSharedPointer<PropertyHelper> PropertyHelperPtr;
-   typedef QList<PropertyHelperPtr> PropertyHelperList;
+   using PropertyHelperPtr  = QSharedPointer<PropertyHelper>;
+   using PropertyHelperList = QList<PropertyHelperPtr>;
 
    // add an object
    bool add(QObject *object, const QString &propertyName);
