@@ -1190,13 +1190,14 @@ void PropertyEditor::setObject(QObject *object)
          const uint type = toBrowserType(value, propertyName);
 
          QtVariantProperty *property = m_nameToProperty.value(propertyName, nullptr);
-         bool newProperty = (property == nullptr);
+         bool newProperty = false;
 
-         if (newProperty) {
+         if (property == nullptr) {
+            newProperty = true;
+
             property = m_propertyManager->addProperty(type, propertyName);
 
             if (property != nullptr) {
-               newProperty = true;
 
                if (type == DesignerPropertyManager::enumTypeId()) {
                   const PropertySheetEnumValue e = value.value<PropertySheetEnumValue>();

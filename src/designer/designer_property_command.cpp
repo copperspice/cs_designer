@@ -976,7 +976,8 @@ PropertyHelper::Value PropertyHelper::setValue(QDesignerFormWindowInterface *fw,
 }
 
 // Apply the value and update, returns corrected value
-PropertyHelper::Value PropertyHelper::applyValue(QDesignerFormWindowInterface *fw, const QVariant &oldValue, Value newValue)
+PropertyHelper::Value PropertyHelper::applyValue(QDesignerFormWindowInterface *fw,
+      const QVariant &oldValue, Value newValue)
 {
    if (m_objectType ==  OT_Widget) {
       checkApplyWidgetValue(fw, dynamic_cast<QWidget *>(m_object.data()), m_specialProperty, newValue.first);

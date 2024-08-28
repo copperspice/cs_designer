@@ -469,8 +469,6 @@ DesignerPixmapCache::DesignerPixmapCache(QObject *parent)
 
 QIcon DesignerIconCache::icon(const PropertySheetIconValue &value) const
 {
-   typedef PropertySheetIconValue::ModeStateToPixmapMap::const_iterator ModeStateToPixmapMapConstIt;
-
    QMap<PropertySheetIconValue, QIcon>::const_iterator it = m_cache.constFind(value);
    if (it != m_cache.constEnd()) {
       return it.value();
@@ -488,7 +486,7 @@ QIcon DesignerIconCache::icon(const PropertySheetIconValue &value) const
 
    QIcon icon;
    const PropertySheetIconValue::ModeStateToPixmapMap &paths = value.paths();
-   const ModeStateToPixmapMapConstIt cend = paths.constEnd();
+   const auto cend = paths.constEnd();
 
    for (auto iter = paths.constBegin(); iter != cend; ++iter) {
       const QPair<QIcon::Mode, QIcon::State> pair = iter.key();
@@ -681,17 +679,15 @@ static inline QPair<QIcon::Mode, QIcon::State> subPropertyFlagToIconModeState(un
 
 uint PropertySheetIconValue::mask() const
 {
-   typedef ModeStateToPixmapMap::const_iterator ModeStateToPixmapMapConstIt;
-
    uint flags = 0;
 
-   const ModeStateToPixmapMapConstIt cend = m_data->m_paths.constEnd();
+   const auto cend = m_data->m_paths.constEnd();
 
-   for (ModeStateToPixmapMapConstIt it = m_data->m_paths.constBegin(); it != cend; ++it) {
+   for (auto it = m_data->m_paths.constBegin(); it != cend; ++it) {
       flags |= iconStateToSubPropertyFlag(it.key().first, it.key().second);
    }
 
-   if (!m_data->m_theme.isEmpty()) {
+   if (! m_data->m_theme.isEmpty()) {
       flags |= ThemeIconMask;
    }
 
@@ -755,15 +751,13 @@ const PropertySheetIconValue::ModeStateToPixmapMap &PropertySheetIconValue::path
 
 QDebug operator<<(QDebug d, const PropertySheetIconValue &p)
 {
-   typedef PropertySheetIconValue::ModeStateToPixmapMap::const_iterator ModeStateToPixmapMapConstIt;
-
    QDebug nospace = d.nospace();
    nospace << "PropertySheetIconValue theme='" << p.theme() << "' ";
 
    const PropertySheetIconValue::ModeStateToPixmapMap &paths = p.paths();
-   const ModeStateToPixmapMapConstIt cend = paths.constEnd();
+   const auto cend = paths.constEnd();
 
-   for (ModeStateToPixmapMapConstIt it = paths.constBegin(); it != cend; ++it) {
+   for (auto it = paths.constBegin(); it != cend; ++it) {
       nospace << " mode=" << it.key().first << ",state=" << it.key().second
             << ",'" << it.value().path() << '\'';
    }
