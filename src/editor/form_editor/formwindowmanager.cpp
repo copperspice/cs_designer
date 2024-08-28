@@ -812,8 +812,8 @@ void FormWindowManager::slotUpdateActions()
    bool canMorphIntoHBoxLayout = false;
    bool canMorphIntoGridLayout = false;
    bool canMorphIntoFormLayout = false;
+
    int selectedWidgetCount  = 0;
-   int laidoutWidgetCount   = 0;
    int unlaidoutWidgetCount = 0;
 
    bool pasteAvailable    = false;
@@ -845,11 +845,14 @@ void FormWindowManager::slotUpdateActions()
       const QWidgetList::const_iterator cend = simplifiedSelection.constEnd();
 
       for (QWidgetList::const_iterator it = simplifiedSelection.constBegin(); it != cend; ++it) {
+
          if (*it != mainContainer && LayoutInfo::isWidgetLaidout(m_core, *it)) {
-            ++laidoutWidgetCount;
+            // do nothing
+
          } else {
             ++unlaidoutWidgetCount;
          }
+
          if (dynamic_cast<const QLayoutWidget *>(*it) || dynamic_cast<const Spacer *>(*it)) {
             canChangeZOrder = false;
          }

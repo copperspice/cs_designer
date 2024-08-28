@@ -361,25 +361,29 @@ void WidgetDataBase::loadPlugins()
 
    // 3) replace custom classes or add new ones, remove them from existingCustomClasses,
    // leaving behind deleted items
-   unsigned replacedPlugins = 0;
-   unsigned addedPlugins = 0;
-   unsigned removedPlugins = 0;
 
-   if (!pluginList.empty()) {
+//   unsigned replacedPlugins = 0;
+//   unsigned addedPlugins    = 0;
+//   unsigned removedPlugins  = 0;
+
+   if (! pluginList.empty()) {
       ItemList::const_iterator cend = pluginList.constEnd();
+
       for (ItemList::const_iterator it = pluginList.constBegin(); it != cend; ++it )  {
          QDesignerWidgetDataBaseItemInterface *pluginItem = *it;
          const QString pluginName = pluginItem->name();
          NameIndexMap::iterator existingIt = existingCustomClasses.find(pluginName);
 
          if (existingIt == existingCustomClasses.end()) {
-            // Add new class.
+            // Add new class
+
             if (nonCustomClasses.contains(pluginName)) {
-               csWarning(tr("A custom widget plugin whose class name (%1) matches that of an existing class has been found.")
+               csWarning(tr("Custom widget plugin with a class name matching an existing class has been found, %1")
                      .formatArg(pluginName));
+
             } else {
                append(pluginItem);
-               ++addedPlugins;
+//             ++addedPlugins;
             }
 
          } else {
@@ -389,7 +393,7 @@ void WidgetDataBase::loadPlugins()
             m_items[existingIndex] = pluginItem;
             existingCustomClasses.erase(existingIt);
 
-            ++replacedPlugins;
+//          ++replacedPlugins;
          }
       }
    }
@@ -403,7 +407,7 @@ void WidgetDataBase::loadPlugins()
 
          if (index != -1) {
             remove(index);
-            ++removedPlugins;
+//          ++removedPlugins;
          }
       }
    }
