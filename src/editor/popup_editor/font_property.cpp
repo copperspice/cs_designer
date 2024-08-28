@@ -51,14 +51,21 @@ FontPropertyManager::FontPropertyManager()
 void FontPropertyManager::preInitializeProperty(QtProperty *property, int type, ResetMap &resetMap)
 {
    if (m_createdFontProperty != nullptr) {
-      PropertyToSubPropertiesMap::iterator it = m_propertyToFontSubProperties.find(m_createdFontProperty);
-      if (it == m_propertyToFontSubProperties.end()) {
-         it = m_propertyToFontSubProperties.insert(m_createdFontProperty, PropertyList());
+      PropertyToSubPropertiesMap::iterator iter = m_propertyToFontSubProperties.find(m_createdFontProperty);
+
+      if (iter == m_propertyToFontSubProperties.end()) {
+         // not found, add new key, value is an empty list
+         iter = m_propertyToFontSubProperties.insert(m_createdFontProperty, PropertyList());
       }
-      const int index = it.value().size();
+
+      const int index = iter.value().size();
       m_fontSubPropertyToFlag.insert(property, index);
-      it.value().push_back(property);
+
+      // add element to map value
+      iter.value().append(property);
+
       m_fontSubPropertyToProperty[property] = m_createdFontProperty;
+
       resetMap[property] = true;
    }
 
@@ -283,12 +290,13 @@ int FontPropertyManager::valueChanged(QtVariantPropertyManager *vm, QtProperty *
 
 void FontPropertyManager::updateModifiedState(QtProperty *property, const QVariant &value)
 {
-   const PropertyToSubPropertiesMap::iterator it = m_propertyToFontSubProperties.find(property);
-   if (it == m_propertyToFontSubProperties.end()) {
+   const PropertyToSubPropertiesMap::iterator iter = m_propertyToFontSubProperties.find(property);
+
+   if (iter == m_propertyToFontSubProperties.end()) {
       return;
    }
 
-   const PropertyList &subProperties = it.value();
+   const QList<QtProperty *> &subProperties = iter.value();
 
    QFont font = value.value<QFont>();
 

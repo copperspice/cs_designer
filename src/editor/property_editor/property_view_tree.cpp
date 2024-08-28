@@ -132,7 +132,7 @@ QtPropertyEditorView::QtPropertyEditorView(QWidget *parent)
 
 void QtPropertyEditorView::drawRow(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-   QStyleOptionViewItem opt = option;
+   QStyleOptionViewItem opt_t = option;
    bool hasValue = true;
 
    if (m_editorPrivate != nullptr) {
@@ -144,26 +144,26 @@ void QtPropertyEditorView::drawRow(QPainter *painter, const QStyleOptionViewItem
    }
 
    if (! hasValue && m_editorPrivate->markPropertiesWithoutValue()) {
-      const QColor c = option.palette.color(QPalette::Dark);
+      const QColor c = opt_t.palette.color(QPalette::Dark);
 
-      painter->fillRect(option.rect, c);
-      opt.palette.setColor(QPalette::AlternateBase, c);
+      painter->fillRect(opt_t.rect, c);
+      opt_t.palette.setColor(QPalette::AlternateBase, c);
 
    } else {
       const QColor c = m_editorPrivate->calculatedBackgroundColor(m_editorPrivate->indexToBrowserItem(index));
 
       if (c.isValid()) {
-         painter->fillRect(option.rect, c);
-         opt.palette.setColor(QPalette::AlternateBase, c.lighter(112));
+         painter->fillRect(opt_t.rect, c);
+         opt_t.palette.setColor(QPalette::AlternateBase, c.lighter(112));
       }
    }
 
-   QTreeWidget::drawRow(painter, opt, index);
-   QColor color = static_cast<QRgb>(QApplication::style()->styleHint(QStyle::SH_Table_GridLineColor, &opt));
+   QTreeWidget::drawRow(painter, opt_t, index);
+   QColor color = static_cast<QRgb>(QApplication::style()->styleHint(QStyle::SH_Table_GridLineColor, &opt_t));
 
    painter->save();
    painter->setPen(QPen(color));
-   painter->drawLine(opt.rect.x(), opt.rect.bottom(), opt.rect.right(), opt.rect.bottom());
+   painter->drawLine(opt_t.rect.x(), opt_t.rect.bottom(), opt_t.rect.right(), opt_t.rect.bottom());
    painter->restore();
 }
 

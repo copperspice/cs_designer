@@ -550,8 +550,8 @@ void ActionEditor::editAction(QAction *action)
    oldActionData.text = action->text();
    oldActionData.toolTip = textPropertyValue(sheet, toolTipPropertyC);
 
-   QVariant data = sheet->property(sheet->indexOf(iconPropertyC));
-   oldActionData.icon = data.value<PropertySheetIconValue>();
+   QVariant data1 = sheet->property(sheet->indexOf(iconPropertyC));
+   oldActionData.icon = data1.value<PropertySheetIconValue>();
 
    oldActionData.keysequence = ActionModel::actionShortCut(sheet);
    oldActionData.checkable   = action->isCheckable();
@@ -712,8 +712,8 @@ void  ActionEditor::resourceImageDropped(const QString &path, QAction *action)
 
    QDesignerPropertySheetExtension *sheet = qt_extension<QDesignerPropertySheetExtension *>(core()->extensionManager(), action);
 
-   QVariant data = sheet->property(sheet->indexOf(iconPropertyC));
-   const PropertySheetIconValue oldIcon = data.value<PropertySheetIconValue>();
+   QVariant data1 = sheet->property(sheet->indexOf(iconPropertyC));
+   const PropertySheetIconValue oldIcon = data1.value<PropertySheetIconValue>();
 
    PropertySheetIconValue newIcon;
    newIcon.setPixmap(QIcon::Normal, QIcon::Off, PropertySheetPixmapValue(path));

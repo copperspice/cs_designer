@@ -1250,8 +1250,8 @@ unsigned changePropertyList(QDesignerFormEditorInterface *core, const QString &p
    QDesignerPropertyEditorInterface *propertyEditor = core->propertyEditor();
    bool updatedPropertyEditor = false;
 
-   for (PropertyListIterator it = begin; it != end; ++it) {
-      PropertyHelper *ph = it->data();
+   for (PropertyListIterator iter = begin; iter != end; ++iter) {
+      PropertyHelper *ph = iter->data();
 
       if (QObject *object = ph->object()) {
          // Might have been deleted in the meantime
