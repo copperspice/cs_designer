@@ -1533,31 +1533,35 @@ QIcon QtVariantPropertyManager::valueIcon(const QtProperty *property) const
 
 void QtVariantPropertyManager::initializeProperty(QtProperty *property)
 {
-   QtVariantProperty *varProp = variantProperty(property);
-   if (! varProp) {
+   QtVariantProperty *variantData = variantProperty(property);
+
+   if (! variantData) {
       return;
    }
 
-   auto it = d_ptr->m_typeToPropertyManager.find(d_ptr->m_propertyType);
+   auto iter = d_ptr->m_typeToPropertyManager.find(d_ptr->m_propertyType);
 
-   if (it != d_ptr->m_typeToPropertyManager.constEnd()) {
-      QtProperty *internProp = nullptr;
+   if (iter != d_ptr->m_typeToPropertyManager.constEnd()) {
+      QtProperty *tmpProperty = nullptr;
 
-      if (!d_ptr->m_creatingSubProperties) {
-         QtAbstractPropertyManager *manager = it.value();
-         internProp = manager->addProperty();
-         d_ptr->m_internalToProperty[internProp] = varProp;
+      if (! d_ptr->m_creatingSubProperties) {
+         QtAbstractPropertyManager *manager = iter.value();
+
+         // pass the name, ensures the sort order in insertSubProperty() is correct
+         tmpProperty = manager->addProperty(property->propertyName());
+
+         d_ptr->m_internalToProperty[tmpProperty] = variantData;
       }
 
-      propertyToWrappedProperty()->insert(varProp, internProp);
+      propertyToWrappedProperty()->insert(variantData, tmpProperty);
 
-      if (internProp) {
-         QList<QtProperty *> children = internProp->subProperties();
-         QListIterator<QtProperty *> itChild(children);
+      if (tmpProperty != nullptr) {
+         QList<QtProperty *> children = tmpProperty->subProperties();
+
          QtVariantProperty *lastProperty = nullptr;
 
-         while (itChild.hasNext()) {
-            QtVariantProperty *prop = d_ptr->createSubProperty(varProp, lastProperty, itChild.next());
+         for (auto child : children) {
+            QtVariantProperty *prop = d_ptr->createSubProperty(variantData, lastProperty, child);
             lastProperty = prop ? prop : lastProperty;
          }
       }

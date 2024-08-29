@@ -369,46 +369,54 @@ void QtPropertyEditorDelegate::paint(QPainter *painter, const QStyleOptionViewIt
 {
    bool hasValue = true;
 
+   QStyleOptionViewItem option_t = option;
+
    if (m_editorPrivate != nullptr) {
       QtProperty *property = m_editorPrivate->indexToProperty(index);
 
       if (property != nullptr) {
          hasValue = property->hasValue();
       }
-   }
 
-   QStyleOptionViewItem opt = option;
-   if ((m_editorPrivate && index.column() == 0) || !hasValue) {
-      QtProperty *property = m_editorPrivate->indexToProperty(index);
-      if (property && property->isModified()) {
-         opt.font.setBold(true);
-         opt.fontMetrics = QFontMetrics(opt.font);
+      if (index.column() == 0 || ! hasValue) {
+
+         if (property != nullptr && property->isModified()) {
+           option_t.font.setBold(true);
+           option_t.fontMetrics = QFontMetrics(option_t.font);
+         }
       }
    }
 
    QColor c;
-   if (!hasValue && m_editorPrivate->markPropertiesWithoutValue()) {
-      c = opt.palette.color(QPalette::Dark);
-      opt.palette.setColor(QPalette::Text, opt.palette.color(QPalette::BrightText));
+
+   if (! hasValue && m_editorPrivate != nullptr && m_editorPrivate->markPropertiesWithoutValue()) {
+      c = option_t.palette.color(QPalette::Dark);
+      option_t.palette.setColor(QPalette::Text, option_t.palette.color(QPalette::BrightText));
+
    } else {
       c = m_editorPrivate->calculatedBackgroundColor(m_editorPrivate->indexToBrowserItem(index));
-      if (c.isValid() && (opt.features & QStyleOptionViewItem::Alternate)) {
+
+      if (c.isValid() && (option_t.features & QStyleOptionViewItem::Alternate)) {
          c = c.lighter(112);
       }
    }
-   if (c.isValid()) {
-      painter->fillRect(option.rect, c);
-   }
-   opt.state &= ~QStyle::State_HasFocus;
-   QItemDelegate::paint(painter, opt, index);
 
-   opt.palette.setCurrentColorGroup(QPalette::Active);
-   QColor color = static_cast<QRgb>(QApplication::style()->styleHint(QStyle::SH_Table_GridLineColor, &opt));
+   if (c.isValid()) {
+      painter->fillRect(option_t.rect, c);
+   }
+
+   option_t.state &= ~QStyle::State_HasFocus;
+
+   QItemDelegate::paint(painter, option_t, index);
+   option_t.palette.setCurrentColorGroup(QPalette::Active);
+
+   QColor color = static_cast<QRgb>(QApplication::style()->styleHint(QStyle::SH_Table_GridLineColor, &option_t));
    painter->save();
    painter->setPen(QPen(color));
-   if (!m_editorPrivate || (!m_editorPrivate->lastColumn(index.column()) && hasValue)) {
-      int right = (option.direction == Qt::LeftToRight) ? option.rect.right() : option.rect.left();
-      painter->drawLine(right, option.rect.y(), right, option.rect.bottom());
+
+   if (m_editorPrivate != nullptr || (! m_editorPrivate->lastColumn(index.column()) && hasValue)) {
+      int right = (option_t.direction == Qt::LeftToRight) ? option_t.rect.right() : option_t.rect.left();
+      painter->drawLine(right, option_t.rect.y(), right, option_t.rect.bottom());
    }
 
    painter->restore();

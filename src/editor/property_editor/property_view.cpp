@@ -224,7 +224,14 @@ void QtProperty::setModified(bool modified)
 
 void QtProperty::addSubProperty(QtProperty *property)
 {
-   insertSubProperty(property, nullptr);
+   QList<QtProperty *> children = property->subProperties();
+
+   if (children.isEmpty()) {
+      insertSubProperty(property, nullptr);
+
+   } else {
+       insertSubProperty(property, children.last());
+   }
 }
 
 void QtProperty::insertSubProperty(QtProperty *property, QtProperty *afterProperty)
@@ -310,7 +317,7 @@ void QtProperty::insertSubProperty(QtProperty *property, QtProperty *afterProper
 
          if (compare(item, property)) {
             newPos = pos + 1;
-            properAfterProperty = afterProperty;
+            properAfterProperty = item;
 
          } else {
             break;
@@ -322,7 +329,6 @@ void QtProperty::insertSubProperty(QtProperty *property, QtProperty *afterProper
       // alpha order
 
       for (int pos = 0; pos < pendingList.count(); ++pos) {
-
          QtProperty *item = pendingList.at(pos);
 
          if (item == property) {
@@ -332,7 +338,7 @@ void QtProperty::insertSubProperty(QtProperty *property, QtProperty *afterProper
 
          if (item->propertyName() < property->propertyName()) {
             newPos = pos + 1;
-            properAfterProperty = afterProperty;
+            properAfterProperty = item;
 
          } else {
             break;
