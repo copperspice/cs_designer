@@ -42,15 +42,10 @@
 #include <QFileInfo>
 #include <QTextStream>
 
-/* emerald - unused, plugins
-#include <QPlugin>
-
 void QDesignerComponents::initializePlugins(QDesignerFormEditorInterface *core)
 {
    QDesignerIntegration::initializePlugins(core);
 }
-
-*/
 
 // ** create all the panes from here down
 

@@ -443,6 +443,12 @@ QList<QVariant> WidgetDataBase::defaultPropertyValues(const QString &name)
    if (sheet != nullptr) {
       const int propertyCount = sheet->count();
 
+      // following code walks the properties of the created object,
+      // default value is a QVarient, retrieved from the default constructed property
+
+      // example: QSizePolicy is the property, object could be QLine or QPushButton
+      // defualt can be different
+
       for (int i = 0; i < propertyCount; ++i) {
          result.append(sheet->property(i));
       }

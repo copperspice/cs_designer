@@ -101,9 +101,6 @@ class QDesignerIntegrationPrivate
 
    QWidget *containerWindow(QWidget *widget) const;
 
-   // emerald - temporary hold, plugins
-   // static void initializePlugins(QDesignerFormEditorInterface *formEditor);
-
    QString contextHelpId() const;
 
    void updateProperty(const QString &name, const QVariant &value, bool enableSubPropertyHandling);
@@ -114,10 +111,11 @@ class QDesignerIntegrationPrivate
    void setupFormWindow(QDesignerFormWindowInterface *formWindow);
    void updateSelection();
 
-   // emerald - temporary hold, custom widget
-   // void updateCustomWidgetPlugins();
-
    void initialize();
+
+   void updateCustomWidgetPlugins();
+   static void initializePlugins(QDesignerFormEditorInterface *formEditor);
+
    void getSelection(qdesigner_internal::Selection &s);
    QObject *propertyEditorObject();
 
@@ -387,32 +385,48 @@ QObject *QDesignerIntegrationPrivate::propertyEditorObject()
    return nullptr;
 }
 
-/* emerald - temporary hold, plugins
-
 void QDesignerIntegrationPrivate::initializePlugins(QDesignerFormEditorInterface *formEditor)
 {
-    // load the plugins
-    qdesigner_internal::WidgetDataBase *widgetDataBase = qobject_cast<qdesigner_internal::WidgetDataBase*>(formEditor->widgetDataBase());
-    if (widgetDataBase) {
-        widgetDataBase->loadPlugins();
-    }
+   qdesigner_internal::WidgetDataBase *widgetDataBase = qobject_cast<qdesigner_internal::WidgetDataBase*>(formEditor->widgetDataBase());
 
-    if (qdesigner_internal::WidgetFactory *widgetFactory = qobject_cast<qdesigner_internal::WidgetFactory*>(formEditor->widgetFactory())) {
-        widgetFactory->loadPlugins();
-    }
 
-    if (widgetDataBase) {
-        widgetDataBase->grabDefaultPropertyValues();
-    }
+/* emerald - hold plugins
+
+   if (widgetDataBase) {
+      widgetDataBase->loadPlugins();
+   }
+
+   if (qdesigner_internal::WidgetFactory *widgetFactory = qobject_cast<qdesigner_internal::WidgetFactory*>(formEditor->widgetFactory())) {
+       widgetFactory->loadPlugins();
+   }
+
+*/
+
+
+   // following code sets up default values for classes like QSizePolicy, this is not a plugin
+
+   if (widgetDataBase != nullptr) {
+      widgetDataBase->grabDefaultPropertyValues();
+   }
 }
 
 void QDesignerIntegrationPrivate::updateCustomWidgetPlugins()
 {
-    QDesignerFormEditorInterface *formEditor = q->core();
-    if (QDesignerPluginManager *pm = formEditor->pluginManager())
-        pm->registerNewPlugins();
+   QDesignerFormEditorInterface *formEditor = q->core();
 
-    initializePlugins(formEditor);
+
+/* emerald - hold plugins
+
+   if (QDesignerPluginManager *pm = formEditor->pluginManager()) {
+      pm->registerNewPlugins();
+   }
+
+*/
+
+   initializePlugins(formEditor);
+
+
+/* emerald - hold plugins
 
     // Do not just reload the last file as the WidgetBox merges the compiled-in resources
     // and $HOME/.designer/widgetbox.xml. This would also double the scratchpad
@@ -423,9 +437,9 @@ void QDesignerIntegrationPrivate::updateCustomWidgetPlugins()
         wb->load();
         wb->setLoadMode(oldLoadMode);
     }
-}
-
 */
+
+}
 
 static QString fixHelpClassName(const QString &className)
 {
@@ -600,9 +614,6 @@ QWidget *QDesignerIntegration::containerWindow(QWidget *widget) const
    return d->containerWindow(widget);
 }
 
-
-/* emerald - temporary hold, plugins
-
 void QDesignerIntegration::initializePlugins(QDesignerFormEditorInterface *formEditor)
 {
     qdesigner_internal::QDesignerIntegrationPrivate::initializePlugins(formEditor);
@@ -612,8 +623,6 @@ void QDesignerIntegration::updateCustomWidgetPlugins()
 {
     d->updateCustomWidgetPlugins();
 }
-
-*/
 
 QDesignerResourceBrowserInterface *QDesignerIntegration::createResourceBrowser(QWidget *)
 {

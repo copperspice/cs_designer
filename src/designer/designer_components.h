@@ -34,8 +34,7 @@ class QWidget;
 class QDesignerComponents
 {
  public:
-   // emerald - temporary hold, plugins
-   // static void initializePlugins(QDesignerFormEditorInterface *core);
+   static void initializePlugins(QDesignerFormEditorInterface *core);
 
    static QDesignerFormEditorInterface *createFormEditor(QObject *parent);
    static QDesignerWidgetBoxInterface *createWidgetBox(QDesignerFormEditorInterface *core, QWidget *parent);

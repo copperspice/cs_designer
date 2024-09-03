@@ -163,8 +163,7 @@ QDesignerWorkbench::QDesignerWorkbench()
 
    initializeCorePlugins();
 
-   // emerald - temporary hold, plugins
-   // QDesignerComponents::initializePlugins(core());
+   QDesignerComponents::initializePlugins(core());
 
    m_actionManager = new QDesignerActions(this);    // accesses plugin components
 

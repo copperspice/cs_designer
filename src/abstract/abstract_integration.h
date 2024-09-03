@@ -133,9 +133,8 @@ class QDesignerIntegrationInterface: public QObject
    CS_SLOT_1(Public, virtual void updateSelection() = 0)
    CS_SLOT_2(updateSelection)
 
-   // emerald - temporary hold, plugin
-   //    CS_SLOT_1(Public, virtual void updateCustomWidgetPlugins() = 0)
-   //    CS_SLOT_2(updateCustomWidgetPlugins)
+   CS_SLOT_1(Public, virtual void updateCustomWidgetPlugins() = 0)
+   CS_SLOT_2(updateCustomWidgetPlugins)
 
  private:
    QScopedPointer<QDesignerIntegrationInterfacePrivate> d;
@@ -163,8 +162,7 @@ class QDesignerIntegration: public QDesignerIntegrationInterface
 
    QWidget *containerWindow(QWidget *widget) const override;
 
-   // emerald - temporary hold, plugins
-   // static void initializePlugins(QDesignerFormEditorInterface *formEditor);
+   static void initializePlugins(QDesignerFormEditorInterface *formEditor);
 
    // Create a resource browser specific to integration. Language integration takes precedence
    QDesignerResourceBrowserInterface *createResourceBrowser(QWidget *parent = nullptr) override;
@@ -183,8 +181,7 @@ class QDesignerIntegration: public QDesignerIntegrationInterface
    void setupFormWindow(QDesignerFormWindowInterface *formWindow) override;
    void updateSelection() override;
 
-   // emerald - temporary hold, customer widgets
-   // void updateCustomWidgetPlugins() override;
+   void updateCustomWidgetPlugins() override;
 
  private:
    QScopedPointer<qdesigner_internal::QDesignerIntegrationPrivate> d;
