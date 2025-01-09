@@ -1,7 +1,7 @@
 /***********************************************************************
 *
-* Copyright (c) 2021-2024 Barbara Geller
-* Copyright (c) 2021-2024 Ansel Sermersheim
+* Copyright (c) 2021-2025 Barbara Geller
+* Copyright (c) 2021-2025 Ansel Sermersheim
 *
 * Copyright (c) 2015 The Qt Company Ltd.
 *
