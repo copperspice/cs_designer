@@ -89,7 +89,7 @@ QWidget *QFormBuilder::createWidget(const QString &widgetName, QWidget *parentWi
    do {
       if (widgetName == QFormBuilderStrings::instance().lineClass) {
          formWidget = new QFrame(parentWidget);
-         static_cast<QFrame *>(formWidget)->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+         static_cast<QFrame *>(formWidget)->setFrameStyle(cs_enum_cast(QFrame::HLine) | cs_enum_cast(QFrame::Sunken));
          break;
       }
 

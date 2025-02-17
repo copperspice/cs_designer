@@ -124,7 +124,7 @@ int MainWindowBase::settingsVersion()
 DockedMdiArea::DockedMdiArea(const QString &extension, QWidget *parent)
    : QMdiArea(parent), m_extension(extension)
 {
-   setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+   setFrameStyle(cs_enum_cast(QFrame::StyledPanel) | cs_enum_cast(QFrame::Sunken));
    setLineWidth(1);
    setAcceptDrops(true);
    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);

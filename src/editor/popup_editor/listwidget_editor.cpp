@@ -43,7 +43,7 @@ ListWidgetEditor::ListWidgetEditor(QDesignerFormWindowInterface *form, QWidget *
    m_itemsEditor->setNewItemText(tr("New Item"));
 
    QFrame *sep = new QFrame;
-   sep->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+   sep->setFrameStyle(cs_enum_cast(QFrame::HLine) | cs_enum_cast(QFrame::Sunken));
 
    QBoxLayout *box = new QVBoxLayout(this);
    box->addWidget(m_itemsEditor);

@@ -62,7 +62,7 @@ PreviewFrame::PreviewFrame(QWidget *parent)
 {
    m_mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
    m_mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-   setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+   setFrameStyle(cs_enum_cast(QFrame::StyledPanel) | cs_enum_cast(QFrame::Sunken));
    setLineWidth(1);
 
    QVBoxLayout *vbox = new QVBoxLayout(this);

@@ -482,7 +482,7 @@ QActionGroup *QDesignerActions::createHelpActions()
    QAction *mainHelpAction = new QAction(tr("CS Designer &Help"), this);
    mainHelpAction->setObjectName("__designer_help_action");
    connect(mainHelpAction, &QAction::triggered, this, &QDesignerActions::showDesignerHelp);
-   mainHelpAction->setShortcut(Qt::ControlModifier + Qt::Key_Question);
+   mainHelpAction->setShortcut(cs_enum_cast(Qt::ControlModifier) + cs_enum_cast(Qt::Key_Question));
    helpActions->addAction(mainHelpAction);
 
    QAction *aboutDesignerAction = new QAction(tr("About CS Designer"), this);

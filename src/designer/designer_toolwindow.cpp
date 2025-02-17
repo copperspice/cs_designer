@@ -154,7 +154,7 @@ PropertyEditorToolWindow::PropertyEditorToolWindow(QDesignerWorkbench *workbench
      QString("qt_designer_propertyeditor"), QDesignerToolWindow::tr("Property Editor"),
      QString("__qt_property_editor_action"), Qt::RightDockWidgetArea)
 {
-   action()->setShortcut(Qt::ControlModifier + Qt::Key_I);
+   action()->setShortcut(cs_enum_cast(Qt::ControlModifier) + cs_enum_cast(Qt::Key_I));
 }
 
 QRect PropertyEditorToolWindow::geometryHint() const

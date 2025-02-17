@@ -82,7 +82,7 @@ class Line : public QFrame
       : QFrame(parent)
    {
       setAttribute(Qt::WA_MouseNoMask);
-      setFrameStyle(QFrame::HLine | QFrame::Sunken);
+      setFrameStyle(cs_enum_cast(QFrame::HLine) | cs_enum_cast(QFrame::Sunken));
    }
 
    void setOrientation(Qt::Orientation orient) {
