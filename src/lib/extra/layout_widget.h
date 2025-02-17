@@ -189,7 +189,8 @@ class QLayoutSupport: public QObject, public QDesignerLayoutDecorationExtension
    static bool removeEmptyCells(QFormLayout *formLayout, const QRect &area);
 
    // grid helpers: find item index
-   static int findItemAt(QGridLayout *, int row, int column);
+   static int findItemAt_GridCell(QGridLayout *, int row, int column);
+
    // grid helpers: Quick check whether simplify should be enabled for grids. May return false positives.
    static bool canSimplifyQuickCheck(const QGridLayout *);
    static bool canSimplifyQuickCheck(const QFormLayout *fl);

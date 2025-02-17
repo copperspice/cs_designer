@@ -1690,7 +1690,7 @@ QList<QWidget *> QLayoutSupport::widgets(QLayout *layout) const
    return lst;
 }
 
-int QLayoutSupport::findItemAt(QGridLayout *gridLayout, int at_row, int at_column)
+int QLayoutSupport::findItemAt_GridCell(QGridLayout *gridLayout, int at_row, int at_column)
 {
    return findGridItemAt(gridLayout, at_row, at_column);
 }
@@ -1745,7 +1745,7 @@ void QLayoutSupport::createEmptyCells(QGridLayout *gridLayout)
       for (int r = 0; r < gs.rowCount; r++) {
 
          if (needsSpacerItem(cs[r * gs.colCount + c])) {
-            const int existingItemIndex = findItemAt(gridLayout, r, c);
+            const int existingItemIndex = findItemAt_GridCell(gridLayout, r, c);
 
             if (existingItemIndex == -1) {
                gridLayout->addItem(createGridSpacer(), r, c);
