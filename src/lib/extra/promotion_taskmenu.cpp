@@ -327,7 +327,7 @@ PromotionTaskMenu::PromotionSelectionList PromotionTaskMenu::promotionSelectionL
                   return PromotionSelectionList();
                }
 
-               rc.push_back(w);
+               rc.push_back(QPointer<QWidget>(w));
             }
          }
       }

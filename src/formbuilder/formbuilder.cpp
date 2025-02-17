@@ -34,7 +34,7 @@ QFormBuilder::~QFormBuilder()
 QWidget *QFormBuilder::create(DomWidget *ui_widget, QWidget *parentWidget)
 {
    if (! d->parentWidgetIsSet()) {
-      d->setParentWidget(parentWidget);
+      d->setParentWidget(QPointer<QWidget>(parentWidget));
    }
 
    // Is this a QLayoutWidget with a margin of 0: Not a known page-based

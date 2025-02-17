@@ -730,7 +730,7 @@ void CursorSelectionState::save(const QDesignerFormWindowInterface *formWindow)
    if (cursor->hasSelection()) {
       const int count = cursor->selectedWidgetCount();
       for (int i = 0; i < count; i++) {
-         m_selection.push_back(cursor->selectedWidget(i));
+         m_selection.push_back(QPointer<QWidget>(cursor->selectedWidget(i)));
       }
    }
 }

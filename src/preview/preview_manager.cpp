@@ -843,7 +843,7 @@ QWidget *PreviewManager::showPreview(const QDesignerFormWindowInterface *fw,
 
    }
 
-   d->m_previews.push_back(PreviewData(widget, fw, pc));
+   d->m_previews.push_back(PreviewData(QPointer<QWidget>(widget), fw, pc));
    widget->show();
 
    if (firstPreview) {
